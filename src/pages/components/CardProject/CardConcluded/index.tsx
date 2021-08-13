@@ -1,7 +1,5 @@
 import React from "react";
 
-import { AiOutlineClockCircle } from "react-icons/ai";
-
 import { Card, CardStatus, CardBox, BoxLeft, BoxRight, Progress, Value } from './styles';
 
 const CardProject: React.FC = () => {
