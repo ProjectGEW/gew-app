@@ -52,33 +52,8 @@ const Projects: React.FC = () => {
                     </ContainerInfo>
                     <ProjectsGrid>
                         <Center>
-                            <Card statusColor={"Atrasado"} /> 
-                            <Card statusColor={"EmAndamento"} />
+                            <Card statusColor={"ATRASADO"} /> 
                         </Center>
-                        <Center>
-                            <CardConcluded />  
-                            <Card statusColor={"NaoIniciado"} />
-                        </Center>
-                        <Center>
-                            <Card statusColor={"NaoIniciado"} /> 
-                            <Card statusColor={"NaoIniciado"} />
-                        </Center>
-                        <Center>
-                            <Card statusColor={"NaoIniciado"} /> 
-                            <Card statusColor={"NaoIniciado"} />
-                        </Center>
-                        <Center>
-                            <Card statusColor={"NaoIniciado"} /> 
-                            <Card statusColor={"NaoIniciado"} />
-                        </Center>
-                        <Center>
-                            <Card statusColor={"NaoIniciado"} /> 
-                            <Card statusColor={"NaoIniciado"} />
-                        </Center>
-                        <Center>
-                            <Card statusColor={"NaoIniciado"} /> 
-                            <Card statusColor={"NaoIniciado"} />
-                        </Center>                         
                     </ProjectsGrid>
                 </ContainerProject>
             </Container>

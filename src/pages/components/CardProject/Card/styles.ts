@@ -35,11 +35,11 @@ export const CardStatus = styled.div<StatusProps>`
     display: flex;
     flex-direction: row;
 
-    ${props => props.statusColor === "Atrasado" && css`background-color: red;`}
+    ${props => props.statusColor === "ATRASADO" && css`background-color: red;`}
 
-    ${props => props.statusColor === "NaoIniciado" && css`background-color: grey;`}
+    ${props => props.statusColor === "NAO_INICIADO" && css`background-color: grey;`}
 
-    ${props => props.statusColor === "EmAndamento" && css`background-color: #00579D`}
+    ${props => props.statusColor === "EM_ANDAMENTO" && css`background-color: #00579D`}
 `;
 
 export const CardBox = styled.div`
