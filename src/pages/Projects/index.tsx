@@ -9,12 +9,12 @@ import MenuRight from '../components/MenuRight';
 import Card from '../components/CardProject/Card';
 import CardConcluded from '../components/CardProject/CardConcluded';
 
-import { ContainerProject, ContainerInfo, Projects, Container, ContainerTitle,
+import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
     ContainerFiltro, Center } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
-const RegisterConsultants: React.FC = () => {
+const Projects: React.FC = () => {
     return (
         <>
             <Navbar />
@@ -50,7 +50,7 @@ const RegisterConsultants: React.FC = () => {
                             </div>
                         </ContainerFiltro>
                     </ContainerInfo>
-                    <Projects>
+                    <ProjectsGrid>
                         <Center>
                             <Card statusColor={"Atrasado"} /> 
                             <Card statusColor={"EmAndamento"} />
@@ -79,7 +79,7 @@ const RegisterConsultants: React.FC = () => {
                             <Card statusColor={"NaoIniciado"} /> 
                             <Card statusColor={"NaoIniciado"} />
                         </Center>                         
-                    </Projects>
+                    </ProjectsGrid>
                 </ContainerProject>
             </Container>
             <MenuRight>
@@ -89,4 +89,4 @@ const RegisterConsultants: React.FC = () => {
     );
 };
 
-export default RegisterConsultants;
+export default Projects;
