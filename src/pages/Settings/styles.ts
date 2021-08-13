@@ -194,6 +194,18 @@ export const Right = styled.div`
             margin-bottom: 2vh;
         }
 
+        select {
+            border: 0.2vh solid #c4c4c4;
+            padding: 0.4vh;
+            color: #00579D;
+            font-weight: bold;
+            font-size: 2.5vh;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
         span {
             width: 4vw;
             height: 3vh;
