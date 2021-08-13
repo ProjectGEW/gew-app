@@ -123,7 +123,7 @@ export const ContainerFiltro = styled.div`
     }
 `;
 
-export const Projects = styled.div`
+export const ProjectsGrid = styled.div`
     width: 100%;
     height: 80vh;
     padding: 0px 20px;
