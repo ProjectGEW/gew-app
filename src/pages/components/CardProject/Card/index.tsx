@@ -33,8 +33,6 @@ interface CardContent {
             esforco: number;
         }
     ]        
-
-
 }
 
 const CardProject: React.FC<CardStatus> = ({statusColor}) => {
@@ -50,24 +48,25 @@ const CardProject: React.FC<CardStatus> = ({statusColor}) => {
 
     }, [params.repository]);
 
+    // {project.map(project => ())}
+
     return (
         <>
-        {project.map(project => (
             <Card>
                 <CardStatus statusColor={statusColor}/>
                 <CardBox>
                     <BoxLeft>
                         <div>
-                            <p>{project.infoprojetoDTO.numeroDoProjeto} - Seção ABC</p>
-                            <h1>{project.infoprojetoDTO.titulo}</h1>
+                            <p>128723134 - Seção ABC</p>
+                            <h1>WEC - IMPLATAÇÃO DE EDI CLIENTE XYZ</h1>
                         </div>
                         <div>
                             <p><strong>Saldo previsto:</strong> R$ 50.000,00</p>
                             <p><strong>Saldo restante:</strong> R$ 50.000,00</p>
                         </div>
                         <div>
-                            <p>De: {project.infoprojetoDTO.data_de_inicio}</p>
-                            <p>Até: {project.infoprojetoDTO.data_de_termino}</p>
+                            <p>De: 20/02/2020</p>
+                            <p>Até: 22/05/2020</p>
                         </div>
                     </BoxLeft>
                     <BoxRight>
@@ -84,7 +83,6 @@ const CardProject: React.FC<CardStatus> = ({statusColor}) => {
                     </BoxRight>
                 </CardBox>
             </Card>
-        ))}
         </>
     );
 }
