@@ -53,6 +53,23 @@ const Projects: React.FC = () => {
                     <ProjectsGrid>
                         <Center>
                             <Card statusColor={"ATRASADO"} /> 
+                            <Card statusColor={"ATRASADO"} /> 
+                        </Center>
+                        <Center>
+                            <Card statusColor={"ATRASADO"} /> 
+                            <Card statusColor={"ATRASADO"} /> 
+                        </Center>
+                        <Center>
+                            <Card statusColor={"ATRASADO"} /> 
+                            <Card statusColor={"ATRASADO"} /> 
+                        </Center>
+                        <Center>
+                            <Card statusColor={"ATRASADO"} /> 
+                            <Card statusColor={"ATRASADO"} /> 
+                        </Center>
+                        <Center>
+                            <Card statusColor={"ATRASADO"} /> 
+                            <Card statusColor={"ATRASADO"} /> 
                         </Center>
                     </ProjectsGrid>
                 </ContainerProject>
