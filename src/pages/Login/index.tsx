@@ -44,13 +44,23 @@ const Login: React.FC = () => {
       }
   }, [singIn]);
 
+  const esq = true;
+
+  function trocar() {
+    const esq = false;
+    alert(esq);
+  } 
+
     return (
+        <>
         <Container>
             <LoginCont>
                 <Line />
                 <img src="https://www.weg.net/institutional/_ui/desktop/theme-institutional/img/brand.svg" alt="logo"/>
                 <ContainerBottom>
                   <Form ref={formRef} onSubmit={handleSubmit}>
+                      { esq ?
+                      <>
                         <ContainerInput>
                             <Input type="text" name="email" />
                             <label>Usuário</label>
@@ -61,12 +71,17 @@ const Login: React.FC = () => {
                         </ContainerInput>     
                         <ContainerBtn>
                             <button type="submit">entrar</button>
-                            <a href="/mainmenu">Esqueceu sua senha?</a>
+                            <a onClick={trocar}>Esqueceu sua senha?</a>
                         </ContainerBtn>
+                        </>
+                        :
+                        <a>a</a>
+                      }
                   </Form>
                 </ContainerBottom>
             </LoginCont>
         </Container>
+        </>
     );
 };
 
