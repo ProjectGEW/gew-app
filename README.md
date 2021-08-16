@@ -7,7 +7,7 @@ Um sistema para gerenciamento de projetos de terceiros, feito para a empresa WEG
 1. Necessário usar o yarn para baixar as dependências.
 2. Acesse pelo localhost:3000
 
-## Principais telas
+## Estrutura
 - Login
 - Home
 - Projetos
