@@ -5,7 +5,8 @@ Um sistema para gerenciamento de projetos de terceiros, feito para a empresa WEG
 
 ## Iniciando o projeto
 1. Necessário usar o yarn para baixar as dependências.
-2. Acesse pelo localhost:3000
+2. Yarn start
+3. Acesse pelo localhost:3000
 
 ## Estrutura
 - Login
