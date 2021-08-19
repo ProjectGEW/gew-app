@@ -115,12 +115,30 @@ export const ContIcons = styled.div`
     justify-content: left;
     align-items: center;
     cursor: pointer;
-    transition: all 0.4s;
+    transition: all 0.1s;
 
-    &:nth-child(1), &:nth-child(2) { background-color: #00579D; }
-    &:nth-child(3), &:nth-child(4) { background-color: #0075B1; }
+    &:nth-child(1) { 
+        background-color: #00579D;
+    }
+
+    &:nth-child(2) { 
+        background: linear-gradient(to bottom, #00579D, #0075B1); 
+    }
+
+    &:nth-child(3) { 
+        background-color: #0075B1;
+    }
+
+    &:nth-child(4) { 
+        background: linear-gradient(to bottom, #0075B1, #0091BD); 
+    }
+
     &:nth-child(1) { border-radius: 0.5vh 0 0 0; }
-    &:nth-child(6) { border-radius: 0 0 0 0.5vh; }
+
+    &:nth-child(6) { 
+        border-radius: 0 0 0 0.5vh; 
+        background: linear-gradient(to bottom, #0091BD, #009ecf); 
+    }
 
     &:hover {
         transform: translateX(-30vh);

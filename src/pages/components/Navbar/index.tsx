@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { FormEvent, FormEventHandler, MouseEvent, useState } from "react";
 
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -6,6 +6,7 @@ import { ContainerNavbar, Logo, PageIndicator, SandwichMenu, DropdownMenu, Langu
 
 
 const Navbar: React.FC = () => {
+    const [flag, setFlag] = useState('');
 
     function openDropDown() {
         var elemento = document.getElementById("dropdownMenu")!.style.display;
@@ -14,7 +15,9 @@ const Navbar: React.FC = () => {
             document.getElementById("dropdownMenu")!.style.display = 'none';
         } else {
             document.getElementById("dropdownMenu")!.style.display = 'block';
+
             document.getElementById("dropdownFlag")!.style.display = 'none';
+            document.getElementById("arrow")!.style.transform = "rotate(0deg)";
         }
     }
 
@@ -23,10 +26,23 @@ const Navbar: React.FC = () => {
         
         if(elemento === 'block') {
             document.getElementById("dropdownFlag")!.style.display = 'none';
+
+            document.getElementById("arrow")!.style.transform = "rotate(0deg)";
+            
         } else {
             document.getElementById("dropdownFlag")!.style.display = 'block';
             document.getElementById("dropdownMenu")!.style.display = 'none';
+
+            document.getElementById("arrow")!.style.transform = "rotate(180deg)";
         }
+    }
+
+    async function chooseFlag(event: FormEvent<HTMLFormElement>,): Promise<void> {            
+        event.preventDefault();
+
+        alert(flag);
+        setFlag("en-US");
+        alert(flag);
     }
 
     return (
@@ -46,14 +62,14 @@ const Navbar: React.FC = () => {
                 </SandwichMenu>
                 <LanguageIndicator>
                     <Flag></Flag>
-                    <IoIosArrowDown size={20} onClick={openMenuFlag}/>
+                    <IoIosArrowDown id="arrow" size={20} onClick={openMenuFlag}/>
                 </LanguageIndicator>
                 <DropdownFlag id="dropdownFlag">
                     <ul>
-                        <li><a href="./">ES</a></li>
-                        <li><a href="./">EN</a></li>
-                        <li><a href="./">UK</a></li>
-                        <li><a href="./">FR</a></li>
+                        <li><a >ES</a></li>
+                        <li><a >EN</a></li>
+                        <li><a >UK</a></li>
+                        <li><a >FR</a></li>
                     </ul>
                 </DropdownFlag>
             </ContainerNavbar>

@@ -140,6 +140,8 @@ export const LanguageIndicator = styled.div`
 
     svg {
         margin-left: 0.5vh;
+        color: #023A67;
+        transition: all 0.1s;
 
         &:hover {
             cursor: pointer;
@@ -167,6 +169,7 @@ export const DropdownFlag = styled.div`
     transform: translateX(88vw);
     display: none;
     z-index: 10;
+    transition: all 0.1s;
 
     ul { 
         width: 100%;
@@ -188,8 +191,8 @@ export const DropdownFlag = styled.div`
             a {
                 &::after {
                     content: "";
-                    width: 2.2vw;
-                    height: 3vh;
+                    width: 2.4vw;
+                    height: 3.2vh;
                     margin-left: 1.6vw;
                     background-size: cover;
                     background-position: center;
