@@ -13,11 +13,11 @@ import Settings from '../pages/Settings';
 const Routes: React.FC = () => (
     <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/mainmenu" component={Menu} />
+        <Route path="/home" component={Menu} />
         <Route path="/projects" component={Projects} />
-        <Route path="/registerprojects" component={RegisterProjects} />
-        <Route path="/editprojects" component={EditProjects} />
-        <Route path="/registerconsultants" component={RegisterConsultants} />
+        <Route path="/register_projects" component={RegisterProjects} />
+        <Route path="/edit_projects" component={EditProjects} />
+        <Route path="/register_consultants" component={RegisterConsultants} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/settings" component={Settings} />
     </Switch>
