@@ -1,0 +1,54 @@
+{
+    "head": {
+        "titulo_negrito": "Visão",
+        "titulo_normal": "Geral"
+    },
+    "cards": {
+        "primeiro": {
+            "titulo": "Projetos Concluídos:"
+        },
+        "segundo": {
+            "titulo": "Projetos Em Andamento:"
+        },
+        "terceiro": {
+            "titulo": "Projetos Atrasados:"
+        },
+        "verba": "Verba Total:"
+    },
+    "grafico": {
+        "titulo": "PROJETOS TERMINADOS NOS ÚLTIMOS 7 DIAS"
+    },
+    "menu_esquerdo": {
+        "mensagem": "Seja bem vindo,",
+        "notificacao": "Notificações",
+        "card": {
+            "titulo": "Cumprimento da jornada"
+        }
+    },
+    "menu_direito": {
+      "primeiro_botao": {
+          "primeiro": "VISUALIZAR",
+          "segundo": "PROJETOS"
+      },
+      "segundo_botao": {
+          "primeiro": "CADASTRAR",
+          "segundo": "PROJETOS"
+      },
+      "terceiro_botao": {
+          "primeiro": "EDITAR",
+          "segundo": "PROJETOS"
+      },
+      "quarto_botao": {
+          "primeiro": "CADASTRAR",
+          "segundo": "CONSULTORES"
+      },
+      "quinto_botao": {
+          "primeiro": "ALOCAR",
+          "segundo": "CONSULTORES"
+      },
+      "sexto_botao": {
+          "primeiro": "IR PARA",
+          "segundo": "DASHBOARDS"
+      }
+    }
+  }
