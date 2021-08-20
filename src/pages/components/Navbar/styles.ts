@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import BR from "../../../assets/br.svg";
 import EN from "../../../assets/en.svg";
 import ES from "../../../assets/es.svg";
-import UK from "../../../assets/uk.svg";
 import FR from "../../../assets/fr.svg";
 
 
@@ -165,7 +164,6 @@ export const Flag = styled.div<Flag>`
     ${props => props.type === "BR" && css`background-image: url(${BR});`}
     ${props => props.type === "ES" && css`background-image: url(${ES});`}
     ${props => props.type === "EN" && css`background-image: url(${EN});`}
-    ${props => props.type === "UK" && css`background-image: url(${UK});`}
     ${props => props.type === "FR" && css`background-image: url(${FR});`}
 `;
 
@@ -198,10 +196,6 @@ export const DropdownFlag = styled.div`
             display: flex;
             justify-content: left;
             align-items: center;
-
-
-
-
 
             a {
                 margin-right: 1.4vw;
