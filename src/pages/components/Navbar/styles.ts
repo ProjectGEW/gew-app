@@ -279,22 +279,6 @@ export const DropdownFlag = styled.div`
                 position: absolute;
                 background: rgb(200, 200, 200, 0.6);
             }
-      &:nth-child(2) {
-        a::after {
-          background-image: url(${EN});
-        }
-      }
-
-      &:nth-child(3) {
-        a::after {
-          background-image: url(${UK});
-        }
-      }
-
-      &:nth-child(4) {
-        a::after {
-          background-image: url(${FR});
-        }
       }
 
       &:hover {
