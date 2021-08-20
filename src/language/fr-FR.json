@@ -1,0 +1,54 @@
+{
+    "head": {
+        "titulo_negrito": "Aperçu",
+        "titulo_normal": ""
+    },
+    "cards": {
+        "primeiro": {
+            "titulo": "Projets terminés:"
+        },
+        "segundo": {
+            "titulo": "Projets en cours:"
+        },
+        "terceiro": {
+            "titulo": "Projets en retard:"
+        },
+        "verba": "Total Budget:"
+    },
+    "grafico": {
+        "titulo": "PROJETS ACHEVÉS AU COURS DES 7 DERNIERS JOURS"
+    },
+    "menu_esquerdo": {
+        "mensagem": "Bienvenue,",
+        "notificacao": "Notifications",
+        "card": {
+            "titulo": "Accomplissement du voyage"
+        }
+    },
+    "menu_direito": {
+      "primeiro_botao": {
+          "primeiro": "VISUALISER",
+          "segundo": "PROJETS"
+      },
+      "segundo_botao": {
+          "primeiro": "REGISTRE",
+          "segundo": "PROJETS"
+      },
+      "terceiro_botao": {
+          "primeiro": "ÉDITER",
+          "segundo": "PROJETS"
+      },
+      "quarto_botao": {
+          "primeiro": "REGISTRE",
+          "segundo": "CONSULTANTS"
+      },
+      "quinto_botao": {
+          "primeiro": "ALLOUER",
+          "segundo": "CONSULTANTS"
+      },
+      "sexto_botao": {
+          "primeiro": "ATTEINDRE",
+          "segundo": "TABLEAUX"
+      }
+    }
+  }
