@@ -2,22 +2,45 @@ import React, { FormEvent, useState, useEffect } from "react";
 
 import { useLocation } from "react-router-dom";
 
-import { IoIosArrowDown } from "react-icons/io";
+import BR from "../../../assets/br.svg";
+import EN from "../../../assets/en.svg";
+import ES from "../../../assets/es.svg";
+import FR from "../../../assets/fr.svg";
 
-import {
-  ContainerNavbar,
-  Logo,
-  PageIndicator,
-  SandwichMenu,
-  DropdownMenu,
-  LanguageIndicator,
-  Flag,
-  DropdownFlag,
-  HistoricPage,
-} from "./styles";
+import { ContainerNavbar, Logo, PageIndicator, SandwichMenu, DropdownMenu,
+    LanguageIndicator, Flag, DropdownFlag, HistoricPage } from './styles';
 
 const Navbar: React.FC = () => {
-  const [flag, setFlag] = useState("");
+    const [flag, setFlag] = useState(() => {
+        const storageFlag = localStorage.getItem('Language:flag');
+          if(storageFlag) {
+            return JSON.parse(storageFlag);
+          }
+        return '';
+      });
+
+      useEffect(() => {
+        localStorage.setItem(
+          'Language:flag',
+          JSON.stringify(flag)
+        )
+      }, [flag]);
+
+      const [code, setCode] = useState(() => {
+        const storageCode = localStorage.getItem('Language:code');
+          if(storageCode) {
+            return JSON.parse(storageCode);
+          }
+        return '';
+      });
+
+      useEffect(() => {
+        localStorage.setItem(
+          'Language:code',
+          JSON.stringify(code)
+        )
+      }, [code]);
+
   const location = useLocation();
   const pathname = window.location.pathname;
   const [page, setPage] = useState("");
@@ -66,13 +89,26 @@ const Navbar: React.FC = () => {
     }
   }
 
-  async function chooseFlag(event: FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault();
+    const types = ["BR", "EN", "ES", "FR"];
 
-    alert(flag);
-    setFlag("en-US");
-    alert(flag);
-  }
+    const chooseFlag = (flag: String, codeFlag: String) => {
+        {                        
+            if(flag == "BR") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + BR + ")";
+            } else if(flag == "EN") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + EN + ")";
+            } else if(flag == "ES") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + ES + ")";
+            } else if(flag == "FR") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + FR + ")";
+            }
+
+            setFlag(flag);
+            setCode(codeFlag);
+            window.location.reload();
+            openMenuFlag()
+        }
+    }
 
   return (
     <ContainerNavbar onLoad={historicPage}>
@@ -104,26 +140,18 @@ const Navbar: React.FC = () => {
         </DropdownMenu>
       </SandwichMenu>
       <LanguageIndicator>
-        <Flag></Flag>
-        <IoIosArrowDown id="arrow" size={20} onClick={openMenuFlag} />
-      </LanguageIndicator>
-      <DropdownFlag id="dropdownFlag">
-        <ul>
-          <li>
-            <a>ES</a>
-          </li>
-          <li>
-            <a>EN</a>
-          </li>
-          <li>
-            <a>UK</a>
-          </li>
-          <li>
-            <a>FR</a>
-          </li>
-        </ul>
-      </DropdownFlag>
-    </ContainerNavbar>
+                    <Flag type={flag} id="flagSelected" />
+                    <IoIosArrowDown id="arrow" size={20} onClick={openMenuFlag}/>
+                </LanguageIndicator>
+                <DropdownFlag id="dropdownFlag">
+                    <ul>
+                        <li id="flagBR" onClick={() => chooseFlag("BR", "pt-BR")}><a>BR</a><Flag type={types[0]}/></li>
+                        <li id="flagEN" onClick={() => chooseFlag("EN", "en-US")}><a>EN</a><Flag type={types[1]}/></li>
+                        <li id="flagES" onClick={() => chooseFlag("ES", "es")}><a>ES</a><Flag type={types[2]}/></li>
+                        <li id="flagFR" onClick={() => chooseFlag("FR", "fr-FR")}><a>FR</a><Flag type={types[3]}/></li>
+                    </ul>
+                </DropdownFlag>
+            </ContainerNavbar>
   );
 };
 

@@ -4,18 +4,6 @@ interface StatusProps {
     statusColor: string;
 }
 
-const statusTypeVariations = {
-    Atrasado: css `
-        background-color: red;
-    `,
-    NaoIniciado: css `
-        background-color: grey;
-    `,
-    EmAndamento: css `
-        background-color: #00579D;
-    `
-}
-
 export const Card = styled.div`
     width: 36vw;
     height: 20vh;

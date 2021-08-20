@@ -1,0 +1,54 @@
+{
+    "head": {
+        "titulo_negrito": "Visión",
+        "titulo_normal": "general"
+    },
+    "cards": {
+        "primeiro": {
+            "titulo": "Proyectos finalizados:"
+        },
+        "segundo": {
+            "titulo": "Proyectos en curso:"
+        },
+        "terceiro": {
+            "titulo": "Proyectos Tardíos:"
+        },
+        "verba": "Presupuesto total:"
+    },
+    "grafico": {
+        "titulo": "PROYECTOS FINALIZADOS EN LOS ÚLTIMOS 7 DÍAS"
+    },
+    "menu_esquerdo": {
+        "mensagem": "Bienvenido,",
+        "notificacao": "Notificaciones",
+        "card": {
+            "titulo": "Cumplimiento del viaje"
+        }
+    },
+    "menu_direito": {
+      "primeiro_botao": {
+          "primeiro": "VISUALIZAR",
+          "segundo": "PROYECTOS"
+      },
+      "segundo_botao": {
+          "primeiro": "REGISTRO",
+          "segundo": "PROYECTOS"
+      },
+      "terceiro_botao": {
+          "primeiro": "EDITAR",
+          "segundo": "PROYECTOS"
+      },
+      "quarto_botao": {
+          "primeiro": "REGISTRO",
+          "segundo": "CONSULTORES"
+      },
+      "quinto_botao": {
+          "primeiro": "ASIGNAR",
+          "segundo": "CONSULTORES"
+      },
+      "sexto_botao": {
+          "primeiro": "VETE A",
+          "segundo": "PANELES"
+      }
+    }
+  }
