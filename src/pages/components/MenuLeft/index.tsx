@@ -1,4 +1,6 @@
-import React , { MouseEvent } from "react";
+import React , { MouseEvent, useState } from "react";
+
+import intl from 'react-intl-universal';
 
 import { ContainerMenu, ContainerInfo, UserImg, NewsImg, LineBlue, DeleteImg, RefreshImg,
     ContainerMsg, Msg, Aba, LineMsg, TextMsg, TitleMsg, BtnOpen, ExitImg } from './styles';
@@ -8,7 +10,27 @@ import { ContainerMenu, ContainerInfo, UserImg, NewsImg, LineBlue, DeleteImg, Re
     import { RiDeleteBinLine} from 'react-icons/ri';
 
 
+const locales = {
+    'pt-BR': require('../../../language/pt-BR.json'),
+    'en-US': require('../../../language/en-US.json'),
+    'es': require('../../../language/es.json'),
+    'fr-FR': require('../../../language/fr-FR.json'),
+};
+
 const MenuLeft: React.FC = () => {
+    const [code] = useState(() => {
+        const storageCode = localStorage.getItem('Language:code');
+          if(storageCode) {
+            return JSON.parse(storageCode);
+          } else {
+              return 'pt-BR';
+          }
+      });
+
+    intl.init({
+        currentLocale: code,
+        locales
+    });
 
     var status = 0;
 
@@ -52,7 +74,7 @@ const MenuLeft: React.FC = () => {
             document.getElementById("news-img")!.style.transform = 'translate(0vw, 0vh)';
             document.getElementById("news-img")!.style.width = '10vh';
             document.getElementById("news-img")!.style.height = '6vh';
-            document.getElementById("news-img")!.style.marginLeft = '12.8vw';
+            document.getElementById("news-img")!.style.marginLeft = '12.5vw';
 
             document.getElementById("user-name")!.style.display = "none";
             document.getElementById("title-not")!.style.display = "none";
@@ -75,11 +97,11 @@ const MenuLeft: React.FC = () => {
                     <ContainerInfo>
                         <UserImg id="user-img">
                             <FaUserAlt id="iconUser" color="#00579D" />
-                            <p id="user-name">Seja bem vindo, <a href="./">Renato Silva</a></p> 
+                            <p id="user-name">{intl.get('menu_esquerdo.mensagem')}<br/><a href="./">Renato Silva</a></p> 
                         </UserImg>
                         <NewsImg id="news-img">
                             <IoNewspaperOutline id="iconNews" />
-                            <p id="title-not">Notificações</p> 
+                            <p id="title-not">{intl.get('menu_esquerdo.notificacao')}</p> 
                         </NewsImg>
                         <LineBlue id="line-blue" />
                         <RefreshImg id="refresh-img">
@@ -93,7 +115,7 @@ const MenuLeft: React.FC = () => {
                                 <LineMsg>
                                     <Aba>
                                         <TitleMsg>
-                                            <p>Cumprimento de jornada</p>
+                                            <p>{intl.get('menu_esquerdo.card.titulo')}</p>
                                         </TitleMsg>
                                         <TextMsg>
                                             <p>O funcionário José concluiu suas tarefas!</p>
