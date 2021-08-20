@@ -1,10 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import BR from "../../../assets/br.svg";
 import EN from "../../../assets/en.svg";
 import ES from "../../../assets/es.svg";
 import UK from "../../../assets/uk.svg";
 import FR from "../../../assets/fr.svg";
+
+
+interface Flag {
+    type: string;
+}
 
 export const ContainerNavbar = styled.div`
     width: 100%;
@@ -149,13 +154,19 @@ export const LanguageIndicator = styled.div`
     }
 `;
 
-export const Flag = styled.div`
-    width: 2.2vw;
-    height: 3vh;
+export const Flag = styled.div<Flag>`
+    width: 2.4vw;
+    height: 3.2vh;
     border-radius: 0.1vh;
     background-image: url(${BR});
     background-size: cover;
     background-position: center;
+
+    ${props => props.type === "BR" && css`background-image: url(${BR});`}
+    ${props => props.type === "ES" && css`background-image: url(${ES});`}
+    ${props => props.type === "EN" && css`background-image: url(${EN});`}
+    ${props => props.type === "UK" && css`background-image: url(${UK});`}
+    ${props => props.type === "FR" && css`background-image: url(${FR});`}
 `;
 
 export const DropdownFlag = styled.div`
@@ -188,40 +199,12 @@ export const DropdownFlag = styled.div`
             justify-content: left;
             align-items: center;
 
+
+
+
+
             a {
-                &::after {
-                    content: "";
-                    width: 2.4vw;
-                    height: 3.2vh;
-                    margin-left: 1.6vw;
-                    background-size: cover;
-                    background-position: center;
-                    position: absolute; 
-                }
-            }
-
-            &:nth-child(1) {
-                a::after {
-                    background-image: url(${ES});     
-                }
-            }
-
-            &:nth-child(2) {
-                a::after {
-                    background-image: url(${EN});     
-                }
-            }
-
-            &:nth-child(3) {
-                a::after {
-                    background-image: url(${UK});     
-                }
-            }
-
-            &:nth-child(4) {
-                a::after {
-                    background-image: url(${FR});     
-                }
+                margin-right: 1.4vw;
             }
 
             &:hover {
@@ -245,7 +228,7 @@ export const DropdownFlag = styled.div`
 
             &:after {
                 content: "";
-                width: 80%;
+                width: 90%;
                 height: 0.1vh;
                 margin: 5vh 0 0 5%;
                 position: absolute;

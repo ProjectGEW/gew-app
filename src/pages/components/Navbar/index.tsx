@@ -1,12 +1,22 @@
-import React, { FormEvent, FormEventHandler, MouseEvent, useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import { IoIosArrowDown } from "react-icons/io";
 
-import { ContainerNavbar, Logo, PageIndicator, SandwichMenu, DropdownMenu, LanguageIndicator, Flag, DropdownFlag } from './styles';
+import BR from "../../../assets/br.svg";
+import EN from "../../../assets/en.svg";
+import ES from "../../../assets/es.svg";
+import UK from "../../../assets/uk.svg";
+import FR from "../../../assets/fr.svg";
 
+import { ContainerNavbar, Logo, PageIndicator, SandwichMenu, DropdownMenu,
+    LanguageIndicator, Flag, DropdownFlag } from './styles';
 
 const Navbar: React.FC = () => {
-    const [flag, setFlag] = useState('');
+    const [isFocused, setIsFocused] = useState(false);
+
+    const handleInputFocus = useCallback(() => {
+        setIsFocused(true);
+    }, [])
 
     function openDropDown() {
         var elemento = document.getElementById("dropdownMenu")!.style.display;
@@ -37,12 +47,42 @@ const Navbar: React.FC = () => {
         }
     }
 
-    async function chooseFlag(event: FormEvent<HTMLFormElement>,): Promise<void> {            
-        event.preventDefault();
+    const types = ["", "BR", "EN", "ES", "UK", "FR"];
 
-        alert(flag);
-        setFlag("en-US");
-        alert(flag);
+    const typeUsed = types[0];
+    const before = types[0];
+
+    const chooseFlag = (flag: String) => {
+        {
+            /*const types = [BR, EN, ES, UK, FR];
+
+            for(let x = 0; x < types.length; x++) {
+                if(flag == types[x]) {
+                    document.getElementById("flagSelected")!.style.backgroundImage = "url(" + types[x] + ")";
+                }
+            } */
+
+            const before = document.getElementById("flagSelected")!.style.backgroundImage;
+           // alert(before);
+
+            if(flag == "BR") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + BR + ")";
+                const typeUsed = types[1];
+            } else if(flag == "EN") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + EN + ")";
+                const typeUsed = types[2];
+            } else if(flag == "ES") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + ES + ")";
+                const typeUsed = types[3];
+            } else if(flag == "UK") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + UK + ")";
+                const typeUsed = types[4];
+            } else if(flag == "FR") {
+                document.getElementById("flagSelected")!.style.backgroundImage = "url(" + FR + ")";
+                const typeUsed = types[5];
+            }
+            openMenuFlag()
+        }
     }
 
     return (
@@ -61,15 +101,15 @@ const Navbar: React.FC = () => {
                     </DropdownMenu>
                 </SandwichMenu>
                 <LanguageIndicator>
-                    <Flag></Flag>
+                    <Flag type={typeUsed} id="flagSelected" />
                     <IoIosArrowDown id="arrow" size={20} onClick={openMenuFlag}/>
                 </LanguageIndicator>
                 <DropdownFlag id="dropdownFlag">
                     <ul>
-                        <li><a>ES</a></li>
-                        <li><a>EN</a></li>
-                        <li><a>UK</a></li>
-                        <li><a>FR</a></li>
+                        <li onClick={() => chooseFlag("ES")}><a>{before}</a><Flag type={before}/></li>
+                        <li onClick={() => chooseFlag("EN")}><a>EN</a><Flag type="EN"/></li>
+                        <li onClick={() => chooseFlag("UK")}><a>UK</a><Flag type="UK"/></li>
+                        <li onClick={() => chooseFlag("FR")}><a>FR</a><Flag type="FR"/></li>
                     </ul>
                 </DropdownFlag>
             </ContainerNavbar>
