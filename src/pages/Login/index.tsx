@@ -26,7 +26,7 @@ const Login: React.FC = () => {
           formRef.current?.setErrors({});
 
           const schema = Yup.object().shape({
-              email: Yup.string().required('E-mail obrigatório').email('Informe um e-mail válido'),
+              email: Yup.string().required('E-mail obriga').email('Informe um e-mail válido'),
               senha: Yup.string().required('Senha obrigatória'),
           })
 
