@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { IoPersonAddSharp } from 'react-icons/io5';
 import { RiFileEditFill } from 'react-icons/ri';
@@ -20,14 +20,24 @@ import { ContainerHome, ContainerHomeGraph, Card, ContainerHomeCards, ContainerH
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
     'en-US': require('../../language/en-US.json'),
+    'es': require('../../language/es.json'),
+    'fr-FR': require('../../language/fr-FR.json'),
 };
 
 const Menu: React.FC = () => {
+        const [code] = useState(() => {
+        const storageCode = localStorage.getItem('Language:code');
+          if(storageCode) {
+            return JSON.parse(storageCode);
+          } else {
+              return 'pt-BR';
+          }
+      });
 
     intl.init({
-        currentLocale: 'pt-BR',
+        currentLocale: code,
         locales
-      });
+    });
 
     return (
         <>
