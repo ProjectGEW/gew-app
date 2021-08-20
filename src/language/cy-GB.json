@@ -1,0 +1,53 @@
+{
+    "head": {
+        "titulo_negrito": "Overview"
+    },
+    "cards": {
+        "primeiro": {
+            "titulo": "Completed Projects:"
+        },
+        "segundo": {
+            "titulo": "Ongoing Projects:"
+        },
+        "terceiro": {
+            "titulo": "Delayed Projects:"
+        },
+        "verba": "Total budget:"
+    },
+    "grafico": {
+        "titulo": "PROJECTS COMPLETED IN THE LAST 7 DAYS"
+    },
+    "menu_esquerdo": {
+      "mensagem": "Welcome,",
+      "notificacao": "Notifications",
+      "card": {
+          "titulo": "Fulfillment of the journey"
+      }
+    },
+    "menu_direito": {
+      "primeiro_botao": {
+          "primeiro": "VIEW",
+          "segundo": "PROJECTS"
+      },
+      "segundo_botao": {
+          "primeiro": "REGISTER",
+          "segundo": "PROJECTS"
+      },
+      "terceiro_botao": {
+          "primeiro": "EDIT",
+          "segundo": "PROJECTS"
+      },
+      "quarto_botao": {
+          "primeiro": "REGISTER",
+          "segundo": "CONSULTANTS"
+      },
+      "quinto_botao": {
+          "primeiro": "ALOCAR",
+          "segundo": "CONSULTANTS"
+      },
+      "sexto_botao": {
+          "primeiro": "GO TO",
+          "segundo": "DASHBOARDS"
+      }
+    }
+  }
