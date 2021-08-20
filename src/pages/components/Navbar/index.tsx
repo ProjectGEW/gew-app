@@ -2,6 +2,8 @@ import React, { FormEvent, useState, useEffect } from "react";
 
 import { useLocation } from "react-router-dom";
 
+import { IoIosArrowDown } from "react-icons/io";
+
 import BR from "../../../assets/br.svg";
 import EN from "../../../assets/en.svg";
 import ES from "../../../assets/es.svg";
