@@ -1,21 +1,41 @@
 import React, { useState, useEffect } from 'react';
 
-import { IoPersonAddSharp } from 'react-icons/io5';
-import { RiFileEditFill } from 'react-icons/ri';
-import { AiOutlineFolderView, AiFillEye } from 'react-icons/ai';
-import { CgInsertAfterR } from 'react-icons/cg';
-import { GoGraph } from 'react-icons/go';
-import { GiOrganigram } from 'react-icons/gi';
+import { IoPersonAddSharp } from "react-icons/io5";
+import { RiFileEditFill } from "react-icons/ri";
+import { AiOutlineFolderView, AiFillEye } from "react-icons/ai";
+import { CgInsertAfterR } from "react-icons/cg";
+import { GoGraph } from "react-icons/go";
+import { GiOrganigram } from "react-icons/gi";
 
-import intl from 'react-intl-universal';
+import intl from "react-intl-universal";
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
+import MenuLeft from "../components/MenuLeft";
+import Navbar from "../components/Navbar";
 
-import { ContainerMenuRight, ContIcons, Icon, TextMenuRight } from './styleMenuRight';
+import {
+  ContainerMenuRight,
+  ContIcons,
+  Icon,
+  TextMenuRight,
+} from "./styleMenuRight";
 
-import { ContainerHome, ContainerHomeGraph, Card, ContainerHomeCards, ContainerHomeTitle, Graph, GraphTitle,
-    CardContent, GraphContainer, GraphCont, GraphContNum, GraphBars, Bar, GraphData, Data } from './styles';
+import {
+  ContainerHome,
+  ContainerHomeGraph,
+  Card,
+  ContainerHomeCards,
+  ContainerHomeTitle,
+  Graph,
+  GraphTitle,
+  CardContent,
+  GraphContainer,
+  GraphCont,
+  GraphContNum,
+  GraphBars,
+  Bar,
+  GraphData,
+  Data,
+} from "./styles";
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -129,8 +149,8 @@ const Menu: React.FC = () => {
                         <AiOutlineFolderView size={50} color="#fff" /> 
                     </Icon> 
                     <TextMenuRight>
-                        <a href="../Projects/">{intl.get('menu_direito.primeiro_botao.primeiro')}</a>
-                        <a href="../Projects/">{intl.get('menu_direito.primeiro_botao.segundo')}</a>
+                        <a href="../projects">{intl.get('menu_direito.primeiro_botao.primeiro')}</a>
+                        <a href="../projects">{intl.get('menu_direito.primeiro_botao.segundo')}</a>
                     </TextMenuRight>
                 </ContIcons>
                 <ContIcons>
@@ -180,7 +200,7 @@ const Menu: React.FC = () => {
                 </ContIcons>
         </ContainerMenuRight>
     </>
-    );
+  );
 };
 
 export default Menu;
