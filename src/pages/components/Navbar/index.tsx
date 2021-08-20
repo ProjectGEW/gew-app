@@ -54,9 +54,9 @@ const Navbar: React.FC = () => {
                 <SandwichMenu onClick={openDropDown}>
                     <DropdownMenu id="dropdownMenu">
                         <ul>
-                            <li><a href="./">Perfil</a></li>
-                            <li><a href="./">Configurações</a></li>
-                            <li><a href="./">Sair</a></li>
+                            <li><a href="/home">Perfil</a></li>
+                            <li><a href="./settings">Configurações</a></li>
+                            <li><a href="/">Sair</a></li>
                         </ul>
                     </DropdownMenu>
                 </SandwichMenu>
@@ -66,10 +66,10 @@ const Navbar: React.FC = () => {
                 </LanguageIndicator>
                 <DropdownFlag id="dropdownFlag">
                     <ul>
-                        <li><a >ES</a></li>
-                        <li><a >EN</a></li>
-                        <li><a >UK</a></li>
-                        <li><a >FR</a></li>
+                        <li><a>ES</a></li>
+                        <li><a>EN</a></li>
+                        <li><a>UK</a></li>
+                        <li><a>FR</a></li>
                     </ul>
                 </DropdownFlag>
             </ContainerNavbar>
