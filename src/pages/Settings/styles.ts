@@ -36,6 +36,7 @@ export const Container = styled.div`
         h1 {
             color: #00579D;
             font-weight: 500;
+            font-size: 4.5vh;
         }
         
         span {
@@ -73,14 +74,26 @@ export const Container = styled.div`
     &:nth-child(2) {
         height: 16vh;
         margin-top: 0vh;
+
+        select {
+            margin-top: 1.8vh;
+        }
     }
 
     &:nth-child(3) {
         height: 16vh;
+
+        span {
+            margin-top: 2.2vh;
+        }
     }
 
     &:nth-child(4) {
         height: 30vh;
+
+        span {
+            margin-top: 4vh;
+        }
     }
 `;
 
@@ -191,7 +204,7 @@ export const Right = styled.div`
             border: 0;
             border-bottom: 0.4vh solid #00579D;
             
-            margin-bottom: 2vh;
+            margin-top: 2vh;
         }
 
         select {
@@ -216,11 +229,15 @@ export const Right = styled.div`
             display: flex;
             align-items: center;
 
+            &:hover {
+                cursor: pointer;
+            }
+
             &:before {
                 content: '';
                 position: absolute;
                 width: 1vw;
-                height: 2vh;
+                height: 1.9vh;
                 background: white;
                 margin-left: 0.3vw;
 
