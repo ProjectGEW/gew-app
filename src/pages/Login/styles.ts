@@ -55,15 +55,81 @@ export const LoginCont = styled.div`
         position: absolute;
         margin-top: 10vh;
     }
+
+    #container-pwd {
+        display: none;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 10vh;
+
+            h1 {
+                color: #00579D;
+                font-size: 4vh;
+                margin-bottom: 1vh;
+
+                &:before {
+                    content: "";
+                    width: 26vw;
+                    height: 0.2vh;
+
+                    position: absolute;
+                    margin-top: -5.5vh;
+                    margin-left: -2.2vw;
+
+                    background-color: rgba(0, 0, 0, 0.15);
+                }
+            }
+
+            p {
+                color: #00579D;
+                font-size: 2.2vh;
+            }
+
+            h1, p {
+                text-shadow: 1vh 1vh 1vh rgba(0, 0, 0, 0.2);
+            }
+            
+            a {
+                width: 7vw;
+                height: 5vh;
+                margin-top: 12vh;
+                border-radius: 1vh;
+                border: 0;
+                text-transform: uppercase;
+                font-weight: 600;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                background-color: #005DA5;
+                color: white;
+                font-size: 2.2vh;
+                box-shadow: 0vh 1vh 1vh rgba(0, 0, 0, 0.25);
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: ${shade(0.1, 'rgb(0, 79, 139)')}
+                }
+            }
+            
+            
+        }
+    }
 `;
 
 export const ContainerBottom = styled.div`
     width: 100%;
     height: 45vh;
+    display: block;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    
 `;
 
 export const ContainerBtn = styled.div`
@@ -98,5 +164,10 @@ export const ContainerBtn = styled.div`
         font-size: 2.2vh;
         font-weight: bold;
         text-decoration: none;
+        
+        &:hover {
+            cursor: pointer;
+            color: ${shade(0.01, 'rgb(0, 79, 139)')}
+        }
     }
 `;
