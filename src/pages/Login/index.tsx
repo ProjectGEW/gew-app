@@ -17,6 +17,9 @@ interface SingInFormData {
 }
 
 const Login: React.FC = () => {  
+    let defaultLanguage = {flag: "BR", code: "pt-BR"}
+    localStorage.setItem('Language', JSON.stringify(defaultLanguage));
+
     const formRef = useRef<FormHandles>(null);
     const { singIn } = useContext(AuthContext);
 
