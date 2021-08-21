@@ -56,7 +56,7 @@ const Menu: React.FC = () => {
                     <CardContent>
                         <span />
                         <h1 id="complete">87</h1>
-                        <GraphContainer>a</GraphContainer>
+                        <GraphContainer></GraphContainer>
                     </CardContent>
                     <div>
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
@@ -69,7 +69,7 @@ const Menu: React.FC = () => {
                     <CardContent>
                         <span />
                         <h1 id="up">14</h1>
-                        <GraphContainer>a</GraphContainer>
+                        <GraphContainer></GraphContainer>
                     </CardContent>
                     <div>
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
@@ -82,7 +82,7 @@ const Menu: React.FC = () => {
                     <CardContent>
                         <span />
                         <h1 id="down">16</h1>
-                        <GraphContainer>a</GraphContainer>
+                        <GraphContainer></GraphContainer>
                     </CardContent>
                     <div>
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
@@ -138,8 +138,8 @@ const Menu: React.FC = () => {
                     <CgInsertAfterR size={50} color="#fff" />
                 </Icon>
                 <TextMenuRight>
-                    <a href="./RegisterProjects">{intl.get('menu_direito.segundo_botao.primeiro')}</a>
-                    <a href="./RegisterProjects">{intl.get('menu_direito.segundo_botao.segundo')}</a>
+                    <a href="./register_projects">{intl.get('menu_direito.segundo_botao.primeiro')}</a>
+                    <a href="./register_projects">{intl.get('menu_direito.segundo_botao.segundo')}</a>
                 </TextMenuRight>
             </ContIcons>
             <ContIcons>
@@ -147,8 +147,8 @@ const Menu: React.FC = () => {
                     <RiFileEditFill size={50} color="#fff" />
                 </Icon>
                 <TextMenuRight>
-                    <a href="./EditProjects">{intl.get('menu_direito.terceiro_botao.primeiro')}</a>
-                    <a href="./EditProjects">{intl.get('menu_direito.terceiro_botao.segundo')}</a>
+                    <a href="./edit_projects">{intl.get('menu_direito.terceiro_botao.primeiro')}</a>
+                    <a href="./edit_projects">{intl.get('menu_direito.terceiro_botao.segundo')}</a>
                 </TextMenuRight>
             </ContIcons>
             <ContIcons>
@@ -174,8 +174,8 @@ const Menu: React.FC = () => {
                     <GoGraph size={50} color="#fff" />
                 </Icon>
                 <TextMenuRight>
-                    <a href="./Dashboard">{intl.get('menu_direito.sexto_botao.primeiro')}</a>
-                    <a href="./Dashboard">{intl.get('menu_direito.sexto_botao.segundo')}</a>
+                    <a href="./dashboard">{intl.get('menu_direito.sexto_botao.primeiro')}</a>
+                    <a href="./dashboard">{intl.get('menu_direito.sexto_botao.segundo')}</a>
                 </TextMenuRight>
             </ContIcons>
     </ContainerMenuRight>
