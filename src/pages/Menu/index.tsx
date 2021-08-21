@@ -31,7 +31,7 @@ const Menu: React.FC = () => {
         if(languageStorage) {
             let languageObject = JSON.parse(languageStorage);
             return languageObject;
-        }
+        } 
     });
 
     intl.init({
