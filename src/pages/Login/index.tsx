@@ -18,7 +18,6 @@ interface SingInFormData {
 
 const Login: React.FC = () => {  
     const formRef = useRef<FormHandles>(null);
-
     const { singIn } = useContext(AuthContext);
 
     const handleSubmit = useCallback(async (data: SingInFormData) => {
@@ -26,9 +25,7 @@ const Login: React.FC = () => {
           formRef.current?.setErrors({});
 
           const schema = Yup.object().shape({
-
-              email: Yup.string().required('E-mail obrigatório').email('Informe um e-mail válido'),
-              
+              email: Yup.string().required('E-mail obrigatório').email('Informe um e-mail válido'),    
               senha: Yup.string().required('Senha obrigatória'),
           })
 
@@ -46,11 +43,17 @@ const Login: React.FC = () => {
       }
   }, [singIn]);
 
-  const esq = true;
-
-  function trocar() {
-    const esq = false;
-    alert(esq);
+  const trocar = (x: String) => {
+      if(x == "true") {
+        document.getElementById("container-login")!.style.display = "none";
+        document.getElementById("container-pwd")!.style.display = "block";
+        x = "false";
+      } else if(x == "false") {
+        document.getElementById("container-login")!.style.display = "block";
+        document.getElementById("container-login")!.style.display = "flex";
+        document.getElementById("container-pwd")!.style.display = "none";
+        x = "true";
+    }
   } 
 
     return (
@@ -59,27 +62,28 @@ const Login: React.FC = () => {
             <LoginCont>
                 <Line />
                 <img src="https://www.weg.net/institutional/_ui/desktop/theme-institutional/img/brand.svg" alt="logo"/>
-                <ContainerBottom>
-                  <Form ref={formRef} onSubmit={handleSubmit}>
-                      { esq ?
-                      <>
-                        <ContainerInput>
-                            <Input type="text" name="email" />
-                            <label>Usuário</label>
-                        </ContainerInput>
-                        <ContainerInput>
-                            <Input type="password" name="senha" />
-                            <label>Senha</label>
-                        </ContainerInput>     
-                        <ContainerBtn>
-                            <button type="submit">entrar</button>
-                            <a onClick={trocar}>Esqueceu sua senha?</a>
-                        </ContainerBtn>
-                        </>
-                        :
-                        <a>a</a>
-                      }
-                  </Form>
+                <ContainerBottom id="container-login">
+                <Form ref={formRef} onSubmit={handleSubmit}>
+                    <ContainerInput>
+                        <Input type="text" name="email" />
+                        <label>Usuário</label>
+                    </ContainerInput>
+                    <ContainerInput>
+                        <Input type="password" name="senha" />
+                        <label>Senha</label>
+                    </ContainerInput>     
+                    <ContainerBtn>
+                        <button type="submit">entrar</button>
+                        <a onClick={() => trocar("true")}>Esqueceu sua senha?</a>
+                    </ContainerBtn>
+                </Form>
+                </ContainerBottom>
+                <ContainerBottom id="container-pwd">
+                    <div>
+                        <h1>Alterar senha da conta</h1>
+                        <p>Entre em contato com algum administrador do sistema.</p>
+                        <a onClick={() => trocar("false")}>Voltar</a>
+                    </div>
                 </ContainerBottom>
             </LoginCont>
         </Container>
