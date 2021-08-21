@@ -56,7 +56,7 @@ const Menu: React.FC = () => {
                     <CardContent>
                         <span />
                         <h1 id="complete">87</h1>
-                        <GraphContainer />
+                        <GraphContainer>a</GraphContainer>
                     </CardContent>
                     <div>
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
@@ -69,7 +69,7 @@ const Menu: React.FC = () => {
                     <CardContent>
                         <span />
                         <h1 id="up">14</h1>
-                        <GraphContainer />
+                        <GraphContainer>a</GraphContainer>
                     </CardContent>
                     <div>
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
@@ -82,7 +82,7 @@ const Menu: React.FC = () => {
                     <CardContent>
                         <span />
                         <h1 id="down">16</h1>
-                        <GraphContainer />
+                        <GraphContainer>a</GraphContainer>
                     </CardContent>
                     <div>
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
