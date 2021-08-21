@@ -67,7 +67,6 @@ export const ContainerHomeCards = styled.div`
 `;
 
 export const GraphContainer = styled.div`
-    background: red;
 `;
 
 
