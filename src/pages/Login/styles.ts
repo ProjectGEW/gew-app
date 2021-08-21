@@ -65,7 +65,7 @@ export const LoginCont = styled.div`
             align-items: center;
             justify-content: center;
 
-            margin-top: 10vh;
+            margin-top: 9vh;
 
             h1 {
                 color: #00579D;
@@ -80,6 +80,8 @@ export const LoginCont = styled.div`
                     position: absolute;
                     margin-top: -5.5vh;
                     margin-left: -2.2vw;
+
+                    display: none;
 
                     background-color: rgba(0, 0, 0, 0.15);
                 }
@@ -97,7 +99,7 @@ export const LoginCont = styled.div`
             a {
                 width: 7vw;
                 height: 5vh;
-                margin-top: 12vh;
+                margin-top: 13vh;
                 border-radius: 1vh;
                 border: 0;
                 text-transform: uppercase;
