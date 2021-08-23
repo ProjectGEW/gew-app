@@ -5,18 +5,18 @@ import { Container } from "./style";
 
 interface buttonProps {
     text: string;
-    rota: string;
+    rota?: string;
 }
 
 const Button: React.FC<buttonProps> = ({text, rota}) => {
     
-    function onClick() {
+    function route() {
         return window.location.href = 'http://www.'+ rota +'.com.br'
     }
 
     return (
         <>
-            <Container><button onClick={onClick}>{text}</button></Container>
+            <Container><button onClick={route}>{text}</button></Container>
         </>
     );
  };
