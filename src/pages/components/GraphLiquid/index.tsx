@@ -1,10 +1,19 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Circle, Waves } from './styles';
 
 const GraphLiquid: React.FC = () => {
     return (
-        <Container></Container>
+        
+        <Circle>
+            <Waves>
+                <circle></circle>
+                <circle></circle>
+                <circle></circle>
+                <circle></circle>
+            </Waves>
+        </Circle>
+        
     );
 }
 
