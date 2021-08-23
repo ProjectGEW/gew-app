@@ -11,6 +11,7 @@ import intl from "react-intl-universal";
 
 import MenuLeft from "../components/MenuLeft";
 import Navbar from "../components/Navbar";
+import GraphLiquid from "../components/GraphLiquid";
 
 import { ContainerMenuRight, ContIcons, Icon,TextMenuRight } from "./styleMenuRight";
 
@@ -50,15 +51,17 @@ const Menu: React.FC = () => {
             </ContainerHomeTitle>
             <ContainerHomeCards>
                 <Card>
-                    <div>
+                    <div id="FirstTitleCard">
                         <h2>{intl.get('cards.primeiro.titulo')}</h2>
                     </div>
                     <CardContent>
                         <span />
                         <h1 id="complete">87</h1>
-                        <GraphContainer></GraphContainer>
+                        <GraphContainer>
+                           <GraphLiquid />
+                        </GraphContainer>
                     </CardContent>
-                    <div>
+                    <div id="FirstVerbCard">
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
@@ -69,7 +72,9 @@ const Menu: React.FC = () => {
                     <CardContent>
                         <span />
                         <h1 id="up">14</h1>
-                        <GraphContainer></GraphContainer>
+                        <GraphContainer>
+                        
+                        </GraphContainer>
                     </CardContent>
                     <div>
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
@@ -82,7 +87,9 @@ const Menu: React.FC = () => {
                     <CardContent>
                         <span />
                         <h1 id="down">16</h1>
-                        <GraphContainer></GraphContainer>
+                        <GraphContainer>
+                           
+                        </GraphContainer>
                     </CardContent>
                     <div>
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
