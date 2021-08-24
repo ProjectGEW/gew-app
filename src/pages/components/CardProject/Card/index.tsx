@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouteMatch, Link } from 'react-router-dom';
-
+import Modal from "react-native-modal";
+import BaseModalWrapper from '../../../components/CardPopUp/baseModalWrapper';
 import api from '../../../../service/api';
 
 import { AiOutlineClockCircle } from "react-icons/ai";
@@ -50,9 +51,18 @@ const CardProject: React.FC<CardStatus> = ({statusColor}) => {
 
     // {project.map(project => ())}
 
+    
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+    const toggleModal = () => {
+        setIsModalVisible(wasModalVisible => !wasModalVisible)
+    }
+
+
     return (
         <>
-            <Card>
+            <Card onClick={toggleModal}>
+            <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} />
                 <CardStatus statusColor={statusColor}/>
                 <CardBox>
                     <BoxLeft>
