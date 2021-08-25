@@ -21,7 +21,7 @@ export const Circle = styled.div<WavesProps>`
         color: white;
         font-weight: bold;
         font-size: 3vh;
-        text-shadow: 0vh 0vh 1vh rgba(0, 0, 0, 1);
+        text-shadow: 0vh 0vh 0.5vh rgba(0, 0, 0, 1);
         position: absolute;
     }
 
