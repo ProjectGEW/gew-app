@@ -26,6 +26,7 @@ export const Circle = styled.div<WavesProps>`
     }
 
     circle {
+        
 
         &:before {
             content: '';
@@ -34,7 +35,8 @@ export const Circle = styled.div<WavesProps>`
             height: 18vh;
             left: 50%;
             transform: translateX(-50%);
-            border-radius: 50%;
+            border-radius: 43%;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 10px 10px -12px, rgba(0, 0, 0, 0.3) 0px 10px 10px -10px;
         }
 
         &:nth-child(1) {
@@ -45,12 +47,12 @@ export const Circle = styled.div<WavesProps>`
         
             @keyframes fill {
                 from {
-                    top: 0px;
+                    top: 5px;
                     transform: translateX(-50%) rotate(0deg);
                 }
         
                 to {
-                    top: 0px;
+                    top: 5px;
                     transform: translateX(-50%) rotate(360deg);
                 }
             }
@@ -141,7 +143,5 @@ export const Waves = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-
-        
+    flex-direction: column;        
 `;
