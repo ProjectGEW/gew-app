@@ -1,5 +1,8 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 import Close  from '../../../assets/close.svg';
+import Ata from '../../../assets/ata.svg';
+import Dashboard from '../../../assets/dashboardIcon.svg';
 
 const ModalContainer = styled.div`
     background-image: linear-gradient(to bottom, #00579d, #00579d 5%,
@@ -48,10 +51,122 @@ export const ModalContainerInfos = styled.div`
 export const ContainerBox = styled.div`
     width: 100%;
     height: 5vh;
-    background-color: black;
     display: flex;
     flex-direction: row;
-    margin-top: 1vh;
+    align-items: center;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        flex-direction: row;
+    }
+    h1 {
+        font-size: 0.5em;
+    }
+
+    h2 {
+        font-size: 0.48em;
+        color: #737373;
+        margin-left: 1vh;
+        margin-top: 0.2vh;
+    }
+
+    input[type='file'] {
+        display: none;
+    }
+          
+    label {
+        width: 10vw;
+        background-color: #0075B1;
+        border-radius: 0.5vh;
+        color: #fff;
+        margin-right: 3vw;
+        padding: 1vh;
+        padding-left: 4vh;
+        font-size: 1.5vh;
+        font-weight: bold;
+        cursor: pointer;  
+        box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
+
+        &:hover {
+            background-color: ${shade(0.3, "#0075B1")}
+        }
+
+        &::before {
+            content: '';
+            width: 1.2vw;
+            height: 2.2vh;
+            position: absolute;
+            margin-top: -0.2vh;
+            margin-left: -3.2vh;
+
+            background-image: url(${Ata});
+            background-size: cover;
+            background-position: center;
+        }
+    }
+
+    &:nth-child(4) {
+        label {
+            &::before{
+                background-image: url(${Dashboard});
+            }
+        }
+    }
+
+    &:nth-child(2) {
+        margin-top: 4vh;
+        margin-bottom: 2vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        a {
+            font-size: 0.7em;
+            color: #229FC6;
+        }
+
+        h3 {
+            font-size: 0.5em;
+            margin-right: 3.4vw;
+        }
+    }
+`;
+
+export const ContainerObjectives = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 4vh;
+
+    h1 {
+        font-size: 2.2vh;
+        font-weight: bold;
+    }
+
+    h2 {
+        font-size: 2vh;
+        font-weight: normal;
+        margin-top: 1.4vh;
+    }
+`;
+
+export const ContainerValues = styled.div`
+    margin-top: 18vh;
+    div {
+        display: flex;
+        flex-direction: row;
+
+        h1 {
+            font-size: 0.5em;
+        }
+    
+        h2 {
+            font-size: 0.48em;
+            color: #737373;
+            margin-left: 1vh;
+            margin-top: 0.2vh;
+        }   
+    }
 `;
 
 export const ModalContainerGraphs = styled.div`
