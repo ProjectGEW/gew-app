@@ -11,11 +11,10 @@ export const Circle = styled.div<WavesProps>`
 
     border-radius: 100%;
 
-    //background-image: linear-gradient(to bottom, #00579d 25%, #0075B1 50%, #0091BD 75%, #009ecf 100% );
-    
-    box-shadow: 0px 0px 0px 0.3vh white, 0px 0px 0px 0.9vh #00579D;
-
+    position: relative;
     overflow: hidden;
+
+    box-shadow: 0px 0px 0px 0.3vh white, 0px 0px 0px 0.9vh #00579D;
 
     &::after {
         content: '0%';
@@ -26,8 +25,97 @@ export const Circle = styled.div<WavesProps>`
         position: absolute;
     }
 
+    circle {
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: 8vw;
+            height: 18vh;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+        }
+
+        &:nth-child(1) {
+            &::before {
+                background-color: #00579D;
+                animation: fill 7s ease-in-out infinite;
+            }
+        
+            @keyframes fill {
+                from {
+                    top: 0px;
+                    transform: translateX(-50%) rotate(0deg);
+                }
+        
+                to {
+                    top: 0px;
+                    transform: translateX(-50%) rotate(360deg);
+                }
+            }
+        }
+
+        &:nth-child(2) {
+            &::before {
+                background-color: #0075b1;
+                animation: fill2 7s ease-in-out infinite;
+            }
+        
+            @keyframes fill2 {
+                from {
+                    top: 20px;
+                    transform: translateX(-50%) rotate(0deg);
+                }
+        
+                to {
+                    top: 20px;
+                    transform: translateX(-50%) rotate(360deg);
+                }
+            }
+        }
+
+        &:nth-child(3) {
+            &::before {
+                background-color: #0091BD;
+                animation: fill3 7s ease-in-out infinite;
+            }
+        
+            @keyframes fill3 {
+                from {
+                    top: 40px;
+                    transform: translateX(-50%) rotate(0deg);
+                }
+        
+                to {
+                    top: 40px;
+                    transform: translateX(-50%) rotate(360deg);
+                }
+            }
+        }
+
+        &:nth-child(4) {
+            &::before {
+                background-color: #009ecf;
+                animation: fill4 7s ease-in-out infinite;
+            }
+        
+            @keyframes fill4 {
+                from {
+                    top: 60px;
+                    transform: translateX(-50%) rotate(0deg);
+                }
+        
+                to {
+                    top: 60px;
+                    transform: translateX(-50%) rotate(360deg);
+                }
+            }
+        }
+
+    }
+
     ${props => props.valor <= 30 && css`
-    background-image: linear-gradient(to bottom, white 86%, #0075B1 30%, #0075B1 50%, #0091BD 75%, #009ecf 100%);
 
         &::after {
             content: '${props.valor}%';
@@ -35,16 +123,14 @@ export const Circle = styled.div<WavesProps>`
     `}
 
     ${props => props.valor > 30 && props.valor <= 60 && css`
-        background-image: linear-gradient(to bottom, white 65%, #0075B1 30%, #0075B1 50%, #0091BD 75%, #009ecf 100%);
-
+     
         &::after {
             content: '${props.valor}%';
         }
     `}
 
     ${props => props.valor > 60 && props.valor <= 90 && css`
-        background-image: linear-gradient(to bottom, white 30%, #0075B1 30%, #0075B1 50%, #0091BD 75%, #009ecf 100%);
-
+       
         &::after {
             content: '${props.valor}%';
         }
@@ -57,27 +143,5 @@ export const Waves = styled.div`
     align-items: center;
     flex-direction: column;
 
-    circle {
-        width: 200%;
-        height: 8vh;
-        display: none;
         
-        &:nth-child(1) {
-            background: #00579D;            
-        }
-
-        &:nth-child(2) {
-            background: #0075B1;
-            
-        }
-
-        &:nth-child(3) {
-            background: #0091BD;            
-        }
-
-        &:nth-child(4) {
-            background: #009ecf;
-            
-        }
-    }
 `;
