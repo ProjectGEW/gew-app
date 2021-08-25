@@ -100,7 +100,7 @@ const styleTypes = {
 export const ContainerMenuRight = styled.div`
     width: 30vw;
     height: 76vh;
-    margin: 9.5vh 0 0 98vw;
+    margin: 9vh 0 0 97.7vw;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -109,7 +109,7 @@ export const ContainerMenuRight = styled.div`
 export const ContIcons = styled.div`
     width: 100%;
     height: 12.3vh;
-    margin-bottom: 0.3vh;
+    margin-bottom: 0.4vh;
     background-color: #0091BD;
     display: flex;
     justify-content: left;
@@ -149,7 +149,7 @@ export const ContIcons = styled.div`
         }
 
         #icons {
-            transform: scale( 3.2, 3.2);
+            transform: scale(3.2, 3.2);
             margin-left: 5vh;
         }
     }
@@ -166,9 +166,9 @@ export const ContIcons = styled.div`
 
 export const Icon = styled.div`
     #icons {
-        width: 2.75vh;
-        heigth: 3.4vh;
-        margin-left: 0.8vh;
+        width: 3vh;
+        height: 4vh;
+        margin-left: 1.1vh;
     }
 `;
 

@@ -46,13 +46,14 @@ export const ContainerHomeTitle = styled.div`
         width: 12vw;
         height: 3vh;
         margin-right: 1.5vw;
-        background-image: linear-gradient( to left, 
-            #64C3D5 15%, #fff 10%, #fff 18%,
-            #0091BD 19.3%, #0091BD 32%, #fff 30.6%, #fff 34.6%,
-            #005DA5 35.6%, #005DA5 49%, #fff 40%, #fff 53%,
-            #00579D 53%, #00579D 65.1%, #fff 65.1%, #fff 69.1%,
-            #0075B1 70%, #0075B1 83%, #fff 80%, #fff 88%,
+        background-image: linear-gradient(to left, 
+            #64C3D5 15%, #fff 10%, #fff 19.3%,
+            #0091BD 19.3%, #0091BD 33%, #fff 30%, #fff 37%,
+            #005DA5 36%, #005DA5 50%, #fff 49%, #fff 54%,
+            #00579D 54%, #00579D 67%, #fff 65.1%, #fff 71%,
+            #0075B1 71%, #0075B1 84%, #fff 80%, #fff 88%,
             #6AACDA 10%, #6AACDA 100%);
+    }
     }
 `;
 
@@ -200,13 +201,13 @@ export const CardContent = styled.div`
         height: 12vh;
         margin-top: -3vh;
         margin-right: 1.5vw;
-        background-image: linear-gradient( to bottom, 
-            #64C3D5 12.3%, #fff 15%, #fff 18%,
-            #0091BD 19.3%, #0091BD 30.6%, #fff 30.6%, #fff 34.6%,
-            #005DA5 36.6%, #005DA5 47.9%, #fff 47.9%, #fff 51.9%,
-            #00579D 54.9%, #00579D 65.1%, #fff 65.1%, #fff 69.1%,
-            #0075B1 72.1%, #0075B1 82.4%, #fff 82.4%, #fff 86.4%,
-            #6AACDA 89.4%, #6AACDA 100%);
+        background-image: linear-gradient(to bottom, 
+            #64C3D5 15%, #fff 10%, #fff 19.3%,
+            #0091BD 19.3%, #0091BD 33%, #fff 30%, #fff 37%,
+            #005DA5 36%, #005DA5 50%, #fff 49%, #fff 54%,
+            #00579D 54%, #00579D 67%, #fff 65.1%, #fff 71%,
+            #0075B1 71%, #0075B1 84%, #fff 80%, #fff 88%,
+            #6AACDA 10%, #6AACDA 100%);
     }
 
     div {        
