@@ -30,12 +30,12 @@ export const CardBox = styled.div`
     border: 0.1vh solid rgb(0, 0, 0, 0.15);
     border-left: 0;
     border-radius: 0px 5px 5px 0px;
-    box-shadow: 2px 2px 3px rgb(0, 0, 0, 0.25);
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
     transition: all 0.2s;
 
     &:hover {
-        box-shadow: 4px 4px 6px rgb(0, 0, 0, 0.25);
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         cursor: pointer;
     }
 `;
@@ -60,7 +60,6 @@ export const BoxLeft = styled.div`
             font-size: 2vh;
             padding: 2px;
             padding-left: 10px;
-            text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.2);
             color: #5B5B5B;
 
             strong {

@@ -47,7 +47,7 @@ export const LoginCont = styled.div`
     flex-direction: column;
     border-radius: 1vh;
     border-left: 0.1vh solid rgba(0, 0, 0, 0.15);
-    box-shadow: 0.4vh 0.4vh 0.4vh rgba(0, 0, 0, 0.4);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
     img {
         width: 8.5vw;
@@ -106,7 +106,7 @@ export const LoginCont = styled.div`
                 background-color: #005DA5;
                 color: white;
                 font-size: 2.2vh;
-                box-shadow: 0vh 1vh 1vh rgba(0, 0, 0, 0.25);
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
                 &:hover {
                     cursor: pointer;
@@ -149,7 +149,7 @@ export const ContainerBtn = styled.div`
         background-color: #005DA5;
         color: white;
         font-size: 2.2vh;
-        box-shadow: 0vh 1vh 1vh rgba(0, 0, 0, 0.25);
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
         &:hover {
             cursor: pointer;
