@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from './Modal';
 import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
-        ContainerBox, ContainerObjectives, ContainerValues } from './ModalPopup.styles';
+        ContainerBox, ContainerObjectives, ContainerValues, HourGraphics } from './ModalPopup.styles';
 
 interface BaseModalWrapperProps {
     isModalVisible: boolean;
@@ -49,14 +49,26 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                                 <h1>Valor do projeto:</h1><h2>R$ 15.000,00</h2>
                             </div>
                             <div>
-                                <h1>Valor consumido</h1><h2>R$ 5.000,00</h2>
+                                <h1>Valor consumido:</h1><h2>R$ 5.000,00</h2>
                             </div>
                             <div>
                                 <h1>Saldo:</h1><h2>R$ 10.000,00</h2>
                             </div>
                         </ContainerValues>
                     </ModalContainerInfos>
-                    <ModalContainerGraphs></ModalContainerGraphs>
+                    <ModalContainerGraphs>
+                        <ContainerValues>
+                            <div>
+                                <h1>Horas esperadas:</h1><h2>120 Horas</h2>
+                            </div>
+                            <div>
+                                <h1>Horas trabalhadas:</h1><h2>60 Horas</h2>
+                            </div>
+                        </ContainerValues>
+                        <HourGraphics>
+
+                        </HourGraphics>
+                    </ModalContainerGraphs>
                 </DesktopModalContainer>
             </Modal>
         );

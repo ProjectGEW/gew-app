@@ -154,17 +154,29 @@ export const ContainerObjectives = styled.div`
 
 export const ContainerValues = styled.div`
     margin-top: 18vh;
+    align-text: center;
+
+    &:nth-child(1) {
+        margin-top: 0vh;
+    
+        div {
+            margin-bottom: 2vh;
+        }
+    }
     div {
         display: flex;
         flex-direction: row;
+        margin-bottom: 0.4vh;
 
         h1 {
-            font-size: 0.5em;
+            font-size: 0.55em;
+            font-weight: bold;
         }
     
         h2 {
-            font-size: 0.48em;
+            font-size: 0.57em;
             color: #737373;
+            font-weight: normal;
             margin-left: 1vh;
             margin-top: 0.2vh;
         }   
@@ -174,7 +186,10 @@ export const ContainerValues = styled.div`
 export const ModalContainerGraphs = styled.div`
     display: flex;
     flex-direction: column;   
-    background-color: #c4c4c4; 
     width: 36.5%;
     height: 100%;
+`;
+
+export const HourGraphics = styled.div`
+
 `;
