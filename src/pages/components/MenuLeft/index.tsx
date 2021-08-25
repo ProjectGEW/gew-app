@@ -9,7 +9,6 @@ import { ContainerMenu, ContainerInfo, UserImg, NewsImg, LineBlue, DeleteImg, Re
     import { FiRefreshCcw } from 'react-icons/fi';
     import { RiDeleteBinLine} from 'react-icons/ri';
 
-
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
     'en-US': require('../../../language/en-US.json'),

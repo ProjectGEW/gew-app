@@ -26,23 +26,21 @@ export const Circle = styled.div<WavesProps>`
     }
 
     circle {
-        
-
-        &:before {
+         &:before {
             content: '';
             position: absolute;
             width: 8vw;
             height: 18vh;
             left: 50%;
             transform: translateX(-50%);
-            border-radius: 43%;
+            border-radius: 40% 41% 42% 43%;
             box-shadow: rgba(50, 50, 93, 0.25) 0px 10px 10px -12px, rgba(0, 0, 0, 0.3) 0px 10px 10px -10px;
         }
 
         &:nth-child(1) {
             &::before {
                 background-color: #00579D;
-                animation: fill 7s ease-in-out infinite;
+                animation: fill 12s linear infinite;
             }
         
             @keyframes fill {
@@ -61,18 +59,18 @@ export const Circle = styled.div<WavesProps>`
         &:nth-child(2) {
             &::before {
                 background-color: #0075b1;
-                animation: fill2 7s ease-in-out infinite;
+                animation: fill2 12s linear infinite;
             }
         
             @keyframes fill2 {
                 from {
                     top: 20px;
-                    transform: translateX(-50%) rotate(0deg);
+                    transform: translateX(-50%) rotate(360deg);
                 }
         
                 to {
                     top: 20px;
-                    transform: translateX(-50%) rotate(360deg);
+                    transform: translateX(-50%) rotate(0deg);
                 }
             }
         }
@@ -80,7 +78,7 @@ export const Circle = styled.div<WavesProps>`
         &:nth-child(3) {
             &::before {
                 background-color: #0091BD;
-                animation: fill3 7s ease-in-out infinite;
+                animation: fill3 12s linear infinite;
             }
         
             @keyframes fill3 {
@@ -99,18 +97,18 @@ export const Circle = styled.div<WavesProps>`
         &:nth-child(4) {
             &::before {
                 background-color: #009ecf;
-                animation: fill4 7s ease-in-out infinite;
+                animation: fill4 12s linear infinite;
             }
         
             @keyframes fill4 {
                 from {
                     top: 60px;
-                    transform: translateX(-50%) rotate(0deg);
+                    transform: translateX(-50%) rotate(360deg);
                 }
         
                 to {
                     top: 60px;
-                    transform: translateX(-50%) rotate(360deg);
+                    transform: translateX(-50%) rotate(0deg);
                 }
             }
         }
