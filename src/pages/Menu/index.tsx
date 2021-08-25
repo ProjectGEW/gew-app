@@ -18,8 +18,7 @@ import { ContainerMenuRight, ContIcons, Icon,TextMenuRight } from "./styleMenuRi
 import { ContainerHome, ContainerHomeGraph, Card, ContainerHomeCards, ContainerHomeTitle, Graph, GraphTitle,
     CardContent, GraphContainer, GraphCont, GraphContNum, GraphBars, Bar, GraphData, Data } from "./styles";
 
-import api from '../../service/api'; 
-import { count } from 'yargs';
+import api from '../../service/api';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -33,6 +32,7 @@ interface Count {
         concluidos: number;
         em_andamento: number;
         atrasados: number;
+        total: number;
     };
     verba: {
         verba_concluidos: number;
@@ -58,25 +58,37 @@ const Menu: React.FC = () => {
 
     const [infos, setInfos] = useState<Count>();
 
-    async function handleData() {
+    async function handleData(): Promise<void> {
         try{
             const response = await api.get<Count>(`projetos/count`);
             const contagem = response.data;
 
             setInfos(contagem);
         } catch (err) {
-            console.log("Não foi possivel realizar a leitura de dados")
+            console.log("Não foi possivel realizar a leitura de dados");
         }
     }
 
+    function calcularPorcentagem(count: number) {
+        const total = infos ? infos.contagem.total : 0;
+        const porcentagem = (count / total) * 100;
+
+        return Math.floor(porcentagem);
+    }
+
     document.addEventListener("DOMContentLoaded", function(event) {
-        event.preventDefault();
+        console.log("DOM completamente carregado e analisado");
         handleData();
     });
 
+    // if (document.readyState === "loading") {  // Ainda carregando
+    //     document.addEventListener("DOMContentLoaded", function(event) { console.log("Carregando")}) ;
+    // } else {  // `DOMContentLoaded` foi disparado
+    //     handleData();
+    // }
+
     return (
         <>
-        {console.log(infos?.contagem.concluidos)}
         <Navbar />
         <MenuLeft />
         <ContainerHome>
@@ -91,9 +103,9 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="complete">{infos?.contagem.concluidos}</h1>
+                        <h1 id="complete">{infos ? infos.contagem.concluidos : 0}</h1>
                         <GraphContainer>
-                           <GraphLiquid valor={67} />
+                           <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.concluidos: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
@@ -108,7 +120,7 @@ const Menu: React.FC = () => {
                         <span />
                         <h1 id="up">{infos?.contagem.em_andamento}</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={15} />
+                            <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.em_andamento: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="SecondVerbCard">
@@ -123,7 +135,7 @@ const Menu: React.FC = () => {
                         <span />
                         <h1 id="down">{infos?.contagem.atrasados}</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={78} />
+                            <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.atrasados: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="ThirdVerbCard">
