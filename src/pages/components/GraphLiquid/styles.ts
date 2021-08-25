@@ -42,7 +42,7 @@ export const Circle = styled.div<WavesProps>`
         }
     `}
 
-    ${props => props.valor > 60 && props.valor <= 90 && css`
+    ${props => props.valor > 60 && props.valor <= 100 && css`
         background-image: linear-gradient(to bottom, white 30%, #0075B1 30%, #0075B1 50%, #0091BD 75%, #009ecf 100%);
 
         &::after {
