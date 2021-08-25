@@ -106,7 +106,7 @@ const Menu: React.FC = () => {
                         <h1 id="complete">{infos ? infos.contagem.concluidos : 0}</h1>
 
                         <GraphContainer>
-                           <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.concluidos: 0)} />
+                           <GraphLiquid valor={8} />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
