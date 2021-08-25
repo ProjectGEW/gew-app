@@ -9,6 +9,7 @@ export const Container = styled.div`
     left: 12vw;
     width: 78vw;
     height: 80vh;
+    border-radius: 0.8vh;
 `;
 
 export const ContainerRegister = styled.div`
@@ -20,8 +21,8 @@ export const ContainerRegister = styled.div`
     justify-content: center;
 
     background-color: #fff;
-    box-shadow: 0.25vh 0.25vh 0.5vh rgb(0, 0, 0, 0.25);
-    border-radius: 0.8vh 0.8vh 0.4vh 0.4vh;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 0.8vh;
 `;
 
 export const Info = styled.div`
@@ -51,6 +52,8 @@ export const Content = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    border-radius: 0vh 0vh 0.8vh 0.8vh;
 `;
 
 export const Line = styled.div`
@@ -244,7 +247,7 @@ export const Box = styled.div`
                 font-size: 1.8vh;
                 cursor: pointer;    
 
-                box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
+                box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 
                 &:hover {
                     background-color: ${shade(0.02, "#C2E4FF")}
@@ -279,6 +282,8 @@ export const Box = styled.div`
                 color: white;
                 font-weight: bold;
                 background-color: #00579D;
+
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
                 &:hover {
                     background-color: ${shade(0.09, "#00579D")}
