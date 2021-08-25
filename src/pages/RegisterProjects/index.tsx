@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
 import { RiErrorWarningFill } from 'react-icons/ri';
-import { AiFillMinusCircle } from 'react-icons/ai';
+import { IoIosCheckmarkCircle } from 'react-icons/io';
 
 import { Container, ContainerRegister, Info, Content, Line, Box } from './styles';
 
@@ -27,7 +27,7 @@ const RegisterProjects: React.FC = () => {
                         <Line>
                             <div>
                                 <p>Projeto</p>
-                                <AiFillMinusCircle />
+                                <IoIosCheckmarkCircle />
                             </div>
                             <div>
                                 <p>Responsáveis</p>
