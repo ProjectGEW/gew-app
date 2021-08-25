@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouteMatch, Link } from 'react-router-dom';
-import Modal from "react-native-modal";
+//import Modal from 'react-native-modal';
 import BaseModalWrapper from '../../../components/CardPopUp/baseModalWrapper';
 import api from '../../../../service/api';
 
