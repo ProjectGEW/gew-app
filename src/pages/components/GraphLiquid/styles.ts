@@ -40,101 +40,120 @@ export const Circle = styled.div<WavesProps>`
         &:nth-child(1) {
             &::before {
                 background-color: #00579D;
-                animation: fill 12s linear infinite;
-            }
-        
-            @keyframes fill {
-                from {
-                    top: 5px;
-                    transform: translateX(-50%) rotate(0deg);
-                }
-        
-                to {
-                    top: 5px;
-                    transform: translateX(-50%) rotate(360deg);
-                }
+                animation: fill-right 12s linear infinite;
             }
         }
 
         &:nth-child(2) {
             &::before {
                 background-color: #0075b1;
-                animation: fill2 12s linear infinite;
-            }
-        
-            @keyframes fill2 {
-                from {
-                    top: 20px;
-                    transform: translateX(-50%) rotate(360deg);
-                }
-        
-                to {
-                    top: 20px;
-                    transform: translateX(-50%) rotate(0deg);
-                }
+                animation: fill-left 12s linear infinite;
             }
         }
 
         &:nth-child(3) {
             &::before {
                 background-color: #0091BD;
-                animation: fill3 12s linear infinite;
-            }
-        
-            @keyframes fill3 {
-                from {
-                    top: 40px;
-                    transform: translateX(-50%) rotate(0deg);
-                }
-        
-                to {
-                    top: 40px;
-                    transform: translateX(-50%) rotate(360deg);
-                }
+                animation: fill-right 12s linear infinite;
             }
         }
 
         &:nth-child(4) {
             &::before {
                 background-color: #009ecf;
-                animation: fill4 12s linear infinite;
+                animation: fill-left 12s linear infinite;
             }
-        
-            @keyframes fill4 {
-                from {
-                    top: 60px;
-                    transform: translateX(-50%) rotate(360deg);
-                }
-        
-                to {
-                    top: 60px;
-                    transform: translateX(-50%) rotate(0deg);
-                }
+        }
+
+        @keyframes fill-left {
+            from {
+                top: 70px;
+                transform: translateX(-50%) rotate(360deg);
+            }
+    
+            to {
+                top: 70px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+        }
+
+        @keyframes fill-right {
+            from {
+                top: 70px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+    
+            to {
+                top: 70px;
+                transform: translateX(-50%) rotate(360deg);
             }
         }
 
     }
 
-    ${props => props.valor <= 30 && css`
+    ${props => props.valor <= 10 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
 
+        
+    `}
+
+    ${props => props.valor > 10 && props.valor <= 20 && css`
         &::after {
             content: '${props.valor}%';
         }
     `}
 
-    ${props => props.valor > 30 && props.valor <= 60 && css`
-     
+    ${props => props.valor > 20 && props.valor <= 30 && css`
         &::after {
             content: '${props.valor}%';
         }
     `}
 
-    ${props => props.valor > 60 && props.valor <= 100 && css`
-        background-image: linear-gradient(to bottom, white 30%, #0075B1 30%, #0075B1 50%, #0091BD 75%, #009ecf 100%);
+    ${props => props.valor > 30 && props.valor <= 40 && css`
         &::after {
             content: '${props.valor}%';
         }
     `}
+
+    ${props => props.valor > 40 && props.valor <= 50 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+    `}
+
+    ${props => props.valor > 50 && props.valor <= 60 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+    `}
+
+    ${props => props.valor > 60 && props.valor <= 70 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+    `}
+
+    ${props => props.valor > 70 && props.valor <= 80 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+    `}
+
+    ${props => props.valor > 80 && props.valor <= 90 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+    `}
+
+    ${props => props.valor > 90 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+    `}
+
+    
 `;
 
 export const Waves = styled.div`
