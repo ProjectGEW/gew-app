@@ -137,14 +137,16 @@ export const ContainerObjectives = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 4vh;
+    margin-right: 3vw;
+    text-align: justify;
 
     h1 {
-        font-size: 2.2vh;
+        font-size: 2.4vh;
         font-weight: bold;
     }
 
     h2 {
-        font-size: 2vh;
+        font-size: 2.1vh;
         font-weight: normal;
         margin-top: 1.4vh;
     }
