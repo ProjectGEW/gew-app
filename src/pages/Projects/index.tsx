@@ -7,7 +7,6 @@ import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
 import Card from '../components/CardProject/Card';
-import CardConcluded from '../components/CardProject/CardConcluded';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
     ContainerFiltro, Center } from './styles';
