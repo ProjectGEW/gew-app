@@ -18,7 +18,7 @@ export const ContainerNavbar = styled.div`
   width: 100%;
   height: 8vh;
   background-color: white;
-  box-shadow: 0.1vh 0.1vh 0.8vh rgb(0, 0, 0, 0.35);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 `;
 
 export const Logo = styled.div`
@@ -122,7 +122,7 @@ export const DropdownMenu = styled.div`
   width: 10vw;
   height: 18vh;
   background: #fff;
-  box-shadow: 0.1vh 0.1vh 0.8vh rgb(0, 0, 0, 0.35);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
   border-radius: 2px;
   position: absolute;
   margin-top: 5.55vh;
@@ -222,7 +222,7 @@ export const DropdownFlag = styled.div`
   width: 8vw;
   height: 20vh;
   background: #fff;
-  box-shadow: 0.1vh 0.1vh 0.8vh rgb(0, 0, 0, 0.35);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
   border-radius: 2px;
   position: absolute;
   margin-top: 8.1vh;
@@ -279,11 +279,6 @@ export const DropdownFlag = styled.div`
                 position: absolute;
                 background: rgb(200, 200, 200, 0.6);
             }
-      }
-
-      &:hover {
-        background: rgb(200, 200, 200, 0.2);
-        cursor: pointer;
       }
 
       &:active {
