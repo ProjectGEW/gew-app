@@ -18,12 +18,28 @@ import { ContainerMenuRight, ContIcons, Icon,TextMenuRight } from "./styleMenuRi
 import { ContainerHome, ContainerHomeGraph, Card, ContainerHomeCards, ContainerHomeTitle, Graph, GraphTitle,
     CardContent, GraphContainer, GraphCont, GraphContNum, GraphBars, Bar, GraphData, Data } from "./styles";
 
+import api from '../../service/api'; 
+import { count } from 'yargs';
+
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
     'en-US': require('../../language/en-US.json'),
     'es': require('../../language/es.json'),
     'fr-FR': require('../../language/fr-FR.json'),
 };
+
+interface Count {
+    contagem: {
+        concluidos: number;
+        em_andamento: number;
+        atrasados: number;
+    };
+    verba: {
+        verba_concluidos: number;
+        verba_em_andamento: number;
+        verba_atrasados: number;
+    }
+}
 
 const Menu: React.FC = () => {
     const [language] = useState(() => {
@@ -40,8 +56,27 @@ const Menu: React.FC = () => {
         locales
     });
 
+    const [infos, setInfos] = useState<Count>();
+
+    async function handleData() {
+        try{
+            const response = await api.get<Count>(`projetos/count`);
+            const contagem = response.data;
+
+            setInfos(contagem);
+        } catch (err) {
+            console.log("Não foi possivel realizar a leitura de dados")
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        event.preventDefault();
+        handleData();
+    });
+
     return (
         <>
+        {console.log(infos?.contagem.concluidos)}
         <Navbar />
         <MenuLeft />
         <ContainerHome>
@@ -56,13 +91,13 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="complete">87</h1>
+                        <h1 id="complete">{infos?.contagem.concluidos}</h1>
                         <GraphContainer>
                            <GraphLiquid />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos?.verba.verba_concluidos}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
@@ -71,13 +106,13 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="up">14</h1>
+                        <h1 id="up">{infos?.contagem.em_andamento}</h1>
                         <GraphContainer>
                         
                         </GraphContainer>
                     </CardContent>
                     <div>
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos?.verba.verba_em_andamento}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
@@ -86,13 +121,13 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="down">16</h1>
+                        <h1 id="down">{infos?.contagem.atrasados}</h1>
                         <GraphContainer>
                            
                         </GraphContainer>
                     </CardContent>
                     <div>
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ 159.956,76 <AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos?.verba.verba_atrasados}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
             </ContainerHomeCards>
