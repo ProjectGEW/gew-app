@@ -93,7 +93,7 @@ const Menu: React.FC = () => {
                         <span />
                         <h1 id="complete">{infos?.contagem.concluidos}</h1>
                         <GraphContainer>
-                           <GraphLiquid />
+                           <GraphLiquid valor={67} />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
@@ -101,32 +101,32 @@ const Menu: React.FC = () => {
                     </div>
                 </Card>
                 <Card>
-                    <div>
+                    <div id="SecondTitleCard">
                         <h2>{intl.get('cards.segundo.titulo')}</h2>
                     </div>
                     <CardContent>
                         <span />
                         <h1 id="up">{infos?.contagem.em_andamento}</h1>
                         <GraphContainer>
-                        
+                            <GraphLiquid valor={15} />
                         </GraphContainer>
                     </CardContent>
-                    <div>
+                    <div id="SecondVerbCard">
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos?.verba.verba_em_andamento}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
-                    <div>
+                    <div id="ThirdTitleCard">
                         <h2>{intl.get('cards.terceiro.titulo')}</h2>
                     </div>
                     <CardContent>
                         <span />
                         <h1 id="down">{infos?.contagem.atrasados}</h1>
                         <GraphContainer>
-                           
+                            <GraphLiquid valor={78} />
                         </GraphContainer>
                     </CardContent>
-                    <div>
+                    <div id="ThirdVerbCard">
                         <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos?.verba.verba_atrasados}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>

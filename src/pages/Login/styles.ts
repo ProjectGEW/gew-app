@@ -91,10 +91,6 @@ export const LoginCont = styled.div`
                 color: #00579D;
                 font-size: 2.2vh;
             }
-
-            h1, p {
-                text-shadow: 1vh 1vh 1vh rgba(0, 0, 0, 0.2);
-            }
             
             a {
                 width: 7vw;

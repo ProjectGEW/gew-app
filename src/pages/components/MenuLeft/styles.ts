@@ -7,7 +7,7 @@ export const ContainerMenu = styled.div`
     margin-left: -11.5vw;
     background-color: #fff;
     border-radius: 0 2vh 2vh 0;
-    box-shadow: 0px 4px 4px rgb(0, 0, 0, 0.25);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border: 0.1vh solid rgba(153, 153, 153, 0.40);
     position: fixed;
     display: flex;

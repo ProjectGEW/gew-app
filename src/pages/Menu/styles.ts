@@ -18,7 +18,7 @@ export const ContainerHome = styled.div`
     align-items: center;
 
     background-color: #fff;
-    box-shadow: 0.25vh 0.25vh rgb(0, 0, 0, 0.25);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border-radius: 0.8vh;
 `;
 
@@ -80,23 +80,18 @@ export const Card = styled.div`
     border: 0.2vh solid #00579D;
     border-radius: 0.8vh;
 
-    box-shadow: 0vh 0.4vh 0.4vh rgb(0, 0, 0, 0.25);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
-    #FirstTitleCard {
-        margin: 1.2vh 0 0vh 1vh;
-    }
-
-    #FirstVerbCard {
+    #FirstTitleCard, #SecondTitleCard, #ThirdTitleCard, #FirstVerbCard, #SecondVerbCard, #ThirdVerbCard {
         margin: 1.2vh 0 0vh 1vh;
     }
 
     div {
         width: 100%;
-        
 
         h2 {
             font-size: 2.5vh;
@@ -154,14 +149,14 @@ export const CardContent = styled.div`
 
         & + div {
             position: absolute;
-            width: 6.5vw;
+            width: 6vw;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            margin-top: -3vh;
-            margin-left: 9.6vw;
+            margin-top: -2.6vh;
+            margin-left: 9.8vw;
         }
     }
 
@@ -214,9 +209,8 @@ export const CardContent = styled.div`
             #6AACDA 89.4%, #6AACDA 100%);
     }
 
-    div {
-        width: 100%;
-        height: 15vh;
+    div {        
+        height: 12vh;
     }
 
 `;
@@ -234,6 +228,7 @@ export const GraphTitle = styled.div`
     width: 100%;
     background-color: #00579D;
     border-radius: 0.8vh 0.8vh 0 0;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -253,6 +248,7 @@ export const Graph = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 
 export const GraphCont = styled.div`
