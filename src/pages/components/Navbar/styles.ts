@@ -22,7 +22,7 @@ export const ContainerNavbar = styled.div`
 `;
 
 export const Logo = styled.div`
-  width: 4.2vw;
+  width: 4.4vw;
   height: 6vh;
   margin: 1vh 0 0 1vw;
   background-image: url("https://www.weg.net/institutional/_ui/desktop/theme-institutional/img/brand.svg");
@@ -70,8 +70,8 @@ export const PageIndicator = styled.div`
   #projects {
     margin-left: -1.5vw;
   }
-  #home,
-  #projects {
+
+  #home, #projects {
     &:before {
       content: "";
       width: 1vw;
@@ -84,6 +84,7 @@ export const PageIndicator = styled.div`
 
   #page {
     margin-left: -0.1vw;
+
     &:after {
       content: "";
       width: 8vw;
@@ -99,19 +100,11 @@ export const PageIndicator = styled.div`
 export const SandwichMenu = styled.div`
   width: 2vw;
   height: 4vh;
-  margin: 2.5vh 2vw 0 1vw;
+  margin: 2.2vh 2vw 0 1vw;
   float: right;
+
   background-image: linear-gradient(
-    to bottom,
-    #00579d 20%,
-    #fff 20%,
-    #fff 40%,
-    #00579d 40%,
-    #00579d 60%,
-    #fff 60%,
-    #fff 80%,
-    #00579d 80%
-  );
+    to bottom, #00579d 20%, #fff 20%, #fff 40%, #00579d 40%, #00579d 60%, #fff 60%, #fff 80%, #00579d 80%);
 
   &:hover {
     cursor: pointer;
