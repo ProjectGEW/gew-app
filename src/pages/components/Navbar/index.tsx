@@ -35,16 +35,16 @@ const Navbar: React.FC = () => {
   const [page, setPage] = useState("");
 
   const historicPage = () => {
-    if (location.pathname == "/home") {
+    if (location.pathname === "/home") {
       document.getElementById("home")!.style.display = "none";
       document.getElementById("projects")!.style.display = "none";
       setPage("Home");
       
-    } else if (location.pathname == "/projects") {
+    } else if (location.pathname === "/projects") {
       document.getElementById("projects")!.style.display = "none";
       setPage("Projetos");
 
-    } else if (location.pathname == "/Dashboard") {
+    } else if (location.pathname === "/Dashboard") {
       setPage("Dashboards");
     }
   };
