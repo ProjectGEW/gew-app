@@ -8,42 +8,39 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 
 import { Card, CardStatus, CardBox, BoxLeft, BoxRight, Progress, Value } from './styles';
 
-interface CardStatusColor {
-    statusColor: string;
-}
-
 interface RepositoryParams {
     repository: string;
 }
 
+interface CardProps {
+    id: number;
+}
+
 interface CardContent {
-    infoprojetoDTO: {
+    infoprojetoDTO : {
+        id: number;
         numeroDoProjeto: number;
         titulo: string;
+        descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
         status: string;
     };
-    ccPagantes: [
-        {
-            valor: number;
-        }
-    ];
-    despesas: [
-        {
-            esforco: number;
-        }
-    ]        
+    valoresTotaisDTO : {
+        valorTotalCcPagantes: number;
+        valorTotalDespesas: number;
+        valorTotalEsforco: number;
+    };      
 }
 
-const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
+const CardProject: React.FC<CardProps> = ({id}) => {
 
-    const [project, setProject] = useState<CardContent[]>([]);
+    const [project, setProject] = useState<CardContent>();
 
     const { params } = useRouteMatch<RepositoryParams>();
 
     useEffect(() => {
-      api.get(`/projetos`).then((response => {
+      api.get<CardContent>(`/projetos/${id}`).then((response => {
         setProject(response.data);
       }))
 
@@ -63,11 +60,11 @@ const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
         <>
             <Card onClick={toggleModal}>
             <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} />
-                <CardStatus statusColor={statusColor}/>
+                <CardStatus statusColor={project ? project.infoprojetoDTO.status : "NAO_INICIADO"}/>
                 <CardBox>
                     <BoxLeft>
                         <div>
-                            <p>{project ? 128723134 : 128723134} - Seção ABC</p>
+                            <p>{project ? project.infoprojetoDTO.numeroDoProjeto : "00000000"} - Seção ABC</p>
                             <h1>WEC - IMPLATAÇÃO DE EDI CLIENTE XYZ</h1>
                         </div>
                         <div>
@@ -84,11 +81,19 @@ const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
                             <p>Status: <strong>Atrasado</strong></p>
                         </div>
                         <div>
-                            <p><strong>Horas:</strong> <AiOutlineClockCircle size={15} /> 120 Horas</p>
-                            <p><strong>Apontadas:</strong> <AiOutlineClockCircle size={15} /> 60 Horas</p>
-                            <Progress>
-                                <Value />
-                            </Progress>
+                            {project ? project.infoprojetoDTO.status != "CONCLUIDO" ?
+                                <>
+                                    <p><strong>Horas:</strong> <AiOutlineClockCircle size={15} /> 120 Horas</p>
+                                    <p><strong>Apontadas:</strong> <AiOutlineClockCircle size={15} /> 60 Horas</p>
+                                    <Progress>
+                                        <Value />
+                                    </Progress>
+                                </>
+                                :
+                                ''
+                                :
+                                ''
+                            }
                         </div>
                     </BoxRight>
                 </CardBox>
