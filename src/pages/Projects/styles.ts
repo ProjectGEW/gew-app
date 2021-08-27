@@ -96,8 +96,6 @@ export const ContainerFiltro = styled.div`
             width: 12vw;
             padding: 0.5vh;
 
-            border-color: #ccc;
-
             color: #00579D;
             border: 0.2vh solid #c4c4c4;
         }
