@@ -201,7 +201,7 @@ export const ContainerValues = styled.div`
 export const ModalContainerGraphs = styled.div`
     display: flex;
     flex-direction: column;   
-    width: 36.5%;
+    width: 38.5%;
     height: 100%;
 `;
 

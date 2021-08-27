@@ -9,7 +9,6 @@ import Projects from '../pages/Projects';
 import RegisterProjects from '../pages/RegisterProjects';
 import EditProjects from '../pages/EditProjects';
 import Settings from '../pages/Settings';
-
 const Routes: React.FC = () => (
     <Switch>
         <Route path="/" exact component={Login} />
