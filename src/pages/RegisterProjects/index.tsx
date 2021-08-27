@@ -3,77 +3,55 @@ import React from 'react';
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
+import Projeto from '../components/RegisterProject/Projeto';
+import Responsavel from '../components/RegisterProject/Responsavel';
+import Dinheiro from '../components/RegisterProject/Dinheiro';
+import Datas from '../components/RegisterProject/Datas';
 
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 
-import { Container, ContainerRegister, Info, Content, Line, Box } from './styles';
+import { Container, ContainerRegister, Info, Content, Line } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
-import { useState } from 'react';
 
 const RegisterProjects: React.FC = () => {
-    const [data, setData] = useState("");
-
-    function teste() {
-        setData((document.getElementById("ata") as HTMLInputElement).value);
-        console.log(data.substring(12, -1));
-    }
+    
     return (
         <>
-            <Navbar />
-            <MenuLeft />
-
-            <Container>
-                <ContainerRegister>
-                    <Info>
-                        <h1>Cadastrar Projeto</h1>
-                    </Info>
-                    <Content>
-                        <Line>
-                            <div>
-                                <p>Projeto</p>
-                                <IoIosCheckmarkCircle />
-                            </div>
-                            <div>
-                                <p>Responsáveis</p>
-                                <RiErrorWarningFill />
-                            </div>
-                            <div>
-                                <p>R$</p>
-                                <RiErrorWarningFill />
-                            </div>
-                            <div>
-                                <p>Datas</p>
-                                <RiErrorWarningFill />
-                            </div>
-                        </Line>
-                        <Box>
-                            <div>
-                                <label>Número do projeto:</label>
-                                <input type="text" />
-                                
-                                <label>Título do projeto:</label>
-                                <input type="text" />
-
-                                <label>Descrição do projeto:</label>
-                                <textarea />
-                            </div>
-                            <div>
-                                <p>Ata de aprovação:</p>
-                                <label htmlFor="ata">{data ? data : "SELECIONAR ARQUIVO"}</label>
-                                <input type="file" id="ata" onClick={teste} />
-
-                                <button type="submit">Continuar</button>
-                            </div>
-                        </Box>
-                    </Content>
-                </ContainerRegister>
-            </Container>
-
-            <MenuRight>
-                <ContIcons />
-            </MenuRight>
+        <Navbar />
+        <MenuLeft />
+        <Container>
+            <ContainerRegister>
+                <Info>
+                    <h1>Cadastrar Projeto</h1>
+                </Info>
+                <Content>
+                    <Line>
+                        <div>
+                            <p>Projeto</p>
+                            <IoIosCheckmarkCircle />
+                        </div>
+                        <div>
+                            <p>Responsáveis</p>
+                            <RiErrorWarningFill />
+                        </div>
+                        <div>
+                            <p>R$</p>
+                            <RiErrorWarningFill />
+                        </div>
+                        <div>
+                            <p>Datas</p>
+                            <RiErrorWarningFill />
+                        </div>
+                    </Line>
+                    <Responsavel /> {/* Local para trocar a tela de cadastro */}
+                </Content>
+            </ContainerRegister>
+        </Container>
+        <MenuRight>
+            <ContIcons />
+        </MenuRight>
         </>    
     );
 };
