@@ -127,7 +127,7 @@ export const ProjectsGrid = styled.div`
     width: 100%;
     height: 80vh;
     padding: 0px 20px;
-    align-items: center;    
+    align-items: center;   
     
     overflow: scroll;
     overflow-x: hidden;
@@ -151,8 +151,6 @@ export const Center = styled.div`
     }
 
     display: flex;
-    place-content: space-between;
-    flex: wrap;
-    flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
 `;
