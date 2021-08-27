@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch, Link } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 //import Modal from 'react-native-modal';
 import BaseModalWrapper from '../../../components/CardPopUp/baseModalWrapper';
 import api from '../../../../service/api';
@@ -8,7 +8,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 
 import { Card, CardStatus, CardBox, BoxLeft, BoxRight, Progress, Value } from './styles';
 
-interface CardStatus {
+interface CardStatusColor {
     statusColor: string;
 }
 
@@ -36,7 +36,7 @@ interface CardContent {
     ]        
 }
 
-const CardProject: React.FC<CardStatus> = ({statusColor}) => {
+const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
 
     const [project, setProject] = useState<CardContent[]>([]);
 
@@ -67,7 +67,7 @@ const CardProject: React.FC<CardStatus> = ({statusColor}) => {
                 <CardBox>
                     <BoxLeft>
                         <div>
-                            <p>128723134 - Seção ABC</p>
+                            <p>{project ? 128723134 : 128723134} - Seção ABC</p>
                             <h1>WEC - IMPLATAÇÃO DE EDI CLIENTE XYZ</h1>
                         </div>
                         <div>
