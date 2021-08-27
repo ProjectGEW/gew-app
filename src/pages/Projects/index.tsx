@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 
@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
 import Card from '../components/CardProject/Card';
-import CardConcluded from '../components/CardProject/CardConcluded';
+//import CardConcluded from '../components/CardProject/CardConcluded';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
     ContainerFiltro, Center } from './styles';
@@ -17,66 +17,66 @@ import { ContIcons } from '../components/MenuRight/styles';
 const Projects: React.FC = () => {
     return (
         <>
-            <Navbar />
-            <MenuLeft />
-            <Container>
-                <ContainerProject>
-                    <ContainerInfo>
-                        <ContainerTitle>
-                            <h1>Projetos alocados <IoMdArrowDropright size={25} /></h1>
-                            <span />
-                        </ContainerTitle>
-                        <ContainerFiltro>
-                            <h1>Filtros:</h1>
-                            <div>
-                                <label>Seção:</label>
-                                <select name="secao">
-                                    <option value="se1">ABC</option>
-                                    <option value="se2">DEF</option>
-                                    <option value="se3">GHI</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Status:</label>
-                                <select name="status">
-                                    <option value="Atrasado">Atrasado</option>
-                                    <option value="Em andamento" selected>Em andamento</option>
-                                    <option value="Concluído">Concluído</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Projeto:</label>
-                                <input placeholder="Digite aqui" />
-                            </div>
-                        </ContainerFiltro>
-                    </ContainerInfo>
-                    <ProjectsGrid>
-                        <Center>
-                            <Card statusColor={"ATRASADO"} /> 
-                            <Card statusColor={"ATRASADO"} /> 
-                        </Center>
-                        <Center>
-                            <Card statusColor={"ATRASADO"} /> 
-                            <Card statusColor={"ATRASADO"} /> 
-                        </Center>
-                        <Center>
-                            <Card statusColor={"ATRASADO"} /> 
-                            <Card statusColor={"ATRASADO"} /> 
-                        </Center>
-                        <Center>
-                            <Card statusColor={"ATRASADO"} /> 
-                            <Card statusColor={"ATRASADO"} /> 
-                        </Center>
-                        <Center>
-                            <Card statusColor={"ATRASADO"} /> 
-                            <Card statusColor={"ATRASADO"} /> 
-                        </Center>
-                    </ProjectsGrid>
-                </ContainerProject>
-            </Container>
-            <MenuRight>
-                <ContIcons />
-            </MenuRight>
+        <Navbar />
+        <MenuLeft />
+        <Container>
+            <ContainerProject>
+                <ContainerInfo>
+                    <ContainerTitle>
+                        <h1>Projetos alocados <IoMdArrowDropright size={25} /></h1>
+                        <span />
+                    </ContainerTitle>
+                    <ContainerFiltro>
+                        <h1>Filtros:</h1>
+                        <div>
+                            <label>Seção:</label>
+                            <select name="secao">
+                                <option value="se1">ABC</option>
+                                <option value="se2">DEF</option>
+                                <option value="se3">GHI</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Status:</label>
+                            <select name="status">
+                                <option value="Atrasado">Atrasado</option>
+                                <option value="Em andamento" selected>Em andamento</option>
+                                <option value="Concluído">Concluído</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Projeto:</label>
+                            <input placeholder="Digite aqui" />
+                        </div>
+                    </ContainerFiltro>
+                </ContainerInfo>
+                <ProjectsGrid>
+                    <Center>
+                        <Card statusColor={"ATRASADO"} /> 
+                        <Card statusColor={"ATRASADO"} /> 
+                    </Center>
+                    <Center>
+                        <Card statusColor={"ATRASADO"} /> 
+                        <Card statusColor={"ATRASADO"} /> 
+                    </Center>
+                    <Center>
+                        <Card statusColor={"ATRASADO"} /> 
+                        <Card statusColor={"ATRASADO"} /> 
+                    </Center>
+                    <Center>
+                        <Card statusColor={"ATRASADO"} /> 
+                        <Card statusColor={"ATRASADO"} /> 
+                    </Center>
+                    <Center>
+                        <Card statusColor={"ATRASADO"} /> 
+                        <Card statusColor={"ATRASADO"} /> 
+                    </Center>
+                </ProjectsGrid>
+            </ContainerProject>
+        </Container>
+        <MenuRight>
+            <ContIcons />
+        </MenuRight>
         </>
     );
 };
