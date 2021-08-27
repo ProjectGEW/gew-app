@@ -5,9 +5,10 @@ import { Container } from "./style";
 interface buttonProps {
     text: string;
     rota?: string;
+    tipo: string;
 }
 
-const Button: React.FC<buttonProps> = ({text, rota}) => {
+const Button: React.FC<buttonProps> = ({text, rota, tipo}) => {
     
     function route() {
         return window.location.href = 'http://localhost:3000/'+ rota 
@@ -15,7 +16,7 @@ const Button: React.FC<buttonProps> = ({text, rota}) => {
 
     return (
         <>
-            <Container><button onClick={route}>{text}</button></Container>
+            <Container tipo={tipo}><button onClick={route}>{text}</button></Container>
         </>
     );
  };
