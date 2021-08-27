@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { useLocation } from "react-router-dom";
 
@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
   //const pathname = window.location.pathname;
   const [page, setPage] = useState("");
 
-  const historicPage = () => {
+  const historicPage = useCallback(() => {
     if (location.pathname === "/home") {
       document.getElementById("home")!.style.display = "none";
       document.getElementById("projects")!.style.display = "none";
@@ -49,9 +49,8 @@ const Navbar: React.FC = () => {
     } else if (location.pathname === "/register_projects") {
       document.getElementById("projects")!.style.display = "none";
       setPage("Cad. Projetos");
-
     }
-  };
+  }, [])
 
   useEffect(() => {
     historicPage();
@@ -85,16 +84,14 @@ const Navbar: React.FC = () => {
     }
   }
 
-  const types = ["BR", "EN", "ES", "FR"];
-
-  const chooseFlag = (flag: String, codeFlag: String) => {{       
-    if(flag == "BR") {
+  const chooseFlag = (flag: String, codeFlag: String) => {       
+    if(flag === "BR") {
         document.getElementById("flagSelected")!.style.backgroundImage = "url(" + BR + ")";
-    } else if(flag == "EN") {
+    } else if(flag === "EN") {
         document.getElementById("flagSelected")!.style.backgroundImage = "url(" + EN + ")";
-    } else if(flag == "ES") {
+    } else if(flag === "ES") {
         document.getElementById("flagSelected")!.style.backgroundImage = "url(" + ES + ")";
-    } else if(flag == "FR") {
+    } else if(flag === "FR") {
         document.getElementById("flagSelected")!.style.backgroundImage = "url(" + FR + ")";
     }
 
@@ -103,7 +100,7 @@ const Navbar: React.FC = () => {
 
     window.location.reload();
     openMenuFlag()
-  }}
+  }
 
   return (
     <ContainerNavbar onLoad={historicPage}>
@@ -140,10 +137,10 @@ const Navbar: React.FC = () => {
       </LanguageIndicator>
         <DropdownFlag id="dropdownFlag">
           <ul>
-            <li id="flagBR" onClick={() => chooseFlag("BR", "pt-BR")}><a>BR</a><Flag type={"BR"}/></li>
-            <li id="flagEN" onClick={() => chooseFlag("EN", "en-US")}><a>EN</a><Flag type={"EN"}/></li>
-            <li id="flagES" onClick={() => chooseFlag("ES", "es")}><a>ES</a><Flag type={"ES"}/></li>
-            <li id="flagFR" onClick={() => chooseFlag("FR", "fr-FR")}><a>FR</a><Flag type={"FR"}/></li>
+            <li id="flagBR" onClick={() => chooseFlag("BR", "pt-BR")}><p>BR</p><Flag type={"BR"}/></li>
+            <li id="flagEN" onClick={() => chooseFlag("EN", "en-US")}><p>EN</p><Flag type={"EN"}/></li>
+            <li id="flagES" onClick={() => chooseFlag("ES", "es")}><p>ES</p><Flag type={"ES"}/></li>
+            <li id="flagFR" onClick={() => chooseFlag("FR", "fr-FR")}><p>FR</p><Flag type={"FR"}/></li>
           </ul>
         </DropdownFlag>
     </ContainerNavbar>
