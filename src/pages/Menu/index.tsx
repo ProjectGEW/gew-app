@@ -41,6 +41,11 @@ interface Count {
     }
 }
 
+interface CountPerData {
+    data: string;
+    projetosConcluidos: number;
+}
+
 const Menu: React.FC = () => {
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -56,30 +61,40 @@ const Menu: React.FC = () => {
         locales
     });
 
-    const [infos, setInfos] = useState<Count>();
+    const [counts, setCounts] = useState<Count>();
+    const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
+    const today = new Date();
 
-    async function handleData(): Promise<void> {
+    const today_string = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+
+    window.onload = async function handleData(): Promise<void> {
         try{
             const response = await api.get<Count>(`projetos/count`);
             const contagem = response.data;
 
-            setInfos(contagem);
+            setCounts(contagem);
+
+            const response_perData = await api.get<CountPerData[]>(`projetos/count/${today_string}`);
+            const contagem_perData = response_perData.data;
+
+            setCountsPerData(contagem_perData);
+            
         } catch (err) {
             console.log("Não foi possivel realizar a leitura de dados");
         }
     }
 
     function calcularPorcentagem(count: number) {
-        const total = infos ? infos.contagem.total : 0;
+        const total = counts ? counts.contagem.total : 0;
         const porcentagem = (count / total) * 100;
 
         return Math.floor(porcentagem);
     }
 
-    document.addEventListener("DOMContentLoaded", function(event) {
-        console.log("DOM completamente carregado e analisado");
-        handleData();
-    });
+    // document.addEventListener("DOMContentLoaded", function(event) {
+    //     console.log("DOM completamente carregado e analisado");
+    //     handleData();
+    // });
 
     // if (document.readyState === "loading") {  // Ainda carregando
     //     document.addEventListener("DOMContentLoaded", function(event) { console.log("Carregando")}) ;
@@ -103,14 +118,14 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="complete">{infos ? infos.contagem.concluidos : 0}</h1>
+                        <h1 id="complete">{counts ? counts.contagem.concluidos : 0}</h1>
 
                         <GraphContainer>
-                           <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.concluidos: 0)} />
+                           <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.concluidos: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos ? infos.verba.verbaConcluidos : 0}<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {counts ? counts.verba.verbaConcluidos : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
@@ -119,13 +134,13 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="up">{infos ? infos.contagem.emAndamento : 0}</h1>
+                        <h1 id="up">{counts ? counts.contagem.emAndamento : 0}</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.emAndamento: 0)} />
+                            <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="SecondVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos ? infos.verba.verbaEmAndamento : 0}<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {counts ? counts.verba.verbaEmAndamento : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
@@ -134,13 +149,13 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="down">{infos ? infos.contagem.atrasados : 0}</h1>
+                        <h1 id="down">{counts ? counts.contagem.atrasados : 0}</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.atrasados: 0)} />
+                            <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.atrasados: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="ThirdVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos ? infos.verba.verbaAtrasados : 0}<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {counts ? counts.verba.verbaAtrasados : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
             </ContainerHomeCards>
@@ -158,23 +173,23 @@ const Menu: React.FC = () => {
                         <GraphContNum>0</GraphContNum>
                     </GraphCont>
                     <GraphBars>
-                        <Bar valor={1} id="bar1"/>
-                        <Bar valor={2} id="bar2"/>
-                        <Bar valor={3} id="bar3"/>
-                        <Bar valor={4} id="bar4"/>
-                        <Bar valor={5} id="bar5"/>
-                        <Bar valor={4} id="bar6"/>
-                        <Bar valor={3} id="bar7"/>
+                        <Bar valor={countsPerData[6] ? countsPerData[6].projetosConcluidos : 0} id="bar1"/>
+                        <Bar valor={countsPerData[5] ? countsPerData[5].projetosConcluidos : 0} id="bar2"/>
+                        <Bar valor={countsPerData[4] ? countsPerData[4].projetosConcluidos : 0} id="bar3"/>
+                        <Bar valor={countsPerData[3] ? countsPerData[3].projetosConcluidos : 0} id="bar4"/>
+                        <Bar valor={countsPerData[2] ? countsPerData[2].projetosConcluidos : 0} id="bar5"/>
+                        <Bar valor={countsPerData[1] ? countsPerData[1].projetosConcluidos : 0} id="bar6"/>
+                        <Bar valor={countsPerData[0] ? countsPerData[0].projetosConcluidos : 0} id="bar7"/>
                     </GraphBars>
                 </Graph>
                 <GraphData>
-                    <Data id="dataOne">01/06</Data>
-                    <Data id="dataTwo">02/06</Data>
-                    <Data id="dataThree">03/06</Data>
-                    <Data id="dataFour">04/06</Data>
-                    <Data id="dataFive">05/06</Data>
-                    <Data id="dataSix">06/06</Data>
-                    <Data id="dataSeven">07/06</Data>
+                    <Data id="dataOne">{countsPerData[6] ? countsPerData[6].data : 0}</Data>
+                    <Data id="dataTwo">{countsPerData[5] ? countsPerData[5].data : 0}</Data>
+                    <Data id="dataThree">{countsPerData[4] ? countsPerData[4].data : 0}</Data>
+                    <Data id="dataFour">{countsPerData[3] ? countsPerData[3].data : 0}</Data>
+                    <Data id="dataFive">{countsPerData[2] ? countsPerData[2].data : 0}</Data>
+                    <Data id="dataSix">{countsPerData[1] ? countsPerData[1].data : 0}</Data>
+                    <Data id="dataSeven">{countsPerData[0] ? countsPerData[0].data : 0}</Data>
                 </GraphData>
             </ContainerHomeGraph>
         </ContainerHome>

@@ -11,10 +11,6 @@ interface BaseModalWrapperProps {
     onBackdropClick: () => void;
 }
 
-interface ButtonPopUp {
-    tipo?: string;
-}
-
 const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible}) => {
     if (!isModalVisible) {
         return null
@@ -107,7 +103,6 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                                 <h1>Saldo:</h1><h2>R$ 10.000,00</h2>
                             </div>
                         </ContainerValues>
-                        <Button text={'Detalhes'} rota={'details'} tipo={'PopUp'} />
                     </ModalContainerGraphs>
                 </DesktopModalContainer>
             </Modal>
