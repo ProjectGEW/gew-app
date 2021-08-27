@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Circle, Waves } from './styles';
 
-interface Circle {
+interface ValorCircle {
     valor: number;
 }
 
-const GraphLiquid: React.FC<Circle> = ({valor}) => {
+const GraphLiquid: React.FC<ValorCircle> = ({valor}) => {
     return (
         <Circle valor={valor}>
             <Waves>
