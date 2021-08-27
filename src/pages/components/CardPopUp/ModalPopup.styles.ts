@@ -21,7 +21,7 @@ export const DesktopModalContainer = styled(ModalContainer)`
     height: 86.5vh;
     font-size: 26px;
 
-    a {
+    span {
         background-image: url(${Close});
         border: 0;
         background-color: transparent;
