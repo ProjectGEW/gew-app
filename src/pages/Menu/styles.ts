@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { shade } from "polished";
 
 import Complete from "../../assets/complete.svg";
@@ -298,25 +298,19 @@ export const GraphBars = styled.div`
     align-items: center;
 
     #bar1 {
-        height: 23.5vh;
-        margin-top: 0vh;
-        margin-left: 1vw;
+        margin-left: 1.2vw;
     }
 
-    #bar2 {height: 18.7vh; margin-top: 4.8vh;}
-    #bar3 {height: 5vh; margin-top: 18.5vh;}
-    #bar4 {height: 9.5vh; margin-top: 14vh;}
-    #bar5 {height: 19vh; margin-top: 4.5vh;}
-    #bar6 {height: 23.5vh; margin-top: 0vh;}
-    
     #bar7 {
-        height: 18.7vh;
-        margin-top: 4.8vh;
-        margin-right: 1vw;
+        margin-right: 1.2vw;
     }
 `;
 
-export const Bar = styled.div`
+interface ValorGraphBar {
+    valor: number;
+}
+
+export const Bar = styled.div<ValorGraphBar>`
     width: 4vw;
     background-color: #00579D;
     display: flex;
@@ -328,6 +322,31 @@ export const Bar = styled.div`
     &:hover {
         background-color: ${shade(0.1, 'rgb(0, 79, 139)')}
     }
+
+    ${props => props.valor === 1 && css`
+        height: 5vh;
+        margin-top: 18.5vh;
+    `}
+
+    ${props => props.valor === 2 && css`
+        height: 9.5vh;
+        margin-top: 14vh;
+    `}
+
+    ${props => props.valor === 3 && css`
+        height: 14.5vh;
+        margin-top: 9.5vh;
+    `}
+
+    ${props => props.valor === 4 && css`
+        height: 19.5vh;
+        margin-top: 5vh;
+    `}
+
+    ${props => props.valor === 5 && css`
+        height: 23.5vh;
+        margin-top: 0vh;
+    `}
 `;
 
 export const GraphData = styled.div`
