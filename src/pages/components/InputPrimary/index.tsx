@@ -5,7 +5,7 @@ import { FiAlertCircle } from 'react-icons/fi';
 
 import { useField } from '@unform/core';
 
-import {ContainerInput, User, Error } from './styles';
+import {User, Error } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
