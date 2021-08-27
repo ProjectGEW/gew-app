@@ -1,7 +1,11 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { shade } from 'polished';
 
-export const Container = styled.div`
+interface buttonProps {
+    tipo: string;
+}
+
+export const Container = styled.div<buttonProps>`
     button {
         height: 5vh;
 
@@ -22,4 +26,15 @@ export const Container = styled.div`
             background-color: ${shade(0.09, "#00579D")}
         }
     }
+
+    ${props => props.tipo === "PopUp" && css`
+        button {
+            position: absolute;
+            margin-top: 75vh;
+            margin-right: 10vh;
+            width: 12vw;
+            height: 5vh;
+        }
+    
+    `}
 `
