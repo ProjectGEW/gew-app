@@ -5,11 +5,11 @@ import { FaEdit } from "react-icons/fa";
 
 import { Card, CardStatus, CardBox, BoxLeft, BoxRight } from './styles';
 
-interface CardStatus {
+interface CardStatusColor {
     statusColor: string;
 }
 
-const CardProject: React.FC<CardStatus> = ({statusColor}) => {
+const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
     return (
         <>
             <Card>
