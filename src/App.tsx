@@ -3,9 +3,9 @@ import GlobalStyle from './styles/global';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
 
-import { AuthProvider } from './context/AuthContext';
+//import { AuthProvider } from './context/AuthContext';
 
-import Login from "./pages/Login";
+//import Login from "./pages/Login";
 
 const App: React.FC = () => {
   return (
