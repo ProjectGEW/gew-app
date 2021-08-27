@@ -59,7 +59,7 @@ const CardProject: React.FC<CardProps> = ({id}) => {
     return (
         <>
             <Card onClick={toggleModal}>
-            <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} />
+            <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} id={id} />
                 <CardStatus statusColor={project ? project.infoprojetoDTO.status : "NAO_INICIADO"}/>
                 <CardBox>
                     <BoxLeft>
