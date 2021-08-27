@@ -21,7 +21,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     }
     return (<Modal onBackdropClick={onBackdropClick} >
                 <DesktopModalContainer>
-                    <button onClick={onBackdropClick} />
+                    <a onClick={onBackdropClick} />
                     <ModalContainerInfos>
                         <span>WEC - IMPLANTAÇÃO DE EDI CLIENTE XYZ</span>
                         <ContainerBox>

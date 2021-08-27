@@ -21,7 +21,7 @@ export const DesktopModalContainer = styled(ModalContainer)`
     height: 86.5vh;
     font-size: 26px;
 
-    button {
+    a {
         background-image: url(${Close});
         border: 0;
         background-color: transparent;
@@ -31,6 +31,7 @@ export const DesktopModalContainer = styled(ModalContainer)`
         background-size: cover;
         top: 0.2vh;
         right: 1vw;
+        cursor: pointer;
     }
 `;
 
@@ -65,6 +66,7 @@ export const ContainerBox = styled.div`
 
     h2 {
         font-size: 0.54em;
+        font-weight: 200;
         color: #737373;
         margin-left: 1vh;
         margin-top: 0.2vh;
@@ -102,8 +104,8 @@ export const ContainerBox = styled.div`
 
         &::before {
             content: '';
-            width: 1.2vw;
-            height: 2.2vh;
+            width: 1.1vw;
+            height: 2.3vh;
             position: absolute;
             margin-top: -0.2vh;
             margin-left: -3.2vh;
