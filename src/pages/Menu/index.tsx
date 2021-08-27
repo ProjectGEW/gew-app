@@ -68,7 +68,7 @@ const Menu: React.FC = () => {
     const today_string = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
 
     window.onload = async function handleData(): Promise<void> {
-        try{
+        try {
             const response = await api.get<Count>(`projetos/count`);
             const contagem = response.data;
 
@@ -121,7 +121,7 @@ const Menu: React.FC = () => {
                         <h1 id="complete">{counts ? counts.contagem.concluidos : 0}</h1>
 
                         <GraphContainer>
-                           <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.concluidos: 0)} />
+                           <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
@@ -183,13 +183,13 @@ const Menu: React.FC = () => {
                     </GraphBars>
                 </Graph>
                 <GraphData>
-                    <Data id="dataOne">{countsPerData[6] ? countsPerData[6].data : 0}</Data>
-                    <Data id="dataTwo">{countsPerData[5] ? countsPerData[5].data : 0}</Data>
-                    <Data id="dataThree">{countsPerData[4] ? countsPerData[4].data : 0}</Data>
-                    <Data id="dataFour">{countsPerData[3] ? countsPerData[3].data : 0}</Data>
-                    <Data id="dataFive">{countsPerData[2] ? countsPerData[2].data : 0}</Data>
-                    <Data id="dataSix">{countsPerData[1] ? countsPerData[1].data : 0}</Data>
-                    <Data id="dataSeven">{countsPerData[0] ? countsPerData[0].data : 0}</Data>
+                    <Data id="dataOne">{countsPerData[6] ? countsPerData[6].data : "00/00"}</Data>
+                    <Data id="dataTwo">{countsPerData[5] ? countsPerData[5].data : "00/00"}</Data>
+                    <Data id="dataThree">{countsPerData[4] ? countsPerData[4].data : "00/00"}</Data>
+                    <Data id="dataFour">{countsPerData[3] ? countsPerData[3].data : "00/00"}</Data>
+                    <Data id="dataFive">{countsPerData[2] ? countsPerData[2].data : "00/00"}</Data>
+                    <Data id="dataSix">{countsPerData[1] ? countsPerData[1].data : "00/00"}</Data>
+                    <Data id="dataSeven">{countsPerData[0] ? countsPerData[0].data : "00/00"}</Data>
                 </GraphData>
             </ContainerHomeGraph>
         </ContainerHome>
