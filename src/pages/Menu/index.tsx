@@ -69,12 +69,12 @@ const Menu: React.FC = () => {
         }
     }
 
-    function calcularPorcentagem(count: number) {
+    /*function calcularPorcentagem(count: number) {
         const total = infos ? infos.contagem.total : 0;
         const porcentagem = (count / total) * 100;
 
         return Math.floor(porcentagem);
-    }
+    }*/
 
     document.addEventListener("DOMContentLoaded", function(event) {
         console.log("DOM completamente carregado e analisado");
@@ -106,7 +106,8 @@ const Menu: React.FC = () => {
                         <h1 id="complete">{infos ? infos.contagem.concluidos : 0}</h1>
 
                         <GraphContainer>
-                           <GraphLiquid valor={8} />
+                           <GraphLiquid valor={46} />
+                           {/*calcularPorcentagem(infos ? infos.contagem.em_andamento: 0)*/}
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
@@ -121,7 +122,8 @@ const Menu: React.FC = () => {
                         <span />
                         <h1 id="up">12</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.em_andamento: 0)} />
+                            <GraphLiquid valor={87} />
+                            {/*calcularPorcentagem(infos ? infos.contagem.em_andamento: 0)*/}
                         </GraphContainer>
                     </CardContent>
                     <div id="SecondVerbCard">
@@ -136,7 +138,8 @@ const Menu: React.FC = () => {
                         <span />
                         <h1 id="down">2</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.atrasados: 0)} />
+                            <GraphLiquid valor={35} />
+                            {/*calcularPorcentagem(infos ? infos.contagem.em_andamento: 0)*/}
                         </GraphContainer>
                     </CardContent>
                     <div id="ThirdVerbCard">
