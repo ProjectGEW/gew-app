@@ -1,10 +1,10 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-interface TypeRoute {
+/*interface TypeRoute {
     type?: 'Dashboard' | 'EditProjects' | 'RegisterConsultants' | 'RegisterProjects' | 'Projects';
-}
+}*/
 
-const styleTypes = {
+/*const styleTypes = {
     Dashboard: css `
         &:nth-child(6) {
             margin-left: -0.7vw;
@@ -95,7 +95,7 @@ const styleTypes = {
             }
         }    
     `,
-};
+};*/
 
 export const ContainerMenuRight = styled.div`
     width: 30vw;
