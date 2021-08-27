@@ -10,9 +10,15 @@ import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { Container, ContainerRegister, Info, Content, Line, Box } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
+import { useState } from 'react';
 
 const RegisterProjects: React.FC = () => {
+    const [data, setData] = useState("");
 
+    function teste() {
+        setData((document.getElementById("ata") as HTMLInputElement).value);
+        console.log(data.substring(12, -1));
+    }
     return (
         <>
             <Navbar />
@@ -55,8 +61,8 @@ const RegisterProjects: React.FC = () => {
                             </div>
                             <div>
                                 <p>Ata de aprovação:</p>
-                                <label htmlFor="ata">SELECIONAR ARQUIVO</label>
-                                <input type="file" id="ata"/>
+                                <label htmlFor="ata">{data ? data : "SELECIONAR ARQUIVO"}</label>
+                                <input type="file" id="ata" onClick={teste} />
 
                                 <button type="submit">Continuar</button>
                             </div>
@@ -68,7 +74,7 @@ const RegisterProjects: React.FC = () => {
             <MenuRight>
                 <ContIcons />
             </MenuRight>
-        </>
+        </>    
     );
 };
 
