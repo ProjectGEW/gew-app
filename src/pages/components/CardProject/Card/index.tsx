@@ -8,47 +8,48 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 
 import { Card, CardStatus, CardBox, BoxLeft, BoxRight, Progress, Value } from './styles';
 
-interface CardStatusColor {
-    statusColor: string;
-}
-
 interface RepositoryParams {
     repository: string;
 }
 
+interface CardProps {
+    id: number;
+}
+
 interface CardContent {
-    infoprojetoDTO: {
+    infoprojetoDTO : {
+        id: number;
         numeroDoProjeto: number;
         titulo: string;
+        descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
         status: string;
+        horas_apontadas: number;
     };
-    ccPagantes: [
-        {
-            valor: number;
-        }
-    ];
-    despesas: [
-        {
-            esforco: number;
-        }
-    ]        
+    valoresTotaisDTO : {
+        valorTotalCcPagantes: number;
+        valorTotalDespesas: number;
+        valorTotalEsforco: number;
+    };      
 }
 
-const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
+const CardProject: React.FC<CardProps> = ({id}) => {
 
-    const [project, setProject] = useState<CardContent[]>([]);
+    const [project, setProject] = useState<CardContent>();
+    const [status, setStatus] = useState('');
 
     const { params } = useRouteMatch<RepositoryParams>();
 
     useEffect(() => {
-      api.get(`/projetos`).then((response => {
+      api.get<CardContent>(`/projetos/${id}`).then((response => {
         setProject(response.data);
+        setStatus(response.data.infoprojetoDTO.status);
       }))
 
-    }, [params.repository]);
+    }, [id]);
 
+    
     // {project.map(project => ())}
 
     
@@ -62,33 +63,48 @@ const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
     return (
         <>
             <Card onClick={toggleModal}>
-            <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} />
-                <CardStatus statusColor={statusColor}/>
+            <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} id={id} />
+                <CardStatus statusColor={project ? project.infoprojetoDTO.status : "NAO_INICIADO"}/>
                 <CardBox>
                     <BoxLeft>
                         <div>
-                            <p>{project ? 128723134 : 128723134} - Seção ABC</p>
-                            <h1>WEC - IMPLATAÇÃO DE EDI CLIENTE XYZ</h1>
+                            <p>{project ? project.infoprojetoDTO.numeroDoProjeto : "00000000"} - Seção ABC</p>
+                            <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                         </div>
                         <div>
-                            <p><strong>Saldo previsto:</strong> R$ 50.000,00</p>
+                            <p><strong>Saldo previsto:</strong> R$ {project ? project.valoresTotaisDTO.valorTotalDespesas : 0}</p>
                             <p><strong>Saldo restante:</strong> R$ 50.000,00</p>
                         </div>
                         <div>
-                            <p>De: 20/02/2020</p>
-                            <p>Até: 22/05/2020</p>
+                            <p>De: {project ? project.infoprojetoDTO.data_de_inicio : "00/00/0000"}</p>
+                            <p>Até: {project ? project.infoprojetoDTO.data_de_termino : "00/00/0000"}</p>
                         </div>
                     </BoxLeft>
                     <BoxRight>
                         <div>
-                            <p>Status: <strong>Atrasado</strong></p>
+                            <p>Status: <strong>{/*project ? status.split("_").length > 1 ? 
+                                status.split("_")[0][0].toUpperCase() + status.split("_")[0].slice(1).toLowerCase() + " " +  status.split("_")[1].toLowerCase() : 
+                                status.split("_")[0][0].toUpperCase() +  status.split("_")[0].slice(1, -1).toLowerCase() : "Não iniciado"} */}
+                            </strong></p>
                         </div>
                         <div>
-                            <p><strong>Horas:</strong> <AiOutlineClockCircle size={15} /> 120 Horas</p>
-                            <p><strong>Apontadas:</strong> <AiOutlineClockCircle size={15} /> 60 Horas</p>
-                            <Progress>
-                                <Value />
-                            </Progress>
+                            {project ? project.infoprojetoDTO.status !== "CONCLUIDO" ?
+                                <>
+                                    <p><strong>Horas:</strong> <AiOutlineClockCircle size={15} /> 
+                                        {project.valoresTotaisDTO.valorTotalEsforco} Horas
+                                    </p>
+                                    <p><strong>Apontadas:</strong> <AiOutlineClockCircle size={15} /> 
+                                        {project.infoprojetoDTO.horas_apontadas} Horas
+                                    </p>
+                                    <Progress>
+                                        <Value />
+                                    </Progress>
+                                </>
+                                :
+                                ''
+                                :
+                                ''
+                            }
                         </div>
                     </BoxRight>
                 </CardBox>
