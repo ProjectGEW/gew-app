@@ -5,7 +5,7 @@ import { Container } from "./style";
 interface buttonProps {
     text: string;
     rota?: string;
-    tipo: string;
+    tipo?: string;
 }
 
 const Button: React.FC<buttonProps> = ({text, rota, tipo}) => {
