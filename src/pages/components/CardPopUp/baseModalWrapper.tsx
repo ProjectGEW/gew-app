@@ -18,7 +18,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     <ModalContainerInfos>
                         <span>WEC - IMPLANTAÇÃO DE EDI CLIENTE XYZ</span>
                         <ContainerBox>
-                            <a>1000025562 - Seção ABC</a>
+                            <p>1000025562 - Seção ABC</p>
                             <h3>ATA N°07/2020</h3>
                         </ContainerBox>
                         <ContainerBox>
