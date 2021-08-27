@@ -343,7 +343,7 @@ export const Bar = styled.div<ValorGraphBar>`
         margin-top: 5vh;
     `}
 
-    ${props => props.valor === 5 && css`
+    ${props => props.valor >= 5 && css`
         height: 23.5vh;
         margin-top: 0vh;
     `}
