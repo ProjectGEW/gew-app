@@ -92,44 +92,44 @@ const MenuLeft: React.FC = () => {
 
     return (
         <>
-            <ContainerMenu id="container-menu">
-                    <ContainerInfo>
-                        <UserImg id="user-img">
-                            <FaUserAlt id="iconUser" color="#00579D" />
-                            <p id="user-name">{intl.get('menu_esquerdo.mensagem')}<br/><a href="./">Renato Silva</a></p> 
-                        </UserImg>
-                        <NewsImg id="news-img">
-                            <IoNewspaperOutline id="iconNews" />
-                            <p id="title-not">{intl.get('menu_esquerdo.notificacao')}</p> 
-                        </NewsImg>
-                        <LineBlue id="line-blue" />
-                        <RefreshImg id="refresh-img">
-                            <FiRefreshCcw id="iconRef"/>
-                        </RefreshImg>
-                        <DeleteImg id="delete-img">
-                            <RiDeleteBinLine id="iconDel"/>
-                        </DeleteImg>
-                        <ContainerMsg id="container-msg">
-                            <Msg>
-                                <LineMsg>
-                                    <Aba>
-                                        <TitleMsg>
-                                            <p>{intl.get('menu_esquerdo.card.titulo')}</p>
-                                        </TitleMsg>
-                                        <TextMsg>
-                                            <p>O funcionário José concluiu suas tarefas!</p>
-                                        </TextMsg>
-                                    </Aba>
-                                </LineMsg>
-                            </Msg>
-                        </ContainerMsg>
-                        <ExitImg id="exit-img">
-                            <IoExitOutline id="iconExit"/>
-                        </ExitImg>
-                    </ContainerInfo>
-                    <BtnOpen id="btn-open" onClick={handdleClick} />
-                </ContainerMenu>
-            </>
+        <ContainerMenu id="container-menu">
+                <ContainerInfo>
+                    <UserImg id="user-img">
+                        <FaUserAlt id="iconUser" color="#00579D" />
+                        <p id="user-name">{intl.get('menu_esquerdo.mensagem')}<br/><a href="./">Renato Silva</a></p> 
+                    </UserImg>
+                    <NewsImg id="news-img">
+                        <IoNewspaperOutline id="iconNews" />
+                        <p id="title-not">{intl.get('menu_esquerdo.notificacao')}</p> 
+                    </NewsImg>
+                    <LineBlue id="line-blue" />
+                    <RefreshImg id="refresh-img">
+                        <FiRefreshCcw id="iconRef"/>
+                    </RefreshImg>
+                    <DeleteImg id="delete-img">
+                        <RiDeleteBinLine id="iconDel"/>
+                    </DeleteImg>
+                    <ContainerMsg id="container-msg">
+                        <Msg>
+                            <LineMsg>
+                                <Aba>
+                                    <TitleMsg>
+                                        <p>{intl.get('menu_esquerdo.card.titulo')}</p>
+                                    </TitleMsg>
+                                    <TextMsg>
+                                        <p>O funcionário José concluiu suas tarefas!</p>
+                                    </TextMsg>
+                                </Aba>
+                            </LineMsg>
+                        </Msg>
+                    </ContainerMsg>
+                    <ExitImg id="exit-img">
+                        <IoExitOutline id="iconExit"/>
+                    </ExitImg>
+                </ContainerInfo>
+                <BtnOpen id="btn-open" onClick={handdleClick} />
+            </ContainerMenu>
+        </>
     );
 }
 
