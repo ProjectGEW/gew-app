@@ -47,11 +47,11 @@ const Login: React.FC = () => {
   }, [singIn]);
 
   const trocar = (x: String) => {
-      if(x == "true") {
+      if(x === "true") {
         document.getElementById("container-login")!.style.display = "none";
         document.getElementById("container-pwd")!.style.display = "block";
         x = "false";
-      } else if(x == "false") {
+      } else if(x === "false") {
         document.getElementById("container-login")!.style.display = "block";
         document.getElementById("container-login")!.style.display = "flex";
         document.getElementById("container-pwd")!.style.display = "none";
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
                     </ContainerInput>     
                     <ContainerBtn>
                         <button type="submit">entrar</button>
-                        <a onClick={() => trocar("true")}>Esqueceu sua senha?</a>
+                        <p onClick={() => trocar("true")}>Esqueceu sua senha?</p>
                     </ContainerBtn>
                 </Form>
                 </ContainerBottom>
@@ -85,7 +85,7 @@ const Login: React.FC = () => {
                     <div>
                         <h1>Alterar senha da conta</h1>
                         <p>Entre em contato com algum administrador do sistema.</p>
-                        <a onClick={() => trocar("false")}>Voltar</a>
+                        <button onClick={() => trocar("false")}>Voltar</button>
                     </div>
                 </ContainerBottom>
             </LoginCont>
