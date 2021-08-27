@@ -16,34 +16,29 @@ const Navbar: React.FC = () => {
   const [language] = useState(() => {
     const storageFlag = localStorage.getItem('Language');
 
-      if(storageFlag) {
-        return JSON.parse(storageFlag);
-      } 
+    if(storageFlag) {
+      return JSON.parse(storageFlag);
+    } 
 
     return 'pt-BR';
   });
 
   useEffect(() => {
-    localStorage.setItem(
-      'Language',
-      JSON.stringify(language)
-    )
+    localStorage.setItem('Language', JSON.stringify(language))
   }, [language]);
 
   const location = useLocation();
-  //const pathname = window.location.pathname;
   const [page, setPage] = useState("");
+  //const pathname = window.location.pathname;
 
   const historicPage = useCallback(() => {
     if (location.pathname === "/home") {
       document.getElementById("home")!.style.display = "none";
       document.getElementById("projects")!.style.display = "none";
-      setPage("Home");
-      
+      setPage("Home"); 
     } else if (location.pathname === "/projects") {
       document.getElementById("projects")!.style.display = "none";
       setPage("Projetos");
-
     } else if (location.pathname === "/Dashboard") {
       setPage("Dashboards");
     } else if (location.pathname === "/register_projects") {
@@ -52,7 +47,7 @@ const Navbar: React.FC = () => {
     } else if (location.pathname === "/details") {
       setPage("Detalhes");
     }
-  }, [])
+  }, [location])
 
   useEffect(() => {
     historicPage();
@@ -88,13 +83,13 @@ const Navbar: React.FC = () => {
 
   const chooseFlag = (flag: String, codeFlag: String) => {       
     if(flag === "BR") {
-        document.getElementById("flagSelected")!.style.backgroundImage = "url(" + BR + ")";
+      document.getElementById("flagSelected")!.style.backgroundImage = "url(" + BR + ")";
     } else if(flag === "EN") {
-        document.getElementById("flagSelected")!.style.backgroundImage = "url(" + EN + ")";
+      document.getElementById("flagSelected")!.style.backgroundImage = "url(" + EN + ")";
     } else if(flag === "ES") {
-        document.getElementById("flagSelected")!.style.backgroundImage = "url(" + ES + ")";
+      document.getElementById("flagSelected")!.style.backgroundImage = "url(" + ES + ")";
     } else if(flag === "FR") {
-        document.getElementById("flagSelected")!.style.backgroundImage = "url(" + FR + ")";
+      document.getElementById("flagSelected")!.style.backgroundImage = "url(" + FR + ")";
     }
 
     let selected = {flag: flag, code: codeFlag}
@@ -106,7 +101,7 @@ const Navbar: React.FC = () => {
 
   return (
     <ContainerNavbar onLoad={historicPage}>
-      <Logo></Logo>
+      <Logo/>
       <PageIndicator id="pageIndicator">
         <div id="home">
           <a href="/home">Home</a>
@@ -121,15 +116,9 @@ const Navbar: React.FC = () => {
       <SandwichMenu onClick={openDropDown}>
         <DropdownMenu id="dropdownMenu">
           <ul>
-            <li>
-              <a href="/home">Perfil</a>
-            </li>
-            <li>
-              <a href="./settings">Configurações</a>
-            </li>
-            <li>
-              <a href="/">Sair</a>
-            </li>
+            <li><a href="/home">Perfil</a></li>
+            <li><a href="./settings">Configurações</a></li>
+            <li><a href="/">Sair</a></li>
           </ul>
         </DropdownMenu>
       </SandwichMenu>
