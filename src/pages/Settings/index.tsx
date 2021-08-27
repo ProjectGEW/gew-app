@@ -24,7 +24,7 @@ const Settings: React.FC = () => {
 
     // Revisão*****
     const activeButton = (x: String) => {
-        if(x == "animation") {
+        if(x === "animation") {
             document.getElementById("animation")!.style.backgroundColor = "#00579D";
             document.getElementById("animation")!.style.transform = "rotate(180deg)";
 
