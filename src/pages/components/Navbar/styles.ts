@@ -7,9 +7,10 @@ import EN from "../../../assets/en.svg";
 import ES from "../../../assets/es.svg";
 import FR from "../../../assets/fr.svg";
 
-interface Flag {
+interface SiglaFlag {
     type: string;
 }
+
 interface HistoricPageProps {
   localDaRota: boolean;
 }
@@ -197,7 +198,7 @@ export const LanguageIndicator = styled.div`
   }
 `;
 
-export const Flag = styled.div<Flag>`
+export const Flag = styled.div<SiglaFlag>`
     width: 2.4vw;
     height: 3.2vh;
     border-radius: 0.1vh;
@@ -241,7 +242,7 @@ export const DropdownFlag = styled.div`
             justify-content: left;
             align-items: center;
 
-            a {
+            p {
                 margin-right: 1.4vw;
             }
 
@@ -253,12 +254,12 @@ export const DropdownFlag = styled.div`
             &:active {
                 background: #00579D;
                 
-                a {
+                p {
                     color: #fff;
                 }
             }
 
-            a {
+            p {
                 color: #005DA5;
                 font-size: 2.5vh;
                 margin-left: 1.2vw;        
@@ -277,12 +278,12 @@ export const DropdownFlag = styled.div`
       &:active {
         background: #00579d;
 
-        a {
+        p {
           color: #fff;
         }
       }
 
-      a {
+      p {
         color: #005da5;
         font-size: 2.5vh;
         margin-left: 1.2vw;
