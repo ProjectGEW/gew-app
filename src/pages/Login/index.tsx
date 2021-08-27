@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import {AuthContext}  from '../../context/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
+import WEG from "../../assets/weg.svg";
+
 import Input from '../components/InputPrimary';
 
 import { Container, Line, LoginCont, ContainerBottom, ContainerBtn, ContainerInput } from './styles';
@@ -64,7 +66,7 @@ const Login: React.FC = () => {
         <Container>
             <LoginCont>
                 <Line />
-                <img src="https://www.weg.net/institutional/_ui/desktop/theme-institutional/img/brand.svg" alt="logo"/>
+                <img src={WEG} alt="logo"/>
                 <ContainerBottom id="container-login">
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     <ContainerInput>
@@ -72,7 +74,7 @@ const Login: React.FC = () => {
                         <label>Usuário</label>
                     </ContainerInput>
                     <ContainerInput>
-                        <Input type="password" name="senha" />
+                        <Input type="password" name="senha" autoComplete="off"/>
                         <label>Senha</label>
                     </ContainerInput>     
                     <ContainerBtn>
