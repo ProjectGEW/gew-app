@@ -30,14 +30,14 @@ const locales = {
 interface Count {
     contagem: {
         concluidos: number;
-        em_andamento: number;
+        emAndamento: number;
         atrasados: number;
         total: number;
     };
     verba: {
-        verba_concluidos: number;
-        verba_em_andamento: number;
-        verba_atrasados: number;
+        verbaConcluidos: number;
+        verbaEmAndamento: number;
+        verbaAtrasados: number;
     }
 }
 
@@ -69,12 +69,12 @@ const Menu: React.FC = () => {
         }
     }
 
-    /*function calcularPorcentagem(count: number) {
+    function calcularPorcentagem(count: number) {
         const total = infos ? infos.contagem.total : 0;
         const porcentagem = (count / total) * 100;
 
         return Math.floor(porcentagem);
-    }*/
+    }
 
     document.addEventListener("DOMContentLoaded", function(event) {
         console.log("DOM completamente carregado e analisado");
@@ -106,12 +106,11 @@ const Menu: React.FC = () => {
                         <h1 id="complete">{infos ? infos.contagem.concluidos : 0}</h1>
 
                         <GraphContainer>
-                           <GraphLiquid valor={46} />
-                           {/*calcularPorcentagem(infos ? infos.contagem.em_andamento: 0)*/}
+                           <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.concluidos: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ 10.000,00<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos ? infos.verba.verbaConcluidos : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
@@ -120,14 +119,13 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="up">12</h1>
+                        <h1 id="up">{infos ? infos.contagem.emAndamento : 0}</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={87} />
-                            {/*calcularPorcentagem(infos ? infos.contagem.em_andamento: 0)*/}
+                            <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.emAndamento: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="SecondVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ 10.000,00<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos ? infos.verba.verbaEmAndamento : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
@@ -136,14 +134,13 @@ const Menu: React.FC = () => {
                     </div>
                     <CardContent>
                         <span />
-                        <h1 id="down">2</h1>
+                        <h1 id="down">{infos ? infos.contagem.atrasados : 0}</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={35} />
-                            {/*calcularPorcentagem(infos ? infos.contagem.em_andamento: 0)*/}
+                            <GraphLiquid valor={calcularPorcentagem(infos ? infos.contagem.atrasados: 0)} />
                         </GraphContainer>
                     </CardContent>
                     <div id="ThirdVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ 10.000,00<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {infos ? infos.verba.verbaAtrasados : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
             </ContainerHomeCards>
