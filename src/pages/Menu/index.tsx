@@ -80,7 +80,7 @@ const Menu: React.FC = () => {
             setCountsPerData(contagem_perData);
             
         } catch (err) {
-            console.log("Não foi possivel realizar a leitura de dados");
+           alert("Não foi possivel realizar a leitura de dados");
         }
     }
 
