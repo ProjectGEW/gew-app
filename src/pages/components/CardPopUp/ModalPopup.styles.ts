@@ -121,7 +121,7 @@ export const ContainerBox = styled.div`
         align-items: center;
         justify-content: space-between;
 
-        a {
+        p {
             font-size: 0.7em;
             color: #229FC6;
         }
