@@ -5,6 +5,10 @@ import Complete from "../../assets/complete.svg";
 import Up from "../../assets/up.svg";
 import Down from "../../assets/down.svg";
 
+interface ValorGraphBar {
+    valor: number;
+}
+
 export const ContainerHome = styled.div`
     position: absolute;
     top: 14vh;
@@ -156,7 +160,7 @@ export const CardContent = styled.div`
             justify-content: center;
             align-items: center;
 
-            margin-top: -2.6vh;
+            margin-top: -2vh;
             margin-left: 9.8vw;
         }
     }
@@ -305,10 +309,6 @@ export const GraphBars = styled.div`
         margin-right: 1.2vw;
     }
 `;
-
-interface ValorGraphBar {
-    valor: number;
-}
 
 export const Bar = styled.div<ValorGraphBar>`
     width: 4vw;

@@ -120,7 +120,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     </ContainerValues>
                     <HourGraphics>
 
-                  </HourGraphics>
+            
                     </HourGraphics>
                     <ContainerValues>
                         <div>
