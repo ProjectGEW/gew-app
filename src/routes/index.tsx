@@ -9,6 +9,8 @@ import Projects from '../pages/Projects';
 import RegisterProjects from '../pages/RegisterProjects';
 import EditProjects from '../pages/EditProjects';
 import Settings from '../pages/Settings';
+import Details from '../pages/Details';
+
 const Routes: React.FC = () => (
     <Switch>
         <Route path="/" exact component={Login} />
@@ -19,6 +21,7 @@ const Routes: React.FC = () => (
         <Route path="/register_consultants" component={RegisterConsultants} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/settings" component={Settings} />
+        <Route path="/details" component={Details} />
     </Switch>
 );
 

@@ -103,6 +103,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                                 <h1>Saldo:</h1><h2>R$ 10.000,00</h2>
                             </div>
                         </ContainerValues>
+                        <Button text={'Detalhes'} rota={'details'} tipo={'PopUp'} />
                     </ModalContainerGraphs>
                 </DesktopModalContainer>
             </Modal>
