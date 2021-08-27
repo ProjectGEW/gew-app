@@ -1,11 +1,18 @@
 import React from 'react';
 import Modal from './Modal';
+import Button from '../Button';
+
 import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
-        ContainerBox, ContainerObjectives, ContainerValues, HourGraphics } from './ModalPopup.styles';
+        ContainerBox, ContainerObjectives, ContainerValues, HourGraphics,
+        CostCenters } from './ModalPopup.styles';
 
 interface BaseModalWrapperProps {
     isModalVisible: boolean;
     onBackdropClick: () => void;
+}
+
+interface ButtonPopUp {
+    tipo?: string;
 }
 
 const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible}) => {
@@ -25,14 +32,14 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                             <div>
                                 <h1>Data de início:</h1><h2>02/02/2021</h2>
                             </div>
-                            <label htmlFor="ata">ATA_CVPD_07_2020</label>
-                            <input type="file" id="ata"/>
-                        </ContainerBox>
-                        <ContainerBox>
                             <div>
                                 <h1>Data de finalização:</h1><h2>02/05/2021</h2>
                             </div>
+                        </ContainerBox>
+                        <ContainerBox>
                             <label htmlFor="ata">DASHBOARD</label>
+                            <input type="file" id="ata"/>
+                            <label htmlFor="ata">ATA_CVPD_07_2020</label>
                             <input type="file" id="ata"/>
                         </ContainerBox>
                         <ContainerObjectives>
@@ -44,17 +51,35 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                                 principais fornecedores.
                             </h2>
                         </ContainerObjectives>
-                        <ContainerValues>
-                            <div>
-                                <h1>Valor do projeto:</h1><h2>R$ 15.000,00</h2>
+                        <CostCenters>
+                            <div className="tableHeader">
+                                <h2>Despesa (Desembolso)</h2>
+                                <h2>Valor(R$)</h2>
+                                <h2>CC Pagante</h2>
                             </div>
-                            <div>
-                                <h1>Valor consumido:</h1><h2>R$ 5.000,00</h2>
-                            </div>
-                            <div>
-                                <h1>Saldo:</h1><h2>R$ 10.000,00</h2>
-                            </div>
-                        </ContainerValues>
+                            <ul className="scroller sc1">
+                                <li>
+                                    <h2>Desenvolvimento Externo das integrações ...</h2>
+                                    <h2>5.000.000,00</h2>
+                                    <h3>20168060</h3>
+                                </li>
+                                <li>
+                                    <h2>Desenvolvimento Externo das integrações ...</h2>
+                                    <h2>5.000.000,00</h2>
+                                    <h3>20168060</h3>
+                                </li>
+                                <li>
+                                    <h2>Desenvolvimento Externo das integrações ...</h2>
+                                    <h2>5.000.000,00</h2>
+                                    <h3>20168060</h3>
+                                </li>
+                                <li>
+                                    <h2>Desenvolvimento Externo das integrações ...</h2>
+                                    <h2>5.000.000,00</h2>
+                                    <h3>20168060</h3>
+                                </li>
+                            </ul>
+                        </CostCenters>
                     </ModalContainerInfos>
                     <ModalContainerGraphs>
                         <ContainerValues>
@@ -68,6 +93,21 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         <HourGraphics>
 
                         </HourGraphics>
+                        <ContainerValues>
+                            <div>
+                                <h1>Valor do projeto:</h1><h2>R$ 15.000,00</h2>
+                            </div>
+                            <div>
+                                <h1>Valor consumido:</h1><h2>R$ 5.000,00</h2>
+                            </div>
+                            <div>
+                                <h1>Valor desembolsado:</h1><h2>R$ 5.000,00</h2>
+                            </div>
+                            <div>
+                                <h1>Saldo:</h1><h2>R$ 10.000,00</h2>
+                            </div>
+                        </ContainerValues>
+                        <Button text={'Detalhes'} rota={'details'} tipo={'PopUp'} />
                     </ModalContainerGraphs>
                 </DesktopModalContainer>
             </Modal>
