@@ -161,13 +161,13 @@ const Menu: React.FC = () => {
                         <GraphContNum>0</GraphContNum>
                     </GraphCont>
                     <GraphBars>
-                        <Bar id="bar1"/>
-                        <Bar id="bar2"/>
-                        <Bar id="bar3"/>
-                        <Bar id="bar4"/>
-                        <Bar id="bar5"/>
-                        <Bar id="bar6"/>
-                        <Bar id="bar7"/>
+                        <Bar valor={1} id="bar1"/>
+                        <Bar valor={2} id="bar2"/>
+                        <Bar valor={3} id="bar3"/>
+                        <Bar valor={4} id="bar4"/>
+                        <Bar valor={5} id="bar5"/>
+                        <Bar valor={4} id="bar6"/>
+                        <Bar valor={3} id="bar7"/>
                     </GraphBars>
                 </Graph>
                 <GraphData>
