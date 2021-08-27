@@ -57,8 +57,8 @@ export const UserImg = styled.div`
     align-items: center;
 
     #iconUser {
-        width: 80px;
-        height: 40px;
+        width: 3vw;
+        height: 10vh;
     }
 
     p {
@@ -87,12 +87,11 @@ export const NewsImg = styled.div`
     
     #news-img {
         cursor: pointer;
-        shadowColor: red;
     }
 
     #iconNews {
-        width: 80px;
-        height: 40px;
+        width: 3vw;
+        height: 10vh;
     }
 
     p {
