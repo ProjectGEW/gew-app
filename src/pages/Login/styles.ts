@@ -92,7 +92,7 @@ export const LoginCont = styled.div`
                 font-size: 2.2vh;
             }
             
-            a {
+            button {
                 width: 7vw;
                 height: 5vh;
                 margin-top: 13vh;
@@ -157,7 +157,7 @@ export const ContainerBtn = styled.div`
         }
     }
 
-    a {
+    p {
         color: #005DA5;
         font-size: 2.2vh;
         font-weight: bold;
