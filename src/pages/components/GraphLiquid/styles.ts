@@ -22,6 +22,7 @@ export const Circle = styled.div<WavesProps>`
     overflow: hidden;
 
     box-shadow: 0px 0px 0px 0.3vh white, 0px 0px 0px 0.9vh #00579D;
+    background-color: rgb(226, 226, 226);
 
     &::after {
         content: '0%';
@@ -32,7 +33,7 @@ export const Circle = styled.div<WavesProps>`
         position: absolute;
     }
 
-    circle {
+    div {
          &:before {
             content: '';
             position: absolute;
@@ -253,7 +254,7 @@ export const Circle = styled.div<WavesProps>`
             content: '${props.valor}%';
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-20 12s linear infinite, wave-right 12s linear infinite;;
@@ -282,7 +283,7 @@ export const Circle = styled.div<WavesProps>`
             content: '${props.valor}%';
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-25 12s linear infinite, wave-right 12s linear infinite;;
@@ -311,7 +312,7 @@ export const Circle = styled.div<WavesProps>`
             content: '${props.valor}%';
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-25 12s linear infinite, wave-right 12s linear infinite;;
@@ -340,7 +341,7 @@ export const Circle = styled.div<WavesProps>`
             content: '${props.valor}%';
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-30 12s linear infinite, wave-right 12s linear infinite;;
@@ -369,7 +370,7 @@ export const Circle = styled.div<WavesProps>`
             content: '${props.valor}%';
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-35 12s linear infinite, wave-right 12s linear infinite;;
@@ -398,7 +399,7 @@ export const Circle = styled.div<WavesProps>`
             content: '${props.valor}%';
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-40 12s linear infinite, wave-right 12s linear infinite;;
@@ -427,7 +428,7 @@ export const Circle = styled.div<WavesProps>`
             content: '${props.valor}%';
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-45 12s linear infinite, wave-right 12s linear infinite;;
@@ -457,7 +458,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-50 12s linear infinite, wave-right 12s linear infinite;;
@@ -487,7 +488,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-55 12s linear infinite, wave-right 12s linear infinite;;
@@ -517,7 +518,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-60 12s linear infinite, wave-right 12s linear infinite;;
@@ -547,7 +548,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-65 12s linear infinite, wave-right 12s linear infinite;;
@@ -577,7 +578,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-70 12s linear infinite, wave-right 12s linear infinite;;
@@ -607,7 +608,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-75 12s linear infinite, wave-right 12s linear infinite;;
@@ -637,7 +638,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-80 12s linear infinite, wave-right 12s linear infinite;;
@@ -667,7 +668,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-85 12s linear infinite, wave-right 12s linear infinite;;
@@ -697,7 +698,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-90 12s linear infinite, wave-right 12s linear infinite;;
@@ -727,7 +728,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-95 12s linear infinite, wave-right 12s linear infinite;;
@@ -757,7 +758,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-95 12s linear infinite, wave-right 12s linear infinite;;
@@ -787,7 +788,7 @@ export const Circle = styled.div<WavesProps>`
             color: white;
         }
 
-        circle {
+        div {
             &:nth-child(1) {
                 &::before {
                     animation: wave-height-100 12s linear infinite, wave-right 12s linear infinite;;

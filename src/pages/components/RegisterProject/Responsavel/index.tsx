@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Button from '../../Button';
 
 import { Box } from './styles';
 
-const Responsavel: React.FC = () => {
-    const [data, setData] = useState("");
-
-    function teste() {
-        setData((document.getElementById("ata") as HTMLInputElement).value);
-        console.log(data.substring(12, -1));
-    }
-    
+const Responsavel: React.FC = () => {   
     return (
         <>
         <Box>

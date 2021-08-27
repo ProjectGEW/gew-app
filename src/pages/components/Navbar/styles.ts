@@ -6,6 +6,7 @@ import BR from "../../../assets/br.svg";
 import EN from "../../../assets/en.svg";
 import ES from "../../../assets/es.svg";
 import FR from "../../../assets/fr.svg";
+import WEG from "../../../assets/weg.svg";
 
 interface SiglaFlag {
     type: string;
@@ -26,7 +27,7 @@ export const Logo = styled.div`
   width: 4.4vw;
   height: 6vh;
   margin: 1vh 0 0 1vw;
-  background-image: url("https://www.weg.net/institutional/_ui/desktop/theme-institutional/img/brand.svg");
+  background-image: url(${WEG});
   float: left;
   background-size: cover;
   background-position: center;
@@ -119,7 +120,7 @@ export const DropdownMenu = styled.div`
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
   border-radius: 2px;
   position: absolute;
-  margin-top: 5.55vh;
+  margin-top: 5.vh;
   transform: translateX(-6.5vw);
   display: none;
   z-index: 10;
@@ -164,7 +165,7 @@ export const DropdownMenu = styled.div`
 
       &:after {
         content: "";
-        width: 80%;
+        width: 90%;
         height: 0.1vh;
         margin: 6vh 0 0 5%;
         position: absolute;
@@ -225,73 +226,49 @@ export const DropdownFlag = styled.div`
   z-index: 10;
   transition: all 0.1s;
 
-    ul { 
-        width: 100%;
-        height: 20vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+  ul { 
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-        li {
-            width: 100%;
-            height: 6vh;
-            color: #00579D;
-            list-style: none;
-            display: flex;
-            justify-content: left;
-            align-items: center;
+    li {
+      width: 100%;
+      height: 6vh;
+      color: #00579D;
+      list-style: none;
+      display: flex;
+      justify-content: left;
+      align-items: center;
 
-            p {
-                margin-right: 1.4vw;
-            }
+      p {
+        margin-right: 1.4vw;
+      }
 
-            &:hover {
-                background: rgb(200, 200, 200, 0.2);
-                cursor: pointer;
-            }
-
-            &:active {
-                background: #00579D;
-                
-                p {
-                    color: #fff;
-                }
-            }
-
-            p {
-                color: #005DA5;
-                font-size: 2.5vh;
-                margin-left: 1.2vw;        
-            }
-
-            &:after {
-                content: "";
-                width: 90%;
-                height: 0.1vh;
-                margin: 5vh 0 0 5%;
-                position: absolute;
-                background: rgb(200, 200, 200, 0.6);
-            }
+      &:hover {
+        background: rgb(200, 200, 200, 0.2);
+        cursor: pointer;
       }
 
       &:active {
-        background: #00579d;
-
+        background: #00579D;
+        
         p {
-          color: #fff;
+            color: #fff;
         }
       }
 
       p {
-        color: #005da5;
+        color: #005DA5;
         font-size: 2.5vh;
-        margin-left: 1.2vw;
+        margin-left: 1.2vw;        
       }
 
       &:after {
         content: "";
-        width: 80%;
+        width: 90%;
         height: 0.1vh;
         margin: 5vh 0 0 5%;
         position: absolute;
@@ -299,8 +276,14 @@ export const DropdownFlag = styled.div`
       }
     }
 
-    li:last-child:after {
-      display: none;
+    p {
+      color: #005da5;
+      font-size: 2.5vh;
+      margin-left: 1.2vw;
     }
   }
-`;
+
+  li:last-child:after {
+    display: none;
+  }
+}`;

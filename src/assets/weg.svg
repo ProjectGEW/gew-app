@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="70px" height="48px" viewBox="0 0 70 48" version="1.1">
+    <!-- Generator: Sketch 3.4 (15575) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path id="path-1" d="M0.0146192893,0.183715736 L69.0676142,0.183715736 L69.0676142,47.9853807 L0.0146192893,47.9853807"/>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-1" sketch:type="MSArtboardGroup">
+            <g id="brand" sketch:type="MSLayerGroup">
+                <mask id="mask-2" sketch:name="Clip 2" fill="white">
+                    <use xlink:href="#path-1"/>
+                </mask>
+                <g id="Clip-2"/>
+                <path d="M5.31338071,5.49612183 L5.31338071,32.0625381 L10.6257868,32.0625381 L10.6257868,10.8092589 L15.9384365,10.8092589 L15.9384365,32.0625381 L21.2523046,32.0625381 L21.2523046,10.8092589 L26.5654416,10.8092589 L26.5654416,37.3754315 L0,37.3754315 L0,0.183715736 L69.0676142,0.183715736 L69.0676142,5.49612183 L5.31338071,5.49612183" id="Fill-1" fill="#00579D" sketch:type="MSShapeGroup" mask="url(#mask-2)"/>
+                <path d="M47.8182335,26.7476954 L47.8182335,10.8092589 L31.8778477,10.8092589 L31.8778477,37.3754315 L47.8172589,37.3754315 L47.8172589,32.0625381 L37.1912284,32.0625381 L37.1912284,26.7476954 L47.8182335,26.7476954 L47.8182335,26.7476954 Z M37.1912284,16.120934 L42.5050964,16.120934 L42.5050964,21.4350457 L37.1912284,21.4350457 L37.1912284,16.120934 Z" id="Fill-3" fill="#00579D" sketch:type="MSShapeGroup" mask="url(#mask-2)"/>
+                <path d="M69.0676142,48 L69.0676142,10.8092589 L53.129665,10.8092589 L53.129665,37.3754315 L63.7559391,37.3754315 L63.7559391,42.6875939 L0,42.6875939 L0,48 L69.0676142,48 L69.0676142,48 Z M58.4430457,16.1233706 L63.7559391,16.1233706 L63.7559391,32.0625381 L58.4430457,32.0625381 L58.4430457,16.1233706 Z" id="Fill-4" fill="#00579D" sketch:type="MSShapeGroup" mask="url(#mask-2)"/>
+            </g>
+        </g>
+    </g>
+</svg>

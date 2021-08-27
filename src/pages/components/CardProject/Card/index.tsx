@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch } from 'react-router-dom';
+//import { useRouteMatch } from 'react-router-dom';
 //import Modal from 'react-native-modal';
 import BaseModalWrapper from '../../../components/CardPopUp/baseModalWrapper';
 import api from '../../../../service/api';
@@ -8,9 +8,9 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 
 import { Card, CardStatus, CardBox, BoxLeft, BoxRight, Progress, Value } from './styles';
 
-interface RepositoryParams {
+/*interface RepositoryParams {
     repository: string;
-}
+}*/
 
 interface CardProps {
     id: number;
@@ -39,7 +39,8 @@ const CardProject: React.FC<CardProps> = ({id}) => {
     const [project, setProject] = useState<CardContent>();
     const [status, setStatus] = useState('');
 
-    const { params } = useRouteMatch<RepositoryParams>();
+    console.log(status);
+    //const { params } = useRouteMatch<RepositoryParams>();
 
     useEffect(() => {
       api.get<CardContent>(`/projetos/${id}`).then((response => {

@@ -57,10 +57,9 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
 
     useEffect(() => {
         api.get<CardContent>(`/projetos/${id}`).then((response => {
-          setProject(response.data);
-        }));
-  
-      }, []);
+            setProject(response.data);
+        }
+    ))}, [id]);
 
     if (!isModalVisible) {
         return null
@@ -68,7 +67,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     return (
         <Modal onBackdropClick={onBackdropClick} >
             <DesktopModalContainer>
-                <a onClick={onBackdropClick} />
+                <span onClick={onBackdropClick} />
                 <ModalContainerInfos>
                     <span>{project ? project.infoprojetoDTO.titulo : ""}</span>
                     <ContainerBox>
