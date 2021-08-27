@@ -26,6 +26,8 @@ export const AuthProvider: React.FC = ({ children }) => {
             return { jwt };
         }
 
+        console.log(data);
+
         return {} as AuthState;
     });
 
