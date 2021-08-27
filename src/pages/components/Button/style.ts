@@ -30,7 +30,7 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "PopUp" && css`
         button {
             position: absolute;
-            margin-top: 75vh;
+            margin-top: 74vh;
             margin-right: 10vh;
             width: 12vw;
             height: 5vh;

@@ -231,7 +231,7 @@ export const Box = styled.div`
 
         &:last-child {
             input[type='file'] {
-                display: none
+                display: block
             }
               
             label {

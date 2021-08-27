@@ -9,7 +9,7 @@ export const Card = styled.div`
     height: 20vh;
 
     margin-top: 3vh;
-
+    
     display: flex;
     justify-content: center;
     flex-direction: row;
