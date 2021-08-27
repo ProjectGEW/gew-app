@@ -10,10 +10,10 @@ const GraphLiquid: React.FC<ValorCircle> = ({valor}) => {
     return (
         <Circle valor={valor}>
             <Waves>
-                <circle></circle>
-                <circle></circle>
-                <circle></circle>
-                <circle></circle>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </Waves>
         </Circle>        
     );
