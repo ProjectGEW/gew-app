@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '../../Button';
+//import Button from '../../Button';
 
 import { Box, Table, Linha } from './styles';
 
@@ -23,7 +23,7 @@ const Dinheiro: React.FC = () => {
             <Table>
                 <div>
                     <h1>Centro de Custo</h1>
-                    <h1>Responsável</h1>
+                    <h1>Responsável pelo CC</h1>
                     <h1>Percentual</h1>
                     <h1>Valor(R$)</h1>
                 </div>
