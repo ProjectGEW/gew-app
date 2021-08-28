@@ -16,6 +16,15 @@ import { useState } from 'react';
 
 import api from "../../service/api";
 
+import intl from 'react-intl-universal';
+
+const locales = {
+    'pt-BR': require('../../language/pt-BR.json'),
+    'en-US': require('../../language/en-US.json'),
+    'es': require('../../language/es.json'),
+    'fr-FR': require('../../language/fr-FR.json'),
+};
+
 interface IProjetoProps {
     infoprojetoDTO : {
         id: number;
@@ -34,6 +43,19 @@ interface IProjetoProps {
 }
 
 const Projects: React.FC = () => {
+    const [language] = useState(() => {
+        let languageStorage = localStorage.getItem('Language');
+
+        if(languageStorage) {
+            let languageObject = JSON.parse(languageStorage);
+            return languageObject;
+        } 
+    });
+
+    intl.init({
+        currentLocale: language.code,
+        locales
+    });
 
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
 
@@ -53,13 +75,13 @@ const Projects: React.FC = () => {
             <ContainerProject>
                 <ContainerInfo>
                     <ContainerTitle>
-                        <h1>Projetos alocados <IoMdArrowDropright size={25} /></h1>
+                        <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25} /></h1>
                         <span />
                     </ContainerTitle>
                     <ContainerFiltro>
-                        <h1>Filtros:</h1>
+                        <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
                         <div>
-                            <label>Seção:</label>
+                            <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
                             <select name="secao">
                                 <option value="se1">ABC</option>
                                 <option value="se2">DEF</option>
@@ -67,7 +89,7 @@ const Projects: React.FC = () => {
                             </select>
                         </div>
                         <div>
-                            <label>Status:</label>
+                            <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
                             <select name="status">
                                 <option value="Atrasado">Atrasado</option>
                                 <option value="Em andamento" selected>Em andamento</option>
@@ -75,7 +97,7 @@ const Projects: React.FC = () => {
                             </select>
                         </div>
                         <div>
-                            <label>Projeto:</label>
+                            <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
                             <input placeholder="Digite aqui" />
                         </div>
                     </ContainerFiltro>
