@@ -49,5 +49,22 @@
           "primeiro": "GO TO",
           "segundo": "DASHBOARDS"
       }
+    },
+    "navbar": {
+        "rota": "Home",
+        "dropdown": {
+            "perfil": "Profile",
+            "configuracoes": "Settings",
+            "sair": "Logout"
+        }
+    },
+    "tela_projetos": {
+        "title": "Allocated Projects",
+        "filtros": {
+            "title": "Filters",
+            "primeiro": "Section",
+            "segundo": "Status",
+            "terceiro": "Project"
+        }
     }
   }
