@@ -6,6 +6,8 @@ import MenuRight from '../components/MenuRight';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
+import { Container } from './styles';
+
 
 const Projects: React.FC = () => {
 
@@ -13,6 +15,9 @@ const Projects: React.FC = () => {
         <>
             <Navbar />
             <MenuLeft />
+
+            <Container />
+
             <MenuRight>
                 <ContIcons />
             </MenuRight>
