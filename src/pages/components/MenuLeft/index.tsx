@@ -4,10 +4,11 @@ import intl from 'react-intl-universal';
 
 import { ContainerMenu, ContainerInfo, UserImg, NewsImg, LineBlue, DeleteImg, RefreshImg,
     ContainerMsg, Msg, Aba, LineMsg, TextMsg, TitleMsg, BtnOpen, ExitImg } from './styles';
-    import { IoNewspaperOutline, IoExitOutline } from 'react-icons/io5';
-    import { FaUserAlt } from 'react-icons/fa';
-    import { FiRefreshCcw } from 'react-icons/fi';
-    import { RiDeleteBinLine} from 'react-icons/ri';
+    
+import { IoNewspaperOutline, IoExitOutline } from 'react-icons/io5';
+import { FaUserAlt } from 'react-icons/fa';
+import { FiRefreshCcw } from 'react-icons/fi';
+import { RiDeleteBinLine} from 'react-icons/ri';
 
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
@@ -17,17 +18,17 @@ const locales = {
 };
 
 const MenuLeft: React.FC = () => {
-    const [code] = useState(() => {
-        const storageCode = localStorage.getItem('Language:code');
-          if(storageCode) {
-            return JSON.parse(storageCode);
-          } else {
-              return 'pt-BR';
-          }
-      });
+    const [language] = useState(() => {
+        let languageStorage = localStorage.getItem('Language');
+
+        if(languageStorage) {
+            let languageObject = JSON.parse(languageStorage);
+            return languageObject;
+        } 
+    });
 
     intl.init({
-        currentLocale: code,
+        currentLocale: language.code,
         locales
     });
 
@@ -124,7 +125,7 @@ const MenuLeft: React.FC = () => {
                     </Msg>
                 </ContainerMsg>
                 <ExitImg id="exit-img">
-                    <IoExitOutline id="iconExit"/>
+                    <a href="./"><IoExitOutline id="iconExit"/></a>
                 </ExitImg>
             </ContainerInfo>
             <BtnOpen id="btn-open" onClick={handdleClick} />
