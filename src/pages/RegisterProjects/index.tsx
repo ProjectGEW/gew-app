@@ -4,8 +4,8 @@ import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 //import Projeto from '../components/RegisterProject/Projeto';
-import Responsavel from '../components/RegisterProject/Responsavel';
-//import Dinheiro from '../components/RegisterProject/Dinheiro';
+//import Responsavel from '../components/RegisterProject/Responsavel';
+import Dinheiro from '../components/RegisterProject/Dinheiro';
 //import Datas from '../components/RegisterProject/Datas';
 
 import { RiErrorWarningFill } from 'react-icons/ri';
@@ -45,7 +45,7 @@ const RegisterProjects: React.FC = () => {
                             <RiErrorWarningFill />
                         </div>
                     </Line>
-                    <Responsavel /> {/* Local para trocar a tela de cadastro */}
+                    <Dinheiro /> {/* Local para trocar a tela de cadastro */}
                 </Content>
             </ContainerRegister>
         </Container>
