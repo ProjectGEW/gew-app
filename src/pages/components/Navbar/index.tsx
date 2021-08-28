@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import { useLocation } from "react-router-dom";
 
+import intl from "react-intl-universal";
+
 import { IoIosArrowDown } from "react-icons/io";
 
 import BR from "../../../assets/br.svg";
@@ -11,6 +13,13 @@ import FR from "../../../assets/fr.svg";
 
 import { ContainerNavbar, Logo, PageIndicator, SandwichMenu, DropdownMenu,
     LanguageIndicator, Flag, DropdownFlag, HistoricPage } from './styles';
+
+const locales = {
+  'pt-BR': require('../../../language/pt-BR.json'),
+  'en-US': require('../../../language/en-US.json'),
+  'es': require('../../../language/es.json'),
+  'fr-FR': require('../../../language/fr-FR.json'),
+};
 
 const Navbar: React.FC = () => {
   const [language] = useState(() => {
@@ -101,12 +110,17 @@ const Navbar: React.FC = () => {
     openMenuFlag()
   }
 
+  intl.init({
+    currentLocale: language.code,
+    locales
+  });
+
   return (
     <ContainerNavbar onLoad={historicPage}>
       <Logo/>
       <PageIndicator id="pageIndicator">
         <div id="home">
-          <a href="/home">Home</a>
+          <a href="/home">{intl.get('navbar.rota')}</a>
         </div>
         <div id="page">
           <HistoricPage localDaRota={!!location.pathname}>{page}</HistoricPage>
@@ -115,9 +129,9 @@ const Navbar: React.FC = () => {
       <SandwichMenu onClick={openDropDown}>
         <DropdownMenu id="dropdownMenu">
           <ul>
-            <li><a href="/home">Perfil</a></li>
-            <li><a href="./settings">Configurações</a></li>
-            <li><a href="/">Sair</a></li>
+            <li><a href="/home">{intl.get('navbar.dropdown.perfil')}</a></li>
+            <li><a href="./settings">{intl.get('navbar.dropdown.configuracoes')}</a></li>
+            <li><a href="/">{intl.get('navbar.dropdown.sair')}</a></li>
           </ul>
         </DropdownMenu>
       </SandwichMenu>
