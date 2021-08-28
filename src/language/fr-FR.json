@@ -50,5 +50,22 @@
           "primeiro": "ATTEINDRE",
           "segundo": "TABLEAUX"
       }
+    },
+    "navbar": {
+        "rota": "Domicile",
+        "dropdown": {
+            "perfil": "Profil",
+            "configuracoes": "Les paramètres",
+            "sair": "Sortir"
+        }
+    },
+    "tela_projetos": {
+        "title": "Projets alloués",
+        "filtros": {
+            "title": "Filtres",
+            "primeiro": "Section",
+            "segundo": "Statut",
+            "terceiro": "Projet"
+        }
     }
   }
