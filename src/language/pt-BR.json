@@ -50,5 +50,22 @@
           "primeiro": "IR PARA",
           "segundo": "DASHBOARDS"
       }
+    },
+    "navbar": {
+        "rota": "Home",
+        "dropdown": {
+            "perfil": "Perfil",
+            "configuracoes": "Configurações",
+            "sair": "Sair"
+        }
+    },
+    "tela_projetos": {
+        "title": "Projetos alocados",
+        "filtros": {
+            "title": "Filtros",
+            "primeiro": "Seção",
+            "segundo": "Status",
+            "terceiro": "Projeto"
+        }
     }
   }
