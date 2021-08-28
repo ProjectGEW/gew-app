@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 
 import { ContainerMenuRight, ContIcons, Icon, TextMenuRight } from "./styles";
 
+import intl from "react-intl-universal";
+
 import { AiOutlineFolderView } from "react-icons/ai";
 import { CgInsertAfterR } from "react-icons/cg";
 import { RiFileEditFill } from "react-icons/ri";
@@ -10,23 +12,32 @@ import { GoGraph } from "react-icons/go";
 import { GiOrganigram } from "react-icons/gi";
 import { IoPersonAddSharp } from "react-icons/io5";
 
+const locales = {
+  'pt-BR': require('../../../language/pt-BR.json'),
+  'en-US': require('../../../language/en-US.json'),
+  'es': require('../../../language/es.json'),
+  'fr-FR': require('../../../language/fr-FR.json'),
+};
+
 const MenuRight: React.FC = () => {
+  const [language] = useState(() => {
+    let languageStorage = localStorage.getItem('Language');
+
+    if(languageStorage) {
+        let languageObject = JSON.parse(languageStorage);
+        return languageObject;
+    } 
+  });
+
+  intl.init({
+      currentLocale: language.code,
+      locales
+  });
+
   const location = useLocation();
   const [page, setPage] = useState("");
 
   const historicPage = useCallback(() => {
-    /*if (location.pathname === "/home") {
-      setPage("home"); 
-    } else if (location.pathname === "/projects") {
-      setPage("projects");
-    } else if (location.pathname === "/register_projects") {
-      setPage("register_projects");
-    } else if (location.pathname === "/edit_projects") {
-      setPage("edit_projects");
-    } else if (location.pathname === "/register_consultants") {
-      setPage("register_consultants");
-    }*/
-
     setPage(location.pathname);
   }, [location])
 
@@ -41,8 +52,8 @@ const MenuRight: React.FC = () => {
           <AiOutlineFolderView id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../projects">VISUALIZAR</a>
-          <a href="../projects">PROJETOS</a>
+          <a href="../projects">{intl.get('menu_direito.primeiro_botao.primeiro')}</a>
+          <a href="../projects">{intl.get('menu_direito.primeiro_botao.segundo')}</a>
         </TextMenuRight>
       </ContIcons>
       <ContIcons localDaRota={page}>
@@ -50,8 +61,8 @@ const MenuRight: React.FC = () => {
           <CgInsertAfterR id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../register_projects">CADASTRAR</a>
-          <a href="../register_projects">PROJETOS</a>
+          <a href="../register_projects">{intl.get('menu_direito.segundo_botao.primeiro')}</a>
+          <a href="../register_projects">{intl.get('menu_direito.segundo_botao.segundo')}</a>
         </TextMenuRight>
       </ContIcons>
       <ContIcons localDaRota={page}>
@@ -59,8 +70,8 @@ const MenuRight: React.FC = () => {
           <RiFileEditFill id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../edit_projects">EDITAR</a>
-          <a href="../edit_projects">PROJETOS</a>
+          <a href="../edit_projects">{intl.get('menu_direito.terceiro_botao.primeiro')}</a>
+          <a href="../edit_projects">{intl.get('menu_direito.terceiro_botao.segundo')}</a>
         </TextMenuRight>
       </ContIcons>
       <ContIcons localDaRota={page}>
@@ -68,8 +79,8 @@ const MenuRight: React.FC = () => {
           <IoPersonAddSharp id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../register_consultants">CADASTRAR</a>
-          <a href="../register_consultants">CONSULTORES</a>
+          <a href="../register_consultants">{intl.get('menu_direito.quarto_botao.primeiro')}</a>
+          <a href="../register_consultants">{intl.get('menu_direito.quarto_botao.segundo')}</a>
         </TextMenuRight>
       </ContIcons>
       <ContIcons localDaRota={page}>
@@ -77,8 +88,8 @@ const MenuRight: React.FC = () => {
           <GiOrganigram id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../register_consultants">ALOCAR</a>
-          <a href="../register_consultants">CONSULTORES</a>
+          <a href="../register_consultants">{intl.get('menu_direito.quinto_botao.primeiro')}</a>
+          <a href="../register_consultants">{intl.get('menu_direito.quinto_botao.segundo')}</a>
         </TextMenuRight>
       </ContIcons>
       <ContIcons localDaRota={page}>
@@ -86,8 +97,8 @@ const MenuRight: React.FC = () => {
           <GoGraph id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../dashboard">IR PARA</a>
-          <a href="../dashboard">DASHBOARDS</a>
+          <a href="../dashboard">{intl.get('menu_direito.sexto_botao.primeiro')}</a>
+          <a href="../dashboard">{intl.get('menu_direito.sexto_botao.segundo')}</a>
         </TextMenuRight>
       </ContIcons>
     </ContainerMenuRight>
