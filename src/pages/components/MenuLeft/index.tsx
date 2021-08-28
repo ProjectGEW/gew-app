@@ -46,13 +46,13 @@ const MenuLeft: React.FC = () => {
             document.getElementById("user-img")!.style.width = '8vh';
             document.getElementById("user-img")!.style.height = '9.25vh';
 
-            document.getElementById("news-img")!.style.transform = 'translate(-12vw, 1.6vh)';
+            document.getElementById("news-img")!.style.transform = 'translate(-12vw, -0.5vh)';
             document.getElementById("news-img")!.style.width = '2.77vh';
             document.getElementById("news-img")!.style.height = '2.73vh';
             document.getElementById("news-img")!.style.marginLeft = '12.5vw';
             document.getElementById("news-img")!.style.justifyContent = 'start';
 
-            document.getElementById("title-not")!.style.marginTop = '1.6vh';
+            document.getElementById("title-not")!.style.marginTop = '3.8vh';
             document.getElementById("user-name")!.style.margin = '1vh 0 0 16vw';
 
             document.getElementById("user-name")!.style.display = "block";
@@ -73,7 +73,7 @@ const MenuLeft: React.FC = () => {
             document.getElementById("news-img")!.style.transform = 'translate(0vw, 0vh)';
             document.getElementById("news-img")!.style.width = '10vh';
             document.getElementById("news-img")!.style.height = '6vh';
-            document.getElementById("news-img")!.style.marginLeft = '12.5vw';
+            document.getElementById("news-img")!.style.marginLeft = '14.4vw';
 
             document.getElementById("user-name")!.style.display = "none";
             document.getElementById("title-not")!.style.display = "none";
