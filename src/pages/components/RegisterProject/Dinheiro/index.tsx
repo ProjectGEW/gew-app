@@ -1,6 +1,6 @@
 import React from 'react';
 
-//import Button from '../../Button';
+import Button from '../../Button';
 
 import { Box, Table, Linha } from './styles';
 
@@ -9,32 +9,75 @@ const Dinheiro: React.FC = () => {
         <>
         <Box>
             <Table>
-                <div>
+                <div id="first-table">
                     <h1>Despesas (desembolsos)</h1>
                     <h1>Esforço</h1>
-                    <h1>Valor(R$)</h1>
+                    <h1>Valor (R$)</h1>
                 </div>
-                <Linha>
-                    <input type="text" />
-                    <input type="text" />
-                    <input type="text" />
-                </Linha>
+                <div id="first-scroll">
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                </div>
             </Table>
             <Table>
-                <div>
+                <div id="second-table">
                     <h1>Centro de Custo</h1>
-                    <h1>Responsável pelo CC</h1>
+                    <h1>Responsável</h1>
                     <h1>Percentual</h1>
-                    <h1>Valor(R$)</h1>
+                    <h1>Valor (R$)</h1>
                 </div>
-                <Linha>
-                    <input type="text" />
-                    <input type="text" />
-                    <input type="text" />
-                    <input type="text" />
-                </Linha>
+                <div id="second-scroll">
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                    <Linha>
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                        <input type="text" />
+                    </Linha>
+                </div>
             </Table>
         </Box>
+        <Button tipo={"Dinheiro"} text={"Continuar"} />
         </>    
     );
 };
