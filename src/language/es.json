@@ -50,5 +50,22 @@
           "primeiro": "VETE A",
           "segundo": "PANELES"
       }
+    },
+    "navbar": {
+        "rota": "Hogar",
+        "dropdown": {
+            "perfil": "Perfil",
+            "configuracoes": "Ajustes",
+            "sair": "Salir"
+        }
+    },
+    "tela_projetos": {
+        "title": "Proyectos asignados",
+        "filtros": {
+            "title": "Filtros",
+            "primeiro": "Sección",
+            "segundo": "Estado",
+            "terceiro": "Proyecto"
+        }
     }
   }
