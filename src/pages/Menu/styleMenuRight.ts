@@ -7,6 +7,38 @@ export const ContainerMenuRight = styled.div`
     display: flex;
     flex-direction: column;
     position: fixed;
+
+    #first { 
+        background-color: #00579D;
+    }
+
+    #second { 
+        background: linear-gradient(to bottom, #00579D, #0075B1); 
+    }
+
+    #three { 
+        background-color: #0075B1;
+    }
+
+    #four { 
+        background: linear-gradient(to bottom, #0075B1, #0091BD); 
+    }
+
+    #first { border-radius: 0.5vh 0 0 0; }
+
+    #six { 
+        border-radius: 0 0 0 0.5vh; 
+        background: linear-gradient(to bottom, #0091BD, #009ecf); 
+    }
+
+    a:hover {
+        transform: translateX(-5vh);
+        opacity: 0.9;
+    }
+
+    a {
+        transition: all 0.2s;
+    }
 `;
 
 export const ContIcons = styled.div`
@@ -18,36 +50,6 @@ export const ContIcons = styled.div`
     justify-content: left;
     align-items: center;
     cursor: pointer;
-    transition: all 0.2s;
-
-    &:nth-child(1) { 
-        background-color: #00579D;
-    }
-
-    &:nth-child(2) { 
-        background: linear-gradient(to bottom, #00579D, #0075B1); 
-    }
-
-    &:nth-child(3) { 
-        background-color: #0075B1;
-    }
-
-    &:nth-child(4) { 
-        background: linear-gradient(to bottom, #0075B1, #0091BD); 
-    }
-
-    &:nth-child(1) { border-radius: 0.5vh 0 0 0; }
-
-    &:nth-child(6) { 
-        border-radius: 0 0 0 0.5vh; 
-        background: linear-gradient(to bottom, #0091BD, #009ecf); 
-    }
-
-    &:hover {
-        transform: translateX(-5vh);
-        opacity: 0.9;
-    }
-
 `;
 
 export const Icon = styled.div`
@@ -64,7 +66,7 @@ export const TextMenuRight = styled.div`
     flex-direction: column;
     align-items: center;
 
-    a {
+    p {
         color: #fff;
         font-size: 2.5vh;
         font-weight: 600;
