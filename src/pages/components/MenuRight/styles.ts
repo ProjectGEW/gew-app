@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 /*interface TypeRoute {
     type?: 'Dashboard' | 'EditProjects' | 'RegisterConsultants' | 'RegisterProjects' | 'Projects';
@@ -97,6 +97,10 @@ import styled from "styled-components";
     `,
 };*/
 
+interface HistoricPageProps {
+    localDaRota?: string;
+  }
+
 export const ContainerMenuRight = styled.div`
     width: 30vw;
     height: 76vh;
@@ -106,7 +110,7 @@ export const ContainerMenuRight = styled.div`
     position: fixed;
 `;
 
-export const ContIcons = styled.div`
+export const ContIcons = styled.div<HistoricPageProps>`
     width: 100%;
     height: 12.3vh;
     margin-bottom: 0.4vh;
@@ -117,21 +121,13 @@ export const ContIcons = styled.div`
     cursor: pointer;
     transition: all 0.1s;
 
-    &:nth-child(1) { 
-        background-color: #00579D;
-    }
+    &:nth-child(1) { background-color: #00579D; }
 
-    &:nth-child(2) { 
-        background: linear-gradient(to bottom, #00579D, #0075B1); 
-    }
+    &:nth-child(2) { background: linear-gradient(to bottom, #00579D, #0075B1); }
 
-    &:nth-child(3) { 
-        background-color: #0075B1;
-    }
+    &:nth-child(3) { background-color: #0075B1; }
 
-    &:nth-child(4) { 
-        background: linear-gradient(to bottom, #0075B1, #0091BD); 
-    }
+    &:nth-child(4) { background: linear-gradient(to bottom, #0075B1, #0091BD); }
 
     &:nth-child(1) { border-radius: 0.5vh 0 0 0; }
 
@@ -154,15 +150,87 @@ export const ContIcons = styled.div`
         }
     }
 
-`;
+    ${props => props.localDaRota === "projects" && css`
+        &:nth-child(1) { 
+            transform: translateX(-3vh);
+            border-left: 1vh solid white;
+            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.25);
 
-/*
-    ${props => styleTypes[props.type || 'Projects']}
-    ${props => styleTypes[props.type || 'Dashboard']}
-    ${props => styleTypes[props.type || 'EditProjects']}
-    ${props => styleTypes[props.type || 'RegisterConsultants']}
-    ${props => styleTypes[props.type || 'RegisterProjects']}
-*/
+            #icons {
+                transform: scale(1.6, 1.6);
+                margin-left: 2vh;
+            }
+
+            &:hover {
+                transform: translateX(-30vh);
+                opacity: 0.9;
+        
+                &:before {
+                    display: none;
+                }
+        
+                #icons {
+                    transform: scale(3.2, 3.2);
+                    margin-left: 5vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.localDaRota === "register_projects" && css`
+        &:nth-child(2) { 
+            transform: translateX(-3vh);
+            border-left: 1vh solid white;
+            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.25);
+
+            #icons {
+                transform: scale(1.6, 1.6);
+                margin-left: 2vh;
+            }
+
+            &:hover {
+                transform: translateX(-30vh);
+                opacity: 0.9;
+        
+                &:before {
+                    display: none;
+                }
+        
+                #icons {
+                    transform: scale(3.2, 3.2);
+                    margin-left: 5vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.localDaRota === "edit_projects" && css`
+        &:nth-child(3) { 
+            transform: translateX(-3vh);
+            border-left: 1vh solid white;
+            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.25);
+
+            #icons {
+                transform: scale(1.6, 1.6);
+                margin-left: 2vh;
+            }
+
+            &:hover {
+                transform: translateX(-30vh);
+                opacity: 0.9;
+        
+                &:before {
+                    display: none;
+                }
+        
+                #icons {
+                    transform: scale(3.2, 3.2);
+                    margin-left: 5vh;
+                }
+            }
+        }
+    `}
+`;
 
 export const Icon = styled.div`
     #icons {
