@@ -45,7 +45,7 @@ const RegisterProjects: React.FC = () => {
                             <RiErrorWarningFill />
                         </div>
                     </Line>
-                    <Datas /> {/* Local para trocar a tela de cadastro */}
+                    <Dinheiro /> {/* Local para trocar a tela de cadastro */}
                 </Content>
             </ContainerRegister>
         </Container>
