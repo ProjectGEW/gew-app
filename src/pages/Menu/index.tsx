@@ -102,13 +102,57 @@ const Menu: React.FC = () => {
     //     handleData();
     // }
 
+    /* 
+    
+    > 1000, 10000, 100000 = . | (6)
+    > 1000000, 10000000, 100000000 = . . | (9)   
+    * = ,00
+
+    */
+
+    function analisaValor(valor: string) {
+        var resultado = "", localX = 0, localY = 3, x = 0;
+
+        if(valor.length === 4 || valor.length === 5 || valor.length === 6) {
+            if(valor.length === 5) {
+                localX = 1;
+            } else if(valor.length === 6) {
+                localX = 2;
+            }
+           for(x = 0; x < valor.length; x++) {
+               if(x === localX) {
+                resultado += valor[x] + ".";
+               } else {
+                resultado += valor[x];
+               }
+           }
+        } else if(valor.length === 7 || valor.length === 8 || valor.length === 9) {
+            if(valor.length === 8) {
+                localX = 1;
+                localY = 4;
+            } else if(valor.length === 9) {
+                localX = 2;
+                localY = 5;
+            }
+            for(x = 0; x < valor.length; x++) {
+                if(x === localX || x === localY) {
+                 resultado += valor[x] + ".";
+                } else {
+                 resultado += valor[x];
+                }
+            }
+        }
+        resultado += ",00";
+        alert(resultado);
+    }
+
     return (
         <>
         <Navbar />
         <MenuLeft />
         <ContainerHome>
             <ContainerHomeTitle>
-                <h1><strong>{intl.get('head.titulo_negrito')}</strong> {intl.get('head.titulo_normal')}</h1>
+                <h1 onClick={() => analisaValor("100000000")}><strong>{intl.get('head.titulo_negrito')}</strong> {intl.get('head.titulo_normal')}</h1>
                 <span />
             </ContainerHomeTitle>
             <ContainerHomeCards>
@@ -194,60 +238,72 @@ const Menu: React.FC = () => {
             </ContainerHomeGraph>
         </ContainerHome>
         <ContainerMenuRight>
-            <ContIcons>
-                <Icon>
-                    <AiOutlineFolderView size={50} color="#fff" /> 
-                </Icon> 
-                <TextMenuRight>
-                    <a href="../projects">{intl.get('menu_direito.primeiro_botao.primeiro')}</a>
-                    <a href="../projects">{intl.get('menu_direito.primeiro_botao.segundo')}</a>
-                </TextMenuRight>
-            </ContIcons>
-            <ContIcons>
-                <Icon>
-                    <CgInsertAfterR size={50} color="#fff" />
-                </Icon>
-                <TextMenuRight>
-                    <a href="./register_projects">{intl.get('menu_direito.segundo_botao.primeiro')}</a>
-                    <a href="./register_projects">{intl.get('menu_direito.segundo_botao.segundo')}</a>
-                </TextMenuRight>
-            </ContIcons>
-            <ContIcons>
-                <Icon>
-                    <RiFileEditFill size={50} color="#fff" />
-                </Icon>
-                <TextMenuRight>
-                    <a href="./edit_projects">{intl.get('menu_direito.terceiro_botao.primeiro')}</a>
-                    <a href="./edit_projects">{intl.get('menu_direito.terceiro_botao.segundo')}</a>
-                </TextMenuRight>
-            </ContIcons>
-            <ContIcons>
-                <Icon>
-                    <IoPersonAddSharp size={50} color="#fff" />
-                </Icon>
-                <TextMenuRight>
-                    <a href="./register_consultants">{intl.get('menu_direito.quarto_botao.primeiro')}</a>
-                    <a href="./register_consultants">{intl.get('menu_direito.quarto_botao.segundo')}</a>
-                </TextMenuRight>
-            </ContIcons>
-            <ContIcons>
-                <Icon> 
-                    <GiOrganigram size={50} color="#fff" />
-                </Icon>
-                <TextMenuRight>
-                    <a href="./register_consultants">{intl.get('menu_direito.quinto_botao.primeiro')}</a>
-                    <a href="./register_consultants">{intl.get('menu_direito.quinto_botao.segundo')}</a>
-                </TextMenuRight>
-            </ContIcons>
-            <ContIcons>
-                <Icon>
-                    <GoGraph size={50} color="#fff" />
-                </Icon>
-                <TextMenuRight>
-                    <a href="./dashboard">{intl.get('menu_direito.sexto_botao.primeiro')}</a>
-                    <a href="./dashboard">{intl.get('menu_direito.sexto_botao.segundo')}</a>
-                </TextMenuRight>
-            </ContIcons>
+            <a href="../projects">
+                <ContIcons id="first">
+                    <Icon>
+                        <AiOutlineFolderView size={50} color="#fff" /> 
+                    </Icon> 
+                    <TextMenuRight>
+                        <p>{intl.get('menu_direito.primeiro_botao.primeiro')}</p>
+                        <p>{intl.get('menu_direito.primeiro_botao.segundo')}</p>
+                    </TextMenuRight>
+                </ContIcons>
+            </a>
+            <a href="./register_projects">
+                <ContIcons id="second">
+                    <Icon>
+                        <CgInsertAfterR size={50} color="#fff" />
+                    </Icon>
+                    <TextMenuRight>
+                        <p>{intl.get('menu_direito.segundo_botao.primeiro')}</p>
+                        <p>{intl.get('menu_direito.segundo_botao.segundo')}</p>
+                    </TextMenuRight>
+                </ContIcons>
+            </a>
+            <a href="./edit_projects">
+                <ContIcons id="three">
+                    <Icon>
+                        <RiFileEditFill size={50} color="#fff" />
+                    </Icon>
+                    <TextMenuRight>
+                        <p>{intl.get('menu_direito.terceiro_botao.primeiro')}</p>
+                        <p>{intl.get('menu_direito.terceiro_botao.segundo')}</p>
+                    </TextMenuRight>
+                </ContIcons>
+            </a>
+            <a href="./register_consultants">
+                <ContIcons id="four">
+                    <Icon>
+                        <IoPersonAddSharp size={50} color="#fff" />
+                    </Icon>
+                    <TextMenuRight>
+                        <p>{intl.get('menu_direito.quarto_botao.primeiro')}</p>
+                        <p>{intl.get('menu_direito.quarto_botao.segundo')}</p>
+                    </TextMenuRight>
+                </ContIcons>
+            </a>
+            <a href="./register_consultants">
+                <ContIcons id="five">
+                    <Icon> 
+                        <GiOrganigram size={50} color="#fff" />
+                    </Icon>
+                    <TextMenuRight>
+                        <p>{intl.get('menu_direito.quinto_botao.primeiro')}</p>
+                        <p>{intl.get('menu_direito.quinto_botao.segundo')}</p>
+                    </TextMenuRight>
+                </ContIcons>
+            </a>
+            <a href="./dashboard">
+                <ContIcons id="six">
+                    <Icon>
+                        <GoGraph size={50} color="#fff" />
+                    </Icon>
+                    <TextMenuRight>
+                        <p>{intl.get('menu_direito.sexto_botao.primeiro')}</p>
+                        <p>{intl.get('menu_direito.sexto_botao.segundo')}</p>
+                    </TextMenuRight>
+                </ContIcons>
+            </a>
     </ContainerMenuRight>
     </>
   );
