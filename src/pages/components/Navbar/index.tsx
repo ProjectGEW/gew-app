@@ -34,18 +34,20 @@ const Navbar: React.FC = () => {
   const historicPage = useCallback(() => {
     if (location.pathname === "/home") {
       document.getElementById("home")!.style.display = "none";
-      document.getElementById("projects")!.style.display = "none";
+      //document.getElementById("projects")!.style.display = "none";
       setPage("Home"); 
     } else if (location.pathname === "/projects") {
-      document.getElementById("projects")!.style.display = "none";
+      //document.getElementById("projects")!.style.display = "none";
       setPage("Projetos");
-    } else if (location.pathname === "/Dashboard") {
+    } else if (location.pathname === "/dashboard") {
       setPage("Dashboards");
     } else if (location.pathname === "/register_projects") {
-      document.getElementById("projects")!.style.display = "none";
+     // document.getElementById("projects")!.style.display = "none";
       setPage("Cad. Projetos");
-    } else if (location.pathname === "/details") {
-      setPage("Detalhes");
+    } else if (location.pathname === "/edit_projects") {
+      setPage("Edit. Projetos");
+    } else if (location.pathname === "/register_consultants") {
+      setPage("Cad. Consultores");
     }
   }, [location])
 
@@ -105,9 +107,6 @@ const Navbar: React.FC = () => {
       <PageIndicator id="pageIndicator">
         <div id="home">
           <a href="/home">Home</a>
-        </div>
-        <div id="projects">
-          <a href="/projects">Projetos</a>
         </div>
         <div id="page">
           <HistoricPage localDaRota={!!location.pathname}>{page}</HistoricPage>

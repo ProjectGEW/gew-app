@@ -15,17 +15,19 @@ const MenuRight: React.FC = () => {
   const [page, setPage] = useState("");
 
   const historicPage = useCallback(() => {
-    if (location.pathname === "/home") {
+    /*if (location.pathname === "/home") {
       setPage("home"); 
     } else if (location.pathname === "/projects") {
       setPage("projects");
-    } else if (location.pathname === "/Dashboard") {
-      setPage("dashboard");
     } else if (location.pathname === "/register_projects") {
       setPage("register_projects");
     } else if (location.pathname === "/edit_projects") {
       setPage("edit_projects");
-    }
+    } else if (location.pathname === "/register_consultants") {
+      setPage("register_consultants");
+    }*/
+
+    setPage(location.pathname);
   }, [location])
 
   useEffect(() => {
@@ -66,8 +68,8 @@ const MenuRight: React.FC = () => {
           <IoPersonAddSharp id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../RegisterConsultants">CADASTRAR</a>
-          <a href="../RegisterConsultants">CONSULTORES</a>
+          <a href="../register_consultants">CADASTRAR</a>
+          <a href="../register_consultants">CONSULTORES</a>
         </TextMenuRight>
       </ContIcons>
       <ContIcons localDaRota={page}>
@@ -75,8 +77,8 @@ const MenuRight: React.FC = () => {
           <GiOrganigram id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../RegisterConsultants">ALOCAR</a>
-          <a href="../RegisterConsultants">CONSULTORES</a>
+          <a href="../register_consultants">ALOCAR</a>
+          <a href="../register_consultants">CONSULTORES</a>
         </TextMenuRight>
       </ContIcons>
       <ContIcons localDaRota={page}>
@@ -84,8 +86,8 @@ const MenuRight: React.FC = () => {
           <GoGraph id="icons" color="#fff" />
         </Icon>
         <TextMenuRight>
-          <a href="../Dashboard">IR PARA</a>
-          <a href="../Dashboard">DASHBOARDS</a>
+          <a href="../dashboard">IR PARA</a>
+          <a href="../dashboard">DASHBOARDS</a>
         </TextMenuRight>
       </ContIcons>
     </ContainerMenuRight>

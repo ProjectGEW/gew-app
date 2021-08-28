@@ -3,10 +3,10 @@ import React from 'react';
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
-//import Projeto from '../components/RegisterProject/Projeto';
-//import Responsavel from '../components/RegisterProject/Responsavel';
+import Projeto from '../components/RegisterProject/Projeto';
+import Responsavel from '../components/RegisterProject/Responsavel';
 import Dinheiro from '../components/RegisterProject/Dinheiro';
-//import Datas from '../components/RegisterProject/Datas';
+import Datas from '../components/RegisterProject/Datas';
 
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
@@ -45,7 +45,7 @@ const RegisterProjects: React.FC = () => {
                             <RiErrorWarningFill />
                         </div>
                     </Line>
-                    <Dinheiro /> {/* Local para trocar a tela de cadastro */}
+                    <Datas /> {/* Local para trocar a tela de cadastro */}
                 </Content>
             </ContainerRegister>
         </Container>

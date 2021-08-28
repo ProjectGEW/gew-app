@@ -80,7 +80,7 @@ const Menu: React.FC = () => {
             setCountsPerData(contagem_perData);
             
         } catch (err) {
-           alert("Não foi possivel realizar a leitura de dados");
+           console.log("Não foi possivel realizar a leitura de dados");
         }
     }
 
@@ -226,8 +226,8 @@ const Menu: React.FC = () => {
                     <IoPersonAddSharp size={50} color="#fff" />
                 </Icon>
                 <TextMenuRight>
-                    <a href="./">{intl.get('menu_direito.quarto_botao.primeiro')}</a>
-                    <a href="./">{intl.get('menu_direito.quarto_botao.segundo')}</a>
+                    <a href="./register_consultants">{intl.get('menu_direito.quarto_botao.primeiro')}</a>
+                    <a href="./register_consultants">{intl.get('menu_direito.quarto_botao.segundo')}</a>
                 </TextMenuRight>
             </ContIcons>
             <ContIcons>
@@ -235,8 +235,8 @@ const Menu: React.FC = () => {
                     <GiOrganigram size={50} color="#fff" />
                 </Icon>
                 <TextMenuRight>
-                    <a href="./">{intl.get('menu_direito.quinto_botao.primeiro')}</a>
-                    <a href="./">{intl.get('menu_direito.quinto_botao.segundo')}</a>
+                    <a href="./register_consultants">{intl.get('menu_direito.quinto_botao.primeiro')}</a>
+                    <a href="./register_consultants">{intl.get('menu_direito.quinto_botao.segundo')}</a>
                 </TextMenuRight>
             </ContIcons>
             <ContIcons>

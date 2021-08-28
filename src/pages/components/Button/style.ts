@@ -2,6 +2,7 @@ import styled, {css} from 'styled-components';
 import { shade } from 'polished';
 
 import Search from '../../../assets/search.svg';
+import Data from '../../../assets/data.svg';
 
 interface buttonProps {
     tipo?: string;
@@ -56,19 +57,50 @@ export const Container = styled.div<buttonProps>`
         }
     `}
 
+    ${props => props.tipo === "Data" && css`
+        button {
+            padding: 2.5vh;
+
+            margin-top: -8vh;
+            margin-left: 22vw;
+
+            &::after {
+                content: '';
+                width: 1.8vw;
+                height: 3vh;
+
+                position: absolute;
+                margin-top: -1.5vh;
+                margin-left: -0.9vw;
+
+                background-image: url(${Data});
+                background-position: center;
+                background-size: cover;
+            }
+        }
+    `}
+
     ${props => props.tipo === "Projeto" && css`
         button {
             position: absolute;
-            margin-top: 32vh;
-            margin-left: 26vw;
+            margin-top: 32.4vh;
+            margin-left: 28vw;
         }
     `}
 
     ${props => props.tipo === "Responsavel" && css`
         button {
             position: absolute;
-            margin-top: 22.6vh;
-            margin-left: 26vw;
+            margin-top: 23vh;
+            margin-left: 28vw;
+        }
+    `}
+
+    ${props => props.tipo === "Dinheiro" && css`
+        button {
+            position: absolute;
+            margin-top: -9vh;
+            margin-left: 28vw;
         }
     `}
 `;
