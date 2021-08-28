@@ -150,7 +150,7 @@ export const ContIcons = styled.div<HistoricPageProps>`
         }
     }
 
-    ${props => props.localDaRota === "projects" && css`
+    ${props => props.localDaRota === "/projects" && css`
         &:nth-child(1) { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
@@ -177,7 +177,7 @@ export const ContIcons = styled.div<HistoricPageProps>`
         }
     `}
 
-    ${props => props.localDaRota === "register_projects" && css`
+    ${props => props.localDaRota === "/register_projects" && css`
         &:nth-child(2) { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
@@ -204,7 +204,7 @@ export const ContIcons = styled.div<HistoricPageProps>`
         }
     `}
 
-    ${props => props.localDaRota === "edit_projects" && css`
+    ${props => props.localDaRota === "/edit_projects" && css`
         &:nth-child(3) { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
@@ -230,6 +230,62 @@ export const ContIcons = styled.div<HistoricPageProps>`
             }
         }
     `}
+
+    ${props => props.localDaRota === "/register_consultants" && css`
+        &:nth-child(4) { 
+            transform: translateX(-3vh);
+            border-left: 1vh solid white;
+            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.25);
+
+            #icons {
+                transform: scale(1.6, 1.6);
+                margin-left: 2vh;
+            }
+
+            &:hover {
+                transform: translateX(-30vh);
+                opacity: 0.9;
+        
+                &:before {
+                    display: none;
+                }
+        
+                #icons {
+                    transform: scale(3.2, 3.2);
+                    margin-left: 5vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.localDaRota === "/dashboard" && css`
+        &:nth-child(6) { 
+            transform: translateX(-3vh);
+            border-left: 1vh solid white;
+            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.25);
+
+            #icons {
+                transform: scale(1.6, 1.6);
+                margin-left: 2vh;
+            }
+
+            &:hover {
+                transform: translateX(-30vh);
+                opacity: 0.9;
+        
+                &:before {
+                    display: none;
+                }
+        
+                #icons {
+                    transform: scale(3.2, 3.2);
+                    margin-left: 5vh;
+                }
+            }
+        }
+    `}
+
+    
 `;
 
 export const Icon = styled.div`
