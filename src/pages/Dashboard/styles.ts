@@ -137,6 +137,55 @@ export const GraphLine = styled.div`
     border-radius: 0.8vh;
 `;
 
+export const Line = styled.div`
+    width: 100%;
+    height: 41vh;
+
+    background: white;
+`;
+
+export const Filtros = styled.div`
+    width: 100%;
+    height: 8vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        align-items: center;
+
+        &:first-child {
+            margin-left: 3vw;
+        }
+
+        &:last-child {
+            margin-right: 3vw;
+        }
+
+        label {
+            color: #575757;
+            font-size: 2.2vh;
+            margin-right: 1vw;
+        }
+
+        select {
+            width: 9vw;
+
+            font-size: 1.8vh;
+            padding: 0.5vh;
+
+            color: #575757;
+            border: 0.2vh solid #c4c4c4;
+        }
+    }
+
+    #filtro-periodo {
+        margin-left: 42.5vw;
+    }
+`;
+
 export const CardsMoney = styled.div`
     width: 100%;
     height: 14vh;
@@ -151,7 +200,7 @@ export const CardsMoney = styled.div`
 
         position: absolute;
         margin-top: 2vh;
-        margin-left: 1vw;
+        margin-left: 2vw;
         border-radius: 0.6vh;
 
         background-size: cover;
@@ -160,19 +209,19 @@ export const CardsMoney = styled.div`
 
         &:hover {
             cursor: pointer;
-            opacity: 0.8;
+            opacity: 0.95;
         }
 
         &:active {
-            opacity: 0.6;
+            opacity: 0.85;
         }
     }
 
     #icon-eye {
         width: 4vh;
         height: 5vh;
-        margin-top: 1.5vh;
-        margin-left: 9vw;
+        margin-top: 1.6vh;
+        margin-left: 8vw;
 
         color: #00579D;
 
