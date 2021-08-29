@@ -4,6 +4,8 @@ import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
+import { AiFillEye } from "react-icons/ai";
+
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph, GraphLine, CardsMoney, Money } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
@@ -34,6 +36,8 @@ const Dashboard: React.FC = () => {
     const [counts, setCounts] = useState<Count>();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
     const today = new Date();
+
+    console.log(countsPerData);
 
     const today_string = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
 
@@ -75,7 +79,7 @@ const Dashboard: React.FC = () => {
                             <span />
                         </Title>
                         <Graph>
-                            <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} />
+                            <GraphLiquid dashboard={true} valor={47} />
                         </Graph>
                     </Card>
                     <Card>
@@ -84,7 +88,7 @@ const Dashboard: React.FC = () => {
                             <span />
                         </Title>
                         <Graph>
-                            <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} />
+                            <GraphLiquid dashboard={true} valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} />
                         </Graph>
                     </Card>
                 </Liquid>
@@ -99,6 +103,8 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>MOEDA</h1>
                             </Title>
+                            <span />
+                            <AiFillEye id="icon-eye"/>
                         </Money>
                         <Money>
                             <Title>
