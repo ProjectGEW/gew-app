@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import Lupa from '../../assets/lupa-graph.svg';
+import Choose from '../../assets/choose.svg';
 
 export const Container = styled.div`
     position: absolute;
@@ -143,4 +144,46 @@ export const CardsMoney = styled.div`
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+
+    span {
+        width: 3vw;
+        height: 4vh;
+
+        position: absolute;
+        margin-top: 2vh;
+        margin-left: 1vw;
+        border-radius: 0.6vh;
+
+        background-size: cover;
+        background-position: center;
+        background-image: url(${Choose});
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        &:active {
+            opacity: 0.6;
+        }
+    }
+
+    #icon-eye {
+        width: 4vh;
+        height: 5vh;
+        margin-top: 1.5vh;
+        margin-left: 9vw;
+
+        color: #00579D;
+
+        &:hover {
+            cursor: pointer;
+            color: rgb(0, 87, 157, 0.95)
+        }
+    
+        &:active {
+            color: rgb(0, 87, 157, 0.85);
+        }
+        
+    }
 `;
