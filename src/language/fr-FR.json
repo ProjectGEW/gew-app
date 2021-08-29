@@ -67,5 +67,22 @@
             "segundo": "Statut",
             "terceiro": "Projet"
         }
+    },
+    "tela_dashboards": {
+        "primeiro_card": {
+            "title": "FONDS UTILISÉS"
+        },
+        "segundo_card": {
+            "title": "FONDS LIBÉRÉS"
+        },
+        "terceiro_card": {
+            "title": "UTILISATION DES FONDS"
+        },
+        "cards": {
+            "primeiro": "DEVISE",
+            "segundo": "DISPONIBLE",
+            "terceiro": "NON SORTI",
+            "quarto": "APPROUVÉ"
+        }
     }
   }
