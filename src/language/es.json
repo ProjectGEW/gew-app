@@ -67,5 +67,22 @@
             "segundo": "Estado",
             "terceiro": "Proyecto"
         }
+    },
+    "tela_dashboards": {
+        "primeiro_card": {
+            "title": "FONDOS UTILIZADOS"
+        },
+        "segundo_card": {
+            "title": "FONDOS LIBERADOS"
+        },
+        "terceiro_card": {
+            "title": "USO DE FONDOS"
+        },
+        "cards": {
+            "primeiro": "DIVISA",
+            "segundo": "DISPONIBLE",
+            "terceiro": "NO PUBLICADO",
+            "quarto": "APROBADO"
+        }
     }
   }
