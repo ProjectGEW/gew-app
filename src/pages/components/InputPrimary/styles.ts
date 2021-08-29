@@ -45,10 +45,16 @@ export const User = styled.div<ContainerProps>`
         border-color: #00579D;
         transition: all 0.2s;
 
-        &:focus, &:not(:placeholder-shown), &:-webkit-autofill {
-            & + label {
-                transform: scale(0.9) translateY(-100%) translateX(-3vh); 
-            }
+        &:focus + label, &:not(:placeholder-shown) + label {
+            transform: scale(0.9) translateY(-100%) translateX(-3vh); 
+        }
+        
+        & + input:active + label {
+            transform: scale(0.9) translateY(-100%) translateX(-3vh); 
+        }
+
+        & + input:valid + label {
+            transform: scale(0.9) translateY(-100%) translateX(-3vh); 
         }
         
     `}
