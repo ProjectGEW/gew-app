@@ -110,8 +110,8 @@ const Menu: React.FC = () => {
 
     */
 
-    function analisaValor(valor: string) {
-        var resultado = "", localX = 0, localY = 3, x = 0;
+    function analisaValor(recebe: number) {
+        var resultado = "", localX = 0, localY = 3, x = 0, valor = recebe.toString();
 
         if(valor.length === 4 || valor.length === 5 || valor.length === 6) {
             if(valor.length === 5) {
@@ -152,7 +152,7 @@ const Menu: React.FC = () => {
         <MenuLeft />
         <ContainerHome>
             <ContainerHomeTitle>
-                <h1 onClick={() => analisaValor("100000000")}><strong>{intl.get('head.titulo_negrito')}</strong> {intl.get('head.titulo_normal')}</h1>
+                <h1 onClick={() => analisaValor(100000000)}><strong>{intl.get('head.titulo_negrito')}</strong> {intl.get('head.titulo_normal')}</h1>
                 <span />
             </ContainerHomeTitle>
             <ContainerHomeCards>
@@ -165,11 +165,11 @@ const Menu: React.FC = () => {
                         <h1 id="complete">{counts ? counts.contagem.concluidos : 0}</h1>
 
                         <GraphContainer>
-                           <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} />
+                           <GraphLiquid valor={25} />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {counts ? counts.verba.verbaConcluidos : 0}<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>R$ {counts ? counts.verba.verbaConcluidos : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
@@ -184,7 +184,7 @@ const Menu: React.FC = () => {
                         </GraphContainer>
                     </CardContent>
                     <div id="SecondVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {counts ? counts.verba.verbaEmAndamento : 0}<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>R$ {counts ? counts.verba.verbaEmAndamento : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
                 <Card>
@@ -199,7 +199,7 @@ const Menu: React.FC = () => {
                         </GraphContainer>
                     </CardContent>
                     <div id="ThirdVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>  R$ {counts ? counts.verba.verbaAtrasados : 0}<AiFillEye id="icon-eye"/></p>
+                        <p><strong>{intl.get('cards.verba')}</strong>R$ {counts ? counts.verba.verbaAtrasados : 0}<AiFillEye id="icon-eye"/></p>
                     </div>
                 </Card>
             </ContainerHomeCards>
