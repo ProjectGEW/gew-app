@@ -4,11 +4,12 @@ import { Circle, Waves } from './styles';
 
 interface ValorCircle {
     valor: number;
+    dashboard?: boolean;
 }
 
-const GraphLiquid: React.FC<ValorCircle> = ({valor}) => {
+const GraphLiquid: React.FC<ValorCircle> = ({valor, dashboard}) => {
     return (
-        <Circle valor={valor}>
+        <Circle valor={valor} dashboard={dashboard}>
             <Waves>
                 <div></div>
                 <div></div>
