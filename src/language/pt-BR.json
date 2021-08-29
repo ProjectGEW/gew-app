@@ -67,5 +67,22 @@
             "segundo": "Status",
             "terceiro": "Projeto"
         }
+    },
+    "tela_dashboards": {
+        "primeiro_card": {
+            "title": "VERBA UTILIZADA"
+        },
+        "segundo_card": {
+            "title": "VERBA LIBERADA"
+        },
+        "terceiro_card": {
+            "title": "UTILIZAÇÃO DA VERBA"
+        },
+        "cards": {
+            "primeiro": "MOEDA",
+            "segundo": "DISPONÍVEL",
+            "terceiro": "NÃO LIBERADA",
+            "quarto": "APROVADA"
+        }
     }
   }
