@@ -10,7 +10,17 @@ import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph, Graph
 
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphLiquid from "../components/GraphLiquid";
+
+import intl from "react-intl-universal";
+
 import api from '../../service/api';
+
+const locales = {
+    'pt-BR': require('../../language/pt-BR.json'),
+    'en-US': require('../../language/en-US.json'),
+    'es': require('../../language/es.json'),
+    'fr-FR': require('../../language/fr-FR.json'),
+};
 
 interface Count {
     contagem: {
@@ -32,38 +42,19 @@ interface CountPerData {
 }
 
 const Dashboard: React.FC = () => {
+    const [language] = useState(() => {
+        let languageStorage = localStorage.getItem('Language');
 
-    const [counts, setCounts] = useState<Count>();
-    const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
-    const today = new Date();
+        if(languageStorage) {
+            let languageObject = JSON.parse(languageStorage);
+            return languageObject;
+        } 
+    });
 
-    console.log(countsPerData);
-
-    const today_string = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-
-    window.onload = async function handleData(): Promise<void> {
-        try {
-            const response = await api.get<Count>(`projetos/count`);
-            const contagem = response.data;
-
-            setCounts(contagem);
-
-            const response_perData = await api.get<CountPerData[]>(`projetos/count/${today_string}`);
-            const contagem_perData = response_perData.data;
-
-            setCountsPerData(contagem_perData);
-            
-        } catch (err) {
-           console.log("Não foi possivel realizar a leitura de dados");
-        }
-    }
-
-    function calcularPorcentagem(count: number) {
-        const total = counts ? counts.contagem.total : 0;
-        const porcentagem = (count / total) * 100;
-
-        return Math.floor(porcentagem);
-    }
+    intl.init({
+        currentLocale: language.code,
+        locales
+    });
 
     return (
         <>
@@ -75,7 +66,7 @@ const Dashboard: React.FC = () => {
                 <Liquid>
                     <Card>
                         <Title>
-                            <h1>VERBA UTILIZADA</h1>
+                            <h1>{intl.get('tela_dashboards.primeiro_card.title')}</h1>
                             <span />
                         </Title>
                         <Graph>
@@ -84,43 +75,43 @@ const Dashboard: React.FC = () => {
                     </Card>
                     <Card>
                         <Title>
-                            <h1>VERBA LIBERADA</h1>
+                            <h1>{intl.get('tela_dashboards.segundo_card.title')}</h1>
                             <span />
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} />
+                            <GraphLiquid dashboard={true} valor={15} />
                         </Graph>
                     </Card>
                 </Liquid>
                 <Lines>
                     <GraphLine>
                         <Title>
-                            <h1>UTILIZAÇÃO DA VERBA</h1>
+                            <h1>{intl.get('tela_dashboards.terceiro_card.title')}</h1>
                         </Title>
                     </GraphLine>
                     <CardsMoney>
                         <Money>
                             <Title>
-                                <h1>MOEDA</h1>
+                                <h1>{intl.get('tela_dashboards.cards.primeiro')}</h1>
                             </Title>
                             <span />
                             <AiFillEye id="icon-eye"/>
                         </Money>
                         <Money>
                             <Title>
-                                <h1>DISPONÍVEL</h1>
+                                <h1>{intl.get('tela_dashboards.cards.segundo')}</h1>
                             </Title>
                             <h1>R$ 175.000,00</h1>
                         </Money>
                         <Money>
                             <Title>
-                                <h1>NÃO LIBERADA</h1>
+                                <h1>{intl.get('tela_dashboards.cards.terceiro')}</h1>
                             </Title>
                             <h1>R$ 25.000,00</h1>
                         </Money>
                         <Money>
                             <Title>
-                                <h1>APROVADA</h1>
+                                <h1>{intl.get('tela_dashboards.cards.quarto')}</h1>
                             </Title>
                             <h1>R$ 200.000,00</h1>
                         </Money>
@@ -132,7 +123,6 @@ const Dashboard: React.FC = () => {
         <MenuRight>
             <ContIcons></ContIcons>
         </MenuRight>
-
         </>
     );
 };
