@@ -51,12 +51,14 @@ const Navbar: React.FC = () => {
     } else if (location.pathname === "/dashboard") {
       setPage("Dashboards");
     } else if (location.pathname === "/register_projects") {
-     // document.getElementById("projects")!.style.display = "none";
+      //document.getElementById("projects")!.style.display = "none";
       setPage("Cad. Projetos");
     } else if (location.pathname === "/edit_projects") {
       setPage("Edit. Projetos");
     } else if (location.pathname === "/register_consultants") {
       setPage("Cad. Consultores");
+    } else if (location.pathname === "/settings") {
+      setPage("Configurações");
     }
   }, [location])
 
