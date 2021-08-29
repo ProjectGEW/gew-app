@@ -70,12 +70,10 @@ const Login: React.FC = () => {
                 <ContainerBottom id="container-login">
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     <ContainerInput>
-                        <Input type="text" name="email" />
-                        <label>Usuário</label>
+                        <Input type="text" name="email" placeholder=" "/>
                     </ContainerInput>
                     <ContainerInput>
-                        <Input type="password" name="senha" autoComplete="off"/>
-                        <label>Senha</label>
+                        <Input type="password" name="senha" placeholder=" " autoComplete="off"/>
                     </ContainerInput>     
                     <ContainerBtn>
                         <button type="submit">entrar</button>
