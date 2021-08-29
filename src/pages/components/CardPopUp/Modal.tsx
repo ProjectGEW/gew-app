@@ -25,11 +25,11 @@ const stopPropagation: MouseEventHandler<HTMLDivElement> = e => {
 };
 
 const Modal: React.FC<ModalProps> = ({onBackdropClick, children}) => {
-    return ReactDOM.createPortal(<Overlay onClick={onBackdropClick}>
+    return ReactDOM.createPortal(
+        <Overlay onClick={onBackdropClick}>
             <div onClick={stopPropagation}>{children}</div>
-        </Overlay>, 
-        document.getElementById('modal-root')!
-        );
+        </Overlay>, document.getElementById('modal-root')!
+    );
 }
 
 export default Modal;
