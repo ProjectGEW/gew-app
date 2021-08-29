@@ -47,6 +47,7 @@ const Login: React.FC<InputProps> = ({name, icon: Icon, ...rest}) => {
                 </Error>
             )}
         </User>      
+        <label>Usuário</label>
         </>
     );
 };
