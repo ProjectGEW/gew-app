@@ -46,61 +46,73 @@ const MenuRight: React.FC = () => {
   }, [historicPage]);
 
   return (
-    <ContainerMenuRight>
-      <ContIcons localDaRota={page}> 
-        <Icon>
-          <AiOutlineFolderView id="icons" color="#fff" />
-        </Icon>
-        <TextMenuRight>
-          <a href="../projects">{intl.get('menu_direito.primeiro_botao.primeiro')}</a>
-          <a href="../projects">{intl.get('menu_direito.primeiro_botao.segundo')}</a>
-        </TextMenuRight>
-      </ContIcons>
-      <ContIcons localDaRota={page}>
-        <Icon>
-          <CgInsertAfterR id="icons" color="#fff" />
-        </Icon>
-        <TextMenuRight>
-          <a href="../register_projects">{intl.get('menu_direito.segundo_botao.primeiro')}</a>
-          <a href="../register_projects">{intl.get('menu_direito.segundo_botao.segundo')}</a>
-        </TextMenuRight>
-      </ContIcons>
-      <ContIcons localDaRota={page}>
-        <Icon>
-          <RiFileEditFill id="icons" color="#fff" />
-        </Icon>
-        <TextMenuRight>
-          <a href="../edit_projects">{intl.get('menu_direito.terceiro_botao.primeiro')}</a>
-          <a href="../edit_projects">{intl.get('menu_direito.terceiro_botao.segundo')}</a>
-        </TextMenuRight>
-      </ContIcons>
-      <ContIcons localDaRota={page}>
-        <Icon>
-          <IoPersonAddSharp id="icons" color="#fff" />
-        </Icon>
-        <TextMenuRight>
-          <a href="../register_consultants">{intl.get('menu_direito.quarto_botao.primeiro')}</a>
-          <a href="../register_consultants">{intl.get('menu_direito.quarto_botao.segundo')}</a>
-        </TextMenuRight>
-      </ContIcons>
-      <ContIcons localDaRota={page}>
-        <Icon>
-          <GiOrganigram id="icons" color="#fff" />
-        </Icon>
-        <TextMenuRight>
-          <a href="../register_consultants">{intl.get('menu_direito.quinto_botao.primeiro')}</a>
-          <a href="../register_consultants">{intl.get('menu_direito.quinto_botao.segundo')}</a>
-        </TextMenuRight>
-      </ContIcons>
-      <ContIcons localDaRota={page}>
-        <Icon>
-          <GoGraph id="icons" color="#fff" />
-        </Icon>
-        <TextMenuRight>
-          <a href="../dashboard">{intl.get('menu_direito.sexto_botao.primeiro')}</a>
-          <a href="../dashboard">{intl.get('menu_direito.sexto_botao.segundo')}</a>
-        </TextMenuRight>
-      </ContIcons>
+    <ContainerMenuRight localDaRota={page}>
+      <a href="../projects">
+        <ContIcons id="first"> 
+          <Icon>
+            <AiOutlineFolderView id="icons" color="#fff" />
+          </Icon>
+          <TextMenuRight>
+            <p>{intl.get('menu_direito.primeiro_botao.primeiro')}</p>
+            <p>{intl.get('menu_direito.primeiro_botao.segundo')}</p>
+          </TextMenuRight>
+        </ContIcons>
+      </a>
+      <a href="../register_projects">
+        <ContIcons id="second">
+          <Icon>
+            <CgInsertAfterR id="icons" color="#fff" />
+          </Icon>
+          <TextMenuRight>
+            <p>{intl.get('menu_direito.segundo_botao.primeiro')}</p>
+            <p>{intl.get('menu_direito.segundo_botao.segundo')}</p>
+          </TextMenuRight>
+        </ContIcons>
+      </a>
+      <a href="../edit_projects">
+        <ContIcons id="three">
+          <Icon>
+            <RiFileEditFill id="icons" color="#fff" />
+          </Icon>
+          <TextMenuRight>
+            <p>{intl.get('menu_direito.terceiro_botao.primeiro')}</p>
+            <p>{intl.get('menu_direito.terceiro_botao.segundo')}</p>
+          </TextMenuRight>
+        </ContIcons>
+      </a>
+      <a href="../register_consultants">
+        <ContIcons id="four">
+          <Icon>
+            <IoPersonAddSharp id="icons" color="#fff" />
+          </Icon>
+          <TextMenuRight>
+            <p>{intl.get('menu_direito.quarto_botao.primeiro')}</p>
+            <p>{intl.get('menu_direito.quarto_botao.segundo')}</p>
+          </TextMenuRight>
+        </ContIcons>
+      </a>
+      <a href="../register_consultants">
+        <ContIcons id="five">
+          <Icon>
+            <GiOrganigram id="icons" color="#fff" />
+          </Icon>
+          <TextMenuRight>
+            <p>{intl.get('menu_direito.quinto_botao.primeiro')}</p>
+            <p>{intl.get('menu_direito.quinto_botao.segundo')}</p>
+          </TextMenuRight>
+        </ContIcons>
+      </a>
+      <a href="../dashboard">
+        <ContIcons id="six">
+          <Icon>
+            <GoGraph id="icons" color="#fff" />
+          </Icon>
+          <TextMenuRight>
+            <p>{intl.get('menu_direito.sexto_botao.primeiro')}</p>
+            <p>{intl.get('menu_direito.sexto_botao.segundo')}</p>
+          </TextMenuRight>
+        </ContIcons>
+      </a>
     </ContainerMenuRight>
   );
 };
