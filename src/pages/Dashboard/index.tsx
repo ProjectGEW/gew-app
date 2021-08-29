@@ -6,14 +6,14 @@ import MenuRight from '../components/MenuRight';
 
 import { AiFillEye } from "react-icons/ai";
 
-import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph, GraphLine, CardsMoney, Money } from './styles';
+import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph, GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphLiquid from "../components/GraphLiquid";
 
 import intl from "react-intl-universal";
 
-import api from '../../service/api';
+import BaseModalWrapper from '../components/DashboardPopUp';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -21,25 +21,6 @@ const locales = {
     'es': require('../../language/es.json'),
     'fr-FR': require('../../language/fr-FR.json'),
 };
-
-interface Count {
-    contagem: {
-        concluidos: number;
-        emAndamento: number;
-        atrasados: number;
-        total: number;
-    };
-    verba: {
-        verbaConcluidos: number;
-        verbaEmAndamento: number;
-        verbaAtrasados: number;
-    }
-}
-
-interface CountPerData {
-    data: string;
-    projetosConcluidos: number;
-}
 
 const Dashboard: React.FC = () => {
     const [language] = useState(() => {
@@ -56,18 +37,24 @@ const Dashboard: React.FC = () => {
         locales
     });
 
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+    const toggleModal = () => {
+        setIsModalVisible(wasModalVisible => !wasModalVisible)
+    }
+
     return (
         <>
         <Navbar />
         <MenuLeft />
-
         <Container>
             <ContainerDashboard>
                 <Liquid>
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.primeiro_card.title')}</h1>
-                            <span />
+                            <span onClick={toggleModal} />
+                            <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} />
                         </Title>
                         <Graph>
                             <GraphLiquid dashboard={true} valor={47} />
@@ -76,7 +63,7 @@ const Dashboard: React.FC = () => {
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.segundo_card.title')}</h1>
-                            <span />
+                            <span onClick={toggleModal} />
                         </Title>
                         <Graph>
                             <GraphLiquid dashboard={true} valor={15} />
@@ -88,6 +75,42 @@ const Dashboard: React.FC = () => {
                         <Title>
                             <h1>{intl.get('tela_dashboards.terceiro_card.title')}</h1>
                         </Title>
+                        <Filtros>
+                            <div>
+                                <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
+                                <select name="projeto">
+                                    <option value="p1">Todos</option>
+                                    <option value="p2">DEF</option>
+                                    <option value="p3">GHI</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
+                                <select name="status">
+                                    <option value="s1">Todos</option>
+                                    <option value="s2">DEF</option>
+                                    <option value="s3">GHI</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Centro de Custo:</label>
+                                <select name="cc">
+                                    <option value="c1">Todos</option>
+                                    <option value="c2">DEF</option>
+                                    <option value="c3">GHI</option>
+                                </select>
+                            </div>                            
+                        </Filtros>
+                        <Line></Line>
+                        <Filtros>
+                            <div id="filtro-periodo">
+                                <select name="dias">
+                                    <option value="d1">Últimos 14 dias</option>
+                                    <option value="d2">DEF</option>
+                                    <option value="d3">GHI</option>
+                                </select>
+                            </div>  
+                        </Filtros>
                     </GraphLine>
                     <CardsMoney>
                         <Money>
@@ -118,8 +141,7 @@ const Dashboard: React.FC = () => {
                     </CardsMoney>
                 </Lines>
             </ContainerDashboard>
-        </Container>
-        
+        </Container> 
         <MenuRight>
             <ContIcons></ContIcons>
         </MenuRight>
