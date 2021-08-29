@@ -66,5 +66,22 @@
             "segundo": "Status",
             "terceiro": "Project"
         }
+    },
+    "tela_dashboards": {
+        "primeiro_card": {
+            "title": "FUNDS USED"
+        },
+        "segundo_card": {
+            "title": "FUNDS RELEASED"
+        },
+        "terceiro_card": {
+            "title": "USE OF FUNDS"
+        },
+        "cards": {
+            "primeiro": "CURRENCY",
+            "segundo": "AVAILABLE",
+            "terceiro": "NOT RELEASED",
+            "quarto": "APPROVED"
+        }
     }
   }
