@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../../Button';
 
-import { Box, Table, Linha } from './styles';
+import { Box, Table, Linha, Total } from './styles';
 
 const Dinheiro: React.FC = () => {   
     return (
@@ -20,26 +20,10 @@ const Dinheiro: React.FC = () => {
                         <input type="text" />
                         <input type="text" />
                     </Linha>
-                    <Linha>
+                    <Total>
                         <input type="text" />
                         <input type="text" />
-                        <input type="text" />
-                    </Linha>
-                    <Linha>
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                    </Linha>
-                    <Linha>
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                    </Linha>
-                    <Linha>
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                    </Linha>
+                    </Total>
                 </div>
             </Table>
             <Table>
@@ -56,24 +40,10 @@ const Dinheiro: React.FC = () => {
                         <input type="text" />
                         <input type="text" />
                     </Linha>
-                    <Linha>
+                    <Total>
                         <input type="text" />
                         <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                    </Linha>
-                    <Linha>
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                    </Linha>
-                    <Linha>
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                    </Linha>
+                    </Total>
                 </div>
             </Table>
         </Box>

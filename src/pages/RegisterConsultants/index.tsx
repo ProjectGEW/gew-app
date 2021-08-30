@@ -16,8 +16,6 @@ const Projects: React.FC = () => {
             <Navbar />
             <MenuLeft />
 
-            <Container />
-
             <MenuRight>
                 <ContIcons />
             </MenuRight>

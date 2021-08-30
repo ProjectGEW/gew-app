@@ -13,6 +13,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
     position: fixed;
 
     #first { 
+        border-radius: 0.5vh 0 0 0;
         background-color: #00579D;
         &:hover {
             transform: translateX(-30vh);
@@ -81,7 +82,6 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
     }
 
     #five { 
-        border-radius: 0.5vh 0 0 0;
         &:hover {
             transform: translateX(-30vh);
             opacity: 0.9;
