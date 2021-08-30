@@ -4,6 +4,10 @@ interface StatusProps {
     statusColor: string;
 }
 
+interface ProgressValue {
+    value: number;
+}
+
 export const Card = styled.div`
     width: 36vw;
     height: 20vh;
@@ -182,11 +186,9 @@ export const Progress = styled.span`
     justify-content: left;
 `;
 
-export const Value = styled.div`
-    width: 7vw;
-    height: 1.5vh;
+export const Value = styled.div<ProgressValue>`
+    width: ${props => props.value}%;
 
-        
     display: flex;
     background: #5CCE40;
 `;
