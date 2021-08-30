@@ -10,9 +10,9 @@ export const ContainerInput = styled.div`
     margin-top: 5vh;
 
     label {
-        width: 0vh;
-        margin-top: -5vh;
-        margin-left: -40vh;
+        margin-top: 0vh;
+        margin-left: 0vh;
+        position: absolute;
         cursor: text;
         font-size: 2.5vh;
         padding: 1vh;
@@ -21,8 +21,6 @@ export const ContainerInput = styled.div`
         z-index: 0;
         transition: all 0.2s;
     }
-
-
 `;
 
 export const Container = styled.div`

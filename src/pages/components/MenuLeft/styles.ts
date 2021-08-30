@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ContainerMenu = styled.div`
     width: 35vh;
     height: 80vh;
-    margin-top: 6vh;
+    margin-top: 15vh;
     margin-left: -11.5vw;
     background-color: #fff;
     border-radius: 0 2vh 2vh 0;
@@ -13,7 +13,7 @@ export const ContainerMenu = styled.div`
     display: flex;
     justify-content: space-between;
     cursor: default;
-    z-index: 10;
+    z-index: 9;
     transition: all 0.3s;
 
     &:after {

@@ -1,9 +1,9 @@
 import React from 'react';
 import GlobalStyle from './styles/global';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './routes';
 
-//import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 
 //import Login from "./pages/Login";
 
@@ -13,12 +13,12 @@ const App: React.FC = () => {
   console.log("%cGEW", "color: #00579D; font-size: 50px");
 
   return (
-    <>
-      <BrowserRouter>
+    <Router>
+      <AuthProvider>
         <Routes />
-      </BrowserRouter>
+      </AuthProvider>
       <GlobalStyle />
-    </>
+    </Router>
   );
 };
 

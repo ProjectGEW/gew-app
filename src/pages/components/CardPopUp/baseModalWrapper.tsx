@@ -72,7 +72,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
             <DesktopModalContainer>
                 <span onClick={onBackdropClick} />
                 <ModalContainerInfos>
-                    <span>{project ? project.infoprojetoDTO.titulo : ""}</span>
+                        <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     <ContainerBox>
                         <p>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - Seção ABC</p>
                         <h3>ATA N°07/2020</h3>
@@ -90,7 +90,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         <input type="file" id="ata"/>
                     </ContainerBox>
                     <ContainerObjectives>
-                        <h1>Descrição</h1>
+                        <h1>Descrição:</h1>
                         <h2>{project ? project.infoprojetoDTO.descricao : ""}
                         </h2>
                     </ContainerObjectives>

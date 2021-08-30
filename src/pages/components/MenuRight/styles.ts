@@ -7,12 +7,14 @@ interface HistoricPageProps {
 export const ContainerMenuRight = styled.div<HistoricPageProps>`
     width: 30vw;
     height: 76vh;
-    margin: 9vh 0 0 97.7vw;
+    margin: 16vh 0 0 97.7vw;
     display: flex;
     flex-direction: column;
     position: fixed;
+    z-index: 9;
 
     #first { 
+        border-radius: 0.5vh 0 0 0;
         background-color: #00579D;
         &:hover {
             transform: translateX(-30vh);
@@ -81,7 +83,6 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
     }
 
     #five { 
-        border-radius: 0.5vh 0 0 0;
         &:hover {
             transform: translateX(-30vh);
             opacity: 0.9;

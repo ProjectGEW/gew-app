@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Inputs, ContainerDesc, ContainerInfos, ContainerSection,
-        ContainerTittles, Tittle, Container, ContainerDetails, Box } from './style';
+        ContainerTittles, Tittle, Container, ContainerDetails, Box,
+        ContainerAppointments, ContainerGraphs, Graphic, Graphic2 } from './style';
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
@@ -100,22 +101,54 @@ const Details: React.FC = () => {
                         <h2>LETÍCIA SCHIODINI DA CRIZ</h2>
                     </Box>
                 </ContainerInfos>
-                <ContainerDesc>
-                    <h1>Descrição:</h1>
-                    <h2>Reduzir a atividade manual da equipe interna WEC na entrada de ordens de venda (OV), envio
-                        da confirmação e aviso de remessa ao Cliente XYZ USA. Atender solicitação do cliente para
-                        automatizar o envio de pedidos e atualização do próprio sistema através do EDI
-                        (Eletronic Data Interchange). O Cliente já implementou este sistema nos principais fornecedores.
-                    </h2>
-                </ContainerDesc>
-                <ContainerDesc>
-                    <h1>Descrição:</h1>
-                    <h2>Reduzir a atividade manual da equipe interna WEC na entrada de ordens de venda (OV), envio
-                        da confirmação e aviso de remessa ao Cliente XYZ USA. Atender solicitação do cliente para
-                        automatizar o envio de pedidos e atualização do próprio sistema através do EDI
-                        (Eletronic Data Interchange). O Cliente já implementou este sistema nos principais fornecedores.
-                    </h2>
-                </ContainerDesc>
+                <span>Horas apontadas funcionários:</span>
+                <ContainerAppointments>
+                        <div className="tableHeader">
+                            <h2>Funcionário</h2>
+                            <h2>Horas Apontadas</h2>
+                            <h2>Valor Hora</h2>
+                            <h2>Valor Total</h2>
+                        </div>
+                        <ul className="scroller sc1">
+                            <li>
+                                <h3>Daiana dos Santos</h3>
+                                <h3>100</h3>
+                                <h3>R$ 50,00</h3>
+                                <h3>R$ 5.000,00</h3>
+                            </li>
+                            <li>
+                                <h3>Daiana dos Santos</h3>
+                                <h3>100</h3>
+                                <h3>R$ 50,00</h3>
+                                <h3>R$ 5.000,00</h3>
+                            </li>
+                            <li>
+                                <h3>Daiana dos Santos</h3>
+                                <h3>100</h3>
+                                <h3>R$ 50,00</h3>
+                                <h3>R$ 5.000,00</h3>
+                            </li>
+                            <li>
+                                <h3>Daiana dos Santos</h3>
+                                <h3>100</h3>
+                                <h3>R$ 50,00</h3>
+                                <h3>R$ 5.000,00</h3>
+                            </li>
+                        </ul>
+                </ContainerAppointments>
+                <ContainerGraphs>
+                    <Graphic>
+                        <h1>Verba utilizada sobre o total orçado:</h1>
+                    </Graphic>
+                    <Graphic>
+                        <h1>Horas das demandas sobre o total estabelecido:</h1>
+                    </Graphic>
+                </ContainerGraphs>
+                <Graphic2>
+                        <div></div>
+                        <div></div>
+                        <div className='graph'></div>
+                </Graphic2>
                 </ContainerDetails>
             </Container>
         </>

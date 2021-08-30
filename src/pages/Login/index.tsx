@@ -1,10 +1,10 @@
-import React, { useRef, useCallback, useContext} from 'react';
+import React, { useRef, useCallback} from 'react';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import {AuthContext}  from '../../context/AuthContext';
+import { useAuth }  from '../../context/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import WEG from "../../assets/weg.svg";
@@ -12,6 +12,7 @@ import WEG from "../../assets/weg.svg";
 import Input from '../components/InputPrimary';
 
 import { Container, Line, LoginCont, ContainerBottom, ContainerBtn, ContainerInput } from './styles';
+import { useHistory } from 'react-router-dom';
 
 interface SingInFormData {
     email: string;
@@ -23,7 +24,8 @@ const Login: React.FC = () => {
     localStorage.setItem('Language', JSON.stringify(defaultLanguage));
 
     const formRef = useRef<FormHandles>(null);
-    const { singIn } = useContext(AuthContext);
+    const { singIn } = useAuth();
+    const history = useHistory();
 
     const handleSubmit = useCallback(async (data: SingInFormData) => {
       try {
@@ -42,11 +44,18 @@ const Login: React.FC = () => {
               email: data.email,
               senha: data.senha
           })
+
+          history.push('/');
+
       } catch(err) {
-          const errors = getValidationErrors(err);
-          formRef.current?.setErrors(errors);
+          if(err instanceof Yup.ValidationError) {
+            const errors = getValidationErrors(err);
+            formRef.current?.setErrors(errors);
+
+            return;
+          }
       }
-  }, [singIn]);
+  }, [history, singIn]);
 
   const trocar = (x: String) => {
       if(x === "true") {
@@ -70,10 +79,10 @@ const Login: React.FC = () => {
                 <ContainerBottom id="container-login">
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     <ContainerInput>
-                        <Input type="text" name="email" placeholder=" "/>
+                        <Input type="text" name="email" placeholder=""/>
                     </ContainerInput>
                     <ContainerInput>
-                        <Input type="password" name="senha" placeholder=" " autoComplete="off"/>
+                        <Input type="password" name="senha" placeholder="" autoComplete="off"/>
                     </ContainerInput>     
                     <ContainerBtn>
                         <button type="submit">entrar</button>

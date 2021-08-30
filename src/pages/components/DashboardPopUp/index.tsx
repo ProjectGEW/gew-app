@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Modal from '../CardPopUp/Modal';
-import Button from '../Button';
-import api from '../../../service/api'
+//import Button from '../Button';
+//import api from '../../../service/api'
 
 import { Container, PopUp, Title, Graph, Scroll, Bar, Value } from './styles';
 
