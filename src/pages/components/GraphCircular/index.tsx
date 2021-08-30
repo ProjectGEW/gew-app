@@ -9,7 +9,7 @@ const GraphCircular: React.FC = () => {
             <Skill>
                 <Outer>
                     <Inner>
-                        <Number>65%</Number>
+                        <Number>57%</Number>
                     </Inner>
                 </Outer>
             </Skill>   

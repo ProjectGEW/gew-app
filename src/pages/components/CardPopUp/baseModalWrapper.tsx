@@ -7,8 +7,6 @@ import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
         ContainerBox, ContainerObjectives, ContainerValues, HourGraphics,
         CostCenters } from './ModalPopup.styles';
 
-import {Link, Route, Router} from "react-router-dom";
-
 interface BaseModalWrapperProps {
     id: number;
     isModalVisible: boolean;
