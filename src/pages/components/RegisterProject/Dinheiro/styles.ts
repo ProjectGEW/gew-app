@@ -65,7 +65,7 @@ export const Table = styled.div`
         }
     }
 
-    &:last-child {
+    &:nth-child(2) {
         div {
 
             h1 {
@@ -97,6 +97,10 @@ export const Table = styled.div`
                 }
             }
         }
+    }
+
+    #second-scroll {
+        
     }
 
 `;
@@ -143,4 +147,38 @@ export const Linha = styled.div`
         background-position: center;
         cursor: pointer;
     }*/
+`;
+
+export const Total = styled.div`
+    width: 80%;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+        height: 5vh;
+
+        &:nth-child(1) {
+            width: 8vw;
+        }
+
+        &:nth-child(2) {
+            width: 12vw;
+        }
+
+        &:first-child {
+            margin-left: 25.5vw;
+        }
+
+        border-radius: 0.4vh;
+        border: 0px;
+        padding: 1vh;
+
+        background-color: rgb(181, 181, 181, 0.6);
+        box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
+        color: #5E5E5E;
+    }
+
+    
 `;
