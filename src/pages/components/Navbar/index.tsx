@@ -59,6 +59,8 @@ const Navbar: React.FC = () => {
       setPage("Cad. Consultores");
     } else if (location.pathname === "/settings") {
       setPage("Configurações");
+    } else if (location.pathname === "/test") {
+      setPage("Área de Teste");
     }
   }, [location])
 

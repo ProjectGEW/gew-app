@@ -65,7 +65,7 @@ export const BoxLeft = styled.div`
     div {
         display: flex;
         flex-direction: column;
-        padding: 5px;
+        padding: 2px;
 
         strong { 
             color: #222;
@@ -88,7 +88,7 @@ export const BoxLeft = styled.div`
             font-size: 2.1vh;
             font-weight: bold;
             padding-top: 2px;
-            padding-left: 12px;
+            padding-left: 10px;
         }
 
         &:first-child p:first-child {
@@ -149,8 +149,6 @@ export const BoxRight = styled.div`
         }
 
         &:last-child p:last-child {
-            padding-top: 1.7vh;
-            padding-bottom: 4vh;
             text-align: left;
         }
         
@@ -163,7 +161,8 @@ export const BoxRight = styled.div`
         }
 
         &:last-child {
-            margin-bottom: 0.5vh;
+            padding: 0;
+            margin-bottom: 0.8vh;
 
             svg {
                 color: #229FC6;
@@ -188,6 +187,7 @@ export const Progress = styled.span`
 
 export const Value = styled.div<ProgressValue>`
     width: ${props => props.value}%;
+    height: 1.5vh;
 
     display: flex;
     background: #5CCE40;

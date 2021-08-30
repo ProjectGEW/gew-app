@@ -10,9 +10,10 @@ import {User, Error } from './styles';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     icon?: React.ComponentType<IconBaseProps>;
+    text: string;
 }
 
-const Login: React.FC<InputProps> = ({name, icon: Icon, ...rest}) => {  
+const Login: React.FC<InputProps> = ({name, icon: Icon, text, ...rest}) => {  
     const inputRef = useRef<HTMLInputElement>(null);
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
@@ -46,7 +47,7 @@ const Login: React.FC<InputProps> = ({name, icon: Icon, ...rest}) => {
                     <FiAlertCircle color="#c53030" size={20} />
                 </Error>
             )}
-            <label>{}</label>
+            <label>{text}</label>
         </User>      
         </>
     );
