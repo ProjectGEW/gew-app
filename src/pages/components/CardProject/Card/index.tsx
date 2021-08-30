@@ -12,6 +12,9 @@ import { Card, CardStatus, CardBox, BoxLeft, BoxRight, Progress, Value } from '.
     repository: string;
 }*/
 
+import formatStatus from "../../../../utils/formatStatus";
+import analisaValor from "../../../../utils/analisaValor";
+
 interface CardProps {
     id: number;
 }
@@ -61,7 +64,7 @@ const CardProject: React.FC<CardProps> = ({id}) => {
         <>
         <Card onClick={toggleModal}>
         <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} id={id} />
-            <CardStatus statusColor={project ? project.infoprojetoDTO.status : "NAO_INICIADO"}/>
+            <CardStatus statusColor={project ? project.infoprojetoDTO.status : ""}/>
             <CardBox>
                 <BoxLeft>
                     <div>
@@ -69,8 +72,8 @@ const CardProject: React.FC<CardProps> = ({id}) => {
                         <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     </div>
                     <div>
-                        <p><strong>Saldo previsto:</strong> R$ {project ? project.valoresTotaisDTO.valorTotalDespesas : 0}</p>
-                        <p><strong>Saldo restante:</strong> R$ 50.000,00</p>
+                        <p><strong>Saldo previsto:</strong>{analisaValor(project ? project.valoresTotaisDTO.valorTotalDespesas : 0)}</p>
+                        <p><strong>Saldo restante:</strong>{analisaValor(50000)}</p>
                     </div>
                     <div>
                         <p>De: {project ? project.infoprojetoDTO.data_de_inicio : "00/00/0000"}</p>
@@ -79,9 +82,7 @@ const CardProject: React.FC<CardProps> = ({id}) => {
                 </BoxLeft>
                 <BoxRight>
                     <div>
-                        <p>Status: <strong>{/*project ? status.split("_").length > 1 ? 
-                            status.split("_")[0][0].toUpperCase() + status.split("_")[0].slice(1).toLowerCase() + " " +  status.split("_")[1].toLowerCase() : 
-                            status.split("_")[0][0].toUpperCase() +  status.split("_")[0].slice(1, -1).toLowerCase() : "Não iniciado"} */}
+                        <p>Status: <strong>{formatStatus(project ? project.infoprojetoDTO.status : '')}
                         </strong></p>
                     </div>
                     <div>
