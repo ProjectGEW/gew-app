@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
-
-import HTMLInputElement from "react-dom"
 
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphCircular from '../components/GraphCircular';
@@ -12,7 +10,6 @@ import GraphCircular from '../components/GraphCircular';
 import { Container } from './styles';
 
 import api from "../../service/api";
-
 
 const Projects: React.FC = () => {
     async function apontarHoras() {
@@ -25,22 +22,22 @@ const Projects: React.FC = () => {
 
     return (
         <>
-            <Navbar />
-            <MenuLeft />
+        <Navbar />
+        <MenuLeft />
 
-            <Container>
-                <h1>Apontar horas</h1>
-                <input type="number" id="horas" />
-                <button onClick={apontarHoras}>Enviar</button>
+        <Container>
+            <h1>Apontar horas</h1>
+            <input type="number" id="horas" />
+            <button onClick={apontarHoras}>Enviar</button>
 
-                <GraphCircular />
-            </Container>
+            <GraphCircular />
+        </Container>
 
-            <MenuRight>
-                <ContIcons />
-            </MenuRight>
+        <MenuRight>
+            <ContIcons />
+        </MenuRight>
         </>
-        );
+    );
 };
 
 export default Projects;

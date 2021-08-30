@@ -4,14 +4,14 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;     
-    margin-top: 10vh;  
+    margin-top: 4vh;
 
     circle {
         fill: none;
         stroke: url(#GradientColor);
         stroke-width: 20px;
-        stroke-dasharray: 472;
-        stroke-dashoffset: 472;
+        stroke-dasharray: 200;
+        stroke-dashoffset: 2;
         animation: ani 2s linear forwards;
     }
 

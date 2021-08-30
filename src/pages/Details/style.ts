@@ -96,18 +96,18 @@ export const Inputs = styled.div`
 export const ContainerDesc = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 4vh 3vh 0vh 0;
+    margin: 1.2vh 3vh 0vh 0;
 
     text-align: justify;
 
     h1 {
-        font-size: 2.5vh;
+        font-size: 2vh;
         font-weight: bold;
-        color: #000050;
+        color: #111;
     }
 
     h2 {
-        font-size: 2.3vh;
+        font-size: 2vh;
         font-weight: normal;
         margin-top: 1.4vh;
     }
@@ -121,7 +121,6 @@ export const ContainerInfos = styled.div`
     flex-direction: row;
     justify-content: space-between;
 
-
     ul {
         display: flex;
         justify-content: space-between;
@@ -134,9 +133,9 @@ export const ContainerInfos = styled.div`
         flex-direction: row;
         list-decoration: none;
 
-         h1 { font-size: 0.76em; margin-right: 1vh; font-weight: bold; }
+         h1 { font-size: 1em; color: #111; margin-right: 1vh; font-weight: bold; }
 
-         h2 { font-size: 0.74em; color: #023A67; font-weight: 100; }
+         h2 { font-size: 1em; color: #00579D; font-weight: 100; }
     }
 `;
 
@@ -144,8 +143,9 @@ export const ContainerSection = styled.div`
     width: 100%;
     float: left;
     margin: 4vh 0 -1vh 0;
+
     h1 {
-        font-size: 0.74em;
+        font-size: 1em;
         color: #229FC6;
     }
 `;
@@ -156,6 +156,7 @@ export const ContainerTittles = styled.div`
     width: 76vw;
     margin-top: 2vh;
     justify-content: space-between;
+    color: #111;
 `;
 
 export const Tittle = styled.div`
@@ -172,7 +173,7 @@ export const Box = styled.div`
     margin-bottom: 3vh;
 
     h1 {
-        font-size: 2.1vh;
+        font-size: 2.2vh;
         margin-bottom: 1.4vh;
     }
 
@@ -186,7 +187,7 @@ export const ContainerAppointments = styled.div`
 width: 72vw;
 height: 22vh;
 margin-top: 3vh;
-border-radius: 2vh 2vh 0 0;
+border-radius: 0.8vh 0.8vh 0 0;
 background-color: rgba(196, 196, 196, 0.3);
 overflow: hidden;
 
@@ -196,7 +197,7 @@ overflow: hidden;
     width: 100%;
     height: 5vh;
     background-color: #00579d;
-    border-radius: 1vh 1vh 0 0;
+    border-radius: 0.8vh 0.8vh 0 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -208,8 +209,8 @@ overflow: hidden;
         display: flex;
         justify-content: center;
         color: #fff;
-        font-size: 1.8vh;
-        font-weight: normal;
+        font-size: 2vh;
+        font-weight: bold;
     }
 }
 
@@ -224,12 +225,12 @@ overflow: hidden;
     height: 1vh;
 }
 .sc1::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgb(196, 196, 196, 0.5);
     border-radius: 10px;
 }
 
 .sc1::-webkit-scrollbar-thumb {
-    background-color: #c4c4c4;
+    background-color: rgb(196, 196, 196);
     border-radius: 10px;
 }
 
@@ -292,13 +293,15 @@ export const Graphic = styled.div`
     height: 40vh;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 4vh;
 
     h1 {
         width: 17vw;
-        font-size: 2.4vh;
+        font-size: 2.2vh;
         text-align: center;
-        color: #5B5B5B;
+        color: #111;
     }
 `;
 
