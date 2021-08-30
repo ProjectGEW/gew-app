@@ -1,15 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Inputs, ContainerDesc, ContainerInfos, ContainerSection,
         ContainerTittles, Tittle, Container, ContainerDetails, Box,
         ContainerAppointments, ContainerGraphs, Graphic, Graphic2 } from './style';
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
-
+import api from '../../service/api'
 import { ContIcons } from '../components/MenuRight/styles';
+import { useParams } from 'react-router-dom';
+
+interface CardContent {
+    infoprojetoDTO : {
+        id: number;
+        numeroDoProjeto: number;
+        titulo: string;
+        descricao: string;
+        data_de_inicio: string;
+        data_de_termino: string;
+        status: string;
+        horas_apontadas: number;
+    };
+    valoresTotaisDTO : {
+        valorTotalCcPagantes: number;
+        valorTotalDespesas: number;
+        valorTotalEsforco: number;
+    };      
+}
+
+interface testeProps {
+    id: number;
+}
 
 const Details: React.FC = () => {
+    const { id }: {id: string}  = useParams();
+    const [project, setProject] = useState<CardContent>();
 
+    useEffect(() => {
+        api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
+          setProject(response.data);
+        }))
+  
+      }, []);
+    console.log(project)
     return (
         <>
             <Navbar />
@@ -34,7 +66,7 @@ const Details: React.FC = () => {
                 <ContainerInfos>
                     <ul>
                         <li>
-                            <h1>NÚMERO:</h1><h2>165165165165</h2>
+                            <h1>NÚMERO:</h1><h2></h2>
                         </li>
                         <li>
                             <h1>CC:</h1><h2>20111151</h2>

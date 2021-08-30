@@ -7,6 +7,8 @@ import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
         ContainerBox, ContainerObjectives, ContainerValues, HourGraphics,
         CostCenters } from './ModalPopup.styles';
 
+import {Link, Route, Router} from "react-router-dom";
+
 interface BaseModalWrapperProps {
     id: number;
     isModalVisible: boolean;
@@ -64,7 +66,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     if (!isModalVisible) {
         return null
     }
-    
+
     return (
         <Modal onBackdropClick={onBackdropClick} >
             <DesktopModalContainer>
@@ -84,8 +86,6 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         </div>
                     </ContainerBox>
                     <ContainerBox>
-                        <label htmlFor="ata">DASHBOARD</label>
-                        <input type="file" id="ata"/>
                         <label htmlFor="ata">ATA_CVPD_07_2020</label>
                         <input type="file" id="ata"/>
                     </ContainerBox>
@@ -137,7 +137,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                             <h1>Saldo:</h1><h2>R$ 10.000,00</h2>
                         </div>
                     </ContainerValues>
-                  <Button text={'Detalhes'} rota={'details'} tipo={'PopUp'} />
+                      <Button text={'Detalhes'} tipo={'PopUp'} rota={"details"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
                 </ModalContainerGraphs>
             </DesktopModalContainer>
         </Modal>

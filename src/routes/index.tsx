@@ -18,14 +18,14 @@ const Routes: React.FC = () => (
     <Switch>
         {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
         <Route path="/" exact component={Login} />
-        <Route path="/home" component={Menu}  />
-        <Route path="/projects" component={Projects}  />
-        <Route path="/register_projects" component={RegisterProjects}  />
-        <Route path="/edit_projects" component={EditProjects}  />
-        <Route path="/register_consultants" component={RegisterConsultants}  />
-        <Route path="/dashboard" component={Dashboard}  />
-        <Route path="/settings" component={Settings}  />
-        <Route path="/details" component={Details} />
+        <Route path="/home" component={Menu} />
+        <Route path="/projects" component={Projects} />
+        <Route path="/register_projects" component={RegisterProjects} />
+        <Route path="/edit_projects" component={EditProjects} />
+        <Route path="/register_consultants" component={RegisterConsultants} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/details/:id" component={Details} />
         {/* Área para testes */}
         <Route path="/test" component={Test} />
     </Switch>

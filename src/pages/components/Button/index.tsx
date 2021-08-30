@@ -3,17 +3,17 @@ import React from "react";
 import { Container } from "./style";
 
 interface buttonProps {
-    text: string;
+    text?: string;
     rota?: string;
     tipo?: string;
+    numeroProjeto?: number;
 }
 
-const Button: React.FC<buttonProps> = ({text, rota, tipo}) => {
+const Button: React.FC<buttonProps> = ({text, rota, tipo, numeroProjeto}) => {
     
     function route() {
-        return window.location.href = 'http://localhost:3000/'+ rota 
+        return window.location.href = 'http://localhost:3000/'+ rota + '/' +numeroProjeto
     }
-
     return (
         <>
             <Container tipo={tipo}><button onClick={route}>{text}</button></Container>
