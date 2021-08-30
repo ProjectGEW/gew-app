@@ -14,6 +14,10 @@ export default createGlobalStyle`
     background: rgba(196, 196, 196, 0.4);
     cursor: default;
   }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
   
   body, input, button {
     font: 16px Roboto, sans-serif;
