@@ -79,10 +79,10 @@ const Login: React.FC = () => {
                 <ContainerBottom id="container-login">
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     <ContainerInput>
-                        <Input type="text" name="email" placeholder=""/>
+                        <Input type="text" name="email" placeholder="" text="Usuário"/>
                     </ContainerInput>
                     <ContainerInput>
-                        <Input type="password" name="senha" placeholder="" autoComplete="off"/>
+                        <Input type="password" name="senha" placeholder="" text="Senha" autoComplete="off"/>
                     </ContainerInput>     
                     <ContainerBtn>
                         <button type="submit">entrar</button>

@@ -7,6 +7,7 @@ import MenuRight from '../components/MenuRight';
 import HTMLInputElement from "react-dom"
 
 import { ContIcons } from '../components/MenuRight/styles';
+import GraphCircular from '../components/GraphCircular';
 
 import { Container } from './styles';
 
@@ -19,7 +20,7 @@ const Projects: React.FC = () => {
 
         const horas = parseInt(input);
 
-        await api.put(`projetos/horas/182217`, {horas: horas});
+        await api.put(`projetos/horas/182207`, {horas: horas});
     }
 
     return (
@@ -30,7 +31,9 @@ const Projects: React.FC = () => {
             <Container>
                 <h1>Apontar horas</h1>
                 <input type="number" id="horas" />
-                <button onClick={apontarHoras} />
+                <button onClick={apontarHoras}>Enviar</button>
+
+                <GraphCircular />
             </Container>
 
             <MenuRight>
