@@ -10,6 +10,7 @@ import RegisterProjects from '../pages/RegisterProjects';
 import EditProjects from '../pages/EditProjects';
 import Settings from '../pages/Settings';
 import Details from '../pages/Details';
+import Test from '../pages/Test';
 
 const Routes: React.FC = () => (
     <Switch>
@@ -22,6 +23,7 @@ const Routes: React.FC = () => (
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/settings" component={Settings} />
         <Route path="/details" component={Details} />
+        <Route path="/test" component={Test} />
     </Switch>
 );
 
