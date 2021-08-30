@@ -20,6 +20,7 @@ export const DesktopModalContainer = styled(ModalContainer)`
     width: 70vw;
     height: 86.5vh;
     font-size: 26px;
+    z-index: 10;
 
     span {
         background-image: url(${Close});
@@ -42,9 +43,11 @@ export const ModalContainerInfos = styled.div`
     height: 100%;
     margin-right: 1.5%;
 
-    span {
-        font-size: 0.9em;
+    h1 {
+        height: 6vh;
+        font-size: 1em;
         font-weight: bold;
+        padding-right: 1vw;
     }
 `;
 
@@ -140,6 +143,8 @@ export const ContainerObjectives = styled.div`
     margin-top: 4vh;
     margin-right: 3vw;
     text-align: justify;
+    width: 100%;
+    height: 15vh;
 
     h1 {
         font-size: 2.3vh;
@@ -149,7 +154,8 @@ export const ContainerObjectives = styled.div`
     h2 {
         font-size: 2vh;
         font-weight: normal;
-        margin-top: 1.4vh;
+        padding-right: 3vw;
+        margin-top: -1.4vh;
     }
 `;
 
