@@ -15,19 +15,6 @@ export const ContainerInput = styled.div`
     flex-direction: column;
     position: relative;
     margin-top: 5vh;
-
-    label {
-        width: 0vh;
-        margin-top: -5vh;
-        margin-left: -40vh;
-        cursor: text;
-        font-size: 2.3vh;
-        padding: 1vh;
-        color: #00579D;
-        font-weight: bold;
-        z-index: 0;
-        transition: all 0.2s;
-    }
 `;
 
 export const User = styled.div<ContainerProps>`
@@ -43,20 +30,7 @@ export const User = styled.div<ContainerProps>`
     ${props => props.isFocused && css`
         color: #228B22;
         border-color: #00579D;
-        transition: all 0.2s;
-
-        &:focus + label, &:not(:placeholder-shown) + label {
-            transform: scale(0.9) translateY(-100%) translateX(-3vh); 
-        }
-        
-        & + input:active + label {
-            transform: scale(0.9) translateY(-100%) translateX(-3vh); 
-        }
-
-        & + input:valid + label {
-            transform: scale(0.9) translateY(-100%) translateX(-3vh); 
-        }
-        
+        transition: all 0.2s;        
     `}
 
     ${props => props.isFilled && css`
@@ -81,6 +55,27 @@ export const User = styled.div<ContainerProps>`
         color: #333;
         flex: 1;
         z-index: 2;     
+
+        ::placeholder {
+            margin-top: 0vh;
+            margin-left: 0vh;
+            position: absolute;
+            cursor: text;
+            font-size: 2.5vh;
+            padding: 1vh;
+            color: #00579D;
+            font-weight: bold;
+            z-index: 0;
+            transition: all 0.2s;
+        }
+
+        &:focus ~ label {
+            transform: scale(0.9) translateY(-100%) translateX(-3vh);
+        }
+
+        &:valid ~ label {
+            transform: scale(0.9) translateY(-100%) translateX(-3vh);
+        }
 `;
 
 export const Error = styled(Tooltip)`
