@@ -40,8 +40,6 @@ interface CardContent {
 const CardProject: React.FC<CardProps> = ({id}) => {
     const [project, setProject] = useState<CardContent>();
     const [status, setStatus] = useState('');
-
-    console.log(status);
     //const { params } = useRouteMatch<RepositoryParams>();
 
     useEffect(() => {
@@ -60,11 +58,18 @@ const CardProject: React.FC<CardProps> = ({id}) => {
         setIsModalVisible(wasModalVisible => !wasModalVisible)
     }
 
+    function calcularPorcentagem(count: number) {
+        const total = project ? project.valoresTotaisDTO.valorTotalEsforco : 0;
+        const porcentagem = (count / total) * 100;
+
+        return Math.floor(porcentagem);
+    }
+
     return (
         <>
         <Card onClick={toggleModal}>
         <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} id={id} />
-            <CardStatus statusColor={project ? project.infoprojetoDTO.status : ""}/>
+            <CardStatus statusColor={status}/>
             <CardBox>
                 <BoxLeft>
                     <div>
@@ -95,7 +100,7 @@ const CardProject: React.FC<CardProps> = ({id}) => {
                                 {project.infoprojetoDTO.horas_apontadas} Horas
                             </p>
                             <Progress>
-                                <Value />
+                                <Value value={calcularPorcentagem(project ? project.infoprojetoDTO.horas_apontadas : 0)} />
                             </Progress>
                             </>
                             :
