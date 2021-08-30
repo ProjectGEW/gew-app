@@ -10,7 +10,7 @@ import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
 import {Link, Route, Router} from "react-router-dom";
 
 interface BaseModalWrapperProps {
-    id: number;
+    numeroDoProjeto: number;
     isModalVisible: boolean;
     onBackdropClick: () => void;
 }
@@ -53,15 +53,15 @@ interface CardContent {
     };      
 }
 
-const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, id}) => {
+const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, numeroDoProjeto}) => {
     
     const [project, setProject] = useState<CardContent>();
 
     useEffect(() => {
-        api.get<CardContent>(`/projetos/${id}`).then((response => {
+        api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
             setProject(response.data);
         }
-    ))}, [id]);
+    ))}, [numeroDoProjeto]);
 
     if (!isModalVisible) {
         return null

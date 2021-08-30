@@ -108,7 +108,7 @@ const Projects: React.FC = () => {
                             // projeto.infoprojetoDTO.status === "CONCLUIDO" ? 
                             //     <CardConcluded id={projeto.infoprojetoDTO.id}/>
                             // :
-                            <Card id={projeto.infoprojetoDTO.id}  />
+                            <Card numeroDoProjeto={projeto.infoprojetoDTO.id}  />
                         ) : ''}
                     </Center>
                 </ProjectsGrid>
