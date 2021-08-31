@@ -102,7 +102,7 @@ const MenuRight: React.FC = () => {
           </TextMenuRight>
         </ContIcons>
       </a>
-      <a href="../dashboard">
+      <a href="../dashboard/0">
         <ContIcons id="six">
           <Icon>
             <GoGraph id="icons" color="#fff" />

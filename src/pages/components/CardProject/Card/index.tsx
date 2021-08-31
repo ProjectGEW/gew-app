@@ -16,7 +16,7 @@ import formatStatus from "../../../../utils/formatStatus";
 import analisaValor from "../../../../utils/analisaValor";
 
 interface CardProps {
-    id: number;
+    numeroDoProjeto: number;
 }
 
 interface CardContent {
@@ -37,18 +37,17 @@ interface CardContent {
     };      
 }
 
-const CardProject: React.FC<CardProps> = ({id}) => {
+const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
     const [project, setProject] = useState<CardContent>();
     const [status, setStatus] = useState('');
     //const { params } = useRouteMatch<RepositoryParams>();
-
     useEffect(() => {
-      api.get<CardContent>(`/projetos/${id}`).then((response => {
+      api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
         setProject(response.data);
         setStatus(response.data.infoprojetoDTO.status);
       }))
 
-    }, [id]);
+    }, [numeroDoProjeto]);
     
     // {project.map(project => ())}
 
@@ -68,7 +67,11 @@ const CardProject: React.FC<CardProps> = ({id}) => {
     return (
         <>
         <Card onClick={toggleModal}>
-        <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} id={id} />
+        <BaseModalWrapper 
+            isModalVisible={isModalVisible} 
+            onBackdropClick={toggleModal} 
+            numeroDoProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0} 
+        />
             <CardStatus statusColor={status}/>
             <CardBox>
                 <BoxLeft>
