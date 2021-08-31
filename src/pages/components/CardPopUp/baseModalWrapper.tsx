@@ -8,7 +8,7 @@ import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
         CostCenters } from './ModalPopup.styles';
 
 interface BaseModalWrapperProps {
-    id: number;
+    numeroDoProjeto: number;
     isModalVisible: boolean;
     onBackdropClick: () => void;
 }
@@ -51,15 +51,15 @@ interface CardContent {
     };      
 }
 
-const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, id}) => {
+const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, numeroDoProjeto}) => {
     
     const [project, setProject] = useState<CardContent>();
 
     useEffect(() => {
-        api.get<CardContent>(`/projetos/${id}`).then((response => {
+        api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
             setProject(response.data);
         }
-    ))}, [id]);
+    ))}, [numeroDoProjeto]);
 
     if (!isModalVisible) {
         return null
@@ -84,6 +84,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         </div>
                     </ContainerBox>
                     <ContainerBox>
+                    <Button text={'Dashboard'} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
                         <label htmlFor="ata">ATA_CVPD_07_2020</label>
                         <input type="file" id="ata"/>
                     </ContainerBox>

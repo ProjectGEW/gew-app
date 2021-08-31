@@ -68,7 +68,6 @@ const Projects: React.FC = () => {
 
     return (
         <>
-        {console.log(projetos)}
         <Navbar />
         <MenuLeft />
         <Container>
@@ -105,10 +104,7 @@ const Projects: React.FC = () => {
                 <ProjectsGrid>
                     <Center>
                         {projetos ? projetos.map(projeto =>
-                            // projeto.infoprojetoDTO.status === "CONCLUIDO" ? 
-                            //     <CardConcluded id={projeto.infoprojetoDTO.id}/>
-                            // :
-                            <Card id={projeto.infoprojetoDTO.id}  />
+                            <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto}  />
                         ) : ''}
                     </Center>
                 </ProjectsGrid>
