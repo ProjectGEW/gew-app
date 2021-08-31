@@ -29,9 +29,6 @@ export const AuthProvider: React.FC = ({ children }) => {
         if(jwt && usuario){
             return { jwt, usuario: JSON.parse(usuario)};
         }
-
-        //console.log(data);
-
         return {} as AuthState;
     });
 
