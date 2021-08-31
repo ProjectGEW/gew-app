@@ -12,7 +12,11 @@ interface buttonProps {
 const Button: React.FC<buttonProps> = ({text, rota, tipo, numeroProjeto}) => {
     
     function route() {
-        return window.location.href = 'http://localhost:3000/'+ rota + '/' +numeroProjeto
+        if(numeroProjeto != null) {
+            return window.location.href = 'http://localhost:3000/'+ rota + '/' + numeroProjeto
+        }
+        
+        return window.location.href = 'http://localhost:3000/'+ rota
     }
     return (
         <>

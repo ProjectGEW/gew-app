@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -14,6 +14,10 @@ import GraphLiquid from "../components/GraphLiquid";
 import intl from "react-intl-universal";
 
 import BaseModalWrapper from '../components/DashboardPopUp';
+import { useParams } from 'react-router-dom';
+
+import api from '../../service/api';
+
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -22,7 +26,61 @@ const locales = {
     'fr-FR': require('../../language/fr-FR.json'),
 };
 
+interface CardContent {
+    infoprojetoDTO : {
+        id: number;
+        numeroDoProjeto: number;
+        titulo: string;
+        descricao: string;
+        data_de_inicio: string;
+        data_de_termino: string;
+        status: string;
+        horas_apontadas: number;
+    };
+    valoresTotaisDTO : {
+        valorTotalCcPagantes: number;
+        valorTotalDespesas: number;
+        valorTotalEsforco: number;
+    };      
+}
+
+interface IProjetoProps {
+    infoprojetoDTO : {
+        id: number;
+        numeroDoProjeto: number;
+        titulo: string;
+        descricao: string;
+        data_de_inicio: string;
+        data_de_termino: string;
+        status: string;
+    };
+    valoresTotaisDTO : {
+        valorTotalCcPagantes: number;
+        valorTotalDespesas: number;
+        valorTotalEsforco: number;
+    };
+}
+
 const Dashboard: React.FC = () => {
+    const { id }: {id: string}  = useParams();
+
+    const [project, setProject] = useState<CardContent>();
+    const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
+    
+    useEffect(() => {
+        if(id === null) {
+            window.onload = async function handleProjetos() {
+            const response = await api.get<IProjetoProps[]>("projetos");
+            const data = response.data;
+
+            setProjetos(data);
+            }
+        }
+        api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
+        setProject(response.data);
+        }))
+    }, [id]);
+
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
 
