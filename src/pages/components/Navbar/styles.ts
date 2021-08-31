@@ -125,7 +125,7 @@ export const DropdownMenu = styled.div`
   margin-top: 5.9vh;
   transform: translateX(-6.5vw);
   display: none;
-  z-index: 10;
+  z-index: 20;
 
   ul {
     width: 100%;
@@ -225,7 +225,7 @@ export const DropdownFlag = styled.div`
   margin-top: 8.1vh;
   transform: translateX(88vw);
   display: none;
-  z-index: 10;
+  z-index: 20;
   transition: all 0.1s;
 
   ul { 

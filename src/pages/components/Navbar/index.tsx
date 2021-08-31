@@ -43,15 +43,12 @@ const Navbar: React.FC = () => {
   const historicPage = useCallback(() => {
     if (location.pathname === "/home") {
       document.getElementById("home")!.style.display = "none";
-      //document.getElementById("projects")!.style.display = "none";
       setPage("Home"); 
     } else if (location.pathname === "/projects") {
-      //document.getElementById("projects")!.style.display = "none";
       setPage("Projetos");
     } else if (location.pathname === "/dashboard") {
       setPage("Dashboards");
     } else if (location.pathname === "/register_projects") {
-      //document.getElementById("projects")!.style.display = "none";
       setPage("Cad. Projetos");
     } else if (location.pathname === "/edit_projects") {
       setPage("Edit. Projetos");
@@ -61,6 +58,8 @@ const Navbar: React.FC = () => {
       setPage("Configurações");
     } else if (location.pathname === "/test") {
       setPage("Área de Teste");
+    } else if (location.pathname === "/projects/details/1") { // <--- revisar
+      setPage("Detalhes");
     }
   }, [location])
 

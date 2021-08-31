@@ -25,7 +25,7 @@ const Routes: React.FC = () => (
         <Route path="/register_consultants" component={RegisterConsultants} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/settings" component={Settings} />
-        <Route path="/details/:id" component={Details} />
+        <Route path="/projects/details/:id" component={Details} />
         {/* Área para testes */}
         <Route path="/test" component={Test} />
     </Switch>

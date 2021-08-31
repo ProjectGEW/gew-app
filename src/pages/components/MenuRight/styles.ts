@@ -11,7 +11,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
     display: flex;
     flex-direction: column;
     position: fixed;
-    z-index: 9;
+    z-index: 8;
 
     #first { 
         border-radius: 0.5vh 0 0 0;
