@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Switch } from 'react-router';
 
 import Route from './Route';
