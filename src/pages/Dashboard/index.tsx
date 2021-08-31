@@ -66,19 +66,24 @@ const Dashboard: React.FC = () => {
 
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
-    
-    useEffect(() => {
-        if(id === null) {
-            window.onload = async function handleProjetos() {
-            const response = await api.get<IProjetoProps[]>("projetos");
-            const data = response.data;
 
-            setProjetos(data);
+    console.log(id);
+    useEffect(() => {
+        if(id === undefined) {
+            window.onload = async function handleProjetos() {
+                const response = await api.get<IProjetoProps[]>("projetos");
+                const data = response.data;
+
+                setProjetos(data);
             }
+            return;
         }
-        api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
-        setProject(response.data);
-        }))
+
+        window.onload = async () => (
+            await api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
+            setProject(response.data);
+        })))
+
     }, [id]);
 
     const [language] = useState(() => {

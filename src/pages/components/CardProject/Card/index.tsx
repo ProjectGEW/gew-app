@@ -49,7 +49,6 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
 
     }, [numeroDoProjeto]);
     
-    console.log(project);
     // {project.map(project => ())}
 
     const [isModalVisible, setIsModalVisible] = React.useState(false);
