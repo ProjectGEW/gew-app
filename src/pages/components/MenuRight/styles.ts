@@ -124,7 +124,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
         #first { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
-            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.45);
+            box-shadow: -0.05vh 0 0.05vh 0 rgba(50, 50, 93, 0.45);
 
             #icons {
                 transform: scale(1.6, 1.6);
@@ -133,7 +133,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
 
             &:hover {
                 transform: translateX(-30vh);
-                opacity: 0.9;
+                opacity: 1;
         
                 &:before {
                     display: none;
@@ -151,7 +151,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
         #second { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
-            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.45);
+            box-shadow: -0.05vh 0 0.05vh 0 rgba(50, 50, 93, 0.45);
 
             #icons {
                 transform: scale(1.6, 1.6);
@@ -160,7 +160,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
 
             &:hover {
                 transform: translateX(-30vh);
-                opacity: 0.9;
+                opacity: 1;
         
                 &:before {
                     display: none;
@@ -178,7 +178,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
         #three { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
-            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.45);
+            box-shadow: -0.05vh 0 0.05vh 0 rgba(50, 50, 93, 0.45);
 
             #icons {
                 transform: scale(1.6, 1.6);
@@ -187,7 +187,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
 
             &:hover {
                 transform: translateX(-30vh);
-                opacity: 0.9;
+                opacity: 1;
         
                 &:before {
                     display: none;
@@ -205,7 +205,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
         #four { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
-            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.45);
+            box-shadow: -0.05vh 0 0.05vh 0 rgba(50, 50, 93, 0.45);
 
             #icons {
                 transform: scale(1.6, 1.6);
@@ -214,7 +214,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
 
             &:hover {
                 transform: translateX(-30vh);
-                opacity: 0.9;
+                opacity: 1;
         
                 &:before {
                     display: none;
@@ -232,7 +232,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
         #six { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
-            box-shadow: -0.1vh 0 0.1vh 0 rgba(50, 50, 93, 0.45);
+            box-shadow: -0.05vh 0 0.05vh 0 rgba(50, 50, 93, 0.45);
 
             #icons {
                 transform: scale(1.6, 1.6);
@@ -241,7 +241,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
 
             &:hover {
                 transform: translateX(-30vh);
-                opacity: 0.9;
+                opacity: 1;
         
                 &:before {
                     display: none;

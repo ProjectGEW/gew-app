@@ -1,5 +1,5 @@
-import React/*, { useState, useEffect }*/ from 'react';
-//import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Inputs, ContainerDesc, ContainerInfos, ContainerSection, ContainerTittles, Tittle, Container,
     ContainerDetails, Box, ContainerAppointments, ContainerGraphs, Graphic, Graphic2 } from './style';
@@ -8,12 +8,12 @@ import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
-//import api from '../../service/api'
+import api from '../../service/api'
 
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphCircular from '../components/GraphCircular';
 
-/*interface CardContent {
+interface CardContent {
     infoprojetoDTO : {
         id: number;
         numeroDoProjeto: number;
@@ -31,21 +31,15 @@ import GraphCircular from '../components/GraphCircular';
     };      
 }
 
-interface testeProps {
-    id: number;
-}*/
-
 const Details: React.FC = () => {
-    /*const { id }: {id: string}  = useParams();
+    const { id }: {id: string}  = useParams();
     const [project, setProject] = useState<CardContent>();
 
     useEffect(() => {
         api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
           setProject(response.data);
         }))
-    }, []);
-    console.log(project); */                    /*Se não for usar comenta pra evitar bugs*/
-
+    }, [id]);
     return (
         <>
         <Navbar/>

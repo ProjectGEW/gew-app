@@ -1,5 +1,5 @@
 import { shade } from 'polished';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Close  from '../../../assets/close.svg';
 import Ata from '../../../assets/ata.svg';
 import Dashboard from '../../../assets/dashboardIcon.svg';
@@ -13,6 +13,16 @@ const ModalContainer = styled.div`
     position: relative;
 `;
 
+const appearFrom = keyframes`
+    from {
+        opacity: 0.7;
+        transform: translateY(100vh);
+    } to {
+        opacity: 1;
+        transform: translateY(0vh);
+    }
+`;
+
 export const DesktopModalContainer = styled(ModalContainer)`
     border-radius: 1vh;
     box-shadow: 0 0 32px rgba(0,0,0,0.5);
@@ -21,6 +31,8 @@ export const DesktopModalContainer = styled(ModalContainer)`
     height: 86.5vh;
     font-size: 26px;
     z-index: 10;
+
+    animation: ${appearFrom} 0.8s;
 
     span {
         background-image: url(${Close});

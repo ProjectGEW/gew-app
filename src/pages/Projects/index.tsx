@@ -84,7 +84,6 @@ const Projects: React.FC = () => {
     
     return (
         <>
-        {console.log(projetos)}
         <Navbar />
         <MenuLeft />
         <Container>
@@ -133,7 +132,7 @@ const Projects: React.FC = () => {
                             <>  
                                 {/*<p>{status}</p>*/}
 
-                                <Card id={projeto.infoprojetoDTO.id} />    
+                                <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />    
                             </>  
                             )}
 
