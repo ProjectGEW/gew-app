@@ -3,6 +3,10 @@ import styled from "styled-components";
 import Arrow from '../../../assets/arrow_grey.svg';
 import Close from '../../../assets/close.svg';
 
+interface GraphBarProps {
+    valor: number;
+}
+
 export const Container = styled.div`
     position: absolute;
     top: 14vh;
@@ -41,7 +45,9 @@ export const PopUp = styled.div`
 
         p {
             &:nth-child(1) {
+                width: 14.5vw;
                 color: #484848;
+                border-right: 0.1vh solid #ccc;
 
                 &::after {
                     content: '';
@@ -153,21 +159,21 @@ export const Bar = styled.div`
     flex-direction: row;
 `;
 
-export const Value = styled.div`
-    width: 15vw;
+export const Value = styled.div<GraphBarProps>`
+    width: calc(${props => props.valor}vw * 0.3195);
     height: 6vh;
     background: linear-gradient(to right, #006FC8, #0090C5, #28B9DA);
 
     display: flex;
-    flex-direction: row;
+    
     justify-content: center;
 
     &::after {
-        content: '47%';
+        //content: '${props => props.valor}%';
         width: 2vw;
         height: 2vh;
         margin-top: 0.8vh;
-        margin-left: 42vw;
+        margin-left: calc(${props => props.valor}vw * 0.4);
         position: absolute;
         color: #00579D;
         font-weight: bold;

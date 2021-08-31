@@ -10,6 +10,10 @@ interface BaseModalWrapperProps {
     onBackdropClick: () => void;
 }
 
+interface GraphBarProps {
+    valor: number;
+}
+
 const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible}) => {
 
     if (!isModalVisible) {
@@ -63,7 +67,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     </Scroll>
                     <Graph>
                         <Bar>
-                            <Value></Value>
+                            <Value valor={47}></Value>
                         </Bar>
                     </Graph>
                 </PopUp>

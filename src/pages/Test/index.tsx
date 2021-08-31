@@ -17,7 +17,7 @@ const Projects: React.FC = () => {
 
         const horas = parseInt(input);
 
-        await api.put(`projetos/horas/182207`, {horas: horas});
+        await api.put(`projetos/horas/182210`, {horas: horas});
     }
 
     return (

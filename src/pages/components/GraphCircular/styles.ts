@@ -31,7 +31,8 @@ export const Container = styled.div`
 export const Skill = styled.div`
     width: 160px;
     height: 160px;
-    position: relative;        
+    position: relative;  
+          
 `;
 
 export const Outer = styled.div`
@@ -39,6 +40,7 @@ export const Outer = styled.div`
     height: 160px;
     border-radius: 50%;
     padding: 20px;
+    background: rgba(226, 226, 226, 0.4);
     box-shadow: 6px 6px 10px -1px rgb(0, 0, 0, 0.15), -6px -6px 10px -1px rgb(255, 255, 255, 0.7);
 `;
 
@@ -48,6 +50,7 @@ export const Inner = styled.div`
     border-radius: 50%;
     display: flex;
     align-items: center;
+    background: transparent;
     justify-content: center;
     box-shadow: inset 4px 4px 6px -1px rgb(0, 0, 0, 0.2), inset -4px -4px 6px -1px rgb(255, 255, 255, 0.7),
     -0.5px -0.5px 0px rgb(255, 255, 255, 1), 0.5px 0.5px 0px rgb(0, 0, 0, 0.15),
