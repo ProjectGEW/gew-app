@@ -1,5 +1,12 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
+const appearFromLeft = keyframes`
+    from {
+        transform: translateX(-10vw);
+    } to {
+        transform: translateX(0vw);
+    }
+`;
 export const ContainerMenu = styled.div`
     width: 35vh;
     height: 80vh;
@@ -15,6 +22,7 @@ export const ContainerMenu = styled.div`
     cursor: default;
     z-index: 9;
     transition: all 0.3s;
+    animation: ${appearFromLeft} 1.4s;
 
     &:after {
         content: "";

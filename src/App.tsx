@@ -7,7 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 
 //import Login from "./pages/Login";
 
-const App: React.FC = () => {
+const App: React.FC = (props) => {
 
   //Escreve GEW no console
   console.log("%cGEW", "color: #00579D; font-size: 50px");

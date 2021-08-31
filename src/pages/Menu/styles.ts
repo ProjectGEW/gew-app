@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { shade } from "polished";
 
 import Complete from "../../assets/complete.svg";
@@ -9,6 +9,17 @@ interface ValorGraphBar {
     valor: number;
 }
 
+const appear = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(100vh);
+    } to {
+        opacity: 1;
+        transform: translateY(0vh);
+    }
+`;
+
+
 export const ContainerHome = styled.div`
     position: absolute;
     top: 14vh;
@@ -16,6 +27,7 @@ export const ContainerHome = styled.div`
     width: 62vw;
     height: 80vh;
 
+    animation: ${appear} 1.4s;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -293,7 +305,7 @@ export const GraphBars = styled.div`
     width: 41vw;
     height: 23vh;
     margin-top: -2vh;
-    background-color: rgb(226, 226, 226);
+    background-color: rgba(226, 226, 226, 0.6);
     border: 0.1vh solid rgb(167, 167, 167);
     border-top: 0;
     border-bottom: 0;

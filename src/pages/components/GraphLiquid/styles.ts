@@ -23,7 +23,7 @@ export const Circle = styled.div<WavesProps>`
     overflow: hidden;
 
     box-shadow: 0px 0px 0px 0.5vh white, 0px 0px 0px 1vh #00579D;
-    background-color: rgb(226, 226, 226);
+    background-color: rgba(226, 226, 226, 0.5);
 
     &::after {
         content: '0%';

@@ -21,6 +21,7 @@ import { ContainerHome, ContainerHomeGraph, Card, ContainerHomeCards, ContainerH
 import api from '../../service/api';
 import analisaValor from '../../utils/analisaValor';
 
+
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
     'en-US': require('../../language/en-US.json'),
