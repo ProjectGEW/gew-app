@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 
@@ -42,6 +42,19 @@ interface IProjetoProps {
     };
 }
 
+const optStatus = [
+    "Todos",
+    "Em andamento",
+    "Atrasado",
+    "Concluído"
+];
+
+const optTitulo = [
+    "abc",
+    "ghi",
+    "wec"
+];
+
 const Projects: React.FC = () => {
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -62,10 +75,13 @@ const Projects: React.FC = () => {
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>("projetos");
         const data = response.data;
-
         setProjetos(data);
     }
 
+    const [buscaTitulo, setBuscaTitulo] = useState('');
+    const projetoFiltrado = optTitulo
+    .filter((titulo) => titulo.toLowerCase().includes(buscaTitulo.toLowerCase()));
+    
     return (
         <>
         <Navbar />
@@ -82,30 +98,54 @@ const Projects: React.FC = () => {
                         <div>
                             <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
                             <select name="secao">
-                                <option value="se1">ABC</option>
-                                <option value="se2">DEF</option>
-                                <option value="se3">GHI</option>
+                                <option value="se1">Nenhum</option>
+                                <option value="se2">ABC</option>
+                                <option value="se3">DEF</option>
+                                <option value="se4">GHI</option>
                             </select>
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                            <select name="status">
-                                <option value="Atrasado">Atrasado</option>
-                                <option value="Em andamento" selected>Em andamento</option>
-                                <option value="Concluído">Concluído</option>
+                            <select id="status">
+                                <option>Todos</option>
+                                <option>Em andamento</option>
+                                <option>Atrasado</option>
+                                <option>Concluído</option>
+  
                             </select>
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-                            <input placeholder="Digite aqui" />
+                            <input 
+                            onChange={(ev) => setBuscaTitulo(ev.target.value)} 
+                            type="text" 
+                            value={buscaTitulo}
+                            placeholder="Digite aqui"/>
                         </div>
                     </ContainerFiltro>
                 </ContainerInfo>
                 <ProjectsGrid>
                     <Center>
-                        {projetos ? projetos.map(projeto =>
-                            <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto}  />
-                        ) : ''}
+                        {projetos.map(projeto =>
+                            <>                            
+                            {projetoFiltrado.map(status => 
+                            <>  
+                                {/*<p>{status}</p>*/}
+
+                                <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />    
+                            </>  
+                            )}
+
+                            {/*<Card id={projeto.infoprojetoDTO.id} projeto={projeto.infoprojetoDTO.titulo} />*/}
+                            </>
+                        )}
+
+                        {
+                        // dentro do map do projetos
+                        // projeto.infoprojetoDTO.status === "CONCLUIDO" ? 
+                        //     <CardConcluded id={projeto.infoprojetoDTO.id}/>
+                        // :
+                        }
                     </Center>
                 </ProjectsGrid>
             </ContainerProject>
