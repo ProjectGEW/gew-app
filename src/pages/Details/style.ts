@@ -5,26 +5,10 @@ import Dashboard from '../../assets/dashboardIcon.svg';
 
 export const Container = styled.div`
     position: absolute;
-    top: 14vh;
+    top: 20vh;
     left: 12vw;
     width: 78vw;
     height: 217vh;
-    overflow: hidden;
-    overflow: scroll;
-    overflow-x: hidden;
-
-    ::-webkit-scrollbar {
-        background-color: rgb(194, 194, 194, 0.5);
-        width: 0.4vw;
-        height: 1vh;
-    }
-       
-    ::-webkit-scrollbar-thumb {
-        width: 1vw;
-        height: 1vh;
-        background-color: rgb(196, 196, 196); 
-        border-radius: 1vh;
-    }
 `;
 
 export const ContainerDetails = styled.div`
@@ -36,6 +20,15 @@ export const ContainerDetails = styled.div`
     display: flex;
     flex-direction: column;
 
+    overflow: hidden;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+        background-color: rgb(194, 194, 194, 0.5);
+        width: 0.4vw;    
+    }
+       
     background-color: #fff;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border-radius: 0.8vh;
@@ -188,7 +181,7 @@ width: 72vw;
 height: 22vh;
 margin-top: 3vh;
 border-radius: 0.8vh 0.8vh 0 0;
-background-color: rgba(196, 196, 196, 0.3);
+background-color: rgba(226, 226, 226, 0.2);
 overflow: hidden;
 
 .tableHeader {

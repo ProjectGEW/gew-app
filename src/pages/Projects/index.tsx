@@ -110,8 +110,7 @@ const Projects: React.FC = () => {
                                 <option>Todos</option>
                                 <option>Em andamento</option>
                                 <option>Atrasado</option>
-                                <option>Concluído</option>
-  
+                                <option>Concluído</option> 
                             </select>
                         </div>
                         <div>
@@ -127,17 +126,7 @@ const Projects: React.FC = () => {
                 <ProjectsGrid>
                     <Center>
                         {projetos.map(projeto =>
-                            <>                            
-                            {projetoFiltrado.map(status => 
-                            <>  
-                                {/*<p>{status}</p>*/}
-
-                                <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />    
-                            </>  
-                            )}
-
-                            {/*<Card id={projeto.infoprojetoDTO.id} projeto={projeto.infoprojetoDTO.titulo} />*/}
-                            </>
+                            <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />    
                         )}
 
                         {
