@@ -97,7 +97,7 @@ const Details: React.FC = () => {
                         <h2>INSIDE SALES DEPARTMENT</h2>
                     </Box>
                     <Box>
-                        <h1>Aprovado Por:</h1>
+                        <h1>Aprovado por:</h1>
                         <h2>LETÍCIA SCHIODINI DA CRIZ</h2>
                         <h2>...</h2>
                     </Box>
@@ -151,12 +151,12 @@ const Details: React.FC = () => {
                 </ContainerAppointments>
                 <ContainerGraphs>
                     <Graphic>
-                        <h1>Verba utilizada sobre o total orçado:</h1>
-                        <GraphCircular/>
+                        <h1>Verba utilizada sobre o total orçado</h1>
+                        <GraphCircular valor={"R$ 10.000,00"}/>
                     </Graphic>
                     <Graphic>
-                        <h1>Horas das demandas sobre o total estabelecido:</h1>
-                        <GraphCircular/>
+                        <h1>Horas das demandas sobre o total estabelecido</h1>
+                        <GraphCircular valor={"120 horas"}/>
                     </Graphic>
                 </ContainerGraphs>
                 <Graphic2>
