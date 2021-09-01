@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 
 import arrow from "../../../assets/arrow.svg";
 
@@ -15,14 +15,6 @@ interface SiglaFlag {
 interface HistoricPageProps {
   localDaRota: boolean;
 }
-
-const appear = keyframes`
-    from {
-        transform: translateY(-6vw);
-    } to {
-        transform: translateX(0vw);
-    }
-`;
 
 export const ContainerNavbar = styled.div`
   width: 100%;
