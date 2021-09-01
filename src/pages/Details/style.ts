@@ -35,6 +35,7 @@ export const ContainerDetails = styled.div`
 
     span {
         font-weight: bold;
+        font-size: 2.2vh;
     }
 `;
 
@@ -181,6 +182,8 @@ width: 72vw;
 height: 22vh;
 margin-top: 3vh;
 border-radius: 0.8vh 0.8vh 0 0;
+border-left: 0.1vh solid #00579d;
+border-bottom: 0.1vh solid #00579d;
 background-color: rgba(226, 226, 226, 0.2);
 overflow: hidden;
 
@@ -239,6 +242,10 @@ ul {
         padding-right: 4vh;
         border-bottom: 0.1vh solid #c4c4c4;
 
+        &:hover {
+            background-color: rgba(226, 226, 226, 0.4);
+        }
+
         h2 {
             width: 25%;
             font-size: 1.8vh;
@@ -275,7 +282,6 @@ ul {
 export const ContainerGraphs = styled.div`
     width: 72vw;
     height: 10vh;
-    margin-top: 4vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -291,7 +297,7 @@ export const Graphic = styled.div`
     margin-top: 4vh;
 
     h1 {
-        width: 17vw;
+        width: 15vw;
         font-size: 2.2vh;
         text-align: center;
         color: #111;
