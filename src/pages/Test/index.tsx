@@ -29,8 +29,6 @@ const Projects: React.FC = () => {
             <h1>Apontar horas</h1>
             <input type="number" id="horas" />
             <button onClick={apontarHoras}>Enviar</button>
-
-            <GraphCircular />
         </Container>
 
         <MenuRight>
