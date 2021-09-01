@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 
@@ -42,12 +42,12 @@ interface IProjetoProps {
     };
 }
 
-const optStatus = [
+/*const optStatus = [
     "Todos",
     "Em andamento",
     "Atrasado",
     "Concluído"
-];
+];*/
 
 const optTitulo = [
     "abc",
@@ -81,6 +81,7 @@ const Projects: React.FC = () => {
     const [buscaTitulo, setBuscaTitulo] = useState('');
     const projetoFiltrado = optTitulo
     .filter((titulo) => titulo.toLowerCase().includes(buscaTitulo.toLowerCase()));
+    console.log(projetoFiltrado);
     
     return (
         <>
