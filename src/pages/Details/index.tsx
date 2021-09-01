@@ -10,6 +10,8 @@ import MenuRight from '../components/MenuRight';
 
 import api from '../../service/api'
 
+import Button from '../components/Button';
+
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphCircular from '../components/GraphCircular';
 
@@ -55,8 +57,7 @@ const Details: React.FC = () => {
                 <ContainerTittles>
                     <Tittle>WEN - LANÇAMENTO CUSTO DOC. VENDAS EM GARANTIAS</Tittle>
                     <Inputs>
-                        <label htmlFor="ata">DASHBOARD</label>
-                        <input type="file" id="ata"/>
+                    <Button text={'Dashboard'} tipo={"DashboardDetails"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
                         <label htmlFor="ata">ATA_CVPD_07_2020</label>
                         <input type="file" id="ata"/>
                     </Inputs>

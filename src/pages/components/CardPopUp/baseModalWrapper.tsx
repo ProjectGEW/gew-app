@@ -84,7 +84,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         </div>
                     </ContainerBox>
                     <ContainerBox>
-                    <Button text={'Dashboard'} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
+                    <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
                         <label htmlFor="ata">ATA_CVPD_07_2020</label>
                         <input type="file" id="ata"/>
                     </ContainerBox>
