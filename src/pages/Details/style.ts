@@ -136,7 +136,7 @@ export const ContainerInfos = styled.div`
 export const ContainerSection = styled.div`
     width: 100%;
     float: left;
-    margin: 4vh 0 -1vh 0;
+    margin: 0 0 -1vh 0;
 
     h1 {
         font-size: 1em;
