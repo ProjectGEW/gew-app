@@ -34,6 +34,45 @@ export const Container = styled.div<buttonProps>`
         }
     `}
 
+    ${props => props.tipo === "PopUpDashBoard" && css`
+        button {
+            height: 4vh;
+            background-color: #0075B1;
+            border-radius: 0.5vh;
+            color: #fff;
+            margin-right: 3vw;
+            padding: 0vh 2vh;
+            font-size: 2vh;
+            font-weight: bold;
+            cursor: pointer;  
+            box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
+
+            &:hover {
+                background-color: ${shade(0.3, "#0075B1")}
+            }
+        }
+    `}
+
+    ${props => props.tipo === "DashboardDetails" && css`
+        button {
+            height: 4vh;
+            background-color: #0075B1;
+            border-radius: 0.5vh;
+            color: #fff;
+            margin-right: 3vw;
+            margin-bottom: 1.5vw;
+            padding: 0vh 2vh;
+            font-size: 2vh;
+            font-weight: bold;
+            cursor: pointer;  
+            box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
+
+            &:hover {
+                background-color: ${shade(0.3, "#0075B1")}
+            }
+        }
+    `}
+
     ${props => props.tipo === "Lupa" && css`
         button {
             padding: 2.5vh;
