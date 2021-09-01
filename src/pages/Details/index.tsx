@@ -40,6 +40,7 @@ const Details: React.FC = () => {
           setProject(response.data);
         }))
     }, [id]);
+
     return (
         <>
         <Navbar/>
@@ -152,11 +153,11 @@ const Details: React.FC = () => {
                 <ContainerGraphs>
                     <Graphic>
                         <h1>Verba utilizada sobre o total orçado</h1>
-                        <GraphCircular valor={"R$ 10.000,00"}/>
+                        <GraphCircular valor={10000} tipo={"valor"}/>
                     </Graphic>
                     <Graphic>
                         <h1>Horas das demandas sobre o total estabelecido</h1>
-                        <GraphCircular valor={"120 horas"}/>
+                        <GraphCircular valor={120} tipo={"hora"}/>
                     </Graphic>
                 </ContainerGraphs>
                 <Graphic2>
