@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
 import { ContIcons } from '../components/MenuRight/styles';
-import GraphCircular from '../components/GraphCircular';
 
 import { Container } from './styles';
 
