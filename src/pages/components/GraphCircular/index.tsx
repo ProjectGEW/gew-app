@@ -3,17 +3,20 @@ import React from 'react';
 import { Container, Skill, Outer, Inner, Number } from './styles';
 
 interface GraphCircularProps {
-    valor: string;
+    valor: number;
+    tipo?: string;
 }
 
-const GraphCircular: React.FC<GraphCircularProps> = ({valor}) => {
+const GraphCircular: React.FC<GraphCircularProps> = ({valor, tipo}) => {
     return (
         <>
         <Container>
             <Skill>
                 <Outer>
                     <Inner>
-                        <Number>{valor}</Number>
+                        <Number>
+                            { tipo === "valor" ? "R$ " + valor : tipo === "hora" ? valor + " horas" : 0 }
+                        </Number>
                     </Inner>
                 </Outer>
             </Skill>   
@@ -21,13 +24,13 @@ const GraphCircular: React.FC<GraphCircularProps> = ({valor}) => {
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
                 <defs>
                 <linearGradient id="GradientColor">
-                    <stop offset="25%" stop-color="#00579D" />
-                    <stop offset="50%" stop-color="#006FC8" />
-                    <stop offset="75%" stop-color="#0090C5" />
-                    <stop offset="100%" stop-color="#28B9DA" />
+                    <stop offset="25%" stopColor="#00579D" />
+                    <stop offset="50%" stopColor="#006FC8" />
+                    <stop offset="75%" stopColor="#0090C5" />
+                    <stop offset="100%" stopColor="#28B9DA" />
                 </linearGradient>
                 </defs>
-                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                <circle cx="80" cy="80" r="70" strokeLinecap="round" />
             </svg>
         </Container>
         </>
