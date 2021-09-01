@@ -59,7 +59,7 @@ export const Inner = styled.div`
 
 export const Number = styled.div`
     font-weight: bold;  
-    font-size: 4vh;     
+    font-size: 2vh;     
     color: #555;
 `;
 
