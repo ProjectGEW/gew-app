@@ -22,7 +22,6 @@ export const ContainerMenu = styled.div`
     cursor: default;
     z-index: 9;
     transition: all 0.3s;
-    animation: ${appearFromLeft} 1.4s;
 
     &:after {
         content: "";

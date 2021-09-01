@@ -162,7 +162,9 @@ const Details: React.FC = () => {
                     </Graphic>
                 </ContainerGraphs>
                 <Graphic2>
-                        <div></div>
+                        <div>
+                            <h1>Utilização mensal de verba</h1>
+                        </div>
                         <div></div>
                         <div className='graph'></div>
                 </Graphic2>

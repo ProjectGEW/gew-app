@@ -126,15 +126,8 @@ const Projects: React.FC = () => {
                 </ContainerInfo>
                 <ProjectsGrid>
                     <Center>
-                        {projetos.map(projeto =>
-                            <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />    
-                        )}
-
                         {
-                        // dentro do map do projetos
-                        // projeto.infoprojetoDTO.status === "CONCLUIDO" ? 
-                        //     <CardConcluded id={projeto.infoprojetoDTO.id}/>
-                        // :
+                            projetos.map(projeto =><Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />)
                         }
                     </Center>
                 </ProjectsGrid>

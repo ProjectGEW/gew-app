@@ -120,7 +120,7 @@ const Dashboard: React.FC = () => {
                             <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} />
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={47} />
+                            <GraphLiquid dashboard={true} valor={62} />
                         </Graph>
                     </Card>
                     <Card>

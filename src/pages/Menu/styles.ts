@@ -27,7 +27,6 @@ export const ContainerHome = styled.div`
     width: 62vw;
     height: 80vh;
 
-    animation: ${appear} 1.4s;
     display: flex;
     flex-direction: column;
     justify-content: center;
