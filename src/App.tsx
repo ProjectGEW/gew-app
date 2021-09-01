@@ -9,8 +9,9 @@ import { AuthProvider } from './context/AuthContext';
 
 const App: React.FC = (props) => {
 
-  //Escreve GEW no console
+  //Escreve no console
   console.log("%cGEW", "color: #00579D; font-size: 50px");
+  console.log("%cCauã, Thiago, Thomas e Victor", "color: #00579D; font-size: 20px");
 
   return (
     <Router>

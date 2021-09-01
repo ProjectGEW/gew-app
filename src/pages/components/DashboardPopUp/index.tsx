@@ -8,10 +8,7 @@ import { Container, PopUp, Title, Graph, Scroll, Bar, Value } from './styles';
 interface BaseModalWrapperProps {
     isModalVisible: boolean;
     onBackdropClick: () => void;
-}
-
-interface GraphBarProps {
-    valor: number;
+    valor?: number;
 }
 
 const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible}) => {
