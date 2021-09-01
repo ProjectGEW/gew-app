@@ -2,14 +2,18 @@ import React from 'react';
 
 import { Container, Skill, Outer, Inner, Number } from './styles';
 
-const GraphCircular: React.FC = () => {
+interface GraphCircularProps {
+    valor: string;
+}
+
+const GraphCircular: React.FC<GraphCircularProps> = ({valor}) => {
     return (
         <>
         <Container>
             <Skill>
                 <Outer>
                     <Inner>
-                        <Number>57%</Number>
+                        <Number>{valor}</Number>
                     </Inner>
                 </Outer>
             </Skill>   
