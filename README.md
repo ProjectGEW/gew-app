@@ -1,5 +1,5 @@
 <div>
-    <h1 align="center" color="#00579D">GEW</h1>
+    <h1 align="center" style="color: #00579D">GEW</h1>
     <p align="center">Gestão de Projetos Para Controle do Desenvolvimento de Softwares</p>
 </div>
 
