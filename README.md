@@ -5,7 +5,8 @@
 
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
- <a href="#iniciar">Iniciar</a> • 
+ <a href="#recursos">Recursos</a> • 
+ <a href="#Pré-requisitos">Pré-requisitos</a> • 
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#licenca">Licença</a> • 
  <a href="#equipe">Equipe</a>
@@ -33,10 +34,10 @@
 ### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com) e [Yarn](https://yarnpkg.com/). 
+[Git](https://git-scm.com) e [Yarn](https://yarnpkg.com/).<br> 
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-### 🎲 Rodando o Back End (servidor)
+### Rodando o Front-End (app)
 
 ```bash
 # Clone este repositório
@@ -61,7 +62,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Git](https://git-scm.com)
 - [Yarn](https://yarnpkg.com/)
 - [React](https://pt-br.reactjs.org/)
-- [VisualStudioCode](https://code.visualstudio.com/)
+- [VSCode](https://code.visualstudio.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 
 ### Equipe
