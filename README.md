@@ -1,7 +1,6 @@
 <div>
-    <h1 align="center">GEW</h1>
+    <h1 align="center" color="#00579D">GEW</h1>
     <p align="center">Gestão de Projetos Para Controle do Desenvolvimento de Softwares</p>
-    <img align="center" src="https://img.shields.io/static/v1?label=Blog&message=Rocketseat&color=7159c1&style=for-the-badge&logo=ghost"/>
 </div>
 
 # gew-app
