@@ -1,7 +1,7 @@
-<div style="display: flex; justify-content: center; align-items: center;">
-    <img src="https://i.ibb.co/7zDfP9j/Thumb1.png" alt="Logo" border="0">
-    <p>Gestão de Projetos Para Controle do Desenvolvimento de Softwares</p>
-    <img src="https://img.shields.io/static/v1?label=Blog&message=Rocketseat&color=7159c1&style=for-the-badge&logo=ghost"/>
+<div>
+    <h1 align="center">GEW</h1>
+    <p align="center">Gestão de Projetos Para Controle do Desenvolvimento de Softwares</p>
+    <img align="center" src="https://img.shields.io/static/v1?label=Blog&message=Rocketseat&color=7159c1&style=for-the-badge&logo=ghost"/>
 </div>
 
 # gew-app
