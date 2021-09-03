@@ -5,15 +5,15 @@ import Ata from '../../../assets/ata.svg';
 import Dashboard from '../../../assets/dashboardIcon.svg';
 
 const ModalContainer = styled.div`
-    background-image: linear-gradient(to bottom, #00579d, #00579d 5%,
-        rgba(0,0,0,0.2) 5%, rgba(0,0,0,0.2) 5%, #fff 5.4%, #fff 100%);
+    background-image: linear-gradient(to bottom, #00579d, #00579d 6%,
+        rgba(0,0,0,0.2) 6%, rgba(0,0,0,0.2) 6%, #fff 6.4%, #fff 100%);
     display: flex;
     flex-direction: row;
     align-items: center;
     position: relative;
 `;
 
-const appearFrom = keyframes`
+/*const appearFrom = keyframes`
     from {
         opacity: 0.7;
         transform: translateY(100vh);
@@ -21,18 +21,16 @@ const appearFrom = keyframes`
         opacity: 1;
         transform: translateY(0vh);
     }
-`;
+`;*/
 
 export const DesktopModalContainer = styled(ModalContainer)`
     border-radius: 1vh;
     box-shadow: 0 0 32px rgba(0,0,0,0.5);
-    padding: 10vh 0 7vh 11vh;
+    padding: 10vh 0 6vh 10vh;
     width: 70vw;
     height: 86.5vh;
     font-size: 26px;
     z-index: 10;
-
-    animation: ${appearFrom} 0.8s;
 
     span {
         background-image: url(${Close});
@@ -42,8 +40,8 @@ export const DesktopModalContainer = styled(ModalContainer)`
         height: 4vh;
         position: absolute;
         background-size: cover;
-        top: 0.2vh;
-        right: 1vw;
+        top: 0.6vh;
+        right: 0.8vw;
         cursor: pointer;
     }
 `;
@@ -60,6 +58,7 @@ export const ModalContainerInfos = styled.div`
         font-size: 1em;
         font-weight: bold;
         padding-right: 1vw;
+        color: #222;
     }
 `;
 
@@ -95,8 +94,10 @@ export const ContainerBox = styled.div`
           
     label {
         width: 10vw;
-        height: 4vh;
+        height: 5vh;
         background-color: #0075B1;
+        display: flex;
+        align-items: center;
         border-radius: 0.5vh;
         color: #fff;
         margin-right: 3vw;
@@ -108,7 +109,7 @@ export const ContainerBox = styled.div`
         box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
 
         &:hover {
-            background-color: ${shade(0.3, "#0075B1")}
+            background-color: ${shade(0.09, "#0075B1")}
         }
 
         &:nth-child(3) {
@@ -161,6 +162,7 @@ export const ContainerObjectives = styled.div`
     h1 {
         font-size: 2.3vh;
         font-weight: bold;
+        color: #222;
     }
 
     h2 {
@@ -168,6 +170,7 @@ export const ContainerObjectives = styled.div`
         font-weight: normal;
         padding-right: 3vw;
         margin-top: -1.4vh;
+        color: #222;
     }
 `;
 
@@ -188,32 +191,40 @@ export const ContainerValues = styled.div`
         flex-direction: row;
         margin-bottom: 2vh;
 
+        width: 19vw;
+        justify-content: space-between;
+
         &:nth-child(4) {
+
             h1 {
                 font-size: 0.64em;
             }
+
             margin-top: 3vh;
+
             &::before {
                 content: '';
                 width: 19vw;
-                height: 0.2vh;
-                background-color: #737373;
+                height: 0.1vh;
+                background-color: #ccc;
                 position: absolute;
-                margin-top: -1.3vh;
+                margin-top: -1.5vh;
             }
         }
 
         h1 {
             font-size: 0.58em;
             font-weight: bold;
+            color: #222;
         }
     
         h2 {
             font-size: 0.57em;
-            color: #737373;
+            color: #444;
             font-weight: normal;
             margin-left: 1vh;
             margin-top: 0.2vh;
+            text-align: right;
         }   
     }
 `;
@@ -237,6 +248,8 @@ export const CostCenters = styled.div`
     border-radius: 2vh 2vh 0 0;
     background-color: rgba(196, 196, 196, 0.3);
     overflow: hidden;
+    border: 0.1vh solid #00579d;
+    border-top: 0;
 
     .tableHeader {
         top: 0;
@@ -254,7 +267,15 @@ export const CostCenters = styled.div`
         h2 {
             color: #fff;
             font-size: 1.8vh;
-            font-weight: normal;
+            font-weight: bold;
+
+            &:first-child {
+                margin-left: 1.8vw;
+            }
+
+            &:last-child {
+                margin-right: 1vw;
+            }
         }
     }
 
@@ -295,6 +316,7 @@ export const CostCenters = styled.div`
                 width: 12vw;
                 font-weight: 100;
                 color: #023A67;
+                margin-left: 1.2vw;
 
                 &:first-child {
                     margin-right: 6vh;
@@ -305,6 +327,7 @@ export const CostCenters = styled.div`
             h3 {
                 font-size: 1.9vh;
                 color: #023A67;
+                margin-right: 1.3vw;
             }
         }
 
