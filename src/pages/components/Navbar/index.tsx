@@ -28,7 +28,6 @@ const Navbar: React.FC = () => {
     if(storageFlag) {
       return JSON.parse(storageFlag);
     } 
-
     return 'pt-BR';
   });
 
@@ -38,7 +37,7 @@ const Navbar: React.FC = () => {
 
   const location = useLocation();
   const [page, setPage] = useState("");
-  //const pathname = window.location.pathname;
+  const pathname = window.location.pathname;
 
   const historicPage = useCallback(() => {
     if (location.pathname === "/home") {
@@ -58,10 +57,24 @@ const Navbar: React.FC = () => {
       setPage("Configurações");
     } else if (location.pathname === "/test") {
       setPage("Área de Teste");
-    } else if (location.pathname === "/details/0") { // <--- revisar
-      setPage("Detalhes");
+    } else {
+      var path = "";
+      for(var x = 0; x < pathname.length; x++) {
+        if(
+          pathname[x] !== "/" && pathname[x] !== "0" && pathname[x] !== "1" &&
+          pathname[x] !== "2" && pathname[x] !== "3" && pathname[x] !== "4" &&
+          pathname[x] !== "5" && pathname[x] !== "6" && pathname[x] !== "7" &&
+          pathname[x] !== "8" && pathname[x] !== "8" && pathname[x] !== "9") {
+          if(x === 1) {
+            path += pathname[x].toUpperCase();
+          } else {
+            path += pathname[x];
+          }
+        }
+      }
+      setPage(path);
     }
-  }, [location])
+  }, [location, pathname])
 
   useEffect(() => {
     historicPage();
