@@ -26,6 +26,7 @@ interface CardContent {
         data_de_inicio: string;
         data_de_termino: string;
         status: string;
+        horas_apontadas: number;
     };
 
     ccPagantes : [{
@@ -69,6 +70,13 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         return null
     }
 
+    function calcularPorcentagem(count: number) {
+        const total = project ? project.valoresTotaisDTO.valorTotalEsforco : 0;
+        const porcentagem = (count / total) * 100;
+
+        return Math.floor(porcentagem);
+    }
+
     return (
         <Modal onBackdropClick={onBackdropClick} >
             <DesktopModalContainer>
@@ -88,9 +96,9 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         </div>
                     </ContainerBox>
                     <ContainerBox>
-                    <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
-                        <label htmlFor="ata">ATA_CVPD_07_2020</label>
-                        <input type="file" id="ata"/>
+                        <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
+                            <label htmlFor="ata">ATA_CVPD_07_2020</label>
+                            <input type="file" id="ata"/>
                     </ContainerBox>
                     <ContainerObjectives>
                         <h1>Descrição:</h1>
@@ -115,14 +123,14 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                 <ModalContainerGraphs>
                     <ContainerValues>
                         <div>
-                            <h1>Horas esperadas:</h1><h2>{project ? project.valoresTotaisDTO.valorTotalEsforco : ""}</h2>
+                            <h1>Horas esperadas:</h1><h2>{project ? project.valoresTotaisDTO.valorTotalEsforco : ""} Horas</h2>
                         </div>
                         <div>
-                            <h1>Horas trabalhadas:</h1><h2>60 Horas</h2>
+                            <h1>Horas trabalhadas:</h1><h2>{project ? project.infoprojetoDTO.horas_apontadas : ""} Horas </h2>
                         </div>
                     </ContainerValues>
                     <HourGraphics>
-                        <GraphCircular valor={50} tipo={"%"} />
+                        <GraphCircular valor={calcularPorcentagem(project ? project?.infoprojetoDTO.horas_apontadas : 0)} tipo={"%"} />
                     </HourGraphics>
                     <ContainerValues>
                         <div>
