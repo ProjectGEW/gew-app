@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Inputs, ContainerDesc, ContainerInfos, ContainerSection, ContainerTittles, Tittle, Container,
-    ContainerDetails, Box, ContainerAppointments, ContainerGraphs, Graphic, Graphic2 } from './style';
+    ContainerDetails, Box, ContainerAppointments, ContainerGraphs, Graphic, Graphic2, Filtros, Top, Bottom,
+    Graph, Left, Right, Square, Bar, Pack, Footer } from './style';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -104,7 +105,7 @@ const Details: React.FC = () => {
                         <h2>...</h2>
                     </Box>
                 </ContainerInfos>
-                <span>Horas apontadas funcionários:</span>
+                <span>Horas apontadas - Funcionários:</span>
                 <ContainerAppointments>
                         <div className="tableHeader">
                             <h2>Funcionário</h2>
@@ -154,19 +155,74 @@ const Details: React.FC = () => {
                 <ContainerGraphs>
                     <Graphic>
                         <h1>Verba utilizada sobre o total orçado</h1>
-                        <GraphCircular valor={10000} tipo={"valor"}/>
+                        <GraphCircular porcentagem={40000} valor={10000} tipo={"valor"}/>
                     </Graphic>
                     <Graphic>
                         <h1>Horas das demandas sobre o total estabelecido</h1>
-                        <GraphCircular valor={120} tipo={"hora"}/>
+                        <GraphCircular porcentagem={100} valor={120} tipo={"hora"}/>
                     </Graphic>
                 </ContainerGraphs>
                 <Graphic2>
+                    <Top>
                         <div>
                             <h1>Utilização mensal de verba</h1>
                         </div>
-                        <div></div>
-                        <div className='graph'></div>
+                        <Filtros>
+                            <div>
+                                <label>Mês:</label>
+                                <select name="mes">
+                                    <option value="m1">Janeiro</option>
+                                    <option value="m2">Fevereiro</option>
+                                    <option value="m3">Março</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Ano:</label>
+                                <select name="ano">
+                                    <option value="a1">2021</option>
+                                    <option value="a2">2020</option>
+                                    <option value="a3">2019</option>
+                                </select>
+                            </div>                        
+                        </Filtros>
+                    </Top>
+                    <Bottom>
+                        <Graph>
+                            <Left>
+                                <p>R$ 100.000,00</p>
+                                <p>R$ 60.000,00</p>
+                                <p>R$ 20.000,00</p>
+                                <p>0</p>
+                            </Left>
+                            <Right>
+                                <Square>
+                                    <Pack>
+                                        <Bar valor={18000}></Bar>
+                                        <Bar valor={1250000}></Bar>
+                                        <Bar valor={63000}></Bar>
+                                        <Bar valor={22000}></Bar>
+                                    </Pack>
+                                    <Pack>
+                                        <Bar valor={63000}></Bar>
+                                        <Bar valor={22000}></Bar>
+                                        <Bar valor={18000}></Bar>
+                                        <Bar valor={1250000}></Bar>
+                                    </Pack>
+                                    <Pack>
+                                        <Bar valor={18000}></Bar>
+                                        <Bar valor={22000}></Bar>
+                                        <Bar valor={1250000}></Bar>
+                                        <Bar valor={63000}></Bar>
+                                    </Pack>
+                                </Square>
+                            </Right>
+                        </Graph>
+                        <Footer>
+                            <p>JAN 2021</p>
+                            <p>FEV 2021</p>
+                            <p>MAR 2021</p>
+                        </Footer>
+                    </Bottom>
                 </Graphic2>
             </ContainerDetails>
         </Container>
