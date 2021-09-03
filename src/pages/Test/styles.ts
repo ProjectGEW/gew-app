@@ -55,4 +55,32 @@ export const Container = styled.div`
             background-color: ${shade(0.09, "#00579D")}
         }
     }
+
+    div {
+        display: flex;
+        flex-direction: row;
+        margin-top: 2vh;
+        input[type='file'] { display: none; }
+            
+        label {
+            height: 5vh;
+            background-color: #0090C5;
+            display: flex;
+            align-items: center;
+            border-radius: 0.5vh;
+            color: #fff;
+            margin-left: 0.5vw;
+            margin-right: 0.5vw;
+            margin-bottom: 2vw;
+            padding: 1vh;
+            font-size: 1.5vh;
+            font-weight: bold;
+            cursor: pointer;  
+            box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
+
+            &:hover {
+                background-color: ${shade(0.09, "#0090C5")}
+            }
+        }
+    }
 `;
