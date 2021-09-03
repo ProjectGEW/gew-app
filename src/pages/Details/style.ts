@@ -45,11 +45,11 @@ export const ContainerDetails = styled.div`
 
         &::before {
             content: '';
-            width: 145vh;
+            width: 148vh;
             height: 0.1vh;
             background-color: #ccc;
             position: absolute;
-            margin-top: -3vh;
+            margin-top: -4vh;
             margin-left: 0.3vw;
         }
     }
@@ -113,13 +113,13 @@ export const ContainerDesc = styled.div`
     text-align: justify;
 
     h1 {
-        font-size: 2vh;
+        font-size: 1em;
         font-weight: bold;
         color: #111;
     }
 
     h2 {
-        font-size: 2vh;
+        font-size: 1em;
         font-weight: normal;
         margin-top: 1.4vh;
     }
@@ -182,15 +182,15 @@ export const Box = styled.div`
     height: 14vh;
     text-align: center;
     padding-top: 4vh;
-    margin-bottom: 3vh;
+    margin-bottom: 5vh;
 
     h1 {
-        font-size: 2.2vh;
+        font-size: 1em;
         margin-bottom: 1.4vh;
     }
 
     h2 {
-        font-size: 2.2vh;
+        font-size: 1em;
         color: #023A67;
     }
 `;

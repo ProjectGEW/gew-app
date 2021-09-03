@@ -204,11 +204,12 @@ export const ContainerValues = styled.div`
 
             &::before {
                 content: '';
-                width: 19vw;
+                width: 24vw;
                 height: 0.1vh;
                 background-color: #ccc;
                 position: absolute;
                 margin-top: -1.5vh;
+                margin-left: -2vw;
             }
         }
 
@@ -234,6 +235,16 @@ export const ModalContainerGraphs = styled.div`
     flex-direction: column;   
     width: 38.5%;
     height: 100%;
+
+    &::after {
+        content: '';
+        width: 0.1vh;
+        height: 76vh;
+        background-color: #ccc;
+        position: absolute;
+        margin-top: -2vh;
+        margin-left: -2vw;
+    }
 `;
 
 export const HourGraphics = styled.div`

@@ -84,7 +84,7 @@ const Details: React.FC = () => {
                 <ContainerInfos>
                     <ul>
                         <li>
-                            <h1>NÚMERO: {project?.infoprojetoDTO.numeroDoProjeto}</h1>
+                            <h1>NÚMERO:</h1><h2>{project?.infoprojetoDTO.numeroDoProjeto}</h2>
                         </li>
                         <li>
                             <h1>STATUS:</h1><h2>{project?.infoprojetoDTO.status}</h2>

@@ -176,7 +176,7 @@ const Dashboard: React.FC = () => {
                         </Filtros>
                     </GraphLine>
                     <CardsMoney>
-                        <Money>
+                        <Money id="money">
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.primeiro')}</h1>
                             </Title>

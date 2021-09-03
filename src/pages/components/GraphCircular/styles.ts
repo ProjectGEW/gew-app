@@ -171,8 +171,7 @@ export const Container = styled.div<GraphCircularProps>`
 export const Skill = styled.div`
     width: 160px;
     height: 160px;
-    position: relative;  
-          
+    position: relative;            
 `;
 
 export const Outer = styled.div`
@@ -199,7 +198,7 @@ export const Inner = styled.div`
 
 export const Number = styled.div`
     font-weight: bold;  
-    font-size: 2.2vh;     
+    font-size: 2.4vh;     
     color: #555;
 `;
 
