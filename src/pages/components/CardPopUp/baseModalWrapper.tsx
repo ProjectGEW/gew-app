@@ -1,6 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+
 import Modal from './Modal';
 import Button from '../Button';
+
+import GraphCircular from '../GraphCircular';
+
 import api from '../../../service/api'
 
 import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
@@ -118,8 +122,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         </div>
                     </ContainerValues>
                     <HourGraphics>
-
-            
+                        <GraphCircular valor={50} tipo={"%"} />
                     </HourGraphics>
                     <ContainerValues>
                         <div>
