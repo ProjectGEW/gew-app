@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
       setPage("Home"); 
     } else if (location.pathname === "/projects") {
       setPage("Projetos");
-    } else if (location.pathname === "/dashboard") {
+    } else if (location.pathname === "/dashboard/0") {
       setPage("Dashboards");
     } else if (location.pathname === "/register_projects") {
       setPage("Cad. Projetos");
@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
       setPage("Configurações");
     } else if (location.pathname === "/test") {
       setPage("Área de Teste");
-    } else if (location.pathname === "/projects/details/1") { // <--- revisar
+    } else if (location.pathname === "/details/0") { // <--- revisar
       setPage("Detalhes");
     }
   }, [location])
