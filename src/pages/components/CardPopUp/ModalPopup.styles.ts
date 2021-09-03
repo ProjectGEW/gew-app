@@ -1,5 +1,6 @@
 import { shade } from 'polished';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+
 import Close  from '../../../assets/close.svg';
 import Ata from '../../../assets/ata.svg';
 import Dashboard from '../../../assets/dashboardIcon.svg';

@@ -70,12 +70,12 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         return null
     }
 
-    function calcularPorcentagem(count: number) {
+    /*function calcularPorcentagem(count: number) {
         const total = project ? project.valoresTotaisDTO.valorTotalEsforco : 0;
         const porcentagem = (count / total) * 100;
 
         return Math.floor(porcentagem);
-    }
+    }*/
 
     return (
         <Modal onBackdropClick={onBackdropClick} >

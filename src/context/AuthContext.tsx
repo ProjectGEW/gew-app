@@ -23,8 +23,8 @@ export const AuthContext = createContext<AuthContextData>(
 
 export const AuthProvider: React.FC = ({ children }) => {
     const [data, setData] = useState<AuthState>(() => {
-        const jwt = localStorage.getItem("gew:token");
-        const usuario = localStorage.getItem("gew:user");
+        const jwt = localStorage.getItem("Token");
+        const usuario = localStorage.getItem("User");
 
         if(jwt && usuario){
             return { jwt, usuario: JSON.parse(usuario)};
@@ -40,14 +40,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
         const { jwt, usuario } = respose.data;
 
-        localStorage.setItem("gew:token", jwt);
-        localStorage.setItem("gew:user", JSON.stringify(usuario));
+        localStorage.setItem("Token", jwt);
+        localStorage.setItem("User", JSON.stringify(usuario));
         setData({ jwt, usuario });
     }, []);
 
     const singOut = useCallback(() => {
-        localStorage.removeItem("gew:token");
-        localStorage.removeItem("gew:user");
+        localStorage.removeItem("Token");
+        localStorage.removeItem("User");
 
         setData({} as AuthState);
     }, []);

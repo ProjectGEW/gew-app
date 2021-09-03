@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const Container = styled.div`
     position: absolute;
@@ -6,16 +6,6 @@ export const Container = styled.div`
     left: 12vw;
     width: 78vw;
     height: 80vh;
-`;
-
-const appear = keyframes`
-    from {
-        opacity: 0;
-        transform: translateY(100vh);
-    } to {
-        opacity: 1;
-        transform: translateY(0vh);
-    }
 `;
 
 export const ContainerProject = styled.div`
