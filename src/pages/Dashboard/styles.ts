@@ -199,8 +199,8 @@ export const CardsMoney = styled.div`
         height: 4vh;
 
         position: absolute;
-        margin-top: 2vh;
-        margin-left: 2vw;
+        margin-top: 2.5vh;
+        margin-left: 1.5vw;
         border-radius: 0.6vh;
 
         background-size: cover;
@@ -220,7 +220,7 @@ export const CardsMoney = styled.div`
     #icon-eye {
         width: 4vh;
         height: 5vh;
-        margin-top: 1.6vh;
+        margin-top: 2vh;
         margin-left: 8vw;
 
         color: #00579D;
@@ -232,7 +232,18 @@ export const CardsMoney = styled.div`
     
         &:active {
             color: rgb(0, 87, 157, 0.85);
+        }        
+    }
+
+    #money {
+        &::after {
+            content: '';
+            width: 0.1vh;
+            height: 6vh;
+            background-color: #ccc;
+            position: absolute;
+            margin-top: 1.5vh;
+            margin-left: -3.8vw;
         }
-        
     }
 `;
