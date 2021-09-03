@@ -32,11 +32,95 @@ export const Container = styled.div<GraphCircularProps>`
         stroke-dashoffset: 500;              
         stroke-Linecap: round;
 
-        ${props => props.tipo === "%" && css`
-            stroke-dashoffset: calc((430 - ${props.valor}));
+        ${props => props.valor === 0 && css`
+            stroke-dashoffset: 500;
         `}
 
-        ${props => props.tipo === "valor" && props.valor <= 10 && css`
+        ${props => props.tipo === "%" && props.valor > 1 && props.valor <= 10 && css`
+            stroke-dashoffset: 450;
+        `}
+
+        ${props => props.tipo === "%" && props.valor > 10 && props.valor <= 20 && css`
+            stroke-dashoffset: 420;
+        `}
+
+        ${props => props.tipo === "%" && props.valor > 20 && props.valor <= 30 && css`
+            stroke-dashoffset: 380;
+        `}
+
+        ${props => props.tipo === "%" && props.valor > 30 && props.valor <= 40 && css`
+            stroke-dashoffset: 340;
+        `}
+
+        ${props => props.tipo === "%" && props.valor > 40 && props.valor <= 50 && css`
+            stroke-dashoffset: 280;
+        `}
+
+        ${props => props.tipo === "%" && props.valor > 50 && props.valor <= 60 && css`
+            stroke-dashoffset: 250;
+        `}  
+
+        ${props => props.tipo === "%" && props.valor > 60 && props.valor <= 70 && css`
+            stroke-dashoffset: 210;
+        `}  
+
+        ${props => props.tipo === "%" && props.valor > 70 && props.valor <= 80 && css`
+            stroke-dashoffset: 180;
+        `}  
+
+        ${props => props.tipo === "%" && props.valor > 80 && props.valor <= 90 && css`
+            stroke-dashoffset: 120;
+        `}  
+
+        ${props => props.tipo === "%" && props.valor > 90 && props.valor <= 100 && css`
+            stroke-dashoffset: 0;
+        `}  
+
+        // =========================================================================
+
+        ${props => props.tipo === "hora" && props.valor > 1 && props.valor <= 10 && css`
+            stroke-dashoffset: 450;
+        `}
+
+        ${props => props.tipo === "hora" && props.valor > 10 && props.valor <= 20 && css`
+            stroke-dashoffset: 420;
+        `}
+
+        ${props => props.tipo === "hora" && props.valor > 20 && props.valor <= 30 && css`
+            stroke-dashoffset: 380;
+        `}
+
+        ${props => props.tipo === "hora" && props.valor > 30 && props.valor <= 40 && css`
+            stroke-dashoffset: 340;
+        `}
+
+        ${props => props.tipo === "hora" && props.valor > 40 && props.valor <= 50 && css`
+            stroke-dashoffset: 280;
+        `}
+
+        ${props => props.tipo === "hora" && props.valor > 50 && props.valor <= 60 && css`
+            stroke-dashoffset: 250;
+        `}  
+
+        ${props => props.tipo === "hora" && props.valor > 60 && props.valor <= 70 && css`
+            stroke-dashoffset: 210;
+        `}  
+
+        ${props => props.tipo === "hora" && props.valor > 70 && props.valor <= 80 && css`
+            stroke-dashoffset: 180;
+        `}  
+
+        ${props => props.tipo === "hora" && props.valor > 80 && props.valor <= 90 && css`
+            stroke-dashoffset: 120;
+        `}  
+
+        ${props => props.tipo === "hora" && props.valor > 90 && props.valor <= 100 && css`
+            stroke-dashoffset: 0;
+        `}  
+
+        // =========================================================================
+
+        ${props => props.tipo === "valor" && props.valor > 1 && props.valor <= 10 && css`
             stroke-dashoffset: 450;
         `}
 
@@ -75,11 +159,6 @@ export const Container = styled.div<GraphCircularProps>`
         ${props => props.tipo === "valor" && props.valor > 90 && props.valor <= 100 && css`
             stroke-dashoffset: 0;
         `}  
-
-        ${props => props.tipo === "hora" && css`
-            stroke-dashoffset: calc((430 - ${props.valor}));
-        `}
-        
     }
 
     svg {
@@ -88,8 +167,6 @@ export const Container = styled.div<GraphCircularProps>`
         left: 5;
     }
 `;
-
-// min 60 | max 500
 
 export const Skill = styled.div`
     width: 160px;
@@ -122,7 +199,7 @@ export const Inner = styled.div`
 
 export const Number = styled.div`
     font-weight: bold;  
-    font-size: 2vh;     
+    font-size: 2.2vh;     
     color: #555;
 `;
 

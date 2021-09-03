@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Container, Skill, Outer, Inner, Number } from './styles';
 
+import analisaValor from '../../../utils/analisaValor';
+
 interface GraphCircularProps {
     valor: number;
     total: number;
@@ -21,7 +23,7 @@ const GraphCircular: React.FC<GraphCircularProps> = ({valor, total, tipo}) => {
                     <Inner>
                         <Number>
                             {
-                                tipo === "valor" ? "R$ " + valor :
+                                tipo === "valor" ? analisaValor(valor) :
                                 tipo === "hora" ? valor + " horas" :
                                 tipo === "%" ? calculaPorcentagem(valor, total) + "%" : 0 
                             }
