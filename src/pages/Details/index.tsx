@@ -16,6 +16,8 @@ import Button from '../components/Button';
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphCircular from '../components/GraphCircular';
 
+import analisaValor from '../../utils/analisaValor';
+
 interface CardContent {
     infoprojetoDTO : {
         id: number;
@@ -155,11 +157,11 @@ const Details: React.FC = () => {
                 <ContainerGraphs>
                     <Graphic>
                         <h1>Verba utilizada sobre o total orçado</h1>
-                        <GraphCircular porcentagem={40000} valor={10000} tipo={"valor"}/>
+                        <GraphCircular total={100000} valor={90000} tipo={"valor"}/>
                     </Graphic>
                     <Graphic>
                         <h1>Horas das demandas sobre o total estabelecido</h1>
-                        <GraphCircular porcentagem={100} valor={120} tipo={"hora"}/>
+                        <GraphCircular total={600} valor={120} tipo={"hora"}/>
                     </Graphic>
                 </ContainerGraphs>
                 <Graphic2>

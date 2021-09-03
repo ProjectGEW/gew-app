@@ -95,7 +95,7 @@ export const ContainerBox = styled.div`
     label {
         width: 10vw;
         height: 5vh;
-        background-color: #0075B1;
+        background-color: #0090C5;
         display: flex;
         align-items: center;
         border-radius: 0.5vh;
@@ -109,7 +109,7 @@ export const ContainerBox = styled.div`
         box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
 
         &:hover {
-            background-color: ${shade(0.09, "#0075B1")}
+            background-color: ${shade(0.09, "#0090C5")}
         }
 
         &:nth-child(3) {
@@ -248,7 +248,7 @@ export const CostCenters = styled.div`
     border-radius: 2vh 2vh 0 0;
     background-color: rgba(196, 196, 196, 0.3);
     overflow: hidden;
-    border: 0.1vh solid #00579d;
+    border: 0.01vh solid #ccc;
     border-top: 0;
 
     .tableHeader {
