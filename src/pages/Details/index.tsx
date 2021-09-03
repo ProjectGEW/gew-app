@@ -16,8 +16,6 @@ import Button from '../components/Button';
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphCircular from '../components/GraphCircular';
 
-import analisaValor from '../../utils/analisaValor';
-
 interface CardContent {
     ccPagantes: [
         centroDeCusto : {

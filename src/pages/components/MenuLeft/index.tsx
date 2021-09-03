@@ -91,6 +91,11 @@ const MenuLeft: React.FC = () => {
         }
     }
 
+    function singOut() {
+        localStorage.removeItem("Token");
+        localStorage.removeItem("User");
+    }
+
     return (
         <>
         <ContainerMenu id="container-menu">
@@ -125,7 +130,7 @@ const MenuLeft: React.FC = () => {
                     </Msg>
                 </ContainerMsg>
                 <ExitImg id="exit-img">
-                    <a href="./"><IoExitOutline id="iconExit"/></a>
+                    <a href="./" ><IoExitOutline id="iconExit" onClick={singOut}/></a>
                 </ExitImg>
             </ContainerInfo>
             <BtnOpen id="btn-open" onClick={handdleClick} />

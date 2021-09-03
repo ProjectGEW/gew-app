@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { shade } from "polished";
 
 import Complete from "../../assets/complete.svg";
@@ -8,17 +8,6 @@ import Down from "../../assets/down.svg";
 interface ValorGraphBar {
     valor: number;
 }
-
-const appear = keyframes`
-    from {
-        opacity: 0;
-        transform: translateY(100vh);
-    } to {
-        opacity: 1;
-        transform: translateY(0vh);
-    }
-`;
-
 
 export const ContainerHome = styled.div`
     position: absolute;

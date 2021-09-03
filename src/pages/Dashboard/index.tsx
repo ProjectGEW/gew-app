@@ -9,6 +9,7 @@ import { AiFillEye } from "react-icons/ai";
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph, GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
+
 import GraphLiquid from "../components/GraphLiquid";
 
 import intl from "react-intl-universal";
@@ -67,7 +68,9 @@ const Dashboard: React.FC = () => {
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
 
-    console.log(id);
+    console.log(project);
+    console.log(projetos);
+
     useEffect(() => {
         if(id === undefined) {
             window.onload = async function handleProjetos() {
@@ -164,7 +167,9 @@ const Dashboard: React.FC = () => {
                                 </select>
                             </div>                            
                         </Filtros>
-                        <Line></Line>
+                        <Line>
+                            
+                        </Line>
                         <Filtros>
                             <div id="filtro-periodo">
                                 <select name="dias">
@@ -206,7 +211,7 @@ const Dashboard: React.FC = () => {
             </ContainerDashboard>
         </Container> 
         <MenuRight>
-            <ContIcons></ContIcons>
+            <ContIcons />
         </MenuRight>
         </>
     );
