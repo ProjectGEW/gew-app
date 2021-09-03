@@ -36,16 +36,21 @@ export const Container = styled.div<buttonProps>`
 
     ${props => props.tipo === "PopUpDashBoard" && css`
         button {
-            background-color: #0090C5;
+            height: 5vh;
+            background-color: #0075B1;
+            display: flex;
+            align-items: center;
+            border-radius: 0.5vh;
+            color: #fff;
             margin-right: 3vw;
-            padding: 0vh 2vh;
-            font-size: 2vh;
+            padding: 2vh;
+            font-size: 1.7vh;
             font-weight: bold;
             cursor: pointer;  
             box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
 
             &:hover {
-                background-color: ${shade(0.09, "#0090C5")}
+                background-color: ${shade(0.09, "#0075B1")}
             }
         }
     `}

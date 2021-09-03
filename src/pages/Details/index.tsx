@@ -19,6 +19,16 @@ import GraphCircular from '../components/GraphCircular';
 import analisaValor from '../../utils/analisaValor';
 
 interface CardContent {
+    ccPagantes: [
+        centroDeCusto : {
+            id: number;
+            nome:  string;
+            responsavel: {
+                nome: String;
+            }
+        }
+    ];
+
     infoprojetoDTO : {
         id: number;
         numeroDoProjeto: number;
@@ -28,6 +38,12 @@ interface CardContent {
         data_de_termino: string;
         status: string;
         horas_apontadas: number;
+        responsavel: {
+            nome: string;
+        };
+        solicitante: {
+            nome: string;
+        };
     };
     valoresTotaisDTO : {
         valorTotalCcPagantes: number;
@@ -56,10 +72,10 @@ const Details: React.FC = () => {
         <Container>
             <ContainerDetails>
                 <ContainerSection>
-                    <h1>10000024870 - Seção ABC</h1>
+                    <h1>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - Seção ABC</h1>
                 </ContainerSection>
                 <ContainerTittles>
-                    <Tittle>WEN - LANÇAMENTO CUSTO DOC. VENDAS EM GARANTIAS</Tittle>
+                    <Tittle>{project ? project.infoprojetoDTO.titulo : ""}</Tittle>
                     <Inputs>
                     <Button text={'Dashboard'} tipo={"DashboardDetails"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
                         <label htmlFor="ata">ATA_CVPD_07_2020</label>
@@ -69,36 +85,31 @@ const Details: React.FC = () => {
                 <ContainerInfos>
                     <ul>
                         <li>
-                            <h1>NÚMERO:</h1>
+                            <h1>NÚMERO: {project?.infoprojetoDTO.numeroDoProjeto}</h1>
                         </li>
                         <li>
-                            <h1>CC:</h1><h2>20111151</h2>
+                            <h1>STATUS:</h1><h2>{project?.infoprojetoDTO.status}</h2>
                         </li>
                         <li>
-                            <h1>STATUS:</h1><h2>EM ANDAMENTO</h2>
-                        </li>
-                        <li>
-                            <h1>DATA DE CRIAÇÃO:</h1><h2>01/08/2020</h2>
+                            <h1>DATA DE CRIAÇÃO:</h1><h2>{project?.infoprojetoDTO.data_de_inicio}</h2>
                         </li>
                     </ul>
                 </ContainerInfos>
                 <ContainerDesc>
                     <h1>DESCRIÇÃO:</h1>
-                    <h2>Reduzir a atividade manual da equipe interna WEC na entrada de ordens de venda (OV), envio
-                        da confirmação e aviso de remessa ao Cliente XYZ USA. Atender solicitação do cliente para
-                        automatizar o envio de pedidos e atualização do próprio sistema através do EDI
-                        (Eletronic Data Interchange). O Cliente já implementou este sistema nos principais fornecedores.
+                    <h2>
+                        {project?.infoprojetoDTO.descricao}
                     </h2>
                 </ContainerDesc>
                 <ContainerInfos>
                     <Box>
                         <h1>Solicitante / Seção Solicitante:</h1>
-                        <h2>DIEGO CANVAS DE SOUZA</h2>
+                        <h2>{project?.infoprojetoDTO.solicitante.nome.toUpperCase()}</h2>
                         <h2>SEÇÃO ASSISTÊNCIA TÉCNICA</h2>
                     </Box>
                     <Box>
                         <h1>Responsável / Seção Responsável:</h1>
-                        <h2>ANDRÉ CARLOS SILVA</h2>
+                        <h2>{project?.infoprojetoDTO.responsavel.nome.toUpperCase()}</h2>
                         <h2>INSIDE SALES DEPARTMENT</h2>
                     </Box>
                     <Box>
