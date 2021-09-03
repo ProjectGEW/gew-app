@@ -15,7 +15,7 @@ export const Container = styled.div<buttonProps>`
         border: 0;
         border-radius: 0.5vh;
 
-        font-size: 2.6vh;
+        font-size: 2.4vh;
         color: white;
         font-weight: bold;
         background-color: #00579D;
@@ -36,10 +36,7 @@ export const Container = styled.div<buttonProps>`
 
     ${props => props.tipo === "PopUpDashBoard" && css`
         button {
-            height: 4vh;
-            background-color: #0075B1;
-            border-radius: 0.5vh;
-            color: #fff;
+            background-color: #0090C5;
             margin-right: 3vw;
             padding: 0vh 2vh;
             font-size: 2vh;
@@ -48,19 +45,17 @@ export const Container = styled.div<buttonProps>`
             box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
 
             &:hover {
-                background-color: ${shade(0.3, "#0075B1")}
+                background-color: ${shade(0.09, "#0090C5")}
             }
         }
     `}
 
     ${props => props.tipo === "DashboardDetails" && css`
         button {
-            height: 4vh;
-            background-color: #0075B1;
-            border-radius: 0.5vh;
-            color: #fff;
+            width: 10vw;
+            background-color: #0090C5;
             margin-right: 3vw;
-            margin-bottom: 1.5vw;
+            margin-bottom: 0.5vw;
             padding: 0vh 2vh;
             font-size: 2vh;
             font-weight: bold;
@@ -68,7 +63,7 @@ export const Container = styled.div<buttonProps>`
             box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
 
             &:hover {
-                background-color: ${shade(0.3, "#0075B1")}
+                background-color: ${shade(0.09, "#0090C5")}
             }
         }
     `}
