@@ -1,30 +1,61 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+interface GraphCircularProps {
+    tipo?: string;
+    valor: number;
+    porcentagem?: number;
+}
+
+export const Container = styled.div<GraphCircularProps>`
     display: flex;
     align-items: center;
     justify-content: center;     
     margin-top: 4vh;
 
+    ${props => props.tipo === "%" && css`
+        div {
+            div {
+                div {
+                    div {
+                        font-size: 3.8vh;  
+                    }
+                }
+            }
+        }
+    `}
+
     circle {
         fill: none;
         stroke: url(#GradientColor);
         stroke-width: 20px;
-        stroke-dasharray: 200;
-        stroke-dashoffset: 2;
-        animation: ani 2s linear forwards;
+        stroke-dasharray: 500;
+        stroke-dashoffset: 500;              
+        stroke-Linecap: round;
+
+        ${props => props.valor === 0 && css`
+            stroke-dasharray: 500;
+            stroke-dashoffset: 500;
+        `}
+
+        ${props => props.porcentagem === 0 && css`
+            stroke-dasharray: 0;
+            stroke-dashoffset: 0;
+        `}
+
+        ${props => props.valor > 1 && props.valor <= 999 && css`
+            stroke-dashoffset: calc(500 - ${props.porcentagem});
+        `}        
+
+        ${props => props.valor >= 1000 && css`
+            stroke-dashoffset: calc((${props.porcentagem} / 100) - 25);
+        `}
+        
     }
 
     svg {
         position: absolute;
         top: 5;
         left: 5;
-    }
-
-    @keyframes ani {
-        100% {
-            stroke-dashoffset: 0;
-        }
     }
 `;
 
