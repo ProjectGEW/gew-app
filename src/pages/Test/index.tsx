@@ -28,6 +28,14 @@ const Projects: React.FC = () => {
             <h1>Apontar horas</h1>
             <input type="number" id="horas" />
             <button onClick={apontarHoras}>Enviar</button>
+
+            <div>
+                <label htmlFor="ata1">ATA 1</label>
+                <input type="file" id="ata1"/>
+
+                <label htmlFor="ata2">ATA 2</label>
+                <input type="file" id="ata2"/>
+            </div>
         </Container>
 
         <MenuRight>
