@@ -200,8 +200,8 @@ export const ContainerAppointments = styled.div`
     height: 22vh;
     margin-top: 3vh;
     border-radius: 0.8vh 0.8vh 0 0;
-    border-left: 0.1vh solid #00579d;
-    border-bottom: 0.1vh solid #00579d;
+    border-left: 0.1vh solid #ccc;
+    border-bottom: 0.1vh solid #ccc;
     background-color: rgba(226, 226, 226, 0.2);
     overflow: hidden;
 
@@ -413,16 +413,16 @@ export const Left = styled.div`
     height: 30vh;
     display: flex;
     justify-content: space-between;
-    
     flex-direction: column;
   
     p {
+        font-size: 2.2vh;
         text-align: right;
         margin-right: 1vw;
 
         &::after {
             content: '';
-            width: 111.5vh;
+            width: 113.7vh;
             height: 0.1vh;
             background-color: #ccc;
             position: absolute;
@@ -526,12 +526,12 @@ export const Footer = styled.div`
         font-size: 2.6vh;
 
         &:nth-child(1) {
-            margin-left: 6vw;
+            margin-left: 6.05vw;
         }
 
         &:nth-child(2) {
             &::before {
-                margin-left: 2.75vw;
+                margin-left: 2.65vw;
             }
         }
 
@@ -539,7 +539,7 @@ export const Footer = styled.div`
             margin-right: 5.5vw;
 
             &::before {
-                margin-left: 3.05vw;
+                margin-left: 2.85vw;
             }
         }
     }

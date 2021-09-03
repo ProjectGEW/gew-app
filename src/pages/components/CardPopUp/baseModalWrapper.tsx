@@ -130,7 +130,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         </div>
                     </ContainerValues>
                     <HourGraphics>
-                        <GraphCircular valor={calcularPorcentagem(project ? project?.infoprojetoDTO.horas_apontadas : 0)} tipo={"%"} />
+                        <GraphCircular valor={120} total={600} tipo={"%"} />
                     </HourGraphics>
                     <ContainerValues>
                         <div>
