@@ -5,17 +5,22 @@ import { Container, Skill, Outer, Inner, Number } from './styles';
 interface GraphCircularProps {
     valor: number;
     tipo?: string;
+    porcentagem?: number;
 }
 
-const GraphCircular: React.FC<GraphCircularProps> = ({valor, tipo}) => {
+const GraphCircular: React.FC<GraphCircularProps> = ({valor, tipo, porcentagem}) => {
     return (
         <>
-        <Container>
+        <Container valor={valor} porcentagem={porcentagem} tipo={tipo}>
             <Skill>
                 <Outer>
                     <Inner>
                         <Number>
-                            { tipo === "valor" ? "R$ " + valor : tipo === "hora" ? valor + " horas" : 0 }
+                            {
+                                tipo === "valor" ? "R$ " + valor :
+                                tipo === "hora" ? valor + " horas" :
+                                tipo === "%" ? valor + "%" : 0 
+                            }
                         </Number>
                     </Inner>
                 </Outer>
