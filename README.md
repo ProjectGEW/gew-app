@@ -1,11 +1,5 @@
-<style>
-    #teste {
-        color: red;
-    }
-</style>
-
 <div>
-    <h1 id="teste" align="center">GEW</h1>
+    <img src='https://i.postimg.cc/D8YkHMrr/gew.png' border='0' alt='gew'/>
     <p align="center">Gestão de Projetos para Controle do Desenvolvimento de Softwares</p>
 </div>
 
