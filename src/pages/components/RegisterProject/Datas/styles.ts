@@ -9,10 +9,20 @@ export const Box = styled.div`
     justify-content: center;
     flex-direction: column;
 
+    form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        background: green;
+        width: 100%;
+    }
+
     background: red;
 
     div {
-        width: 80%;
+        width: 70%;
 
         background: blue;
         
