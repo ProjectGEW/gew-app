@@ -14,8 +14,6 @@
     </p>
 </div>
 
-*******
-
 ### Recursos
 
 - [x] Login
