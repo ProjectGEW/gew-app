@@ -10,6 +10,35 @@ export const Box = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    form {
+        div {
+            &:nth-child(1) {
+                div {
+                    &:nth-child(2) {
+                        div {
+                            &:last-child {
+                                justify-content: end;
+
+                                h2 {
+                                    margin-right: 1.3vw;
+                                }
+
+                                #totalEsforco {
+                                    width: 8vw;
+                                    margin-right: 1.3vw;
+                                }
+
+                                #totalValor {
+                                    width: 12vw;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 `;
 
 export const Table = styled.div`
@@ -26,6 +55,14 @@ export const Table = styled.div`
     background-color: #fff;
     border-radius: 0.8vh;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+    input {
+        font-size: 2.2vh;
+    }
+
+    .alinhar {
+        text-align: center;
+    }
 
     #first-table, #second-table {
         background-color: #00579D;
@@ -49,6 +86,25 @@ export const Table = styled.div`
         }
     }
 
+    #first-table {
+        h1 {
+            margin-right: 3vw;
+
+            &:nth-child(1) {
+                margin-left: 8vw;
+            }
+
+            &:nth-child(2) {
+                margin-left: 4vw;
+            }
+
+            &:nth-child(3) {
+                margin-left: 0vw;
+                margin-right: 3vw;
+            }
+        }
+    }
+
     div {
         width: 100%;
         padding: 1.5vh;
@@ -67,10 +123,24 @@ export const Table = styled.div`
 
     &:nth-child(2) {
         div {
-
             h1 {
-                margin-left: 1.6vw;
-                margin-right: 1.7vw;
+                margin-right: 3vw;
+                
+                &:nth-child(1) {
+                    margin-left: 1.8vw;
+                }
+
+                &:nth-child(2) {
+                    margin-left: 2.8vw;
+                }
+
+                &:nth-child(3) {
+                    margin-left: 1.6vw;
+                }
+
+                &:nth-child(4) {
+                    margin-left: 0vw;
+                }
             }
 
             &:last-child {
@@ -98,11 +168,6 @@ export const Table = styled.div`
             }
         }
     }
-
-    #second-scroll {
-        
-    }
-
 `;
 
 export const Linha = styled.div`
@@ -121,15 +186,15 @@ export const Linha = styled.div`
         color: #5E5E5E;
 
         &:nth-child(1) {
-            width: 24vw;
+            width: 29vw;
         }
 
         &:nth-child(2) {
-            width: 8vw;
+            width: 6vw;
         }
 
         &:nth-child(3) {
-            width: 12vw;
+            width: 10vw;
         }
     }
 
@@ -156,6 +221,11 @@ export const Total = styled.div`
     align-items: center;
     justify-content: center;
 
+    h2 {
+        color: #00579D;
+        font-size: 2.6vh;
+    }
+
     input {
         height: 5vh;
 
@@ -178,7 +248,5 @@ export const Total = styled.div`
         background-color: rgb(181, 181, 181, 0.6);
         box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
         color: #5E5E5E;
-    }
-
-    
+    }  
 `;
