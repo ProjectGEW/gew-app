@@ -8,24 +8,26 @@ const Responsavel: React.FC = () => {
     return (
         <>
         <Box>
-            <div>
-                <label>Nome do responsável:</label>
-                <input type="text" />
-                
-                <label>Nome do solicitante:</label>
-                <input type="text" />
-            </div>
-            <div>
-                <label>Seção do responsável:</label>
-                <input type="text" />
-                <Button tipo={"Lupa"} text={""} />
-                
-                <label>Seção do solicitante:</label>
-                <input type="text" />
-                <Button tipo={"Lupa"} text={""} />
+            <form action="" method="post">
+                <div>
+                    <label>Nome do responsável:</label>
+                    <input type="text" />
+                    
+                    <label>Nome do solicitante:</label>
+                    <input type="text" />
+                </div>
+                <div>
+                    <label>Seção do responsável:</label>
+                    <input type="text" />
+                    <Button tipo={"Lupa"} text={""} />
+                    
+                    <label>Seção do solicitante:</label>
+                    <input type="text" />
+                    <Button tipo={"Lupa"} text={""} />
 
-                <Button tipo={"Responsavel"} text={"Continuar"} />
-            </div>
+                    <Button tipo={"Responsavel"} text={"Continuar"} />
+                </div>
+            </form>
         </Box>
         </>    
     );
