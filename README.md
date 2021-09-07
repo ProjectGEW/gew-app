@@ -3,13 +3,15 @@
     <p align="center">Gestão de Projetos para Controle do Desenvolvimento de Softwares</p>
 </div>
 
-<p align="center">
- <a href="#recursos">Recursos</a> • 
- <a href="#Pré-requisitos">Pré-requisitos</a> • 
- <a href="#tecnologias">Tecnologias</a> • 
- <a href="#licenca">Licença</a> • 
- <a href="#equipe">Equipe</a>
-</p>
+<div>
+    <p align="center">
+     <a href="#recursos">Recursos</a> • 
+     <a href="#Pré-requisitos">Pré-requisitos</a> • 
+     <a href="#tecnologias">Tecnologias</a> • 
+     <a href="#licenca">Licença</a> • 
+     <a href="#equipe">Equipe</a>
+    </p>
+</div>
 
 <h4 align="center">Em desenvolvimento...</h4>
 
