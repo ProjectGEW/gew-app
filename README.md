@@ -12,7 +12,7 @@
      <a href="#equipe">Equipe</a>
     </p>
 </div>
-
+*******
 <h4 align="center">Em desenvolvimento...</h4>
 
 ### Recursos
