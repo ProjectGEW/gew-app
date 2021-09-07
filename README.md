@@ -1,10 +1,15 @@
+<style>
+    #teste {
+        color: red;
+    }
+</style>
+
 <div>
-    <h1 align="center">GEW</h1>
-    <p align="center">Gestão de Projetos Para Controle do Desenvolvimento de Softwares</p>
+    <h1 id="teste" align="center">GEW</h1>
+    <p align="center">Gestão de Projetos para Controle do Desenvolvimento de Softwares</p>
 </div>
 
 <p align="center">
- <a href="#objetivo">Objetivo</a> •
  <a href="#recursos">Recursos</a> • 
  <a href="#Pré-requisitos">Pré-requisitos</a> • 
  <a href="#tecnologias">Tecnologias</a> • 
