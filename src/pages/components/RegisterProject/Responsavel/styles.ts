@@ -8,8 +8,13 @@ export const Box = styled.div`
     align-items: start;
     justify-content: center;
 
+    form {
+        display: flex;
+        justify-content: center;
+    }
+
     div {
-        width: 40%;
+        width: 100%;
 
         display: flex;
         flex-direction: column;
