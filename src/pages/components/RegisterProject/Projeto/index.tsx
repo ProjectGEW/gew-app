@@ -17,23 +17,25 @@ const Projeto: React.FC = () => {
     return (
         <>
         <Box>
-            <div>
-                <label>Número do projeto:</label>
-                <input type="text" />
-                
-                <label>Título do projeto:</label>
-                <input type="text" />
+            <form action="" method="post">
+                <div>
+                    <label>Número do projeto:</label>
+                    <input type="text" />
+                    
+                    <label>Título do projeto:</label>
+                    <input type="text" />
 
-                <label>Descrição do projeto:</label>
-                <textarea />
-            </div>
-            <div>
-                <p>Ata de aprovação:</p>
-                <label htmlFor="ata">{data ? data : "SELECIONAR ARQUIVO"}</label>
-                <input type="file" id="ata" onClick={teste} />
+                    <label>Descrição do projeto:</label>
+                    <textarea />
+                </div>
+                <div>
+                    <p>Ata de aprovação:</p>
+                    <label htmlFor="ata">{data ? data : "SELECIONAR ARQUIVO"}</label>
+                    <input type="file" id="ata" onClick={teste} />
 
-                <Button tipo={"Projeto"} text={"Continuar"} />
-            </div>
+                    <Button tipo={"Projeto"} text={"Continuar"} />
+                </div>
+            </form>
         </Box>
         </>    
     );
