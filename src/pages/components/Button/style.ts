@@ -130,7 +130,7 @@ export const Container = styled.div<buttonProps>`
         button {
             position: absolute;
             margin-top: -9vh;
-            margin-left: 28vw;
+            margin-left: 52.5vw;
         }
     `}
 `;
