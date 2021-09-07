@@ -1,5 +1,5 @@
-<div>
-    <img align="center" src='https://i.postimg.cc/D8YkHMrr/gew.png' border='0' alt='gew'/>
+<div align="center">
+    <img src='https://i.postimg.cc/D8YkHMrr/gew.png' border='0' alt='gew'/>
     <p align="center">Gestão de Projetos para Controle do Desenvolvimento de Softwares</p>
 </div>
 
