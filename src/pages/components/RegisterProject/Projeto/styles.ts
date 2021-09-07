@@ -11,6 +11,11 @@ export const Box = styled.div`
     align-items: start;
     justify-content: center;
 
+    form {
+        display: flex;
+        justify-content: center;
+    }
+
     div {
         width: 40%;
         margin-top: 2vh;
@@ -18,19 +23,17 @@ export const Box = styled.div`
         display: flex;
         flex-direction: column;
 
-
         label, p {
             color: #00579D;
             font-size: 3vh;
 
-            margin-left: 6vw;
+            margin-left: 4vw;
             margin-bottom: 1vh;
         }
 
         input, textarea {
-            width: 20vw;
             height: 5vh;
-            margin-left: 6vw;
+            margin-left: 4vw;
             margin-bottom: 3vh;
 
             border-radius: 0.4vh;
