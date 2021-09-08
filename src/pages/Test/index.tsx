@@ -8,7 +8,6 @@ import { ContIcons } from '../components/MenuRight/styles';
 
 import { Container } from './styles';
 import Paper from "@material-ui/core/Paper";
-import RootRef from '@material-ui/core/RootRef';
 import { useDropzone } from "react-dropzone";
 
 import api from "../../service/api";
@@ -37,12 +36,16 @@ const Projects: React.FC = () => {
 
             formData.append("file", file ? file : "");
 
-            const response = await api.post(`files/1`, formData);
+            const response = await api.post(`files/upload/1`, formData);
 
             setDownloadUri(response.data.fileDownloadUri);
-        } catch(err) {
+        } catch(err: any) {
             alert(err.message);
         }
+    }
+
+    const downloadFile = async () => {
+        window.open(downloadUri);
     }
 
     async function apontarHoras() {
@@ -63,14 +66,15 @@ const Projects: React.FC = () => {
             <input type="number" id="horas" />
             <button onClick={apontarHoras}>Enviar</button>
 
-            <RootRef rootRef={ref}>
+            <div ref={ref}>
                 <Paper {...rootProps}>
                     <label htmlFor="ata1">UPLOAD</label>
                     <input {...getInputProps()}/>
                 </Paper>
                 <button onClick={uploadFile}>Enviar</button>
-                
-            </RootRef>
+            </div>
+
+            <button onClick={downloadFile}>Baixar</button>
         </Container>
 
         <MenuRight>
