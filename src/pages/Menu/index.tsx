@@ -93,25 +93,6 @@ const Menu: React.FC = () => {
         return Math.floor(porcentagem);
     }
 
-    // document.addEventListener("DOMContentLoaded", function(event) {
-    //     console.log("DOM completamente carregado e analisado");
-    //     handleData();
-    // });
-
-    // if (document.readyState === "loading") {  // Ainda carregando
-    //     document.addEventListener("DOMContentLoaded", function(event) { console.log("Carregando")}) ;
-    // } else {  // `DOMContentLoaded` foi disparado
-    //     handleData();
-    // }
-
-    /* 
-    
-    > 1000, 10000, 100000 = . | (6)
-    > 1000000, 10000000, 100000000 = . . | (9)   
-    * = ,00
-
-    */
-
     return (
         <>
         <Navbar />

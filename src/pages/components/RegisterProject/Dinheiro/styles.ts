@@ -18,19 +18,19 @@ export const Box = styled.div`
                     &:nth-child(2) {
                         div {
                             &:last-child {
-                                justify-content: end;
+                                justify-content: flex-end;
 
                                 h2 {
                                     margin-right: 1.3vw;
                                 }
 
                                 #totalEsforco {
-                                    width: 8vw;
-                                    margin-right: 1.3vw;
+                                    width: 6.2vw;
+                                    margin-right: 0.7vw;
                                 }
 
                                 #totalValor {
-                                    width: 12vw;
+                                    width: 10vw;
                                 }
                             }
                         }

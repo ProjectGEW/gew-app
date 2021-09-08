@@ -121,16 +121,16 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "Responsavel" && css`
         button {
             position: absolute;
-            margin-top: 23vh;
-            margin-left: 28vw;
+            margin-top: 22.9vh;
+            margin-left: 29.7vw;
         }
     `}
 
     ${props => props.tipo === "Dinheiro" && css`
         button {
             position: absolute;
-            margin-top: -9vh;
-            margin-left: 52.5vw;
+            margin-top: -8.6vh;
+            margin-left: 53vw;
         }
     `}
 `;

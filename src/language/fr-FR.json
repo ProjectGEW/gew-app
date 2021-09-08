@@ -22,7 +22,8 @@
         "mensagem": "Bienvenue,",
         "notificacao": "Notifications",
         "card": {
-            "titulo": "Accomplissement du voyage"
+            "titulo": "Accomplissement du voyage",
+            "msg": "L'employé {name} a terminé ses tâches !"
         }
     },
     "menu_direito": {

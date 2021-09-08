@@ -60,7 +60,7 @@ const RegisterProjects: React.FC = () => {
                             <RiErrorWarningFill onClick={() => trocarTela("Datas")}/>
                         </div>
                     </Line>
-                    {trocarTela} 
+                    <Datas />
                 </Content>
             </ContainerRegister>
         </Container>

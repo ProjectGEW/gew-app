@@ -22,7 +22,8 @@
         "mensagem": "Bienvenido,",
         "notificacao": "Notificaciones",
         "card": {
-            "titulo": "Cumplimiento del viaje"
+            "titulo": "Cumplimiento del viaje",
+            "msg": "¡El empleado {name} ha completado sus tareas!"
         }
     },
     "menu_direito": {

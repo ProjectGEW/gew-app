@@ -123,7 +123,7 @@ const MenuLeft: React.FC = () => {
                                     <p>{intl.get('menu_esquerdo.card.titulo')}</p>
                                 </TitleMsg>
                                 <TextMsg>
-                                    <p>O funcionário José concluiu suas tarefas!</p>
+                                    <p>{intl.get('menu_esquerdo.card.msg', {name: 'José'})}</p>
                                 </TextMsg>
                             </Aba>
                         </LineMsg>

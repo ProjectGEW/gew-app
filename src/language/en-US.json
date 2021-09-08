@@ -21,7 +21,8 @@
       "mensagem": "Welcome,",
       "notificacao": "Notifications",
       "card": {
-          "titulo": "Fulfillment of the journey"
+          "titulo": "Fulfillment of the journey",
+          "msg": "The employee {name} completes his tasks!"
       }
     },
     "menu_direito": {

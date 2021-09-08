@@ -22,7 +22,8 @@
         "mensagem": "Seja bem vindo,",
         "notificacao": "Notificações",
         "card": {
-            "titulo": "Cumprimento da jornada"
+            "titulo": "Cumprimento da jornada",
+            "msg": "O funcionário {name} concluiu suas tarefas!"
         }
     },
     "menu_direito": {

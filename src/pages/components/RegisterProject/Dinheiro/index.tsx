@@ -38,8 +38,8 @@ const Dinheiro: React.FC = () => {
                         </Linha>
                         <Total>
                             <h2>TOTAL:</h2>
-                            <input id="totalEsforco" type="text" className="alinhar" />
-                            <input id="totalValor" type="text" className="alinhar" />
+                            <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
+                            <input id="totalValor" type="text" value="40.000,00" className="alinhar" />
                         </Total>
                     </div>
                 </Table>

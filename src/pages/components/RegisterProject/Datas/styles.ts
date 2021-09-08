@@ -6,36 +6,34 @@ export const Box = styled.div`
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
 
     form {
+        width: 100%;
+        height: 20vh;
+
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
-
-        background: green;
-        width: 100%;
     }
-
-    background: red;
 
     div {
         width: 70%;
-
-        background: blue;
         
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
         label {
+            width: 13vw;
             color: #00579D;
             font-size: 2.6vh;
             font-weight: bold;
 
             margin-bottom: 1vh;
+            text-align: left;
 
             &:last-child {
                 margin-right: 0vw;
