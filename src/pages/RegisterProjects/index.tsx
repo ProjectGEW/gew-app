@@ -19,55 +19,55 @@ import { render } from '@testing-library/react';
 const RegisterProjects: React.FC = () => {
 
     function trocarTela(recebe: string) {
-        if(recebe === "Projeto") {
-            return render(<Projeto/>);
-        } else if(recebe === "Responsavel") {
-            return render(<Responsavel/>);
-        } else if(recebe === "Dinheiro") {
-            return render(<Dinheiro/>);
-        } else if(recebe === "Datas") {
-            return render(<Datas/>);
+        if (recebe === "Projeto") {
+            return render(<Projeto />);
+        } else if (recebe === "Responsavel") {
+            return render(<Responsavel />);
+        } else if (recebe === "Dinheiro") {
+            return render(<Dinheiro />);
+        } else if (recebe === "Datas") {
+            return render(<Datas />);
         } else {
-            return render(<Projeto/>);
+            return render(<Projeto />);
         }
     }
-    
+
     return (
         <>
-        <Navbar />
-        <MenuLeft />
-        <Container>
-            <ContainerRegister>
-                <Info>
-                    <h1>Cadastrar Projeto</h1>
-                </Info>
-                <Content>
-                    <Line>
-                        <div>
-                            <p>Projeto</p>
-                            <IoIosCheckmarkCircle onClick={() => trocarTela("Projeto")}/>
-                        </div>
-                        <div>
-                            <p>Responsáveis</p>
-                            <RiErrorWarningFill onClick={() => trocarTela("Responsavel")}/>
-                        </div>
-                        <div>
-                            <p>R$</p>
-                            <RiErrorWarningFill onClick={() => trocarTela("Dinheiro")}/>
-                        </div>
-                        <div>
-                            <p>Datas</p>
-                            <RiErrorWarningFill onClick={() => trocarTela("Datas")}/>
-                        </div>
-                    </Line>
-                    <Datas />
-                </Content>
-            </ContainerRegister>
-        </Container>
-        <MenuRight>
-            <ContIcons />
-        </MenuRight>
-        </>    
+            <Navbar />
+            <MenuLeft />
+            <Container>
+                <ContainerRegister>
+                    <Info>
+                        <h1>Cadastrar Projeto</h1>
+                    </Info>
+                    <Content>
+                        <Line>
+                            <div>
+                                <p>Projeto</p>
+                                <IoIosCheckmarkCircle onClick={() => trocarTela("Projeto")} />
+                            </div>
+                            <div>
+                                <p>Responsáveis</p>
+                                <RiErrorWarningFill onClick={() => trocarTela("Responsavel")} />
+                            </div>
+                            <div>
+                                <p>R$</p>
+                                <RiErrorWarningFill onClick={() => trocarTela("Dinheiro")} />
+                            </div>
+                            <div>
+                                <p>Datas</p>
+                                <RiErrorWarningFill onClick={() => trocarTela("Datas")} />
+                            </div>
+                        </Line>
+                        <Dinheiro />
+                    </Content>
+                </ContainerRegister>
+            </Container>
+            <MenuRight>
+                <ContIcons />
+            </MenuRight>
+        </>
     );
 };
 
