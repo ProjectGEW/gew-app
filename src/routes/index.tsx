@@ -13,6 +13,7 @@ import Settings from '../pages/Settings';
 import Dashboard from '../pages/Dashboard';
 import Details from '../pages/Details';
 import Test from '../pages/Test';
+import Test2 from '../pages/test2';
 
 const Routes: React.FC = () => (
     <Switch>
@@ -28,6 +29,7 @@ const Routes: React.FC = () => (
         <Route path="/details/:id" component={Details}/>
         {/* Área para testes */}
         <Route path="/test" component={Test} />
+        <Route path="/test2" component={Test2} />
     </Switch>
 );
 
