@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Box = styled.div`
+export const BoxDatas = styled.div`
     width: 80%;
     height: 57vh;
 
