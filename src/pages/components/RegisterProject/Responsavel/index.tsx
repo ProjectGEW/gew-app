@@ -2,12 +2,12 @@ import React from 'react';
 
 import Button from '../../Button';
 
-import { Box } from './styles';
+import { BoxResponsavel } from './styles';
 
 const Responsavel: React.FC = () => {   
     return (
         <>
-        <Box>
+        <BoxResponsavel>
             <form action="" method="post">
                 <div>
                     <label>Nome do responsável:</label>
@@ -28,7 +28,7 @@ const Responsavel: React.FC = () => {
                     <Button tipo={"Responsavel"} text={"Continuar"} />
                 </div>
             </form>
-        </Box>
+        </BoxResponsavel>
         </>    
     );
 };
