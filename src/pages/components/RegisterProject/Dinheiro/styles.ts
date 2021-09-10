@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import Plus from '../../../../assets/plus.svg';
 
-export const Box = styled.div`
+export const BoxDinheiro = styled.div`
     width: 80%;
     height: 57vh;
 
@@ -12,6 +12,11 @@ export const Box = styled.div`
     flex-direction: column;
 
     form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
         div {
             &:nth-child(1) {
                 div {
