@@ -17,19 +17,93 @@ const Test2: React.FC = () => {
             <MenuLeft />
 
             <Container> 
-                <h1>Revisão das Informações</h1>
+                <h1>Confirmar Informações</h1>
                 <SideContainer>
-                    <ContentContainer></ContentContainer>
-                    <Box></Box>
-                    <Box></Box>
-                    <ContentContainer></ContentContainer>
-                    <ContentContainer></ContentContainer>
-                    <ContentContainer></ContentContainer>
+                    <ContentContainer>
+                        <div>
+                            <h3>Número do projeto:</h3>
+                            <h2>1000025562</h2>
+                        </div>
+                        <div>
+                            <h3>Número do projeto:</h3>
+                            <h2>1000025562</h2>
+                        </div>
+                    </ContentContainer>
+                    <Box>
+                        <div>
+                            <h3>Título do projeto:</h3>
+                            <h2>WEC - IMPLANTAÇÃO DE EDI CLIENTE XYZ</h2>
+                        </div>
+                    </Box>
+                    <Box>
+                        <div>
+                            <h3>Descrição do projeto:</h3>
+                            <h2>IMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃO</h2>
+                        </div>
+                    </Box>
+                    <ContentContainer>
+                        <div>
+                            <h3>Nome do responsável:</h3>
+                            <h2>ANDRÉ CARLOS DA SILVA</h2>
+                        </div>
+                        <div>
+                            <h3>Seção do responsável:</h3>
+                            <h2>ABCDEFGHIJKLM</h2>
+                        </div>
+                    </ContentContainer>
+                    <ContentContainer>
+                        <div>
+                            <h3>Nome do solicitante:</h3>
+                            <h2>DIEGO CANVAS DE SOUZA</h2>
+                        </div>
+                        <div>
+                            <h3>Seção do solicitante:</h3>
+                            <h2>NOPQRSTUVWXYZ</h2>
+                        </div>
+                    </ContentContainer>
+                    <ContentContainer>
+                        <div>
+                            <h3>Nome do aprovador:</h3>
+                            <h2>JOSÉ RICARDO</h2>
+                        </div>
+                        <div>
+                            <h3>Seção do aprovador:</h3>
+                            <h2>ABCDESKAKSSKAS</h2>
+                        </div>
+                    </ContentContainer>
                 </SideContainer>
                 <SideContainer>
-                    <ContentContainer></ContentContainer>
-                    <ContentContainer></ContentContainer>
-                    <ContentContainer></ContentContainer>
+                    <ContentContainer>
+                        <div>
+                            <h3>Centro de custo:</h3>
+                            <h2>R$ 00,00</h2>
+                        </div>
+                        <div>
+                            <h3>Data de início:</h3>
+                            <h2>00/00/0000</h2>
+                        </div>
+                    </ContentContainer>
+                    <ContentContainer>
+                        <div>
+                            <h3>Percentual aprovado:</h3>
+                            <h2>R$ 00,00</h2>
+                        </div>
+                        <div>
+                            <h3>Data de término:</h3>
+                            <h2>00/00/0000</h2>
+                        </div>
+                    </ContentContainer>
+                    <ContentContainer>
+                        <div>
+                            <h3>Limite de horas aprovadas:</h3>
+                            <h2>00:00</h2>
+                        </div>
+                        <div>
+                            <h3>Data de aprovação:</h3>
+                            <h2>00/00/0000</h2>
+                        </div>
+                    </ContentContainer>
+                    <Table></Table>
                 </SideContainer>
             </Container>
 
