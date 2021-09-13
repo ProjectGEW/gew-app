@@ -15,12 +15,10 @@ import api from "../../service/api";
 const Projects: React.FC = () => {
     const [file, setFile] = useState<Blob>();
     const [downloadUri, setDownloadUri] = useState();
-    const [fileName, setFileName] = useState<string>();
 
     const onDrop = useCallback((acceptedFiles) => {
         console.log(acceptedFiles);
         setFile(acceptedFiles[0]);
-        setFileName(acceptedFiles[0].name);
     }, [])
 
     const {getRootProps, getInputProps} = useDropzone({
