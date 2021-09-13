@@ -14,6 +14,7 @@ import Button from '../components/Button';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { HiDotsCircleHorizontal } from 'react-icons/hi';
 
 import { Container, ContainerRegister, Info, Content, Line } from './styles';
 
@@ -52,12 +53,14 @@ const RegisterProjects: React.FC = () => {
     });
 
     const {ref, ...rootProps} = getRootProps();
+    const [tela, setTela] = useState('');
 
     function trocarEtapa(etapa: string) {
         for(var x = 0; x < 4; x++) {
             document.getElementById(etapas[x])!.style.display = "none";
         }
         document.getElementById(etapa)!.style.display = "block";
+        setTela(etapa);
     }
 
     return (
@@ -70,22 +73,26 @@ const RegisterProjects: React.FC = () => {
                     <h1>Cadastrar Projeto</h1>
                 </Info>
                 <Content>
-                    <Line nome={"boxResponsavel"}>
-                        <div>
+                    <Line nome={tela}>
+                        <div onClick={() => trocarEtapa("boxProjeto")}>
                             <p>Projeto</p>
-                            <IoIosCheckmarkCircle onClick={() => trocarEtapa("boxProjeto")}/>
+                            <RiErrorWarningFill/>
+                            <IoIosCheckmarkCircle/>
                         </div>
-                        <div>
+                        <div onClick={() => trocarEtapa("boxResponsavel")}>
                             <p>Responsáveis</p>
-                            <RiErrorWarningFill onClick={() => trocarEtapa("boxResponsavel")}/>
+                            <RiErrorWarningFill/>
+                            <IoIosCheckmarkCircle/>
                         </div>
-                        <div>
+                        <div onClick={() => trocarEtapa("boxDinheiro")}>
                             <p>R$</p>
-                            <RiErrorWarningFill onClick={() => trocarEtapa("boxDinheiro")}/>
+                            <RiErrorWarningFill/>
+                            <IoIosCheckmarkCircle/>
                         </div>
-                        <div>
+                        <div onClick={() => trocarEtapa("boxDatas")}>
                             <p>Datas</p>
-                            <RiErrorWarningFill onClick={() => trocarEtapa("boxDatas")}/>
+                            <RiErrorWarningFill/>
+                            <IoIosCheckmarkCircle/>
                         </div>
                     </Line>
 
