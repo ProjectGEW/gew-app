@@ -189,3 +189,31 @@ export const Center = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
 `;
+
+export const Msg = styled.div`
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin-top: 25vh;
+
+    svg {
+        color: #bfbfbf;
+        opacity: 1;
+        animation: rodar 2s infinite;
+    }
+
+    @keyframes rodar {
+        from {
+            transform: rotate(360deg);
+        }
+        to {
+            transform: rotate(0deg);
+        }
+    }    
+    
+    h1 {
+        font-size: 4vh;
+        color: #bfbfbf;
+        opacity: 1;
+    }
+`;

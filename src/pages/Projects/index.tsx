@@ -1,6 +1,7 @@
 import React, { FormEvent } from 'react';
 
 import { IoMdArrowDropright } from 'react-icons/io';
+import { BiHourglass } from 'react-icons/bi';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -9,7 +10,7 @@ import MenuRight from '../components/MenuRight';
 import Card from '../components/CardProject/Card';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
-    ContainerFiltro, Center } from './styles';
+    ContainerFiltro, Center, Msg } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
 import { useState } from 'react';
@@ -88,10 +89,11 @@ const Projects: React.FC = () => {
 
     const [selectedOption, setSelectedOption] = useState<String>();
 
-    // This function is triggered when the select changes
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
-        setSelectedOption(value);
+        setTimeout(function() {
+            setSelectedOption(value);
+        }, 100);
     };
     
     return (
@@ -110,12 +112,12 @@ const Projects: React.FC = () => {
                         <div>
                             <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
                             <select name="secao" onChange={selectChange}>
-                                <option value="nenhum">Nenhum</option>
-                                <option value="secao1">ABC</option>
-                                <option value="secao2">DEF</option>
-                                <option value="secao3">GHI</option>
-                                <option value="secao4">WEC</option>
-                                <option value="secao3">KLM</option>
+                                <option value="todos">Todos</option>
+                                <option value="ABC">ABC</option>
+                                <option value="DEF">DEF</option>
+                                <option value="GHI">GHI</option>
+                                <option value="WEC">WEC</option>
+                                <option value="KLM">KLM</option>
                             </select>
                         </div>
                         <div>
@@ -143,10 +145,15 @@ const Projects: React.FC = () => {
                 <ProjectsGrid>
                     <Center>
                     {selectedOption && <h2>{selectedOption}</h2>}
-                        {
+                        { projetos ?
                             projetos.map(projeto =>
                                 <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
                             )
+                            : 
+                            <Msg>
+                                <BiHourglass size={40}/>
+                                <h1>Nenhum projeto foi encontrado!</h1>
+                            </Msg>
                         }
                     </Center>
                 </ProjectsGrid>
