@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 
@@ -70,18 +70,31 @@ const Projects: React.FC = () => {
         locales
     });
 
+    const [status, setStatus] = useState('');
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
 
     window.onload = async function handleProjetos() {
-        const response = await api.get<IProjetoProps[]>("projetos");
+        const response = await api.get<IProjetoProps[]>('projetos');
         const data = response.data;
         setProjetos(data);
     }
 
-    const [buscaTitulo, setBuscaTitulo] = useState('');
-    const projetoFiltrado = optTitulo
-    .filter((titulo) => titulo.toLowerCase().includes(buscaTitulo.toLowerCase()));
-    console.log(projetoFiltrado);
+    function defineStatus(valor: string) {
+        setStatus(valor);
+    }
+
+    async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
+
+        try {
+            const response = await api.get<IProjetoProps[]>(status);
+            const data = response.data;
+            setProjetos(data);
+
+        } catch(err) {
+            console.log("Não foi possível realizar a consulta.");
+        }
+    }
     
     return (
         <>
@@ -107,20 +120,23 @@ const Projects: React.FC = () => {
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                            <select id="status">
-                                <option>Todos</option>
-                                <option>Em andamento</option>
-                                <option>Atrasado</option>
-                                <option>Concluído</option> 
-                            </select>
+                            <form onSubmit={filtraPorStatus}>
+                                <button type="submit" 
+                                onClick={() => defineStatus("projetos")}>Todos</button>
+
+                                <button type="submit" 
+                                onClick={() => defineStatus("projetos/em_andamento")}>Em andamento</button>
+
+                                <button type="submit" 
+                                onClick={() => defineStatus("projetos/atrasados")}>Atrasado</button>
+
+                                <button type="submit" 
+                                onClick={() => defineStatus("projetos/concluidos")}>Concluído</button>
+                            </form>
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-                            <input 
-                            onChange={(ev) => setBuscaTitulo(ev.target.value)} 
-                            type="text" 
-                            value={buscaTitulo}
-                            placeholder="Digite aqui"/>
+                            <input type="text" placeholder="Digite aqui"/>
                         </div>
                     </ContainerFiltro>
                 </ContainerInfo>
