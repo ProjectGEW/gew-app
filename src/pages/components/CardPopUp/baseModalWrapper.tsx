@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Modal from './Modal';
 import Button from '../Button';
@@ -108,7 +108,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     </ContainerBox>
                     <ContainerBox>
                         <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
-                        <button id="downloadButton" onClick={downloadFile}>{ata ? ata.split(".")[0] : ""}</button>
+                        <label htmlFor="ata" onClick={downloadFile} >{ata ? ata.split(".")[0] : ""}</label>
                     </ContainerBox>
                     <ContainerObjectives>
                         <h1>Descrição:</h1>
