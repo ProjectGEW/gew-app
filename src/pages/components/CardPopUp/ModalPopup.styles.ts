@@ -133,6 +133,25 @@ export const ContainerBox = styled.div`
         }
     }
 
+    #downloadButton {
+        height: 5vh;
+
+        padding: 0 3vh;
+        border: 0;
+        border-radius: 0.5vh;
+
+        font-size: 2vh;
+        color: white;
+        font-weight: bold;
+        background-color: #00579D;
+
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        &:hover {
+            background-color: ${shade(0.09, "#00579D")}
+        }
+    }
+
     &:nth-child(2) {
         margin-top: 3vh;
         display: flex;

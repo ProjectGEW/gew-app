@@ -36,7 +36,7 @@ const Projects: React.FC = () => {
 
             formData.append("file", file ? file : "");
 
-            const response = await api.post(`files/upload/1`, formData);
+            const response = await api.post(`files/upload/2`, formData);
 
             setDownloadUri(response.data.fileDownloadUri);
         } catch(err: any) {
