@@ -145,6 +145,10 @@ export const Line = styled.div<Etapa>`
                 height: 6vh;
 
                 color: #00579D;
+
+                &:nth-child(2) {
+                    display: none;
+                }
             }
 
             &::after {
@@ -162,6 +166,10 @@ export const Line = styled.div<Etapa>`
 
             svg {
                 color: #5D5D5D;
+
+                &:nth-child(3) {
+                    display: none;
+                }
             }
 
             &::after {
@@ -179,6 +187,10 @@ export const Line = styled.div<Etapa>`
 
             svg {
                 color: #5D5D5D;
+
+                &:nth-child(3) {
+                    display: none;
+                }
             }
 
             &::after {
@@ -196,6 +208,10 @@ export const Line = styled.div<Etapa>`
 
             svg {
                 color: #5D5D5D;
+
+                &:nth-child(3) {
+                    display: none;
+                }
             }
         }
 
@@ -227,6 +243,14 @@ export const Line = styled.div<Etapa>`
 
                 svg {
                     color: #00579D;
+
+                    &:nth-child(2) {
+                        display: none;
+                    }
+
+                    &:nth-child(3) {
+                        display: block;
+                    }
                 }
 
                 &::after {
@@ -266,6 +290,14 @@ export const Line = styled.div<Etapa>`
 
                 svg {
                     color: #00579D;
+
+                    &:nth-child(2) {
+                        display: none;
+                    }
+                    
+                    &:nth-child(3) {
+                        display: block;
+                    }
                 }
 
                 &::after {
@@ -283,6 +315,14 @@ export const Line = styled.div<Etapa>`
     
                 svg {
                     color: #00579D;
+
+                    &:nth-child(2) {
+                        display: none;
+                    }
+                    
+                    &:nth-child(3) {
+                        display: block;
+                    }
                 }
     
                 &::after {
@@ -322,6 +362,14 @@ export const Line = styled.div<Etapa>`
 
                 svg {
                     color: #00579D;
+
+                    &:nth-child(2) {
+                        display: none;
+                    }
+                    
+                    &:nth-child(3) {
+                        display: block;
+                    }
                 }
 
                 &::after {
@@ -339,6 +387,14 @@ export const Line = styled.div<Etapa>`
     
                 svg {
                     color: #00579D;
+
+                    &:nth-child(2) {
+                        display: none;
+                    }
+                    
+                    &:nth-child(3) {
+                        display: block;
+                    }
                 }
     
                 &::after {
@@ -356,6 +412,14 @@ export const Line = styled.div<Etapa>`
     
                 svg {
                     color: #00579D;
+
+                    &:nth-child(2) {
+                        display: none;
+                    }
+                    
+                    &:nth-child(3) {
+                        display: block;
+                    }
                 }
             }
         `}

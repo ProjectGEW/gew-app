@@ -4,6 +4,7 @@ import api from "../service/api";
 interface AuthState{
     jwt: string;
     usuario: object;
+    nome?: string;
 }
 
 interface SingInCredentials {
@@ -25,9 +26,10 @@ export const AuthProvider: React.FC = ({ children }) => {
     const [data, setData] = useState<AuthState>(() => {
         const jwt = localStorage.getItem("Token");
         const usuario = localStorage.getItem("User");
+        const nome = localStorage.getItem("User:nome");
 
-        if(jwt && usuario){
-            return { jwt, usuario: JSON.parse(usuario)};
+        if(jwt && usuario && nome){
+            return { jwt, usuario: JSON.parse(usuario), nome};
         }
         return {} as AuthState;
     });
@@ -38,16 +40,18 @@ export const AuthProvider: React.FC = ({ children }) => {
             senha,
         });
 
-        const { jwt, usuario } = respose.data;
+        const { jwt, usuario, nome } = respose.data;
 
         localStorage.setItem("Token", jwt);
         localStorage.setItem("User", JSON.stringify(usuario));
-        setData({ jwt, usuario });
+        localStorage.setItem("User:nome", nome);
+        setData({ jwt, usuario, nome });
     }, []);
 
     const singOut = useCallback(() => {
         localStorage.removeItem("Token");
         localStorage.removeItem("User");
+        localStorage.removeItem("User:nome");
 
         setData({} as AuthState);
     }, []);

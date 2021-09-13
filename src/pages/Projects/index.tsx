@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 import { IoMdArrowDropright } from 'react-icons/io';
+import { BiHourglass } from 'react-icons/bi';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -9,7 +10,7 @@ import MenuRight from '../components/MenuRight';
 import Card from '../components/CardProject/Card';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
-    ContainerFiltro, Center } from './styles';
+    ContainerFiltro, Center, Msg } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
 import { useState } from 'react';
@@ -26,7 +27,7 @@ const locales = {
 };
 
 interface IProjetoProps {
-    infoprojetoDTO : {
+    infoprojetoDTO: {
         id: number;
         numeroDoProjeto: number;
         titulo: string;
@@ -35,25 +36,12 @@ interface IProjetoProps {
         data_de_termino: string;
         status: string;
     };
-    valoresTotaisDTO : {
+    valoresTotaisDTO: {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
     };
 }
-
-/*const optStatus = [
-    "Todos",
-    "Em andamento",
-    "Atrasado",
-    "Concluído"
-];*/
-
-const optTitulo = [
-    "abc",
-    "ghi",
-    "wec"
-];
 
 const Projects: React.FC = () => {
     const [language] = useState(() => {
@@ -70,18 +58,46 @@ const Projects: React.FC = () => {
         locales
     });
 
+    const [status, setStatus] = useState('');
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
 
     window.onload = async function handleProjetos() {
-        const response = await api.get<IProjetoProps[]>("projetos");
+        const response = await api.get<IProjetoProps[]>('projetos');
         const data = response.data;
-        setProjetos(data);
+        
+        setTimeout(function() {
+            setProjetos(data);
+        }, 100);
     }
 
-    const [buscaTitulo, setBuscaTitulo] = useState('');
-    const projetoFiltrado = optTitulo
-    .filter((titulo) => titulo.toLowerCase().includes(buscaTitulo.toLowerCase()));
-    console.log(projetoFiltrado);
+    function defineStatus(valor: string) {
+        setStatus(valor);
+    }
+
+    async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
+
+        try {
+            const response = await api.get<IProjetoProps[]>(status);
+            const data = response.data;
+
+            setTimeout(function() {
+                setProjetos(data);
+            }, 100);
+
+        } catch(err) {
+            console.log("Não foi possível realizar a consulta.");
+        }
+    }
+
+    const [selectedOption, setSelectedOption] = useState<String>();
+
+    const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        setTimeout(function() {
+            setSelectedOption(value);
+        }, 100);
+    };
     
     return (
         <>
@@ -98,36 +114,54 @@ const Projects: React.FC = () => {
                         <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
-                            <select name="secao">
-                                <option value="se1">Nenhum</option>
-                                <option value="se2">ABC</option>
-                                <option value="se3">DEF</option>
-                                <option value="se4">GHI</option>
+                            <select name="secao" onChange={selectChange}>
+                                <option value="todos">Todos</option>
+                                <option value="ABC">ABC</option>
+                                <option value="DEF">DEF</option>
+                                <option value="GHI">GHI</option>
+                                <option value="WEC">WEC</option>
+                                <option value="KLM">KLM</option>
                             </select>
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                            <select id="status">
-                                <option>Todos</option>
-                                <option>Em andamento</option>
-                                <option>Atrasado</option>
-                                <option>Concluído</option> 
-                            </select>
+                            <form onSubmit={filtraPorStatus}>
+                                <button type="submit" 
+                                    onClick={() => defineStatus("projetos")}>
+                                    {intl.get('tela_projetos.filtros.options.todos')}
+                                </button>
+                                <button type="submit" 
+                                    onClick={() => defineStatus("projetos/em_andamento")}>
+                                    {intl.get('tela_projetos.filtros.options.emandamento')}
+                                </button>
+                                <button type="submit" 
+                                    onClick={() => defineStatus("projetos/atrasados")}>
+                                    {intl.get('tela_projetos.filtros.options.atrasado')}
+                                </button>
+                                <button type="submit" 
+                                    onClick={() => defineStatus("projetos/concluidos")}>
+                                    {intl.get('tela_projetos.filtros.options.concluido')}
+                                </button>
+                            </form>
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-                            <input 
-                            onChange={(ev) => setBuscaTitulo(ev.target.value)} 
-                            type="text" 
-                            value={buscaTitulo}
-                            placeholder="Digite aqui"/>
+                            <input type="text" placeholder="Digite aqui"/>
                         </div>
                     </ContainerFiltro>
                 </ContainerInfo>
                 <ProjectsGrid>
                     <Center>
-                        {
-                            projetos.map(projeto =><Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />)
+                    {selectedOption && <h2>{selectedOption}</h2>}
+                        { projetos ?
+                            projetos.map(projeto =>
+                                <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                            )
+                            : 
+                            <Msg>
+                                <BiHourglass size={40}/>
+                                <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                            </Msg>
                         }
                     </Center>
                 </ProjectsGrid>

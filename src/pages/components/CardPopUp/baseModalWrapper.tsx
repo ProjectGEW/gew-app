@@ -59,6 +59,7 @@ interface CardContent {
 const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, numeroDoProjeto}) => {
     
     const [project, setProject] = useState<CardContent>();
+    const [ata, setAta] = useState<string>();
 
     useEffect(() => {
         api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
@@ -66,8 +67,18 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         }
     ))}, [numeroDoProjeto]);
 
+    useEffect(() => {
+        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {
+            setAta(response.data);
+        }
+    )});
+
     if (!isModalVisible) {
         return null
+    }
+
+    const downloadFile = () => {
+        window.open(`http://localhost:6868/files/download/${project ? project.infoprojetoDTO.id : 0}`);
     }
 
     /*function calcularPorcentagem(count: number) {
@@ -85,7 +96,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     <ContainerBox>
                         <p>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - Seção ABC</p>
-                        <h3>ATA N°07/2020</h3>
+                        <h3>ATA {ata ? ata.split(".")[0].substr(4) : ""}</h3>
                     </ContainerBox>
                     <ContainerBox>
                         <div>
@@ -97,8 +108,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     </ContainerBox>
                     <ContainerBox>
                         <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
-                            <label htmlFor="ata">ATA_CVPD_07_2020</label>
-                            <input type="file" id="ata"/>
+                        <label htmlFor="ata" onClick={downloadFile} >{ata ? ata.split(".")[0] : ""}</label>
                     </ContainerBox>
                     <ContainerObjectives>
                         <h1>Descrição:</h1>

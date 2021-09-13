@@ -21,8 +21,8 @@ const Dinheiro: React.FC = () => {
                         <RowDinheiro />
                         <Total>
                             <h2>TOTAL:</h2>
-                            <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
-                            <input id="totalValor" type="text" value="40.000,00" className="alinhar" />
+                            <input id="totalEsforco" type="text" defaultValue="1500h" className="alinhar" />
+                            <input id="totalValor" type="text" defaultValue="40.000,00" className="alinhar" />
                         </Total>
                     </div>
                 </Table>

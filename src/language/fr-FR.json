@@ -66,7 +66,16 @@
             "title": "Filtres",
             "primeiro": "Section",
             "segundo": "Statut",
-            "terceiro": "Projet"
+            "terceiro": "Projet",
+            "options": {
+                "todos": "Tous",
+                "emandamento": "En cours",
+                "atrasado": "En retard",
+                "concluido": "Conclu"
+            }
+        },
+        "msg": {
+            "texto": "Aucun projet n'a été trouvé !"
         }
     },
     "tela_dashboards": {

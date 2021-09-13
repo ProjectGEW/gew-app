@@ -53,12 +53,23 @@ interface CardContent {
 const Details: React.FC = () => {
     const { id }: {id: string}  = useParams();
     const [project, setProject] = useState<CardContent>();
+    const [ata, setAta] = useState<string>();
 
     useEffect(() => {
         api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
           setProject(response.data);
         }))
     }, [id]);
+
+    useEffect(() => {
+        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {
+            setAta(response.data);
+        }
+    )});
+
+    const downloadFile = () => {
+        window.open(`http://localhost:6868/files/download/${project ? project.infoprojetoDTO.id : 0}`);
+    }
 
     return (
         <>
@@ -77,8 +88,7 @@ const Details: React.FC = () => {
                     <Tittle>{project ? project.infoprojetoDTO.titulo : ""}</Tittle>
                     <Inputs>
                     <Button text={'Dashboard'} tipo={"DashboardDetails"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
-                        <label htmlFor="ata">ATA_CVPD_07_2020</label>
-                        <input type="file" id="ata"/>
+                        <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : ""}</label>
                     </Inputs>
                 </ContainerTittles>
                 <ContainerInfos>

@@ -66,7 +66,16 @@
             "title": "Filtros",
             "primeiro": "Seção",
             "segundo": "Status",
-            "terceiro": "Projeto"
+            "terceiro": "Projeto",
+            "options": {
+                "todos": "Todos",
+                "emandamento": "Em andamento",
+                "atrasado": "Atrasado",
+                "concluido": "Concluído"
+            }
+        },
+        "msg": {
+            "texto": "Nenhum projeto foi encontrado!"
         }
     },
     "tela_dashboards": {

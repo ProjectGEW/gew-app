@@ -126,6 +126,15 @@ export const Container = styled.div<buttonProps>`
         }
     `}
 
+    ${props => props.tipo === "Confirmar" && css`
+        button {
+            width: 10vw;
+            position: absolute;
+            margin-top: 70vh;
+            margin-left: -13.5vw;
+        }
+    `}
+
     ${props => props.tipo === "Dinheiro" && css`
         button {
             position: absolute;
