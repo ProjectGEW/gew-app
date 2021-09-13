@@ -72,6 +72,7 @@ export const UserImg = styled.div`
 
         a {
             font-weight: 100;
+            font-size: 1.2vw;
             color: #00579D;
         }
     }

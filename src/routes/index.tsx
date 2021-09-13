@@ -18,15 +18,15 @@ import Test2 from '../pages/test2';
 const Routes: React.FC = () => (
     <Switch>
         {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
-        <Route path="/" exact component={Login} />
-        <Route path="/home" component={Menu}/>
-        <Route path="/projects" component={Projects}/>
-        <Route path="/register_projects" component={RegisterProjects}/>
-        <Route path="/edit_projects" component={EditProjects}/>
-        <Route path="/register_consultants" component={RegisterConsultants}/>
-        <Route path="/settings" component={Settings}/>
-        <Route path="/dashboard/:id" component={Dashboard}/>
-        <Route path="/details/:id" component={Details}/>
+        <Route path="/" exact component={Login}/>
+        <Route path="/home" component={Menu} isPrivate/>
+        <Route path="/projects" component={Projects} isPrivate/>
+        <Route path="/register_projects" component={RegisterProjects} isPrivate/>
+        <Route path="/edit_projects" component={EditProjects} isPrivate/>
+        <Route path="/register_consultants" component={RegisterConsultants} isPrivate/>
+        <Route path="/settings" component={Settings} isPrivate/>
+        <Route path="/dashboard/:id" component={Dashboard} isPrivate/>
+        <Route path="/details/:id" component={Details} isPrivate/>
         {/* Área para testes */}
         <Route path="/test" component={Test} />
         <Route path="/test2" component={Test2} />
