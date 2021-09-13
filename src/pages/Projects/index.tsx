@@ -64,7 +64,10 @@ const Projects: React.FC = () => {
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');
         const data = response.data;
-        setProjetos(data);
+        
+        setTimeout(function() {
+            setProjetos(data);
+        }, 100);
     }
 
     function defineStatus(valor: string) {
@@ -80,7 +83,7 @@ const Projects: React.FC = () => {
 
             setTimeout(function() {
                 setProjetos(data);
-            }, 2000);
+            }, 100);
 
         } catch(err) {
             console.log("Não foi possível realizar a consulta.");
@@ -124,16 +127,21 @@ const Projects: React.FC = () => {
                             <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
                             <form onSubmit={filtraPorStatus}>
                                 <button type="submit" 
-                                onClick={() => defineStatus("projetos")}>Todos</button>
-
+                                    onClick={() => defineStatus("projetos")}>
+                                    {intl.get('tela_projetos.filtros.options.todos')}
+                                </button>
                                 <button type="submit" 
-                                onClick={() => defineStatus("projetos/em_andamento")}>Em andamento</button>
-
+                                    onClick={() => defineStatus("projetos/em_andamento")}>
+                                    {intl.get('tela_projetos.filtros.options.emandamento')}
+                                </button>
                                 <button type="submit" 
-                                onClick={() => defineStatus("projetos/atrasados")}>Atrasado</button>
-
+                                    onClick={() => defineStatus("projetos/atrasados")}>
+                                    {intl.get('tela_projetos.filtros.options.atrasado')}
+                                </button>
                                 <button type="submit" 
-                                onClick={() => defineStatus("projetos/concluidos")}>Concluído</button>
+                                    onClick={() => defineStatus("projetos/concluidos")}>
+                                    {intl.get('tela_projetos.filtros.options.concluido')}
+                                </button>
                             </form>
                         </div>
                         <div>
@@ -152,7 +160,7 @@ const Projects: React.FC = () => {
                             : 
                             <Msg>
                                 <BiHourglass size={40}/>
-                                <h1>Nenhum projeto foi encontrado!</h1>
+                                <h1>{intl.get('tela_projetos.msg.texto')}</h1>
                             </Msg>
                         }
                     </Center>
