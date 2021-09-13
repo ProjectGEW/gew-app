@@ -3,6 +3,9 @@ import React from 'react';
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
+import { AiOutlineUsergroupAdd } from 'react-icons/ai';
+import { HiMinusCircle } from 'react-icons/hi';
+import Button from '../components/Button';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
@@ -25,7 +28,7 @@ const Test2: React.FC = () => {
                             <h2>1000025562</h2>
                         </div>
                         <div>
-                            <h3>Número do projeto:</h3>
+                            <h3>Ata da aprovação:</h3>
                             <h2>1000025562</h2>
                         </div>
                     </ContentContainer>
@@ -103,8 +106,49 @@ const Test2: React.FC = () => {
                             <h2>00/00/0000</h2>
                         </div>
                     </ContentContainer>
-                    <Table></Table>
+
+                    <Table>
+                        <div>
+                            <p>Funcionários alocados</p>
+                            <AiOutlineUsergroupAdd />
+                        </div>    
+                        <ul>                    
+                            <li>
+                                <p>Heloise Stefany Bianchi</p>
+                                <HiMinusCircle />
+                            </li>
+                            <li>
+                                <p>Heloise Stefany Bianchi</p>
+                                <HiMinusCircle />
+                            </li>
+                            <li>
+                                <p>Heloise Stefany Bianchi</p>
+                                <HiMinusCircle />
+                            </li>
+                            <li>
+                                <p>Heloise Stefany Bianchi</p>
+                                <HiMinusCircle />
+                            </li>
+                            <li>
+                                <p>Heloise Stefany Bianchi</p>
+                                <HiMinusCircle />
+                            </li>
+                            <li>
+                                <p>Heloise Stefany Bianchi</p>
+                                <HiMinusCircle />
+                            </li>
+                            <li>
+                                <p>Heloise Stefany Bianchi</p>
+                                <HiMinusCircle />
+                            </li>
+                            <li>
+                                <p>Heloise Stefany Bianchi</p>
+                                <HiMinusCircle />
+                            </li>
+                        </ul>
+                    </Table>
                 </SideContainer>
+                <Button  tipo={"Confirmar"} text={"Confirmar"} />
             </Container>
 
             <MenuRight>
