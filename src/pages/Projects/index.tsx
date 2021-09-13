@@ -72,7 +72,6 @@ const Projects: React.FC = () => {
 
     async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
-        
 
         try {
             const response = await api.get<IProjetoProps[]>(status);
@@ -80,12 +79,20 @@ const Projects: React.FC = () => {
 
             setTimeout(function() {
                 setProjetos(data);
-            }, 100);
+            }, 2000);
 
         } catch(err) {
             console.log("Não foi possível realizar a consulta.");
         }
     }
+
+    const [selectedOption, setSelectedOption] = useState<String>();
+
+    // This function is triggered when the select changes
+    const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        setSelectedOption(value);
+    };
     
     return (
         <>
@@ -102,11 +109,13 @@ const Projects: React.FC = () => {
                         <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
-                            <select name="secao">
-                                <option value="se1">Nenhum</option>
-                                <option value="se2">ABC</option>
-                                <option value="se3">DEF</option>
-                                <option value="se4">GHI</option>
+                            <select name="secao" onChange={selectChange}>
+                                <option value="nenhum">Nenhum</option>
+                                <option value="secao1">ABC</option>
+                                <option value="secao2">DEF</option>
+                                <option value="secao3">GHI</option>
+                                <option value="secao4">WEC</option>
+                                <option value="secao3">KLM</option>
                             </select>
                         </div>
                         <div>
@@ -133,6 +142,7 @@ const Projects: React.FC = () => {
                 </ContainerInfo>
                 <ProjectsGrid>
                     <Center>
+                    {selectedOption && <h2>{selectedOption}</h2>}
                         {
                             projetos.map(projeto =>
                                 <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
