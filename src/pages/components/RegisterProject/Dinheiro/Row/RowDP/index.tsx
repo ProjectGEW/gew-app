@@ -4,9 +4,9 @@ import { Linha } from "../../styles";
 const RowDespesas: React.FC = () => {
   return(
     <Linha>
-        <input type="text" placeholder="Java"/>
-        <input type="text" placeholder="100"/>
-        <input type="text" placeholder="20.000,00" className="alinhar" />
+        <input type="text" id="despesa1" placeholder="Java"/>
+        <input type="text" id="esforco1" placeholder="100"/>
+        <input type="text" id="valor1" placeholder="20.000,00" className="alinhar" />
     </Linha>
   );
 }
