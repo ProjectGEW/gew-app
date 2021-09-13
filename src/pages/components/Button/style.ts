@@ -69,7 +69,7 @@ export const Container = styled.div<buttonProps>`
             padding: 2.5vh;
 
             margin-top: -8vh;
-            margin-left: 22vw;
+            margin-left: 21.8vw;
 
             &::after {
                 content: '';
@@ -113,7 +113,7 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "Projeto" && css`
         button {
             position: absolute;
-            margin-top: 32.4vh;
+            margin-top: 32.1vh;
             margin-left: 28vw;
         }
     `}
@@ -121,7 +121,7 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "Responsavel" && css`
         button {
             position: absolute;
-            margin-top: 22.9vh;
+            margin-top: 22.8vh;
             margin-left: 29.7vw;
         }
     `}
@@ -129,8 +129,8 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "Dinheiro" && css`
         button {
             position: absolute;
-            margin-top: -8.6vh;
-            margin-left: 53vw;
+            margin-top: -6.5vh;
+            margin-left: 28.05vw;
         }
     `}
 `;

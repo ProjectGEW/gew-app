@@ -3,7 +3,7 @@ import { shade } from "polished";
 
 import Upload from "../../../../assets/upload.svg";
 
-export const Box = styled.div`
+export const BoxProjeto = styled.div`
     width: 80%;
     height: 57vh;
 
@@ -13,7 +13,7 @@ export const Box = styled.div`
 
     form {
         display: flex;
-        justify-content: center;
+        justify-content: center;       
     }
 
     div {
@@ -27,13 +27,13 @@ export const Box = styled.div`
             color: #00579D;
             font-size: 3vh;
 
-            margin-left: 4vw;
+            margin-left: 6vw;
             margin-bottom: 1vh;
         }
 
         input, textarea {
             height: 5vh;
-            margin-left: 4vw;
+            margin-left: 6vw;
             margin-bottom: 3vh;
 
             border-radius: 0.4vh;

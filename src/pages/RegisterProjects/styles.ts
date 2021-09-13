@@ -1,4 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+interface Etapa {
+    nome: any;
+}
 
 export const Container = styled.div`
     position: absolute;
@@ -51,9 +55,25 @@ export const Content = styled.div`
     flex-direction: column;
 
     border-radius: 0vh 0vh 0.8vh 0.8vh;
+
+    #boxProjeto {
+        display: block;
+    }
+
+    #boxResponsavel {
+        display: none;
+    }
+
+    #boxDinheiro {
+        display: none;
+    }
+
+    #boxDatas {
+        display: none;
+    }
 `;
 
-export const Line = styled.div`
+export const Line = styled.div<Etapa>`
     width: 80%;
     height: 16vh;
 
@@ -178,6 +198,167 @@ export const Line = styled.div`
                 color: #5D5D5D;
             }
         }
+
+        ${props => props.nome === "boxResponsavel" && css`
+            &:nth-child(1) {
+                p {
+                    color: #00579D;
+                }
+
+                svg {
+                    width: 5vw;
+                    height: 6vh;
+
+                    color: #00579D;
+                }
+
+                &::after {
+                    width: 12vw;
+                    margin-left: 15vw;
+
+                    background: #00579D;
+                }
+            }
+
+            &:nth-child(2) {
+                p {
+                    color #00579D;
+                }
+
+                svg {
+                    color: #00579D;
+                }
+
+                &::after {
+                    width: 12vw;
+                    margin-left: 15vw;
+
+                    background: #5D5D5D;
+                }
+            } 
+        `}
+
+        ${props => props.nome === "boxDinheiro" && css`
+            &:nth-child(1) {
+                p {
+                    color: #00579D;
+                }
+
+                svg {
+                    width: 5vw;
+                    height: 6vh;
+
+                    color: #00579D;
+                }
+
+                &::after {
+                    width: 12vw;
+                    margin-left: 15vw;
+
+                    background: #00579D;
+                }
+            }
+
+            &:nth-child(2) {
+                p {
+                    color #00579D;
+                }
+
+                svg {
+                    color: #00579D;
+                }
+
+                &::after {
+                    width: 12vw;
+                    margin-left: 15vw;
+
+                    background: #00579D;
+                }
+            } 
+
+            &:nth-child(3) {
+                p {
+                    color #00579D;
+                }
+    
+                svg {
+                    color: #00579D;
+                }
+    
+                &::after {
+                    width: 10.5vw;
+                    margin-left: 13.5vw;
+    
+                    background: #5D5D5D;
+                }
+            }
+        `}
+
+        ${props => props.nome === "boxDatas" && css`
+            &:nth-child(1) {
+                p {
+                    color: #00579D;
+                }
+
+                svg {
+                    width: 5vw;
+                    height: 6vh;
+
+                    color: #00579D;
+                }
+
+                &::after {
+                    width: 12vw;
+                    margin-left: 15vw;
+
+                    background: #00579D;
+                }
+            }
+
+            &:nth-child(2) {
+                p {
+                    color #00579D;
+                }
+
+                svg {
+                    color: #00579D;
+                }
+
+                &::after {
+                    width: 12vw;
+                    margin-left: 15vw;
+
+                    background: #00579D;
+                }
+            } 
+
+            &:nth-child(3) {
+                p {
+                    color #00579D;
+                }
+    
+                svg {
+                    color: #00579D;
+                }
+    
+                &::after {
+                    width: 10.5vw;
+                    margin-left: 13.5vw;
+    
+                    background: #00579D;
+                }
+            }
+
+            &:nth-child(4) {
+                p {
+                    color #00579D;
+                }
+    
+                svg {
+                    color: #00579D;
+                }
+            }
+        `}
     }
 
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../../Button';
 
-import { Box } from './styles';
+import { BoxProjeto } from './styles';
 
 import { useState } from 'react';
 
@@ -16,7 +16,7 @@ const Projeto: React.FC = () => {
     
     return (
         <>
-        <Box>
+        <BoxProjeto>
             <form action="" method="post">
                 <div>
                     <label>Número do projeto:</label>
@@ -36,7 +36,7 @@ const Projeto: React.FC = () => {
                     <Button tipo={"Projeto"} text={"Continuar"} />
                 </div>
             </form>
-        </Box>
+        </BoxProjeto>
         </>    
     );
 };

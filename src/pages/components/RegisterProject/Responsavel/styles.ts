@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Box = styled.div`
+export const BoxResponsavel = styled.div`
     width: 80%;
     height: 57vh;
 
@@ -14,8 +14,6 @@ export const Box = styled.div`
     }
 
     div {
-        width: 100%;
-
         display: flex;
         flex-direction: column;
 
