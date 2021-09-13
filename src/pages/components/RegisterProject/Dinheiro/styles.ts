@@ -50,6 +50,19 @@ export const Table = styled.div`
     width: 50vw;
     margin-bottom: 4vh;
 
+    svg {
+        float: right;
+        margin-top: -1.2vw;
+        margin-right: -0.8vw;
+        width: 3vw;
+        height: 3vh;
+        color: #00579D;
+        
+        &:hover {
+            color: #0075B1;
+        }
+    }
+
     display: flex;
     align-items: center;
     justify-content: center;

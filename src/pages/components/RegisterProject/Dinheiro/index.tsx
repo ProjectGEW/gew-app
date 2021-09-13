@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Button from '../../Button';
-import RowDinheiro from './Row';
+import RowDinheiro from './Row/RowDP';
 import { BoxDinheiro, Table, Linha, Total } from './styles';
 
 const Dinheiro: React.FC = () => {
-    const [teste, setTeste] = useState<JSX.Element[]>([<RowDinheiro />]);
+    const [teste, setTeste] = useState<JSX.Element[]>([]);
     return (
         <>
         <BoxDinheiro>
@@ -18,6 +18,7 @@ const Dinheiro: React.FC = () => {
                     <div id="first-scroll">
                         {teste.map(teste => teste)}
                         <div onClick={() => { setTeste([...teste, <RowDinheiro />]) }}>TESTE</div>
+                        <RowDinheiro />
                         <Total>
                             <h2>TOTAL:</h2>
                             <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
@@ -33,30 +34,6 @@ const Dinheiro: React.FC = () => {
                         <h1>Valor (R$)</h1>
                     </div>
                     <div id="second-scroll">
-                        <Linha>
-                            <input type="text" value="092765143111" />
-                            <input type="text" value="André Borges Lima" />
-                            <input type="text" value="50%" className="alinhar" />
-                            <input type="text" value="23.500,00" className="alinhar" />
-                        </Linha>
-                        <Linha>
-                            <input type="text" value="726542414314" />
-                            <input type="text" value="Moacir De Camargo" />
-                            <input type="text" value="50%" className="alinhar" />
-                            <input type="text" value="23.500,00" className="alinhar" />
-                        </Linha>
-                        <Linha>
-                            <input type="text" value="092765143111" />
-                            <input type="text" value="André Borges Lima" />
-                            <input type="text" value="50%" className="alinhar" />
-                            <input type="text" value="23.500,00" className="alinhar" />
-                        </Linha>
-                        <Linha>
-                            <input type="text" value="726542414314" />
-                            <input type="text" value="Moacir De Camargo" />
-                            <input type="text" value="50%" className="alinhar" />
-                            <input type="text" value="23.500,00" className="alinhar" />
-                        </Linha>
                     </div>
                 </Table>
                 <Button tipo={"Dinheiro"} text={"Continuar"} />

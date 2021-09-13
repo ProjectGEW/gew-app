@@ -13,10 +13,14 @@ import Button from '../components/Button';
 
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
+import { AiFillPlusCircle } from 'react-icons/ai';
 
 import { Container, ContainerRegister, Info, Content, Line } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
+
+import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
+import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
 
 const RegisterProjects: React.FC = () => {
 
@@ -29,7 +33,8 @@ const RegisterProjects: React.FC = () => {
     }
 
     // Gerar linhas
-    const [teste, setTeste] = useState<React.FC[]>([]);
+    const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas />]);
+    const [rowCC, setRowCC] = useState<JSX.Element[]>([<RowCcPagantes />]);
 
     // Trocar etapa
     var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
@@ -49,7 +54,6 @@ const RegisterProjects: React.FC = () => {
             }
         }                
     }   
-
     return (
         <>
         <Navbar />
@@ -133,8 +137,8 @@ const RegisterProjects: React.FC = () => {
                                     <h1>Valor (R$)</h1>
                                 </div>
                                 <div id="first-scroll">
-                                    {teste.map(teste => <Button />)}
-                                    <div onClick={() => { setTeste([...teste, Button]) }}>TESTE</div>
+                                    {rowDespesas.map(teste => teste)}
+                                    <span><AiFillPlusCircle onClick={() => { setRowDespesas([...rowDespesas, <RowDespesas />]) }} /></span>
                                     <Total>
                                         <h2>TOTAL:</h2>
                                         <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
@@ -150,30 +154,8 @@ const RegisterProjects: React.FC = () => {
                                     <h1>Valor (R$)</h1>
                                 </div>
                                 <div id="second-scroll">
-                                    <Linha>
-                                        <input type="text" value="092765143111" />
-                                        <input type="text" value="André Borges Lima" />
-                                        <input type="text" value="50%" className="alinhar" />
-                                        <input type="text" value="23.500,00" className="alinhar" />
-                                    </Linha>
-                                    <Linha>
-                                        <input type="text" value="726542414314" />
-                                        <input type="text" value="Moacir De Camargo" />
-                                        <input type="text" value="50%" className="alinhar" />
-                                        <input type="text" value="23.500,00" className="alinhar" />
-                                    </Linha>
-                                    <Linha>
-                                        <input type="text" value="092765143111" />
-                                        <input type="text" value="André Borges Lima" />
-                                        <input type="text" value="50%" className="alinhar" />
-                                        <input type="text" value="23.500,00" className="alinhar" />
-                                    </Linha>
-                                    <Linha>
-                                        <input type="text" value="726542414314" />
-                                        <input type="text" value="Moacir De Camargo" />
-                                        <input type="text" value="50%" className="alinhar" />
-                                        <input type="text" value="23.500,00" className="alinhar" />
-                                    </Linha>
+                                    {rowCC.map(teste => teste)}
+                                    <span><AiFillPlusCircle onClick={() => { setRowCC([...rowCC, <RowCcPagantes />]) }} /></span>
                                 </div>
                             </Table>
                             <Button tipo={"Dinheiro"} text={"Continuar"} />
