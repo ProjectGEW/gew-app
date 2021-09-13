@@ -5,7 +5,7 @@ import Route from './Route';
 
 import Login from '../pages/Login';
 import Menu from '../pages/Menu';
-import RegisterConsultants from '../pages/Projects';
+import RegisterConsultants from '../pages/RegisterConsultants';
 import Projects from '../pages/Projects';
 import RegisterProjects from '../pages/RegisterProjects';
 import EditProjects from '../pages/EditProjects';
