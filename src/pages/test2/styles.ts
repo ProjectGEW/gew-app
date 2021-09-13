@@ -56,6 +56,7 @@ export const ContentContainer = styled.div`
 
     &:nth-child(1) {
         margin-top: 4vh;
+        margin-bottom: 1.4vh;
     }
 
     div {
@@ -94,6 +95,7 @@ export const Box = styled.div`
 
     &:nth-child(3) {
         height: 19vh;
+        margin-bottom: -2vh;
     }
 
     div {
@@ -122,5 +124,75 @@ export const Box = styled.div`
 `;
 
 export const Table = styled.div`
+    width: 90%;
+    height: 28vh;
+    border-radius: 1vh 1vh 0 0;
+    border: 0.01vh solid #A5A5A5;
+    overflow: hidden;
+    border-style: solid none solid none;
+    
+    div {
+        height: 4.5vh;
+        background-color: #00579D;
+        border-radius: 0.4vh 0.4vh 0 0;
+        padding-top: 0.8vh;
 
+        p {
+            color: #fff;
+            font-weight: bold;
+            font-size: 2.6vh;
+            margin: 0 0 0 2vh;
+        }
+
+        svg {
+            width: 3.8vh;
+            height: 3.8vh;
+            color: #fff;
+            float: right;
+            margin: -3.4vh 1.6vh 0 0;
+            cursor: pointer;
+        }
+    }
+
+    ul {
+        height: 28vh;
+        border: 0.01vh solid #A5A5A5;
+        overflow: hidden;
+        overflow: hidden;
+        overflow: scroll;
+        overflow-x: hidden;
+
+        ::-webkit-scrollbar {
+            background-color: rgb(194, 194, 194, 0.5);
+            width: 0.4vw;    
+        }
+
+        li {
+            width: 100%;
+            height: 4vh;
+            list-style-type: none;
+            border: 0.01vh solid #A5A5A5;
+            border-style: solid none none none;
+
+            &:last-child {
+                border-style: solid none solid none;
+            }
+
+            p   {
+                font-size: 2.05vh; 
+                margin: 0.75vh 0 0 2vh;
+                color: #787676;
+                font-weight: bold;
+            }
+
+            svg {
+                width: 2.4vh;
+                height: 2.4vh;
+                color: #00579d;
+                float: right;
+                margin: -2.4vh 1.6vh 0 0;
+                cursor: pointer;
+            }
+        }
+    }
 `;
