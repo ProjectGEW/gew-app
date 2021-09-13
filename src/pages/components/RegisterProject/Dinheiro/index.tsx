@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Button from '../../Button';
-
+import RowDinheiro from './Row';
 import { BoxDinheiro, Table, Linha, Total } from './styles';
 
 const Dinheiro: React.FC = () => {
-    const [teste, setTeste] = useState<React.FC[]>([]);
-
+    const [teste, setTeste] = useState<JSX.Element[]>([<RowDinheiro />]);
     return (
         <>
         <BoxDinheiro>
