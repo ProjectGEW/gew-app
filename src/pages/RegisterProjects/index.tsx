@@ -6,7 +6,7 @@ import MenuRight from '../components/MenuRight';
 
 import { BoxProjeto } from '../components/RegisterProject/Projeto/styles';
 import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles';
-import { BoxDinheiro, Table, Linha, Total } from '../components/RegisterProject/Dinheiro/styles';
+import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../components/RegisterProject/Datas/styles';
 
 import Button from '../components/Button';
@@ -46,14 +46,6 @@ const RegisterProjects: React.FC = () => {
         document.getElementById(etapa)!.style.display = "block";
     }
 
-    // Atualizar linha
-    function atualizarLine() {
-        for(var x = 0; x < 4; x++) {
-            if(document.getElementById(etapas[x])!.style.display === "block") {
-                return document.getElementById(etapas[x])?.id;
-            }
-        }                
-    }   
     return (
         <>
         <Navbar />

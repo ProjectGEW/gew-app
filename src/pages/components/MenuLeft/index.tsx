@@ -32,6 +32,8 @@ const MenuLeft: React.FC = () => {
         locales
     });
 
+    const userName = localStorage.getItem('User:nome');
+
     var status = 0;
 
     function handdleClick(event: MouseEvent) {
@@ -102,7 +104,7 @@ const MenuLeft: React.FC = () => {
             <ContainerInfo>
                 <UserImg id="user-img">
                     <FaUserAlt id="iconUser" color="#00579D" />
-                    <p id="user-name">{intl.get('menu_esquerdo.mensagem')}<br/><a href="./">Renato Silva</a></p> 
+                    <p id="user-name">{intl.get('menu_esquerdo.mensagem')}<br/><a href="./">{userName ? userName : "Renato Silva"}</a></p> 
                 </UserImg>
                 <NewsImg id="news-img">
                     <IoNewspaperOutline id="iconNews" />

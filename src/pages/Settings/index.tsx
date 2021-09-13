@@ -37,6 +37,8 @@ const Settings: React.FC = () => {
         } 
     }
 
+    const userName = localStorage.getItem('User:nome');
+
     return (
         <>
         <Navbar />
@@ -84,7 +86,7 @@ const Settings: React.FC = () => {
                 <Right>
                     <div>
                         <p>
-                            <input type="text" placeholder="Renato Joaquim da Silva"/>
+                            <input type="text" placeholder={userName ? userName : "Renato Silva"}/>
                             <FaEdit size={20}/>
                         </p>
                         <p>

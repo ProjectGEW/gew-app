@@ -26,7 +26,7 @@ const locales = {
 };
 
 interface IProjetoProps {
-    infoprojetoDTO : {
+    infoprojetoDTO: {
         id: number;
         numeroDoProjeto: number;
         titulo: string;
@@ -35,25 +35,12 @@ interface IProjetoProps {
         data_de_termino: string;
         status: string;
     };
-    valoresTotaisDTO : {
+    valoresTotaisDTO: {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
     };
 }
-
-/*const optStatus = [
-    "Todos",
-    "Em andamento",
-    "Atrasado",
-    "Concluído"
-];*/
-
-const optTitulo = [
-    "abc",
-    "ghi",
-    "wec"
-];
 
 const Projects: React.FC = () => {
     const [language] = useState(() => {
@@ -85,11 +72,15 @@ const Projects: React.FC = () => {
 
     async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
+        
 
         try {
             const response = await api.get<IProjetoProps[]>(status);
             const data = response.data;
-            setProjetos(data);
+
+            setTimeout(function() {
+                setProjetos(data);
+            }, 100);
 
         } catch(err) {
             console.log("Não foi possível realizar a consulta.");
@@ -143,7 +134,9 @@ const Projects: React.FC = () => {
                 <ProjectsGrid>
                     <Center>
                         {
-                            projetos.map(projeto =><Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />)
+                            projetos.map(projeto =>
+                                <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                            )
                         }
                     </Center>
                 </ProjectsGrid>
