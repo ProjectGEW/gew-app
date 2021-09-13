@@ -53,7 +53,7 @@ const Projects: React.FC = () => {
 
         await api.put(`projetos/horas/182210`, {horas: horas});
     }
-    
+
     return (
         <>
         <Navbar />
@@ -73,8 +73,8 @@ const Projects: React.FC = () => {
             </div>
 
             <button onClick={downloadFile}>Baixar</button>
-            <input type="text" id="teste"/>
         </Container>
+
         <MenuRight>
             <ContIcons />
         </MenuRight>
