@@ -18,6 +18,8 @@ const Button: React.FC<buttonProps> = ({text, rota, tipo, numeroProjeto}) => {
         
         return window.location.href = 'http://localhost:3000/'+ rota
     }
+
+
     return (
         <>
             <Container tipo={tipo}><button onClick={route}>{text}</button></Container>
