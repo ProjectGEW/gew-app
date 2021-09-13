@@ -45,10 +45,6 @@ export const ContainerTitle = styled.div`
 
         display: flex;
         align-items: center;
-
-        svg {
-            
-        }
     }
 
     span {
@@ -84,6 +80,47 @@ export const ContainerFiltro = styled.div`
     div {
         display: flex;
         align-items: center;
+
+        &:nth-child(3) {
+            button {
+                border: 0;
+                padding: 0.8vh;
+                font-size: 2vh;
+                margin-left: 0.3vw;
+                border-radius: 0.8vh;
+                background-color: rgba(212, 212, 212, 0.3);
+                color: #00579D;
+
+                &:nth-child(1) {
+                    &:focus {
+                        background-color: rgba(212, 212, 212, 0.7);
+                    }
+                }
+
+                &:nth-child(2) {
+                    &:focus {
+                        background-color: #c2e4ff;
+                    }
+                }
+
+                &:nth-child(3) {
+                    &:focus {
+                        background-color: #ffbfbf;
+                    }
+                }
+
+                &:nth-child(4) {
+                    &:focus {
+                        background-color: #adffb0;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(212, 212, 212, 0.5);
+                }
+            }
+        }
         
         label {
             font-size: 2.6vh;
