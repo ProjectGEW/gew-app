@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -22,15 +22,15 @@ import { ContIcons } from '../components/MenuRight/styles';
 import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
 import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
 
+import Paper from "@material-ui/core/Paper";
+
+import { useDropzone } from "react-dropzone";
+
 const RegisterProjects: React.FC = () => {
 
     // Ata
-    const [data, setData] = useState("");
-
-    function testeata() {
-        setData((document.getElementById("ata") as HTMLInputElement).value);
-        console.log(data.substring(12, -1));
-    }
+    const [file, setFile] = useState<object>();
+    const [fileName, setFileName] = useState();
 
     // Gerar linhas
     const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas />]);
@@ -38,6 +38,19 @@ const RegisterProjects: React.FC = () => {
 
     // Trocar etapa
     var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
+
+    const onDrop = useCallback((acceptedFiles) => {
+        console.log(acceptedFiles)
+        setFile(acceptedFiles[0]);
+        setFileName(acceptedFiles[0].name);
+    }, []);
+
+    const {getRootProps, getInputProps} = useDropzone({
+        multiple: false, 
+        onDropAccepted: onDrop,
+    });
+
+    const {ref, ...rootProps} = getRootProps();
 
     function trocarEtapa(etapa: string) {
         for(var x = 0; x < 4; x++) {
@@ -95,11 +108,11 @@ const RegisterProjects: React.FC = () => {
                                 <label>Descrição do projeto:</label>
                                 <textarea />
                             </div>
-                            <div>
-                                <p>Ata de aprovação:</p>
-                                <label htmlFor="ata">{data ? data : "SELECIONAR ARQUIVO"}</label>
-                                <input type="file" id="ata" onClick={testeata} />
-
+                            <div ref={ref}>
+                                <Paper elevation={0} {...rootProps}>
+                                    <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                                    <input {...getInputProps()}/>
+                                </Paper>
                                 <Button tipo={"Projeto"} text={"Continuar"} />
                             </div>
                         </form>
