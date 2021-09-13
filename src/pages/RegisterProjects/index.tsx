@@ -30,6 +30,7 @@ const RegisterProjects: React.FC = () => {
 
     // Ata
     const [file, setFile] = useState<object>();
+    console.log(file);
     const [fileName, setFileName] = useState();
 
     // Gerar linhas
