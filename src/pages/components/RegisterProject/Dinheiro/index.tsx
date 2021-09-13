@@ -16,8 +16,8 @@ const Dinheiro: React.FC = () => {
                         <h1>Valor (R$)</h1>
                     </div>
                     <div id="first-scroll">
-                        {teste.map(teste => <Button />)}
-                        <div onClick={() => { setTeste([...teste, Button]) }}>TESTE</div>
+                        {teste.map(teste => teste)}
+                        <div onClick={() => { setTeste([...teste, <RowDinheiro />]) }}>TESTE</div>
                         <Total>
                             <h2>TOTAL:</h2>
                             <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
