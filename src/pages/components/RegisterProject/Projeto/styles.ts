@@ -11,7 +11,7 @@ export const BoxProjeto = styled.div`
     align-items: start;
     justify-content: center;
 
-    span {
+    form {
       display: flex;
       justify-content: center;      
     }
