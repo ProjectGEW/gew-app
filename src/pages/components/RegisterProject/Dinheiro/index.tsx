@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../../Button';
-
+import RowDinheiro from './Row';
 import { Box, Table, Linha, Total } from './styles';
 
 const Dinheiro: React.FC = () => {
-    const [teste, setTeste] = useState<React.FC[]>([]);
-
+    const [teste, setTeste] = useState<JSX.Element[]>([<RowDinheiro />]);
     return (
         <>
             <Box>
@@ -17,8 +16,8 @@ const Dinheiro: React.FC = () => {
                             <h1>Valor (R$)</h1>
                         </div>
                         <div id="first-scroll">
-                            {teste.map(teste => <Button />)}
-                            <div onClick={() => { setTeste([...teste, Button]) }}>TESTE</div>
+                            {teste.map(teste => teste)}
+                            <div onClick={() => { setTeste([...teste, <RowDinheiro />]) }}>TESTE</div>
                             <Total>
                                 <h2>TOTAL:</h2>
                                 <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
