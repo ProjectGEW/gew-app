@@ -13,10 +13,14 @@ const Button: React.FC<buttonProps> = ({text, rota, tipo, numeroProjeto}) => {
     
     function route() {
         if(numeroProjeto != null) {
-            return window.location.href = 'http://localhost:3000/'+ rota + '/' + numeroProjeto
+            return window.location.href = 'http://localhost:3000/'+ rota + '/' + numeroProjeto;
         }
         
-        return window.location.href = 'http://localhost:3000/'+ rota
+        if(rota == null) {
+          return;
+        }
+
+        return window.location.href = 'http://localhost:3000/'+ rota;
     }
   
     return (

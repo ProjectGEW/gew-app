@@ -8,7 +8,7 @@ export const BoxResponsavel = styled.div`
     align-items: start;
     justify-content: center;
 
-    form {
+    span {
         display: flex;
         justify-content: center;
     }
