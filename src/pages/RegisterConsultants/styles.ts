@@ -3,12 +3,12 @@ import styled from 'styled-components';
 export const Container = styled.div`
     position: absolute;
     top: 14vh;
-    left: 33.5vw;
-    width: 32vw;
+    left: 12vw;
+    width: 78vw;
     height: 80vh;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     background-color: #fff;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -23,9 +23,10 @@ export const Container = styled.div`
         align-items: center;
         justify-content: space-between;
         padding: 0 3vh 0 3vh;
+        position: absolute;
 
         h1 {
-            font-size: 3.7vh;s
+            font-size: 3.7vh;
             font-weight: bold;
             color: #fff;
         }
@@ -39,36 +40,129 @@ export const Container = styled.div`
     }
 `;
 
-export const InputGrid = styled.div`
-    width: 80%;
-    height: 70vh;
-    margin: 10% 5vh;
+export const SideContainer = styled.div`
+    width: 48%;
+    height: 68vh;
+    margin: 10vh 1% 0 1%;
 
-    display: flex;
-    flex-direction: column;
-`;
-
-export const Box = styled.ul`
-    width: 100%;
-    height: 8vh;
-    display: flex;
-    flex-direction: row;
-
-    li {
-
-        .one {
-            label {
-                color: red;
-            }
-        }
-
+     .box1, .box2, .box3, .box4, .box5 {
+        height: 8vh;
         display: flex;
         flex-direction: column;
-        list-style: none; 
+        margin-left: 2vw;
 
         label {
+            width: 80%;
+            font-size: 2.1vh;
+            font-weight: bold;
             color: #00579D;
+            margin-bottom: 1vh; 
         }
+        input {
+            width: 10vw;
+            height: 5vh;
+            border-radius: 0.4vh;
+            border: 0px;
+            padding: 1vh;
+    
+            background-color: rgb(181, 181, 181, 0.3);
+            box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
+            color: #5E5E5E;
+        }  
+    }
+
+    .box1, .box2 {
+        input { width: 28vw }
+    }
+
+    .box5 {
+        input { width: 16vw }
     }
     
+    h1 {
+        height: 6vh;
+        color: #00579D;
+        font-size: 3vh;
+        padding: 1vh 0 0 2vw;
+        grid-area: header;
+
+        &:before {
+            content: '';
+            width: 34vw;
+            height: 0.1vh;
+            background: #00579D;
+            opacity: 0.4;
+            margin: 4vh 0 0 -1vw;
+            position: absolute;
+        }
+    }
+`;
+
+export const ConsultantData = styled.div`
+    width: 98%;
+    height: 40vh;
+    margin: 1%;
+    display: grid;
+    grid-template-areas: 'header header'
+                        'one one'
+                        'two two'
+                        'three four';
+    padding: 1%;
+
+    .box1 { grid-area: one }
+
+    .box2 { grid-area: two }
+
+    .box3 { grid-area: three }
+
+    .box4 { grid-area: four }
+`;
+
+export const PricePerHour = styled.div`
+
+    h1 {
+        margin: 2vh 0 0 0.75vw;
+    }
+    div {
+        width: 100%;
+        height: 8vh;
+        display: flex;
+        flex-direction: column;
+        margin: 2vh 0 0 3vw;
+
+        label {
+            width: 80%;
+            font-size: 2.1vh;
+            font-weight: bold;
+            color: #00579D;
+            margin-bottom: 1vh;
+        }
+
+        input {
+            width: 10vw;
+            height: 5vh;
+            border-radius: 0.4vh;
+            border: 0px;
+            padding: 1vh;
+    
+            background-color: rgb(181, 181, 181, 0.3);
+            box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
+            color: #5E5E5E;
+        }  
+    }
+`;
+
+export const SupplierData = styled.div`
+    width: 98%;
+    height: 29vh;
+    margin: 1%;
+    display: grid;
+    grid-template-areas: 'header header'
+                        'one one'
+                        'two two';
+    padding: 1%;
+
+    .box1 { grid-area: one }
+
+    .box2 { grid-area: two; width: 50% }
 `;

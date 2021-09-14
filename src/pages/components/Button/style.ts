@@ -142,4 +142,13 @@ export const Container = styled.div<buttonProps>`
             margin-left: 28.05vw;
         }
     `}
+
+    ${props => props.tipo === "register_consultants" && css`
+        button {
+            width: 10vw;
+            position: absolute;
+            margin-top: 12vh;
+            margin-left: 24.05vw;
+        }
+    `}
 `;
