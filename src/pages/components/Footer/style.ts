@@ -45,7 +45,7 @@ export const FooterForm = styled.div<footerProps>`
     }
 
     ${props => props.tipo === "register_consultants" && css`
-        margin-top: 70vh;
+        margin-top: 72vh;
         margin-left: 2.4vw
     `}
 `;

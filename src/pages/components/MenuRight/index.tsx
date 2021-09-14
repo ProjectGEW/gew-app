@@ -91,7 +91,7 @@ const MenuRight: React.FC = () => {
           </TextMenuRight>
         </ContIcons>
       </a>
-      <a href="../register_consultants">
+      <a href="../allocate_consultants/view_projects">
         <ContIcons id="five">
           <Icon>
             <GiOrganigram id="icons" color="#fff" />

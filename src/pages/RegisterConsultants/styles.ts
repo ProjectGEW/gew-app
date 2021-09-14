@@ -43,7 +43,12 @@ export const Container = styled.div`
 export const SideContainer = styled.div`
     width: 48%;
     height: 68vh;
-    margin: 10vh 1% 0 1%;
+    margin: 10vh 0 0 2%;
+
+    &:last-child {
+        margin-right: 2%;
+    }
+    }
 
      .box1, .box2, .box3, .box4, .box5 {
         height: 8vh;
@@ -53,9 +58,9 @@ export const SideContainer = styled.div`
 
         label {
             width: 80%;
-            font-size: 2.1vh;
-            font-weight: bold;
+            font-weight: normal;
             color: #00579D;
+            font-size: 2.4vh;
             margin-bottom: 1vh; 
         }
         input {
@@ -64,19 +69,83 @@ export const SideContainer = styled.div`
             border-radius: 0.4vh;
             border: 0px;
             padding: 1vh;
-    
+            padding-top: 1.6vh;
+            font-size: 1vh;
             background-color: rgb(181, 181, 181, 0.3);
             box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
             color: #5E5E5E;
+        
+            &::placeholder {
+                font-size: 2vh;
+                height: 4vh;
+            }
         }  
+
+        svg {
+            color: #00579D;
+            position: absolute;
+            margin: 4.4vh 0 0 14vw;
+            cursor: pointer;
+        }
     }
 
     .box1, .box2 {
         input { width: 28vw }
     }
 
+    .box1 {
+        svg {
+            width: 2.8vh;
+            height: auto;
+            color: #00579D;
+            position: absolute;
+            margin: 4.5vh 0 0 26vw;
+            cursor: pointer;
+        }
+    }
+
+    .box2 {
+        svg {
+            width: 2.8vh;
+            height: auto;
+            color: #00579D;
+            position: absolute;
+            margin: 4.5vh 0 0 26vw;
+            cursor: pointer;
+        }
+    }
+
+    .box3 {
+        svg {
+            width: 3vh;
+            height: auto;
+            color: #00579D;
+            position: absolute;
+            margin: 4.5vh 0 0 8vw;
+            cursor: pointer;
+        }
+    }
+
+    .box4 {
+        svg {
+            width: 3.2vh;
+            height: auto;
+            color: #00579D;
+            position: absolute;
+            margin: 4.4vh 0 0 8vw;
+            cursor: pointer;
+        }
+    }
+
     .box5 {
         input { width: 16vw }
+
+        svg {
+            color: #00579D;
+            position: absolute;
+            margin: 4.4vh 0 0 14vw;
+            cursor: pointer;
+        }
     }
     
     h1 {
@@ -95,17 +164,15 @@ export const SideContainer = styled.div`
             margin: 4vh 0 0 -1vw;
             position: absolute;
         }
-    }
 `;
 
 export const ConsultantData = styled.div`
     width: 98%;
-    height: 40vh;
+    height: 38vh;
     margin: 1%;
     display: grid;
     grid-template-areas: 'header header'
                         'one one'
-                        'two two'
                         'three four';
     padding: 1%;
 
@@ -113,9 +180,33 @@ export const ConsultantData = styled.div`
 
     .box2 { grid-area: two }
 
-    .box3 { grid-area: three }
+    .box3 { grid-area: three;
+
+        &:last-child {
+            margin-top: 11vh;
+        }
+     }
 
     .box4 { grid-area: four }
+`;
+
+export const UserData = styled.div`
+    width: 98%;
+    height: 30vh;
+    margin: 1%;
+    display: grid;
+    grid-template-areas: 'header header'
+                        'one one'
+                        'one one';
+    padding: 1%;
+
+    .box1 { grid-area: one;
+        &:last-child {
+            margin-top: 10vh;
+        }
+    }
+
+
 `;
 
 export const PricePerHour = styled.div`
