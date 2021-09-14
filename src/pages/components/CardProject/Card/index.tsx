@@ -17,6 +17,7 @@ import analisaValor from "../../../../utils/analisaValor";
 
 interface CardProps {
     numeroDoProjeto: number;
+    secaoDoProjeto: string;
 }
 
 interface CardContent {
@@ -29,6 +30,7 @@ interface CardContent {
         data_de_termino: string;
         status: string;
         horas_apontadas: number;
+        secao: string;
     };
     valoresTotaisDTO : {
         valorTotalCcPagantes: number;
@@ -37,20 +39,19 @@ interface CardContent {
     };      
 }
 
-const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
+const CardProject: React.FC<CardProps> = ({numeroDoProjeto, secaoDoProjeto}) => {
     const [project, setProject] = useState<CardContent>();
     const [status, setStatus] = useState('');
-    //const { params } = useRouteMatch<RepositoryParams>();
+    
     useEffect(() => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-        setProject(response.data);
-        setStatus(response.data.infoprojetoDTO.status);
+            setProject(response.data);
+            setStatus(response.data.infoprojetoDTO.status);
       }))
 
     }, [numeroDoProjeto]);
     
-    // {project.map(project => ())}
-
+    
     const [isModalVisible, setIsModalVisible] = React.useState(false);
 
     const toggleModal = () => {
@@ -76,7 +77,7 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
             <CardBox>
                 <BoxLeft>
                     <div>
-                        <p>{project ? project.infoprojetoDTO.numeroDoProjeto : "00000000"} - Seção ABC</p>
+                        <p>{project ? project.infoprojetoDTO.numeroDoProjeto : "00000000"} - Seção {project ? project.infoprojetoDTO.secao : "ABC"}</p>
                         <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     </div>
                     <div>
