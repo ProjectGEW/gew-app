@@ -10,13 +10,11 @@ import Button from '../components/Button';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { AiFillPlusCircle } from 'react-icons/ai';
-import { HiDotsCircleHorizontal } from 'react-icons/hi';
 import { Container, ContainerRegister, Info, Content, Line } from './styles';
 import { ContIcons } from '../components/MenuRight/styles';
 
 import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
 import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
-import api from '../../service/api';
 
 import Paper from "@material-ui/core/Paper";
 
@@ -31,7 +29,12 @@ const RegisterProjects: React.FC = () => {
             nome_responsavel: "",
             nome_solicitante: ""
         },
-        ccPagantesInputDTO: [
+        despesasInputDTO: [
+          {
+            nome: "",
+            esforco: 0,
+            valor: 0
+          }
         ]
     }
 
@@ -101,6 +104,18 @@ const RegisterProjects: React.FC = () => {
         initalValue.infosProjetosInputDTO["nome_responsavel"] = nome_responsavel;
         initalValue.infosProjetosInputDTO["nome_solicitante"] = nome_solicitante;
 
+        const despesa = [];
+        for (let i = 1; i < rowDespesas.length; i++) {
+          despesa.push((document.getElementById(`despesa${i}`) as HTMLInputElement).value)
+        }
+
+        despesa.map(teste => {console.log(teste)
+          initalValue.despesasInputDTO.push({
+            nome: teste,
+            esforco: 0,
+            valor: 0
+          })
+        })
         alert(json);
     }
     return (
@@ -139,12 +154,12 @@ const RegisterProjects: React.FC = () => {
                             <form action="" method="post">
                                 <div>
                                     <label>Número do projeto:</label>
-                                    <input type="text" />
+                                    <input type="text" id="numeroProjeto"/>
 
                                     <label>Título do projeto:</label>
-                                    <input type="text" />
+                                    <input type="text" id="titulo"/>
                                     <label>Descrição do projeto:</label>
-                                    <textarea />
+                                    <textarea id="descricao"/>
                                 </div>
                                 <div ref={ref}>
                                     <Paper elevation={0} {...rootProps}>
@@ -160,10 +175,10 @@ const RegisterProjects: React.FC = () => {
                             <form action="" method="post">
                                 <div>
                                     <label>Nome do responsável:</label>
-                                    <input type="text" />
+                                    <input type="text" id="nome_responsavel"/>
 
                                     <label>Nome do solicitante:</label>
-                                    <input type="text" />
+                                    <input type="text" id="nome_solicitante"/>
                                 </div>
                                 <div>
                                     <label>Seção do responsável:</label>
@@ -175,6 +190,7 @@ const RegisterProjects: React.FC = () => {
                                     <Button tipo={"Lupa"} text={""} />
                                     <Button tipo={"Responsavel"} text={"Continuar"} />
                                 </div>
+                                <span onClick={teste}>AAAA</span>
                             </form>
                         </BoxResponsavel>
                         <BoxDinheiro id="boxDinheiro">
@@ -186,8 +202,8 @@ const RegisterProjects: React.FC = () => {
                                         <h1>Valor (R$)</h1>
                                     </div>
                                     <div id="first-scroll">
-                                        {rowDespesas.map(teste => teste)}
-                                        {rowDespesas.map(teste => teste.props.number)}
+                                        { rowDespesas.map(teste =>  teste ) }
+                                        { rowDespesas.map(teste => teste.props.number)}
                                         <span><AiFillPlusCircle onClick={() => {
                                             setRowDespesas([...rowDespesas, <RowDespesas number={
                                                 rowDespesas[rowDespesas.length - 1].props.number + 1
@@ -217,6 +233,7 @@ const RegisterProjects: React.FC = () => {
                                         }} /></span>
                                     </div>
                                 </Table>
+                                <span onClick={teste}>AAAAA</span>
                                 <Button tipo={"Dinheiro"} text={"Continuar"} />
                             </form>
                         </BoxDinheiro>

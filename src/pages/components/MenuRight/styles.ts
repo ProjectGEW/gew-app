@@ -228,7 +228,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
         }
     `}
 
-    ${props => props.localDaRota === "/dashboard" && css`
+    ${props => props.localDaRota === "/dashboard/0" && css`
         #six { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;

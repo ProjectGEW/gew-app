@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -65,6 +65,7 @@ interface IProjetoProps {
 const Dashboard: React.FC = () => {
     const { id }: {id: string}  = useParams();
 
+    const [status, setStatus] = useState('');
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
 
@@ -109,6 +110,26 @@ const Dashboard: React.FC = () => {
         setIsModalVisible(wasModalVisible => !wasModalVisible)
     }
 
+    function defineStatus(valor: string) {
+        setStatus(valor);
+    }
+
+    async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
+
+        try {
+            const response = await api.get<IProjetoProps[]>(status);
+            const data = response.data;
+
+            setTimeout(function() {
+                setProjetos(data);
+            }, 100);
+
+        } catch(err) {
+            console.log("Não foi possível realizar a consulta.");
+        }
+    }
+
     return (
         <>
         <Navbar />
@@ -143,29 +164,38 @@ const Dashboard: React.FC = () => {
                         </Title>
                         <Filtros>
                             <div>
-                                <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-                                <select name="projeto">
-                                    <option value="p1">Todos</option>
-                                    <option value="p2">DEF</option>
-                                    <option value="p3">GHI</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                                <select name="status">
-                                    <option value="s1">Todos</option>
-                                    <option value="s2">DEF</option>
-                                    <option value="s3">GHI</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Centro de Custo:</label>
+                                <label>Seção:</label>
                                 <select name="cc">
                                     <option value="c1">Todos</option>
                                     <option value="c2">DEF</option>
                                     <option value="c3">GHI</option>
                                 </select>
-                            </div>                            
+                            </div>  
+                            <div>
+                                <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
+                                <form onSubmit={filtraPorStatus}>
+                                    <button type="submit" 
+                                        onClick={() => defineStatus("projetos")}>
+                                        {intl.get('tela_projetos.filtros.options.todos')}
+                                    </button>
+                                    <button type="submit" 
+                                        onClick={() => defineStatus("projetos/em_andamento")}>
+                                        {intl.get('tela_projetos.filtros.options.emandamento')}
+                                    </button>
+                                    <button type="submit" 
+                                        onClick={() => defineStatus("projetos/atrasados")}>
+                                        {intl.get('tela_projetos.filtros.options.atrasado')}
+                                    </button>
+                                    <button type="submit" 
+                                        onClick={() => defineStatus("projetos/concluidos")}>
+                                        {intl.get('tela_projetos.filtros.options.concluido')}
+                                    </button>
+                                </form>
+                            </div>     
+                            {/*<div>
+                                <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
+                                <input type="text" placeholder="Digite aqui"/>
+                            </div>*/}                     
                         </Filtros>
                         <Line>
                             
@@ -185,8 +215,11 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.primeiro')}</h1>
                             </Title>
-                            <span />
-                            <AiFillEye id="icon-eye"/>
+                            <div>
+                                <span>BRL</span>
+                                <span>USD</span>
+                                <span>EUR</span>
+                            </div>
                         </Money>
                         <Money>
                             <Title>

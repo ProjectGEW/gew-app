@@ -35,12 +35,17 @@ interface IProjetoProps {
         data_de_inicio: string;
         data_de_termino: string;
         status: string;
+        secao: string;
     };
     valoresTotaisDTO: {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
     };
+}
+
+interface ISecoes {
+    nome: string;
 }
 
 const Projects: React.FC = () => {
@@ -58,8 +63,10 @@ const Projects: React.FC = () => {
         locales
     });
 
-    const [status, setStatus] = useState('');
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
+    const [secoes, setSecoes] = useState<ISecoes[]>([]);
+    const [status, setStatus] = useState('');
+    const [nomeProjeto, setNomeProjeto] = useState('');
 
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');
@@ -67,7 +74,14 @@ const Projects: React.FC = () => {
         
         setTimeout(function() {
             setProjetos(data);
-        }, 100);
+        }, 500);
+
+        const responseSecao = await api.get<ISecoes[]>('secoes');
+        const dataSecao = responseSecao.data;
+        
+        setTimeout(function() {
+            setSecoes(dataSecao);
+        }, 500);
     }
 
     function defineStatus(valor: string) {
@@ -83,14 +97,14 @@ const Projects: React.FC = () => {
 
             setTimeout(function() {
                 setProjetos(data);
-            }, 100);
+            }, 500);
 
         } catch(err) {
             console.log("Não foi possível realizar a consulta.");
         }
     }
 
-    const [selectedOption, setSelectedOption] = useState<String>();
+    const [selectedOption, setSelectedOption] = useState('Todos');
 
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
@@ -115,12 +129,15 @@ const Projects: React.FC = () => {
                         <div>
                             <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
                             <select name="secao" onChange={selectChange}>
-                                <option value="todos">Todos</option>
-                                <option value="ABC">ABC</option>
-                                <option value="DEF">DEF</option>
-                                <option value="GHI">GHI</option>
-                                <option value="WEC">WEC</option>
-                                <option value="KLM">KLM</option>
+                                <option value="Todos" selected>Todos</option>
+                                {
+                                secoes ?
+                                    secoes.map(secoes =>
+                                        <option value={secoes.nome}>{secoes.nome}</option>
+                                    )
+                                    :
+                                    'Nenhuma seção foi encontrada'
+                                }
                             </select>
                         </div>
                         <div>
@@ -152,16 +169,17 @@ const Projects: React.FC = () => {
                 </ContainerInfo>
                 <ProjectsGrid>
                     <Center>
-                    {selectedOption && <h2>{selectedOption}</h2>}
-                        { projetos ?
-                            projetos.map(projeto =>
-                                <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
-                            )
-                            : 
-                            <Msg>
-                                <BiHourglass size={40}/>
-                                <h1>{intl.get('tela_projetos.msg.texto')}</h1>
-                            </Msg>
+                    {/*selectedOption && <h2>{selectedOption}</h2>*/}
+                        {
+                            projetos ?
+                                projetos.map(projeto =>
+                                    <Card secaoDoProjeto={selectedOption} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                                )
+                                : 
+                                <Msg>
+                                    <BiHourglass size={40}/>
+                                    <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                                </Msg>                        
                         }
                     </Center>
                 </ProjectsGrid>

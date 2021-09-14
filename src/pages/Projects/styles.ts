@@ -89,7 +89,7 @@ export const ContainerFiltro = styled.div`
                 margin-left: 0.3vw;
                 border-radius: 0.8vh;
                 background-color: rgba(212, 212, 212, 0.3);
-                color: #00579D;
+                color: #575757;
 
                 &:nth-child(1) {
                     &:focus {
@@ -133,7 +133,7 @@ export const ContainerFiltro = styled.div`
             width: 12vw;
             padding: 0.5vh;
 
-            color: #00579D;
+            color: #575757;
             border: 0.2vh solid #c4c4c4;
         }
 
