@@ -137,7 +137,7 @@ export const Line = styled.div<Etapa>`
 
         &:nth-child(1) {
             p {
-                color #00579D;
+                color: #00579D;
             }
 
             svg {
@@ -161,7 +161,7 @@ export const Line = styled.div<Etapa>`
 
         &:nth-child(2) {
             p {
-                color #5D5D5D;
+                color: #5D5D5D;
             }
 
             svg {
@@ -182,7 +182,7 @@ export const Line = styled.div<Etapa>`
 
         &:nth-child(3) {
             p {
-                color #5D5D5D;
+                color: #5D5D5D;
             }
 
             svg {
@@ -203,7 +203,7 @@ export const Line = styled.div<Etapa>`
 
         &:nth-child(4) {
             p {
-                color #5D5D5D;
+                color: #5D5D5D;
             }
 
             svg {
