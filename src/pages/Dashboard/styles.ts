@@ -164,8 +164,64 @@ export const Filtros = styled.div`
             margin-right: 3vw;
         }
 
+        form {
+            button {
+                border: 0;
+                padding: 0.8vh;
+                font-size: 2vh;
+                margin-left: 0.3vw;
+                border-radius: 0.8vh;
+                background-color: rgba(212, 212, 212, 0.3);
+                color: #575757;
+
+                &:nth-child(1) {
+                    &:focus {
+                        background-color: rgba(212, 212, 212, 0.7);
+                    }
+                }
+
+                &:nth-child(2) {
+                    &:focus {
+                        background-color: #c2e4ff;
+                    }
+                }
+
+                &:nth-child(3) {
+                    &:focus {
+                        background-color: #ffbfbf;
+                    }
+                }
+
+                &:nth-child(4) {
+                    &:focus {
+                        background-color: #adffb0;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(212, 212, 212, 0.5);
+                }
+            }
+        }
+
+        input {
+            width: 12vw;
+            padding: 0.5vh;
+            padding-left: 1vh;
+
+            border: 0.2vh solid #ccc;
+
+            color: #00579D;
+
+            ::placeholder {
+                font-size: 1.8vh;
+                color: rgb(0, 0, 0, 0.4);
+            }
+        }
+
         label {
-            color: #575757;
+            color: #00579D;
             font-size: 2.2vh;
             margin-right: 1vw;
         }
@@ -194,26 +250,34 @@ export const CardsMoney = styled.div`
     justify-content: space-between;
     flex-direction: row;
 
-    span {
-        width: 3vw;
-        height: 4vh;
+    div {
+        span {
+            width: 3vw;
+            height: 4vh;
 
-        position: absolute;
-        margin-top: 2.5vh;
-        margin-left: 1.5vw;
-        border-radius: 0.6vh;
+            display: flex;
+            justify-content: center;
+            color: #00579D;
+            font-size: 2.6vh;
+            font-weight: bold;
+            margin-top: 2.6vh;    
+            
+            &:nth-child(1) {
+                margin-left: 1vw;
+            }
 
-        background-size: cover;
-        background-position: center;
-        background-image: url(${Choose});
+            &:nth-child(3) {
+                margin-right: 1vw;
+            }
+                        
+            &:hover {
+                cursor: pointer;
+                opacity: 0.95;
+            }
 
-        &:hover {
-            cursor: pointer;
-            opacity: 0.95;
-        }
-
-        &:active {
-            opacity: 0.85;
+            &:active {
+                opacity: 0.85;
+            }
         }
     }
 
@@ -236,6 +300,13 @@ export const CardsMoney = styled.div`
     }
 
     #money {
+        div {
+            &:last-child {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+            }            
+        }
         &::after {
             content: '';
             width: 0.1vh;
