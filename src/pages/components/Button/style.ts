@@ -147,7 +147,7 @@ export const Container = styled.div<buttonProps>`
         button {
             width: 10vw;
             position: absolute;
-            margin-top: 12vh;
+            margin-top: 1vh;
             margin-left: 24.05vw;
         }
     `}

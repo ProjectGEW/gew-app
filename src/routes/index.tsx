@@ -14,6 +14,8 @@ import Dashboard from '../pages/Dashboard';
 import Details from '../pages/Details';
 import Test from '../pages/Test';
 import Test2 from '../pages/test2';
+import ProjectsList from '../pages/Consultants/ProjectsList';
+import ConsultantList from '../pages/Consultants/ConsultantsList';
 
 const Routes: React.FC = () => (
     <Switch>
@@ -27,6 +29,8 @@ const Routes: React.FC = () => (
         <Route path="/settings" component={Settings} />
         <Route path="/dashboard/:id" component={Dashboard} />
         <Route path="/details/:id" component={Details} />
+        <Route path="/allocate_consultants/view_projects" component={ProjectsList} />
+        <Route path="/allocate_consultants/consultants" component={ConsultantList} />
         {/* Área para testes */}
         <Route path="/test" component={Test} />
         <Route path="/test2" component={Test2} />
