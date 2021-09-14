@@ -6,11 +6,16 @@ interface Iteste {
 }
 
 const RowDespesas: React.FC<Iteste> = (number) => {
+
+  const conCatDespesa = `despesa${number.number}`;
+  const conCatEsforco = `esforco${number.number}`;
+  const conCatValor = `valor${number.number}`;
+
   return (
     <Linha>
-      <input type="text" id="despesa1" placeholder="Java" />
-      <input type="text" id="esforco1" placeholder="100" />
-      <input type="text" id="valor1" placeholder="20.000,00" className="alinhar" />
+      <input type="text" id={conCatDespesa} placeholder="Java" />
+      <input type="text" id={conCatEsforco} placeholder="100" className="alinhar" />
+      <input type="text" id={conCatValor} placeholder="20.000,00" className="alinhar" />
     </Linha>
   );
 }
