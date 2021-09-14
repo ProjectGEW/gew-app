@@ -66,22 +66,16 @@ const Projects: React.FC = () => {
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
-    const [nomeProjeto, setNomeProjeto] = useState('');
+    //const [nomeProjeto, setNomeProjeto] = useState('');
 
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');
         const data = response.data;
-        
-        setTimeout(function() {
-            setProjetos(data);
-        }, 500);
+        setProjetos(data);
 
         const responseSecao = await api.get<ISecoes[]>('secoes');
         const dataSecao = responseSecao.data;
-        
-        setTimeout(function() {
-            setSecoes(dataSecao);
-        }, 500);
+        setSecoes(dataSecao);
     }
 
     function defineStatus(valor: string) {
@@ -91,28 +85,39 @@ const Projects: React.FC = () => {
     async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
 
-        try {
-            const response = await api.get<IProjetoProps[]>(status);
-            const data = response.data;
-
-            setTimeout(function() {
-                setProjetos(data);
-            }, 500);
-
-        } catch(err) {
-            console.log("Não foi possível realizar a consulta.");
-        }
+        const response = await api.get<IProjetoProps[]>(status);
+        const data = response.data;
+        setProjetos(data);           
     }
 
-    const [selectedOption, setSelectedOption] = useState('Todos');
+    const [selectedOption, setSelectedOption] = useState('');
 
-    const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        setSelectedOption(value);
+      
+        if(value !== 'Todos') {
+            const responsePorSecao = await api.get<IProjetoProps[]>('projetos/secao/' + value);
+            const dataPorSecao = responsePorSecao.data;
+            setProjetos(dataPorSecao);
+            
+        } else if(value === 'Todos') {
+            /*const responsePorSecao = await api.get<IProjetoProps[]>('projetos');
+            const dataPorSecao = responsePorSecao.data;
+            setProjetos(dataPorSecao);*/
+            window.location.reload();
+        }
+    };   
+
+    /*const [inputValue, setInputValue] = useState("");
+
+    const search = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         setTimeout(function() {
-            setSelectedOption(value);
+            setInputValue(value);
         }, 100);
-    };
-    
+    };*/
+
     return (
         <>
         <Navbar />
@@ -129,7 +134,7 @@ const Projects: React.FC = () => {
                         <div>
                             <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
                             <select name="secao" onChange={selectChange}>
-                                <option value="Todos" selected>Todos</option>
+                                <option value="Todos">Todos</option>
                                 {
                                 secoes ?
                                     secoes.map(secoes =>
@@ -163,7 +168,7 @@ const Projects: React.FC = () => {
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-                            <input type="text" placeholder="Digite aqui"/>
+                            <input type="text" placeholder="Nome do projeto"/>
                         </div>
                     </ContainerFiltro>
                 </ContainerInfo>
@@ -172,14 +177,14 @@ const Projects: React.FC = () => {
                     {/*selectedOption && <h2>{selectedOption}</h2>*/}
                         {
                             projetos ?
-                                projetos.map(projeto =>
-                                    <Card secaoDoProjeto={selectedOption} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
-                                )
-                                : 
-                                <Msg>
-                                    <BiHourglass size={40}/>
-                                    <h1>{intl.get('tela_projetos.msg.texto')}</h1>
-                                </Msg>                        
+                            projetos.map((projeto) =>
+                                <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                            )
+                            : 
+                            <Msg>
+                                <BiHourglass size={40}/>
+                                <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                            </Msg>
                         }
                     </Center>
                 </ProjectsGrid>

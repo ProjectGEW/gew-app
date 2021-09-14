@@ -33,7 +33,7 @@ export const DesktopModalContainer = styled(ModalContainer)`
     font-size: 26px;
     z-index: 10;
 
-    span {
+    #fechar {
         background-image: url(${Close});
         border: 0;
         background-color: transparent;

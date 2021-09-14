@@ -17,7 +17,6 @@ import analisaValor from "../../../../utils/analisaValor";
 
 interface CardProps {
     numeroDoProjeto: number;
-    secaoDoProjeto: string;
 }
 
 interface CardContent {
@@ -39,23 +38,31 @@ interface CardContent {
     };      
 }
 
-const CardProject: React.FC<CardProps> = ({numeroDoProjeto, secaoDoProjeto}) => {
+const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
     const [project, setProject] = useState<CardContent>();
     const [status, setStatus] = useState('');
     
     useEffect(() => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-            setProject(response.data);
-            setStatus(response.data.infoprojetoDTO.status);
+                setProject(response.data);
+                setStatus(response.data.infoprojetoDTO.status);
       }))
 
     }, [numeroDoProjeto]);
     
     
     const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [popUp, setPopUp] = useState<JSX.Element>();
 
     const toggleModal = () => {
-        setIsModalVisible(wasModalVisible => !wasModalVisible)
+        setPopUp(
+            <BaseModalWrapper 
+                isModalVisible={isModalVisible} 
+                onBackdropClick={toggleModal} 
+                numeroDoProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0} 
+            />
+        );
+        setIsModalVisible(!isModalVisible);
     }
 
     function calcularPorcentagem(count: number) {
@@ -68,16 +75,12 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto, secaoDoProjeto}) => 
     return (
         <>
         <Card onClick={toggleModal}>
-        <BaseModalWrapper 
-            isModalVisible={isModalVisible} 
-            onBackdropClick={toggleModal} 
-            numeroDoProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0} 
-        />
+            {popUp ? popUp : null}
             <CardStatus statusColor={status}/>
             <CardBox>
                 <BoxLeft>
                     <div>
-                        <p>{project ? project.infoprojetoDTO.numeroDoProjeto : "00000000"} - Seção {project ? project.infoprojetoDTO.secao : "ABC"}</p>
+                        <p>{project ? project.infoprojetoDTO.numeroDoProjeto : "00000000"} - {project ? project.infoprojetoDTO.secao : "ABC"}</p>
                         <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     </div>
                     <div>

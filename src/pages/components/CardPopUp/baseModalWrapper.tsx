@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import Modal from './Modal';
 import Button from '../Button';
 
 import GraphCircular from '../GraphCircular';
 
-import api from '../../../service/api'
+import api from '../../../service/api';
+import analisaValor from "../../../utils/analisaValor";
 
 import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
         ContainerBox, ContainerObjectives, ContainerValues, HourGraphics,
@@ -60,7 +61,8 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     
     const [project, setProject] = useState<CardContent>();
     const [ata, setAta] = useState<string>();
-
+    const [visible, setVisible] = useState(isModalVisible);
+    
     useEffect(() => {
         api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
             setProject(response.data);
@@ -73,30 +75,27 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         }
     )});
 
+    const closePopUp = () => {
+        setVisible(!visible);
+    }
+
     if (!isModalVisible) {
-        return null
+        return null;
     }
 
     const downloadFile = () => {
         window.open(`http://localhost:6868/files/download/${project ? project.infoprojetoDTO.id : 0}`);
     }
 
-    /*function calcularPorcentagem(count: number) {
-        const total = project ? project.valoresTotaisDTO.valorTotalEsforco : 0;
-        const porcentagem = (count / total) * 100;
-
-        return Math.floor(porcentagem);
-    }*/
-
     return (
         <Modal onBackdropClick={onBackdropClick} >
             <DesktopModalContainer>
-                <span onClick={onBackdropClick} />
+                <button id="fechar" onClick={onBackdropClick} />
                 <ModalContainerInfos>
                         <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     <ContainerBox>
                         <p>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - Seção ABC</p>
-                        <h3>ATA {ata ? ata.split(".")[0].substr(4) : ""}</h3>
+                        <h3>ATA {ata ? ata.split(".")[0] : ""}</h3>
                     </ContainerBox>
                     <ContainerBox>
                         <div>
@@ -144,8 +143,8 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     </HourGraphics>
                     <ContainerValues>
                         <div>
-                            <h1>Valor do projeto:</h1><h2>R$ {project ? project.valoresTotaisDTO.valorTotalCcPagantes +
-                              project.valoresTotaisDTO.valorTotalDespesas : ""}</h2>
+                            <h1>Valor do projeto:</h1><h2>{project ?
+                              analisaValor(project.valoresTotaisDTO.valorTotalDespesas) : ""}</h2>
                         </div>
                         <div>
                             <h1>Valor consumido:</h1><h2>R$ 5.000,00</h2>
