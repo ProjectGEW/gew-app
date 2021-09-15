@@ -66,6 +66,7 @@ const Projects: React.FC = () => {
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
+    const [filtro, setFiltro] = useState('');
     //const [nomeProjeto, setNomeProjeto] = useState('');
 
     window.onload = async function handleProjetos() {
@@ -78,14 +79,29 @@ const Projects: React.FC = () => {
         setSecoes(dataSecao);
     }
 
+    // =========================================================================
+
     function defineStatus(valor: string) {
-        setStatus(valor);
+        if(valor === "projetos") {
+            setStatus('');
+        } else {
+            setStatus(valor);
+        }
     }
 
     async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
+        const statusteste = document.activeElement?.id;
+        const sevazio = '';
+        //alert(statusteste);
 
-        const response = await api.get<IProjetoProps[]>(status);
+        if(selectedOption !== 'todas') {
+            setFiltro(`projetos/` + statusteste + `/` + selectedOption);
+        } else if(selectedOption === 'todas') {
+            setFiltro(`projetos/todas`);
+        }
+
+        const response = await api.get<IProjetoProps[]>(filtro);
         const data = response.data;
         setProjetos(data);           
     }
@@ -148,20 +164,20 @@ const Projects: React.FC = () => {
                         <div>
                             <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
                             <form onSubmit={filtraPorStatus}>
-                                <button type="submit" 
-                                    onClick={() => defineStatus("projetos")}>
+                                <button type="submit" id=""
+                                    onClick={() => setStatus('')}>
                                     {intl.get('tela_projetos.filtros.options.todos')}
                                 </button>
-                                <button type="submit" 
-                                    onClick={() => defineStatus("projetos/em_andamento")}>
+                                <button type="submit" id="em_andamento"
+                                    onClick={() => setStatus('em_andamento')}>
                                     {intl.get('tela_projetos.filtros.options.emandamento')}
                                 </button>
-                                <button type="submit" 
-                                    onClick={() => defineStatus("projetos/atrasados")}>
+                                <button type="submit" id="atrasados"
+                                    onClick={() => setStatus('atrasados')}>
                                     {intl.get('tela_projetos.filtros.options.atrasado')}
                                 </button>
-                                <button type="submit" 
-                                    onClick={() => defineStatus("projetos/concluidos")}>
+                                <button type="submit" id="concluidos"
+                                    onClick={() => setStatus('concluidos')}>
                                     {intl.get('tela_projetos.filtros.options.concluido')}
                                 </button>
                             </form>
@@ -178,7 +194,7 @@ const Projects: React.FC = () => {
                         {
                             projetos ?
                             projetos.map((projeto) =>
-                                <Card numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                                <Card key={projeto.infoprojetoDTO.id} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
                             )
                             : 
                             <Msg>
