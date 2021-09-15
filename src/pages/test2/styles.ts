@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const BoxConfirm = styled.div`
     position: absolute;
     top: 14vh;
     left: 12vw;
     width: 78vw;
     height: 80vh;
 
-    display: flex;
+    display: none;
     flex-direction: row;
 
     overflow: hidden;
@@ -123,7 +123,7 @@ export const Box = styled.div`
 
 `;
 
-export const Table = styled.div`
+export const TableConfirm = styled.div`
     width: 90%;
     height: 28vh;
     border-radius: 1vh 1vh 0 0;

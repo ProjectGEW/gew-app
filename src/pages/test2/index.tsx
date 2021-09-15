@@ -9,7 +9,7 @@ import Button from '../components/Button';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
-import { Container, SideContainer, ContentContainer, Box, Table } from './styles';
+import { BoxConfirm, SideContainer, ContentContainer, Box, TableConfirm } from './styles';
 
 
 const Test2: React.FC = () => {
@@ -19,7 +19,7 @@ const Test2: React.FC = () => {
             <Navbar />
             <MenuLeft />
 
-            <Container> 
+            <BoxConfirm> 
                 <h1>Confirmar Informações</h1>
                 <SideContainer>
                     <ContentContainer>
@@ -107,7 +107,7 @@ const Test2: React.FC = () => {
                         </div>
                     </ContentContainer>
 
-                    <Table>
+                    <TableConfirm>
                         <div>
                             <p>Funcionários alocados</p>
                             <AiOutlineUsergroupAdd />
@@ -146,10 +146,10 @@ const Test2: React.FC = () => {
                                 <HiMinusCircle />
                             </li>
                         </ul>
-                    </Table>
+                    </TableConfirm>
                 </SideContainer>
                 <Button  tipo={"Confirmar"} text={"Confirmar"} />
-            </Container>
+            </BoxConfirm>
 
             <MenuRight>
                 <ContIcons />
