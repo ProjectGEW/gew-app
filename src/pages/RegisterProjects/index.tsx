@@ -6,6 +6,7 @@ import { BoxProjeto } from '../components/RegisterProject/Projeto/styles';
 import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles';
 import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../components/RegisterProject/Datas/styles';
+import { BoxConfirm, SideContainer, ContentContainer, Box, TableConfirm } from "../test2/styles"
 import Button from '../components/Button';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
@@ -58,8 +59,6 @@ const RegisterProjects: React.FC = () => {
   const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas number={1} />]);
   const [rowCC, setRowCC] = useState<JSX.Element[]>([<RowCcPagantes number={1} />]);
 
-  // Trocar etapa
-  var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles)
     setFile(acceptedFiles[0]);
@@ -72,10 +71,13 @@ const RegisterProjects: React.FC = () => {
   });
 
   const { ref, ...rootProps } = getRootProps();
+
+  // Trocar etapa
+  var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas", "boxConfirm"];
   const [tela, setTela] = useState('');
 
   function trocarEtapa(etapa: string) {
-    for (var x = 0; x < 4; x++) {
+    for (var x = 0; x < 5; x++) {
       document.getElementById(etapas[x])!.style.display = "none";
     }
     document.getElementById(etapa)!.style.display = "block";
@@ -115,6 +117,17 @@ const RegisterProjects: React.FC = () => {
 
     console.log(JSON.stringify(initalValue));
   }
+
+  function deleteLastRowDP() {
+    document.getElementById(`${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
+    document.getElementById(`despesa${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
+    document.getElementById(`esforco${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
+    document.getElementById(`valor${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
+
+    rowDespesas.pop();
+    setRowDespesas([...rowDespesas, <RowDespesas number={ rowDespesas[rowDespesas.length - 1].props.number} />])
+  }
+
   return (
     <>
       <Navbar />
@@ -203,7 +216,6 @@ const RegisterProjects: React.FC = () => {
                   </div>
                   <div id="first-scroll">
                     {rowDespesas.map(teste => teste)}
-                    {rowDespesas.map(teste => teste.props.number)}
                     <span><AiFillPlusCircle onClick={() => {
                       setRowDespesas([...rowDespesas, <RowDespesas number={
                         rowDespesas[rowDespesas.length - 1].props.number + 1
@@ -213,6 +225,7 @@ const RegisterProjects: React.FC = () => {
                       <h2>TOTAL:</h2>
                       <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
                       <input id="totalValor" type="text" value="40.000,00" className="alinhar" />
+                      <div onClick={() => deleteLastRowDP()}>Teste</div>
                     </Total>
                   </div>
                 </Table>
@@ -225,7 +238,6 @@ const RegisterProjects: React.FC = () => {
                   </div>
                   <div id="second-scroll">
                     {rowCC.map(teste => teste)}
-                    {rowCC.map(teste => teste.props.number)}
                     <span><AiFillPlusCircle onClick={() => {
                       setRowCC([...rowCC, <RowCcPagantes number={
                         rowCC[rowCC.length - 1].props.number + 1
@@ -237,7 +249,7 @@ const RegisterProjects: React.FC = () => {
               </form>
             </BoxDinheiro>
             <BoxDatas id="boxDatas">
-              <form action="" method="post">
+              <span>
                 <div>
                   <label>Data de ínicio:</label>
                   <label>Data de término:</label>
@@ -248,12 +260,12 @@ const RegisterProjects: React.FC = () => {
                   <input type="text" defaultValue="1/01/2001" id="data_de_termino" />
                   <input type="text" defaultValue="1/01/2001" id="data_de_aprovacao" />
                 </div>
-                <div>
+                <div onClick={() => trocarEtapa("boxConfirm")}>
                   <Button tipo={"Datas"} text={"Continuar"} />
-                  <span onClick={setInfos}>AAAA</span>
                 </div>
-              </form>
+              </span>
             </BoxDatas>
+            <SideContainer id="boxConfirm"></SideContainer>
           </Content>
         </ContainerRegister>
       </Container>

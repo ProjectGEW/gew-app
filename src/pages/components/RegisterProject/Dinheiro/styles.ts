@@ -23,7 +23,7 @@ export const BoxDinheiro = styled.div`
                     &:nth-child(2) {
                         div {
                             &:last-child {
-                                justify-content: flex-end;
+                                justify-content: flex-start;
 
                                 h2 {
                                     margin-right: 1.3vw;
@@ -189,10 +189,12 @@ export const Table = styled.div`
 `;
 
 export const Linha = styled.div`
+    display: block;
     width: 100%;
     transition: all 0.2s;
 
     input {
+        display: block;
         height: 5vh;
 
         border-radius: 0.4vh;

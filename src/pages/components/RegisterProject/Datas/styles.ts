@@ -9,7 +9,7 @@ export const BoxDatas = styled.div`
     justify-content: flex-start;
     flex-direction: column;
 
-    form {
+    span {
         width: 100%;
         height: 20vh;
 
