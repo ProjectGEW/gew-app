@@ -249,7 +249,7 @@ const RegisterProjects: React.FC = () => {
                   <input type="text" defaultValue="1/01/2001" id="data_de_aprovacao" />
                 </div>
                 <div>
-                  <Button tipo={"Responsavel"} text={"Continuar"} />
+                  <Button tipo={"Datas"} text={"Continuar"} />
                   <span onClick={setInfos}>AAAA</span>
                 </div>
               </form>

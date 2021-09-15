@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
 import Search from '../../../assets/search.svg';
@@ -113,16 +113,16 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "Projeto" && css`
         button {
             position: absolute;
-            margin-top: 32.1vh;
-            margin-left: 28vw;
+            margin-top: 30.1vh;
+            margin-left: 20.6vw;
         }
     `}
 
     ${props => props.tipo === "Responsavel" && css`
         button {
             position: absolute;
-            margin-top: 22.8vh;
-            margin-left: 29.7vw;
+            margin-top: 18vh;
+            margin-left: 17.56vw;
         }
     `}
 
@@ -135,10 +135,19 @@ export const Container = styled.div<buttonProps>`
         }
     `}
 
+    ${props => props.tipo === "Datas" && css`
+        button {
+            width: 10vw;
+            position: absolute;
+            margin-top: 28.2vh;
+            margin-left: 48vw;
+        }
+    `}
+
     ${props => props.tipo === "Dinheiro" && css`
         button {
             position: absolute;
-            margin-top: -6.5vh;
+            margin-top: -8.5vh;
             margin-left: 28.05vw;
         }
     `}
