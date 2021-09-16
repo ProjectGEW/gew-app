@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect,  useCallback } from 'react';
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
@@ -47,6 +47,7 @@ const RegisterProjects: React.FC = () => {
       }
     ]
   }
+
   initalValue.despesasInputDTO.shift();
   initalValue.ccPagantesInputDTO.shift();
 
@@ -84,6 +85,14 @@ const RegisterProjects: React.FC = () => {
     setTela(etapa);
   }
 
+  const [sEsforco, setSEsforco] = useState<number>();
+
+  useEffect(() => {
+    for (let i = 1; i <= rowDespesas.length; i++) {
+      setSEsforco(sEsforco? sEsforco + parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value) : 0);
+    }
+  }, []);
+
   const setInfos = () => {
     initalValue.infosProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
     initalValue.infosProjetosInputDTO["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
@@ -116,6 +125,7 @@ const RegisterProjects: React.FC = () => {
     };
 
     console.log(JSON.stringify(initalValue));
+    return initalValue;
   }
 
   function deleteLastRowDP() {
@@ -125,9 +135,20 @@ const RegisterProjects: React.FC = () => {
     document.getElementById(`valor${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
 
     rowDespesas.pop();
-    setRowDespesas([...rowDespesas, <RowDespesas number={ rowDespesas[rowDespesas.length - 1].props.number} />])
+    console.log(rowDespesas);
+    return rowDespesas;
   }
 
+  function teste() {
+    setRowDespesas(
+      [...rowDespesas, 
+       <RowDespesas number={ rowDespesas[rowDespesas.length - 1].props.number + 1 } />
+      ]
+    )
+    return rowDespesas;
+  }
+
+  console.log(rowDespesas);
   return (
     <>
       <Navbar />
@@ -216,16 +237,12 @@ const RegisterProjects: React.FC = () => {
                   </div>
                   <div id="first-scroll">
                     {rowDespesas.map(teste => teste)}
-                    <span><AiFillPlusCircle onClick={() => {
-                      setRowDespesas([...rowDespesas, <RowDespesas number={
-                        rowDespesas[rowDespesas.length - 1].props.number + 1
-                      } />])
-                    }} /></span>
+                    <span><AiFillPlusCircle onClick={() => teste()} /></span>
                     <Total>
                       <h2>TOTAL:</h2>
                       <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
-                      <input id="totalValor" type="text" value="40.000,00" className="alinhar" />
-                      <div onClick={() => deleteLastRowDP()}>Teste</div>
+                      <input id="totalValor" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
+                      <div onClick={() => deleteLastRowDP()}>TESTE</div>
                     </Total>
                   </div>
                 </Table>
