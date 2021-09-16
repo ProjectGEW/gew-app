@@ -6,8 +6,8 @@ export const BoxConfirm = styled.div`
     left: 12vw;
     width: 78vw;
     height: 80vh;
+    display: flex;
 
-    display: none;
     flex-direction: row;
 
     overflow: hidden;
@@ -41,9 +41,11 @@ export const SideContainer = styled.div`
     margin-top: 8vh;
     padding-left: 4vw;
 
-    &:nth-child(2) {
+
+    &:last-child {
         margin-right: 1%;
-        margin-left: 1.5%
+        margin-left: 1.5%;
+        background: red;
     }
 `;
 

@@ -20,7 +20,7 @@ const Test2: React.FC = () => {
             <MenuLeft />
 
             <BoxConfirm> 
-                <h1>Confirmar Informações</h1>
+            <h1>Confirmar Informações</h1>
                 <SideContainer>
                     <ContentContainer>
                         <div>
