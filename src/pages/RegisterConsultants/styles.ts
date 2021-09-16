@@ -261,7 +261,7 @@ export const PricePerHour = styled.div`
             background-color: rgb(181, 181, 181, 0.3);
             box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
             color: #5E5E5E;
-        }  
+        } 
     }
 `;
 
@@ -270,12 +270,24 @@ export const SupplierData = styled.div`
     height: 29vh;
     margin: 1%;
     display: grid;
-    grid-template-areas: 'header header'
-                        'one one'
-                        'two two';
+    grid-template-areas: 'header'
+                        'one';
     padding: 1%;
 
-    .box1 { grid-area: one }
+    label {
+        margin-top: -4vh;
+    }
 
-    .box2 { grid-area: two; width: 50% }
+    select {
+        width: 20vw;
+        height: 5vh;
+        border-radius: 0.4vh;
+        border: 0px;
+        font-size: 2vh;
+        padding: 1vh;
+
+        background-color: rgb(181, 181, 181, 0.3);
+        box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
+        color: #5E5E5E;
+    }  
 `;
