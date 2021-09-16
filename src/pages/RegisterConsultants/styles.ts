@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
     position: absolute;
@@ -69,8 +70,7 @@ export const SideContainer = styled.div`
             border-radius: 0.4vh;
             border: 0px;
             padding: 1vh;
-            padding-top: 1.6vh;
-            font-size: 1vh;
+            font-size: 2vh;
             background-color: rgb(181, 181, 181, 0.3);
             box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
             color: #5E5E5E;
@@ -164,6 +164,27 @@ export const SideContainer = styled.div`
             margin: 4vh 0 0 -1vw;
             position: absolute;
         }
+    }
+
+    #enviarDados {
+        height: 5vh;
+
+        padding: 0 3vh;
+        border: 0;
+        border-radius: 0.5vh;
+        margin-left: 25vw;
+
+        font-size: 2.4vh;
+        color: white;
+        font-weight: bold;
+        background-color: #00579D;
+
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        &:hover {
+            background-color: ${shade(0.09, "#00579D")}
+        }
+    }
 `;
 
 export const ConsultantData = styled.div`
@@ -223,10 +244,10 @@ export const PricePerHour = styled.div`
 
         label {
             width: 80%;
-            font-size: 2.1vh;
-            font-weight: bold;
+            font-weight: normal;
             color: #00579D;
-            margin-bottom: 1vh;
+            font-size: 2.4vh;
+            margin-bottom: 1vh; 
         }
 
         input {
@@ -234,6 +255,7 @@ export const PricePerHour = styled.div`
             height: 5vh;
             border-radius: 0.4vh;
             border: 0px;
+            font-size: 2vh;
             padding: 1vh;
     
             background-color: rgb(181, 181, 181, 0.3);
