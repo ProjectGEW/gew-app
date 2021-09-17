@@ -12,7 +12,7 @@ const RowCcPagantes: React.FC<Iteste> = (number) => {
 
 
   return (
-    <Linha>
+    <Linha id={`C${number.number}`}>
       <input type="text" id={conCatCentroDeCusto} defaultValue="092765143" />
       <input type="text" defaultValue="André Borges Lima" />
       <input type="text" defaultValue="50%" className="alinhar" />

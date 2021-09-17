@@ -12,7 +12,7 @@ const RowDespesas: React.FC<Iteste> = (number) => {
   const conCatValor = `valor${number.number}`;
 
   return (
-    <Linha id={`${number.number}`}>
+    <Linha id={`D${number.number}`}>
       <input type="text" id={conCatDespesa} placeholder="Java" />
       <input type="text" id={conCatEsforco} placeholder="100" className="alinhar" />
       <input type="text" id={conCatValor} placeholder="20.000,00" className="alinhar" />

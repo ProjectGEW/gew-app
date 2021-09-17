@@ -25,6 +25,15 @@ export const BoxDinheiro = styled.div`
                             &:last-child {
                                 justify-content: flex-start;
 
+                                div {
+                                  justify-content: flex-end;
+                                  align-items: center;
+
+                                  svg{
+                                    margin-top: 0vh;
+                                  }
+                                }
+
                                 h2 {
                                     margin-right: 1.3vw;
                                 }

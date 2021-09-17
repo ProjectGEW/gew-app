@@ -11,9 +11,34 @@ import { ContIcons } from '../components/MenuRight/styles';
 
 import { BoxConfirm, SideContainer, ContentContainer, Box, TableConfirm } from './styles';
 
+interface IProjeto {
+    infosProjetosInputDTO?: {
+      numeroDoProjeto: number;
+      titulo: string;
+      descricao: string;
+      nome_responsavel: string;
+      nome_solicitante: string;
+      data_de_inicio: string;
+      data_de_termino: string;
+      data_de_aprovacao: string;    
+    },
+    despesaInputDTO?: IDespesas[],
+    ccPagantesInputDTO?: ICCpagantes[],
+}
 
-const Test2: React.FC = () => {
+interface IDespesas {
+  nome: string;
+  esforco: number;
+  valor: number
+}
 
+interface ICCpagantes{
+  centro_de_custo_id: string;
+  valor: number;
+}
+
+const Test2: React.FC<IProjeto> = (teste) => { 
+    console.log(teste);
     return (
         <>
             <Navbar />
