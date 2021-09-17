@@ -20,9 +20,39 @@ import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
 import Paper from "@material-ui/core/Paper";
 
 import { useDropzone } from "react-dropzone";
+import { IoDocumentOutline } from 'react-icons/io5';
+
+import {BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Test2 from '../test2';
+
+interface IProjeto {
+  infosProjetosInputDTO?: {
+    numeroDoProjeto: number;
+    titulo: string;
+    descricao: string;
+    nome_responsavel: string;
+    nome_solicitante: string;
+    data_de_inicio: string;
+    data_de_termino: string;
+    data_de_aprovacao: string;    
+  },
+  despesaInputDTO?: IDespesas[],
+  ccPagantesInputDTO?: ICCpagantes[],
+}
+
+interface IDespesas {
+  nome: string;
+  esforco: number;
+  valor: number;
+}
+
+interface ICCpagantes{
+  centro_de_custo_id: string;
+  valor: number;
+}
 
 const RegisterProjects: React.FC = () => {
-  var initalValue = {
+  const initalValue = {
     infosProjetosInputDTO: {
       numeroDoProjeto: 0,
       titulo: "",
@@ -50,6 +80,9 @@ const RegisterProjects: React.FC = () => {
 
   initalValue.despesasInputDTO.shift();
   initalValue.ccPagantesInputDTO.shift();
+
+  //Projeto
+  const [projeto, setProjeto] = useState<IProjeto>();
 
   // Ata
   const [file, setFile] = useState<object>();
@@ -93,7 +126,7 @@ const RegisterProjects: React.FC = () => {
     }
   }, []);
 
-  const setInfos = () => {
+  async function setInfos(){
     initalValue.infosProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
     initalValue.infosProjetosInputDTO["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
     initalValue.infosProjetosInputDTO["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
@@ -123,32 +156,41 @@ const RegisterProjects: React.FC = () => {
         }
       )
     };
-
-    console.log(JSON.stringify(initalValue));
+    
+    setProjeto(initalValue);
     return initalValue;
   }
-
-  function deleteLastRowDP() {
-    document.getElementById(`${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
-    document.getElementById(`despesa${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
-    document.getElementById(`esforco${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
-    document.getElementById(`valor${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
-
-    rowDespesas.pop();
-    console.log(rowDespesas);
-    return rowDespesas;
-  }
-
-  function teste() {
+  
+  function setNovaLinhaDP() {
     setRowDespesas(
       [...rowDespesas, 
        <RowDespesas number={ rowDespesas[rowDespesas.length - 1].props.number + 1 } />
       ]
-    )
+    );
     return rowDespesas;
   }
 
-  console.log(rowDespesas);
+  function deleteLastRowDP() {
+    document.getElementById(`D${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
+    rowDespesas.pop();
+    setRowDespesas([...rowDespesas]);
+    return rowDespesas;
+  }
+
+  function setNovaLinhaCC(){
+    setRowCC(
+      [...rowCC, <RowCcPagantes number={rowCC[rowCC.length - 1].props.number + 1} />]
+    );
+    return rowCC;
+  }
+
+  function deleteLastRowCC(){
+    document.getElementById(`C${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
+    rowCC.pop();
+    setRowCC(rowCC);
+    return rowCC;
+  }
+
   return (
     <>
       <Navbar />
@@ -237,7 +279,7 @@ const RegisterProjects: React.FC = () => {
                   </div>
                   <div id="first-scroll">
                     {rowDespesas.map(teste => teste)}
-                    <span><AiFillPlusCircle onClick={() => teste()} /></span>
+                    <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
                     <Total>
                       <h2>TOTAL:</h2>
                       <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
@@ -255,12 +297,9 @@ const RegisterProjects: React.FC = () => {
                   </div>
                   <div id="second-scroll">
                     {rowCC.map(teste => teste)}
-                    <span><AiFillPlusCircle onClick={() => {
-                      setRowCC([...rowCC, <RowCcPagantes number={
-                        rowCC[rowCC.length - 1].props.number + 1
-                      } />])
-                    }} /></span>
+                    <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
                   </div>
+                  <div onClick={() => deleteLastRowCC()}>TESTE</div>
                 </Table>
                 <Button tipo={"Dinheiro"} text={"Continuar"} />
               </form>
@@ -277,8 +316,8 @@ const RegisterProjects: React.FC = () => {
                   <input type="text" defaultValue="1/01/2001" id="data_de_termino" />
                   <input type="text" defaultValue="1/01/2001" id="data_de_aprovacao" />
                 </div>
-                <div onClick={() => trocarEtapa("boxConfirm")}>
-                  <Button tipo={"Datas"} text={"Continuar"} />
+                <div onClick={() => {setInfos() }}>   
+                 <Button tipo={"Datas"} text={"Continuar"} rota={"test2"}  teste={projeto}/>
                 </div>
               </span>
             </BoxDatas>
