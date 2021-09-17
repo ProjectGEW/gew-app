@@ -66,6 +66,7 @@ const Dashboard: React.FC = () => {
     const { id }: {id: string}  = useParams();
 
     const [status, setStatus] = useState('');
+    const [moeda, setMoeda] = useState('BRL');
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
 
@@ -108,6 +109,27 @@ const Dashboard: React.FC = () => {
 
     const toggleModal = () => {
         setIsModalVisible(wasModalVisible => !wasModalVisible)
+    }
+
+    async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
+        
+        var btns = ["BRL", "USD", "EUR"];
+        var valor = document.activeElement?.id;
+
+        for(var x = 0; x < btns.length; x++) {
+            document.getElementById(btns[x])!.style.opacity = "0.4";
+        }
+
+        //setMoeda(valor);
+
+        if(valor === "BRL") {
+            document.getElementById(valor)!.style.opacity = "1";
+        } else if(valor === "USD") {
+            document.getElementById(valor)!.style.opacity = "1";
+        } else if(valor === "EUR") {
+            document.getElementById(valor)!.style.opacity = "1";
+        }
     }
 
     function defineStatus(valor: string) {
@@ -216,9 +238,11 @@ const Dashboard: React.FC = () => {
                                 <h1>{intl.get('tela_dashboards.cards.primeiro')}</h1>
                             </Title>
                             <div>
-                                <span>BRL</span>
-                                <span>USD</span>
-                                <span>EUR</span>
+                                <form onSubmit={defineMoeda}>
+                                    <button id="BRL" type="submit">BRL</button>
+                                    <button id="USD" type="submit">USD</button>
+                                    <button id="EUR" type="submit">EUR</button>
+                                </form>
                             </div>
                         </Money>
                         <Money>

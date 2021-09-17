@@ -251,32 +251,41 @@ export const CardsMoney = styled.div`
     flex-direction: row;
 
     div {
-        span {
-            width: 3vw;
-            height: 4vh;
-
+        form {
+            width: 100%;
             display: flex;
             justify-content: center;
-            color: #00579D;
-            font-size: 2.6vh;
-            font-weight: bold;
-            margin-top: 2.6vh;    
-            
-            &:nth-child(1) {
-                margin-left: 1vw;
-            }
+            align-items: center;
 
-            &:nth-child(3) {
-                margin-right: 1vw;
-            }
-                        
-            &:hover {
-                cursor: pointer;
-                opacity: 0.95;
-            }
+            button {
+                width: 3vw;
+                height: 4vh;
 
-            &:active {
-                opacity: 0.85;
+                display: flex;
+                justify-content: center;
+
+                border: 0;
+                background: transparent;
+                color: #00579d;
+                opacity: 0.6;
+                font-size: 2.6vh;
+                font-weight: bold;
+                margin-top: 2.6vh;    
+                
+                &:nth-child(1) {
+                    opacity: 1;
+                    margin-left: 1vw;
+                    margin-right: 0.5vw;
+                }
+
+                &:nth-child(3) {
+                    margin-left: 0.5vw;
+                    margin-right: 1vw;
+                }
+                            
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -306,15 +315,6 @@ export const CardsMoney = styled.div`
                 justify-content: space-between;
                 flex-direction: row;
             }            
-        }
-        &::after {
-            content: '';
-            width: 0.1vh;
-            height: 6vh;
-            background-color: #ccc;
-            position: absolute;
-            margin-top: 1.5vh;
-            margin-left: -3.8vw;
         }
     }
 `;

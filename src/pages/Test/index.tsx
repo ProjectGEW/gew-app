@@ -6,11 +6,15 @@ import MenuRight from '../components/MenuRight';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
-import { Container } from './styles';
-import Paper from "@material-ui/core/Paper";
+import { Container, BoxDatas } from './styles';
+//import Paper from "@material-ui/core/Paper";
 import { useDropzone } from "react-dropzone";
 
 import api from "../../service/api";
+
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
 
 const Projects: React.FC = () => {
     const [file, setFile] = useState<Blob>();
@@ -53,6 +57,12 @@ const Projects: React.FC = () => {
 
         await api.put(`projetos/horas/182210`, {horas: horas});
     }
+
+    const [value, onChange] = useState(new Date());
+
+    function teste() {
+        alert(value);
+    }
     
     return (
         <>
@@ -60,20 +70,32 @@ const Projects: React.FC = () => {
         <MenuLeft />
 
         <Container>
-            <h1>Apontar horas</h1>
-            <input type="number" id="horas" />
-            <button onClick={apontarHoras}>Enviar</button>
-
-            <div ref={ref}>
-                <Paper {...rootProps}>
-                    <label htmlFor="ata1">UPLOAD</label>
-                    <input {...getInputProps()}/>
-                </Paper>
-                <button onClick={uploadFile}>Enviar</button>
+            <BoxDatas>
+                <form>
+                    <div>
+                        <label>Data de ínicio:</label>
+                        <label>Data de término:</label>
+                        <label>Data de aprovação:</label>
+                    </div>
+                    <div>
+                        <input type="text" />
+                        <button onClick={teste}>lupa</button>
+                        <input type="text" />
+                        <button onClick={teste}>lupa</button>
+                        <input type="text" />
+                        <button onClick={teste}>lupa</button>
+                    </div>
+                    <div>
+                        <button>Continuar</button>
+                    </div>
+                </form>
+            </BoxDatas>
+            <div>
+                <Calendar
+                    onChange={onChange}
+                    value={value}  
+                />
             </div>
-
-            <button onClick={downloadFile}>Baixar</button>
-            <input type="text" id="teste"/>
         </Container>
         <MenuRight>
             <ContIcons />

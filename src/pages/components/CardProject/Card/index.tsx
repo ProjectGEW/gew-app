@@ -74,7 +74,7 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
 
     return (
         <>
-        <Card onClick={toggleModal}>
+        <Card key={project?.infoprojetoDTO.id} onClick={toggleModal}>
             {popUp ? popUp : null}
             <CardStatus statusColor={status}/>
             <CardBox>

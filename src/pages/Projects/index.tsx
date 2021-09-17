@@ -66,7 +66,6 @@ const Projects: React.FC = () => {
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
-    const [filtro, setFiltro] = useState('');
     //const [nomeProjeto, setNomeProjeto] = useState('');
 
     window.onload = async function handleProjetos() {
@@ -79,49 +78,92 @@ const Projects: React.FC = () => {
         setSecoes(dataSecao);
     }
 
-    // =========================================================================
-
     function defineStatus(valor: string) {
+
+        var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
+
+        for(var x = 0; x < btns.length; x++) {
+            document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
+        }
+
         if(valor === "projetos") {
             setStatus('');
+            document.getElementById(valor)!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
         } else {
             setStatus(valor);
-        }
+
+            if(valor === "concluidos") {
+                document.getElementById(valor)!.style.backgroundColor = "#adffb0";
+            } else if(valor === "atrasados") {
+                document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
+            } else if(valor === "em_andamento") {
+                document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
+            } else if(valor === "Todos") {
+                document.getElementById(valor)!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+            }
+        }        
     }
 
     async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
-        const statusteste = document.activeElement?.id;
-        const sevazio = '';
-        //alert(statusteste);
 
-        if(selectedOption !== 'todas') {
-            setFiltro(`projetos/` + statusteste + `/` + selectedOption);
-        } else if(selectedOption === 'todas') {
-            setFiltro(`projetos/todas`);
+        let statusteste = '';
+        var resultado = '';
+
+        if(document.activeElement) {
+            statusteste = document.activeElement?.id;
+        } else {
+            statusteste = status;
         }
+        
+        if(selectedOption !== 'Todos') {     
+            if(statusteste === 'Todos') {
+                resultado = `projetos/secao/` + selectedOption;
+            } else if(statusteste !== 'Todos') {
+                resultado = `projetos/` + statusteste + `/` + selectedOption;
+            }
+            const response = await api.get<IProjetoProps[]>(resultado);
+            const data = response.data;
+            setProjetos(data);  
 
-        const response = await api.get<IProjetoProps[]>(filtro);
-        const data = response.data;
-        setProjetos(data);           
+        } else if(selectedOption === 'Todos') {
+            if(statusteste === 'Todos') {
+                resultado = `projetos`;
+            } else if(statusteste !== 'Todos') {
+                resultado = `projetos/` + statusteste + `/Todos`;       
+            }     
+            const response = await api.get<IProjetoProps[]>(resultado);
+            const data = response.data;
+            setProjetos(data);       
+        }
     }
 
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState('Todos');
 
     const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
+        var resultado = '';
         setSelectedOption(value);
       
         if(value !== 'Todos') {
-            const responsePorSecao = await api.get<IProjetoProps[]>('projetos/secao/' + value);
+            if(status === '') {
+                resultado = `projetos/secao/` + value;
+            } else if(status !== '') {
+                resultado = `projetos/` + status + `/` + value;
+            }  
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
-            
+
         } else if(value === 'Todos') {
-            /*const responsePorSecao = await api.get<IProjetoProps[]>('projetos');
+            if(status === '') {
+                resultado = `projetos`;
+            } else if(status !== '') {
+                resultado = `projetos/` + status + `/Todos`;
+            }  
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);*/
-            window.location.reload();
+            setProjetos(dataPorSecao);
         }
     };   
 
@@ -154,7 +196,7 @@ const Projects: React.FC = () => {
                                 {
                                 secoes ?
                                     secoes.map(secoes =>
-                                        <option value={secoes.nome}>{secoes.nome}</option>
+                                        <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
                                     )
                                     :
                                     'Nenhuma seção foi encontrada'
@@ -164,20 +206,20 @@ const Projects: React.FC = () => {
                         <div>
                             <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
                             <form onSubmit={filtraPorStatus}>
-                                <button type="submit" id=""
-                                    onClick={() => setStatus('')}>
+                                <button type="submit" id="Todos" className="0"
+                                    onClick={() => defineStatus('')}>
                                     {intl.get('tela_projetos.filtros.options.todos')}
                                 </button>
-                                <button type="submit" id="em_andamento"
-                                    onClick={() => setStatus('em_andamento')}>
+                                <button type="submit" id="em_andamento" className="1"
+                                    onClick={() => defineStatus('em_andamento')}>
                                     {intl.get('tela_projetos.filtros.options.emandamento')}
                                 </button>
-                                <button type="submit" id="atrasados"
-                                    onClick={() => setStatus('atrasados')}>
+                                <button type="submit" id="atrasados" className="2"
+                                    onClick={() => defineStatus('atrasados')}>
                                     {intl.get('tela_projetos.filtros.options.atrasado')}
                                 </button>
-                                <button type="submit" id="concluidos"
-                                    onClick={() => setStatus('concluidos')}>
+                                <button type="submit" id="concluidos" className="3"
+                                    onClick={() => defineStatus('concluidos')}>
                                     {intl.get('tela_projetos.filtros.options.concluido')}
                                 </button>
                             </form>
@@ -190,7 +232,6 @@ const Projects: React.FC = () => {
                 </ContainerInfo>
                 <ProjectsGrid>
                     <Center>
-                    {/*selectedOption && <h2>{selectedOption}</h2>*/}
                         {
                             projetos ?
                             projetos.map((projeto) =>
