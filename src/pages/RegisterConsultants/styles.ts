@@ -17,9 +17,9 @@ export const Container = styled.div`
 
     header {
         width: 100%;
-        height: 8vh;
+        height: 7vh;
         background-color: #00579D;
-        border-radius: 1vh 1vh 0 0;
+        border-radius: 0.8vh 0.8vh 0 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -27,7 +27,9 @@ export const Container = styled.div`
         position: absolute;
 
         h1 {
-            font-size: 3.7vh;
+            font-size: 3.6vh;
+            margin-top: -0.2vh;
+            margin-left: -0.45vw;
             font-weight: bold;
             color: #fff;
         }
@@ -46,17 +48,24 @@ export const SideContainer = styled.div`
     height: 68vh;
     margin: 10vh 0 0 2%;
 
-    &:last-child {
-        margin-right: 2%;
-    }
+    &:nth-child(2) {
+        &::before {
+            content: '';
+            width: 0.1vh;
+            height: 65vh;
+            position: absolute;
+            margin-left: 37vw;
+            opacity: 0.6;
+            background-color: #c4c4c4;
+        }
     }
 
-     .box1, .box2, .box3, .box4, .box5 {
+    .box1, .box2, .box3, .box4, .box5 {
         height: 8vh;
         display: flex;
         flex-direction: column;
         margin-left: 2vw;
-
+        
         label {
             width: 80%;
             font-weight: normal;
@@ -64,12 +73,13 @@ export const SideContainer = styled.div`
             font-size: 2.4vh;
             margin-bottom: 1vh; 
         }
+
         input {
             width: 10vw;
-            height: 5vh;
+            
             border-radius: 0.4vh;
             border: 0px;
-            padding: 1vh;
+            padding: 1.2vh;
             font-size: 2vh;
             background-color: rgb(181, 181, 181, 0.3);
             box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
@@ -157,11 +167,11 @@ export const SideContainer = styled.div`
 
         &:before {
             content: '';
-            width: 34vw;
+            width: 30vw;
             height: 0.1vh;
-            background: #00579D;
-            opacity: 0.4;
-            margin: 4vh 0 0 -1vw;
+            background: #c4c4c4;
+            opacity: 0.6;
+            margin: 4vh 0 0 0;
             position: absolute;
         }
     }
@@ -191,17 +201,19 @@ export const ConsultantData = styled.div`
     width: 98%;
     height: 38vh;
     margin: 1%;
+
     display: grid;
     grid-template-areas: 'header header'
-                        'one one'
-                        'three four';
+                         'one one'
+                         'three four';
     padding: 1%;
 
     .box1 { grid-area: one }
 
     .box2 { grid-area: two }
 
-    .box3 { grid-area: three;
+    .box3 { 
+        grid-area: three;
 
         &:last-child {
             margin-top: 11vh;
@@ -217,8 +229,8 @@ export const UserData = styled.div`
     margin: 1%;
     display: grid;
     grid-template-areas: 'header header'
-                        'one one'
-                        'one one';
+                         'one one'
+                         'one one';
     padding: 1%;
 
     .box1 { grid-area: one;
@@ -226,15 +238,13 @@ export const UserData = styled.div`
             margin-top: 10vh;
         }
     }
-
-
 `;
 
 export const PricePerHour = styled.div`
-
     h1 {
         margin: 2vh 0 0 0.75vw;
     }
+
     div {
         width: 100%;
         height: 8vh;
@@ -252,7 +262,6 @@ export const PricePerHour = styled.div`
 
         input {
             width: 10vw;
-            height: 5vh;
             border-radius: 0.4vh;
             border: 0px;
             font-size: 2vh;

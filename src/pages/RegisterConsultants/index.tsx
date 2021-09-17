@@ -14,7 +14,7 @@ import Footer from '../components/Footer';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
 import api from "../../service/api";
-import analisaValor from "../../utils/analisaValor";
+//import analisaValor from "../../utils/analisaValor";
 
 interface CadConsultor {
     funcionario: Consultor;
@@ -59,8 +59,6 @@ const RegisterConsultants: React.FC = () => {
         } else{
             console.log("CPF invalido");
         }
-                
-        
     }
 
     const formatTelefone= () => {
@@ -113,96 +111,95 @@ const RegisterConsultants: React.FC = () => {
 
     return (
         <>
-            <Navbar />
-            <MenuLeft />
-        
-            <Container>
-                <header>
-                    <h1>Cadastrar consultor</h1>
-                    <AiOutlineCaretDown />
-                </header>
-                <SideContainer>
-                    <ConsultantData>
-                        <h1>Dados do consultor</h1>
+        <Navbar />
+        <MenuLeft />
+    
+        <Container>
+            <header>
+                <h1>Cadastrar Consultor</h1>
+                <AiOutlineCaretDown />
+            </header>
+            <SideContainer>
+                <ConsultantData>
+                    <h1>Dados do consultor</h1>
+                    <div className="box1">
+                        <label>Nome:</label>
+                        <input type='text' id="nome" />
+                        <GoPencil />
+                    </div>
+                    <div className="box3">
+                        <label>CPF:</label>
+                        <input type='text' id="cpf" onChange={formatCpf} maxLength={14} />
+                        <BsFillPersonLinesFill />
+                    </div>
+                    <div className="box4">
+                        <label>Telefone:</label>
+                        <input type='text' id="telefone" onChange={formatTelefone} maxLength={14} />
+                        <AiOutlinePhone />
+                    </div>
+                    <div className="box3">
+                        <label>N° do crachá:</label>
+                        <input type='text' id="numero_cracha" />
+                        <BsFillPersonLinesFill />
+                    </div>
+                </ConsultantData>
+                <PricePerHour>
+                    <h1>Preço por hora</h1>
+                    <div>
+                        <label>Valor horista:</label>
+                        <input type='text' id="valor_hora"/>
+                    </div>
+                </PricePerHour>
+            </SideContainer>
+            <SideContainer>
+                <UserData>
+                    <h1>Dados do usuário</h1>
 
-                        <div className="box1">
-                            <label>Nome:</label>
-                            <input type='text' id="nome" />
-                            <GoPencil />
-                        </div>
-                        <div className="box3">
-                            <label>CPF:</label>
-                            <input type='text' id="cpf" onChange={formatCpf} maxLength={14} placeholder='---.---.--- - --' />
-                            <BsFillPersonLinesFill />
-                        </div>
-                        <div className="box4">
-                            <label>Telefone:</label>
-                            <input type='text' id="telefone" onChange={formatTelefone} maxLength={14} placeholder='(..).....-....' />
-                            <AiOutlinePhone />
-                        </div>
-                        <div className="box3">
-                            <label>N° do crachá:</label>
-                            <input type='text' id="numero_cracha" placeholder='------' />
-                            <BsFillPersonLinesFill />
-                        </div>
-                    </ConsultantData>
-                    <PricePerHour>
-                        <h1>Preço por hora</h1>
-                        <div>
-                            <label>Valor horista:</label>
-                            <input type='text' id="valor_hora" placeholder="R$  --,--" />
-                        </div>
-                    </PricePerHour>
-                </SideContainer>
-                <SideContainer>
-                    <UserData>
-                        <h1>Dados do usuário</h1>
+                    <div className="box1">
+                        <label>Email do usuário:</label>
+                        <input type='text' id="email" />
+                        <AiOutlineMail />
+                    </div>
+                    <div className="box1">
+                        <label>Senha:</label>
+                        <input type='password' id="senha"/>
+                        <RiLockPasswordLine />
+                    </div>
+                </UserData>
+                <SupplierData>
+                    <h1>Fornecedor</h1>
 
-                        <div className="box1">
-                            <label>Email do usuário:</label>
-                            <input type='text' id="email" />
-                            <AiOutlineMail />
-                        </div>
-                        <div className="box1">
-                            <label>Senha:</label>
-                            <input type='password' id="senha" placeholder="********" />
-                            <RiLockPasswordLine />
-                        </div>
-                    </UserData>
-                    <SupplierData>
-                        <h1>Fornecedor</h1>
+                    <div className="box5">
+                        <label>Nome:</label>
+                        <select name="secao" id="nome_fornecedor" >
+                            <option value="Todos">Todos</option>
+                            {
+                            suppliers ?
+                                suppliers.map(supplier =>
+                                    <option value={supplier.nome}>{supplier.nome}</option>
+                                )
+                                :
+                                'Nenhum fornecedor foi encontrado'
+                            }
+                        </select>
+                    </div>
+                </SupplierData>
 
-                        <div className="box5">
-                            <label>Nome:</label>
-                            <select name="secao" id="nome_fornecedor" >
-                                <option value="Todos">Todos</option>
-                                {
-                                suppliers ?
-                                    suppliers.map(supplier =>
-                                        <option value={supplier.nome}>{supplier.nome}</option>
-                                    )
-                                    :
-                                    'Nenhum fornecedor foi encontrado'
-                                }
-                            </select>
-                        </div>
-                    </SupplierData>
-
-                    <button id="enviarDados" onClick={setConsultorInfos}>
-                        Cadastrar
-                    </button>
+                <button id="enviarDados" onClick={setConsultorInfos}>
+                    Cadastrar
+                </button>
+                
+            </SideContainer>
+            <Footer tipo={"register_consultants"}>
                     
-                </SideContainer>
-                <Footer tipo={"register_consultants"}>
-                        
-                </Footer>
-            </Container>
+            </Footer>
+        </Container>
 
-            <MenuRight>
-                <ContIcons />
-            </MenuRight>
+        <MenuRight>
+            <ContIcons />
+        </MenuRight>
         </>
-        );
+    );
 };
 
 export default RegisterConsultants;

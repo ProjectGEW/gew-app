@@ -82,42 +82,24 @@ export const ContainerFiltro = styled.div`
         align-items: center;
 
         &:nth-child(3) {
-            button {
-                border: 0;
-                padding: 0.8vh;
-                font-size: 2vh;
-                margin-left: 0.3vw;
-                border-radius: 0.8vh;
-                background-color: rgba(212, 212, 212, 0.3);
-                color: #575757;
+            form {
+                button {
+                    border: 0;
+                    padding: 0.8vh;
+                    font-size: 2vh;
+                    margin-left: 0.3vw;
+                    border-radius: 0.8vh;
+                    background-color: rgba(212, 212, 212, 0.3);
+                    color: #575757;
 
-                &:nth-child(1) {
-                    &:focus {
+                    &:nth-child(1) {
                         background-color: rgba(212, 212, 212, 0.7);
                     }
-                }
 
-                &:nth-child(2) {
-                    &:focus {
-                        background-color: #c2e4ff;
+                    &:hover {
+                        cursor: pointer;
+                        background-color: rgba(212, 212, 212, 0.5);
                     }
-                }
-
-                &:nth-child(3) {
-                    &:focus {
-                        background-color: #ffbfbf;
-                    }
-                }
-
-                &:nth-child(4) {
-                    &:focus {
-                        background-color: #adffb0;
-                    }
-                }
-
-                &:hover {
-                    cursor: pointer;
-                    background-color: rgba(212, 212, 212, 0.5);
                 }
             }
         }
