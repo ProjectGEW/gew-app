@@ -110,19 +110,11 @@ export const Container = styled.div<buttonProps>`
         }
     `}
 
-    ${props => props.tipo === "Projeto" && css`
+    ${props => props.tipo === "continuarCadastro" && css`
         button {
             position: absolute;
-            margin-top: 30.1vh;
-            margin-left: 20.6vw;
-        }
-    `}
-
-    ${props => props.tipo === "Responsavel" && css`
-        button {
-            position: absolute;
-            margin-top: 18vh;
-            margin-left: 17.56vw;
+            margin-top: -9vh;
+            margin-left: 28vw;
         }
     `}
 
@@ -132,23 +124,6 @@ export const Container = styled.div<buttonProps>`
             position: absolute;
             margin-top: 70vh;
             margin-left: -13.5vw;
-        }
-    `}
-
-    ${props => props.tipo === "Datas" && css`
-        button {
-            width: 10vw;
-            position: absolute;
-            margin-top: 28.2vh;
-            margin-left: 48vw;
-        }
-    `}
-
-    ${props => props.tipo === "Dinheiro" && css`
-        button {
-            position: absolute;
-            margin-top: -8.5vh;
-            margin-left: 28.05vw;
         }
     `}
 
