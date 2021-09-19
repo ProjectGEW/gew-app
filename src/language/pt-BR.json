@@ -94,5 +94,14 @@
             "terceiro": "NÃO LIBERADA",
             "quarto": "APROVADA"
         }
+    },
+    "card_projetos": {
+        "saldo_um": "Saldo previsto:",
+        "saldo_dois": "Saldo restante:",
+        "data_um": "De:",
+        "data_dois": "Até:",
+        "status": "Status:",
+        "horas": "Horas",
+        "apontadas": "Apontadas"
     }
   }
