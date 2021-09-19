@@ -20,7 +20,7 @@ export const Card = styled.div`
     width: 36vw;
     height: 20vh;
 
-    margin-top: 3vh;
+    margin-top: 2vh;
 
     display: flex;
     justify-content: center;
