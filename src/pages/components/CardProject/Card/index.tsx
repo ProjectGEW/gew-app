@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-//import { useRouteMatch } from 'react-router-dom';
-//import Modal from 'react-native-modal';
+
 import BaseModalWrapper from '../../../components/CardPopUp/baseModalWrapper';
 import api from '../../../../service/api';
 
@@ -8,12 +7,17 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 
 import { Card, CardStatus, CardBox, BoxLeft, BoxRight, Progress, Value } from './styles';
 
-/*interface RepositoryParams {
-    repository: string;
-}*/
-
 import formatStatus from "../../../../utils/formatStatus";
 import analisaValor from "../../../../utils/analisaValor";
+
+import intl from 'react-intl-universal';
+
+const locales = {
+    'pt-BR': require('../../../../language/pt-BR.json'),
+    'en-US': require('../../../../language/en-US.json'),
+    'es': require('../../../../language/es.json'),
+    'fr-FR': require('../../../../language/fr-FR.json'),
+};
 
 interface CardProps {
     numeroDoProjeto: number;
@@ -39,6 +43,20 @@ interface CardContent {
 }
 
 const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
+    const [language] = useState(() => {
+        let languageStorage = localStorage.getItem('Language');
+
+        if(languageStorage) {
+            let languageObject = JSON.parse(languageStorage);
+            return languageObject;
+        } 
+    });
+
+    intl.init({
+        currentLocale: language.code,
+        locales
+    });
+
     const [project, setProject] = useState<CardContent>();
     const [status, setStatus] = useState('');
     
@@ -74,6 +92,7 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
 
     return (
         <>
+        { project ?
         <Card key={project?.infoprojetoDTO.id} onClick={toggleModal}>
             {popUp ? popUp : null}
             <CardStatus statusColor={status}/>
@@ -84,27 +103,27 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
                         <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     </div>
                     <div>
-                        <p><strong>Saldo previsto:</strong>{analisaValor(project ? project.valoresTotaisDTO.valorTotalDespesas : 0)}</p>
-                        <p><strong>Saldo restante:</strong>{analisaValor(50000)}</p>
+                        <p><strong>{intl.get('card_projetos.saldo_um')}</strong>{analisaValor(project ? project.valoresTotaisDTO.valorTotalDespesas : 0)}</p>
+                        <p><strong>{intl.get('card_projetos.saldo_dois')}</strong>{analisaValor(50000)}</p>
                     </div>
                     <div>
-                        <p>De: {project ? project.infoprojetoDTO.data_de_inicio : "00/00/0000"}</p>
-                        <p>Até: {project ? project.infoprojetoDTO.data_de_termino : "00/00/0000"}</p>
+                        <p>{intl.get('card_projetos.data_um')} {project ? project.infoprojetoDTO.data_de_inicio : "00/00/0000"}</p>
+                        <p>{intl.get('card_projetos.data_dois')} {project ? project.infoprojetoDTO.data_de_termino : "00/00/0000"}</p>
                     </div>
                 </BoxLeft>
                 <BoxRight>
                     <div>
-                        <p>Status: <strong>{formatStatus(project ? project.infoprojetoDTO.status : '')}
+                        <p>{intl.get('card_projetos.status')} <strong>{formatStatus(project ? project.infoprojetoDTO.status : '')}
                         </strong></p>
                     </div>
                     <div>
                         {project ? project.infoprojetoDTO.status !== "CONCLUIDO" ?
                             <>
-                            <p><strong>Horas:</strong> <AiOutlineClockCircle size={15} /> 
-                                {project.valoresTotaisDTO.valorTotalEsforco} Horas
+                            <p><strong>{intl.get('card_projetos.horas')}:</strong> <AiOutlineClockCircle size={15} /> 
+                                {project.valoresTotaisDTO.valorTotalEsforco} {intl.get('card_projetos.horas')}
                             </p>
-                            <p><strong>Apontadas:</strong> <AiOutlineClockCircle size={15} /> 
-                                {project.infoprojetoDTO.horas_apontadas} Horas
+                            <p><strong>{intl.get('card_projetos.apontadas')}:</strong> <AiOutlineClockCircle size={15} /> 
+                                {project.infoprojetoDTO.horas_apontadas} {intl.get('card_projetos.horas')}
                             </p>
                             <Progress>
                                 <Value value={calcularPorcentagem(project ? project.infoprojetoDTO.horas_apontadas : 0)} />
@@ -119,6 +138,7 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
                 </BoxRight>
             </CardBox>
         </Card>
+        : ''}
         </>
     );
 }
