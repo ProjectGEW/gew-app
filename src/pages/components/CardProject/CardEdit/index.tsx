@@ -18,7 +18,7 @@ const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
                     <BoxLeft>
                         <div>
                             <p>1000025562 - Seção ABC</p>
-                            <h1>WEC - IMPLATAÇÃO DE EDI CLIENTE XYZ</h1>
+                            <h1>WEC - IMPLATAÇÃO DE EDI CLIENTE</h1>
                         </div>
                         <div>
                             <p><strong>Saldo previsto:</strong> R$ 50.000,00</p>
@@ -27,7 +27,7 @@ const CardProject: React.FC<CardStatusColor> = ({statusColor}) => {
                     </BoxLeft>
                     <BoxRight>
                         <div>
-                            <FaEdit size={20}/>
+                            <FaEdit size={25}/>
                         </div>
                         <div>
                             <p><strong>Horas:</strong> <AiOutlineClockCircle size={15} /> 120 Horas</p>

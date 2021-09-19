@@ -97,6 +97,7 @@ export const Line = styled.div<Etapa>`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        transition: all 0.2s;
 
         p {
             font-size: 2.6vh;
@@ -149,6 +150,10 @@ export const Line = styled.div<Etapa>`
                 &:nth-child(2) {
                     display: none;
                 }
+
+                &:nth-child(4) {
+                    display: none;
+                }
             }
 
             &::after {
@@ -168,6 +173,10 @@ export const Line = styled.div<Etapa>`
                 color: #5D5D5D;
 
                 &:nth-child(3) {
+                    display: none;
+                }
+
+                &:nth-child(4) {
                     display: none;
                 }
             }
@@ -191,6 +200,10 @@ export const Line = styled.div<Etapa>`
                 &:nth-child(3) {
                     display: none;
                 }
+
+                &:nth-child(4) {
+                    display: none;
+                }
             }
 
             &::after {
@@ -212,8 +225,37 @@ export const Line = styled.div<Etapa>`
                 &:nth-child(3) {
                     display: none;
                 }
+
+                &:nth-child(4) {
+                    display: none;
+                }
             }
         }
+
+        ${props => props.nome === "boxProjeto" && css`
+            &:nth-child(1) {
+                p {
+                    color: #00579D;
+                }
+
+                svg {
+                    width: 5vw;
+                    height: 6vh;
+
+                    color: #00579D;
+
+                    &:nth-child(3) {
+                        display: block;
+                    }
+
+                    &:nth-child(4) {
+                        display: none;
+                    }
+                }
+
+             
+            }
+        `}
 
         ${props => props.nome === "boxResponsavel" && css`
             &:nth-child(1) {
@@ -226,6 +268,18 @@ export const Line = styled.div<Etapa>`
                     height: 6vh;
 
                     color: #00579D;
+
+                    &:nth-child(4) {
+                        display: block;
+                    }
+
+                    &:nth-child(3) {
+                        display: none;
+                    }
+    
+                    &:nth-child(2) {
+                        display: none;
+                    }
                 }
 
                 &::after {
@@ -273,6 +327,18 @@ export const Line = styled.div<Etapa>`
                     height: 6vh;
 
                     color: #00579D;
+
+                    &:nth-child(4) {
+                        display: block;
+                    }
+
+                    &:nth-child(3) {
+                        display: none;
+                    }
+    
+                    &:nth-child(2) {
+                        display: none;
+                    }
                 }
 
                 &::after {
@@ -295,7 +361,7 @@ export const Line = styled.div<Etapa>`
                         display: none;
                     }
                     
-                    &:nth-child(3) {
+                    &:nth-child(4) {
                         display: block;
                     }
                 }
@@ -345,6 +411,18 @@ export const Line = styled.div<Etapa>`
                     height: 6vh;
 
                     color: #00579D;
+
+                    &:nth-child(4) {
+                        display: block;
+                    }
+
+                    &:nth-child(3) {
+                        display: none;
+                    }
+    
+                    &:nth-child(2) {
+                        display: none;
+                    }
                 }
 
                 &::after {
@@ -367,7 +445,7 @@ export const Line = styled.div<Etapa>`
                         display: none;
                     }
                     
-                    &:nth-child(3) {
+                    &:nth-child(4) {
                         display: block;
                     }
                 }
@@ -392,7 +470,7 @@ export const Line = styled.div<Etapa>`
                         display: none;
                     }
                     
-                    &:nth-child(3) {
+                    &:nth-child(4) {
                         display: block;
                     }
                 }

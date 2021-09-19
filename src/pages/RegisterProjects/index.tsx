@@ -1,17 +1,24 @@
 import React, { useState, useEffect,  useCallback } from 'react';
+
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
+
 import { BoxProjeto } from '../components/RegisterProject/Projeto/styles';
 import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles';
 import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../components/RegisterProject/Datas/styles';
-import { BoxConfirm, SideContainer, ContentContainer, Box, TableConfirm } from "../test2/styles"
+
 import Button from '../components/Button';
+
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { HiDotsCircleHorizontal } from 'react-icons/hi';
+import { MdKeyboardArrowRight } from 'react-icons/md';
+
 import { Container, ContainerRegister, Info, Content, Line } from './styles';
+
 import { ContIcons } from '../components/MenuRight/styles';
 
 import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
@@ -107,11 +114,11 @@ const RegisterProjects: React.FC = () => {
   const { ref, ...rootProps } = getRootProps();
 
   // Trocar etapa
-  var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas", "boxConfirm"];
+  var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
   const [tela, setTela] = useState('');
 
   function trocarEtapa(etapa: string) {
-    for (var x = 0; x < 5; x++) {
+    for (var x = 0; x < 4; x++) {
       document.getElementById(etapas[x])!.style.display = "none";
     }
     document.getElementById(etapa)!.style.display = "block";
@@ -191,144 +198,165 @@ const RegisterProjects: React.FC = () => {
     return rowCC;
   }
 
+  function trocarTabela() {
+    const recebe = document.getElementById("tableOne")!.style.display;
+
+    if(recebe === 'block' || recebe === '') {
+      document.getElementById("tableTwo")!.style.display = "block";
+      document.getElementById("tableOne")!.style.display = "none";
+
+      document.getElementById("choose")!.style.marginLeft = "-55vw";
+      document.getElementById("choose")!.style.transform = "rotate(180deg)";
+  
+    } else {
+      document.getElementById("tableOne")!.style.display = "block";
+      document.getElementById("tableTwo")!.style.display = "none";
+
+      document.getElementById("choose")!.style.marginLeft = "54vw";
+      document.getElementById("choose")!.style.transform = "rotate(0deg)";
+    }
+  }
+
   return (
     <>
-      <Navbar />
-      <MenuLeft />
-      <Container>
-        <ContainerRegister>
-          <Info>
-            <h1>Cadastrar Projeto</h1>
-          </Info>
-          <Content>
-            <Line nome={tela}>
-              <div onClick={() => trocarEtapa("boxProjeto")}>
-                <p>Projeto</p>
-                <RiErrorWarningFill />
-                <IoIosCheckmarkCircle />
-              </div>
-              <div onClick={() => trocarEtapa("boxResponsavel")}>
-                <p>Responsáveis</p>
-                <RiErrorWarningFill />
-                <IoIosCheckmarkCircle />
-              </div>
-              <div onClick={() => trocarEtapa("boxDinheiro")}>
-                <p>R$</p>
-                <RiErrorWarningFill />
-                <IoIosCheckmarkCircle />
-              </div>
-              <div onClick={() => trocarEtapa("boxDatas")}>
-                <p>Datas</p>
-                <RiErrorWarningFill />
-                <IoIosCheckmarkCircle />
-              </div>
-            </Line>
-            <BoxProjeto id="boxProjeto">
-              <span>
-                <div>
-                  <label>Número do projeto:</label>
-                  <input type="number" id="numeroProjeto" />
+    <Navbar />
+    <MenuLeft />
+    <Container>
+      <ContainerRegister>
+        <Info>
+          <h1>Cadastrar Projeto</h1>
+        </Info>
+        <Content>
+          <Line nome={tela}>
+            <div onClick={() => trocarEtapa("boxProjeto")}>
+              <p>Projeto</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+            <div onClick={() => trocarEtapa("boxResponsavel")}>
+              <p>Responsáveis</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+            <div onClick={() => trocarEtapa("boxDinheiro")}>
+              <p>R$</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+            <div onClick={() => trocarEtapa("boxDatas")}>
+              <p>Datas</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+          </Line>
+          <BoxProjeto id="boxProjeto">
+            <span>
+              <div>
+                <label>Número do projeto:</label>
+                <input type="number" id="numeroProjeto" />
 
-                  <label>Título do projeto:</label>
-                  <input type="text" id="titulo" />
+                <label>Título do projeto:</label>
+                <input type="text" id="titulo" />
 
-                  <label>Descrição do projeto:</label>
-                  <textarea id="descricao" />
-                </div>
-                <div ref={ref}>
-                  <Paper elevation={0} {...rootProps}>
-                    <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
-                    <input {...getInputProps()} />
-                  </Paper>
-                  <span onClick={() => trocarEtapa("boxResponsavel")}>
-                    <Button tipo={"Projeto"} text={"Continuar"} />
-                  </span>
-                </div>
-              </span>
-            </BoxProjeto>
-            <BoxResponsavel id="boxResponsavel">
-              <span>
-                <div>
-                  <label>Nome do responsável:</label>
-                  <input type="text" id="nome_responsavel" />
+                <label>Descrição do projeto:</label>
+                <textarea id="descricao" />
+              </div>
+              <div ref={ref}>
+                <Paper elevation={0} {...rootProps}>
+                  <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                  <input {...getInputProps()} />
+                </Paper>
+              </div>
+            </span>
+          </BoxProjeto>
+          <BoxResponsavel id="boxResponsavel">
+            <span>
+              <div>
+                <label>Nome do responsável:</label>
+                <input type="text" id="nome_responsavel" />
 
-                  <label>Nome do solicitante:</label>
-                  <input type="text" id="nome_solicitante" />
-                </div>
-                <div>
-                  <label>Seção do responsável:</label>
-                  <input type="text" />
-                  <Button tipo={"Lupa"} text={""} />
+                <label>Nome do solicitante:</label>
+                <input type="text" id="nome_solicitante" />
+              </div>
+              <div>
+                <label>Seção do responsável:</label>
+                <input type="text" />
+                <Button tipo={"Lupa"} text={""} />
 
-                  <label>Seção do solicitante:</label>
-                  <input type="text" />
-                  <Button tipo={"Lupa"} text={""} />
-                  <span onClick={() => trocarEtapa("boxDinheiro")}>
-                    <Button tipo={"Responsavel"} text={"Continuar"} />
-                  </span>
+                <label>Seção do solicitante:</label>
+                <input type="text" />
+                <Button tipo={"Lupa"} text={""} />
+              </div>
+            </span>
+          </BoxResponsavel>
+
+
+          <BoxDinheiro id="boxDinheiro">
+            <form action="" method="post">
+
+              <Table id="tableOne">
+                <div id="first-table">
+                  <h1>Despesas (desembolsos)</h1>
+                  <h1>Esforço</h1>
+                  <h1>Valor (R$)</h1>
                 </div>
-              </span>
-            </BoxResponsavel>
-            <BoxDinheiro id="boxDinheiro">
-              <form action="" method="post">
-                <Table>
-                  <div id="first-table">
-                    <h1>Despesas (desembolsos)</h1>
-                    <h1>Esforço</h1>
-                    <h1>Valor (R$)</h1>
-                  </div>
-                  <div id="first-scroll">
-                    {rowDespesas.map(teste => teste)}
-                    <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
-                    <Total>
-                      <h2>TOTAL:</h2>
-                      <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
-                      <input id="totalValor" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
-                      <div onClick={() => deleteLastRowDP()}>TESTE</div>
-                    </Total>
-                  </div>
-                </Table>
-                <Table>
-                  <div id="second-table">
-                    <h1>Centro de Custo</h1>
-                    <h1>Responsável</h1>
-                    <h1>Percentual</h1>
-                    <h1>Valor (R$)</h1>
-                  </div>
-                  <div id="second-scroll">
-                    {rowCC.map(teste => teste)}
-                    <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
-                  </div>
-                  <div onClick={() => deleteLastRowCC()}>TESTE</div>
-                </Table>
-                <Button tipo={"Dinheiro"} text={"Continuar"} />
-              </form>
-            </BoxDinheiro>
-            <BoxDatas id="boxDatas">
-              <span>
-                <div>
-                  <label>Data de ínicio:</label>
-                  <label>Data de término:</label>
-                  <label>Data de aprovação:</label>
+                <div id="first-scroll">
+                  {rowDespesas.map(teste => teste)}
+                  <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
+                  <Total>
+                    <h2>TOTAL:</h2>
+                    <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
+                    <input id="totalValor" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
+                    <div onClick={() => deleteLastRowDP()}>TESTE</div>
+                  </Total>
                 </div>
-                <div>
-                  <input type="text" defaultValue="1/01/2001" id="data_de_inicio" />
-                  <input type="text" defaultValue="1/01/2001" id="data_de_termino" />
-                  <input type="text" defaultValue="1/01/2001" id="data_de_aprovacao" />
+              </Table>
+
+              <Table id="tableTwo">
+                <div id="second-table">
+                  <h1>Centro de Custo</h1>
+                  <h1>Responsável</h1>
+                  <h1>Percentual</h1>
+                  <h1>Valor (R$)</h1>
                 </div>
-                <div onClick={() => {setInfos() }}>   
-                 <Button tipo={"Datas"} text={"Continuar"} rota={"test2"}  teste={projeto}/>
+                <div id="second-scroll">
+                  {rowCC.map(teste => teste)}
+                  <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
                 </div>
-              </span>
-            </BoxDatas>
-            <SideContainer id="boxConfirm"></SideContainer>
-          </Content>
-        </ContainerRegister>
-      </Container>
-      <MenuRight>
-        <ContIcons />
-      </MenuRight>
+                <div onClick={() => deleteLastRowCC()}>TESTE</div>
+              </Table>
+              <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
+            </form>
+          </BoxDinheiro>
+
+
+          <BoxDatas id="boxDatas">
+            <span>
+              <div>
+                <label>Data de ínicio:</label>
+                <label>Data de término:</label>
+                <label>Data de aprovação:</label>
+              </div>
+              <div>
+                <input type="text" defaultValue="1/01/2001" id="data_de_inicio" />
+                <input type="text" defaultValue="1/01/2001" id="data_de_termino" />
+                <input type="text" defaultValue="1/01/2001" id="data_de_aprovacao" />
+              </div>
+            </span>
+          </BoxDatas>
+          <Button tipo={"continuarCadastro"} text={"Continuar"}/>
+        </Content>
+      </ContainerRegister>
+    </Container>
+    <MenuRight>
+      <ContIcons />
+    </MenuRight>
     </>
   );
 };
+
 export default RegisterProjects;

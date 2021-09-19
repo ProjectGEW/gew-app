@@ -84,6 +84,29 @@ export const ContainerFiltro = styled.div`
     div {
         display: flex;
         align-items: center;
+
+        &:nth-child(3) {
+            form {
+                button {
+                    border: 0;
+                    padding: 0.8vh;
+                    font-size: 2vh;
+                    margin-left: 0.3vw;
+                    border-radius: 0.8vh;
+                    background-color: rgba(212, 212, 212, 0.3);
+                    color: #575757;
+
+                    &:nth-child(1) {
+                        background-color: rgba(212, 212, 212, 0.7);
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: rgba(212, 212, 212, 0.5);
+                    }
+                }
+            }
+        }
         
         label {
             font-size: 2.6vh;
@@ -96,9 +119,7 @@ export const ContainerFiltro = styled.div`
             width: 12vw;
             padding: 0.5vh;
 
-            border-color: #ccc;
-
-            color: #00579D;
+            color: #575757;
             border: 0.2vh solid #c4c4c4;
         }
 

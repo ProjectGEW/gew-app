@@ -3,13 +3,40 @@ import styled from "styled-components";
 import Plus from '../../../../assets/plus.svg';
 
 export const BoxDinheiro = styled.div`
-    width: 80%;
+    width: 70%;
     height: 57vh;
 
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    #tableOne {
+        display: block;
+    }
+
+    #tableTwo {
+        display: none;
+    }
+
+    #choose {
+        width: 5vw;
+        height: auto;
+
+        color: #00579D;
+
+        position: absolute;
+        margin-top: 5vh;
+        margin-left: 54vw;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:active {
+            opacity: 0.8;
+        }
+    }
 
     form {
         display: flex;
@@ -57,7 +84,6 @@ export const BoxDinheiro = styled.div`
 
 export const Table = styled.div`
     width: 50vw;
-    margin-bottom: 4vh;
 
     svg {
         float: right;
@@ -96,7 +122,7 @@ export const Table = styled.div`
     }
 
     #first-scroll, #second-scroll {
-        max-height: 18vh;
+        max-height: 45vh;
 
         flex-direction: column;
         overflow: scroll;
@@ -151,7 +177,7 @@ export const Table = styled.div`
     &:nth-child(2) {
         div {
             h1 {
-                margin-right: 3vw;
+                margin-right: 2vw;
                 
                 &:nth-child(1) {
                     margin-left: 1.8vw;
@@ -226,21 +252,6 @@ export const Linha = styled.div`
             width: 10vw;
         }
     }
-
-    /*&::before {
-        content: '';
-        width: 1.2vw;
-        height: 3vh;
-        position: absolute;
-        
-        margin-top: 1vh;
-        margin-left: 50vw;
-
-        background-image: url(${Plus});
-        background-size: cover;
-        background-position: center;
-        cursor: pointer;
-    }*/
 `;
 
 export const Total = styled.div`
