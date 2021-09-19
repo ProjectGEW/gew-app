@@ -93,5 +93,14 @@
             "terceiro": "NOT RELEASED",
             "quarto": "APPROVED"
         }
+    },
+    "card_projetos": {
+        "saldo_um": "Expected balance:",
+        "saldo_dois": "Remaining balance:",
+        "data_um": "In:",
+        "data_dois": "Until:",
+        "status": "Status:",
+        "horas": "Hours",
+        "apontadas": "Pointed out"
     }
   }
