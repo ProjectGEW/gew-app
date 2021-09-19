@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
       document.getElementById("dropdownFlag")!.style.display = "none";
 
       document.getElementById("arrow")!.style.transform = "rotate(0deg)";
-    } else {
+    } else if(elemento !== "block") {
       document.getElementById("dropdownFlag")!.style.display = "block";
       document.getElementById("dropdownMenu")!.style.display = "none";
 
