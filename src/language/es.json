@@ -94,5 +94,14 @@
             "terceiro": "NO PUBLICADO",
             "quarto": "APROBADO"
         }
+    },
+    "card_projetos": {
+        "saldo_um": "Saldo esperado:",
+        "saldo_dois": "Balance restante:",
+        "data_um": "En:",
+        "data_dois": "Hasta que:",
+        "status": "Estado:",
+        "horas": "Horas",
+        "apontadas": "Señaló"
     }
   }
