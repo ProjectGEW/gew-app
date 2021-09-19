@@ -94,5 +94,14 @@
             "terceiro": "NON SORTI",
             "quarto": "APPROUVÉ"
         }
+    },
+    "card_projetos": {
+        "saldo_um": "Solde attendu :",
+        "saldo_dois": "Solde restant:",
+        "data_um": "Dans:",
+        "data_dois": "Jusqu'à:",
+        "status": "Statut:",
+        "horas": "Les heures",
+        "apontadas": "Souligné"
     }
   }
