@@ -24,6 +24,7 @@ export const BoxDinheiro = styled.div`
         height: auto;
 
         color: #00579D;
+        visibility: visible;
 
         position: absolute;
         margin-top: 5vh;
