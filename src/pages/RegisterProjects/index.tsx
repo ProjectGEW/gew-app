@@ -27,10 +27,6 @@ import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
 import Paper from "@material-ui/core/Paper";
 
 import { useDropzone } from "react-dropzone";
-import { IoDocumentOutline } from 'react-icons/io5';
-
-import {BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Test2 from '../test2';
 
 interface IProjeto {
   infosProjetosInputDTO?: {
@@ -90,10 +86,10 @@ const RegisterProjects: React.FC = () => {
 
   //Projeto
   const [projeto, setProjeto] = useState<IProjeto>();
-
+  console.log(projeto);
   // Ata
   const [file, setFile] = useState<object>();
-  // console.log(file);
+  console.log(file);
   const [fileName, setFileName] = useState();
 
   // Gerar linhas
@@ -131,7 +127,7 @@ const RegisterProjects: React.FC = () => {
     for (let i = 1; i <= rowDespesas.length; i++) {
       setSEsforco(sEsforco? sEsforco + parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value) : 0);
     }
-  }, []);
+  }, [rowDespesas.length, sEsforco]);
 
   async function setInfos(){
     initalValue.infosProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
