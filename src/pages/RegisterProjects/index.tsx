@@ -13,8 +13,8 @@ import Button from '../components/Button';
 
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
-import { AiFillPlusCircle } from 'react-icons/ai';
-import { HiDotsCircleHorizontal } from 'react-icons/hi';
+import { AiFillPlusCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
+import { HiDotsCircleHorizontal, HiMinusCircle } from 'react-icons/hi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 
 import { Container, ContainerRegister, Info, Content, Line } from './styles';
@@ -27,10 +27,9 @@ import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
 import Paper from "@material-ui/core/Paper";
 
 import { useDropzone } from "react-dropzone";
-import { IoDocumentOutline } from 'react-icons/io5';
 
-import {BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Test2 from '../test2';
+import { Box, BoxConfirm, ContentContainer, TableConfirm } from '../test2/styles';
+import { SideContainer } from '../RegisterConsultants/styles';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
@@ -46,18 +45,18 @@ interface IProjeto {
     data_de_aprovacao: string;    
   },
   despesaInputDTO?: IDespesas[],
-  ccPagantesInputDTO?: ICCpagantes[],
+  ccPagantesInputDTO?: ICCpagantes[]
 }
 
 interface IDespesas {
-  nome: string;
-  esforco: number;
-  valor: number;
+  nome?: string;
+  esforco?: number;
+  valor?: number;
 }
 
 interface ICCpagantes{
-  centro_de_custo_id: string;
-  valor: number;
+  centro_de_custo_id?: string;
+  valor?: number;
 }
 
 const RegisterProjects: React.FC = () => {
@@ -114,26 +113,44 @@ const RegisterProjects: React.FC = () => {
   });
 
   const { ref, ...rootProps } = getRootProps();
-
-  // Trocar etapa
+  // Trocar etapas
   var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
-  const [tela, setTela] = useState('');
 
-  function trocarEtapa(etapa: string) {
+  const [etapa, setEtapas] = useState('');
+
+  function trocarEtapa(proxEtapa: string) {
     for (var x = 0; x < 4; x++) {
       document.getElementById(etapas[x])!.style.display = "none";
     }
-    document.getElementById(etapa)!.style.display = "block";
-    setTela(etapa);
+    document.getElementById(proxEtapa)!.style.display = "block";
+    setEtapas(proxEtapa);
+  }
+
+  var setarEConfirmar = ["set-data", "confirm-data"];
+
+  function trocarMainEtapa(proxMainEtapa: string) {
+    for(let i = 0; i < setarEConfirmar.length; i ++) {
+      document.getElementById(setarEConfirmar[i])!.style.display = "none";
+    }
+    document.getElementById(proxMainEtapa)!.style.display = "flex";
   }
 
   const [sEsforco, setSEsforco] = useState<number>();
+  const [sValorDespesa, setValorDespesa] = useState<number>();
 
-  useEffect(() => {
+  var somaEsforco = 0;
+  var somaValorDespesa = 0;
+
+  function somaTotal() {
     for (let i = 1; i <= rowDespesas.length; i++) {
-      setSEsforco(sEsforco? sEsforco + parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value) : 0);
+      somaEsforco += parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value);
+      somaValorDespesa += parseInt((document.getElementById(`valor${i}`) as HTMLInputElement).value);
+
+      setSEsforco(somaEsforco);
+      setValorDespesa(somaValorDespesa);
     }
-  }, [rowDespesas.length, sEsforco]);
+  };
+
 
   async function setInfos(){
     initalValue.infosProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
@@ -167,9 +184,10 @@ const RegisterProjects: React.FC = () => {
     };
     
     setProjeto(initalValue);
+    somaTotal();
     return initalValue;
   }
-  
+
   function setNovaLinhaDP() {
     setRowDespesas(
       [...rowDespesas, 
@@ -241,13 +259,14 @@ const RegisterProjects: React.FC = () => {
     <>
     <Navbar />
     <MenuLeft />
-    <Container>
+    <Container id="set-data" >
       <ContainerRegister>
         <Info>
           <h1>Cadastrar Projeto</h1>
         </Info>
         <Content>
-          <Line nome={tela}>
+          
+          <Line nome={etapa}>
             <div onClick={() => trocarEtapa("boxProjeto")}>
               <p>Projeto</p>
               <RiErrorWarningFill />
@@ -369,10 +388,130 @@ const RegisterProjects: React.FC = () => {
             </span>
             <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
           </BoxDatas>
-          <Button tipo={"continuarCadastro"} text={"Continuar"}/>
+          <span onClick={() => {
+            trocarMainEtapa("confirm-data");
+            setInfos();
+          }}>
+            <Button tipo={"continuarCadastro"} text={"Continuar"}/>
+          </span>
         </Content>
       </ContainerRegister>
-    </Container>
+      </Container >
+      <BoxConfirm id="confirm-data"> 
+      <h1>Confirmar Informações</h1>
+            <SideContainer>
+                <ContentContainer>
+                    <div>
+                        <h3>Número do projeto:</h3>
+                        <h2>{projeto?.infosProjetosInputDTO?.numeroDoProjeto}</h2>
+                    </div>
+                </ContentContainer>
+                <Box>
+                    <div>
+                        <h3>Título do projeto:</h3>
+                        <h2>{projeto?.infosProjetosInputDTO?.titulo}</h2>
+                    </div>
+                </Box>
+                <Box>
+                    <div>
+                        <h3>Descrição do projeto:</h3>
+                        <h2>{projeto?.infosProjetosInputDTO?.descricao}</h2>
+                    </div>
+                </Box>
+                <ContentContainer>
+                    <div>
+                        <h3>Nome do responsável:</h3>
+                        <h2>{projeto?.infosProjetosInputDTO?.nome_responsavel.toUpperCase()}</h2>
+                    </div>
+                    <div>
+                        <h3>Seção do responsável:</h3>
+                        <h2>ABCDEFGHIJKLM</h2>
+                    </div>
+                </ContentContainer>
+                <ContentContainer>
+                    <div>
+                        <h3>Nome do solicitante:</h3>
+                        <h2>{projeto?.infosProjetosInputDTO?.nome_solicitante.toUpperCase()}</h2>
+                    </div>
+                    <div>
+                        <h3>Seção do solicitante:</h3>
+                        <h2>NOPQRSTUVWXYZ</h2>
+                    </div>
+                </ContentContainer>
+            </SideContainer>
+            <SideContainer>
+                <ContentContainer>
+                    <div>
+                        <h3>Valor total de despesas: </h3>
+                        <h2>R$ {sValorDespesa}</h2>
+                    </div>
+                    <div>
+                        <h3>Data de início:</h3>
+                        <h2>{projeto?.infosProjetosInputDTO?.data_de_inicio}</h2>
+                    </div>
+                </ContentContainer>
+                <ContentContainer>
+                    <div>
+                        <h3>Limite de horas aprovadas:</h3>
+                        <h2>{sEsforco}</h2>
+                    </div>
+                    <div>
+                        <h3>Data de término:</h3>
+                        <h2>{projeto?.infosProjetosInputDTO?.data_de_termino}</h2>
+                    </div>
+                </ContentContainer>
+                <ContentContainer>
+                    <div>
+                    </div>
+                    <div>
+                        <h3>Data de aprovação:</h3>
+                        <h2>{projeto?.infosProjetosInputDTO?.data_de_aprovacao}</h2>
+                    </div>
+                </ContentContainer>
+
+                <TableConfirm>
+                    <div>
+                        <p>Funcionários alocados</p>
+                        <AiOutlineUsergroupAdd />
+                    </div>    
+                    <ul>                    
+                        <li>
+                            <p>Heloise Stefany Bianchi</p>
+                            <HiMinusCircle />
+                        </li>
+                        <li>
+                            <p>Heloise Stefany Bianchi</p>
+                            <HiMinusCircle />
+                        </li>
+                        <li>
+                            <p>Heloise Stefany Bianchi</p>
+                            <HiMinusCircle />
+                        </li>
+                        <li>
+                            <p>Heloise Stefany Bianchi</p>
+                            <HiMinusCircle />
+                        </li>
+                        <li>
+                            <p>Heloise Stefany Bianchi</p>
+                            <HiMinusCircle />
+                        </li>
+                        <li>
+                            <p>Heloise Stefany Bianchi</p>
+                            <HiMinusCircle />
+                        </li>
+                        <li>
+                            <p>Heloise Stefany Bianchi</p>
+                            <HiMinusCircle />
+                        </li>
+                        <li>
+                            <p>Heloise Stefany Bianchi</p>
+                            <HiMinusCircle />
+                        </li>
+                    </ul>
+                </TableConfirm>
+            </SideContainer>
+            <Button  tipo={"Confirmar"} text={"Confirmar"} />
+    </BoxConfirm> 
     <MenuRight>
       <ContIcons />
     </MenuRight>

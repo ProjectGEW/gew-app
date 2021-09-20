@@ -6,7 +6,7 @@ export const BoxConfirm = styled.div`
     left: 12vw;
     width: 78vw;
     height: 80vh;
-    display: flex;
+    display: none;
 
     flex-direction: row;
 
