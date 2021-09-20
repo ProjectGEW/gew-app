@@ -16,9 +16,45 @@ export const BoxConfirm = styled.div`
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border-radius: 0.8vh;
 
+    #voltar {
+        position: absolute;
+        width: 4vw;
+        height: 4vh;
+        z-index: 2;
+        margin-top: 1.5vh;
+        color: #fff;
+    }
+
+    #grid {
+        position: absolute;
+        z-index: 2;
+        width: 12.6vw;
+        height: 3.4vh;
+
+        margin-top: 71.5vh;
+        margin-left: 4vw;
+        background-image: linear-gradient(to left, 
+            #64C3D5 15%, #fff 10%, #fff 19.3%,
+            #0091BD 19.3%, #0091BD 33%, #fff 30%, #fff 37%,
+            #005DA5 36%, #005DA5 50%, #fff 49%, #fff 54%,
+            #00579D 54%, #00579D 67%, #fff 65.1%, #fff 71%,
+            #0075B1 71%, #0075B1 84%, #fff 80%, #fff 88%,
+            #6AACDA 10%, #6AACDA 100%);
+
+        &::before {
+            content: '';
+            width: 46vw;
+            height: 0.1vh;
+            background-color: #00579D;
+            position: absolute;
+            margin: 3vh 0 0 14vw;    
+            opacity: 0.4;
+        }
+    }
+
     h1 {
         color: white;
-        margin-left: 1vw;
+        margin-left: 3.5vw;
         font-size: 3.6vh;
         position: absolute;
         top: 1.7vh;
@@ -40,7 +76,6 @@ export const SideContainer = styled.div`
     height: 80%;
     margin-top: 8vh;
     padding-left: 4vw;
-
 
     &:last-child {
         margin-right: 1%;
@@ -174,13 +209,13 @@ export const TableConfirm = styled.div`
             height: 4vh;
             list-style-type: none;
             border: 0.01vh solid #A5A5A5;
-            border-style: solid none none none;
+            border-style: none none solid none;
 
             &:last-child {
                 border-style: solid none solid none;
             }
 
-            p   {
+            p {
                 font-size: 2.05vh; 
                 margin: 0.75vh 0 0 2vh;
                 color: #787676;
