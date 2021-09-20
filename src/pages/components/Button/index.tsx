@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {BrowserRouter as Router, Route } from "react-router-dom";
 import Test2 from "../../test2";
 
 import { Container } from "./style";
@@ -49,7 +49,7 @@ const Button: React.FC<buttonProps> = ({text, rota, tipo, numeroProjeto, teste})
           return;
         }
 
-        if(tipo == "Datas") {
+        if(tipo === "Datas") {
             <Router>
               <Route
               // exact 

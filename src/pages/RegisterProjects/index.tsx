@@ -30,6 +30,8 @@ import { useDropzone } from "react-dropzone";
 
 import { Box, BoxConfirm, ContentContainer, TableConfirm } from '../test2/styles';
 import { SideContainer } from '../RegisterConsultants/styles';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 interface IProjeto {
   infosProjetosInputDTO?: {
@@ -89,10 +91,10 @@ const RegisterProjects: React.FC = () => {
 
   //Projeto
   const [projeto, setProjeto] = useState<IProjeto>();
-
+  console.log(projeto);
   // Ata
   const [file, setFile] = useState<object>();
-  // console.log(file);
+  console.log(file);
   const [fileName, setFileName] = useState();
 
   // Gerar linhas
@@ -235,6 +237,24 @@ const RegisterProjects: React.FC = () => {
     }
   }
 
+  const [value, onChange] = useState(new Date());
+  const [selected, setSelected] = useState<string>();
+  const [dataInicio, setDataInicio] = useState<string>();
+  const [dataFim, setDataFim] = useState<string>();
+  const [dataAprovacao, setDataAprovacao] = useState<string>();
+
+  function setData(value: Date) {
+      const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+      if (selected === "inicio") {
+          setDataInicio(dataFormat);
+      } else if (selected === "fim") {
+          setDataFim(dataFormat);
+      } else if (selected === "aprovacao") {
+          setDataAprovacao(dataFormat);
+      }
+      console.log(value);
+  }
+
   return (
     <>
     <Navbar />
@@ -354,18 +374,19 @@ const RegisterProjects: React.FC = () => {
 
 
           <BoxDatas id="boxDatas">
-            <span>
-              <div>
+            <span className="spanDatas">
+              <div className="divDatas">
                 <label>Data de ínicio:</label>
                 <label>Data de término:</label>
                 <label>Data de aprovação:</label>
               </div>
-              <div>
-                <input type="text" defaultValue="1/01/2001" id="data_de_inicio" />
-                <input type="text" defaultValue="1/01/2001" id="data_de_termino" />
-                <input type="text" defaultValue="1/01/2001" id="data_de_aprovacao" />
+              <div className="divDatas">
+                <input type="text" value={dataInicio} onClick={() => {setSelected("inicio")}} />
+                <input type="text" value={dataFim} onClick={() => {setSelected("fim")}} />
+                <input type="text" value={dataAprovacao} onClick={() => {setSelected("aprovacao")}} />
               </div>
             </span>
+            <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
           </BoxDatas>
           <span onClick={() => {
             trocarMainEtapa("confirm-data");

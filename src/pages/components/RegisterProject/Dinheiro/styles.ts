@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import Plus from '../../../../assets/plus.svg';
-
 export const BoxDinheiro = styled.div`
     width: 70%;
     height: 57vh;

@@ -9,9 +9,9 @@ export const BoxDatas = styled.div`
     justify-content: flex-start;
     flex-direction: column;
 
-    span {
+    .spanDatas {
         width: 100%;
-        height: 20vh;
+        height: 10vh;
 
         display: flex;
         align-items: center;
@@ -19,7 +19,7 @@ export const BoxDatas = styled.div`
         justify-content: center;
     }
 
-    div {
+    .divDatas {
         width: 70%;
         
         display: flex;
@@ -32,7 +32,7 @@ export const BoxDatas = styled.div`
             font-size: 2.6vh;
             font-weight: bold;
 
-            margin-bottom: 1vh;
+            margin-bottom: 0.5vh;
             text-align: left;
 
             &:last-child {
@@ -43,7 +43,7 @@ export const BoxDatas = styled.div`
         input {
             width: 13vw;
             height: 5vh;
-            margin-bottom: 3vh;
+            margin-bottom: 0.5vh;
 
             border-radius: 0.4vh;
             border: 0px;
@@ -52,6 +52,21 @@ export const BoxDatas = styled.div`
             background-color: rgb(181, 181, 181, 0.6);
             box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
             color: #5E5E5E;
+        }
+    }
+
+    .calendario {
+        margin-left: 18.5vw;
+        margin-top: 3vh;
+
+        .react-calendar__navigation {
+            height: 20px;
+            margin-bottom: 0.2em;
+            margin-top: 0.2em;
+        }
+
+        .react-calendar__month-view__weekdays {
+            font-size: 0.7em;
         }
     }
 `;
