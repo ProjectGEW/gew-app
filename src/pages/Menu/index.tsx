@@ -63,6 +63,11 @@ const Menu: React.FC = () => {
         locales
     });
 
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+
     const [counts, setCounts] = useState<Count>();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
     const today = new Date();
@@ -71,12 +76,12 @@ const Menu: React.FC = () => {
 
     window.onload = async function handleData(): Promise<void> {
         try {
-            const response = await api.get<Count>(`projetos/count`);
+            const response = await api.get<Count>(`projetos/count`, config);
             const contagem = response.data;
 
             setCounts(contagem);
 
-            const response_perData = await api.get<CountPerData[]>(`projetos/count/${today_string}`);
+            const response_perData = await api.get<CountPerData[]>(`projetos/count/${today_string}`, config);
             const contagem_perData = response_perData.data;
 
             setCountsPerData(contagem_perData);
