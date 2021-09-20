@@ -57,11 +57,16 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
         locales
     });
 
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+
     const [project, setProject] = useState<CardContent>();
     const [status, setStatus] = useState('');
     
     useEffect(() => {
-      api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
+      api.get<CardContent>(`/projetos/${numeroDoProjeto}`, config).then((response => {
             setProject(response.data);
             setStatus(response.data.infoprojetoDTO.status);
       }))
