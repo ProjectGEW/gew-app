@@ -67,13 +67,18 @@ const Dashboard: React.FC = () => {
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
 
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+
     console.log(project);
     console.log(projetos);
 
     useEffect(() => {
         if(id === undefined) {
             window.onload = async function handleProjetos() {
-                const response = await api.get<IProjetoProps[]>("projetos");
+                const response = await api.get<IProjetoProps[]>("projetos", config);
                 const data = response.data;
 
                 setProjetos(data);
@@ -137,7 +142,7 @@ const Dashboard: React.FC = () => {
         event.preventDefault();
 
         try {
-            const response = await api.get<IProjetoProps[]>(status);
+            const response = await api.get<IProjetoProps[]>(status, config);
             const data = response.data;
 
             setTimeout(function() {
