@@ -51,18 +51,23 @@ interface CardContent {
 }
 
 const Details: React.FC = () => {
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+    
     const { id }: {id: string}  = useParams();
     const [project, setProject] = useState<CardContent>();
     const [ata, setAta] = useState<string>();
 
     useEffect(() => {
-        api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
+        api.get<CardContent>(`/projetos/${id ? id : null}`, config).then((response => {
           setProject(response.data);
         }))
     }, [id]);
 
     useEffect(() => {
-        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {
+        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`, config).then((response) => {
             setAta(response.data);
         }
     )});
