@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -14,7 +14,7 @@ import Button from '../components/Button';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { AiFillPlusCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
-import { HiDotsCircleHorizontal, HiMinusCircle } from 'react-icons/hi';
+import { HiDotsCircleHorizontal, HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 
 import { Container, ContainerRegister, Info, Content, Line } from './styles';
@@ -390,7 +390,7 @@ const RegisterProjects: React.FC = () => {
           </BoxDatas>
           <span onClick={() => {
             trocarMainEtapa("confirm-data");
-            setInfos();
+            //setInfos(); ta dando erro nessa função aq, vc deu o git push mas n pegou as atualizações q eu fiz antes
           }}>
             <Button tipo={"continuarCadastro"} text={"Continuar"}/>
           </span>
@@ -399,118 +399,136 @@ const RegisterProjects: React.FC = () => {
       </Container >
       <BoxConfirm id="confirm-data"> 
       <h1>Confirmar Informações</h1>
-            <SideContainer>
-                <ContentContainer>
-                    <div>
-                        <h3>Número do projeto:</h3>
-                        <h2>{projeto?.infosProjetosInputDTO?.numeroDoProjeto}</h2>
-                    </div>
-                </ContentContainer>
-                <Box>
-                    <div>
-                        <h3>Título do projeto:</h3>
-                        <h2>{projeto?.infosProjetosInputDTO?.titulo}</h2>
-                    </div>
-                </Box>
-                <Box>
-                    <div>
-                        <h3>Descrição do projeto:</h3>
-                        <h2>{projeto?.infosProjetosInputDTO?.descricao}</h2>
-                    </div>
-                </Box>
-                <ContentContainer>
-                    <div>
-                        <h3>Nome do responsável:</h3>
-                        <h2>{projeto?.infosProjetosInputDTO?.nome_responsavel.toUpperCase()}</h2>
-                    </div>
-                    <div>
-                        <h3>Seção do responsável:</h3>
-                        <h2>ABCDEFGHIJKLM</h2>
-                    </div>
-                </ContentContainer>
-                <ContentContainer>
-                    <div>
-                        <h3>Nome do solicitante:</h3>
-                        <h2>{projeto?.infosProjetosInputDTO?.nome_solicitante.toUpperCase()}</h2>
-                    </div>
-                    <div>
-                        <h3>Seção do solicitante:</h3>
-                        <h2>NOPQRSTUVWXYZ</h2>
-                    </div>
-                </ContentContainer>
-            </SideContainer>
-            <SideContainer>
-                <ContentContainer>
-                    <div>
-                        <h3>Valor total de despesas: </h3>
-                        <h2>R$ {sValorDespesa}</h2>
-                    </div>
-                    <div>
-                        <h3>Data de início:</h3>
-                        <h2>{projeto?.infosProjetosInputDTO?.data_de_inicio}</h2>
-                    </div>
-                </ContentContainer>
-                <ContentContainer>
-                    <div>
-                        <h3>Limite de horas aprovadas:</h3>
-                        <h2>{sEsforco}</h2>
-                    </div>
-                    <div>
-                        <h3>Data de término:</h3>
-                        <h2>{projeto?.infosProjetosInputDTO?.data_de_termino}</h2>
-                    </div>
-                </ContentContainer>
-                <ContentContainer>
-                    <div>
-                    </div>
-                    <div>
-                        <h3>Data de aprovação:</h3>
-                        <h2>{projeto?.infosProjetosInputDTO?.data_de_aprovacao}</h2>
-                    </div>
-                </ContentContainer>
+        <SideContainer>
+          <ContentContainer>
+            <div>
+              <h3>Número do projeto:</h3>
+              <h2>1000025562</h2>
+            </div>
+            <div>
+              <h3>Ata da aprovação:</h3>
+              <h2>1000025562</h2>
+            </div>
+          </ContentContainer>
+          <Box>
+            <div>
+              <h3>Título do projeto:</h3>
+              <h2>WEC - IMPLANTAÇÃO DE EDI CLIENTE XYZ</h2>
+            </div>
+          </Box>
+          <Box>
+            <div>
+              <h3>Descrição do projeto:</h3>
+              <h2>IMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃO</h2>
+            </div>
+          </Box>
+          <ContentContainer>
+            <div>
+              <h3>Nome do responsável:</h3>
+              <h2>ANDRÉ CARLOS DA SILVA</h2>
+            </div>
+            <div>
+              <h3>Seção do responsável:</h3>
+              <h2>ABCDEFGHIJKLM</h2>
+            </div>
+          </ContentContainer>
+          <ContentContainer>
+            <div>
+              <h3>Nome do solicitante:</h3>
+              <h2>DIEGO CANVAS DE SOUZA</h2>
+            </div>
+            <div>
+              <h3>Seção do solicitante:</h3>
+              <h2>NOPQRSTUVWXYZ</h2>
+            </div>
+          </ContentContainer>
+          <ContentContainer>
+            <div>
+              <h3>Nome do aprovador:</h3>
+              <h2>JOSÉ RICARDO</h2>
+            </div>
+            <div>
+              <h3>Seção do aprovador:</h3>
+              <h2>ABCDESKAKSSKAS</h2>
+            </div>
+          </ContentContainer>
+        </SideContainer>
+        <SideContainer>
+          <ContentContainer>
+            <div>
+              <h3>Centro de custo:</h3>
+              <h2>R$ 00,00</h2>
+            </div>
+            <div>
+              <h3>Data de início:</h3>
+              <h2>00/00/0000</h2>
+            </div>
+          </ContentContainer>
+          <ContentContainer>
+            <div>
+              <h3>Percentual aprovado:</h3>
+              <h2>R$ 00,00</h2>
+            </div>
+            <div>
+              <h3>Data de término:</h3>
+                <h2>00/00/0000</h2>
+            </div>
+          </ContentContainer>
+          <ContentContainer>
+            <div>
+              <h3>Limite de horas aprovadas:</h3>
+              <h2>00:00</h2>
+            </div>
+            <div>
+              <h3>Data de aprovação:</h3>
+              <h2>00/00/0000</h2>
+            </div>
+          </ContentContainer>
 
-                <TableConfirm>
-                    <div>
-                        <p>Funcionários alocados</p>
-                        <AiOutlineUsergroupAdd />
-                    </div>    
-                    <ul>                    
-                        <li>
-                            <p>Heloise Stefany Bianchi</p>
-                            <HiMinusCircle />
-                        </li>
-                        <li>
-                            <p>Heloise Stefany Bianchi</p>
-                            <HiMinusCircle />
-                        </li>
-                        <li>
-                            <p>Heloise Stefany Bianchi</p>
-                            <HiMinusCircle />
-                        </li>
-                        <li>
-                            <p>Heloise Stefany Bianchi</p>
-                            <HiMinusCircle />
-                        </li>
-                        <li>
-                            <p>Heloise Stefany Bianchi</p>
-                            <HiMinusCircle />
-                        </li>
-                        <li>
-                            <p>Heloise Stefany Bianchi</p>
-                            <HiMinusCircle />
-                        </li>
-                        <li>
-                            <p>Heloise Stefany Bianchi</p>
-                            <HiMinusCircle />
-                        </li>
-                        <li>
-                            <p>Heloise Stefany Bianchi</p>
-                            <HiMinusCircle />
-                        </li>
-                    </ul>
-                </TableConfirm>
-            </SideContainer>
-            <Button  tipo={"Confirmar"} text={"Confirmar"} />
+          <TableConfirm>
+            <div>
+              <p>Funcionários alocados</p>
+              <AiOutlineUsergroupAdd />
+            </div>    
+            <ul>                    
+              <li>
+                <p>Heloise Stefany Bianchi</p>
+                <HiMinusCircle />
+              </li>
+              <li>
+                <p>Heloise Stefany Bianchi</p>
+                <HiMinusCircle />
+              </li>
+              <li>
+                <p>Heloise Stefany Bianchi</p>
+                <HiMinusCircle />
+              </li>
+              <li>
+                <p>Heloise Stefany Bianchi</p>
+                <HiMinusCircle />
+              </li>
+              <li>
+                <p>Heloise Stefany Bianchi</p>
+                <HiMinusCircle />
+              </li>
+              <li>
+                <p>Heloise Stefany Bianchi</p>
+                <HiMinusCircle />
+              </li>
+              <li>
+                <p>Heloise Stefany Bianchi</p>
+                <HiMinusCircle />
+              </li>
+              <li>
+                <p>Heloise Stefany Bianchi</p>
+                <HiMinusCircle />
+              </li>
+            </ul>
+          </TableConfirm>
+        </SideContainer>
+        <HiArrowNarrowLeft id="voltar" />
+        <span id="grid" />
+        <Button  tipo={"Confirmar"} text={"Confirmar"} />
     </BoxConfirm> 
     <MenuRight>
       <ContIcons />
