@@ -7,9 +7,6 @@ import { ContIcons } from '../../components/MenuRight/styles';
 
 import { Container, Arrow, Tittle, Table, TableDimensions, TableScroll } from './style';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
-import Button from '../../components/Button';
-
-
 
 const ConsultantList: React.FC = () => {
 
