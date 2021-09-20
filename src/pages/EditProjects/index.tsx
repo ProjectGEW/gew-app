@@ -65,6 +65,7 @@ const EditProjects: React.FC = () => {
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
     //const [nomeProjeto, setNomeProjeto] = useState('');
+    console.log(projetos);
 
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');
