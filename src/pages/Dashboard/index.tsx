@@ -4,8 +4,6 @@ import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
-import { AiFillEye } from "react-icons/ai";
-
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph, GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
@@ -66,7 +64,6 @@ const Dashboard: React.FC = () => {
     const { id }: {id: string}  = useParams();
 
     const [status, setStatus] = useState('');
-    const [moeda, setMoeda] = useState('BRL');
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
 
