@@ -38,6 +38,11 @@ interface Fornecedor {
 const RegisterConsultants: React.FC = () => {
     const [suppliers, setSuppliers] = useState<Fornecedor[]>([]);
 
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+
     const formatCpf= () => {
         var ao_cpf = (document.getElementById("cpf") as HTMLInputElement).value;
 
@@ -100,11 +105,11 @@ const RegisterConsultants: React.FC = () => {
             nome_fornecedor: nome_fornecedor
         };
 
-        await api.post(`funcionarios/consultor`, consultor);
+        await api.post(`funcionarios/consultor`, consultor, config);
     }, []);
 
     useEffect(() => {
-        api.get("fornecedores").then((response) => {
+        api.get("fornecedores", config).then((response) => {
             setSuppliers(response.data);
         })
     });
