@@ -63,17 +63,22 @@ const Projects: React.FC = () => {
         locales
     });
 
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
     //const [nomeProjeto, setNomeProjeto] = useState('');
 
     window.onload = async function handleProjetos() {
-        const response = await api.get<IProjetoProps[]>('projetos');
+        const response = await api.get<IProjetoProps[]>('projetos', config);
         const data = response.data;
         setProjetos(data);
 
-        const responseSecao = await api.get<ISecoes[]>('secoes');
+        const responseSecao = await api.get<ISecoes[]>('secoes', config);
         const dataSecao = responseSecao.data;
         setSecoes(dataSecao);
     }
@@ -122,7 +127,7 @@ const Projects: React.FC = () => {
             } else if(statusteste !== 'Todos') {
                 resultado = `projetos/` + statusteste + `/` + selectedOption;
             }
-            const response = await api.get<IProjetoProps[]>(resultado);
+            const response = await api.get<IProjetoProps[]>(resultado, config);
             const data = response.data;
             setProjetos(data);  
 
@@ -132,7 +137,7 @@ const Projects: React.FC = () => {
             } else if(statusteste !== 'Todos') {
                 resultado = `projetos/` + statusteste + `/Todos`;       
             }     
-            const response = await api.get<IProjetoProps[]>(resultado);
+            const response = await api.get<IProjetoProps[]>(resultado, config);
             const data = response.data;
             setProjetos(data);       
         }
@@ -151,7 +156,7 @@ const Projects: React.FC = () => {
             } else if(status !== '') {
                 resultado = `projetos/` + status + `/` + value;
             }  
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado, config);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
 
@@ -161,7 +166,7 @@ const Projects: React.FC = () => {
             } else if(status !== '') {
                 resultado = `projetos/` + status + `/Todos`;
             }  
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado, config);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
         }
