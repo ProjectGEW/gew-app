@@ -106,7 +106,7 @@ const Dashboard: React.FC = () => {
 
     const toggleModal = () => {
         setIsModalVisible(wasModalVisible => !wasModalVisible)
-    }
+    } 
 
     async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
