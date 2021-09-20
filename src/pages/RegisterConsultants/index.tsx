@@ -189,11 +189,9 @@ const RegisterConsultants: React.FC = () => {
                         </select>
                     </div>
                 </SupplierData>
-
                 <button id="enviarDados" onClick={setConsultorInfos}>
                     Cadastrar
-                </button>
-                
+                </button>              
             </SideContainer>
             <Footer tipo={"register_consultants"}>
                     

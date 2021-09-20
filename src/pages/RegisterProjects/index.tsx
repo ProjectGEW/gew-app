@@ -390,7 +390,7 @@ const RegisterProjects: React.FC = () => {
           </BoxDatas>
           <span onClick={() => {
             trocarMainEtapa("confirm-data");
-            //setInfos(); ta dando erro nessa função aq, vc deu o git push mas n pegou as atualizações q eu fiz antes
+            //setInfos(); ta dando erro nessa função aq
           }}>
             <Button tipo={"continuarCadastro"} text={"Continuar"}/>
           </span>
