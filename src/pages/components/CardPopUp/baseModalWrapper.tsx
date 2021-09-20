@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Modal from './Modal';
 import Button from '../Button';
@@ -61,7 +61,6 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     
     const [project, setProject] = useState<CardContent>();
     const [ata, setAta] = useState<string>();
-    const [visible, setVisible] = useState(isModalVisible);
     
     useEffect(() => {
         api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
@@ -75,9 +74,9 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         }
     )});
 
-    const closePopUp = () => {
+    /*const closePopUp = () => {
         setVisible(!visible);
-    }
+    }*/
 
     if (!isModalVisible) {
         return null;
