@@ -15,53 +15,64 @@ import api from "../../service/api";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-
 const Projects: React.FC = () => {
-    const [file, setFile] = useState<Blob>();
-    const [downloadUri, setDownloadUri] = useState();
+    // const [file, setFile] = useState<Blob>();
+    // const [downloadUri, setDownloadUri] = useState();
 
-    const onDrop = useCallback((acceptedFiles) => {
-        console.log(acceptedFiles);
-        setFile(acceptedFiles[0]);
-    }, [])
+    // const onDrop = useCallback((acceptedFiles) => {
+    //     console.log(acceptedFiles);
+    //     setFile(acceptedFiles[0]);
+    // }, [])
 
-    const {getRootProps, getInputProps} = useDropzone({
-        multiple: false, 
-        onDropAccepted: onDrop,
-    });
+    // const {getRootProps, getInputProps} = useDropzone({
+    //     multiple: false, 
+    //     onDropAccepted: onDrop,
+    // });
 
-    const {ref, ...rootProps} = getRootProps();
+    // const {ref, ...rootProps} = getRootProps();
 
-    const uploadFile = async () => {
-        try {
-            const formData = new FormData();
+    // const uploadFile = async () => {
+    //     try {
+    //         const formData = new FormData();
 
-            formData.append("file", file ? file : "");
+    //         formData.append("file", file ? file : "");
 
-            const response = await api.post(`files/upload/2`, formData);
+    //         const response = await api.post(`files/upload/2`, formData);
 
-            setDownloadUri(response.data.fileDownloadUri);
-        } catch(err: any) {
-            alert(err.message);
-        }
-    }
+    //         setDownloadUri(response.data.fileDownloadUri);
+    //     } catch(err: any) {
+    //         alert(err.message);
+    //     }
+    // }
 
-    const downloadFile = async () => {
-        window.open(downloadUri);
-    }
+    // const downloadFile = async () => {
+    //     window.open(downloadUri);
+    // }
 
-    async function apontarHoras() {
-        const input = (document.getElementById("horas") as HTMLInputElement).value;
+    // async function apontarHoras() {
+    //     const input = (document.getElementById("horas") as HTMLInputElement).value;
 
-        const horas = parseInt(input);
+    //     const horas = parseInt(input);
 
-        await api.put(`projetos/horas/182210`, {horas: horas});
-    }
+    //     await api.put(`projetos/horas/182210`, {horas: horas});
+    // }
 
     const [value, onChange] = useState(new Date());
+    const [selected, setSelected] = useState<string>();
+    const [dataInicio, setDataInicio] = useState<string>();
+    const [dataFim, setDataFim] = useState<string>();
+    const [dataAprovacao, setDataAprovacao] = useState<string>();
 
-    function teste() {
-        alert(value);
+    function setData(value: Date) {
+        const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+        if (selected === "inicio") {
+            setDataInicio(dataFormat);
+        } else if (selected === "fim") {
+            setDataFim(dataFormat);
+        } else if (selected === "aprovacao") {
+            setDataAprovacao(dataFormat);
+        }
+        console.log(value);
     }
     
     return (
@@ -71,30 +82,22 @@ const Projects: React.FC = () => {
 
         <Container>
             <BoxDatas>
-                <form>
                     <div>
                         <label>Data de ínicio:</label>
                         <label>Data de término:</label>
                         <label>Data de aprovação:</label>
                     </div>
                     <div>
-                        <input type="text" />
-                        <button onClick={teste}>lupa</button>
-                        <input type="text" />
-                        <button onClick={teste}>lupa</button>
-                        <input type="text" />
-                        <button onClick={teste}>lupa</button>
+                        <input type="text" value={dataInicio} onClick={() => {setSelected("inicio")}} />
+                        <input type="text" value={dataFim} onClick={() => {setSelected("fim")}} />
+                        <input type="text" value={dataAprovacao} onClick={() => {setSelected("aprovacao")}} />
                     </div>
                     <div>
                         <button>Continuar</button>
                     </div>
-                </form>
             </BoxDatas>
+            <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
             <div>
-                <Calendar
-                    onChange={onChange}
-                    value={value}  
-                />
             </div>
         </Container>
         <MenuRight>
