@@ -74,11 +74,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         }
     )});
 
-    /*const closePopUp = () => {
-        setVisible(!visible);
-    }*/
-
-    if (!isModalVisible) {
+    if(!isModalVisible) {
         return null;
     }
 
