@@ -1,5 +1,4 @@
 import React from "react";
-import { string } from "yup/lib/locale";
 
 import { FooterForm } from "./style";
 

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import Lupa from '../../assets/lupa-graph.svg';
-import Choose from '../../assets/choose.svg';
 
 export const Container = styled.div`
     position: absolute;

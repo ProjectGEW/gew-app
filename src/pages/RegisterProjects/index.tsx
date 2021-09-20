@@ -92,10 +92,10 @@ const RegisterProjects: React.FC = () => {
 
   //Projeto
   const [projeto, setProjeto] = useState<IProjeto>();
-
+  console.log(projeto);
   // Ata
   const [file, setFile] = useState<object>();
-  // console.log(file);
+  console.log(file);
   const [fileName, setFileName] = useState();
 
   // Gerar linhas
@@ -133,7 +133,7 @@ const RegisterProjects: React.FC = () => {
     for (let i = 1; i <= rowDespesas.length; i++) {
       setSEsforco(sEsforco? sEsforco + parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value) : 0);
     }
-  }, []);
+  }, [rowDespesas.length, sEsforco]);
 
   async function setInfos(){
     initalValue.infosProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);

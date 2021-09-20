@@ -4,7 +4,8 @@ import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
-import { HiMinusCircle } from 'react-icons/hi';
+import { HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
+
 import Button from '../components/Button';
 
 import { ContIcons } from '../components/MenuRight/styles';
@@ -173,6 +174,8 @@ const Test2: React.FC<IProjeto> = (teste) => {
                         </ul>
                     </TableConfirm>
                 </SideContainer>
+                <HiArrowNarrowLeft id="voltar" />
+                <span id="grid" />
                 <Button  tipo={"Confirmar"} text={"Confirmar"} />
             </BoxConfirm>
 
