@@ -23,6 +23,15 @@ export const BoxConfirm = styled.div`
         z-index: 2;
         margin-top: 1.5vh;
         color: #fff;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        &:active {
+            opacity: 0.8;
+        }
     }
 
     #grid {
