@@ -135,7 +135,29 @@ const Dashboard: React.FC = () => {
     }
 
     function defineStatus(valor: string) {
-        setStatus(valor);
+
+        var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
+
+        for(var x = 0; x < btns.length; x++) {
+            document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
+        }
+
+        if(valor === "projetos") {
+            setStatus('');
+            document.getElementById(valor)!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+        } else {
+            setStatus(valor);
+
+            if(valor === "concluidos") {
+                document.getElementById(valor)!.style.backgroundColor = "#adffb0";
+            } else if(valor === "atrasados") {
+                document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
+            } else if(valor === "em_andamento") {
+                document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
+            } else if(valor === "Todos") {
+                document.getElementById(valor)!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+            }
+        }        
     }
 
     async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
@@ -198,20 +220,20 @@ const Dashboard: React.FC = () => {
                             <div>
                                 <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
                                 <form onSubmit={filtraPorStatus}>
-                                    <button type="submit" 
-                                        onClick={() => defineStatus("projetos")}>
+                                    <button type="submit" id="Todos" className="0"
+                                        onClick={() => defineStatus('')}>
                                         {intl.get('tela_projetos.filtros.options.todos')}
                                     </button>
-                                    <button type="submit" 
-                                        onClick={() => defineStatus("projetos/em_andamento")}>
+                                    <button type="submit" id="em_andamento" className="1"
+                                        onClick={() => defineStatus('em_andamento')}>
                                         {intl.get('tela_projetos.filtros.options.emandamento')}
                                     </button>
-                                    <button type="submit" 
-                                        onClick={() => defineStatus("projetos/atrasados")}>
+                                    <button type="submit" id="atrasados" className="2"
+                                        onClick={() => defineStatus('atrasados')}>
                                         {intl.get('tela_projetos.filtros.options.atrasado')}
                                     </button>
-                                    <button type="submit" 
-                                        onClick={() => defineStatus("projetos/concluidos")}>
+                                    <button type="submit" id="concluidos" className="3"
+                                        onClick={() => defineStatus('concluidos')}>
                                         {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
                                 </form>
