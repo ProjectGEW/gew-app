@@ -61,13 +61,13 @@ const Details: React.FC = () => {
     const [ata, setAta] = useState<string>();
 
     useEffect(() => {
-        api.get<CardContent>(`/projetos/${id ? id : null}`, config).then((response => {
+        api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
           setProject(response.data);
         }))
     }, [id]);
 
     useEffect(() => {
-        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`, config).then((response) => {
+        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {
             setAta(response.data);
         }
     )});

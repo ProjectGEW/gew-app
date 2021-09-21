@@ -78,7 +78,7 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         if(id === undefined) {
             window.onload = async function handleProjetos() {
-                const response = await api.get<IProjetoProps[]>("projetos", config);
+                const response = await api.get<IProjetoProps[]>("projetos");
                 const data = response.data;
 
                 setProjetos(data);

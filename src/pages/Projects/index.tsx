@@ -127,7 +127,7 @@ const Projects: React.FC = () => {
             } else if(statusteste !== 'Todos') {
                 resultado = `projetos/` + statusteste + `/` + selectedOption;
             }
-            const response = await api.get<IProjetoProps[]>(resultado, config);
+            const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
             setProjetos(data);  
 
@@ -137,7 +137,7 @@ const Projects: React.FC = () => {
             } else if(statusteste !== 'Todos') {
                 resultado = `projetos/` + statusteste + `/Todos`;       
             }     
-            const response = await api.get<IProjetoProps[]>(resultado, config);
+            const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
             setProjetos(data);       
         }
@@ -156,7 +156,7 @@ const Projects: React.FC = () => {
             } else if(status !== '') {
                 resultado = `projetos/` + status + `/` + value;
             }  
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado, config);
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
 
@@ -166,7 +166,7 @@ const Projects: React.FC = () => {
             } else if(status !== '') {
                 resultado = `projetos/` + status + `/Todos`;
             }  
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado, config);
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
         }

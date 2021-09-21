@@ -66,7 +66,7 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
     const [status, setStatus] = useState('');
     
     useEffect(() => {
-      api.get<CardContent>(`/projetos/${numeroDoProjeto}`, config).then((response => {
+      api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
             setProject(response.data);
             setStatus(response.data.infoprojetoDTO.status);
       }))

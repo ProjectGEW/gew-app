@@ -81,7 +81,7 @@ const Menu: React.FC = () => {
 
             setCounts(contagem);
 
-            const response_perData = await api.get<CountPerData[]>(`projetos/count/${today_string}`, config);
+            const response_perData = await api.get<CountPerData[]>(`projetos/count/${today_string}`);
             const contagem_perData = response_perData.data;
 
             setCountsPerData(contagem_perData);
