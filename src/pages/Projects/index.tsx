@@ -74,11 +74,11 @@ const Projects: React.FC = () => {
     //const [nomeProjeto, setNomeProjeto] = useState('');
 
     window.onload = async function handleProjetos() {
-        const response = await api.get<IProjetoProps[]>('projetos', config);
+        const response = await api.get<IProjetoProps[]>('projetos');
         const data = response.data;
         setProjetos(data);
 
-        const responseSecao = await api.get<ISecoes[]>('secoes', config);
+        const responseSecao = await api.get<ISecoes[]>('secoes');
         const dataSecao = responseSecao.data;
         setSecoes(dataSecao);
     }
