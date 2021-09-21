@@ -4,22 +4,27 @@ import { shade } from "polished";
 import Upload from "../../../../assets/upload.svg";
 
 export const BoxProjeto = styled.div`
-    width: 80%;
+    width: 50%;
     height: 57vh;
+
+    margin-left: -5vw;
 
     display: flex;
     align-items: start;
-    justify-content: center;
 
     span {
       display: flex;
-      justify-content: center;      
+      justify-content: flex-start;    
+      
+      #left-box{
+        margin-left: 0;
+      }
     }
 
     div {
-      width: 40%;
+      width: 50%;
       margin-top: 2vh;
-
+      margin-left: 6vw;
       display: flex;
       flex-direction: column;
 
@@ -27,13 +32,18 @@ export const BoxProjeto = styled.div`
           color: #00579D;
           font-size: 3vh;
 
-          margin-left: 6vw;
           margin-bottom: 1vh;
       }
 
+      #titulo {
+        width: 29vw;
+      }
+
+      #descricao {
+        width: 29vw;
+      }
       input, textarea {
           height: 5vh;
-          margin-left: 6vw;
           margin-bottom: 3vh;
 
           border-radius: 0.4vh;
