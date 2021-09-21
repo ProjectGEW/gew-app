@@ -32,6 +32,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm } from '../test2/styles
 import { SideContainer } from '../RegisterConsultants/styles';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import Footer from '../components/Footer';
 
 interface IProjeto {
   infosProjetosInputDTO?: {
@@ -91,10 +92,10 @@ const RegisterProjects: React.FC = () => {
 
   //Projeto
   const [projeto, setProjeto] = useState<IProjeto>();
-  console.log(projeto);
+  //console.log(projeto);
   // Ata
   const [file, setFile] = useState<object>();
-  console.log(file);
+  //console.log(file);
   const [fileName, setFileName] = useState();
 
   // Gerar linhas
@@ -102,7 +103,7 @@ const RegisterProjects: React.FC = () => {
   const [rowCC, setRowCC] = useState<JSX.Element[]>([<RowCcPagantes number={1} />]);
 
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles)
+    //console.log(acceptedFiles)
     setFile(acceptedFiles[0]);
     setFileName(acceptedFiles[0].name);
   }, []);
@@ -295,154 +296,146 @@ const RegisterProjects: React.FC = () => {
     }
   }
 
-  return (
-    <>
-    <Navbar />
-    <MenuLeft />
-    <Container id="set-data" >
-      <ContainerRegister>
-        <Info>
-          <h1>Cadastrar Projeto</h1>
-        </Info>
-        <Content>
-          
-          <Line nome={etapa}>
-            <div onClick={() => trocarEtapa("boxProjeto")}>
-              <p>Projeto</p>
-              <RiErrorWarningFill />
-              <HiDotsCircleHorizontal />
-              <IoIosCheckmarkCircle />
+return (
+<>
+  <Navbar />
+  <MenuLeft />
+  <Container id="set-data" >
+    <ContainerRegister id="ContainerRegister">
+      <Info>
+        <h1>Cadastrar Projeto</h1>
+      </Info>
+      <Content id="content">
+        <Line nome={etapa}>
+          <div onClick={() => trocarEtapa("boxProjeto")}>
+            <p>Projeto</p>
+            <RiErrorWarningFill />
+            <HiDotsCircleHorizontal />
+            <IoIosCheckmarkCircle />
+          </div>
+          <div onClick={() => trocarEtapa("boxResponsavel")}>
+            <p>Responsáveis</p>
+            <RiErrorWarningFill />
+            <HiDotsCircleHorizontal />
+            <IoIosCheckmarkCircle />
+          </div>
+          <div onClick={() => trocarEtapa("boxDinheiro")}>
+            <p>R$</p>
+            <RiErrorWarningFill />
+            <HiDotsCircleHorizontal />
+            <IoIosCheckmarkCircle />
+          </div>
+          <div onClick={() => trocarEtapa("boxDatas")}>
+            <p>Datas</p>
+            <RiErrorWarningFill />
+            <HiDotsCircleHorizontal />
+            <IoIosCheckmarkCircle />
+          </div>
+        </Line>
+        <BoxProjeto id="boxProjeto">
+          <span>
+            <div id="left-box">
+              <label>Número do projeto:</label>
+              <input type="number" id="numeroProjeto" />
+
+              <label>Título do projeto:</label>
+              <input type="text" id="titulo" />
+
+              <label>Descrição do projeto:</label>
+              <textarea id="descricao" />
             </div>
-            <div onClick={() => trocarEtapa("boxResponsavel")}>
-              <p>Responsáveis</p>
-              <RiErrorWarningFill />
-              <HiDotsCircleHorizontal />
-              <IoIosCheckmarkCircle />
+            <div ref={ref}>
+              <Paper elevation={0} {...rootProps}>
+                <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                <input {...getInputProps()} />
+              </Paper>
             </div>
-            <div onClick={() => trocarEtapa("boxDinheiro")}>
-              <p>R$</p>
-              <RiErrorWarningFill />
-              <HiDotsCircleHorizontal />
-              <IoIosCheckmarkCircle />
-            </div>
-            <div onClick={() => trocarEtapa("boxDatas")}>
-              <p>Datas</p>
-              <RiErrorWarningFill />
-              <HiDotsCircleHorizontal />
-              <IoIosCheckmarkCircle />
-            </div>
-          </Line>
-          <BoxProjeto id="boxProjeto">
-            <span>
-              <div>
-                <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" />
-
-                <label>Título do projeto:</label>
-                <input type="text" id="titulo" />
-
-                <label>Descrição do projeto:</label>
-                <textarea id="descricao" />
-              </div>
-              <div ref={ref}>
-                <Paper elevation={0} {...rootProps}>
-                  <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
-                  <input {...getInputProps()} />
-                </Paper>
-              </div>
-            </span>
-          </BoxProjeto>
-          <BoxResponsavel id="boxResponsavel">
-            <span>
-              <div>
-                <label>Nome do responsável:</label>
-                <input type="text" id="nome_responsavel" />
-
-                <label>Nome do solicitante:</label>
-                <input type="text" id="nome_solicitante" />
-              </div>
-              <div>
-                <label>Seção do responsável:</label>
-                <input type="text" />
-                <Button tipo={"Lupa"} text={""} />
-
-                <label>Seção do solicitante:</label>
-                <input type="text" />
-                <Button tipo={"Lupa"} text={""} />
-              </div>
-            </span>
-          </BoxResponsavel>
-
-
-          <BoxDinheiro id="boxDinheiro">
-            <form action="" method="post">
-
-              <Table id="tableOne">
-                <div id="first-table">
-                  <h1>Despesas (desembolsos)</h1>
-                  <h1>Esforço</h1>
-                  <h1>Valor (R$)</h1>
-                </div>
-                <div id="first-scroll">
-                  {rowDespesas.map(teste => teste)}
-                  <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
-                  <Total>
-                    <h2>TOTAL:</h2>
-                    <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
-                    <input id="totalValor" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
-                    <div onClick={() => deleteLastRowDP()}>TESTE</div>
-                  </Total>
-                </div>
-              </Table>
-
-              <Table id="tableTwo">
-                <div id="second-table">
-                  <h1>Centro de Custo</h1>
-                  <h1>Responsável</h1>
-                  <h1>Percentual</h1>
-                  <h1>Valor (R$)</h1>
-                </div>
-                <div id="second-scroll">
-                  {rowCC.map(teste => teste)}
-                  <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
-                </div>
-                <div onClick={() => deleteLastRowCC()}>TESTE</div>
-              </Table>
-              <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
-            </form>
-          </BoxDinheiro>
-
-
-          <BoxDatas hasErrorInicio={!!inputErrorInit} hasErrorFim={!!inputErrorFim} hasErrorAprovacao={!!inputErrorAprov} id="boxDatas">
-            <span className="spanDatas">
-              <div className="divDatas">
-                <label>Data de ínicio:</label>
-                <label>Data de término:</label>
-                <label>Data de aprovação:</label>
-              </div>
-              <div className="divDatas">
-                <input id="data_de_inicio" type="text" value={dataInicio} onClick={() => {setSelected("inicio")}} />
-                <input id="data_de_termino" type="text" value={dataFim} onClick={() => {setSelected("fim")}} />
-                <input id="data_de_aprovacao" type="text" value={dataAprovacao} onClick={() => {setSelected("aprovacao")}} />
-              </div>
-              <div>
-                {inputErrorInit && <Error>{inputErrorInit}</Error>}
-                {inputErrorFim && <Error>{inputErrorFim}</Error>}
-                {inputErrorAprov && <Error>{inputErrorAprov}</Error>}
-              </div>
-            </span>
-            <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
-          </BoxDatas>
-          <span onClick={() => {
-            trocarMainEtapa("confirm-data");
-            //setInfos(); ta dando erro nessa função aq
-          }}>
-            <Button tipo={"continuarCadastro"} text={"Continuar"}/>
           </span>
-        </Content>
-      </ContainerRegister>
-      </Container >
-      <BoxConfirm id="confirm-data"> 
+        </BoxProjeto>
+{/* Thomas */}
+        <BoxResponsavel id="boxResponsavel">
+          <span>
+            <div>
+              <label>Nome do responsável:</label>
+              <input type="text" id="nome_responsavel" />
+
+              <label>Nome do solicitante:</label>
+              <input type="text" id="nome_solicitante" />
+            </div>
+            <div>
+              <label>Seção do responsável:</label>
+              <input type="text" />
+              <Button tipo={"Lupa"} text={""} />
+
+              <label>Seção do solicitante:</label>
+              <input type="text" />
+              <Button tipo={"Lupa"} text={""} />
+            </div>
+          </span>
+        </BoxResponsavel>
+{/* Thomas */}
+        <BoxDinheiro id="boxDinheiro">
+          <form action="" method="post">
+            <Table id="tableOne">
+              <div id="first-table">
+                <h1>Despesas (desembolsos)</h1>
+                <h1>Esforço</h1>
+                <h1>Valor (R$)</h1>
+              </div>
+              <div id="first-scroll">
+                {rowDespesas.map(teste => teste)}
+                <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
+                <Total>
+                  <h2>TOTAL:</h2>
+                  <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
+                  <input id="totalValor" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
+                  <div onClick={() => deleteLastRowDP()}>TESTE</div>
+                </Total>
+              </div>
+            </Table>
+            <Table id="tableTwo">
+              <div id="second-table">
+                <h1>Centro de Custo</h1>
+                <h1>Responsável</h1>
+                <h1>Percentual</h1>
+                <h1>Valor (R$)</h1>
+              </div>
+              <div id="second-scroll">
+                {rowCC.map(teste => teste)}
+                <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
+              </div>
+              <div onClick={() => deleteLastRowCC()}>TESTE</div>
+            </Table>
+            <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
+          </form>
+        </BoxDinheiro>
+        <BoxDatas id="boxDatas">
+          <span className="spanDatas">
+            <div className="divDatas">
+              <label>Data de ínicio:</label>
+              <label>Data de término:</label>
+              <label>Data de aprovação:</label>
+            </div>
+            <div className="divDatas">
+              <input type="text" value={dataInicio} id="data_de_inicio" defaultValue="01/01/2001" onClick={() => {setSelected("inicio")}} />
+              <input type="text" value={dataFim} id="data_de_termino" defaultValue="01/01/2001" onClick={() => {setSelected("fim")}} />
+              <input type="text" value={dataAprovacao} id="data_de_aprovacao" defaultValue="01/01/2001" onClick={() => {setSelected("aprovacao")}} />
+            </div>
+          </span>
+          <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
+        </BoxDatas>
+        <Footer tipo={"register_project"}>
+            </Footer>
+        <span onClick={() => {
+          trocarMainEtapa("confirm-data");
+          setInfos();
+        }}>
+          <Button tipo={"continuarCadastro"} text={"Continuar"}/>
+        </span>
+      </Content>
+    </ContainerRegister>
+        </Container >
+        <BoxConfirm id="confirm-data"> 
       <h1>Confirmar Informações</h1>
         <SideContainer>
           <ContentContainer>
@@ -575,11 +568,11 @@ const RegisterProjects: React.FC = () => {
         <span id="grid" />
         <Button  tipo={"Confirmar"} text={"Confirmar"} />
     </BoxConfirm> 
-    <MenuRight>
-      <ContIcons />
-    </MenuRight>
-    </>
-  );
+  <MenuRight>
+    <ContIcons />
+  </MenuRight>
+</>
+);
 };
 
 export default RegisterProjects;

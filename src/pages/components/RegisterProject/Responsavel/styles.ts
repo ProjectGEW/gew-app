@@ -10,7 +10,8 @@ export const BoxResponsavel = styled.div`
 
     span {
         display: flex;
-        justify-content: center;
+        margin-left: 8.2vw;
+        margin-top: 2vh;
     }
 
     div {

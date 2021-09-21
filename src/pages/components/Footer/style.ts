@@ -48,4 +48,16 @@ export const FooterForm = styled.div<footerProps>`
         margin-top: 72vh;
         margin-left: 2.4vw
     `}
+
+    ${props => props.tipo === "register_project" && css`
+      width: 10vw;
+      height: 2.5vh;
+      grid-template-areas: 'item1 item3 item2 item4';
+      margin-top: 65vh;
+      margin-left: -65vw;
+      .item2 {
+        grid-area: item2;
+        background: #0091BD;
+      }
+    `}
 `;
