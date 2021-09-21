@@ -6,7 +6,7 @@ import MenuRight from '../components/MenuRight';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
-import { Container, BoxDatas } from './styles';
+import { Container, BoxDatas, Error } from './styles';
 //import Paper from "@material-ui/core/Paper";
 import { useDropzone } from "react-dropzone";
 
@@ -62,31 +62,45 @@ const Projects: React.FC = () => {
     const [dataInicio, setDataInicio] = useState<string>();
     const [dataFim, setDataFim] = useState<string>();
     const [dataAprovacao, setDataAprovacao] = useState<string>();
+    const [inputErrorInit, setInputErrorInit] = useState('');
+    const [inputErrorFim, setInputErrorFim] = useState('');
+    const [inputErrorAprov, setInputErrorAprov] = useState('');
 
     function setData(value: Date) {
         const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
         if (selected === "inicio") {
             if (value.getFullYear() >= new Date().getFullYear()) {
                 setDataInicio(dataFormat);
+                setInputErrorInit("");
             } else {
-                console.log("Ano inválido");
+                setInputErrorInit("Ano inválido");
             }
         } else if (selected === "fim") {
             const anoValidation = value.getFullYear() >= parseInt(dataInicio ? dataInicio.split("/")[2] : "") 
             || value.getFullYear() <= new Date().getFullYear() + 100;
             const mesValidation = value.getMonth() + 1 >= parseInt(dataInicio ? dataInicio.split("/")[1] : "");
             const diaValidation = value.getDate() >= parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-            if (anoValidation && mesValidation && diaValidation) {
-                setDataFim(dataFormat);
+            if (anoValidation) {
+                if (mesValidation) {
+                    if (diaValidation) {
+                        setDataFim(dataFormat);
+                        setInputErrorFim("");
+                    } else {
+                        setInputErrorFim("Dia inválido");
+                    }
+                } else {
+                    setInputErrorFim("Mês inválido");
+                }
             } else {
-                console.log("Ano inválido");
+                setInputErrorFim("Ano inválido");
             }
         } else if (selected === "aprovacao") {
             const validation = value.getFullYear() >= new Date().getFullYear() - 1;
             if (validation) { 
                 setDataAprovacao(dataFormat);
+                setInputErrorAprov("");
             } else {
-                console.log("Ano inválido");
+                setInputErrorAprov("Ano inválido");
             }
         }
     }
@@ -97,16 +111,21 @@ const Projects: React.FC = () => {
         <MenuLeft />
 
         <Container>
-            <BoxDatas>
+            <BoxDatas hasErrorInit={!!inputErrorInit} hasErrorFim={!!inputErrorFim} hasErrorAprov={!!inputErrorAprov}>
                     <div>
                         <label>Data de ínicio:</label>
                         <label>Data de término:</label>
                         <label>Data de aprovação:</label>
                     </div>
                     <div>
-                        <input type="text" value={dataInicio} onClick={() => {setSelected("inicio")}} />
-                        <input type="text" value={dataFim} onClick={() => {setSelected("fim")}} />
-                        <input type="text" value={dataAprovacao} onClick={() => {setSelected("aprovacao")}} />
+                        <input id="dataInicio" type="text" value={dataInicio} onClick={() => {setSelected("inicio")}} />
+                        <input id="dataFim" type="text" value={dataFim} onClick={() => {setSelected("fim")}} />
+                        <input id="dataAprov" type="text" value={dataAprovacao} onClick={() => {setSelected("aprovacao")}} />
+                    </div>
+                    <div>
+                        {inputErrorInit && <Error>{inputErrorInit}</Error>}
+                        {inputErrorFim && <Error>{inputErrorFim}</Error>}
+                        {inputErrorAprov && <Error>{inputErrorAprov}</Error>}
                     </div>
                     <div>
                         <button>Continuar</button>

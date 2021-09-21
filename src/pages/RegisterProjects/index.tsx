@@ -17,7 +17,7 @@ import { AiFillPlusCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { HiDotsCircleHorizontal, HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 
-import { Container, ContainerRegister, Info, Content, Line } from './styles';
+import { Container, ContainerRegister, Info, Content, Line, Error } from './styles';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
@@ -242,31 +242,55 @@ const RegisterProjects: React.FC = () => {
   const [dataInicio, setDataInicio] = useState<string>();
   const [dataFim, setDataFim] = useState<string>();
   const [dataAprovacao, setDataAprovacao] = useState<string>();
+  const [inputErrorInit, setInputErrorInit] = useState('');
+  const [inputErrorFim, setInputErrorFim] = useState('');
+  const [inputErrorAprov, setInputErrorAprov] = useState('');
 
   function setData(value: Date) {
     const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
     if (selected === "inicio") {
         if (value.getFullYear() >= new Date().getFullYear()) {
             setDataInicio(dataFormat);
+            setInputErrorInit("");
         } else {
-            console.log("Ano inválido");
+            setInputErrorInit("Ano inválido");
         }
     } else if (selected === "fim") {
+        const validation = dataInicio ? true : false;
         const anoValidation = value.getFullYear() >= parseInt(dataInicio ? dataInicio.split("/")[2] : "") 
         || value.getFullYear() <= new Date().getFullYear() + 100;
         const mesValidation = value.getMonth() + 1 >= parseInt(dataInicio ? dataInicio.split("/")[1] : "");
-        const diaValidation = value.getDate() >= parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (anoValidation && mesValidation && diaValidation) {
-            setDataFim(dataFormat);
+        const diaValidation = value.getDate() > parseInt(dataInicio ? dataInicio.split("/")[0] : "");
+        if (validation) {
+          if (anoValidation) {
+              if (mesValidation) {
+                  if (diaValidation) {
+                      setDataFim(dataFormat);
+                      setInputErrorFim("");
+                  } else {
+                      setInputErrorFim("Dia inválido");
+                  }
+              } else {
+                  setInputErrorFim("Mês inválido");
+              }
+          } else {
+              setInputErrorFim("Ano inválido");
+          }
         } else {
-            console.log("Ano inválido");
+          setInputErrorFim("Informe primeiro a data de inicio");
         }
     } else if (selected === "aprovacao") {
         const validation = value.getFullYear() >= new Date().getFullYear() - 1;
+        const diaValidation = value.getDate() <= parseInt(dataInicio ? dataInicio.split("/")[0] : "");
         if (validation) { 
+          if (diaValidation) {
             setDataAprovacao(dataFormat);
+            setInputErrorAprov("");
+          } else {
+            setInputErrorAprov("Dia inválido");
+          }
         } else {
-            console.log("Ano inválido");
+            setInputErrorAprov("Ano inválido");
         }
     }
   }
@@ -389,7 +413,7 @@ const RegisterProjects: React.FC = () => {
           </BoxDinheiro>
 
 
-          <BoxDatas id="boxDatas">
+          <BoxDatas hasErrorInicio={!!inputErrorInit} hasErrorFim={!!inputErrorFim} hasErrorAprovacao={!!inputErrorAprov} id="boxDatas">
             <span className="spanDatas">
               <div className="divDatas">
                 <label>Data de ínicio:</label>
@@ -397,9 +421,14 @@ const RegisterProjects: React.FC = () => {
                 <label>Data de aprovação:</label>
               </div>
               <div className="divDatas">
-                <input type="text" value={dataInicio} onClick={() => {setSelected("inicio")}} />
-                <input type="text" value={dataFim} onClick={() => {setSelected("fim")}} />
-                <input type="text" value={dataAprovacao} onClick={() => {setSelected("aprovacao")}} />
+                <input id="data_de_inicio" type="text" value={dataInicio} onClick={() => {setSelected("inicio")}} />
+                <input id="data_de_termino" type="text" value={dataFim} onClick={() => {setSelected("fim")}} />
+                <input id="data_de_aprovacao" type="text" value={dataAprovacao} onClick={() => {setSelected("aprovacao")}} />
+              </div>
+              <div>
+                {inputErrorInit && <Error>{inputErrorInit}</Error>}
+                {inputErrorFim && <Error>{inputErrorFim}</Error>}
+                {inputErrorAprov && <Error>{inputErrorAprov}</Error>}
               </div>
             </span>
             <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
