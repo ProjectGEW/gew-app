@@ -16,6 +16,7 @@ import { IoIosCheckmarkCircle, IoMdRemoveCircle } from 'react-icons/io';
 import { AiFillPlusCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { HiDotsCircleHorizontal, HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
+import { FaEquals } from 'react-icons/fa';
 
 import { Container, ContainerRegister, Info, Content, Line, Error } from './styles';
 
@@ -33,6 +34,7 @@ import { SideContainer } from '../RegisterConsultants/styles';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Footer from '../components/Footer';
+
 
 interface IProjeto {
   infosProjetosInputDTO?: {
@@ -389,8 +391,9 @@ return (
                 <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
                 <Total>
                   <h2>TOTAL:</h2>
-                  <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
-                  <input id="totalValor" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
+                  <input id="totalEsforco" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
+                  <input id="totalValor" type="text" value={sValorDespesa? sValorDespesa: 0} className="alinhar" />
+                  <FaEquals onClick={() => somaTotal()}/>
                   <div>
                     <h2>REMOVER LINHA:</h2>
                     <IoMdRemoveCircle onClick={() => deleteLastRowDP()} />
