@@ -437,8 +437,7 @@ return (
           </span>
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
         </BoxDatas>
-        <Footer tipo={"register_project"}>
-            </Footer>
+        <Footer tipo={"register_project"} ></Footer>
         <span onClick={() => {
           trocarMainEtapa("confirm-data");
           setInfos();
@@ -447,139 +446,140 @@ return (
         </span>
       </Content>
     </ContainerRegister>
-        </Container >
-        <BoxConfirm id="confirm-data"> 
-      <h1>Confirmar Informações</h1>
-        <SideContainer>
-          <ContentContainer>
-            <div>
-              <h3>Número do projeto:</h3>
-              <h2>1000025562</h2>
-            </div>
-            <div>
-              <h3>Ata da aprovação:</h3>
-              <h2>1000025562</h2>
-            </div>
-          </ContentContainer>
-          <Box>
-            <div>
-              <h3>Título do projeto:</h3>
-              <h2>WEC - IMPLANTAÇÃO DE EDI CLIENTE XYZ</h2>
-            </div>
-          </Box>
-          <Box>
-            <div>
-              <h3>Descrição do projeto:</h3>
-              <h2>IMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃO</h2>
-            </div>
-          </Box>
-          <ContentContainer>
-            <div>
-              <h3>Nome do responsável:</h3>
-              <h2>ANDRÉ CARLOS DA SILVA</h2>
-            </div>
-            <div>
-              <h3>Seção do responsável:</h3>
-              <h2>ABCDEFGHIJKLM</h2>
-            </div>
-          </ContentContainer>
-          <ContentContainer>
-            <div>
-              <h3>Nome do solicitante:</h3>
-              <h2>DIEGO CANVAS DE SOUZA</h2>
-            </div>
-            <div>
-              <h3>Seção do solicitante:</h3>
-              <h2>NOPQRSTUVWXYZ</h2>
-            </div>
-          </ContentContainer>
-          <ContentContainer>
-            <div>
-              <h3>Nome do aprovador:</h3>
-              <h2>JOSÉ RICARDO</h2>
-            </div>
-            <div>
-              <h3>Seção do aprovador:</h3>
-              <h2>ABCDESKAKSSKAS</h2>
-            </div>
-          </ContentContainer>
-        </SideContainer>
-        <SideContainer>
-          <ContentContainer>
-            <div>
-              <h3>Centro de custo:</h3>
-              <h2>R$ 00,00</h2>
-            </div>
-            <div>
-              <h3>Data de início:</h3>
+  </Container >
+  <BoxConfirm id="confirm-data"> 
+    <h1>Confirmar Informações</h1>
+      <SideContainer>
+        <ContentContainer>
+          <div>
+            <h3>Número do projeto:</h3>
+            <h2>1000025562</h2>
+          </div>
+          <div>
+            <h3>Ata da aprovação:</h3>
+            <h2>1000025562</h2>
+          </div>
+        </ContentContainer>
+        <Box>
+          <div>
+            <h3>Título do projeto:</h3>
+            <h2>WEC - IMPLANTAÇÃO DE EDI CLIENTE XYZ</h2>
+          </div>
+        </Box>
+        <Box>
+          <div>
+            <h3>Descrição do projeto:</h3>
+            <h2>IMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃO</h2>
+          </div>
+        </Box>
+        <ContentContainer>
+          <div>
+            <h3>Nome do responsável:</h3>
+            <h2>ANDRÉ CARLOS DA SILVA</h2>
+          </div>
+          <div>
+            <h3>Seção do responsável:</h3>
+            <h2>ABCDEFGHIJKLM</h2>
+          </div>
+        </ContentContainer>
+        <ContentContainer>
+          <div>
+            <h3>Nome do solicitante:</h3>
+            <h2>DIEGO CANVAS DE SOUZA</h2>
+          </div>
+          <div>
+            <h3>Seção do solicitante:</h3>
+            <h2>NOPQRSTUVWXYZ</h2>
+          </div>
+        </ContentContainer>
+        <ContentContainer>
+          <div>
+            <h3>Nome do aprovador:</h3>
+            <h2>JOSÉ RICARDO</h2>
+          </div>
+          <div>
+            <h3>Seção do aprovador:</h3>
+            <h2>ABCDESKAKSSKAS</h2>
+          </div>
+        </ContentContainer>
+      </SideContainer>
+      <SideContainer>
+        <ContentContainer>
+          <div>
+            <h3>Centro de custo:</h3>
+            <h2>R$ 00,00</h2>
+          </div>
+          <div>
+            <h3>Data de início:</h3>
+            <h2>00/00/0000</h2>
+          </div>
+        </ContentContainer>
+        <ContentContainer>
+          <div>
+            <h3>Percentual aprovado:</h3>
+            <h2>R$ 00,00</h2>
+          </div>
+          <div>
+            <h3>Data de término:</h3>
               <h2>00/00/0000</h2>
-            </div>
-          </ContentContainer>
-          <ContentContainer>
-            <div>
-              <h3>Percentual aprovado:</h3>
-              <h2>R$ 00,00</h2>
-            </div>
-            <div>
-              <h3>Data de término:</h3>
-                <h2>00/00/0000</h2>
-            </div>
-          </ContentContainer>
-          <ContentContainer>
-            <div>
-              <h3>Limite de horas aprovadas:</h3>
-              <h2>00:00</h2>
-            </div>
-            <div>
-              <h3>Data de aprovação:</h3>
-              <h2>00/00/0000</h2>
-            </div>
-          </ContentContainer>
+          </div>
+        </ContentContainer>
+        <ContentContainer>
+          <div>
+            <h3>Limite de horas aprovadas:</h3>
+            <h2>00:00</h2>
+          </div>
+          <div>
+            <h3>Data de aprovação:</h3>
+            <h2>00/00/0000</h2>
+          </div>
+        </ContentContainer>
 
-          <TableConfirm>
-            <div>
-              <p>Funcionários alocados</p>
-              <AiOutlineUsergroupAdd />
-            </div>    
-            <ul>                    
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-            </ul>
-          </TableConfirm>
-        </SideContainer>
-        <HiArrowNarrowLeft id="voltar" />
-        <span id="grid" />
-        <Button  tipo={"Confirmar"} text={"Confirmar"} />
+        <TableConfirm>
+          <div>
+            <p>Funcionários alocados</p>
+            <AiOutlineUsergroupAdd />
+          </div>    
+          <ul>                    
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+          </ul>
+        </TableConfirm>
+        
+      </SideContainer>
+      <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
+      <Footer tipo={"confirm_project"} ></Footer>
+      <Button  tipo={"Confirmar"} text={"Confirmar"} />
     </BoxConfirm> 
   <MenuRight>
     <ContIcons />

@@ -113,16 +113,16 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "continuarCadastro" && css`
         button {
             position: absolute;
-            margin-top: -10vh;
-            margin-left: 27vw;
+            margin-top: -7.5vh;
+            margin-left: 29.8vw;
         }
     `}
 
     ${props => props.tipo === "Confirmar" && css`
         button {
             position: absolute;
-            margin-top: 70vh;
-            margin-left: -8.9vw;
+            margin-top: 72.5vh;
+            margin-left: -9.2vw;
         }
     `}
 

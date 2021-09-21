@@ -46,7 +46,7 @@ export const FooterForm = styled.div<footerProps>`
 
     ${props => props.tipo === "register_consultants" && css`
         margin-top: 72vh;
-        margin-left: 2.4vw
+        margin-left: 2.4vw;
     `}
 
     ${props => props.tipo === "register_project" && css`
@@ -55,6 +55,18 @@ export const FooterForm = styled.div<footerProps>`
       grid-template-areas: 'item1 item3 item2 item4';
       margin-top: 65vh;
       margin-left: -65vw;
+      .item2 {
+        grid-area: item2;
+        background: #0091BD;
+      }
+    `}
+
+    ${props => props.tipo === "confirm_project" && css`
+      width: 10vw;
+      height: 2.4vh;
+      grid-template-areas: 'item1 item3 item2 item4';
+      margin-top: 74.8vh;
+      margin-left: 1.5vw;
       .item2 {
         grid-area: item2;
         background: #0091BD;
