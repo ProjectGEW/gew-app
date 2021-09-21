@@ -191,10 +191,8 @@ const RegisterConsultants: React.FC = () => {
                 
             </SideContainer>
             <Footer tipo={"register_consultants"}>
-                    
             </Footer>
         </Container>
-
         <MenuRight>
             <ContIcons />
         </MenuRight>
