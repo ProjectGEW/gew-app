@@ -309,7 +309,7 @@ export const GraphBars = styled.div`
     }
 `;
 
-export const Bar = styled.img<ValorGraphBar>`
+export const Bar = styled.div<ValorGraphBar>`
     width: 4vw;
     background-color: #00579D;
     display: flex;
