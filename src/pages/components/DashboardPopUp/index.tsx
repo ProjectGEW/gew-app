@@ -64,7 +64,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     </Scroll>
                     <Graph>
                         <Bar>
-                            <Value valor={47}></Value>
+                            <Value valor={62}></Value>
                         </Bar>
                     </Graph>
                 </PopUp>

@@ -57,11 +57,7 @@ const Navbar: React.FC = () => {
       setPage("Configurações");
     } else if (location.pathname === "/test") {
       setPage("Área de Teste");
-    } else if (location.pathname === "/allocate_consultants") {
-      setPage("Alocar");
-    } else if (location.pathname === "/allocate_consultants/view_projects") {
-      setPage("Selecionar");
-    } else if (location.pathname === "/allocate_consultants/consultants") {
+    } else if (location.pathname === "/allocate_consultants" || location.pathname === "/allocate_consultants/consultants" || location.pathname === "/allocate_consultants/view_projects") {
       setPage("Alocar");
     } else {
       var path = "";

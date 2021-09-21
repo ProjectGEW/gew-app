@@ -116,6 +116,7 @@ export const Title = styled.div`
     h1 {
         color: #fff;
         font-size: 3vh;
+        margin-left: 0.5vw;
     }
 
     span {
@@ -124,6 +125,7 @@ export const Title = styled.div`
         background-color: transparent;
         width: 4vh;
         height: 4vh;
+        margin-top: -0.4vh;
         margin-left: 32vw;
         position: absolute;
         background-size: cover;

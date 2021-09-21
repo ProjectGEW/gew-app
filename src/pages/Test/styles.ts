@@ -1,4 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface FormProps {
+    hasErrorInit: boolean;
+    hasErrorFim: boolean;
+    hasErrorAprov: boolean;
+}
 
 export const Container = styled.div`
     position: absolute;
@@ -18,7 +24,7 @@ export const Container = styled.div`
 
 `;
 
-export const BoxDatas = styled.div`
+export const BoxDatas = styled.div<FormProps>`
     width: 100%;
     height: 57vh;
     margin-top: 10vh;
@@ -43,7 +49,7 @@ export const BoxDatas = styled.div`
         
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
 
         label {
             width: 13vw;
@@ -57,6 +63,10 @@ export const BoxDatas = styled.div`
             &:last-child {
                 margin-right: 0vw;
             }
+
+            & + label {
+                margin-left: 50px;
+            }
         }
 
         input {
@@ -65,12 +75,43 @@ export const BoxDatas = styled.div`
             margin-bottom: 3vh;
 
             border-radius: 0.4vh;
-            border: 0px;
+            border: 0;
             padding: 1vh;
 
             background-color: rgb(181, 181, 181, 0.6);
             box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
             color: #5E5E5E;
+
+            & + input {
+                margin-left: 100px;
+            }
+        }
+
+        span {
+            font-size: 15px;
+        }
+
+        #dataInicio {
+            ${props => props.hasErrorInit && css`
+                border: 1.5px solid #c53030;
+            `}
+        }
+
+        #dataFim {
+            ${props => props.hasErrorFim && css`
+                border: 1.5px solid #c53030;
+            `}
+        }
+
+        #dataAprov {
+            ${props => props.hasErrorAprov && css`
+                border: 1.5px solid #c53030;
+            `}
         }
     }
+`;
+
+export const Error = styled.span`
+  color: #c53030;
+  margin-top: 2px;
 `;

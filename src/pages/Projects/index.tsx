@@ -63,6 +63,11 @@ const Projects: React.FC = () => {
         locales
     });
 
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');

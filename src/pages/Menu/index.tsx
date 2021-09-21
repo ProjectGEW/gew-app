@@ -63,6 +63,11 @@ const Menu: React.FC = () => {
         locales
     });
 
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+
     const [counts, setCounts] = useState<Count>();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
     const today = new Date();

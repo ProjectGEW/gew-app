@@ -57,17 +57,20 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
         locales
     });
 
+    const token = localStorage.getItem('Token');
+    let config = {
+        headers: { Authorization: `Bearer ${token}`},
+    };
+
     const [project, setProject] = useState<CardContent>();
     const [status, setStatus] = useState('');
     
     useEffect(() => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-                setProject(response.data);
-                setStatus(response.data.infoprojetoDTO.status);
+            setProject(response.data);
+            setStatus(response.data.infoprojetoDTO.status);
       }))
-
     }, [numeroDoProjeto]);
-    
     
     const [isModalVisible, setIsModalVisible] = React.useState(false);
     const [popUp, setPopUp] = useState<JSX.Element>();
@@ -92,7 +95,7 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
 
     return (
         <>
-        { project ?
+        { project ? 
         <Card key={project?.infoprojetoDTO.id} onClick={toggleModal}>
             {popUp ? popUp : null}
             <CardStatus statusColor={status}/>
