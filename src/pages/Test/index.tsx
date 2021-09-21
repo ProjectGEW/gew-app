@@ -66,13 +66,29 @@ const Projects: React.FC = () => {
     function setData(value: Date) {
         const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
         if (selected === "inicio") {
-            setDataInicio(dataFormat);
+            if (value.getFullYear() >= new Date().getFullYear()) {
+                setDataInicio(dataFormat);
+            } else {
+                console.log("Ano inválido");
+            }
         } else if (selected === "fim") {
-            setDataFim(dataFormat);
+            const anoValidation = value.getFullYear() >= parseInt(dataInicio ? dataInicio.split("/")[2] : "") 
+            || value.getFullYear() <= new Date().getFullYear() + 100;
+            const mesValidation = value.getMonth() + 1 >= parseInt(dataInicio ? dataInicio.split("/")[1] : "");
+            const diaValidation = value.getDate() >= parseInt(dataInicio ? dataInicio.split("/")[0] : "");
+            if (anoValidation && mesValidation && diaValidation) {
+                setDataFim(dataFormat);
+            } else {
+                console.log("Ano inválido");
+            }
         } else if (selected === "aprovacao") {
-            setDataAprovacao(dataFormat);
+            const validation = value.getFullYear() >= new Date().getFullYear() - 1;
+            if (validation) { 
+                setDataAprovacao(dataFormat);
+            } else {
+                console.log("Ano inválido");
+            }
         }
-        console.log(value);
     }
     
     return (
