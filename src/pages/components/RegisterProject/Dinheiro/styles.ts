@@ -265,6 +265,11 @@ export const Total = styled.div`
         font-size: 2.6vh;
     }
 
+    svg {
+      margin-top: 4.8vh;
+      margin-left: -0.8vw;
+    }
+
     div {
       h2 {
         color: #00579D;
