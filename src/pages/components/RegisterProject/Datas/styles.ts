@@ -1,6 +1,12 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const BoxDatas = styled.div`
+interface FormDataProps {
+    hasErrorInicio: boolean;
+    hasErrorFim: boolean;
+    hasErrorAprovacao: boolean;
+}
+
+export const BoxDatas = styled.div<FormDataProps>`
     width: 80%;
     height: 57vh;
 
@@ -52,6 +58,24 @@ export const BoxDatas = styled.div`
             background-color: rgb(181, 181, 181, 0.6);
             box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
             color: #5E5E5E;
+        }
+
+        #data_de_inicio {
+            ${props => props.hasErrorInicio && css`
+                border: 2px solid #c53030;
+            `}
+        }
+
+        #data_de_termino {
+            ${props => props.hasErrorFim && css`
+                border: 2px solid #c53030;
+            `}
+        }
+
+        #data_de_aprovacao {
+            ${props => props.hasErrorAprovacao && css`
+                border: 2px solid #c53030;
+            `}
         }
     }
 

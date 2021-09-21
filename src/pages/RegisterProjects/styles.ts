@@ -504,3 +504,8 @@ export const Line = styled.div<Etapa>`
     }
 
 `;
+
+export const Error = styled.span`
+  color: #c53030;
+  margin-top: 2px;
+`;
