@@ -265,6 +265,26 @@ export const Total = styled.div`
         font-size: 2.6vh;
     }
 
+    div {
+      h2 {
+        color: #00579D;
+        font-size: 2.6vh;
+        float: right;
+        margin-left: 70px;
+      } 
+      svg {
+          margin-top: -0.2vh;
+          margin-right: -2.3vw;
+          width: 3.3vw;
+          height: 3.3vh;
+          color: #00579D;
+          
+          &:hover {
+              color: #0075B1;
+          }
+      }
+    }
+
     input {
         height: 5vh;
 

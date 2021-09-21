@@ -12,7 +12,7 @@ import { BoxDatas } from '../components/RegisterProject/Datas/styles';
 import Button from '../components/Button';
 
 import { RiErrorWarningFill } from 'react-icons/ri';
-import { IoIosCheckmarkCircle } from 'react-icons/io';
+import { IoIosCheckmarkCircle, IoMdRemoveCircle } from 'react-icons/io';
 import { AiFillPlusCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { HiDotsCircleHorizontal, HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
@@ -139,10 +139,10 @@ const RegisterProjects: React.FC = () => {
   const [sEsforco, setSEsforco] = useState<number>();
   const [sValorDespesa, setValorDespesa] = useState<number>();
 
-  var somaEsforco = 0;
-  var somaValorDespesa = 0;
-
   function somaTotal() {
+    var somaEsforco = 0;
+    var somaValorDespesa = 0;
+
     for (let i = 1; i <= rowDespesas.length; i++) {
       somaEsforco += parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value);
       somaValorDespesa += parseInt((document.getElementById(`valor${i}`) as HTMLInputElement).value);
@@ -199,8 +199,12 @@ const RegisterProjects: React.FC = () => {
   }
 
   function deleteLastRowDP() {
-    document.getElementById(`D${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
-    rowDespesas.pop();
+    if (rowDespesas.length > 1) {
+      document.getElementById(`D${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
+      rowDespesas.pop();
+      setRowDespesas([...rowDespesas]);
+      return rowDespesas;
+    }
     setRowDespesas([...rowDespesas]);
     return rowDespesas;
   }
@@ -352,7 +356,6 @@ return (
             </div>
           </span>
         </BoxProjeto>
-{/* Thomas */}
         <BoxResponsavel id="boxResponsavel">
           <span>
             <div>
@@ -373,7 +376,6 @@ return (
             </div>
           </span>
         </BoxResponsavel>
-{/* Thomas */}
         <BoxDinheiro id="boxDinheiro">
           <form action="" method="post">
             <Table id="tableOne">
@@ -389,7 +391,10 @@ return (
                   <h2>TOTAL:</h2>
                   <input id="totalEsforco" type="text" value="1500h" className="alinhar" />
                   <input id="totalValor" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
-                  <div onClick={() => deleteLastRowDP()}>TESTE</div>
+                  <div>
+                    <h2>REMOVER LINHA:</h2>
+                    <IoMdRemoveCircle onClick={() => deleteLastRowDP()} />
+                  </div>
                 </Total>
               </div>
             </Table>
@@ -409,7 +414,7 @@ return (
             <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
           </form>
         </BoxDinheiro>
-        <BoxDatas id="boxDatas">
+        <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
           <span className="spanDatas">
             <div className="divDatas">
               <label>Data de ínicio:</label>
@@ -420,6 +425,11 @@ return (
               <input type="text" value={dataInicio} id="data_de_inicio" defaultValue="01/01/2001" onClick={() => {setSelected("inicio")}} />
               <input type="text" value={dataFim} id="data_de_termino" defaultValue="01/01/2001" onClick={() => {setSelected("fim")}} />
               <input type="text" value={dataAprovacao} id="data_de_aprovacao" defaultValue="01/01/2001" onClick={() => {setSelected("aprovacao")}} />
+            </div>
+            <div>
+                {inputErrorInit && <Error>{inputErrorInit}</Error>}
+                {inputErrorFim && <Error>{inputErrorFim}</Error>}
+                {inputErrorAprov && <Error>{inputErrorAprov}</Error>}
             </div>
           </span>
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
