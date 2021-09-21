@@ -76,7 +76,7 @@ const Menu: React.FC = () => {
 
     window.onload = async function handleData(): Promise<void> {
         try {
-            const response = await api.get<Count>(`projetos/count`, config);
+            const response = await api.get<Count>(`projetos/count`);
             const contagem = response.data;
 
             setCounts(contagem);
@@ -174,7 +174,7 @@ const Menu: React.FC = () => {
                         <GraphContNum>0</GraphContNum>
                     </GraphCont>
                     <GraphBars>
-                        <Bar valor={countsPerData[6] ? countsPerData[6].projetosConcluidos : 0} id="bar1"/>
+                        <Bar title="a" valor={countsPerData[6] ? countsPerData[6].projetosConcluidos : 0} id="bar1"/>
                         <Bar valor={countsPerData[5] ? countsPerData[5].projetosConcluidos : 0} id="bar2"/>
                         <Bar valor={countsPerData[4] ? countsPerData[4].projetosConcluidos : 0} id="bar3"/>
                         <Bar valor={countsPerData[3] ? countsPerData[3].projetosConcluidos : 0} id="bar4"/>

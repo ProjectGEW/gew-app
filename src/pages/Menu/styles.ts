@@ -58,7 +58,6 @@ export const ContainerHomeTitle = styled.div`
             #0075B1 71%, #0075B1 84%, #fff 80%, #fff 88%,
             #6AACDA 10%, #6AACDA 100%);
     }
-    }
 `;
 
 export const ContainerHomeCards = styled.div`
@@ -302,7 +301,7 @@ export const GraphBars = styled.div`
     align-items: center;
 
     #bar1 {
-        margin-left: 1.2vw;
+        margin-left: 0.9vw;
     }
 
     #bar7 {
@@ -310,7 +309,7 @@ export const GraphBars = styled.div`
     }
 `;
 
-export const Bar = styled.div<ValorGraphBar>`
+export const Bar = styled.img<ValorGraphBar>`
     width: 4vw;
     background-color: #00579D;
     display: flex;
@@ -324,7 +323,7 @@ export const Bar = styled.div<ValorGraphBar>`
     }
 
     ${props => props.valor === 1 && css`
-        height: 5vh;
+        height: 4.7vh;
         margin-top: 18.5vh;
     `}
 
@@ -368,7 +367,7 @@ export const Data = styled.div`
 
     &::after {
         content: "";
-        width: 0.1vw;
+        width: 0.15vw;
         height: 3vh;
         margin-top: -3.5vh;
         background-color: rgb(167, 167, 167);;

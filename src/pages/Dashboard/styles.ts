@@ -174,27 +174,7 @@ export const Filtros = styled.div`
                 color: #575757;
 
                 &:nth-child(1) {
-                    &:focus {
-                        background-color: rgba(212, 212, 212, 0.7);
-                    }
-                }
-
-                &:nth-child(2) {
-                    &:focus {
-                        background-color: #c2e4ff;
-                    }
-                }
-
-                &:nth-child(3) {
-                    &:focus {
-                        background-color: #ffbfbf;
-                    }
-                }
-
-                &:nth-child(4) {
-                    &:focus {
-                        background-color: #adffb0;
-                    }
+                    background-color: rgba(212, 212, 212, 0.7);
                 }
 
                 &:hover {

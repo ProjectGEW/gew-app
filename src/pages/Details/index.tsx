@@ -102,7 +102,8 @@ const Details: React.FC = () => {
                             <h1>NÚMERO:</h1><h2>{project?.infoprojetoDTO.numeroDoProjeto}</h2>
                         </li>
                         <li>
-                            <h1>STATUS:</h1><h2>{project?.infoprojetoDTO.status}</h2>
+                            <h1>STATUS:</h1><h2>{project?.infoprojetoDTO.status === "NAO_INICIADO" ? "NÃO INICIADO" 
+                                                : project?.infoprojetoDTO.status}</h2>
                         </li>
                         <li>
                             <h1>DATA DE CRIAÇÃO:</h1><h2>{project?.infoprojetoDTO.data_de_inicio}</h2>

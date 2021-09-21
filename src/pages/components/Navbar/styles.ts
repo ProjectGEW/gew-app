@@ -88,8 +88,6 @@ export const PageIndicator = styled.div`
   }
 
   #page {
-    margin-left: -0.1vw;
-
     &:after {
       content: "";
       width: 8vw;
