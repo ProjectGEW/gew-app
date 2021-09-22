@@ -220,6 +220,24 @@ export const Table = styled.div`
             }
         }
     }
+
+    #removeRow {
+            h2 {
+                color: #00579D;
+                font-size: 2.6vh;
+                margin-left: 0.9vw;
+            } 
+            svg {
+                width: 3.3vw;
+                height: 3.3vh;
+                float: left;
+                margin-left: 20vw;
+                color: #00579D;
+                &:hover {
+                    color: #0075B1;
+                }
+             }
+        }
 `;
 
 export const Linha = styled.div`
