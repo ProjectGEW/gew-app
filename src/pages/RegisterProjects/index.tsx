@@ -439,13 +439,8 @@ return (
                 <input type="text" value={dataInicio} id="data_de_inicio" defaultValue="01/01/2001" onClick={() => {setSelected("inicio")}} />
                 <input type="text" value={dataFim} id="data_de_termino" defaultValue="01/01/2001" onClick={() => {setSelected("fim")}} />
                 <input type="text" value={dataAprovacao} id="data_de_aprovacao" defaultValue="01/01/2001" onClick={() => {setSelected("aprovacao")}} />
-            </Table>
-            <Table id="tableTwo">
-              <div id="second-table">
-                <h1>Centro de Custo</h1>
-                <h1>Responsável</h1>
-                <h1>Valor (R$)</h1>
               </div>
+
               <div>
                   {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
                   {inputErrorFim && <Error localErro={selected}>{inputErrorFim}</Error>}
