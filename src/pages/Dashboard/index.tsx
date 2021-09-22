@@ -1,22 +1,17 @@
 import React, { useState, useEffect, FormEvent } from 'react';
+import { useParams } from 'react-router-dom';
+
+import intl from "react-intl-universal";
+import api from '../../service/api';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
+import { ContIcons } from '../components/MenuRight/styles';
+import GraphLiquid from "../components/GraphLiquid";
+import BaseModalWrapper from '../components/DashboardPopUp';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph, GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
-
-import { ContIcons } from '../components/MenuRight/styles';
-
-import GraphLiquid from "../components/GraphLiquid";
-
-import intl from "react-intl-universal";
-
-import BaseModalWrapper from '../components/DashboardPopUp';
-import { useParams } from 'react-router-dom';
-
-import api from '../../service/api';
-
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
