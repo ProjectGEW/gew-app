@@ -73,12 +73,12 @@ export const Container = styled.div<buttonProps>`
 
             &::after {
                 content: '';
-                width: 1.8vw;
+                width: 1.4vw;
                 height: 3vh;
 
                 position: absolute;
                 margin-top: -1.5vh;
-                margin-left: -0.9vw;
+                margin-left: -0.7vw;
 
                 background-image: url(${Search});
                 background-position: center;
@@ -114,7 +114,7 @@ export const Container = styled.div<buttonProps>`
         button {
             position: absolute;
             margin-top: -7.5vh;
-            margin-left: 29.8vw;
+            margin-left: 28.5vw;
         }
     `}
 
@@ -122,7 +122,7 @@ export const Container = styled.div<buttonProps>`
         button {
             position: absolute;
             margin-top: 72.5vh;
-            margin-left: -9.2vw;
+            margin-left: -7.45vw;
         }
     `}
 
