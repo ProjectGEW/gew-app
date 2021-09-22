@@ -1,25 +1,21 @@
-import React, { FormEvent } from 'react';
-
-import { IoMdArrowDropright } from 'react-icons/io';
-import { BiHourglass } from 'react-icons/bi';
+import React, { useState, FormEvent } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
-
 import Card from '../components/CardProject/Card';
 
-import {
-    ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
-    ContainerFiltro, Center, Msg
-} from './styles';
-
 import { ContIcons } from '../components/MenuRight/styles';
-import { useState } from 'react';
 
 import api from "../../service/api";
 
 import intl from 'react-intl-universal';
+
+import { IoMdArrowDropright } from 'react-icons/io';
+import { BiHourglass } from 'react-icons/bi';
+
+import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
+    ContainerFiltro, Center, Msg } from './styles';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),

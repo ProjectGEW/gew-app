@@ -4,6 +4,10 @@ interface Etapa {
     nome: any;
 }
 
+interface ErrorProps {
+    localErro: any;
+}
+
 export const Container = styled.div`
     position: absolute;
     top: 14vh;
@@ -502,10 +506,24 @@ export const Line = styled.div<Etapa>`
             }
         `}
     }
-
 `;
 
-export const Error = styled.span`
+export const Error = styled.span<ErrorProps>`
   color: #c53030;
-  margin-top: 2px;
+  margin-top: 1vh;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: absolute;
+
+  ${props => props.localErro === 'inicio' && css`
+    margin-left: -18.2vw;
+  `}
+
+  ${props => props.localErro === 'aprovacao' && css`
+    margin-left: 12.5vw;
+  `}
+
+  ${props => props.localErro === 'fim' && css`
+    margin-left: -2.7vw;
+  `}
 `;

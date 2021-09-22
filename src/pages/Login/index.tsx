@@ -1,4 +1,5 @@
 import React, { useRef, useCallback} from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -12,7 +13,6 @@ import WEG from "../../assets/weg.svg";
 import Input from '../components/InputPrimary';
 
 import { Container, Line, LoginCont, ContainerBottom, ContainerBtn, ContainerInput } from './styles';
-import { useHistory } from 'react-router-dom';
 
 interface SingInFormData {
     email: string;

@@ -32,6 +32,8 @@ export const BoxResponsavel = styled.div`
             margin-left: 1vw;
             margin-bottom: 3vh;
 
+            font-size: 2.6vh;
+
             border-radius: 0.4vh;
             border: 0px;
             padding: 1vh;

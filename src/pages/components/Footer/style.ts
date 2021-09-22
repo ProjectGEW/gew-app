@@ -35,11 +35,11 @@ export const FooterForm = styled.div<footerProps>`
 
         &::before {
             content: '';
-            width: 50vw;
+            width: 54vw;
             height: 0.1vh;
             background-color: #00579D;
             position: absolute;
-            margin: 2.4vh 0 0 3.8vw;    
+            margin: 2.7vh 0 0 3.5vw;    
             opacity: 0.4;
         }
     }
@@ -50,11 +50,12 @@ export const FooterForm = styled.div<footerProps>`
     `}
 
     ${props => props.tipo === "register_project" && css`
-      width: 10vw;
-      height: 2.5vh;
+      width: 8vw;
+      height: 3.2vh;
       grid-template-areas: 'item1 item3 item2 item4';
       margin-top: 65vh;
-      margin-left: -65vw;
+      margin-left: -67vw;
+
       .item2 {
         grid-area: item2;
         background: #0091BD;
@@ -62,11 +63,12 @@ export const FooterForm = styled.div<footerProps>`
     `}
 
     ${props => props.tipo === "confirm_project" && css`
-      width: 10vw;
-      height: 2.4vh;
+      width: 8vw;
+      height: 3.2vh;
       grid-template-areas: 'item1 item3 item2 item4';
-      margin-top: 74.8vh;
+      margin-top: 74.4vh;
       margin-left: 1.5vw;
+      
       .item2 {
         grid-area: item2;
         background: #0091BD;

@@ -304,8 +304,6 @@ export const Icon = styled.div`
 `;
 
 export const TextMenuRight = styled.div`
-    width: 8vw;
-    margin-left: 1.5vw;
     display: flex;
     justify-content: center;
     flex-direction: column;

@@ -1,40 +1,39 @@
 import React, { useState, useCallback } from 'react';
+import Paper from "@material-ui/core/Paper";
+import Calendar from 'react-calendar';
+
+import { useDropzone } from "react-dropzone";
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
+import Button from '../components/Button';
+
+import analisaValor from '../../utils/analisaValor';
+
+import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
+import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
 
 import { BoxProjeto } from '../components/RegisterProject/Projeto/styles';
 import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles';
 import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../components/RegisterProject/Datas/styles';
-
-import Button from '../components/Button';
+import { ContIcons } from '../components/MenuRight/styles';
+import Footer from '../components/Footer';
+import 'react-calendar/dist/Calendar.css';
 
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { IoIosCheckmarkCircle, IoMdRemoveCircle } from 'react-icons/io';
 import { AiFillPlusCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { HiDotsCircleHorizontal, HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import { FaEquals } from 'react-icons/fa';
+import { RiPauseCircleFill } from 'react-icons/ri';
 
 import { Container, ContainerRegister, Info, Content, Line, Error } from './styles';
 
-import { ContIcons } from '../components/MenuRight/styles';
+import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '../test2/styles';
 
-import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
-import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
-
-import Paper from "@material-ui/core/Paper";
-
-import { useDropzone } from "react-dropzone";
-
-import { Box, BoxConfirm, ContentContainer, TableConfirm } from '../test2/styles';
-import { SideContainer } from '../RegisterConsultants/styles';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import Footer from '../components/Footer';
-import analisaValor from '../../utils/analisaValor';
+//import { SideContainer } from '../RegisterConsultants/styles';
 
 interface IProjeto {
   infosProjetosInputDTO?: {
@@ -315,103 +314,131 @@ const RegisterProjects: React.FC = () => {
   }
 
 return (
-<>
-  <Navbar />
-  <MenuLeft />
-  <Container id="set-data" >
-    <ContainerRegister id="ContainerRegister">
-      <Info>
-        <h1>Cadastrar Projeto</h1>
-      </Info>
-      <Content id="content">
-        <Line nome={etapa}>
-          <div onClick={() => trocarEtapa("boxProjeto")}>
-            <p>Projeto</p>
-            <RiErrorWarningFill />
-            <HiDotsCircleHorizontal />
-            <IoIosCheckmarkCircle />
-          </div>
-          <div onClick={() => trocarEtapa("boxResponsavel")}>
-            <p>Responsáveis</p>
-            <RiErrorWarningFill />
-            <HiDotsCircleHorizontal />
-            <IoIosCheckmarkCircle />
-          </div>
-          <div onClick={() => trocarEtapa("boxDinheiro")}>
-            <p>R$</p>
-            <RiErrorWarningFill />
-            <HiDotsCircleHorizontal />
-            <IoIosCheckmarkCircle />
-          </div>
-          <div onClick={() => trocarEtapa("boxDatas")}>
-            <p>Datas</p>
-            <RiErrorWarningFill />
-            <HiDotsCircleHorizontal />
-            <IoIosCheckmarkCircle />
-          </div>
-        </Line>
-        <BoxProjeto id="boxProjeto">
-          <span>
-            <div id="left-box">
-              <label>Número do projeto:</label>
-              <input type="number" id="numeroProjeto" />
-
-              <label>Título do projeto:</label>
-              <input type="text" id="titulo" />
-
-              <label>Descrição do projeto:</label>
-              <textarea id="descricao" />
+  <>
+    <Navbar />
+    <MenuLeft />
+    <Container id="set-data" >
+      <ContainerRegister id="ContainerRegister">
+        <Info>
+          <h1>Cadastrar Projeto</h1>
+        </Info>
+        <Content id="content">
+          <Line nome={etapa}>
+            <div onClick={() => trocarEtapa("boxProjeto")}>
+              <p>Projeto</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
             </div>
-            <div ref={ref}>
-              <Paper elevation={0} {...rootProps}>
-                <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
-                <input {...getInputProps()} />
-              </Paper>
+            <div onClick={() => trocarEtapa("boxResponsavel")}>
+              <p>Responsáveis</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
             </div>
-          </span>
-        </BoxProjeto>
-        <BoxResponsavel id="boxResponsavel">
-          <span>
-            <div>
-              <label>Nome do responsável:</label>
-              <input type="text" id="nome_responsavel" />
+            <div onClick={() => trocarEtapa("boxDinheiro")}>
+              <p>R$</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+            <div onClick={() => trocarEtapa("boxDatas")}>
+              <p>Datas</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+          </Line>
+          <BoxProjeto id="boxProjeto">
+            <span>
+              <div id="left-box">
+                <label>Número do projeto:</label>
+                <input type="number" id="numeroProjeto" />
 
-              <label>Nome do solicitante:</label>
-              <input type="text" id="nome_solicitante" />
-            </div>
-            <div>
-              <label>Seção do responsável:</label>
-              <input type="text" />
-              <Button tipo={"Lupa"} text={""} />
+                <label>Título do projeto:</label>
+                <input type="text" id="titulo" />
 
-              <label>Seção do solicitante:</label>
-              <input type="text" />
-              <Button tipo={"Lupa"} text={""} />
-            </div>
-          </span>
-        </BoxResponsavel>
-        <BoxDinheiro id="boxDinheiro">
-          <form action="" method="post">
-            <Table id="tableOne">
-              <div id="first-table">
-                <h1>Despesas (desembolsos)</h1>
-                <h1>Esforço</h1>
-                <h1>Valor (R$)</h1>
+                <label>Descrição do projeto:</label>
+                <textarea id="descricao" />
               </div>
-              <div id="first-scroll">
-                {rowDespesas.map(teste => teste)}
-                <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
-                <Total>
-                  <h2>TOTAL:</h2>
-                  <input id="totalEsforco" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
-                  <input id="totalValor" type="text" value={sValorDespesa? sValorDespesa: 0} className="alinhar" />
-                  <FaEquals onClick={() => somaTotal()}/>
+              <div ref={ref}>
+                <Paper elevation={0} {...rootProps}>
+                  <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                  <input id="btnUpload" {...getInputProps()} />
+                </Paper>
+              </div>
+            </span>
+          </BoxProjeto>
+          <BoxResponsavel id="boxResponsavel">
+            <span>
+              <div>
+                <label>Nome do responsável:</label>
+                <input type="text" id="nome_responsavel" />
+
+                <label>Nome do solicitante:</label>
+                <input type="text" id="nome_solicitante" />
+              </div>
+              <div>
+                <label>Seção do responsável:</label>
+                <input type="text" />
+                <Button tipo={"Lupa"} text={""} />
+
+                <label>Seção do solicitante:</label>
+                <input type="text" />
+                <Button tipo={"Lupa"} text={""} />
+              </div>
+            </span>
+          </BoxResponsavel>
+          <BoxDinheiro id="boxDinheiro">
+            <form action="" method="post">
+              <Table id="tableOne">
+                <div id="first-table">
+                  <h1>Despesas (desembolsos)</h1>
+                  <h1>Esforço</h1>
+                  <h1>Valor (R$)</h1>
+                </div>
+                <div id="first-scroll">
+                  {rowDespesas.map(teste => teste)}
+                  <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
+                  <Total>
                   <div>
-                    <h2>REMOVER LINHA:</h2>
-                    <IoMdRemoveCircle onClick={() => deleteLastRowDP()} />
-                  </div>
-                </Total>
+                      <h2>REMOVER LINHA:</h2>
+                      <IoMdRemoveCircle onClick={() => deleteLastRowDP()} />
+                    </div>
+                    <h2>TOTAL:</h2>
+                    <input id="totalEsforco" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
+                    <input id="totalValor" type="text" value={sValorDespesa? analisaValor(sValorDespesa): 0} className="alinhar" />
+                    <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
+                  </Total>
+                </div>
+              </Table>
+              <Table id="tableTwo">
+                <div id="second-table">
+                  <h1>Centro de Custo</h1>
+                  <h1>Responsável</h1>
+                  <h1>Percentual</h1>
+                  <h1>Valor (R$)</h1>
+                </div>
+                <div id="second-scroll">
+                  {rowCC.map(teste => teste)}
+                  <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
+                </div>
+                <div onClick={() => deleteLastRowCC()}>TESTE</div>
+              </Table>
+              <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
+            </form>
+          </BoxDinheiro>
+          <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
+            <span className="spanDatas">
+              <div className="divDatas">
+                <label>Data de ínicio:</label>
+                <label>Data de término:</label>
+                <label>Data de aprovação:</label>
               </div>
+              <div className="divDatas">
+                <input type="text" value={dataInicio} id="data_de_inicio" defaultValue="01/01/2001" onClick={() => {setSelected("inicio")}} />
+                <input type="text" value={dataFim} id="data_de_termino" defaultValue="01/01/2001" onClick={() => {setSelected("fim")}} />
+                <input type="text" value={dataAprovacao} id="data_de_aprovacao" defaultValue="01/01/2001" onClick={() => {setSelected("aprovacao")}} />
             </Table>
             <Table id="tableTwo">
               <div id="second-table">
@@ -419,35 +446,11 @@ return (
                 <h1>Responsável</h1>
                 <h1>Valor (R$)</h1>
               </div>
-              <div id="second-scroll">
-                {rowCC.map(teste => teste)}
-                <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
+              <div>
+                  {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
+                  {inputErrorFim && <Error localErro={selected}>{inputErrorFim}</Error>}
+                  {inputErrorAprov && <Error localErro={selected}>{inputErrorAprov}</Error>}
               </div>
-              <div id="removeRow">
-                <h2>REMOVER LINHA:</h2>
-                <IoMdRemoveCircle onClick={() => deleteLastRowCC()} />
-              </div>
-            </Table>
-            <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
-          </form>
-        </BoxDinheiro>
-        <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
-          <span className="spanDatas">
-            <div className="divDatas">
-              <label>Data de ínicio:</label>
-              <label>Data de término:</label>
-              <label>Data de aprovação:</label>
-            </div>
-            <div className="divDatas">
-              <input type="text" value={dataInicio} id="data_de_inicio" defaultValue="01/01/2001" onClick={() => {setSelected("inicio")}} />
-              <input type="text" value={dataFim} id="data_de_termino" defaultValue="01/01/2001" onClick={() => {setSelected("fim")}} />
-              <input type="text" value={dataAprovacao} id="data_de_aprovacao" defaultValue="01/01/2001" onClick={() => {setSelected("aprovacao")}} />
-            </div>
-            <div>
-                {inputErrorInit && <Error>{inputErrorInit}</Error>}
-                {inputErrorFim && <Error>{inputErrorFim}</Error>}
-                {inputErrorAprov && <Error>{inputErrorAprov}</Error>}
-            </div>
           </span>
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
         </BoxDatas>
