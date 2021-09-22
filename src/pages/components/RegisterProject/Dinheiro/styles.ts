@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { shade } from "polished";
 
 export const BoxDinheiro = styled.div`
     width: 70%;
@@ -52,7 +53,7 @@ export const BoxDinheiro = styled.div`
                                 justify-content: flex-start;
 
                                 div {
-                                  justify-content: flex-end;
+                                  justify-content: flex-start;
                                   align-items: center;
 
                                   svg{
@@ -62,6 +63,7 @@ export const BoxDinheiro = styled.div`
 
                                 h2 {
                                     margin-right: 1.3vw;
+                                    margin-left: -0.5vw;
                                 }
 
                                 #totalEsforco {
@@ -83,6 +85,7 @@ export const BoxDinheiro = styled.div`
 
 export const Table = styled.div`
     width: 50vw;
+    margin-top: 3vh;
 
     svg {
         float: right;
@@ -93,8 +96,13 @@ export const Table = styled.div`
         color: #00579D;
         
         &:hover {
-            color: #0075B1;
+            cursor: pointer;
+            color: ${shade(0.08, '#00579D')};
         }
+    }
+
+    #soma {
+        transform: rotate(90deg);
     }
 
     display: flex;
@@ -121,7 +129,7 @@ export const Table = styled.div`
     }
 
     #first-scroll, #second-scroll {
-        max-height: 45vh;
+        max-height: 40vh;
 
         flex-direction: column;
         overflow: scroll;
@@ -160,6 +168,7 @@ export const Table = styled.div`
     div {
         width: 100%;
         padding: 1.5vh;
+        padding-bottom: 1vh;
 
         display: flex;
         justify-content: space-between;
@@ -255,7 +264,7 @@ export const Linha = styled.div`
 
 export const Total = styled.div`
     width: 80%;
-   
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -275,18 +284,19 @@ export const Total = styled.div`
         color: #00579D;
         font-size: 2.6vh;
         float: right;
-        margin-left: 70px;
       } 
+
       svg {
           margin-top: -0.2vh;
-          margin-right: -2.3vw;
-          width: 3.3vw;
-          height: 3.3vh;
+          margin-left: -1.5vw;
+          width: 3vw;
+          height: 3vh;
           color: #00579D;
           
           &:hover {
-              color: #0075B1;
-          }
+            cursor: pointer;
+            color: ${shade(0.08, '#00579D')};
+        }
       }
     }
 
