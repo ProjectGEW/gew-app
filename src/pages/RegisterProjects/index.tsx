@@ -139,10 +139,13 @@ const RegisterProjects: React.FC = () => {
 
   const [sEsforco, setSEsforco] = useState<number>();
   const [sValorDespesa, setValorDespesa] = useState<number>();
+  const [sValorCcPagantes, setValorCcPagantes] = useState<number>();
 
   function somaTotal() {
     var somaEsforco = 0;
     var somaValorDespesa = 0;
+
+    var somaValorCcPagantes = 0;
 
     for (let i = 1; i <= rowDespesas.length; i++) {
       somaEsforco += parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value);
@@ -150,6 +153,11 @@ const RegisterProjects: React.FC = () => {
 
       setSEsforco(somaEsforco);
       setValorDespesa(somaValorDespesa);
+    }
+
+    for (let i = 1; i <= rowCC.length; i++) {
+      somaValorCcPagantes += parseInt((document.getElementById(`valorC${i}`) as HTMLInputElement).value);
+      setValorCcPagantes(somaValorCcPagantes);
     }
   };
 
@@ -212,15 +220,19 @@ const RegisterProjects: React.FC = () => {
 
   function setNovaLinhaCC(){
     setRowCC(
-      [...rowCC, <RowCcPagantes number={rowCC[rowCC.length - 1].props.number + 1} />]
+      [...rowCC, <RowCcPagantes number={rowCC[rowCC.length - 1].props.number + 1}/>]
     );
     return rowCC;
   }
 
   function deleteLastRowCC(){
-    document.getElementById(`C${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
-    rowCC.pop();
-    setRowCC(rowCC);
+    if (rowCC.length > 1) {
+      document.getElementById(`C${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
+      rowCC.pop();
+      setRowCC([...rowCC]);
+      return rowCC;
+    }
+    setRowCC([...rowCC]);
     return rowCC;
   }
 
@@ -427,163 +439,160 @@ return (
                 <input type="text" value={dataInicio} id="data_de_inicio" defaultValue="01/01/2001" onClick={() => {setSelected("inicio")}} />
                 <input type="text" value={dataFim} id="data_de_termino" defaultValue="01/01/2001" onClick={() => {setSelected("fim")}} />
                 <input type="text" value={dataAprovacao} id="data_de_aprovacao" defaultValue="01/01/2001" onClick={() => {setSelected("aprovacao")}} />
+            </Table>
+            <Table id="tableTwo">
+              <div id="second-table">
+                <h1>Centro de Custo</h1>
+                <h1>Responsável</h1>
+                <h1>Valor (R$)</h1>
               </div>
               <div>
                   {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
                   {inputErrorFim && <Error localErro={selected}>{inputErrorFim}</Error>}
                   {inputErrorAprov && <Error localErro={selected}>{inputErrorAprov}</Error>}
               </div>
-            </span>
-            <Calendar calendarType="US" className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
-          </BoxDatas>
-          <Footer tipo={"register_project"} ></Footer>
-          <span onClick={() => {
-            trocarMainEtapa("confirm-data");
-            setInfos();
-          }}>
-            <Button tipo={"continuarCadastro"} text={"Continuar"}/>
           </span>
-        </Content>
-      </ContainerRegister>
-    </Container >
-    <BoxConfirm id="confirm-data"> 
-      <h1>Confirmar Informações</h1>
-        <SideContainer>
-          <ContentContainer>
-            <div>
-              <h3>Número do projeto:</h3>
-              <h2>1000025562</h2>
-            </div>
-            <div>
-              <h3>Ata da aprovação:</h3>
-              <h2>1000025562</h2>
-            </div>
-          </ContentContainer>
-          <Box>
-            <div>
-              <h3>Título do projeto:</h3>
-              <h2>WEC - IMPLANTAÇÃO DE EDI CLIENTE XYZ</h2>
-            </div>
-          </Box>
-          <Box>
-            <div>
-              <h3>Descrição do projeto:</h3>
-              <h2>IMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃO</h2>
-            </div>
-          </Box>
-          <ContentContainer>
-            <div>
-              <h3>Nome do responsável:</h3>
-              <h2>ANDRÉ CARLOS DA SILVA</h2>
-            </div>
-            <div>
-              <h3>Seção do responsável:</h3>
-              <h2>ABCDEFGHIJKLM</h2>
-            </div>
-          </ContentContainer>
-          <ContentContainer>
-            <div>
-              <h3>Nome do solicitante:</h3>
-              <h2>DIEGO CANVAS DE SOUZA</h2>
-            </div>
-            <div>
-              <h3>Seção do solicitante:</h3>
-              <h2>NOPQRSTUVWXYZ</h2>
-            </div>
-          </ContentContainer>
-          <ContentContainer>
-            <div>
-              <h3>Nome do aprovador:</h3>
-              <h2>JOSÉ RICARDO</h2>
-            </div>
-            <div>
-              <h3>Seção do aprovador:</h3>
-              <h2>ABCDESKAKSSKAS</h2>
-            </div>
-          </ContentContainer>
-        </SideContainer>
-        <SideContainer>
-          <ContentContainer>
-            <div>
-              <h3>Centro de custo:</h3>
-              <h2>R$ 00,00</h2>
-            </div>
-            <div>
-              <h3>Data de início:</h3>
-              <h2>00/00/0000</h2>
-            </div>
-          </ContentContainer>
-          <ContentContainer>
-            <div>
-              <h3>Percentual aprovado:</h3>
-              <h2>R$ 00,00</h2>
-            </div>
-            <div>
-              <h3>Data de término:</h3>
-                <h2>00/00/0000</h2>
-            </div>
-          </ContentContainer>
-          <ContentContainer>
-            <div>
-              <h3>Limite de horas aprovadas:</h3>
-              <h2>00:00</h2>
-            </div>
-            <div>
-              <h3>Data de aprovação:</h3>
-              <h2>00/00/0000</h2>
-            </div>
-          </ContentContainer>
+          <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
+        </BoxDatas>
+        <Footer tipo={"register_project"} ></Footer>
+        <span onClick={() => {
+          trocarMainEtapa("confirm-data");
+          setInfos();
+        }}>
+          <Button tipo={"continuarCadastro"} text={"Continuar"}/>
+        </span>
+      </Content>
+    </ContainerRegister>
+  </Container >
+  <BoxConfirm id="confirm-data"> 
+    <h1>Confirmar Informações</h1>
+      <SideContainer>
+        <ContentContainer>
+          <div>
+            <h3>Número do projeto:</h3>
+            <h2>{projeto?.infosProjetosInputDTO?.numeroDoProjeto}</h2>
+          </div>
+          <div>
+            <h3>Ata da aprovação:</h3>
+            <h2>1000025562</h2>
+          </div>
+        </ContentContainer>
+        <Box>
+          <div>
+            <h3>Título do projeto:</h3>
+            <h2>{projeto?.infosProjetosInputDTO?.titulo}</h2>
+          </div>
+        </Box>
+        <Box>
+          <div>
+            <h3>Descrição do projeto:</h3>
+            <h2>{projeto?.infosProjetosInputDTO?.descricao}</h2>
+          </div>
+        </Box>
+        <ContentContainer>
+          <div>
+            <h3>Nome do responsável:</h3>
+            <h2>{projeto?.infosProjetosInputDTO?.nome_responsavel}</h2>
+          </div>
+          <div>
+            <h3>Seção do responsável:</h3>
+            <h2>ABCDEFGHIJKLM</h2>
+          </div>
+        </ContentContainer>
+        <ContentContainer>
+          <div>
+            <h3>Nome do solicitante:</h3>
+            <h2>{projeto?.infosProjetosInputDTO?.nome_solicitante}</h2>
+          </div>
+          <div>
+            <h3>Seção do solicitante:</h3>
+            <h2>NOPQRSTUVWXYZ</h2>
+          </div>
+        </ContentContainer>
+      </SideContainer>
+      <SideContainer>
+        <ContentContainer>
+          <div>
+            <h3>Valor total de despesas: </h3>
+            <h2>{analisaValor(sValorDespesa ? sValorDespesa : 0)}</h2>
+          </div>
+          <div>
+            <h3>Data de início:</h3>
+            <h2>{projeto?.infosProjetosInputDTO?.data_de_inicio}</h2>
+          </div>
+        </ContentContainer>
+        <ContentContainer>
+          <div>
+            <h3>Centro de custo:</h3>
+            <h2>{analisaValor(sValorCcPagantes ? sValorCcPagantes: 0)}</h2>
+          </div>
+          <div>
+            <h3>Data de término:</h3>
+              <h2>{projeto?.infosProjetosInputDTO?.data_de_termino}</h2>
+          </div>
+        </ContentContainer>
+        <ContentContainer>
+          <div>
+            <h3>Limite de horas aprovadas:</h3>
+            <h2>{sEsforco}</h2>
+          </div>
+          <div>
+            <h3>Data de aprovação:</h3>
+            <h2>{projeto?.infosProjetosInputDTO?.data_de_aprovacao}</h2>
+          </div>
+        </ContentContainer>
 
-          <TableConfirm>
-            <div>
-              <p>Funcionários alocados</p>
-              <AiOutlineUsergroupAdd />
-            </div>    
-            <ul>                    
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-              <li>
-                <p>Heloise Stefany Bianchi</p>
-                <HiMinusCircle />
-              </li>
-            </ul>
-          </TableConfirm>    
-        </SideContainer>
-        <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
-        <Footer tipo={"confirm_project"} ></Footer>
-        <Button  tipo={"Confirmar"} text={"Confirmar"} />
-      </BoxConfirm> 
-    <MenuRight>
-      <ContIcons />
-    </MenuRight>
-  </>
-  );
+        <TableConfirm>
+          <div>
+            <p>Funcionários alocados</p>
+            <AiOutlineUsergroupAdd />
+          </div>    
+          <ul>                    
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+            <li>
+              <p>Heloise Stefany Bianchi</p>
+              <HiMinusCircle />
+            </li>
+          </ul>
+        </TableConfirm>
+        
+      </SideContainer>
+      <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
+      <Footer tipo={"confirm_project"} ></Footer>
+      <Button  tipo={"Confirmar"} text={"Confirmar"} />
+    </BoxConfirm> 
+  <MenuRight>
+    <ContIcons />
+  </MenuRight>
+</>
+);
 };
 
 export default RegisterProjects;
