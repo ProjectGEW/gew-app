@@ -3,17 +3,18 @@ import React, { useState, useCallback, useEffect } from 'react';
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
-
 import { ContIcons } from '../components/MenuRight/styles';
+import Footer from '../components/Footer';
+
+import api from "../../service/api";
+
 import { AiOutlineCaretDown, AiOutlinePhone, AiOutlineMail } from 'react-icons/ai';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { GoPencil } from 'react-icons/go';
-
-import { ConsultantData, Container, PricePerHour, SideContainer, SupplierData, UserData } from './styles';
-import Footer from '../components/Footer';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
-import api from "../../service/api";
+import { ConsultantData, Container, PricePerHour, SideContainer, SupplierData, UserData } from './styles';
+
 //import analisaValor from "../../utils/analisaValor";
 
 interface CadConsultor {
