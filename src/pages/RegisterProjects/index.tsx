@@ -34,7 +34,7 @@ import { SideContainer } from '../RegisterConsultants/styles';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Footer from '../components/Footer';
-
+import analisaValor from '../../utils/analisaValor';
 
 interface IProjeto {
   infosProjetosInputDTO?: {
@@ -140,10 +140,13 @@ const RegisterProjects: React.FC = () => {
 
   const [sEsforco, setSEsforco] = useState<number>();
   const [sValorDespesa, setValorDespesa] = useState<number>();
+  const [sValorCcPagantes, setValorCcPagantes] = useState<number>();
 
   function somaTotal() {
     var somaEsforco = 0;
     var somaValorDespesa = 0;
+
+    var somaValorCcPagantes = 0;
 
     for (let i = 1; i <= rowDespesas.length; i++) {
       somaEsforco += parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value);
@@ -151,6 +154,11 @@ const RegisterProjects: React.FC = () => {
 
       setSEsforco(somaEsforco);
       setValorDespesa(somaValorDespesa);
+    }
+
+    for (let i = 1; i <= rowCC.length; i++) {
+      somaValorCcPagantes += parseInt((document.getElementById(`valorC${i}`) as HTMLInputElement).value);
+      setValorCcPagantes(somaValorCcPagantes);
     }
   };
 
@@ -213,15 +221,19 @@ const RegisterProjects: React.FC = () => {
 
   function setNovaLinhaCC(){
     setRowCC(
-      [...rowCC, <RowCcPagantes number={rowCC[rowCC.length - 1].props.number + 1} />]
+      [...rowCC, <RowCcPagantes number={rowCC[rowCC.length - 1].props.number + 1}/>]
     );
     return rowCC;
   }
 
   function deleteLastRowCC(){
-    document.getElementById(`C${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
-    rowCC.pop();
-    setRowCC(rowCC);
+    if (rowCC.length > 1) {
+      document.getElementById(`C${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
+      rowCC.pop();
+      setRowCC([...rowCC]);
+      return rowCC;
+    }
+    setRowCC([...rowCC]);
     return rowCC;
   }
 
@@ -405,14 +417,16 @@ return (
               <div id="second-table">
                 <h1>Centro de Custo</h1>
                 <h1>Responsável</h1>
-                <h1>Percentual</h1>
                 <h1>Valor (R$)</h1>
               </div>
               <div id="second-scroll">
                 {rowCC.map(teste => teste)}
                 <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
               </div>
-              <div onClick={() => deleteLastRowCC()}>TESTE</div>
+              <div id="removeRow">
+                <h2>REMOVER LINHA:</h2>
+                <IoMdRemoveCircle onClick={() => deleteLastRowCC()} />
+              </div>
             </Table>
             <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
           </form>
@@ -453,7 +467,7 @@ return (
         <ContentContainer>
           <div>
             <h3>Número do projeto:</h3>
-            <h2>1000025562</h2>
+            <h2>{projeto?.infosProjetosInputDTO?.numeroDoProjeto}</h2>
           </div>
           <div>
             <h3>Ata da aprovação:</h3>
@@ -463,19 +477,19 @@ return (
         <Box>
           <div>
             <h3>Título do projeto:</h3>
-            <h2>WEC - IMPLANTAÇÃO DE EDI CLIENTE XYZ</h2>
+            <h2>{projeto?.infosProjetosInputDTO?.titulo}</h2>
           </div>
         </Box>
         <Box>
           <div>
             <h3>Descrição do projeto:</h3>
-            <h2>IMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃOIMPLANTAÇÃO</h2>
+            <h2>{projeto?.infosProjetosInputDTO?.descricao}</h2>
           </div>
         </Box>
         <ContentContainer>
           <div>
             <h3>Nome do responsável:</h3>
-            <h2>ANDRÉ CARLOS DA SILVA</h2>
+            <h2>{projeto?.infosProjetosInputDTO?.nome_responsavel}</h2>
           </div>
           <div>
             <h3>Seção do responsável:</h3>
@@ -485,53 +499,43 @@ return (
         <ContentContainer>
           <div>
             <h3>Nome do solicitante:</h3>
-            <h2>DIEGO CANVAS DE SOUZA</h2>
+            <h2>{projeto?.infosProjetosInputDTO?.nome_solicitante}</h2>
           </div>
           <div>
             <h3>Seção do solicitante:</h3>
             <h2>NOPQRSTUVWXYZ</h2>
           </div>
         </ContentContainer>
-        <ContentContainer>
-          <div>
-            <h3>Nome do aprovador:</h3>
-            <h2>JOSÉ RICARDO</h2>
-          </div>
-          <div>
-            <h3>Seção do aprovador:</h3>
-            <h2>ABCDESKAKSSKAS</h2>
-          </div>
-        </ContentContainer>
       </SideContainer>
       <SideContainer>
         <ContentContainer>
           <div>
-            <h3>Centro de custo:</h3>
-            <h2>R$ 00,00</h2>
+            <h3>Valor total de despesas: </h3>
+            <h2>{analisaValor(sValorDespesa ? sValorDespesa : 0)}</h2>
           </div>
           <div>
             <h3>Data de início:</h3>
-            <h2>00/00/0000</h2>
+            <h2>{projeto?.infosProjetosInputDTO?.data_de_inicio}</h2>
           </div>
         </ContentContainer>
         <ContentContainer>
           <div>
-            <h3>Percentual aprovado:</h3>
-            <h2>R$ 00,00</h2>
+            <h3>Centro de custo:</h3>
+            <h2>{analisaValor(sValorCcPagantes ? sValorCcPagantes: 0)}</h2>
           </div>
           <div>
             <h3>Data de término:</h3>
-              <h2>00/00/0000</h2>
+              <h2>{projeto?.infosProjetosInputDTO?.data_de_termino}</h2>
           </div>
         </ContentContainer>
         <ContentContainer>
           <div>
             <h3>Limite de horas aprovadas:</h3>
-            <h2>00:00</h2>
+            <h2>{sEsforco}</h2>
           </div>
           <div>
             <h3>Data de aprovação:</h3>
-            <h2>00/00/0000</h2>
+            <h2>{projeto?.infosProjetosInputDTO?.data_de_aprovacao}</h2>
           </div>
         </ContentContainer>
 
