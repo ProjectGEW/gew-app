@@ -105,6 +105,8 @@ const RegisterProjects: React.FC = () => {
   //console.log(file);
   const [fileName, setFileName] = useState<string>();
 
+  const [errorInput, setErrorInput] = useState<boolean>();
+
   // Gerar linhas
   const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas number={1} />]);
   const [rowCC, setRowCC] = useState<JSX.Element[]>([<RowCcPagantes number={1} />]);
@@ -373,9 +375,9 @@ return (
             <span>
               <div id="left-box">
                 <label>Número do projeto:</label>
+                {/* props.target.value */}
                 <input type="number" id="numeroProjeto" />
-
-                <label>Título do projeto:</label>
+                <label>Título do projeto: </label>
                 <input type="text" id="titulo" />
 
                 <label>Descrição do projeto:</label>
@@ -388,6 +390,9 @@ return (
                 </Paper>
               </div>
             </span>
+            <span onClick={() => {
+              return;
+              trocarEtapa("boxResponsavel")}}><Button  tipo={"etapaProjeto"} text={"Continuar"} /></span>
           </BoxProjeto>
           <BoxResponsavel id="boxResponsavel">
             <span>
@@ -408,6 +413,7 @@ return (
                 <Button tipo={"Lupa"} text={""} />
               </div>
             </span>
+            <span onClick={() => trocarEtapa("boxDinheiro")}><Button  tipo={"etapaResponsaveis"} text={"Continuar"} /></span>
           </BoxResponsavel>
           <BoxDinheiro id="boxDinheiro">
             <form action="" method="post">
@@ -449,6 +455,7 @@ return (
               </Table>
               <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
             </form>
+            <span onClick={() => trocarEtapa("boxDatas")}><Button  tipo={"etapaDinheiro"} text={"Continuar"} /></span>
           </BoxDinheiro>
           <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
             <span className="spanDatas">
@@ -470,14 +477,15 @@ return (
               </div>
           </span>
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
+          <span onClick={() => {
+            trocarMainEtapa("confirm-data");
+            setInfos();
+          }}>
+          <Button tipo={"continuarCadastro"} text={"Confirmar"}/>
+        </span>
         </BoxDatas>
         <Footer tipo={"register_project"} ></Footer>
-        <span onClick={() => {
-          trocarMainEtapa("confirm-data");
-          setInfos();
-        }}>
-          <Button tipo={"continuarCadastro"} text={"Continuar"}/>
-        </span>
+        
       </Content>
     </ContainerRegister>
   </Container >
@@ -604,7 +612,7 @@ return (
       <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
       <Footer tipo={"confirm_project"} ></Footer>
       <div onClick={handleProjects}>
-        <Button  tipo={"Confirmar"} text={"Confirmar"} />
+        <Button  tipo={"Confirmar"} text={"Confirmar"} /> 
       </div>
     </BoxConfirm> 
   <MenuRight>
