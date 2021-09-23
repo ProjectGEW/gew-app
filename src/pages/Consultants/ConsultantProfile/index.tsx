@@ -6,6 +6,8 @@ import MenuRight from '../../components/MenuRight';
 import { ContIcons } from '../../components/MenuRight/styles';
 
 import { Container } from './style';
+import { Arrow } from '../ConsultantsList/style';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
 
 
 
@@ -16,7 +18,10 @@ const ConsultantProfile: React.FC = () => {
             <Navbar />
             <MenuLeft />
 
-            <Container> 
+            <Container>
+                <Arrow>
+                    <HiArrowNarrowLeft />
+                </Arrow>
             </Container>
 
             <MenuRight>

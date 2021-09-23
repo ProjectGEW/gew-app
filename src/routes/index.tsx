@@ -16,6 +16,7 @@ import Test from '../pages/Test';
 import Test2 from '../pages/test2';
 import ProjectsList from '../pages/Consultants/ProjectsList';
 import ConsultantList from '../pages/Consultants/ConsultantsList';
+import ConsultantProfile from '../pages/Consultants/ConsultantProfile';
 
 const Routes: React.FC = () => (
     <Switch>
@@ -31,6 +32,7 @@ const Routes: React.FC = () => (
         <Route path="/details/:id" component={Details} />
         <Route path="/allocate_consultants/view_projects" component={ProjectsList} />
         <Route path="/allocate_consultants/consultants" component={ConsultantList} />
+        <Route path="/allocate_consultants/profile" component={ConsultantProfile} />
         {/* Área para testes */}
         <Route path="/test" component={Test} />
         <Route path="/test2" component={Test2} />
