@@ -8,7 +8,11 @@ import { ContIcons } from '../../components/MenuRight/styles';
 import { Container, Arrow, Tittle, Table, TableDimensions, TableScroll } from './style';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 
-const ConsultantList: React.FC = () => {
+interface ListRoute {
+    tipo?: string;
+}
+
+const ConsultantList: React.FC<ListRoute> = ({tipo}) => {
 
     return (
         <>
@@ -20,7 +24,7 @@ const ConsultantList: React.FC = () => {
                     <HiArrowNarrowLeft />
                 </Arrow>
                 <Tittle>Consultores Registrados</Tittle>
-                <TableDimensions>
+                <TableDimensions tipo={tipo}>
                 <Table>
                     <div id='header'>
                         <div className='cadastro'>Cadastro</div>

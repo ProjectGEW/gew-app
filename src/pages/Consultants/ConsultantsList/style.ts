@@ -1,4 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { TranspileOptions } from "typescript";
+
+interface ListRoute {
+    tipo?: string;
+}
 
 export const Container = styled.div`
     position: absolute;
@@ -127,11 +132,16 @@ export const Table = styled.table`
     }
 `;
 
-export const TableDimensions = styled.div`
+export const TableDimensions = styled.div<ListRoute>`
     width: 90%;
     margin: 1vh 0 0 5%;
     height: 64vh;
     overflow: hidden ;
+
+    ${props => props.tipo === "Perfil" && css`
+        height: 30vh;
+        margin-top: 4vh;
+    `}
 `;
 
 export const TableScroll = styled.div`
