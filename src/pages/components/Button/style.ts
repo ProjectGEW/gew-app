@@ -29,7 +29,7 @@ export const Container = styled.div<buttonProps>`
 
     ${props => props.tipo === "PopUp" && css`
         button {
-            margin-left: 12vw;
+            margin-left: 13.5vw;
             margin-top: 2.8vh;
         }
     `}

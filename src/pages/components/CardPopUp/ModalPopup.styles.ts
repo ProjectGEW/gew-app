@@ -14,20 +14,10 @@ const ModalContainer = styled.div`
     position: relative;
 `;
 
-/*const appearFrom = keyframes`
-    from {
-        opacity: 0.7;
-        transform: translateY(100vh);
-    } to {
-        opacity: 1;
-        transform: translateY(0vh);
-    }
-`;*/
-
 export const DesktopModalContainer = styled(ModalContainer)`
     border-radius: 1vh;
     box-shadow: 0 0 32px rgba(0,0,0,0.5);
-    padding: 10vh 0 6vh 10vh;
+    padding: 10vh 0 6vh 8vh;
     width: 70vw;
     height: 86.5vh;
     font-size: 26px;
@@ -59,7 +49,7 @@ export const ModalContainerInfos = styled.div`
         font-size: 1em;
         font-weight: bold;
         padding-right: 1vw;
-        color: #222;
+        color: #333;
     }
 `;
 
@@ -82,7 +72,7 @@ export const ContainerBox = styled.div`
     h2 {
         font-size: 0.54em;
         font-weight: 200;
-        color: #737373;
+        color: #444;
         margin-left: 1vh;
         margin-top: 0.2vh;
 
@@ -182,7 +172,7 @@ export const ContainerObjectives = styled.div`
     h1 {
         font-size: 2.3vh;
         font-weight: bold;
-        color: #222;
+        color: #333;
     }
 
     h2 {
@@ -190,13 +180,13 @@ export const ContainerObjectives = styled.div`
         font-weight: normal;
         padding-right: 3vw;
         margin-top: -1.4vh;
-        color: #222;
+        color: #444;
     }
 `;
 
 export const ContainerValues = styled.div`
     margin-top: 3.6vh;
-    align-text: center;
+    text-align: center;
 
     &:nth-child(1) {
         margin-top: 0vh;
@@ -211,11 +201,10 @@ export const ContainerValues = styled.div`
         flex-direction: row;
         margin-bottom: 2vh;
 
-        width: 19vw;
+        width: 21vw;
         justify-content: space-between;
 
         &:nth-child(4) {
-
             h1 {
                 font-size: 0.64em;
             }
@@ -236,14 +225,14 @@ export const ContainerValues = styled.div`
         h1 {
             font-size: 0.58em;
             font-weight: bold;
-            color: #222;
+            color: #333;
         }
     
         h2 {
             font-size: 0.57em;
             color: #444;
             font-weight: normal;
-            margin-left: 1vh;
+            margin-left: 1vw;
             margin-top: 0.2vh;
             text-align: right;
         }   
@@ -270,13 +259,14 @@ export const ModalContainerGraphs = styled.div`
 export const HourGraphics = styled.div`
     width: 18vw;
     height: 30vh;
+    margin-left: 1.5vw;
 `;
 
 export const CostCenters = styled.div`
     width: 36vw;
     height: 22vh;
     margin-top: 3vh;
-    border-radius: 2vh 2vh 0 0;
+    border-radius: 0.8vh 0.8vh 0 0;
     background-color: rgba(196, 196, 196, 0.3);
     overflow: hidden;
     border: 0.01vh solid #ccc;
@@ -287,8 +277,8 @@ export const CostCenters = styled.div`
         left: 0;
         width: 100%;
         height: 5vh;
-        background-color: #00579d;
-        border-radius: 1vh 1vh 0 0;
+        background-color: #00579D;
+        border-radius: 0.8vh 0.8vh 0 0;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -297,7 +287,7 @@ export const CostCenters = styled.div`
 
         h2 {
             color: #fff;
-            font-size: 1.8vh;
+            font-size: 2vh;
             font-weight: bold;
 
             &:first-child {
@@ -337,6 +327,7 @@ export const CostCenters = styled.div`
         li {
             display: flex;
             flex-direction: row;
+            align-items: center;
             justify-content: space-between;
             padding: 1.4vh;
             padding-right: 4vh;
@@ -347,7 +338,7 @@ export const CostCenters = styled.div`
                 width: 12vw;
                 font-weight: 100;
                 color: #023A67;
-                margin-left: 1.2vw;
+                margin-left: 1.6vw;
 
                 &:first-child {
                     margin-right: 6vh;
@@ -356,19 +347,18 @@ export const CostCenters = styled.div`
             }
 
             h3 {
-                font-size: 1.9vh;
+                font-size: 1.8vh;
                 color: #023A67;
-                margin-right: 1.3vw;
+                margin-right: 1.5vw;
             }
         }
 
         .row {
-                width: 34.6vw;
-                height: 0.2vh;
-                margin-left: 1vh;
-                background-color: #c4c4c4;
-                position: relative;
+            width: 34.6vw;
+            height: 0.2vh;
+            margin-left: 1vh;
+            background-color: #c4c4c4;
+            position: relative;
         }
     }
 `;
-
