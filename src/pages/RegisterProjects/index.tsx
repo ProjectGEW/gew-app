@@ -35,8 +35,14 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 //import { SideContainer } from '../RegisterConsultants/styles';
 
+import api from "../../service/api";
+
+interface IProjetoResponse {
+  id: number;
+}
+
 interface IProjeto {
-  infosProjetosInputDTO?: {
+  infoProjetosInputDTO?: {
     numeroDoProjeto: number;
     titulo: string;
     descricao: string;
@@ -46,7 +52,7 @@ interface IProjeto {
     data_de_termino: string;
     data_de_aprovacao: string;    
   },
-  despesaInputDTO?: IDespesas[],
+  despesasInputDTOS?: IDespesas[],
   ccPagantesInputDTO?: ICCpagantes[]
 }
 
@@ -57,13 +63,13 @@ interface IDespesas {
 }
 
 interface ICCpagantes{
-  centro_de_custo_id?: string;
+  secao_id?: number;
   valor?: number;
 }
 
 const RegisterProjects: React.FC = () => {
   const initalValue = {
-    infosProjetosInputDTO: {
+    infoProjetosInputDTO: {
       numeroDoProjeto: 0,
       titulo: "",
       descricao: "",
@@ -73,7 +79,7 @@ const RegisterProjects: React.FC = () => {
       data_de_termino: "",
       data_de_aprovacao: ""
     },
-    despesasInputDTO: [
+    despesasInputDTOS: [
       {
         nome: "",
         esforco: 0,
@@ -82,22 +88,22 @@ const RegisterProjects: React.FC = () => {
     ],
     ccPagantesInputDTO: [
       {
-        centro_de_custo_id: "",
+        secao_id: 0,
         valor: 0
       }
     ]
   }
 
-  initalValue.despesasInputDTO.shift();
+  initalValue.despesasInputDTOS.shift();
   initalValue.ccPagantesInputDTO.shift();
 
   //Projeto
   const [projeto, setProjeto] = useState<IProjeto>();
   //console.log(projeto);
   // Ata
-  const [file, setFile] = useState<object>();
+  const [file, setFile] = useState<Blob>();
   //console.log(file);
-  const [fileName, setFileName] = useState();
+  const [fileName, setFileName] = useState<string>();
 
   // Gerar linhas
   const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas number={1} />]);
@@ -163,19 +169,19 @@ const RegisterProjects: React.FC = () => {
 
 
   async function setInfos(){
-    initalValue.infosProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
-    initalValue.infosProjetosInputDTO["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
-    initalValue.infosProjetosInputDTO["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
+    initalValue.infoProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
+    initalValue.infoProjetosInputDTO["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
+    initalValue.infoProjetosInputDTO["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
 
-    initalValue.infosProjetosInputDTO.nome_responsavel = (document.getElementById("nome_responsavel") as HTMLInputElement).value;
-    initalValue.infosProjetosInputDTO.nome_solicitante = (document.getElementById("nome_solicitante") as HTMLInputElement).value;
+    initalValue.infoProjetosInputDTO.nome_responsavel = (document.getElementById("nome_responsavel") as HTMLInputElement).value;
+    initalValue.infoProjetosInputDTO.nome_solicitante = (document.getElementById("nome_solicitante") as HTMLInputElement).value;
 
-    initalValue.infosProjetosInputDTO.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
-    initalValue.infosProjetosInputDTO.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
-    initalValue.infosProjetosInputDTO.data_de_aprovacao = (document.getElementById("data_de_aprovacao") as HTMLInputElement).value;
+    initalValue.infoProjetosInputDTO.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
+    initalValue.infoProjetosInputDTO.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
+    initalValue.infoProjetosInputDTO.data_de_aprovacao = (document.getElementById("data_de_aprovacao") as HTMLInputElement).value;
 
     for (let i = 1; i <= rowDespesas.length; i++) {
-      initalValue.despesasInputDTO.push(
+      initalValue.despesasInputDTOS.push(
         {
           nome: (document.getElementById(`despesa${i}`) as HTMLInputElement).value,
           esforco: parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value),
@@ -187,7 +193,7 @@ const RegisterProjects: React.FC = () => {
     for (let i = 1; i <= rowCC.length; i++) {
       initalValue.ccPagantesInputDTO.push(
         {
-          centro_de_custo_id: (document.getElementById(`centro${i}`) as HTMLInputElement).value,
+          secao_id: parseInt((document.getElementById(`centro${i}`) as HTMLInputElement).value),
           valor: parseFloat((document.getElementById(`valorC${i}`) as HTMLInputElement).value)
         }
       )
@@ -312,6 +318,20 @@ const RegisterProjects: React.FC = () => {
         }
     }
   }
+
+  const handleProjects = useCallback( async () => {
+    try {
+      const response = await api.post<IProjetoResponse>("projetos", projeto);
+      const data = response.data;
+      const formData = new FormData();
+
+      formData.append("file", file ? file : "");
+
+      await api.post(`files/upload/${data.id}`, formData);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [projeto, file]);
 
 return (
   <>
@@ -467,29 +487,29 @@ return (
         <ContentContainer>
           <div>
             <h3>Número do projeto:</h3>
-            <h2>{projeto?.infosProjetosInputDTO?.numeroDoProjeto}</h2>
+            <h2>{projeto?.infoProjetosInputDTO?.numeroDoProjeto}</h2>
           </div>
           <div>
             <h3>Ata da aprovação:</h3>
-            <h2>1000025562</h2>
+            <h2>{fileName ? fileName.split(".")[0] : "Sem ATA"}</h2>
           </div>
         </ContentContainer>
         <Box>
           <div>
             <h3>Título do projeto:</h3>
-            <h2>{projeto?.infosProjetosInputDTO?.titulo}</h2>
+            <h2>{projeto?.infoProjetosInputDTO?.titulo}</h2>
           </div>
         </Box>
         <Box>
           <div>
             <h3>Descrição do projeto:</h3>
-            <h2>{projeto?.infosProjetosInputDTO?.descricao}</h2>
+            <h2>{projeto?.infoProjetosInputDTO?.descricao}</h2>
           </div>
         </Box>
         <ContentContainer>
           <div>
             <h3>Nome do responsável:</h3>
-            <h2>{projeto?.infosProjetosInputDTO?.nome_responsavel}</h2>
+            <h2>{projeto?.infoProjetosInputDTO?.nome_responsavel}</h2>
           </div>
           <div>
             <h3>Seção do responsável:</h3>
@@ -499,7 +519,7 @@ return (
         <ContentContainer>
           <div>
             <h3>Nome do solicitante:</h3>
-            <h2>{projeto?.infosProjetosInputDTO?.nome_solicitante}</h2>
+            <h2>{projeto?.infoProjetosInputDTO?.nome_solicitante}</h2>
           </div>
           <div>
             <h3>Seção do solicitante:</h3>
@@ -515,7 +535,7 @@ return (
           </div>
           <div>
             <h3>Data de início:</h3>
-            <h2>{projeto?.infosProjetosInputDTO?.data_de_inicio}</h2>
+            <h2>{projeto?.infoProjetosInputDTO?.data_de_inicio}</h2>
           </div>
         </ContentContainer>
         <ContentContainer>
@@ -525,7 +545,7 @@ return (
           </div>
           <div>
             <h3>Data de término:</h3>
-              <h2>{projeto?.infosProjetosInputDTO?.data_de_termino}</h2>
+              <h2>{projeto?.infoProjetosInputDTO?.data_de_termino}</h2>
           </div>
         </ContentContainer>
         <ContentContainer>
@@ -535,7 +555,7 @@ return (
           </div>
           <div>
             <h3>Data de aprovação:</h3>
-            <h2>{projeto?.infosProjetosInputDTO?.data_de_aprovacao}</h2>
+            <h2>{projeto?.infoProjetosInputDTO?.data_de_aprovacao}</h2>
           </div>
         </ContentContainer>
 
@@ -583,7 +603,9 @@ return (
       </SideContainer>
       <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
       <Footer tipo={"confirm_project"} ></Footer>
-      <Button  tipo={"Confirmar"} text={"Confirmar"} />
+      <div onClick={handleProjects}>
+        <Button  tipo={"Confirmar"} text={"Confirmar"} />
+      </div>
     </BoxConfirm> 
   <MenuRight>
     <ContIcons />
