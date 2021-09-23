@@ -113,8 +113,8 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "continuarCadastro" && css`
         button {
             position: absolute;
-            margin-top: -7.5vh;
-            margin-left: 28.5vw;
+            margin-top: -7.4vh;
+            margin-left: 59.7vw;
         }
     `}
 
@@ -132,6 +132,31 @@ export const Container = styled.div<buttonProps>`
             position: absolute;
             margin-top: 1vh;
             margin-left: 24.05vw;
+        }
+    `}
+
+    ${props => props.tipo === "etapaProjeto" && css`
+        button {
+            position: absolute;
+            display: block;
+            margin-top:-5vh;
+            margin-left: 44.5vw;
+        }
+    `}
+
+    ${props => props.tipo === "etapaResponsaveis" && css`
+        button {
+            position: absolute;
+            margin-top: 20.5vh;
+            margin-left: 51.5vw;
+        }
+    `}
+
+    ${props => props.tipo === "etapaDinheiro" && css`
+        button {
+            position: absolute;
+            margin-top: 20.3vh;
+            margin-left: 55.8vw;
         }
     `}
 `;
