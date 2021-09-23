@@ -24,7 +24,7 @@ const Linha = styled.div`
 
       
       &:nth-child(1) {
-          width: 12vw;
+          width: 10vw;
           margin-left: 0vw;
       }
 
@@ -34,15 +34,9 @@ const Linha = styled.div`
       }
 
       &:nth-child(3) {
-          width: 6vw;
+          width: 8vw;
           margin-right: 0vw;
-      }
-
-      &:nth-child(4) {
-          width: 10vw;
-          margin-right: 0vw;
-      }
-                
+      }                
   }
 `;
 

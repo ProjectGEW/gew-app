@@ -416,14 +416,16 @@ return (
                 <div id="second-table">
                   <h1>Centro de Custo</h1>
                   <h1>Responsável</h1>
-                  <h1>Percentual</h1>
                   <h1>Valor (R$)</h1>
                 </div>
                 <div id="second-scroll">
                   {rowCC.map(teste => teste)}
                   <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
+                  <div id="remove">
+                    <h2>REMOVER LINHA:</h2>
+                    <IoMdRemoveCircle onClick={() => deleteLastRowCC()} />
+                  </div>
                 </div>
-                <div onClick={() => deleteLastRowCC()}>TESTE</div>
               </Table>
               <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
             </form>
