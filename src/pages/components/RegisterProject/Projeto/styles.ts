@@ -61,7 +61,7 @@ export const BoxProjeto = styled.div`
     textarea {
       max-width: 80vh;
       max-height: 20vh;
-      min-width: 68vh;
+      min-width: 70.5vh;
       min-height: 18vh;
     }
 

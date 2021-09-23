@@ -128,6 +128,22 @@ export const Table = styled.div`
         background-color: #00579D;
     }
 
+    #second-table {
+        h1 {
+            &:first-child {
+                margin-left: 0.7vw;
+            }
+
+            &:nth-child(2) {
+                margin-left: -17vw;
+            }
+
+            &:last-child {
+                margin-right: 3.5vw;
+            }
+        }
+    }
+
     #first-scroll, #second-scroll {
         max-height: 40vh;
 
@@ -151,18 +167,36 @@ export const Table = styled.div`
             margin-right: 3vw;
 
             &:nth-child(1) {
-                margin-left: 8vw;
+                margin-left: 0.7vw;
             }
 
             &:nth-child(2) {
-                margin-left: 4vw;
+                margin-left: 11.5vw;
             }
 
             &:nth-child(3) {
                 margin-left: 0vw;
-                margin-right: 3vw;
+                margin-right: 3.5vw;
             }
         }
+    }
+
+    #second-scroll {
+        #remove {
+            display: flex;
+            align-items: center;
+
+            h2 {
+                color: #00579D;
+                font-size: 2.6vh;
+            }
+
+            svg {   
+                margin-top: 0.1vh;
+                margin-right: 31.5vw;                
+            }
+        }
+
     }
 
     div {
@@ -207,21 +241,16 @@ export const Table = styled.div`
             &:last-child {
                 input {
                     &:nth-child(1) {
-                        width: 12vw;
+                        width: 10.3vw;
                         margin-left: 0vw;
                     }
             
                     &:nth-child(2) {
-                        width: 16vw;
+                        width: 24.8vw;
                         margin-left: 0vw;
                     }
             
                     &:nth-child(3) {
-                        width: 6vw;
-                        margin-right: 0vw;
-                    }
-    
-                    &:nth-child(4) {
                         width: 10vw;
                         margin-right: 0vw;
                     }
@@ -242,6 +271,7 @@ export const Table = styled.div`
                 float: left;
                 margin-left: 20vw;
                 color: #00579D;
+                
                 &:hover {
                     color: #0075B1;
                 }
