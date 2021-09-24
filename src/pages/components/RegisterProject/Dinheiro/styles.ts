@@ -10,6 +10,28 @@ export const BoxDinheiro = styled.div`
     justify-content: center;
     flex-direction: column;
 
+    /* Estilização dos erros */
+
+    .msgErro {
+        position: absolute;
+        font-size: 2vh;
+        margin-top: 5.2vh;
+    }
+
+    .one {
+        margin-left: 0vw;
+    }
+
+    .two {
+        margin-left: 29.2vw;
+    }
+
+    .three {
+        margin-left: 38.5vw;
+    }
+
+    /* Fim */
+
     p {
         margin-top: -2.6vh;
         margin-bottom: 1vh;
@@ -249,19 +271,19 @@ export const Table = styled.div`
             &:last-child {
                 input {
                     &:nth-child(1) {
-                        width: 10.3vw;
+                        width: 10vw;
                         margin-left: 0vw;
                     }
-            
-                    &:nth-child(2) {
-                        width: 24.8vw;
-                        margin-left: 0vw;
-                    }
-            
+
                     &:nth-child(3) {
+                        width: 20vw;
+                        margin-left: 0vw;
+                    }
+
+                    &:nth-child(4) {
                         width: 10vw;
                         margin-right: 0vw;
-                    }
+                    }     
                 }
             }
         }
@@ -308,11 +330,11 @@ export const Linha = styled.div`
             width: 29vw;
         }
 
-        &:nth-child(2) {
+        &:nth-child(3) {
             width: 6vw;
         }
 
-        &:nth-child(3) {
+        &:nth-child(5) {
             width: 10vw;
         }
     }

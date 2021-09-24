@@ -22,18 +22,17 @@ const Linha = styled.div`
       box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
       color: #5E5E5E;
 
-      
       &:nth-child(1) {
           width: 10vw;
           margin-left: 0vw;
       }
 
-      &:nth-child(2) {
+      &:nth-child(3) {
           width: 16vw;
           margin-left: 0vw;
       }
 
-      &:nth-child(3) {
+      &:nth-child(4) {
           width: 8vw;
           margin-right: 0vw;
       }                

@@ -18,11 +18,11 @@ const RowDespesas: React.FC<Iteste> = ({number}) => {
   return (
     <Linha id={`D${number}`}>
       <input type="text" id={conCatDespesa} placeholder="Java" />
-      <p id={conCatDespesaResponse}></p>
+      <p id={conCatDespesaResponse} className="one msgErro"></p>
       <input type="text" id={conCatEsforco} placeholder="100" className="alinhar" />
-      <p id={conCatEsforcoResponse}></p>
+      <p id={conCatEsforcoResponse} className="two msgErro"></p>
       <input type="text" id={conCatValor} placeholder="20.000,00" className="alinhar" />
-      <p id={conCatValorResponse}></p>
+      <p id={conCatValorResponse} className="three msgErro"></p>
     </Linha>
   );
 }
