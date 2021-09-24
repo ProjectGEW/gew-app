@@ -31,7 +31,7 @@ const Routes: React.FC = () => (
         <Route path="/dashboard/:id" component={Dashboard} />
         <Route path="/details/:id" component={Details} />
         <Route path="/allocate_consultants/view_projects" component={ProjectsList} />
-        <Route path="/allocate_consultants/consultants" component={ConsultantList} />
+        <Route path="/allocate_consultants/consultants/:numeroDoProjeto" component={ConsultantList} />
         <Route path="/allocate_consultants/profile" component={ConsultantProfile} />
         {/* Área para testes */}
         <Route path="/test" component={Test} />

@@ -125,6 +125,10 @@ export const Table = styled.table`
 
     .projetos {
         width: 10vw;
+
+        select {
+            border: 0;
+        }
     }
 
     .atribuicao {

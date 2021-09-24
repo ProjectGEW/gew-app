@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -8,11 +9,33 @@ import { ContIcons } from '../../components/MenuRight/styles';
 import { Container, Arrow, Tittle, Table, TableDimensions, TableScroll } from './style';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 
+import api from "../../../service/api";
+
 interface ListRoute {
     tipo?: string;
 }
 
+interface IConsultor {
+    numero_cracha: number;
+    status: string;
+    nome: string;
+    projetos: number[];
+}
+
 const ConsultantList: React.FC<ListRoute> = ({tipo}) => {
+    const [consultants, setConsultants] = useState<IConsultor[]>([]);
+    const { numeroDoProjeto }: {numeroDoProjeto: string}  = useParams();
+
+    window.onload = async function handleConsultores() {
+        await api.get("funcionarios/consultor").then((response) => {
+            setConsultants(response.data);
+        });
+        console.log(numeroDoProjeto);
+    }
+
+    const atribuir = useCallback( async (numero_cracha) => {
+        await api.post(`projetos/atrelar/${numeroDoProjeto}/${numero_cracha}`);
+    }, [numeroDoProjeto]);
 
     return (
         <>
@@ -34,105 +57,25 @@ const ConsultantList: React.FC<ListRoute> = ({tipo}) => {
                         <div className='atribuicao'>Atribuição</div>
                     </div>
                     <TableScroll>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
+                    {consultants.map(consultant => (
+                        <tr id='column'>
+                            <td className='cadastro'>{consultant.numero_cracha}</td>
+                            <td className='status' id={`status${consultant.numero_cracha}`}>{consultant.status}</td>
+                            <td className='nome'>{consultant.nome}</td>
+                            <td className='projetos'>
+                                {consultant.projetos.length > 1 ? 
+                                    <select>
+                                        {consultant.projetos.map(projeto => (
+                                            <option>{projeto}</option>
+                                        ))}
+                                    </select> 
+                                : consultant.projetos.length > 0 ? consultant.projetos : ""}
+                            </td>
+                            <td className='atribuicao'>
+                                <button onClick={() => atribuir(consultant.numero_cracha)}>Atribuir</button>
+                            </td>
+                        </tr>
+                    ))}
                     </TableScroll>
                 </Table>
                 </TableDimensions>
