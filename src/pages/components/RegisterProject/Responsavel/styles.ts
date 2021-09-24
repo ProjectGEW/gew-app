@@ -14,6 +14,14 @@ export const BoxResponsavel = styled.div`
         margin-top: 2vh;
     }
 
+    p {
+        margin-top: -2.6vh;
+        margin-bottom: 1vh;
+        margin-left: 2vh;
+        font-size: 2.3vh;
+        color: rgb(255, 0, 0, 0.8);
+      }
+
     div {
         display: flex;
         flex-direction: column;

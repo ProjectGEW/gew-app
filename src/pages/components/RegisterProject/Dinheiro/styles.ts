@@ -10,6 +10,14 @@ export const BoxDinheiro = styled.div`
     justify-content: center;
     flex-direction: column;
 
+    p {
+        margin-top: -2.6vh;
+        margin-bottom: 1vh;
+        margin-left: 2vh;
+        font-size: 2.3vh;
+        color: rgb(255, 0, 0, 0.8);
+    }
+
     #tableOne {
         display: block;
     }
