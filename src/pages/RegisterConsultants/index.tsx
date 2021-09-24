@@ -39,10 +39,10 @@ interface Fornecedor {
 const RegisterConsultants: React.FC = () => {
     const [suppliers, setSuppliers] = useState<Fornecedor[]>([]);
 
-    const token = localStorage.getItem('Token');
-    let config = {
-        headers: { Authorization: `Bearer ${token}`},
-    };
+    // const token = localStorage.getItem('Token');
+    // let config = {
+    //     headers: { Authorization: `Bearer ${token}`},
+    // };
 
     const formatCpf= () => {
         var ao_cpf = (document.getElementById("cpf") as HTMLInputElement).value;
@@ -73,7 +73,7 @@ const RegisterConsultants: React.FC = () => {
         telefone = telefone.replace( /\D/g , "");
                     
         if (telefone.length > 2){
-            telefone = telefone.replace(/^(\d{2})(\d)/g,"($1) $2");
+            telefone = telefone.replace(/^(\d{2})(\d)/g,"($1)$2");
             (document.getElementById("telefone") as HTMLInputElement).value = telefone;
 
             if (telefone.length > 5) {
@@ -84,11 +84,13 @@ const RegisterConsultants: React.FC = () => {
     }
 
     const setConsultorInfos = useCallback( async () => {
+        const inputs = ["numero_cracha", "nome", "email", "senha", "cpf", "telefone", "valor_hora"];
         const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
         const nome = (document.getElementById("nome") as HTMLInputElement).value;
         const email = (document.getElementById("email") as HTMLInputElement).value;
         const senha = (document.getElementById("senha") as HTMLInputElement).value;
-        const cpf = parseInt((document.getElementById("cpf") as HTMLInputElement).value);
+        const cpf = (document.getElementById("cpf") as HTMLInputElement).value.split(".");
+        const cpfFormat = parseInt(cpf[0] + cpf[1] + cpf[2].split("-")[0] + cpf[2].split("-")[1]);
         const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
         const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
         const nome_fornecedor =(document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
@@ -99,18 +101,24 @@ const RegisterConsultants: React.FC = () => {
                 nome: nome,
                 email: email,
                 senha: senha,
-                cpf: cpf,
+                cpf: cpfFormat,
                 telefone: telefone,
                 valor_hora: valor_hora
             },
             nome_fornecedor: nome_fornecedor
         };
 
-        await api.post(`funcionarios/consultor`, consultor, config);
+        await api.post(`funcionarios/consultor`, consultor);
+
+        for (let i = 0; i < inputs.length; i ++){ 
+            (document.getElementById(inputs[i]) as HTMLInputElement).value = "";
+        }
+
+        (document.getElementById("nome_fornecedor") as HTMLSelectElement).value = "Todos";
     }, []);
 
     useEffect(() => {
-        api.get("fornecedores", config).then((response) => {
+        api.get("fornecedores").then((response) => {
             setSuppliers(response.data);
         })
     });
