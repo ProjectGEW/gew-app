@@ -72,10 +72,11 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
       }))
     }, [numeroDoProjeto]);
     
-    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [isModalVisible, setIsModalVisible] = React.useState(true);
     const [popUp, setPopUp] = useState<JSX.Element>();
 
     const toggleModal = () => {
+        //alert(isModalVisible);
         setPopUp(
             <BaseModalWrapper 
                 isModalVisible={isModalVisible} 
