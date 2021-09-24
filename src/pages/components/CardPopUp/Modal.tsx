@@ -17,6 +17,16 @@ const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  animation: animationOpacity 0.2s;
+
+  @keyframes animationOpacity {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 `
 
 const stopPropagation: MouseEventHandler<HTMLDivElement> = e => {

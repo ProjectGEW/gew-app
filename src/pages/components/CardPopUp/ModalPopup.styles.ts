@@ -12,6 +12,7 @@ const ModalContainer = styled.div`
     flex-direction: row;
     align-items: center;
     position: relative;
+    transition: all 3s;
 `;
 
 export const DesktopModalContainer = styled(ModalContainer)`

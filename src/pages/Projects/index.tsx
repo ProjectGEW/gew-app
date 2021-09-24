@@ -46,13 +46,6 @@ interface ISecoes {
     nome: string;
 }
 
-interface INomeProjeto {
-    infoprojetoDTO: {
-        titulo: string;
-    }
-}
-
-
 const Projects: React.FC = () => {
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');

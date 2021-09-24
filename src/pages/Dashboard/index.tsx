@@ -11,7 +11,8 @@ import { ContIcons } from '../components/MenuRight/styles';
 import GraphLiquid from "../components/GraphLiquid";
 import BaseModalWrapper from '../components/DashboardPopUp';
 
-import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph, GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
+import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
+    GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -38,21 +39,16 @@ interface CardContent {
     };      
 }
 
-interface IProjetoProps {
-    infoprojetoDTO : {
-        id: number;
-        numeroDoProjeto: number;
-        titulo: string;
-        descricao: string;
-        data_de_inicio: string;
-        data_de_termino: string;
-        status: string;
-    };
+interface ISecoes {
+    nome: string;
+}
+
+interface ITotalCc {
     valoresTotaisDTO : {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
-    };
+    };  
 }
 
 const Dashboard: React.FC = () => {
@@ -60,33 +56,46 @@ const Dashboard: React.FC = () => {
 
     const [status, setStatus] = useState('');
     const [project, setProject] = useState<CardContent>();
-    const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
+    const [projetos, setProjetos] = useState<CardContent[]>([]);
+    const [secoes, setSecoes] = useState<ISecoes[]>([]);
+    const [totalAprovado, setTotalAprovado] = useState([0]);
 
-    const token = localStorage.getItem('Token');
+    /*const token = localStorage.getItem('Token');
     let config = {
         headers: { Authorization: `Bearer ${token}`},
-    };
-
-    console.log(project);
-    console.log(projetos);
+    };*/
 
     useEffect(() => {
-        if(id === undefined) {
+        if(id === '0') {
             window.onload = async function handleProjetos() {
-                const response = await api.get<IProjetoProps[]>("projetos");
+                const response = await api.get<CardContent[]>("projetos");
                 const data = response.data;
-
                 setProjetos(data);
+
+                const responseSecao = await api.get<ISecoes[]>('secoes');
+                const dataSecao = responseSecao.data;
+                setSecoes(dataSecao);
             }
             return;
         }
 
-        window.onload = async () => (
-            await api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
-            setProject(response.data);
-        })))
+        window.onload = async function handleProjetos() {
+            const responseProjetos = await api.get<CardContent>(`/projetos/${id ? id : 0 }`);
+            const dataProjetos = responseProjetos.data;
+            setProject(dataProjetos);
 
-    }, [id]);
+            const responseSecao = await api.get<ISecoes[]>('secoes');
+            const dataSecao = responseSecao.data;
+            setSecoes(dataSecao);
+        }
+    }, [id, projetos]);
+
+    /*function teste() {
+        const asd = new Array(setTotalAprovado(projetos.map(projetos => 
+            projetos.valoresTotaisDTO.valorTotalCcPagantes)));
+
+        return asd;
+    }*/
 
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -118,8 +127,6 @@ const Dashboard: React.FC = () => {
             document.getElementById(btns[x])!.style.opacity = "0.4";
         }
 
-        //setMoeda(valor);
-
         if(valor === "BRL") {
             document.getElementById(valor)!.style.opacity = "1";
         } else if(valor === "USD") {
@@ -130,45 +137,105 @@ const Dashboard: React.FC = () => {
     }
 
     function defineStatus(valor: string) {
-
         var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
 
-        for(var x = 0; x < btns.length; x++) {
+        for (var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
-        if(valor === "projetos") {
+        if (valor === "projetos") {
             setStatus('');
             document.getElementById(valor)!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
         } else {
             setStatus(valor);
 
-            if(valor === "concluidos") {
+            if (valor === "concluidos") {
                 document.getElementById(valor)!.style.backgroundColor = "#adffb0";
-            } else if(valor === "atrasados") {
+            } else if (valor === "atrasados") {
                 document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
-            } else if(valor === "em_andamento") {
+            } else if (valor === "em_andamento") {
                 document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
-            } else if(valor === "Todos") {
+            } else if (valor === "Todos") {
                 document.getElementById(valor)!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
             }
-        }        
+        }
     }
 
     async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
 
-        try {
-            const response = await api.get<IProjetoProps[]>(status, config);
-            const data = response.data;
+        let statusteste = '';
+        var resultado = '';
 
-            setTimeout(function() {
-                setProjetos(data);
-            }, 100);
-
-        } catch(err) {
-            console.log("Não foi possível realizar a consulta.");
+        if (document.activeElement) {
+            statusteste = document.activeElement?.id;
+        } else {
+            statusteste = status;
         }
+
+        if (selectedOption !== 'Todos') {
+            if (statusteste === 'Todos') {
+                resultado = `projetos/secao/` + selectedOption;
+            } else if (statusteste !== 'Todos') {
+                resultado = `projetos/` + statusteste + `/` + selectedOption;
+            }
+            const response = await api.get<CardContent[]>(resultado);
+            const data = response.data;
+            setProjetos(data);
+
+        } else if (selectedOption === 'Todos') {
+            if (statusteste === 'Todos') {
+                resultado = `projetos`;
+            } else if (statusteste !== 'Todos') {
+                resultado = `projetos/` + statusteste + `/Todos`;
+            }
+            const response = await api.get<CardContent[]>(resultado);
+            const data = response.data;
+            setProjetos(data);
+        }
+    }
+
+    const [selectedOption, setSelectedOption] = useState('Todos');
+
+    const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        var resultado = '';
+        setSelectedOption(value);
+
+        if (value !== 'Todos') {
+            if (status === '') {
+                resultado = `projetos/secao/` + value;
+            } else if (status !== '') {
+                resultado = `projetos/` + status + `/` + value;
+            }
+            const responsePorSecao = await api.get<CardContent[]>(resultado);
+            const dataPorSecao = responsePorSecao.data;
+            setProjetos(dataPorSecao);
+
+        } else if (value === 'Todos') {
+            if (status === '') {
+                resultado = `projetos`;
+            } else if (status !== '') {
+                resultado = `projetos/` + status + `/Todos`;
+            }
+            const responsePorSecao = await api.get<CardContent[]>(resultado);
+            const dataPorSecao = responsePorSecao.data;
+            setProjetos(dataPorSecao);
+        }
+    };
+
+    var total = projetos.reduce(getTotal, 0);
+
+    function getTotal(total: number) {
+        return total;
+    }
+
+    const array1 = [projetos.length];
+    const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
+
+    for(var x = 0; x < projetos.length; x++) {
+        array1[x] = projetos.map(projetos => projetos.valoresTotaisDTO.valorTotalCcPagantes)[0];
+        console.log(array1[x]);
     }
 
     return (
@@ -206,10 +273,16 @@ const Dashboard: React.FC = () => {
                         <Filtros>
                             <div>
                                 <label>Seção:</label>
-                                <select name="cc">
-                                    <option value="c1">Todos</option>
-                                    <option value="c2">DEF</option>
-                                    <option value="c3">GHI</option>
+                                <select name="secao" onChange={selectChange}>
+                                    <option value="Todos">Todos</option>
+                                    {
+                                        secoes ?
+                                            secoes.map(secoes =>
+                                                <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
+                                            )
+                                            :
+                                            'Nenhuma seção foi encontrada'
+                                    }
                                 </select>
                             </div>  
                             <div>
@@ -232,21 +305,26 @@ const Dashboard: React.FC = () => {
                                         {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
                                 </form>
-                            </div>     
-                            {/*<div>
-                                <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-                                <input type="text" placeholder="Digite aqui"/>
-                            </div>*/}                     
+                            </div>                 
                         </Filtros>
                         <Line>
-                            
+                        {
+
+                        "valor total: " + array1.reduce(reducer)
+
+                        }
                         </Line>
                         <Filtros>
                             <div id="filtro-periodo">
                                 <select name="dias">
                                     <option value="d1">Últimos 14 dias</option>
-                                    <option value="d2">DEF</option>
-                                    <option value="d3">GHI</option>
+                                    <option value="d2">Últimos 28 dias</option>
+                                    <option value="d3">Últimos 90 dias</option>
+                                    <option value="d4">Últimos 365 dias</option>
+                                    <option value="d5">Setembro</option>
+                                    <option value="d6">Agosto</option>
+                                    <option value="d7">2021</option>
+                                    <option value="d8">2020</option>
                                 </select>
                             </div>  
                         </Filtros>
@@ -280,7 +358,8 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.quarto')}</h1>
                             </Title>
-                            <h1>R$ 200.000,00</h1>
+                                <h1>R$ 
+                            </h1>
                         </Money>
                     </CardsMoney>
                 </Lines>

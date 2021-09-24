@@ -58,7 +58,6 @@ interface CardContent {
 }
 
 const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, numeroDoProjeto}) => {
-    
     const [project, setProject] = useState<CardContent>();
     const [ata, setAta] = useState<string>();
     
@@ -85,7 +84,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     return (
         <Modal onBackdropClick={onBackdropClick} >
             <DesktopModalContainer>
-                <button id="fechar" onClick={onBackdropClick} />
+                <button id="fechar" onClick={() => onBackdropClick} />
                 <ModalContainerInfos>
                         <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     <ContainerBox>
