@@ -63,6 +63,10 @@ interface IDespesas {
   valor?: number;
 }
 
+interface boxType {
+  tipo?: string;
+}
+
 interface ICCpagantes{
   secao_id?: number;
   valor?: number;
