@@ -45,11 +45,16 @@ const RowCcPagantes: React.FC<Iteste> = ({number}) => {
   const conCatCentroDeCusto = `centro${number}`;
   const conCatValor = `valorC${number}`;
 
+  const conCatccPagantesResponse = `ccPagantesResponse${number}`;
+  const conCatccValorResponse = `ccValorResponse${number}`;
+  
   return (
     <Linha id={`C${number}`}>
       <input type="text" id={conCatCentroDeCusto} defaultValue="092765143" />
+      <p id={conCatccPagantesResponse}></p>
       <input type="text" defaultValue="André Borges Lima" />
       <input type="text" id={conCatValor} defaultValue="1" className="alinhar" />
+      <p id={conCatccValorResponse}></p>
     </Linha>
   );
 }
