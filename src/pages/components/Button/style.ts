@@ -67,7 +67,6 @@ export const Container = styled.div<buttonProps>`
     ${props => props.tipo === "Lupa" && css`
         button {
             padding: 2.5vh;
-
             margin-top: -8vh;
             margin-left: 21.8vw;
 
@@ -139,7 +138,7 @@ export const Container = styled.div<buttonProps>`
         button {
             position: absolute;
             display: block;
-            margin-top:-5vh;
+            margin-top: -5vh;
             margin-left: 44.5vw;
         }
     `}
