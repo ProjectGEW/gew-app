@@ -22,11 +22,11 @@
 - [x] Cadastrar projetos
 - [x] Editar projetos
 - [x] Dashboards
-- [ ] Cadastrar consultores
-- [ ] Alocar consultores
+- [x] Cadastrar consultores
+- [x] Alocar consultores
 - [x] PopUps
 - [x] Dropdowns
-- [ ] Filtros
+- [x] Filtros
 - [x] Menu de notificação
 - [x] Menu de navegação
 - [x] Navbar
