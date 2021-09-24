@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -11,9 +11,23 @@ import { ContainerProject, ContainerInfo, Projects, Container, ContainerTitle,
     ContainerFiltro, Center } from './style';
 import { IoMdArrowDropright } from 'react-icons/io';
 
+import api from "../../../service/api";
 
+interface IProjeto {
+    infoprojetoDTO: {
+        numeroDoProjeto: number;
+        status: string;
+    };
+}
 
 const ProjectsList: React.FC = () => {
+    const [projetos, setProjetos] = useState<IProjeto[]>([]);
+
+    useEffect(() => {
+        api.get("projetos").then((response) => {
+            setProjetos(response.data);
+        })
+    })
 
     return (
         <>
@@ -53,28 +67,11 @@ const ProjectsList: React.FC = () => {
                     </ContainerInfo>
                     <Projects>
                         <Center>
-                            <CardSelect statusColor={"EmAndamento"} /> 
-                            <CardSelect statusColor={"EmAndamento"} />
-                        </Center>
-                        <Center>
-                            <CardSelect statusColor={"EmAndamento"} /> 
-                            <CardSelect statusColor={"EmAndamento"} />
-                        </Center>                     
-                        <Center>
-                            <CardSelect statusColor={"EmAndamento"} /> 
-                            <CardSelect statusColor={"EmAndamento"} />
-                        </Center>                     
-                        <Center>
-                            <CardSelect statusColor={"EmAndamento"} /> 
-                            <CardSelect statusColor={"EmAndamento"} />
-                        </Center>                     
-                        <Center>
-                            <CardSelect statusColor={"EmAndamento"} /> 
-                            <CardSelect statusColor={"EmAndamento"} />
-                        </Center>                     
-                        <Center>
-                            <CardSelect statusColor={"EmAndamento"} /> 
-                            <CardSelect statusColor={"EmAndamento"} /> 
+                            {projetos.map(projeto => (
+                                projeto.infoprojetoDTO.status !== "CONCLUIDO" ? 
+                                    <CardSelect key={projeto.infoprojetoDTO.numeroDoProjeto} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                                : null
+                            ))}
                         </Center>                     
                     </Projects>
                 </ContainerProject>
