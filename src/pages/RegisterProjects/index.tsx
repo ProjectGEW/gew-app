@@ -35,6 +35,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 //import { SideContainer } from '../RegisterConsultants/styles';
 
+import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
 
 interface IProjetoResponse {
@@ -374,14 +375,15 @@ return (
           <BoxProjeto id="boxProjeto">
             <span>
               <div id="left-box">
-                <label>Número do projeto:</label>
-                {/* props.target.value */}
+                <label >Número do projeto:</label>
                 <input type="number" id="numeroProjeto" />
+                <p id="numeroProjetoResponse"></p>
                 <label>Título do projeto: </label>
                 <input type="text" id="titulo" />
-
+                <p id="tituloResponse"></p>
                 <label>Descrição do projeto:</label>
                 <textarea id="descricao" />
+                <p id="descricaoResponse"></p>
               </div>
               <div ref={ref}>
                 <Paper elevation={0} {...rootProps}>
@@ -391,7 +393,13 @@ return (
               </div>
             </span>
             <span onClick={() => {
-              return;
+              let confirm = 0;
+              confirm += analisaCampo("numeroProjeto", "Por favor, Informe o número do projeto", "numeroProjetoResponse");
+              confirm += analisaCampo("titulo", "Por favor, Informe o titulo do projeto", "tituloResponse");
+              confirm += analisaCampo("descricao", "Informe uma descrição para o projeto", "descricaoResponse");
+              if (confirm < 3 ) {
+                return;
+              }
               trocarEtapa("boxResponsavel")}}><Button  tipo={"etapaProjeto"} text={"Continuar"} /></span>
           </BoxProjeto>
           <BoxResponsavel id="boxResponsavel">
@@ -399,9 +407,10 @@ return (
               <div>
                 <label>Nome do responsável:</label>
                 <input type="text" id="nome_responsavel" />
-
+                <p id="responsavelResponse"></p>
                 <label>Nome do solicitante:</label>
                 <input type="text" id="nome_solicitante" />
+                <p id="solicitanteResponse"></p>
               </div>
               <div>
                 <label>Seção do responsável:</label>
@@ -413,7 +422,14 @@ return (
                 <Button tipo={"Lupa"} text={""} />
               </div>
             </span>
-            <span onClick={() => trocarEtapa("boxDinheiro")}><Button  tipo={"etapaResponsaveis"} text={"Continuar"} /></span>
+            <span onClick={() => {
+              let confirm = 0;
+              confirm += analisaCampo("nome_responsavel", "Por favor, Informe o nome do responsavel*", "responsavelResponse");
+              confirm += analisaCampo("nome_solicitante", "Por favor, Informe o nome do solicitante*", "solicitanteResponse");
+              if (confirm < 2 ) {
+                return;
+              }
+              trocarEtapa("boxDinheiro")}}><Button  tipo={"etapaResponsaveis"} text={"Continuar"} /></span>
           </BoxResponsavel>
           <BoxDinheiro id="boxDinheiro">
             <form action="" method="post">
@@ -455,7 +471,17 @@ return (
               </Table>
               <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
             </form>
-            <span onClick={() => trocarEtapa("boxDatas")}><Button  tipo={"etapaDinheiro"} text={"Continuar"} /></span>
+            <span onClick={() => {
+              let confirm = 0;
+              confirm += analisaCampoLinhasdDespesas(rowDespesas.length)!;
+              confirm += analisaCampoLinhasdCcPagantes(rowCC.length);
+              if (confirm < 2) {
+                return;
+              }
+              trocarEtapa("boxDatas")
+            }}>
+              <Button  tipo={"etapaDinheiro"} text={"Continuar"} />
+            </span>
           </BoxDinheiro>
           <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
             <span className="spanDatas">
@@ -469,7 +495,6 @@ return (
                 <input type="text" value={dataFim} id="data_de_termino" defaultValue="01/01/2001" onClick={() => {setSelected("fim")}} />
                 <input type="text" value={dataAprovacao} id="data_de_aprovacao" defaultValue="01/01/2001" onClick={() => {setSelected("aprovacao")}} />
               </div>
-
               <div>
                   {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
                   {inputErrorFim && <Error localErro={selected}>{inputErrorFim}</Error>}
@@ -478,8 +503,17 @@ return (
           </span>
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
           <span onClick={() => {
-            trocarMainEtapa("confirm-data");
-            setInfos();
+            if( inputErrorInit === "") {
+              if (inputErrorFim === "") {
+                if(inputErrorAprov === "") {
+                  trocarMainEtapa("confirm-data");
+                  setInfos();
+                }
+                return; 
+              }
+              return; 
+            }  
+            return;    
           }}>
           <Button tipo={"continuarCadastro"} text={"Confirmar"}/>
         </span>
