@@ -12,18 +12,47 @@ export const BoxProjeto = styled.div`
   display: flex;
   align-items: start;
 
+  /* Estilização dos erros */
+
+  .msgErro {
+    position: absolute;
+    font-size: 1.9vh;
+  }
+
+  #numeroProjetoResponse {
+    margin-top: 9.5vh;
+    margin-left: 0vw;
+  }
+
+  #tituloResponse {
+    margin-top: 22vh;
+    margin-left: 0vw;
+  }
+
+  #descricaoResponse {
+    margin-top: 47.2vh;
+    margin-left: 0vw;
+  }
+
+  #ataResponse {
+    margin-top: 9.6vh;
+    margin-left: 6.2vw;
+  }
+
+  /* Fim */
+
   span {
     display: flex;
     justify-content: flex-start;    
     
     #left-box{
       margin-left: 0;
-      p {
+    /*  p {
         margin-top: -2.6vh;
         margin-bottom: 1vh;
         font-size: 2.3vh;
         color: rgb(255, 0, 0, 0.8);
-      }
+      }*/
     }
   }
 
@@ -42,6 +71,7 @@ export const BoxProjeto = styled.div`
     }   
 
     label{
+      color: #00579D;
       font-size: 3vh;
       margin-bottom: 1vh;
     }
