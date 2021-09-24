@@ -18,6 +18,12 @@ export const BoxProjeto = styled.div`
     
     #left-box{
       margin-left: 0;
+      p {
+        margin-top: -2.6vh;
+        margin-bottom: 1vh;
+        font-size: 2.3vh;
+        color: rgb(255, 0, 0, 0.8);
+      }
     }
   }
 
