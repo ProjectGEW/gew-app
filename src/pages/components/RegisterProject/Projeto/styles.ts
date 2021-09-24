@@ -34,10 +34,15 @@ export const BoxProjeto = styled.div`
     display: flex;
     flex-direction: column;
 
-    label, p {
-      color: #00579D;
-      font-size: 3vh;
+    p {
+      margin-top: 0vh;
+      margin-left: 6vw;
+      font-size: 2.3vh;
+      color: rgb(255, 0, 0, 0.8);
+    }   
 
+    label{
+      font-size: 3vh;
       margin-bottom: 1vh;
     }
 

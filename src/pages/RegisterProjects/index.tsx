@@ -390,14 +390,16 @@ return (
                   <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
                   <input id="btnUpload" {...getInputProps()} />
                 </Paper>
+                <p id="ataResponse"></p>
               </div>
             </span>
             <span onClick={() => {
               let confirm = 0;
-              confirm += analisaCampo("numeroProjeto", "Por favor, Informe o número do projeto", "numeroProjetoResponse");
-              confirm += analisaCampo("titulo", "Por favor, Informe o titulo do projeto", "tituloResponse");
-              confirm += analisaCampo("descricao", "Informe uma descrição para o projeto", "descricaoResponse");
-              if (confirm < 3 ) {
+              confirm += analisaCampo("btnUpload", "Por favor, Insira a ATA*", "ataResponse");
+              confirm += analisaCampo("numeroProjeto", "Por favor, Informe o número do projeto*", "numeroProjetoResponse");
+              confirm += analisaCampo("titulo", "Por favor, Informe o titulo do projeto*", "tituloResponse");
+              confirm += analisaCampo("descricao", "Informe uma descrição para o projeto*", "descricaoResponse");
+              if (confirm < 4 ) {
                 return;
               }
               trocarEtapa("boxResponsavel")}}><Button  tipo={"etapaProjeto"} text={"Continuar"} /></span>
@@ -516,7 +518,7 @@ return (
             return;    
           }}>
           <Button tipo={"continuarCadastro"} text={"Confirmar"}/>
-        </span>
+          </span>
         </BoxDatas>
         <Footer tipo={"register_project"} ></Footer>
         
