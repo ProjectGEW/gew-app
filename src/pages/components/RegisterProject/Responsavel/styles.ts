@@ -8,6 +8,25 @@ export const BoxResponsavel = styled.div`
     align-items: start;
     justify-content: center;
 
+    /* Estilização dos erros */
+
+    .msgErro {
+        position: absolute;
+        font-size: 2vh;
+    }
+
+    #responsavelResponse {
+        margin-top: 9.5vh;
+        margin-left: 1vw;
+    }
+
+    #solicitanteResponse {
+        margin-top: 21.8vh;
+        margin-left: 1vw;
+    }
+
+    /* Fim */
+
     span {
         display: flex;
         margin-left: 8.2vw;
