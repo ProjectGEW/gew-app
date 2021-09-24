@@ -381,28 +381,32 @@ return (
               <div id="left-box">
                 <label >Número do projeto:</label>
                 <input type="number" id="numeroProjeto" />
-                <p id="numeroProjetoResponse"></p>
+                <p id="numeroProjetoResponse" className="msgErro"></p>
                 <label>Título do projeto: </label>
                 <input type="text" id="titulo" />
-                <p id="tituloResponse"></p>
+                <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
                 <textarea id="descricao" />
-                <p id="descricaoResponse"></p>
+                <p id="descricaoResponse" className="msgErro"></p>
               </div>
               <div ref={ref}>
                 <Paper elevation={0} {...rootProps}>
                   <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
                   <input id="btnUpload" {...getInputProps()} />
                 </Paper>
-                <p id="ataResponse"></p>
+                <p id="ataResponse" className="msgErro"></p>
               </div>
             </span>
             <span onClick={() => {
               let confirm = 0;
-              confirm += analisaCampo("btnUpload", "Por favor, Insira a ATA*", "ataResponse");
+              /*confirm += analisaCampo("btnUpload", "Por favor, Insira a ATA*", "ataResponse");
               confirm += analisaCampo("numeroProjeto", "Por favor, Informe o número do projeto*", "numeroProjetoResponse");
               confirm += analisaCampo("titulo", "Por favor, Informe o titulo do projeto*", "tituloResponse");
-              confirm += analisaCampo("descricao", "Informe uma descrição para o projeto*", "descricaoResponse");
+              confirm += analisaCampo("descricao", "Informe uma descrição para o projeto*", "descricaoResponse");*/
+              confirm += analisaCampo("btnUpload", "ATA obrigatória*", "ataResponse");
+              confirm += analisaCampo("numeroProjeto", "Informe o número do projeto*", "numeroProjetoResponse");
+              confirm += analisaCampo("titulo", "Informe o titulo do projeto*", "tituloResponse");
+              confirm += analisaCampo("descricao", "Informe a descrição do projeto*", "descricaoResponse");
               if (confirm < 4 ) {
                 return;
               }
@@ -413,25 +417,27 @@ return (
               <div>
                 <label>Nome do responsável:</label>
                 <input type="text" id="nome_responsavel" />
-                <p id="responsavelResponse"></p>
+                <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
                 <input type="text" id="nome_solicitante" />
-                <p id="solicitanteResponse"></p>
+                <p id="solicitanteResponse" className="msgErro"></p>
               </div>
               <div>
                 <label>Seção do responsável:</label>
-                <input type="text" />
+                <input type="text" id="secao_responsavel"/>
                 <Button tipo={"Lupa"} text={""} />
-
-                <label>Seção do solicitante:</label>
-                <input type="text" />
+              
+                <label id="label_secao_solicitante">Seção do solicitante:</label>
+                <input type="text" id="secao_solicitante"/>
                 <Button tipo={"Lupa"} text={""} />
               </div>
             </span>
             <span onClick={() => {
               let confirm = 0;
-              confirm += analisaCampo("nome_responsavel", "Por favor, Informe o nome do responsavel*", "responsavelResponse");
-              confirm += analisaCampo("nome_solicitante", "Por favor, Informe o nome do solicitante*", "solicitanteResponse");
+              /*confirm += analisaCampo("nome_responsavel", "Por favor, Informe o nome do responsavel*", "responsavelResponse");
+              confirm += analisaCampo("nome_solicitante", "Por favor, Informe o nome do solicitante*", "solicitanteResponse");*/
+              confirm += analisaCampo("nome_responsavel", "Informe o nome do responsavel*", "responsavelResponse");
+              confirm += analisaCampo("nome_solicitante", "Informe o nome do solicitante*", "solicitanteResponse");
               if (confirm < 2 ) {
                 return;
               }
