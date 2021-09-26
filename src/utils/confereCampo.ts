@@ -30,7 +30,7 @@ export function analisaCampoLinhasdCcPagantes(listaCcPagantes: number) {
   for (let i = 1; i <= listaCcPagantes; i++) {
     /*confirm += analisaCampo(`centro${i}`, "Por favor insira a CcPagante", `ccPagantesResponse${i}`);
     confirm += analisaCampo(`valorC${i}`, "Por favor insira o Valor", `ccValorResponse${i}`);*/
-    confirm += analisaCampo(`centro${i}`, "Insira a CcPagante", `ccPagantesResponse${i}`);
+    confirm += analisaCampo(`centro${i}`, "Insira o CC pagante", `ccPagantesResponse${i}`);
     confirm += analisaCampo(`valorC${i}`, "Insira o Valor", `ccValorResponse${i}`);
   }
   if (confirm < listaCcPagantes * 2) {

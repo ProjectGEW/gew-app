@@ -87,22 +87,17 @@ const EditProjects: React.FC = () => {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
-        if(valor === "projetos") {
-            setStatus('');
-            document.getElementById(valor)!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
-        } else {
-            setStatus(valor);
+        setStatus(valor);
 
-            if(valor === "concluidos") {
-                document.getElementById(valor)!.style.backgroundColor = "#adffb0";
-            } else if(valor === "atrasados") {
-                document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
-            } else if(valor === "em_andamento") {
-                document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
-            } else if(valor === "Todos") {
-                document.getElementById(valor)!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
-            }
-        }        
+        if (valor === "concluidos") {
+            document.getElementById(valor)!.style.backgroundColor = "#adffb0";
+        } else if (valor === "atrasados") {
+            document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
+        } else if (valor === "em_andamento") {
+            document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
+        } else if (valor === "") {
+            document.getElementById(btns[0])!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+        }       
     }
 
     async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {

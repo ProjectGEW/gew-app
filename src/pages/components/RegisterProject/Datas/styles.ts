@@ -85,7 +85,7 @@ export const BoxDatas = styled.div<FormDataProps>`
     .calendario {
         width: 40vw;
         margin-left: 11.2vw;
-        margin-top: 4vh;
+        margin-top: 2vh;
 
         border: 0;
         border-radius: 0.8vh;
