@@ -8,15 +8,6 @@ interface ErrorProps {
     localErro: any;
 }
 
-export const Container = styled.div`
-    position: absolute;
-    top: 14vh;
-    left: 12vw;
-    width: 78vw;
-    height: 80vh;
-    border-radius: 0.8vh;
-`;
-
 export const ContainerRegister = styled.div`
     width: 78vw;
     height: 80vh;
@@ -526,4 +517,22 @@ export const Error = styled.span<ErrorProps>`
   ${props => props.localErro === 'fim' && css`
     margin-left: -2.7vw;
   `}
+
+  display: none;
+`;
+
+export const Container = styled.div`
+    position: absolute;
+    top: 14vh;
+    left: 12vw;
+    width: 78vw;
+    height: 80vh;
+    border-radius: 0.8vh;
+
+    input {
+        color: #424242;
+        &::placeholder {
+            color: #8f8f8f;
+        }
+    }
 `;
