@@ -14,7 +14,7 @@ export const BoxDinheiro = styled.div`
 
     .msgErro {
         position: absolute;
-        font-size: 2vh;
+        font-size: 1.9vh;
         margin-top: 5.2vh;
     }
 
@@ -117,6 +117,10 @@ export const Table = styled.div`
     width: 50vw;
     margin-top: 3vh;
 
+    #removeDP, #removeCC {
+        visibility: hidden;
+    }
+
     svg {
         float: right;
         margin-top: -1.2vw;
@@ -165,7 +169,7 @@ export const Table = styled.div`
             }
 
             &:nth-child(2) {
-                margin-left: -17vw;
+                margin-left: -16.5vw;
             }
 
             &:last-child {
@@ -212,7 +216,7 @@ export const Table = styled.div`
     }
 
     #second-scroll {
-        #remove {
+        .rem {
             display: flex;
             align-items: center;
 
@@ -271,12 +275,12 @@ export const Table = styled.div`
             &:last-child {
                 input {
                     &:nth-child(1) {
-                        width: 10vw;
+                        width: 10.3vw;
                         margin-left: 0vw;
                     }
 
                     &:nth-child(3) {
-                        width: 20vw;
+                        width: 24.7vw;
                         margin-left: 0vw;
                     }
 
