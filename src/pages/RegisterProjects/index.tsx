@@ -217,10 +217,19 @@ const RegisterProjects: React.FC = () => {
        <RowDespesas number={ rowDespesas[rowDespesas.length - 1].props.number + 1 } />
       ]
     );
+
+    document.getElementById("removeDP")!.style.visibility = "visible";  
+
     return rowDespesas;
   }
 
   function deleteLastRowDP() {
+    if(rowDespesas.length === 2) {
+      document.getElementById("removeDP")!.style.visibility = "hidden";  
+    } else {
+      document.getElementById("removeDP")!.style.visibility = "visible";
+    }
+
     if (rowDespesas.length > 1) {
       document.getElementById(`D${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
       rowDespesas.pop();
@@ -235,10 +244,19 @@ const RegisterProjects: React.FC = () => {
     setRowCC(
       [...rowCC, <RowCcPagantes number={rowCC[rowCC.length - 1].props.number + 1}/>]
     );
+
+    document.getElementById("removeCC")!.style.visibility = "visible";
+    
     return rowCC;
   }
 
   function deleteLastRowCC(){
+    if(rowCC.length === 2) {
+      document.getElementById("removeCC")!.style.visibility = "hidden";  
+    } else {
+      document.getElementById("removeCC")!.style.visibility = "visible";
+    }
+
     if (rowCC.length > 1) {
       document.getElementById(`C${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
       rowCC.pop();
@@ -434,9 +452,9 @@ return (
             </span>
             <span onClick={() => {
               let confirm = 0;
-              /*confirm += analisaCampo("nome_responsavel", "Por favor, Informe o nome do responsavel*", "responsavelResponse");
+              /*confirm += analisaCampo("nome_responsavel", "Por favor, Informe o nome do responsável*", "responsavelResponse");
               confirm += analisaCampo("nome_solicitante", "Por favor, Informe o nome do solicitante*", "solicitanteResponse");*/
-              confirm += analisaCampo("nome_responsavel", "Informe o nome do responsavel*", "responsavelResponse");
+              confirm += analisaCampo("nome_responsavel", "Informe o nome do responsável*", "responsavelResponse");
               confirm += analisaCampo("nome_solicitante", "Informe o nome do solicitante*", "solicitanteResponse");
               if (confirm < 2 ) {
                 return;
@@ -455,7 +473,7 @@ return (
                   {rowDespesas.map(teste => teste)}
                   <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
                   <Total>
-                  <div>
+                    <div id="removeDP" className="removeDP">
                       <h2>REMOVER LINHA:</h2>
                       <IoMdRemoveCircle onClick={() => deleteLastRowDP()} />
                     </div>
@@ -475,7 +493,7 @@ return (
                 <div id="second-scroll">
                   {rowCC.map(teste => teste)}
                   <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
-                  <div id="remove">
+                  <div id="removeCC" className="rem">
                     <h2>REMOVER LINHA:</h2>
                     <IoMdRemoveCircle onClick={() => deleteLastRowCC()} />
                   </div>
