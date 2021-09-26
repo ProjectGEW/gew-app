@@ -10,6 +10,25 @@ const Linha = styled.div`
   width: 100%;
   transition: all 0.2s;
 
+  /* Estilização dos erros */
+
+  .msgErro {
+    position: absolute;
+    font-size: 1.9vh;
+  }
+
+  .one {
+    margin-top: 5.2vh;
+    margin-left: 0vw;
+  }
+
+  .two {
+    margin-top: 5.2vh;
+    margin-left: 38.5vw;
+  }
+
+  /* Fim */
+
   input {
       display: block;
       height: 5vh;
@@ -50,10 +69,10 @@ const RowCcPagantes: React.FC<Iteste> = ({number}) => {
   return (
     <Linha id={`C${number}`}>
       <input type="text" id={conCatCentroDeCusto} defaultValue="092765143" />
-      <p id={conCatccPagantesResponse}></p>
+      <p id={conCatccPagantesResponse} className="one msgErro"/>
       <input type="text" defaultValue="André Borges Lima" />
       <input type="text" id={conCatValor} defaultValue="1" className="alinhar" />
-      <p id={conCatccValorResponse}></p>
+      <p id={conCatccValorResponse} className="two msgErro"/>
     </Linha>
   );
 }
