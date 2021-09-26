@@ -36,5 +36,4 @@ export default function analisaValor(recebe: number) {
     } else {
         return "R$ 0,00";
     }
-    
-  }
+}
