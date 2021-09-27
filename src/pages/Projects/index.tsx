@@ -70,7 +70,7 @@ const Projects: React.FC = () => {
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
-    const [numeroProjeto, setNumeroProjeto] = useState<IProjetoProps>();
+    const [nomeProjeto, setNomeProjeto] = useState<IProjetoProps[]>([]);
 
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');
@@ -179,12 +179,11 @@ const Projects: React.FC = () => {
 
         if(event.target.value !== '') {
             try {
-                const responsePorNumero = await api.get<IProjetoProps>(`projetos/` + event.target.value);
-                const dataPorNumero = responsePorNumero.data;
-                setNumeroProjeto(dataPorNumero);
+                const responsePorNome = await api.get<IProjetoProps[]>(`projetos/titulo/` + event.target.value);
+                const dataPorNome = responsePorNome.data;
 
-                const converte = new Array<IProjetoProps>(dataPorNumero);
-                setProjetos(converte);
+                setNomeProjeto(dataPorNome);
+                setProjetos(dataPorNome);
             } catch(err: any) {
                 console.log(err.message);
             }
@@ -216,7 +215,7 @@ const Projects: React.FC = () => {
                                             <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
                                         )
                                         :
-                                        'Nenhuma seção foi encontrada'
+                                        console.log('Nenhuma seção foi encontrada')
                                 }
                             </select>
                         </div>
