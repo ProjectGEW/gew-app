@@ -43,7 +43,7 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
                     <BoxLeft>
                         <div>
                             <p>{projeto ? projeto.infoprojetoDTO.numeroDoProjeto : 0} - {projeto ? projeto.infoprojetoDTO.secao : ""}</p>
-                            <h1>WEC - IMPLATAÇÃO DE EDI CLIENTE XYZ</h1>
+                            <h1>{projeto ? projeto.infoprojetoDTO.titulo : ""}</h1>
                         </div>
                         <div>
                             <p><strong>Saldo previsto:</strong> {analisaValor(projeto ? projeto.valoresTotaisDTO.valorTotalCcPagantes : 0)}</p>
