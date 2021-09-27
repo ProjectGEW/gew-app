@@ -38,6 +38,10 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
 
+interface ISecaoResponse {
+  nome: string;
+}
+
 interface IProjetoResponse {
   id: number;
 }
@@ -358,6 +362,18 @@ const RegisterProjects: React.FC = () => {
     }
   }, [projeto, file]);
 
+  async function handleSecao(nome: string, campo: string){ 
+    try {
+      const response = await api.get<ISecaoResponse>(`secoes/nome/${nome}`);
+      const data = response.data;
+
+      (document.getElementById(campo) as HTMLInputElement).value = data.nome;
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 return (
   <>
     <Navbar />
@@ -417,10 +433,7 @@ return (
             </span>
             <span onClick={() => {
               let confirm = 0;
-              /*confirm += analisaCampo("btnUpload", "Por favor, Insira a ATA*", "ataResponse");
-              confirm += analisaCampo("numeroProjeto", "Por favor, Informe o número do projeto*", "numeroProjetoResponse");
-              confirm += analisaCampo("titulo", "Por favor, Informe o titulo do projeto*", "tituloResponse");
-              confirm += analisaCampo("descricao", "Informe uma descrição para o projeto*", "descricaoResponse");*/
+
               confirm += analisaCampo("btnUpload", "ATA obrigatória*", "ataResponse");
               confirm += analisaCampo("numeroProjeto", "Informe o número do projeto*", "numeroProjetoResponse");
               confirm += analisaCampo("titulo", "Informe o titulo do projeto*", "tituloResponse");
@@ -434,17 +447,16 @@ return (
             <span>
               <div>
                 <label>Nome do responsável:</label>
-                <input type="text" id="nome_responsavel" />
+                <input type="text" id="nome_responsavel" onBlur={(props) => handleSecao(props.target.value, "secao_responsavel")}/>
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
-                <input type="text" id="nome_solicitante" />
+                <input type="text" id="nome_solicitante" onBlur={(props) => handleSecao(props.target.value, "secao_solicitante")}/>
                 <p id="solicitanteResponse" className="msgErro"></p>
               </div>
               <div>
                 <label>Seção do responsável:</label>
-                <input type="text" id="secao_responsavel"/>
-                <Button tipo={"Lupa"} text={""} />
-              
+                <input type="text" id="secao_responsavel" />
+                <Button tipo={"Lupa"} text={""} />              
                 <label id="label_secao_solicitante">Seção do solicitante:</label>
                 <input type="text" id="secao_solicitante"/>
                 <Button tipo={"Lupa"} text={""} />
@@ -452,8 +464,6 @@ return (
             </span>
             <span onClick={() => {
               let confirm = 0;
-              /*confirm += analisaCampo("nome_responsavel", "Por favor, Informe o nome do responsável*", "responsavelResponse");
-              confirm += analisaCampo("nome_solicitante", "Por favor, Informe o nome do solicitante*", "solicitanteResponse");*/
               confirm += analisaCampo("nome_responsavel", "Informe o nome do responsável*", "responsavelResponse");
               confirm += analisaCampo("nome_solicitante", "Informe o nome do solicitante*", "solicitanteResponse");
               if (confirm < 2 ) {
