@@ -5,8 +5,9 @@ import Navbar from '../../components/Navbar';
 import MenuRight from '../../components/MenuRight';
 import { ContIcons } from '../../components/MenuRight/styles';
 
-import { Container, BoxProjeto, Box2, Box } from './styles';
+import { Container, BoxContainer, Box2, Box, PageContainer } from './styles';
 import { AiOutlineCaretDown } from 'react-icons/ai';
+import Button from '../../components/Button';
 
 const Edit: React.FC = () => {
     const [data, setData] = useState("");
@@ -21,12 +22,14 @@ const Edit: React.FC = () => {
             <Navbar />
             <MenuLeft />
 
+            <PageContainer>
             <Container> 
                 <header>
                     <h1>Editar Projeto</h1>
                     <AiOutlineCaretDown />
                 </header>
-                <BoxProjeto>
+                <BoxContainer>
+                    <h1>Projeto</h1>
                         <Box2>
                             <div id="numeroProjeto">
                                 <label>Número do projeto:</label>
@@ -47,8 +50,71 @@ const Edit: React.FC = () => {
                                 <textarea />
                             </div>
                         </Box>
-                </BoxProjeto>
+                </BoxContainer>
+                <BoxContainer>
+                    <h1>Responsáveis</h1>
+                        <Box2>
+                            <div id="half">
+                                <label>Número do projeto:</label>
+                                <input type="text" />
+                            </div>
+                            <div id="half">  
+                                <label>Número do projeto:</label>
+                                <input type="text" />
+                            </div>
+                        </Box2>
+                        <Box2>
+                            <div id="half">
+                                <label>Número do projeto:</label>
+                                <input type="text" />
+                            </div>
+                            <div id="half">  
+                                <label>Número do projeto:</label>
+                                <input type="text" />
+                            </div>
+                        </Box2>
+                </BoxContainer>
+                <BoxContainer>
+                    <h1>Centros de Custo</h1>
+                        <Box2>
+                            <div id="box">
+                                <label>Número do projeto:</label>
+                                <input type="text" />
+                            </div>
+                            <div id="box">  
+                                <label>Número do projeto:</label>
+                                <input type="text" />
+                            </div>
+                        </Box2>
+                        <Box2>
+                            <div id="box">
+                                <label>Título do projeto:</label>
+                                <input type="text" />
+                            </div>
+                        </Box2>
+                </BoxContainer>
+                <BoxContainer>
+                    <h1>Datas</h1>
+                        <Box2>
+                            <div id="box">
+                                <label>Número do projeto:</label>
+                                <input type="date" />
+                            </div>
+                            <div id="box">  
+                                <label htmlFor="ata">{data ? data : "SELECIONAR ARQUIVO"}</label>
+                                <input type="date" />
+                            </div>
+                        </Box2>
+                        <Box2>
+                            <div id="box">
+                                <label>Título do projeto:</label>
+                                <input type="date" />
+                            </div>
+                        </Box2>
+                </BoxContainer>
+                <Button tipo={'editProjetos'} text={'Confirmar'} />
             </Container>
+            </PageContainer>
 
             <MenuRight>
                 <ContIcons />

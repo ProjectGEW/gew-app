@@ -125,6 +125,15 @@ export const Container = styled.div<buttonProps>`
         }
     `}
 
+    ${props => props.tipo === "editProjetos" && css`
+        button {
+            width: 12vw;
+            position: absolute;
+            margin-top: 5.4vh;
+            margin-left: 57.45vw;
+        }
+    `}
+
     ${props => props.tipo === "register_consultants" && css`
         button {
             width: 10vw;

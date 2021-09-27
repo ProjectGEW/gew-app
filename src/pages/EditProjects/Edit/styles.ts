@@ -8,7 +8,8 @@ export const Container = styled.div`
     top: 14vh;
     left: 12vw;
     width: 78vw;
-    height: 190vh;
+    height: 250vh;
+    margin-bottom: 5vh;
 
     display: flex;
     flex-direction: column;
@@ -47,22 +48,72 @@ export const Container = styled.div`
     }
 `;
 
-export const BoxProjeto = styled.div`
+export const Footer = styled.div`
+    position: absolute;
+    width: 100vw;
+    height: 275vh;
+`;
+
+export const BoxContainer = styled.div`
     width: 90%;
     margin-left: 5%;
     margin-top: 20vh;
-    height: 40vh;
+    height: auto;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    h1 {
+        color: #00579D;
+        width: 20vw;
+        font-weight: normal;
+        margin-right: 36vw;
+        margin-bottom: 8vh;
+        margin-top: -4vh;
+        display: flex;
+        align-items: flex-start;
+
+        &::after {
+            content: '';
+            width: 61vw;
+            height: 0.1vh;
+            background: #c4c4c4;
+            position: absolute;
+            margin: 7.45vh 0 0 -2vw;
+        }
+    }
+
+    &:nth-child(2) {
+        h1 {
+            margin-top: -6vh;
+        }
+    }
+
+    &:nth-child(3) {
+        h1 {
+            margin-top: -14vh;
+        }
+    }
+
+    &:nth-child(4) {
+        h1 {
+            margin-top: -14vh;
+        }
+    }
+
+    &:nth-child(5) {
+        h1 {
+            margin-top: -14vh;
+        }
+    }
 
     label, p {
         color: #00579D;
         font-size: 3vh;
 
         margin-bottom: 1vh;
-    }   
+    }  
 
     textarea {
       max-width: 80vh;
@@ -86,6 +137,12 @@ export const BoxProjeto = styled.div`
       box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
       color: #5E5E5E;
     }
+
+    input[type='date'] {
+        &:nth-child(1) {
+            background-color: #00579D;
+        }
+      }
 `;
 
 export const Box = styled.div`
@@ -103,6 +160,12 @@ export const Box = styled.div`
     }
 `;
 
+export const PageContainer = styled.div`
+    width: 100vw;
+    height: 280vh;
+
+`;
+
 export const Box2 = styled.div`
     width: 70%;
     display: flex;
@@ -112,6 +175,18 @@ export const Box2 = styled.div`
     div {
         display: flex;
         flex-direction: column;
+    }
+
+    #half {
+        width: 47.5%;
+        &:first-child {
+            margin-right: 5%;
+        }
+    }
+
+    #box {
+        width: 35%;
+        margin-right: 5%;
     }
 
     #numeroProjeto {
@@ -129,7 +204,8 @@ export const Box2 = styled.div`
       input[type='file'] {
         display: none;
       }
-        
+
+       
       label {
         width: 13.3vw;
 
@@ -142,7 +218,7 @@ export const Box2 = styled.div`
 
         padding: 1.6vh;
         padding-left: 1vh;
-        
+       
         font-size: 1.8vh;
         cursor: pointer;    
 
@@ -151,7 +227,7 @@ export const Box2 = styled.div`
         &:hover {
           background: ${shade(0.08, "#0090C5")};
         }
-      
+     
 
     &::before {
           content: 'Selecionar ATA:';
