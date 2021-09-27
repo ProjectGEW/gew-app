@@ -6,7 +6,7 @@ const GraphLine: React.FC = () => {
     return (
         <>
         <Container>
-            
+                        
         </Container>
         </>
     );
