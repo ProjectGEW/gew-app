@@ -9,10 +9,12 @@ import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphLiquid from "../components/GraphLiquid";
+import GL from "../components/GraphLine";
 import BaseModalWrapper from '../components/DashboardPopUp';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
     GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
+import analisaValor from '../../utils/analisaValor';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -71,6 +73,8 @@ const Dashboard: React.FC = () => {
                 const response = await api.get<CardContent[]>("projetos");
                 const data = response.data;
                 setProjetos(data);
+
+                console.log(data);
 
                 const responseSecao = await api.get<ISecoes[]>('secoes');
                 const dataSecao = responseSecao.data;
@@ -219,18 +223,16 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    var total = projetos.reduce(getTotal, 0);
+    // ===================================================================
 
-    function getTotal(total: number) {
-        return total;
-    }
-
-    const array1 = [projetos.length];
+    const totalCcPagantes = [projetos.length];   
+    const totalDespesas = [projetos.length];
+    
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
 
     for(var x = 0; x < projetos.length; x++) {
-        array1[x] = projetos.map(projetos => projetos.valoresTotaisDTO.valorTotalCcPagantes)[0];
-        console.log(array1[x]);
+        totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
+        totalDespesas[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalDespesas)[x];
     }
 
     return (
@@ -304,9 +306,7 @@ const Dashboard: React.FC = () => {
                         </Filtros>
                         <Line>
                         {
-
-                        "valor total: " + array1.reduce(reducer)
-
+                            `${analisaValor((totalCcPagantes.reduce(reducer) + totalDespesas.reduce(reducer)))}`
                         }
                         </Line>
                         <Filtros>
@@ -341,7 +341,7 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.segundo')}</h1>
                             </Title>
-                            <h1>R$ 175.000,00</h1>
+                            <h1>{analisaValor((totalCcPagantes.reduce(reducer) + totalDespesas.reduce(reducer)))}</h1>
                         </Money>
                         <Money>
                             <Title>
@@ -353,8 +353,7 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.quarto')}</h1>
                             </Title>
-                                <h1>R$ 
-                            </h1>
+                                <h1>{analisaValor(totalCcPagantes.reduce(reducer))}</h1>
                         </Money>
                     </CardsMoney>
                 </Lines>
