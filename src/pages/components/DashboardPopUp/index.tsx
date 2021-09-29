@@ -1,17 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import api from '../../../service/api';
+import analisaValor from '../../../utils/analisaValor';
+
 import Modal from '../CardPopUp/Modal';
-//import Button from '../Button';
-//import api from '../../../service/api'
 
 import { Container, PopUp, Title, Graph, Scroll, Bar, Value } from './styles';
 
 interface BaseModalWrapperProps {
     isModalVisible: boolean;
     onBackdropClick: () => void;
-    valor?: number;
+    valor: number;
 }
 
-const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible}) => {
+interface CardContent {
+    infoprojetoDTO : {
+        id: number;
+        numeroDoProjeto: number;
+        titulo: string;
+        descricao: string;
+        data_de_inicio: string;
+        data_de_termino: string;
+        status: string;
+        horas_apontadas: number;
+    };
+    ccPagantes: [{
+        secao: {
+            responsavel: {
+                valor_hora: number;
+            }
+        }   
+    }]
+    valoresTotaisDTO : {
+        valorTotalCcPagantes: number;
+        valorTotalDespesas: number;
+        valorTotalEsforco: number;
+    };      
+}
+
+const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, valor}) => {
+    const [projetos, setProjetos] = useState<CardContent[]>([]);
+
+    useEffect(() => {
+        api.get<CardContent[]>(`projetos`).then((response => {
+            setProjetos(response.data);
+        }
+    ))}, [projetos]);
+
+    const totalCcPagantes = [projetos.length], totalDespesas = [projetos.length];
+    const totalValorHoraFuncionario = [projetos.length], totalHorasApontadas = [projetos.length];
+
+    const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
+
+    for(var x = 0; x < projetos.length; x++) {
+        totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
+        totalDespesas[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalDespesas)[x];
+        totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
+        totalHorasApontadas[x] = projetos.map((projetos) => projetos.infoprojetoDTO.horas_apontadas)[x];
+    }
+
+    const valorUtilizado = totalHorasApontadas.reduce(reducer) * totalValorHoraFuncionario.reduce(reducer);
+    const porcentagemUtilizada = (valorUtilizado / totalCcPagantes.reduce(reducer)) * 100;
+    const valorDisponivel = totalCcPagantes.reduce(reducer) - valorUtilizado;
 
     if (!isModalVisible) {
         return null
@@ -26,45 +76,17 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         <span onClick={onBackdropClick} />
                     </Title>
                     <Scroll>
-                        <div className="projeto">
-                            <p>NOMEPROJETO 1</p>
-                            <p>R$ 10.312,21</p>
-                            <p>25%</p>
-                        </div>
-                        <div className="projeto">
-                            <p>NOMEPROJETO 2 </p>
-                            <p>R$ 2.612,21</p>
-                            <p>10%</p>
-                        </div>
-                        <div className="projeto">
-                            <p>NOMEPROJETO 3</p>
-                            <p>R$ 40.762,21</p>
-                            <p>11%</p>
-                        </div>
-                        <div className="projeto">
-                            <p>NOMEPROJETO 4</p>
-                            <p>R$ 4.243,21</p>
-                            <p>43%</p>
-                        </div>
-                        <div className="projeto">
-                            <p>NOMEPROJETO 5</p>
-                            <p>R$ 20.235,21</p>
-                            <p>12%</p>
-                        </div>
-                        <div className="projeto">
-                            <p>NOMEPROJETO 6</p>
-                            <p>R$ 50.212,21</p>
-                            <p>12%</p>
-                        </div>
-                        <div className="projeto">
-                            <p>NOMEPROJETO 7</p>
-                            <p>R$ 42.856,21</p>
-                            <p>16%</p>
-                        </div>
+                        {projetos ? projetos.map((projeto) => 
+                            <div className="projeto">
+                                <p>{projeto.infoprojetoDTO.titulo}</p>
+                                <p>{analisaValor(projeto.infoprojetoDTO.horas_apontadas * totalValorHoraFuncionario.reduce(reducer))}</p>
+                                <p>00%</p>
+                            </div>
+                        ) : ''}
                     </Scroll>
                     <Graph>
                         <Bar>
-                            <Value valor={62}></Value>
+                            <Value valor={valor}></Value>
                         </Bar>
                     </Graph>
                 </PopUp>

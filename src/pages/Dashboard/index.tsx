@@ -34,6 +34,20 @@ interface CardContent {
         status: string;
         horas_apontadas: number;
     };
+    ccPagantes : [{
+        secao: {
+            id: number;
+            responsavel: {
+              numero_cracha: number;
+              nome: string;
+              cpf: string;
+              valor_hora: number;
+            };
+            nome: string;
+        },
+        percentual: number;
+        valor: number;
+    }];
     valoresTotaisDTO : {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
@@ -45,12 +59,8 @@ interface ISecoes {
     nome: string;
 }
 
-interface ITotalCc {
-    valoresTotaisDTO : {
-        valorTotalCcPagantes: number;
-        valorTotalDespesas: number;
-        valorTotalEsforco: number;
-    };  
+interface IFuncionarios {
+    valor_hora: number;
 }
 
 const Dashboard: React.FC = () => {
@@ -60,7 +70,7 @@ const Dashboard: React.FC = () => {
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<CardContent[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
-    const [totalAprovado, setTotalAprovado] = useState([0]);
+    const [funcionarios, setFuncionarios] = useState<IFuncionarios[]>([]);
 
     /*const token = localStorage.getItem('Token');
     let config = {
@@ -74,11 +84,13 @@ const Dashboard: React.FC = () => {
                 const data = response.data;
                 setProjetos(data);
 
-                console.log(data);
-
                 const responseSecao = await api.get<ISecoes[]>('secoes');
                 const dataSecao = responseSecao.data;
                 setSecoes(dataSecao);
+
+                const responseFuncionario = await api.get<IFuncionarios[]>('funcionarios');
+                const dataFuncionario = responseFuncionario.data;
+                setFuncionarios(dataFuncionario);
             }
             return;
         }
@@ -93,6 +105,8 @@ const Dashboard: React.FC = () => {
             setSecoes(dataSecao);
         }
     }, [id, projetos]);
+
+    //console.log(funcionarios ? funcionarios[0].valor_hora : 0);
 
     /*function teste() {
         const asd = new Array(setTotalAprovado(projetos.map(projetos => 
@@ -223,17 +237,27 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // ===================================================================
+    /* ===================================================================
+        Aprovada = total de cc pagantes
+        Utilizada = aprovada - (totalValorHora * totalProjetoHorasAtual)
+        Disponível
+    =================================================================== */
 
-    const totalCcPagantes = [projetos.length];   
-    const totalDespesas = [projetos.length];
-    
+    const totalCcPagantes = [projetos.length], totalDespesas = [projetos.length];
+    const totalValorHoraFuncionario = [projetos.length], totalHorasApontadas = [projetos.length];
+
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
 
     for(var x = 0; x < projetos.length; x++) {
         totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
         totalDespesas[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalDespesas)[x];
+        totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
+        totalHorasApontadas[x] = projetos.map((projetos) => projetos.infoprojetoDTO.horas_apontadas)[x];
     }
+
+    const valorUtilizado = totalHorasApontadas.reduce(reducer) * totalValorHoraFuncionario.reduce(reducer);
+    const porcentagemUtilizada = (valorUtilizado / totalCcPagantes.reduce(reducer)) * 100;
+    const valorDisponivel = totalCcPagantes.reduce(reducer) - valorUtilizado;
 
     return (
         <>
@@ -246,19 +270,22 @@ const Dashboard: React.FC = () => {
                         <Title>
                             <h1>{intl.get('tela_dashboards.primeiro_card.title')}</h1>
                             <span onClick={toggleModal} />
-                            <BaseModalWrapper isModalVisible={isModalVisible} onBackdropClick={toggleModal} />
+                            <BaseModalWrapper 
+                                isModalVisible={isModalVisible} 
+                                onBackdropClick={toggleModal} 
+                                valor={Math.trunc(porcentagemUtilizada)}/>
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={62} />
+                            <GraphLiquid dashboard={true} valor={Math.trunc(porcentagemUtilizada)} />
                         </Graph>
                     </Card>
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.segundo_card.title')}</h1>
-                            <span onClick={toggleModal} />
+                            <span onClick={() => alert("em desenv.")} />
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={15} />
+                            <GraphLiquid dashboard={true} valor={100 - Math.trunc(porcentagemUtilizada)} />
                         </Graph>
                     </Card>
                 </Liquid>
@@ -306,7 +333,11 @@ const Dashboard: React.FC = () => {
                         </Filtros>
                         <Line>
                         {
-                            `${analisaValor((totalCcPagantes.reduce(reducer) + totalDespesas.reduce(reducer)))}`
+                            //projetos ? projetos.map((projeto, index) => projeto.ccPagantes[index].secao.responsavel.valor_hora) : ''
+                            //totalValorHoraFuncionario.reduce(reducer)
+                            //totalHorasApontadas.reduce(reducer)
+                            "valor: " + analisaValor(valorUtilizado) + " | %: " + porcentagemUtilizada +
+                            " disponivel: " + analisaValor(valorDisponivel)
                         }
                         </Line>
                         <Filtros>
@@ -341,13 +372,13 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.segundo')}</h1>
                             </Title>
-                            <h1>{analisaValor((totalCcPagantes.reduce(reducer) + totalDespesas.reduce(reducer)))}</h1>
+                            <h1>{analisaValor(valorDisponivel)}</h1>
                         </Money>
                         <Money>
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.terceiro')}</h1>
                             </Title>
-                            <h1>R$ 25.000,00</h1>
+                            <h1>R$</h1>
                         </Money>
                         <Money>
                             <Title>

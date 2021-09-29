@@ -31,7 +31,7 @@ interface CardContent {
     };
 
     ccPagantes : [{
-        centroDeCusto: {
+        secao: {
             id: number;
             responsavel: {
               numero_cracha: number;
