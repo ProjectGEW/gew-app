@@ -13,6 +13,8 @@ import { IoMdArrowDropright } from 'react-icons/io';
 
 import { ContainerProject, ContainerInfo, Projects, Container, ContainerTitle,
     ContainerFiltro, Center } from './styles';
+import { Msg } from '../components/MenuLeft/styles';
+import { BiHourglass } from 'react-icons/bi';
 
 
 const locales = {
@@ -23,7 +25,7 @@ const locales = {
 };
 
 interface IProjetoProps {
-    infoprojetoDTO: {
+  infoprojetoDTO: {
         id: number;
         numeroDoProjeto: number;
         titulo: string;
@@ -59,25 +61,26 @@ const EditProjects: React.FC = () => {
         locales
     });
 
-    const token = localStorage.getItem('Token');
-    let config = {
-        headers: { Authorization: `Bearer ${token}`},
-    };
+    // const token = localStorage.getItem('Token');
+    // let config = {
+    //     headers: { Authorization: `Bearer ${token}`},
+    // };
 
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
     //const [nomeProjeto, setNomeProjeto] = useState('');
-    console.log(projetos);
 
     window.onload = async function handleProjetos() {
-        const response = await api.get<IProjetoProps[]>('projetos', config);
+        const response = await api.get<IProjetoProps[]>('projetos');
         const data = response.data;
         setProjetos(data);
 
-        const responseSecao = await api.get<ISecoes[]>('secoes', config);
+        const responseSecao = await api.get<ISecoes[]>('secoes');
         const dataSecao = responseSecao.data;
         setSecoes(dataSecao);
+
+        console.log(projetos);
     }
 
     function defineStatus(valor: string) {
@@ -118,7 +121,7 @@ const EditProjects: React.FC = () => {
             } else if(statusteste !== 'Todos') {
                 resultado = `projetos/` + statusteste + `/` + selectedOption;
             }
-            const response = await api.get<IProjetoProps[]>(resultado, config);
+            const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
             setProjetos(data);  
 
@@ -128,7 +131,7 @@ const EditProjects: React.FC = () => {
             } else if(statusteste !== 'Todos') {
                 resultado = `projetos/` + statusteste + `/Todos`;       
             }     
-            const response = await api.get<IProjetoProps[]>(resultado, config);
+            const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
             setProjetos(data);       
         }
@@ -147,7 +150,7 @@ const EditProjects: React.FC = () => {
             } else if(status !== '') {
                 resultado = `projetos/` + status + `/` + value;
             }  
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado, config);
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
 
@@ -157,7 +160,7 @@ const EditProjects: React.FC = () => {
             } else if(status !== '') {
                 resultado = `projetos/` + status + `/Todos`;
             }  
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado, config);
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
         }
@@ -168,67 +171,69 @@ const EditProjects: React.FC = () => {
         <Navbar />
         <MenuLeft />
         <Container>
-            <ContainerProject>
-                <ContainerInfo>
-                    <ContainerTitle>
-                        <h1>Projetos alocados <IoMdArrowDropright size={25} /></h1>
-                        <span />
-                    </ContainerTitle>
-                    <ContainerFiltro>
-                        <h1>Filtros:</h1>
-                        <div>
-                            <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
-                            <select name="secao" onChange={selectChange}>
-                                <option value="Todos">Todos</option>
-                                {
-                                secoes ?
-                                    secoes.map(secoes =>
-                                        <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
-                                    )
-                                    :
-                                    'Nenhuma seção foi encontrada'
-                                }
-                            </select>
-                        </div>
-                        <div>
-                            <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                            <form onSubmit={filtraPorStatus}>
-                                <button type="submit" id="Todos" className="0"
-                                    onClick={() => defineStatus('')}>
-                                    {intl.get('tela_projetos.filtros.options.todos')}
-                                </button>
-                                <button type="submit" id="em_andamento" className="1"
-                                    onClick={() => defineStatus('em_andamento')}>
-                                    {intl.get('tela_projetos.filtros.options.emandamento')}
-                                </button>
-                                <button type="submit" id="atrasados" className="2"
-                                    onClick={() => defineStatus('atrasados')}>
-                                    {intl.get('tela_projetos.filtros.options.atrasado')}
-                                </button>
-                                <button type="submit" id="concluidos" className="3"
-                                    onClick={() => defineStatus('concluidos')}>
-                                    {intl.get('tela_projetos.filtros.options.concluido')}
-                                </button>
-                            </form>
-                        </div>
-                        <div>
-                            <label>Projeto:</label>
-                            <input placeholder="Digite aqui" />
-                        </div>
-                    </ContainerFiltro>
-                </ContainerInfo>
-                <Projects>
-                    <Center>
-                        <CardEdit statusColor={"Atrasado"} /> 
-                        <CardEdit statusColor={"EmAndamento"} />
-                        <CardEdit statusColor={"Atrasado"} /> 
-                        <CardEdit statusColor={"EmAndamento"} />
-                        <CardEdit statusColor={"Atrasado"} /> 
-                        <CardEdit statusColor={"EmAndamento"} />
-                        <CardEdit statusColor={"Atrasado"} /> 
-                        <CardEdit statusColor={"EmAndamento"} />
-                    </Center>                   
-                </Projects>
+          <ContainerProject>
+            <ContainerInfo>
+              <ContainerTitle>
+                <h1>Projetos alocados <IoMdArrowDropright size={25} /></h1>
+              </ContainerTitle>
+              <ContainerFiltro>
+                <h1>Filtros:</h1>
+                  <div>
+                    <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
+                    <select name="secao" onChange={selectChange}>
+                      <option value="Todos">Todos</option>
+                      {
+                      secoes ?
+                          secoes.map(secoes =>
+                              <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
+                          )
+                          :
+                          'Nenhuma seção foi encontrada'
+                      }
+                    </select>
+                  </div>
+                  <div>
+                    <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
+                    <form onSubmit={filtraPorStatus}>
+                        <button type="submit" id="Todos" className="0"
+                            onClick={() => defineStatus('')}>
+                            {intl.get('tela_projetos.filtros.options.todos')}
+                        </button>
+                        <button type="submit" id="em_andamento" className="1"
+                            onClick={() => defineStatus('em_andamento')}>
+                            {intl.get('tela_projetos.filtros.options.emandamento')}
+                        </button>
+                        <button type="submit" id="atrasados" className="2"
+                            onClick={() => defineStatus('atrasados')}>
+                            {intl.get('tela_projetos.filtros.options.atrasado')}
+                        </button>
+                        <button type="submit" id="concluidos" className="3"
+                            onClick={() => defineStatus('concluidos')}>
+                            {intl.get('tela_projetos.filtros.options.concluido')}
+                        </button>
+                    </form>
+                  </div>
+                  <div>
+                      <label>Projeto:</label>
+                      <input placeholder="Digite aqui" />
+                  </div>
+              </ContainerFiltro>
+            </ContainerInfo>
+            <Projects>
+                <Center>
+                    {
+                        projetos ?
+                            projetos.map((projeto) =>
+                                <CardEdit key={projeto.infoprojetoDTO.id} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                            )
+                            :
+                            <Msg>
+                                <BiHourglass size={40} />
+                                <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                            </Msg>
+                    }
+                </Center>                   
+            </Projects>
             </ContainerProject>
         </Container>
         <MenuRight>

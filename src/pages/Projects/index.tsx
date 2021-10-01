@@ -77,7 +77,6 @@ const Projects: React.FC = () => {
         const data = response.data;
         setProjetos(data);
         setGlobal(data);
-        //console.log(data);
 
         const responseSecao = await api.get<ISecoes[]>('secoes');
         const dataSecao = responseSecao.data;
@@ -197,12 +196,12 @@ const Projects: React.FC = () => {
         <Navbar />
         <MenuLeft />
         <Container>
-            <ContainerProject>
-                <ContainerInfo>
-                    <ContainerTitle>
-                        <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25} /></h1>
-                        <span />
-                    </ContainerTitle>
+          <ContainerProject>
+            <ContainerInfo>
+              <ContainerTitle>
+                <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25} /></h1>
+                <span />
+              </ContainerTitle>
                     <ContainerFiltro>
                         <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
                         <div>
