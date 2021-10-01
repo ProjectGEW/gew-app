@@ -47,7 +47,7 @@ export const Tittle = styled.h1`
 
 `;
 
-export const Table = styled.table`
+export const Table = styled.table<ListRoute>`
     width: 70vw;
     border-spacing: 0;
 
@@ -134,6 +134,27 @@ export const Table = styled.table`
     .atribuicao {
         width: 8vw;
     }
+
+    ${props => props.tipo === 'Perfil' && css`
+        .cadastro {
+            margin-left: 0.4vw;
+        }
+
+        .status {
+            margin-left: -1.4vw;
+        }
+        .projetos {
+            width: 8vw;
+        }
+
+        .nome {
+            width: 24vw;
+        }
+
+        div.atribuicao {
+            padding-left: 0.6vw;
+        }
+    `}
 `;
 
 export const TableDimensions = styled.div<ListRoute>`

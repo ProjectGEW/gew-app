@@ -55,12 +55,13 @@ const ConsultantProfile: React.FC = () => {
                     Projetos atribuídos
                 </Tittle>
                 <TableDimensions tipo={'Perfil'}>
-                <Table>
+                <Table tipo={'Perfil'}>
                     <div id='header'>
-                        <div className='cadastro'>Cadastro</div>
+                        <div className='cadastro'>Número</div>
                         <div className='status'>Status</div>
-                        <div className='nome'>Nome Completo</div>
-                        <div className='projetos'>Projetos</div>
+                        <div className='nome'>Título de Demanda</div>
+                        <div className='projetos'>CC Pagante</div>
+                        <div className='projetos'>Criação</div>
                         <div className='atribuicao'>Atribuição</div>
                     </div>
                     <TableScroll>
@@ -69,14 +70,6 @@ const ConsultantProfile: React.FC = () => {
                         <td className='status'>Ativo</td>
                         <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
                         <td className='atribuicao'>
                             <button>Atribuir</button>
@@ -87,14 +80,6 @@ const ConsultantProfile: React.FC = () => {
                         <td className='status'>Ativo</td>
                         <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
                         <td className='atribuicao'>
                             <button>Atribuir</button>
@@ -105,14 +90,6 @@ const ConsultantProfile: React.FC = () => {
                         <td className='status'>Ativo</td>
                         <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
                         <td className='atribuicao'>
                             <button>Atribuir</button>
@@ -123,14 +100,6 @@ const ConsultantProfile: React.FC = () => {
                         <td className='status'>Ativo</td>
                         <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
                         <td className='atribuicao'>
                             <button>Atribuir</button>
@@ -141,14 +110,6 @@ const ConsultantProfile: React.FC = () => {
                         <td className='status'>Ativo</td>
                         <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
                         <td className='projetos'>Projetos</td>
                         <td className='atribuicao'>
                             <button>Atribuir</button>
@@ -158,6 +119,57 @@ const ConsultantProfile: React.FC = () => {
                         <td className='cadastro'>Cadastro</td>
                         <td className='status'>Ativo</td>
                         <td className='nome'>Nome Completo</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='atribuicao'>
+                            <button>Atribuir</button>
+                        </td>
+                    </tr>
+                    <tr id='column'>
+                        <td className='cadastro'>Cadastro</td>
+                        <td className='status'>Ativo</td>
+                        <td className='nome'>Nome Completo</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='atribuicao'>
+                            <button>Atribuir</button>
+                        </td>
+                    </tr>
+                    <tr id='column'>
+                        <td className='cadastro'>Cadastro</td>
+                        <td className='status'>Ativo</td>
+                        <td className='nome'>Nome Completo</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='atribuicao'>
+                            <button>Atribuir</button>
+                        </td>
+                    </tr>
+                    <tr id='column'>
+                        <td className='cadastro'>Cadastro</td>
+                        <td className='status'>Ativo</td>
+                        <td className='nome'>Nome Completo</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='atribuicao'>
+                            <button>Atribuir</button>
+                        </td>
+                    </tr>
+                    <tr id='column'>
+                        <td className='cadastro'>Cadastro</td>
+                        <td className='status'>Ativo</td>
+                        <td className='nome'>Nome Completo</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='projetos'>Projetos</td>
+                        <td className='atribuicao'>
+                            <button>Atribuir</button>
+                        </td>
+                    </tr>
+                    <tr id='column'>
+                        <td className='cadastro'>Cadastro</td>
+                        <td className='status'>Ativo</td>
+                        <td className='nome'>Nome Completo</td>
+                        <td className='projetos'>Projetos</td>
                         <td className='projetos'>Projetos</td>
                         <td className='atribuicao'>
                             <button>Atribuir</button>
