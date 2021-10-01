@@ -48,7 +48,7 @@ const ConsultantList: React.FC<ListRoute> = ({tipo}) => {
                 </Arrow>
                 <Tittle>Consultores Registrados</Tittle>
                 <TableDimensions tipo={tipo}>
-                <Table>
+                <Table tipo={tipo}>
                     <div id='header'>
                         <div className='cadastro'>Cadastro</div>
                         <div className='status'>Status</div>

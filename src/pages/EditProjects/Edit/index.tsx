@@ -22,6 +22,10 @@ const Edit: React.FC = () => {
             <Navbar />
             <MenuLeft />
 
+            <MenuRight>
+                <ContIcons />
+            </MenuRight>
+
             <PageContainer>
             <Container> 
                 <header>
@@ -115,10 +119,6 @@ const Edit: React.FC = () => {
                 <Button tipo={'editProjetos'} text={'Confirmar'} />
             </Container>
             </PageContainer>
-
-            <MenuRight>
-                <ContIcons />
-            </MenuRight>
         </>
         );
 };
