@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from "react-router-dom";
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -9,9 +10,60 @@ import { Container, MainProfileGrid, Email, Tittle } from './style';
 import { Arrow, Table, TableDimensions, TableScroll } from '../ConsultantsList/style';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 
+import api from "../../../service/api";
 
+interface IConsultantProps {
+    numero_cracha: number;
+    nome: string;
+    email: string;
+    valor_hora: number;
+    status: string;
+}
+
+interface ISupplierProps {
+    nome: string;
+    email: string;
+}
+
+interface IProjectProps {
+    infoprojetoDTO: {
+        numeroDoProjeto: number;
+        titulo: string;
+        data_de_inicio: string;
+        status: string;
+    };
+    ccPagantes: [
+        {
+            secao: {
+                id: number;
+            }
+        }
+    ];
+}
 
 const ConsultantProfile: React.FC = () => {
+    const [consultant, setConsultant] = useState<IConsultantProps>();
+    const [supplier, setSupplier] = useState<ISupplierProps>();
+    const [projects, setProjects] = useState<IProjectProps[]>([]);
+    const { numeroCracha }: {numeroCracha: string}  = useParams();
+
+    window.onload = async function handleData() {
+        try {
+            await api.get(`funcionarios/consultor/${numeroCracha}`).then((response) => {
+                setConsultant(response.data);
+            });
+
+            await api.get(`fornecedores/${numeroCracha}`).then((response) => {
+                setSupplier(response.data);
+            });
+
+            await api.get(`projetos/consultor/${numeroCracha}`).then((response) => {
+                setProjects(response.data);
+            });
+        } catch(error) {
+            console.log("Error: ", error);
+        }
+    }
 
     return (
         <>
@@ -26,27 +78,27 @@ const ConsultantProfile: React.FC = () => {
                     <div id="photo">
                         <div id="user" />
                         <div id="text">
-                            <h2>STATUS:</h2><h3>ATIVO</h3>
+                            <h2>STATUS:</h2><h3>{consultant?.status}</h3>
                         </div>
                     </div>
                     <div id="desc">
                         <div id="dataone">
-                            <h1>HELOISE BIANCA STEPHANY BERNARDES</h1>
+                            <h1>{consultant?.nome}</h1>
                         </div>
                         <div id="datatwo">
-                            <h2>Cadastro:</h2><h3>70001</h3>
+                            <h2>Cadastro:</h2><h3>{consultant?.numero_cracha}</h3>
                             <h2>Data do cadastro:</h2><h3>20/10/2020</h3>
                         </div>
                         <div id="datatwo">
-                            <h2>Fornecedor:</h2><h3>Abapcom</h3>
-                            <h2>Valor da hora:</h2><h3>R$ 20,00</h3>
+                            <h2>Fornecedor:</h2><h3>{supplier?.nome}</h3>
+                            <h2>Valor da hora:</h2><h3>R$ {consultant?.valor_hora}</h3>
                         </div>
                         <div id="dataone">
                             <Email>
-                                <h2>E-mail do consultor:</h2><h3>heloisebernardes@abapcom.com</h3>
+                                <h2>E-mail do consultor:</h2><h3>{consultant?.email}</h3>
                             </Email>
                             <Email>
-                                <h2>E-mail do fornecedor:</h2><h3>contato@abapcom.com</h3>
+                                <h2>E-mail do fornecedor:</h2><h3>{supplier?.email}</h3>
                             </Email>
                         </div>
                     </div>
@@ -61,120 +113,32 @@ const ConsultantProfile: React.FC = () => {
                         <div className='status'>Status</div>
                         <div className='nome'>Título de Demanda</div>
                         <div className='projetos'>CC Pagante</div>
-                        <div className='projetos'>Criação</div>
+                        <div className='projetos'>Início</div>
                         <div className='atribuicao'>Atribuição</div>
                     </div>
                     <TableScroll>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
-                    <tr id='column'>
-                        <td className='cadastro'>Cadastro</td>
-                        <td className='status'>Ativo</td>
-                        <td className='nome'>Nome Completo</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='projetos'>Projetos</td>
-                        <td className='atribuicao'>
-                            <button>Atribuir</button>
-                        </td>
-                    </tr>
+                    {projects.map(project => (
+                        <>
+                            {project.infoprojetoDTO.status !== "CONCLUIDO" ? 
+                                <tr id='column'>
+                                    <td className='cadastro'>{project.infoprojetoDTO.numeroDoProjeto}</td>
+                                    <td className='status'>{project.infoprojetoDTO.status}</td>
+                                    <td className='nome'>{project.infoprojetoDTO.titulo}</td>
+                                    <td className='projetos'>
+                                        <select>
+                                            {project.ccPagantes.map(ccPagante => (
+                                                <option>{ccPagante.secao.id}</option>
+                                            ))}
+                                        </select>
+                                    </td>
+                                    <td className='projetos'>{project.infoprojetoDTO.data_de_inicio}</td>
+                                    <td className='atribuicao'>
+                                        <button>Atribuir</button>
+                                    </td>
+                                </tr>
+                            : ""}
+                        </>
+                    ))}
                     </TableScroll>
                 </Table>
                 </TableDimensions>
