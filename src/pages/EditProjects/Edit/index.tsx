@@ -59,21 +59,21 @@ const Edit: React.FC = () => {
                     <h1>Responsáveis</h1>
                         <Box2>
                             <div id="half">
-                                <label>Número do projeto:</label>
+                                <label>Número do Responsável:</label>
                                 <input type="text" />
                             </div>
                             <div id="half">  
-                                <label>Número do projeto:</label>
+                                <label>Seção do Responsável:</label>
                                 <input type="text" />
                             </div>
                         </Box2>
                         <Box2>
                             <div id="half">
-                                <label>Número do projeto:</label>
+                                <label>Número do Solicitante:</label>
                                 <input type="text" />
                             </div>
                             <div id="half">  
-                                <label>Número do projeto:</label>
+                                <label>Seção do Solicitante:</label>
                                 <input type="text" />
                             </div>
                         </Box2>
@@ -82,17 +82,15 @@ const Edit: React.FC = () => {
                     <h1>Centros de Custo</h1>
                         <Box2>
                             <div id="box">
-                                <label>Número do projeto:</label>
+                                <label>Centro de Custo:</label>
                                 <input type="text" />
                             </div>
                             <div id="box">  
-                                <label>Número do projeto:</label>
+                                <label>Percentual aprovado:</label>
                                 <input type="text" />
                             </div>
-                        </Box2>
-                        <Box2>
-                            <div id="box">
-                                <label>Título do projeto:</label>
+                            <div id="box" className="bigger">
+                                <label>Limite de horas aprovadas:</label>
                                 <input type="text" />
                             </div>
                         </Box2>
@@ -101,17 +99,15 @@ const Edit: React.FC = () => {
                     <h1>Datas</h1>
                         <Box2>
                             <div id="box">
-                                <label>Número do projeto:</label>
+                                <label>Data de início:</label>
                                 <input type="date" />
                             </div>
                             <div id="box">  
-                                <label htmlFor="ata">{data ? data : "SELECIONAR ARQUIVO"}</label>
+                                <label>Data término:</label>
                                 <input type="date" />
                             </div>
-                        </Box2>
-                        <Box2>
                             <div id="box">
-                                <label>Título do projeto:</label>
+                                <label>Data de aprovação:</label>
                                 <input type="date" />
                             </div>
                         </Box2>
