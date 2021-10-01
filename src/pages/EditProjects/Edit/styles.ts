@@ -8,7 +8,7 @@ export const Container = styled.div`
     top: 14vh;
     left: 12vw;
     width: 78vw;
-    height: 250vh;
+    height: 217.5vh;
     margin-bottom: 5vh;
 
     display: flex;
@@ -51,7 +51,7 @@ export const Container = styled.div`
 export const Footer = styled.div`
     position: absolute;
     width: 100vw;
-    height: 275vh;
+    height: 235vh;
 `;
 
 export const BoxContainer = styled.div`
@@ -84,25 +84,13 @@ export const BoxContainer = styled.div`
         }
     }
 
-    &:nth-child(2) {
+    &:nth-child(2)   {
         h1 {
             margin-top: -6vh;
         }
     }
 
-    &:nth-child(3) {
-        h1 {
-            margin-top: -14vh;
-        }
-    }
-
-    &:nth-child(4) {
-        h1 {
-            margin-top: -14vh;
-        }
-    }
-
-    &:nth-child(5) {
+    &:nth-child(3), &:nth-child(4), &:nth-child(5) {
         h1 {
             margin-top: -14vh;
         }
@@ -162,7 +150,7 @@ export const Box = styled.div`
 
 export const PageContainer = styled.div`
     width: 100vw;
-    height: 280vh;
+    height: 250vh;
 
 `;
 
@@ -185,8 +173,16 @@ export const Box2 = styled.div`
     }
 
     #box {
-        width: 35%;
-        margin-right: 5%;
+        width: 30%;
+        margin-right: 4%;
+    }
+
+    //a classe .bigger foi criada para ajustar o label, ela herda os elementos da #box
+
+    .bigger {
+        label {
+            width: 30vw;
+        }
     }
 
     #numeroProjeto {
