@@ -172,11 +172,7 @@ const Projects: React.FC = () => {
         }
     };
 
-    const [inputValue, setInputValue] = useState("");
-
     const search = async (event: React.ChangeEvent<{ value: string }>) => {
-        setInputValue(event.target.value);
-
         if(event.target.value !== '') {
             try {
                 const responsePorNome = await api.get<IProjetoProps[]>(`projetos/titulo/` + event.target.value);
