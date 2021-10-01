@@ -14,7 +14,7 @@ import { IoMdArrowDropright } from 'react-icons/io';
 import api from "../../../service/api";
 import intl from 'react-intl-universal';
 
-interface IProjeto {
+interface IProjetoProps {
     infoprojetoDTO: {
         numeroDoProjeto: number;
         status: string;
@@ -33,7 +33,8 @@ const locales = {
 };
 
 const ProjectsList: React.FC = () => {
-    const [projetos, setProjetos] = useState<IProjeto[]>([]);
+    const [global, setGlobal] = useState<IProjetoProps[]>([]);
+    const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecao[]>([]);
     const [status, setStatus] = useState('');
     const [selectedOption, setSelectedOption] = useState('Todos');
@@ -53,13 +54,18 @@ const ProjectsList: React.FC = () => {
     });
 
     window.onload = async function handleData() {
-        await api.get("projetos").then((response) => {
-            setProjetos(response.data);
-        });
+        try {
+            await api.get("projetos").then((response) => {
+                setProjetos(response.data);
+                setGlobal(response.data);
+            });
 
-        await api.get("secoes").then((response) => {
-            setSecoes(response.data);
-        });
+            await api.get("secoes").then((response) => {
+                setSecoes(response.data);
+            });
+        } catch (error) {
+            console.log("Error: ", error);
+        }
     };
 
     const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -73,9 +79,15 @@ const ProjectsList: React.FC = () => {
             } else if (status !== '') {
                 resultado = `projetos/` + status + `/` + value;
             }
-            const responsePorSecao = await api.get<IProjeto[]>(resultado);
-            const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);
+
+            try {
+                const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
+                const dataPorSecao = responsePorSecao.data;
+                setProjetos(dataPorSecao);
+                setGlobal(dataPorSecao);  
+            } catch (error) {
+                console.log("Error: ", error);
+            }
 
         } else if (value === 'Todos') {
             if (status === '') {
@@ -83,9 +95,10 @@ const ProjectsList: React.FC = () => {
             } else if (status !== '') {
                 resultado = `projetos/` + status + `/Todos`;
             }
-            const responsePorSecao = await api.get<IProjeto[]>(resultado);
+            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
+            setGlobal(dataPorSecao);
         }
     };
 
@@ -128,9 +141,10 @@ const ProjectsList: React.FC = () => {
             } else if (statusteste !== 'Todos') {
                 resultado = `projetos/` + statusteste + `/` + selectedOption;
             }
-            const response = await api.get<IProjeto[]>(resultado);
+            const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
             setProjetos(data);
+            setGlobal(data);
 
         } else if (selectedOption === 'Todos') {
             if (statusteste === 'Todos') {
@@ -138,11 +152,27 @@ const ProjectsList: React.FC = () => {
             } else if (statusteste !== 'Todos') {
                 resultado = `projetos/` + statusteste + `/Todos`;
             }
-            const response = await api.get<IProjeto[]>(resultado);
+            const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
             setProjetos(data);
+            setGlobal(data);
         }
     }
+
+    const search = async (event: React.ChangeEvent<{ value: string }>) => {
+        if(event.target.value !== '') {
+            try {
+                const responsePorNome = await api.get<IProjetoProps[]>(`projetos/titulo/` + event.target.value);
+                const dataPorNome = responsePorNome.data;
+
+                setProjetos(dataPorNome);
+            } catch(err: any) {
+                console.log(err.message);
+            }
+        } else {
+            setProjetos(global);
+        }        
+    };
 
     return (
         <>
@@ -189,8 +219,8 @@ const ProjectsList: React.FC = () => {
                             </form>
                             </div>
                             <div>
-                                <label>Projeto:</label>
-                                <input placeholder="Digite aqui" />
+                                <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
+                                <input type="text" placeholder="Número do projeto" onChange={search} />
                             </div>
                         </ContainerFiltro>
                     </ContainerInfo>
