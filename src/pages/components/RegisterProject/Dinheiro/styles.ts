@@ -5,13 +5,7 @@ export const BoxDinheiro = styled.div`
     width: 70%;
     height: 57vh;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
     /* Estilização dos erros */
-
     .msgErro {
         position: absolute;
         font-size: 1.9vh;
@@ -110,6 +104,11 @@ export const BoxDinheiro = styled.div`
                 }
             }
         }
+      }
+    #btnDin{
+      position: absolute; 
+      height: auto;
+      margin-top: 10vh;
     }
 `;
 

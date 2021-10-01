@@ -138,6 +138,12 @@ const RegisterProjects: React.FC = () => {
   const [etapa, setEtapas] = useState('');
 
   function trocarEtapa(proxEtapa: string) {
+    if (proxEtapa === "boxDinheiro") {
+      document.getElementById("btnDin")!.style.display = "block";
+    } else if (proxEtapa === "boxDatas" || proxEtapa === "boxResponsavel" || proxEtapa === "boxProjeto") {
+      document.getElementById("btnDin")!.style.display = "none";
+    }
+
     for (var x = 0; x < 4; x++) {
       document.getElementById(etapas[x])!.style.display = "none";
     }
@@ -472,7 +478,7 @@ return (
               trocarEtapa("boxDinheiro")}}><Button  tipo={"etapaResponsaveis"} text={"Continuar"} /></span>
           </BoxResponsavel>
           <BoxDinheiro id="boxDinheiro">
-            <form action="" method="post">
+            <form>
               <Table id="tableOne">
                 <div id="first-table">
                   <h1>Despesas (desembolsos)</h1>
@@ -511,18 +517,18 @@ return (
               </Table>
               <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
             </form>
-            <span onClick={() => {
-              let confirm = 0;
-              confirm += analisaCampoLinhasdDespesas(rowDespesas.length)!;
-              confirm += analisaCampoLinhasdCcPagantes(rowCC.length);
-              if (confirm < 2) {
-                return;
-              }
-              trocarEtapa("boxDatas")
-            }}>
-              <Button  tipo={"etapaDinheiro"} text={"Continuar"} />
-            </span>
           </BoxDinheiro>
+          <span id="btnDin" onClick={() => {
+            let confirm = 0;
+            confirm += analisaCampoLinhasdDespesas(rowDespesas.length)!;
+            confirm += analisaCampoLinhasdCcPagantes(rowCC.length);
+            if (confirm < 2) {
+              return;
+            }
+            trocarEtapa("boxDatas"); 
+          }}>
+            <Button  tipo={"etapaDinheiro"} text={"Continuar"} />
+          </span> 
           <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
             <span className="spanDatas">
               <div className="divDatas">
@@ -559,7 +565,6 @@ return (
           </span>
         </BoxDatas>
         <Footer tipo={"register_project"} ></Footer>
-        
       </Content>
     </ContainerRegister>
   </Container >
