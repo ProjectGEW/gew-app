@@ -66,6 +66,13 @@ export const Content = styled.div`
     #boxDatas {
         display: none;
     }
+
+    #btnDin {
+      display: none;
+      position: absolute;
+      margin-left: 57vw;
+      margin-top: 58vh;
+    }
 `;
 
 export const Line = styled.div<Etapa>`
