@@ -112,11 +112,18 @@ export const ContainerFiltro = styled.div`
         }
 
         select {
-            width: 12vw;
+            width: 14vw;
             padding: 0.5vh;
 
             color: #575757;
             border: 0.2vh solid #c4c4c4;
+            
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        option {
+            font-size: 2vh;            
         }
 
         input {

@@ -205,12 +205,9 @@ const Projects: React.FC = () => {
                             <select name="secao" onChange={selectChange}>
                                 <option value="Todos">Todos</option>
                                 {
-                                    secoes ?
-                                        secoes.map(secoes =>
-                                            <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
-                                        )
-                                        :
-                                        console.log('Nenhuma seção foi encontrada')
+                                    secoes ? secoes.map(secoes =>
+                                        <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
+                                    ) : console.log('Nenhuma seção foi encontrada')
                                 }
                             </select>
                         </div>

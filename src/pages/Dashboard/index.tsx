@@ -251,7 +251,7 @@ const Dashboard: React.FC = () => {
     for(var x = 0; x < projetos.length; x++) {
         totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
         totalDespesas[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalDespesas)[x];
-        totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
+        //totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
         totalHorasApontadas[x] = projetos.map((projetos) => projetos.infoprojetoDTO.horas_apontadas)[x];
     }
 
@@ -333,12 +333,14 @@ const Dashboard: React.FC = () => {
                         </Filtros>
                         <Line>
                         {
+                            //testes
                             //projetos ? projetos.map((projeto, index) => projeto.ccPagantes[index].secao.responsavel.valor_hora) : ''
                             //totalValorHoraFuncionario.reduce(reducer)
                             //totalHorasApontadas.reduce(reducer)
-                            "valor: " + analisaValor(valorUtilizado) + " | %: " + porcentagemUtilizada +
-                            " disponivel: " + analisaValor(valorDisponivel)
+                            //"valor: " + analisaValor(valorUtilizado) + " | %: " + porcentagemUtilizada +
+                            //" disponivel: " + analisaValor(valorDisponivel)
                         }
+                        <GL/>
                         </Line>
                         <Filtros>
                             <div id="filtro-periodo">
