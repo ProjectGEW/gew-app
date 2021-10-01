@@ -24,13 +24,20 @@ interface CardContent {
         status: string;
         horas_apontadas: number;
     };
-    ccPagantes: [{
+    ccPagantes : [{
         secao: {
+            id: number;
             responsavel: {
-                valor_hora: number;
-            }
-        }   
-    }]
+              numero_cracha: number;
+              nome: string;
+              cpf: string;
+              valor_hora: number;
+            };
+            nome: string;
+        },
+        percentual: number;
+        valor: number;
+    }];
     valoresTotaisDTO : {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
@@ -55,7 +62,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     for(var x = 0; x < projetos.length; x++) {
         totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
         totalDespesas[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalDespesas)[x];
-        totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
+        //totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
         totalHorasApontadas[x] = projetos.map((projetos) => projetos.infoprojetoDTO.horas_apontadas)[x];
     }
 
