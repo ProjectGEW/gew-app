@@ -520,7 +520,7 @@ return (
               }
               trocarEtapa("boxDatas")
             }}>
-              <Button  tipo={"etapaDinheiro"} text={"Continuar"} />
+              <Button tipo={"etapaDinheiro"} text={"Continuar"} />
             </span>
           </BoxDinheiro>
           <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
@@ -559,7 +559,6 @@ return (
           </span>
         </BoxDatas>
         <Footer tipo={"register_project"} ></Footer>
-        
       </Content>
     </ContainerRegister>
   </Container >
