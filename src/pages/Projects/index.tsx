@@ -234,7 +234,7 @@ const Projects: React.FC = () => {
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-                            <input type="text" placeholder="Número do projeto" onChange={search} />
+                            <input type="text" placeholder="Pesquise aqui..." onChange={search} />
                         </div>
                     </ContainerFiltro>
                 </ContainerInfo>
