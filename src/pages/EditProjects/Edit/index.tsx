@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -8,14 +8,44 @@ import { ContIcons } from '../../components/MenuRight/styles';
 import { Container, BoxContainer, Box2, Box, PageContainer } from './styles';
 import { AiOutlineCaretDown } from 'react-icons/ai';
 import Button from '../../components/Button';
+import { useParams } from 'react-router';
+import api from '../../../service/api';
+
+interface CardContent {
+  infoprojetoDTO : {
+      id: number;
+      numeroDoProjeto: number;
+      titulo: string;
+      descricao: string;
+      data_de_inicio: string;
+      data_de_termino: string;
+      status: string;
+      horas_apontadas: number;
+      secao: string;
+  };
+  valoresTotaisDTO : {
+      valorTotalCcPagantes: number;
+      valorTotalDespesas: number;
+      valorTotalEsforco: number;
+  };      
+}
 
 const Edit: React.FC = () => {
     const [data, setData] = useState("");
+    const { numeroDoProjeto }: {numeroDoProjeto: string}  = useParams();
 
     function teste() {
         setData((document.getElementById("ata") as HTMLInputElement).value);
         console.log(data.substring(12, -1));
     }
+
+    const [projeto, setProjeto] = useState<CardContent>();
+
+    useEffect(() => {
+      api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
+            setProjeto(response.data);
+      }))
+    }, [numeroDoProjeto]);
 
     return (
         <>
