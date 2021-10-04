@@ -25,7 +25,7 @@ const GraphCircular: React.FC<GraphCircularProps> = ({valor, total, tipo}) => {
                             {
                                 tipo === "valor" ? analisaValor(valor) :
                                 tipo === "hora" ? valor + " horas" :
-                                tipo === "%" ? calculaPorcentagem(valor, total) + "%" : 0 
+                                tipo === "%" ? Math.trunc(calculaPorcentagem(valor, total)) + "%" : 0 
                             }
                         </Number>
                     </Inner>
