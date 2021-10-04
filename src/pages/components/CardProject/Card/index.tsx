@@ -62,12 +62,12 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
         headers: { Authorization: `Bearer ${token}`},
     };
 
-    const [project, setProject] = useState<CardContent>();
+    const [projeto, setProjeto] = useState<CardContent>();
     const [status, setStatus] = useState('');
     
     useEffect(() => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-            setProject(response.data);
+            setProjeto(response.data);
             setStatus(response.data.infoprojetoDTO.status);
       }))
     }, [numeroDoProjeto]);
@@ -81,14 +81,14 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
             <BaseModalWrapper 
                 isModalVisible={isModalVisible} 
                 onBackdropClick={toggleModal} 
-                numeroDoProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0} 
+                numeroDoProjeto={projeto ? projeto.infoprojetoDTO.numeroDoProjeto: 0} 
             />
         );
         setIsModalVisible(!isModalVisible);
     }
 
     function calcularPorcentagem(count: number) {
-        const total = project ? project.valoresTotaisDTO.valorTotalEsforco : 0;
+        const total = projeto ? projeto.valoresTotaisDTO.valorTotalEsforco : 0;
         const porcentagem = (count / total) * 100;
 
         return Math.floor(porcentagem);
@@ -96,41 +96,41 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
 
     return (
         <>
-        { project ? 
-        <Card key={project?.infoprojetoDTO.id} onClick={toggleModal}>
+        { projeto ? 
+        <Card key={projeto?.infoprojetoDTO.id} onClick={toggleModal}>
             {popUp ? popUp : null}
             <CardStatus statusColor={status}/>
             <CardBox>
                 <BoxLeft>
                     <div>
-                        <p>{project ? project.infoprojetoDTO.numeroDoProjeto : "00000000"} - {project ? project.infoprojetoDTO.secao : "ABC"}</p>
-                        <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
+                        <p>{projeto ? projeto.infoprojetoDTO.numeroDoProjeto : "00000000"} - {projeto ? projeto.infoprojetoDTO.secao : "ABC"}</p>
+                        <h1>{projeto ? projeto.infoprojetoDTO.titulo : ""}</h1>
                     </div>
                     <div>
-                        <p><strong>{intl.get('card_projetos.saldo_um')}</strong>{analisaValor(project ? project.valoresTotaisDTO.valorTotalDespesas : 0)}</p>
+                        <p><strong>{intl.get('card_projetos.saldo_um')}</strong>{analisaValor(projeto ? projeto.valoresTotaisDTO.valorTotalDespesas : 0)}</p>
                         <p><strong>{intl.get('card_projetos.saldo_dois')}</strong>{analisaValor(50000)}</p>
                     </div>
                     <div>
-                        <p>{intl.get('card_projetos.data_um')} {project ? project.infoprojetoDTO.data_de_inicio : "00/00/0000"}</p>
-                        <p>{intl.get('card_projetos.data_dois')} {project ? project.infoprojetoDTO.data_de_termino : "00/00/0000"}</p>
+                        <p>{intl.get('card_projetos.data_um')} {projeto ? projeto.infoprojetoDTO.data_de_inicio : "00/00/0000"}</p>
+                        <p>{intl.get('card_projetos.data_dois')} {projeto ? projeto.infoprojetoDTO.data_de_termino : "00/00/0000"}</p>
                     </div>
                 </BoxLeft>
                 <BoxRight>
                     <div>
-                        <p>{intl.get('card_projetos.status')} <strong>{formatStatus(project ? project.infoprojetoDTO.status : '')}
+                        <p>{intl.get('card_projetos.status')} <strong>{formatStatus(projeto ? projeto.infoprojetoDTO.status : '')}
                         </strong></p>
                     </div>
                     <div>
-                        {project ? project.infoprojetoDTO.status !== "CONCLUIDO" ?
+                        {projeto ? projeto.infoprojetoDTO.status !== "CONCLUIDO" ?
                             <>
                             <p><strong>{intl.get('card_projetos.horas')}:</strong> <AiOutlineClockCircle size={15} /> 
-                                {project.valoresTotaisDTO.valorTotalEsforco} {intl.get('card_projetos.horas')}
+                                {projeto.valoresTotaisDTO.valorTotalEsforco} {intl.get('card_projetos.horas')}
                             </p>
                             <p><strong>{intl.get('card_projetos.apontadas')}:</strong> <AiOutlineClockCircle size={15} /> 
-                                {project.infoprojetoDTO.horas_apontadas} {intl.get('card_projetos.horas')}
+                                {projeto.infoprojetoDTO.horas_apontadas} {intl.get('card_projetos.horas')}
                             </p>
                             <Progress>
-                                <Value value={calcularPorcentagem(project ? project.infoprojetoDTO.horas_apontadas : 0)} />
+                                <Value value={calcularPorcentagem(projeto ? projeto.infoprojetoDTO.horas_apontadas : 0)} />
                             </Progress>
                             </>
                             :

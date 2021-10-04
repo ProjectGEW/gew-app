@@ -6,12 +6,15 @@ import api from "../../../../service/api";
 
 import { Card, CardStatus, CardBox, BoxLeft, BoxRight } from './styles';
 
+import analisaValor from "../../../../utils/analisaValor"
+import { Link } from "react-router-dom";
+
 interface CardStatusColor {
     numeroDoProjeto: number;
 }
 
 interface CardContent {
-  infoprojetoDTO : {
+  infoprojetoDTO: {
       id: number;
       numeroDoProjeto: number;
       titulo: string;
@@ -31,17 +34,16 @@ interface CardContent {
 
 const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
 
-    const [project, setProject] = useState<CardContent>();
+    const [projeto, setProjeto] = useState<CardContent>();
     const [status, setStatus] = useState('');
     
     useEffect(() => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-            setProject(response.data);
+            setProjeto(response.data);
             setStatus(response.data.infoprojetoDTO.status);
       }))
     }, [numeroDoProjeto]);
 
-    console.log(status);
     return (
         <>
             <Card>
@@ -49,20 +51,22 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
                 <CardBox>
                     <BoxLeft>
                         <div>
-                            <p>1000025562 - Seção ABC</p>
-                            <h1>WEC - IMPLATAÇÃO DE EDI CLIENTE</h1>
+                            <p>{projeto?.infoprojetoDTO.numeroDoProjeto}</p>
+                            <h1>{projeto?.infoprojetoDTO.titulo}</h1>
                         </div>
                         <div>
-                            <p><strong>Saldo previsto:</strong> R$ 50.000,00</p>
+                            <p><strong>Saldo previsto:</strong>{analisaValor(projeto?.valoresTotaisDTO.valorTotalDespesas ? projeto?.valoresTotaisDTO.valorTotalDespesas : 0)}</p>
                             <p><strong>Saldo restante:</strong> R$ 50.000,00</p>
                         </div>
                     </BoxLeft>
                     <BoxRight>
                         <div>
+                          <Link to={`/edit/${projeto?.infoprojetoDTO.numeroDoProjeto}`}>
                             <FaEdit size={25}/>
+                          </Link>
                         </div> 
                         <div>
-                            <p><strong>Horas:</strong> <AiOutlineClockCircle size={15} /> 120 Horas</p>
+                            <p><strong>Horas:</strong> <AiOutlineClockCircle size={15} /> {projeto?.valoresTotaisDTO.valorTotalEsforco}</p>
                         </div>
                     </BoxRight>
                 </CardBox>
