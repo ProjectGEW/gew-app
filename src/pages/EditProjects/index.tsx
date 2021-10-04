@@ -215,7 +215,7 @@ const EditProjects: React.FC = () => {
                   </div>
                   <div>
                       <label>Projeto:</label>
-                      <input placeholder="Digite aqui" />
+                      <input placeholder="Pesquise aqui..." />
                   </div>
               </ContainerFiltro>
             </ContainerInfo>
