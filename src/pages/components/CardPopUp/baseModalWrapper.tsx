@@ -12,6 +12,8 @@ import { DesktopModalContainer, ModalContainerGraphs, ModalContainerInfos,
         ContainerBox, ContainerObjectives, ContainerValues, HourGraphics,
         CostCenters } from './ModalPopup.styles';
 
+import { AiOutlineClockCircle } from "react-icons/ai";
+
 interface BaseModalWrapperProps {
     numeroDoProjeto: number;
     isModalVisible: boolean;
@@ -27,6 +29,7 @@ interface CardContent {
         data_de_inicio: string;
         data_de_termino: string;
         status: string;
+        secao: string;
         horas_apontadas: number;
     };
 
@@ -88,15 +91,15 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                 <ModalContainerInfos>
                         <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
                     <ContainerBox>
-                        <p>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - Seção ABC</p>
-                        <h3>ATA {ata ? ata.split(".")[0] : ""}</h3>
+                        <p>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - {project ? project.infoprojetoDTO.secao : "Seção ABC"}</p>
+                        <h3>{ata ? "ATA" + ata.split(".")[0] : "Nenhuma ATA anexada."}</h3>
                     </ContainerBox>
                     <ContainerBox>
                         <div>
-                            <h1>Data de início:</h1><h2>{project ? project.infoprojetoDTO.data_de_inicio : ""}</h2>
+                            <h1>Data de início:</h1><h2>{project ? project.infoprojetoDTO.data_de_inicio : "00/00/0000"}</h2>
                         </div>
                         <div>
-                            <h1>Data de finalização:</h1><h2>{project ? project.infoprojetoDTO.data_de_termino : ""}</h2>
+                            <h1>Data de finalização:</h1><h2>{project ? project.infoprojetoDTO.data_de_termino : "00/00/0000"}</h2>
                         </div>
                     </ContainerBox>
                     <ContainerBox>
@@ -111,14 +114,14 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     <CostCenters>
                         <div className="tableHeader">
                             <h2>Despesa (Desembolso)</h2>
-                            <h2>Valor(R$)</h2>
-                            <h2>CC Pagante</h2>
+                            <h2>Valor</h2>
+                            <h2>Responsável</h2>
                         </div>
                         <ul className="scroller sc1">
                             <li>
-                                <h2>Desenvolvimento Externo das integrações ...</h2>
-                                <h2>5.000.000,00</h2>
-                                <h3>20168060</h3>
+                                <h2>Desenvolvimento Externo</h2>
+                                <h2>R$ 25.000,00</h2>
+                                <h2>João da Silva</h2>
                             </li>
                         </ul>
                     </CostCenters>
@@ -126,14 +129,22 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                 <ModalContainerGraphs>
                     <ContainerValues>
                         <div>
-                            <h1>Horas esperadas:</h1><h2>{project ? project.valoresTotaisDTO.valorTotalEsforco : ""} Horas</h2>
+                            <h1>Horas esperadas:</h1>
+                            <div>
+                                <AiOutlineClockCircle size={15} />
+                                <h2>{project ? project.valoresTotaisDTO.valorTotalEsforco : ""} Horas</h2>
+                            </div>
                         </div>
                         <div>
-                            <h1>Horas trabalhadas:</h1><h2>{project ? project.infoprojetoDTO.horas_apontadas : ""} Horas </h2>
+                            <h1>Horas trabalhadas:</h1>
+                            <div>
+                                <AiOutlineClockCircle size={15} />
+                                <h2>{project ? project.infoprojetoDTO.horas_apontadas : ""} Horas </h2>
+                            </div>
                         </div>
                     </ContainerValues>
                     <HourGraphics>
-                        <GraphCircular valor={120} total={600} tipo={"%"} />
+                        <GraphCircular valor={project ? project.infoprojetoDTO.horas_apontadas : 0} total={project ? project.valoresTotaisDTO.valorTotalEsforco : 0} tipo={"%"} />
                     </HourGraphics>
                     <ContainerValues>
                         <div>
@@ -142,9 +153,6 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         </div>
                         <div>
                             <h1>Valor consumido:</h1><h2>R$ 5.000,00</h2>
-                        </div>
-                        <div>
-                            <h1>Valor desembolsado:</h1><h2>R$ 5.000,00</h2>
                         </div>
                         <div>
                             <h1>Saldo:</h1><h2>R$ 10.000,00</h2>

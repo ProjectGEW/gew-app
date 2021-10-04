@@ -35,6 +35,7 @@ interface CardContent {
         data_de_inicio: string;
         data_de_termino: string;
         status: string;
+        secao: string;
         horas_apontadas: number;
         responsavel: {
             nome: string;
@@ -87,7 +88,7 @@ const Details: React.FC = () => {
         <Container>
             <ContainerDetails>
                 <ContainerSection>
-                    <h1>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - Seção ABC</h1>
+                    <h1>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - {project ? project.infoprojetoDTO.secao : "Seção ABC"}</h1>
                 </ContainerSection>
                 <ContainerTittles>
                     <Tittle>{project ? project.infoprojetoDTO.titulo : ""}</Tittle>
@@ -126,11 +127,6 @@ const Details: React.FC = () => {
                         <h1>Responsável / Seção Responsável:</h1>
                         <h2>{project?.infoprojetoDTO.responsavel.nome.toUpperCase()}</h2>
                         <h2>INSIDE SALES DEPARTMENT</h2>
-                    </Box>
-                    <Box>
-                        <h1>Aprovado por:</h1>
-                        <h2>LETÍCIA SCHIODINI DA CRIZ</h2>
-                        <h2>...</h2>
                     </Box>
                 </ContainerInfos>
                 <span>Horas apontadas - Funcionários:</span>

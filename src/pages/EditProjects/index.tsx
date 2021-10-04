@@ -66,15 +66,17 @@ const EditProjects: React.FC = () => {
     //     headers: { Authorization: `Bearer ${token}`},
     // };
 
+    const [global, setGlobal] = useState<IProjetoProps[]>([]);
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
-    //const [nomeProjeto, setNomeProjeto] = useState('');
+    const [nomeProjeto, setNomeProjeto] = useState<IProjetoProps[]>([]);
 
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');
         const data = response.data;
         setProjetos(data);
+        setGlobal(data);
 
         const responseSecao = await api.get<ISecoes[]>('secoes');
         const dataSecao = responseSecao.data;
@@ -124,6 +126,7 @@ const EditProjects: React.FC = () => {
             const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
             setProjetos(data);  
+            setGlobal(data);
 
         } else if(selectedOption === 'Todos') {
             if(statusteste === 'Todos') {
@@ -134,6 +137,7 @@ const EditProjects: React.FC = () => {
             const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
             setProjetos(data);       
+            setGlobal(data);
         }
     }
 
@@ -153,6 +157,7 @@ const EditProjects: React.FC = () => {
             const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
+            setGlobal(dataPorSecao);
 
         } else if(value === 'Todos') {
             if(status === '') {
@@ -163,8 +168,25 @@ const EditProjects: React.FC = () => {
             const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
+            setGlobal(dataPorSecao);
         }
     };   
+
+    const search = async (event: React.ChangeEvent<{ value: string }>) => {
+        if(event.target.value !== '') {
+            try {
+                const responsePorNome = await api.get<IProjetoProps[]>(`projetos/titulo/` + event.target.value);
+                const dataPorNome = responsePorNome.data;
+
+                setNomeProjeto(dataPorNome);
+                setProjetos(dataPorNome);
+            } catch(err: any) {
+                console.log(err.message);
+            }
+        } else {
+            setProjetos(global);
+        }        
+    };
 
     return (
         <>
@@ -215,7 +237,7 @@ const EditProjects: React.FC = () => {
                   </div>
                   <div>
                       <label>Projeto:</label>
-                      <input placeholder="Pesquise aqui..." />
+                      <input placeholder="Pesquise aqui..." onChange={search}/>
                   </div>
               </ContainerFiltro>
             </ContainerInfo>

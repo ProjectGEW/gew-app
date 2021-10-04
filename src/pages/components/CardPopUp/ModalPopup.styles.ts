@@ -95,7 +95,7 @@ export const ContainerBox = styled.div`
         margin-right: 3vw;
         padding: 1vh;
         padding-left: 4vh;
-        font-size: 1.5vh;
+        font-size: 2vh;
         font-weight: bold;
         cursor: pointer;  
         box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
@@ -205,7 +205,17 @@ export const ContainerValues = styled.div`
         width: 21vw;
         justify-content: space-between;
 
-        &:nth-child(4) {
+        svg {
+            color: #229FC6;         
+            margin-right: -0.6vw;
+        }
+
+        div {
+            width: auto;
+            align-items: center;
+        }
+
+        &:nth-child(3) {
             h1 {
                 font-size: 0.64em;
             }
@@ -282,22 +292,13 @@ export const CostCenters = styled.div`
         border-radius: 0.8vh 0.8vh 0 0;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-around;
         padding: 1.4vh;
-        padding-right: 4vh;
 
         h2 {
             color: #fff;
             font-size: 2vh;
             font-weight: bold;
-
-            &:first-child {
-                margin-left: 1.8vw;
-            }
-
-            &:last-child {
-                margin-right: 1vw;
-            }
         }
     }
 
@@ -329,28 +330,19 @@ export const CostCenters = styled.div`
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-around;
             padding: 1.4vh;
-            padding-right: 4vh;
             border-bottom: 0.1vh solid #c4c4c4;
 
             h2 {
-                font-size: 1.8vh;
-                width: 12vw;
+                font-size: 1.9vh;
                 font-weight: 100;
                 color: #023A67;
-                margin-left: 1.6vw;
 
                 &:first-child {
-                    margin-right: 6vh;
+                    width: 10vw;
                     font-weight: bold;
                 }
-            }
-
-            h3 {
-                font-size: 1.8vh;
-                color: #023A67;
-                margin-right: 1.5vw;
             }
         }
 

@@ -75,7 +75,7 @@ export const Inputs = styled.div`
         margin-bottom: 2vw;
         padding: 1vh;
         padding-left: 4vh;
-        font-size: 1.5vh;
+        font-size: 2vh;
         font-weight: bold;
         cursor: pointer;  
         box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
@@ -133,6 +133,16 @@ export const ContainerInfos = styled.div`
     flex-direction: row;
     justify-content: space-between;
 
+    div {
+        &:first-child {
+            margin-left: 7vw;
+        }
+
+        &:last-child {
+            margin-right: 7vw;
+        }
+    }
+
     ul {
         display: flex;
         justify-content: space-between;
@@ -143,7 +153,7 @@ export const ContainerInfos = styled.div`
     li {
         display: flex;
         flex-direction: row;
-        list-decoration: none;
+        //list-decoration: none;
 
          h1 { font-size: 1em; color: #111; margin-right: 1vh; font-weight: bold; }
 
