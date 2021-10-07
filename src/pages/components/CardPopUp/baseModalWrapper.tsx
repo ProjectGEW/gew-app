@@ -61,104 +61,105 @@ interface CardContent {
 }
 
 const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, numeroDoProjeto}) => {
-    const [project, setProject] = useState<CardContent>();
-    const [ata, setAta] = useState<string>();
-    
-    useEffect(() => {
-        api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-            setProject(response.data);
-        }
-    ))}, [numeroDoProjeto]);
+    const [projeto, setProjeto] = useState<CardContent>();
+    const [ata, setAta] = useState<string>(''); 
+    const [valorConsumido, setValorConsumido] = useState(0);
 
     useEffect(() => {
-        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {
-            setAta(response.data);
-        }
-    )});
+      api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => { setProjeto(response.data) }));
+      api.get<number>(`projetos/count/verba/${numeroDoProjeto}`).then((response => { setValorConsumido(response.data) }));  
+    }, [numeroDoProjeto, valorConsumido]);
+  
+    
+    if(projeto?.infoprojetoDTO.id != undefined) {
+      api.get<string>(`/files/${projeto ? projeto.infoprojetoDTO.id : 0}`).then((response => { setAta(response.data) }));
+    }
 
     if(!isModalVisible) {
         return null;
     }
 
     const downloadFile = () => {
-        window.open(`http://localhost:6868/files/download/${project ? project.infoprojetoDTO.id : 0}`);
+        window.open(`http://localhost:6868/files/download/${projeto ? projeto.infoprojetoDTO.id : 0}`);
     }
 
     return (
         <Modal onBackdropClick={onBackdropClick} >
-            <DesktopModalContainer>
-                <button id="fechar" onClick={() => onBackdropClick} />
-                <ModalContainerInfos>
-                        <h1>{project ? project.infoprojetoDTO.titulo : ""}</h1>
-                    <ContainerBox>
-                        <p>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - {project ? project.infoprojetoDTO.secao : "Seção ABC"}</p>
-                        <h3>{ata ? "ATA" + ata.split(".")[0] : "Nenhuma ATA anexada."}</h3>
-                    </ContainerBox>
-                    <ContainerBox>
-                        <div>
-                            <h1>Data de início:</h1><h2>{project ? project.infoprojetoDTO.data_de_inicio : "00/00/0000"}</h2>
-                        </div>
-                        <div>
-                            <h1>Data de finalização:</h1><h2>{project ? project.infoprojetoDTO.data_de_termino : "00/00/0000"}</h2>
-                        </div>
-                    </ContainerBox>
-                    <ContainerBox>
-                        <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
-                        <label htmlFor="ata" onClick={downloadFile} >{ata ? ata.split(".")[0] : ""}</label>
-                    </ContainerBox>
-                    <ContainerObjectives>
-                        <h1>Descrição:</h1>
-                        <h2>{project ? project.infoprojetoDTO.descricao : ""}
-                        </h2>
-                    </ContainerObjectives>
-                    <CostCenters>
-                        <div className="tableHeader">
-                            <h2>Despesa (Desembolso)</h2>
-                            <h2>Valor</h2>
-                            <h2>Responsável</h2>
-                        </div>
-                        <ul className="scroller sc1">
-                            <li>
-                                <h2>Desenvolvimento Externo</h2>
-                                <h2>R$ 25.000,00</h2>
-                                <h2>João da Silva</h2>
-                            </li>
-                        </ul>
-                    </CostCenters>
+          <DesktopModalContainer>
+            <button id="fechar" onClick={() => onBackdropClick} />
+              <ModalContainerInfos>
+                <h1>{projeto ? projeto.infoprojetoDTO.titulo : ""}</h1>
+                  <ContainerBox>
+                    <p>{projeto ? projeto.infoprojetoDTO.numeroDoProjeto : ""} - {projeto ? projeto.infoprojetoDTO.secao : "Seção ABC"}</p>
+                    <h3>{ata ? "ATA: " + ata.split(".")[0] : "Nenhuma ATA anexada."}</h3>
+                  </ContainerBox>
+                  <ContainerBox>
+                    <div>
+                      <h1>Data de início:</h1><h2>{projeto ? projeto.infoprojetoDTO.data_de_inicio : "00/00/0000"}</h2>
+                    </div>
+                    <div>
+                      <h1>Data de finalização:</h1><h2>{projeto ? projeto.infoprojetoDTO.data_de_termino : "00/00/0000"}</h2>
+                    </div>
+                  </ContainerBox>
+                  <ContainerBox>
+                    <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={projeto ? projeto.infoprojetoDTO.numeroDoProjeto: 0}/>
+                    <label htmlFor="ata" onClick={downloadFile} >{ata ? ata.split(".")[0] : ""}</label>
+                  </ContainerBox>
+                  <ContainerObjectives>
+                    <h1>Descrição:</h1>
+                    <h2>{projeto ? projeto.infoprojetoDTO.descricao : ""}
+                    </h2>
+                  </ContainerObjectives>
+                  <CostCenters>
+                    <div className="tableHeader">
+                      <h2>Despesa (Desembolso)</h2>
+                      <h2>Valor</h2>
+                      <h2>Responsável</h2>
+                    </div>
+                    <ul className="scroller sc1">
+                      <li>
+                        <h2>Desenvolvimento Externo</h2>
+                        <h2>R$ 25.000,00</h2>
+                        <h2>João da Silva</h2>
+                      </li>
+                    </ul>
+                  </CostCenters>
                 </ModalContainerInfos>
                 <ModalContainerGraphs>
-                    <ContainerValues>
-                        <div>
-                            <h1>Horas esperadas:</h1>
-                            <div>
-                                <AiOutlineClockCircle size={15} />
-                                <h2>{project ? project.valoresTotaisDTO.valorTotalEsforco : ""} Horas</h2>
-                            </div>
-                        </div>
-                        <div>
-                            <h1>Horas trabalhadas:</h1>
-                            <div>
-                                <AiOutlineClockCircle size={15} />
-                                <h2>{project ? project.infoprojetoDTO.horas_apontadas : ""} Horas </h2>
-                            </div>
-                        </div>
+                  <ContainerValues>
+                    <div>
+                      <h1>Horas esperadas:</h1>
+                      <div>
+                        <AiOutlineClockCircle size={15} />
+                        <h2>{projeto ? projeto.valoresTotaisDTO.valorTotalEsforco : ""} Horas</h2>
+                      </div>
+                    </div>
+                    <div>
+                      <h1>Horas trabalhadas:</h1>
+                      <div>
+                          <AiOutlineClockCircle size={15} />
+                          <h2>{projeto ? projeto.infoprojetoDTO.horas_apontadas : ""} Horas </h2>
+                      </div>
+                    </div>
+                  </ContainerValues>
+                  <HourGraphics>
+                    <GraphCircular valor={projeto ? projeto.infoprojetoDTO.horas_apontadas : 0} total={projeto ? projeto.valoresTotaisDTO.valorTotalEsforco : 0} tipo={"%"} />
+                  </HourGraphics>
+                  <ContainerValues>
+                    <div>
+                      <h1>Valor do projeto:</h1><h2>{projeto ?
+                        analisaValor(projeto.valoresTotaisDTO.valorTotalDespesas) : ""}</h2>
+                    </div>
+                    <div>
+                      <h1>Valor consumido:</h1><h2>{analisaValor(valorConsumido)}</h2>
+                    </div>
+                    <div>
+                      <h1>Saldo:</h1><h2>{analisaValor(projeto ? 
+                        projeto.valoresTotaisDTO.valorTotalDespesas - valorConsumido 
+                        : 0)}</h2>
+                    </div>
                     </ContainerValues>
-                    <HourGraphics>
-                        <GraphCircular valor={project ? project.infoprojetoDTO.horas_apontadas : 0} total={project ? project.valoresTotaisDTO.valorTotalEsforco : 0} tipo={"%"} />
-                    </HourGraphics>
-                    <ContainerValues>
-                        <div>
-                            <h1>Valor do projeto:</h1><h2>{project ?
-                              analisaValor(project.valoresTotaisDTO.valorTotalDespesas) : ""}</h2>
-                        </div>
-                        <div>
-                            <h1>Valor consumido:</h1><h2>R$ 5.000,00</h2>
-                        </div>
-                        <div>
-                            <h1>Saldo:</h1><h2>R$ 10.000,00</h2>
-                        </div>
-                    </ContainerValues>
-                      <Button text={'Detalhes'} tipo={'PopUp'} rota={"details"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
+                    <Button text={'Detalhes'} tipo={'PopUp'} rota={"details"} numeroProjeto={projeto ? projeto.infoprojetoDTO.numeroDoProjeto: 0}/>
                 </ModalContainerGraphs>
             </DesktopModalContainer>
         </Modal>
