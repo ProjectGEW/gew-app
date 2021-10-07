@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    width: 95%;
+    width: 98%;
     height: 100%;   
 
     display: flex;
@@ -9,6 +9,6 @@ export const Container = styled.div`
     justify-content: center;     
 
     canvas { 
-        margin-left: 5%;
+        margin-left: 2.5%;
     }
 `;

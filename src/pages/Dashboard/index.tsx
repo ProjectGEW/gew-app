@@ -10,7 +10,8 @@ import MenuRight from '../components/MenuRight';
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphLiquid from "../components/GraphLiquid";
 import GL from "../components/GraphLine";
-import BaseModalWrapper from '../components/DashboardPopUp';
+import BaseModalWrapperverbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
+import BaseModalWrapperverbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
     GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
@@ -59,10 +60,6 @@ interface ISecoes {
     nome: string;
 }
 
-interface IFuncionarios {
-    valor_hora: number;
-}
-
 const Dashboard: React.FC = () => {
     const { id }: {id: string}  = useParams();
 
@@ -70,7 +67,7 @@ const Dashboard: React.FC = () => {
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<CardContent[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
-    const [funcionarios, setFuncionarios] = useState<IFuncionarios[]>([]);
+    const [countUtilizada, setCountUtilizada] = useState();
 
     /*const token = localStorage.getItem('Token');
     let config = {
@@ -88,9 +85,9 @@ const Dashboard: React.FC = () => {
                 const dataSecao = responseSecao.data;
                 setSecoes(dataSecao);
 
-                const responseFuncionario = await api.get<IFuncionarios[]>('funcionarios');
-                const dataFuncionario = responseFuncionario.data;
-                setFuncionarios(dataFuncionario);
+                const responseCountUtilizada = await api.get(`projetos/count/verba/total`);
+                const dataCountUtilizada = responseCountUtilizada.data;
+                setCountUtilizada(dataCountUtilizada);
             }
             return;
         }
@@ -129,11 +126,31 @@ const Dashboard: React.FC = () => {
         locales
     });
 
-    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [isModalVisibleVerbaUtilizada, setIsModalVisibleVerbaUtilizada] = useState(true);
+    const [isModalVisibleVerbaDisponivel, setIsModalVisibleVerbaDisponivel] = useState(true);
+    const [popUp, setPopUp] = useState<JSX.Element>();
 
-    const toggleModal = () => {
-        setIsModalVisible(wasModalVisible => !wasModalVisible)
-    } 
+    const toggleModalVerbaUtilizada = () => {
+        setPopUp(
+            <BaseModalWrapperverbaUtilizada 
+                isModalVisible={isModalVisibleVerbaUtilizada} 
+                onBackdropClick={toggleModalVerbaUtilizada} 
+                valor={Math.trunc(porcentagemUtilizada)}
+            />
+        );
+        setIsModalVisibleVerbaUtilizada(!isModalVisibleVerbaUtilizada);
+    }
+
+    const toggleModalVerbaDisponivel = () => {
+        setPopUp(
+            <BaseModalWrapperverbaDisponivel
+                isModalVisible={isModalVisibleVerbaDisponivel} 
+                onBackdropClick={toggleModalVerbaDisponivel} 
+                valor={100 - Math.trunc(porcentagemUtilizada)}
+            />
+        );
+        setIsModalVisibleVerbaDisponivel(!isModalVisibleVerbaDisponivel);
+    }
 
     async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
@@ -237,12 +254,6 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    /* ===================================================================
-        Aprovada = total de cc pagantes
-        Utilizada = aprovada - (totalValorHora * totalProjetoHorasAtual)
-        Disponível
-    =================================================================== */
-
     const totalCcPagantes = [projetos.length], totalDespesas = [projetos.length];
     const totalValorHoraFuncionario = [projetos.length], totalHorasApontadas = [projetos.length];
 
@@ -251,13 +262,15 @@ const Dashboard: React.FC = () => {
     for(var x = 0; x < projetos.length; x++) {
         totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
         totalDespesas[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalDespesas)[x];
-        //totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
+        totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
         totalHorasApontadas[x] = projetos.map((projetos) => projetos.infoprojetoDTO.horas_apontadas)[x];
     }
 
     const valorUtilizado = totalHorasApontadas.reduce(reducer) * totalValorHoraFuncionario.reduce(reducer);
-    const porcentagemUtilizada = (valorUtilizado / totalCcPagantes.reduce(reducer)) * 100;
-    const valorDisponivel = totalCcPagantes.reduce(reducer) - valorUtilizado;
+    const porcentagemUtilizada = (Number(countUtilizada) / totalCcPagantes.reduce(reducer)) * 100;
+    
+    const valorDisponivel = totalCcPagantes.reduce(reducer) - Number(countUtilizada);
+    const porcentagemDisponivel = 100 - porcentagemUtilizada;
 
     return (
         <>
@@ -266,26 +279,23 @@ const Dashboard: React.FC = () => {
         <Container>
             <ContainerDashboard>
                 <Liquid>
+                    {popUp ? popUp : null}
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.primeiro_card.title')}</h1>
-                            <span onClick={toggleModal} />
-                            <BaseModalWrapper 
-                                isModalVisible={isModalVisible} 
-                                onBackdropClick={toggleModal} 
-                                valor={Math.trunc(porcentagemUtilizada)}/>
+                            <span onClick={toggleModalVerbaUtilizada} />
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={Math.trunc(porcentagemUtilizada)} />
+                            <GraphLiquid dashboard={true} valor={Math.round(porcentagemUtilizada)} />
                         </Graph>
                     </Card>
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.segundo_card.title')}</h1>
-                            <span onClick={() => alert("em desenv.")} />
+                            <span onClick={toggleModalVerbaDisponivel} />
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={100 - Math.trunc(porcentagemUtilizada)} />
+                            <GraphLiquid dashboard={true} valor={Math.round(porcentagemDisponivel)} />
                         </Graph>
                     </Card>
                 </Liquid>
@@ -380,7 +390,7 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.terceiro')}</h1>
                             </Title>
-                            <h1>R$</h1>
+                            <h1>{analisaValor(Number(countUtilizada))}</h1>
                         </Money>
                         <Money>
                             <Title>
