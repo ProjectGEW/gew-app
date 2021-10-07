@@ -64,12 +64,17 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
 
     const [projeto, setProjeto] = useState<CardContent>();
     const [status, setStatus] = useState('');
-    
+    const [valorConsumido, setValorConsumido] = useState(0);
+
     useEffect(() => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
             setProjeto(response.data);
             setStatus(response.data.infoprojetoDTO.status);
-      }))
+      }));
+
+      api.get<number>(`projetos/count/verba/${numeroDoProjeto}`).then((response => {
+        setValorConsumido(response.data)
+      })); 
     }, [numeroDoProjeto]);
     
     const [isModalVisible, setIsModalVisible] = React.useState(true);
@@ -108,7 +113,9 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
                     </div>
                     <div>
                         <p><strong>{intl.get('card_projetos.saldo_um')}</strong>{analisaValor(projeto ? projeto.valoresTotaisDTO.valorTotalDespesas : 0)}</p>
-                        <p><strong>{intl.get('card_projetos.saldo_dois')}</strong>{analisaValor(50000)}</p>
+                        <p><strong>{intl.get('card_projetos.saldo_dois')}</strong>{analisaValor(projeto ? 
+                          projeto.valoresTotaisDTO.valorTotalDespesas - valorConsumido 
+                          : 0)}</p>
                     </div>
                     <div>
                         <p>{intl.get('card_projetos.data_um')} {projeto ? projeto.infoprojetoDTO.data_de_inicio : "00/00/0000"}</p>

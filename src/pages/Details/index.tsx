@@ -53,6 +53,7 @@ interface CardContent {
 
 const Details: React.FC = () => {
     const token = localStorage.getItem('Token');
+
     let config = {
         headers: { Authorization: `Bearer ${token}`},
     };
@@ -60,18 +61,13 @@ const Details: React.FC = () => {
     const { id }: {id: string}  = useParams();
     const [project, setProject] = useState<CardContent>();
     const [ata, setAta] = useState<string>();
+    const [valorConsumido, setValorConsumido] = useState(0);
 
     useEffect(() => {
-        api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => {
-          setProject(response.data);
-        }))
-    }, [id]);
-
-    useEffect(() => {
-        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {
-            setAta(response.data);
-        }
-    )});
+        api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => { setProject(response.data);}));
+        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {setAta(response.data);});
+        api.get<number>(`projetos/count/verba/${project ? project.infoprojetoDTO.numeroDoProjeto : 0}`).then((response => {setValorConsumido(response.data)}));
+    }, [id, ata]);
 
     const downloadFile = () => {
         window.open(`http://localhost:6868/files/download/${project ? project.infoprojetoDTO.id : 0}`);
@@ -179,7 +175,7 @@ const Details: React.FC = () => {
                 <ContainerGraphs>
                     <Graphic>
                         <h1>Verba utilizada sobre o total orçado</h1>
-                        <GraphCircular total={project ? project?.valoresTotaisDTO.valorTotalCcPagantes : 0} valor={10000} tipo={"valor"}/>
+                        <GraphCircular total={project ? project?.valoresTotaisDTO.valorTotalCcPagantes : 0} valor={valorConsumido} tipo={"valor"}/>
                     </Graphic>
                     <Graphic>
                         <h1>Horas das demandas sobre o total estabelecido</h1>
