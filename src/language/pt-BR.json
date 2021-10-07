@@ -91,7 +91,7 @@
         "cards": {
             "primeiro": "MOEDA",
             "segundo": "DISPONÍVEL",
-            "terceiro": "NÃO LIBERADA",
+            "terceiro": "UTILIZADA",
             "quarto": "APROVADA"
         }
     },
