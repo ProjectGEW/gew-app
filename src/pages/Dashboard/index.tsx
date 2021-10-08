@@ -93,7 +93,7 @@ const Dashboard: React.FC = () => {
         }
 
         window.onload = async function handleProjetos() {
-            const responseProjetos = await api.get<CardContent>(`/projetos/${id ? id : 0 }`);
+            const responseProjetos = await api.get<CardContent>(`projetos/${id ? id : 0 }`);
             const dataProjetos = responseProjetos.data;
             setProject(dataProjetos);
 
