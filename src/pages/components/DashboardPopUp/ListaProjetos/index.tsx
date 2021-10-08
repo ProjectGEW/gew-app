@@ -35,38 +35,43 @@ interface CardContent {
     };      
 }
 
-const ListaProjetos: React.FC = () => {
-    const [projeto, setProjeto] = useState<CardContent>();
-    const [countVerbaTotalPorProjeto, setCountVerbaTotalPorProjeto] = useState();
-    const [countVerbaTotal, setCountVerbaTotal] = useState();
+interface IListaProps {
+    numeroDoProjeto: number;
+    tituloDoProjeto: string;
+}
+
+const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}) => {
+    const [countVerbaTotalPorProjeto, setCountVerbaTotalPorProjeto] = useState(0);
+    const [countVerbaTotal, setCountVerbaTotal] = useState(0);
 
     useEffect(() => {
-        api.get<CardContent>(`/projetos`).then((response => {
-            setProjeto(response.data);
-        }
-    ))}, [projeto]);
+        api.get<number>(`projetos/count/verba/${numeroDoProjeto}`).then((response => {
+            setCountVerbaTotalPorProjeto(response.data)
+        })); 
 
-    useEffect(() => {
-        api.get(`/projetos/count/verba/` + 182251).then((response => {
-            setCountVerbaTotalPorProjeto(response.data);
-        }
-    ))}, [countVerbaTotalPorProjeto]);
+        api.get<number>(`projetos/count/verba/total`).then((response => {
+            setCountVerbaTotal(response.data)
+        })); 
+    }, [numeroDoProjeto]);
 
-    useEffect(() => {
-        api.get(`/projetos/count/verba/total`).then((response => {
-            setCountVerbaTotal(response.data);
-        }
-    ))}, [countVerbaTotal]);
-
-    const porcentagemPorProjeto = (Number(countVerbaTotalPorProjeto) / Number(countVerbaTotal)) * 100;
-    
     return (
         <div className="projeto">
-            <p>{projeto!.infoprojetoDTO.titulo.length <= 25 ? projeto!.infoprojetoDTO.titulo : "..."}</p>
-            <p>{countVerbaTotalPorProjeto ? analisaValor(Number(countVerbaTotalPorProjeto)) : 0}</p>
-            <p>{porcentagemPorProjeto}%</p>
+            <p>{tituloDoProjeto ? tituloDoProjeto.length <= 25 ? tituloDoProjeto : "..." : "Não encontrado"}</p>
+            <p>{
+                countVerbaTotalPorProjeto ?
+                    countVerbaTotalPorProjeto === 0 ? 0
+                    : analisaValor(countVerbaTotalPorProjeto) 
+                : analisaValor(0)
+            }</p>
+            <p>{
+                countVerbaTotalPorProjeto ?
+                    countVerbaTotalPorProjeto === 0 ? 0 
+                    : (countVerbaTotalPorProjeto / countVerbaTotal) * 100
+                : 0
+            }%</p>
         </div>             
     );
+
 }
 
 export default ListaProjetos;
