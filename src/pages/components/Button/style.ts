@@ -7,6 +7,7 @@ import Data from '../../../assets/data.svg';
 interface buttonProps {
     tipo?: string;
 }
+
 export const Container = styled.div<buttonProps>`
     button {
         height: 5vh;
