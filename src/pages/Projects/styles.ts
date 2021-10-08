@@ -119,7 +119,7 @@ export const ContainerFiltro = styled.div`
             border: 0.2vh solid #c4c4c4;
             
             font-family: inherit;
-            font-size: inherit;
+            font-size: 1.8vh;
         }
 
         option {
