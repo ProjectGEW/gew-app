@@ -70,8 +70,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
       api.get<number>(`projetos/count/verba/${numeroDoProjeto}`).then((response => { setValorConsumido(response.data) }));  
     }, [numeroDoProjeto, valorConsumido]);
   
-    
-    if(projeto?.infoprojetoDTO.id != undefined) {
+    if(projeto?.infoprojetoDTO.id !== undefined) {
       api.get<string>(`/files/${projeto ? projeto.infoprojetoDTO.id : 0}`).then((response => { setAta(response.data) }));
     }
 
