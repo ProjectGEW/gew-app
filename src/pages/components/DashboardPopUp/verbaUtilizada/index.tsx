@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import api from '../../../../service/api';
-import analisaValor from '../../../../utils/analisaValor';
 
 import ListaProjetos from '../listaProjetos';
 
@@ -72,7 +71,9 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         api.get(`projetos/count/verba/total`).then((response => {
             setCountVerbaTotal(response.data)
         })); 
-    }, []);
+
+        console.log(countVerbaTotal);
+    }, [countVerbaTotal]);
 
     //alert(isModalVisible);
 
