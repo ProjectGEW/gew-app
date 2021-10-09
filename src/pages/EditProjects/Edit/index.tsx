@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -8,12 +8,11 @@ import { ContIcons } from '../../components/MenuRight/styles';
 import { Container, PageContainer } from './styles';
 import { AiOutlineCaretDown } from 'react-icons/ai';
 import Button from '../../components/Button';
-import { useParams } from 'react-router';
-import api from '../../../service/api';
+
 import ContainerChild from '../../components/ContainerChild';
 import Subtittle from '../../components/Subtittles';
 
-interface CardContent {
+/*interface CardContent {
   infoprojetoDTO : {
       id: number;
       numeroDoProjeto: number;
@@ -30,10 +29,10 @@ interface CardContent {
       valorTotalDespesas: number;
       valorTotalEsforco: number;
   };      
-}
+}*/
 
 const Edit: React.FC = () => {
-    const [data, setData] = useState("");
+    /*const [data, setData] = useState("");
     const { numeroDoProjeto }: {numeroDoProjeto: string}  = useParams();
 
     function teste() {
@@ -47,7 +46,7 @@ const Edit: React.FC = () => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
             setProjeto(response.data);
       }))
-    }, [numeroDoProjeto]);
+    }, [numeroDoProjeto]);*/
 
     return (
         <>
