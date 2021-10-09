@@ -180,6 +180,8 @@ const EditProjects: React.FC = () => {
 
                 setNomeProjeto(dataPorNome);
                 setProjetos(dataPorNome);
+                
+                console.log(nomeProjeto);
             } catch(err: any) {
                 console.log(err.message);
             }
@@ -197,6 +199,7 @@ const EditProjects: React.FC = () => {
             <ContainerInfo>
               <ContainerTitle>
                 <h1>Projetos alocados <IoMdArrowDropright size={25} /></h1>
+                <span />
               </ContainerTitle>
               <ContainerFiltro>
                 <h1>Filtros:</h1>

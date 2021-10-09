@@ -97,11 +97,13 @@ const Dashboard: React.FC = () => {
             const dataProjetos = responseProjetos.data;
             setProject(dataProjetos);
 
+            console.log(project)
+
             const responseSecao = await api.get<ISecoes[]>('secoes');
             const dataSecao = responseSecao.data;
             setSecoes(dataSecao);
         }
-    }, [id, projetos]);
+    }, [id, projetos, project]);
 
     //console.log(funcionarios ? funcionarios[0].valor_hora : 0);
 
@@ -266,7 +268,7 @@ const Dashboard: React.FC = () => {
         totalHorasApontadas[x] = projetos.map((projetos) => projetos.infoprojetoDTO.horas_apontadas)[x];
     }
 
-    const valorUtilizado = totalHorasApontadas.reduce(reducer) * totalValorHoraFuncionario.reduce(reducer);
+    //const valorUtilizado = totalHorasApontadas.reduce(reducer) * totalValorHoraFuncionario.reduce(reducer);
     const porcentagemUtilizada = (Number(countUtilizada) / totalCcPagantes.reduce(reducer)) * 100;
     
     const valorDisponivel = totalCcPagantes.reduce(reducer) - Number(countUtilizada);

@@ -67,10 +67,6 @@ interface IDespesas {
   valor?: number;
 }
 
-interface boxType {
-  tipo?: string;
-}
-
 interface ICCpagantes{
   secao_id?: number;
   valor?: number;
@@ -114,7 +110,7 @@ const RegisterProjects: React.FC = () => {
   //console.log(file);
   const [fileName, setFileName] = useState<string>();
 
-  const [errorInput, setErrorInput] = useState<boolean>();
+  //const [errorInput, setErrorInput] = useState<boolean>();
 
   // Gerar linhas
   const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas number={1} />]);

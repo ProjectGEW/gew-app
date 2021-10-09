@@ -1,7 +1,4 @@
 import styled from "styled-components";
-import { shade } from "polished";
-
-import Upload from "../../../assets/upload.svg";
 
 export const Container = styled.div`
     position: absolute;

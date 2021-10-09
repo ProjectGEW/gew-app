@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -8,9 +8,9 @@ import { ContIcons } from '../components/MenuRight/styles';
 
 import { Container, BoxDatas, Error } from './styles';
 //import Paper from "@material-ui/core/Paper";
-import { useDropzone } from "react-dropzone";
+//import { useDropzone } from "react-dropzone";
 
-import api from "../../service/api";
+//import api from "../../service/api";
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
