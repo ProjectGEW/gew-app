@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Line } from 'react-chartjs-2';
 
-import api from '../../../service/api';
+//import api from '../../../service/api';
 
 import { Container } from './styles';
 
-interface Count {
+/*interface Count {
   contagem: {
       concluidos: number;
       emAndamento: number;
@@ -23,10 +23,10 @@ interface Count {
 interface CountPerData {
   data: string;
   projetosConcluidos: number;
-}
+}*/
 
 const GraphLine: React.FC = () => {
-    const [counts, setCounts] = useState<Count>();
+    /*const [counts, setCounts] = useState<Count>();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
     const today = new Date();
 
@@ -47,14 +47,14 @@ const GraphLine: React.FC = () => {
         } catch (err) {
            console.log("Não foi possivel realizar a leitura de dados");
         }
-    }
+    }*/
 
     const data = {
         labels: ['01/10', '02/10', '03/10', '04/10', '05/10', '06/10', '07/10', '08/10', '09/10', '10/10', '11/10', '12/10', '13/10', '14/10'],
         datasets: [
           {
             label: 'VERBA',
-            data: [12, 14, 8, 6, 7, 1, 8, 12, 16, 12, 10, 11, 9, 14],
+            data: [],
             fill: true,
             backgroundColor: 'rgba(0, 186, 255, 0.19)',
             borderColor: '#0090C5',
