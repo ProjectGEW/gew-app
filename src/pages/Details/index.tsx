@@ -52,11 +52,10 @@ interface CardContent {
 }
 
 const Details: React.FC = () => {
-    const token = localStorage.getItem('Token');
-
+    /*const token = localStorage.getItem('Token');
     let config = {
         headers: { Authorization: `Bearer ${token}`},
-    };
+    };*/
     
     const { id }: {id: string}  = useParams();
     const [project, setProject] = useState<CardContent>();
@@ -67,7 +66,7 @@ const Details: React.FC = () => {
         api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => { setProject(response.data);}));
         api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {setAta(response.data);});
         api.get<number>(`projetos/count/verba/${project ? project.infoprojetoDTO.numeroDoProjeto : 0}`).then((response => {setValorConsumido(response.data)}));
-    }, [id, ata]);
+    }, [id, ata, project]);
 
     const downloadFile = () => {
         window.open(`http://localhost:6868/files/download/${project ? project.infoprojetoDTO.id : 0}`);
