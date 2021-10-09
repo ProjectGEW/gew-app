@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../../../service/api';
 import analisaValor from '../../../../utils/analisaValor';
 
-interface CardContent {
+/*interface CardContent {
     infoprojetoDTO : {
         id: number;
         numeroDoProjeto: number;
@@ -33,7 +33,7 @@ interface CardContent {
         valorTotalDespesas: number;
         valorTotalEsforco: number;
     };      
-}
+}*/
 
 interface IListaProps {
     numeroDoProjeto: number;
