@@ -61,16 +61,16 @@ const Projects: React.FC = () => {
         locales
     });
 
-    const token = localStorage.getItem('Token');
+    /*const token = localStorage.getItem('Token');
     let config = {
         headers: { Authorization: `Bearer ${token}` },
-    };
+    };*/
 
     const [global, setGlobal] = useState<IProjetoProps[]>([]);
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
-    const [nomeProjeto, setNomeProjeto] = useState<IProjetoProps[]>([]);
+    //const [numeroProjeto, setNumeroProjeto] = useState<IProjetoProps>();
 
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');
@@ -171,14 +171,19 @@ const Projects: React.FC = () => {
         }
     };
 
+    //const [inputValue, setInputValue] = useState("");
+
     const search = async (event: React.ChangeEvent<{ value: string }>) => {
+        //setInputValue(event.target.value);
+
         if(event.target.value !== '') {
             try {
-                const responsePorNome = await api.get<IProjetoProps[]>(`projetos/titulo/` + event.target.value);
-                const dataPorNome = responsePorNome.data;
+                const responsePorNumero = await api.get<IProjetoProps>(`projetos/` + event.target.value);
+                const dataPorNumero = responsePorNumero.data;
+                //setNumeroProjeto(dataPorNumero);
 
-                setNomeProjeto(dataPorNome);
-                setProjetos(dataPorNome);
+                const converte = new Array<IProjetoProps>(dataPorNumero);
+                setProjetos(converte);
             } catch(err: any) {
                 console.log(err.message);
             }
@@ -192,12 +197,12 @@ const Projects: React.FC = () => {
         <Navbar />
         <MenuLeft />
         <Container>
-          <ContainerProject>
-            <ContainerInfo>
-              <ContainerTitle>
-                <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25} /></h1>
-                <span />
-              </ContainerTitle>
+            <ContainerProject>
+                <ContainerInfo>
+                    <ContainerTitle>
+                        <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25} /></h1>
+                        <span />
+                    </ContainerTitle>
                     <ContainerFiltro>
                         <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
                         <div>
@@ -205,9 +210,12 @@ const Projects: React.FC = () => {
                             <select name="secao" onChange={selectChange}>
                                 <option value="Todos">Todos</option>
                                 {
-                                    secoes ? secoes.map(secoes =>
-                                        <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
-                                    ) : console.log('Nenhuma seção foi encontrada')
+                                    secoes ?
+                                        secoes.map(secoes =>
+                                            <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
+                                        )
+                                        :
+                                        'Nenhuma seção foi encontrada'
                                 }
                             </select>
                         </div>
