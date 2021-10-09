@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { TableDimensions } from "../ConsultantsList/style";
 
 export const Container = styled.div`
     position: absolute;
