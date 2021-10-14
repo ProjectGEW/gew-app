@@ -98,6 +98,17 @@ const MenuLeft: React.FC = () => {
         localStorage.removeItem("User");
     }
 
+    const [tarefa] = useState(() => {
+        let tarefaStorage = localStorage.getItem('Language');
+
+        if(tarefaStorage) {
+            let languageObject = JSON.parse(tarefaStorage);
+            return languageObject;
+        } 
+    });
+
+    //alert(tarefa.user)
+
     return (
         <>
         <ContainerMenu id="container-menu">
@@ -120,14 +131,21 @@ const MenuLeft: React.FC = () => {
                 <ContainerMsg id="container-msg">
                     <Msg>
                         <LineMsg>
+                            {tarefa.user === undefined ? 
+                            ''
+                            :
                             <Aba>
                                 <TitleMsg>
                                     <p>{intl.get('menu_esquerdo.card.titulo')}</p>
                                 </TitleMsg>
                                 <TextMsg>
-                                    <p>{intl.get('menu_esquerdo.card.msg', {name: 'José'})}</p>
+                                    <p> 
+                                     {intl.get('menu_esquerdo.card.msg', {name: tarefa.user})}
+   
+                                    </p>
                                 </TextMsg>
                             </Aba>
+                            }
                         </LineMsg>
                     </Msg>
                 </ContainerMsg>
