@@ -12,7 +12,6 @@ import GraphLiquid from "../components/GraphLiquid";
 import GL from "../components/GraphLine";
 import BaseModalWrapperverbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
 import BaseModalWrapperverbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
-import Modal from '../components/CardPopUp/Modal';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
     GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
@@ -106,15 +105,6 @@ const Dashboard: React.FC = () => {
         }
     }, [id, projetos, project]);
 
-    //console.log(funcionarios ? funcionarios[0].valor_hora : 0);
-
-    /*function teste() {
-        const asd = new Array(setTotalAprovado(projetos.map(projetos => 
-            projetos.valoresTotaisDTO.valorTotalCcPagantes)));
-
-        return asd;
-    }*/
-
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
 
@@ -154,13 +144,6 @@ const Dashboard: React.FC = () => {
         );
         setIsModalVisibleVerbaDisponivel(!isModalVisibleVerbaDisponivel);
     }
-
-    const [showModal, setShowModal] = useState(false);
-
-    const openModal = () => {
-        setShowModal(prev => !prev);
-    };
-
 
     async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
@@ -345,15 +328,7 @@ const Dashboard: React.FC = () => {
                             </div>                 
                         </Filtros>
                         <Line>
-                        {
-                            //testes
-                            //projetos ? projetos.map((projeto, index) => projeto.ccPagantes[index].secao.responsavel.valor_hora) : ''
-                            //totalValorHoraFuncionario.reduce(reducer)
-                            //totalHorasApontadas.reduce(reducer)
-                            //"valor: " + analisaValor(valorUtilizado) + " | %: " + porcentagemUtilizada +
-                            //" disponivel: " + analisaValor(valorDisponivel)
-                        }
-                        <GL/>
+                            <GL/>
                         </Line>
                         <Filtros>
                             <div id="filtro-periodo">
