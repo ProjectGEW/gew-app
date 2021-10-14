@@ -361,11 +361,8 @@ const Dashboard: React.FC = () => {
                                     <option value="d1">Últimos 14 dias</option>
                                     <option value="d2">Últimos 28 dias</option>
                                     <option value="d3">Últimos 90 dias</option>
-                                    <option value="d4">Últimos 365 dias</option>
-                                    <option value="d5">Setembro</option>
-                                    <option value="d6">Agosto</option>
-                                    <option value="d7">2021</option>
-                                    <option value="d8">2020</option>
+                                    <option value="d4">Últimos 180 dias</option>
+                                    <option value="d5">Últimos 365 dias</option>
                                 </select>
                             </div>  
                         </Filtros>

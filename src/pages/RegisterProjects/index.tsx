@@ -437,7 +437,7 @@ return (
           <BoxProjeto id="boxProjeto">
             <span>
               <div id="left-box">
-                <label >Número do projeto:</label>
+                <label>Número do projeto:</label>
                 <input type="number" id="numeroProjeto" />
                 <p id="numeroProjetoResponse" className="msgErro"></p>
                 <label>Título do projeto: </label>
@@ -450,7 +450,7 @@ return (
               <div ref={ref}>
                 <Paper elevation={0} {...rootProps}>
                   <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
-                  <input id="btnUpload" {...getInputProps()} />
+                  <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf"/>
                 </Paper>
                 <p id="ataResponse" className="msgErro"></p>
               </div>

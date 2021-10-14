@@ -80,9 +80,6 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         return null;
     }
 
-
-
-    
     return (
         <Modal onBackdropClick={onBackdropClick}>
             <Container>

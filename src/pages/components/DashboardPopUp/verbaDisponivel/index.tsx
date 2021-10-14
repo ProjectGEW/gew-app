@@ -49,12 +49,10 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     const [projetos, setProjetos] = useState<CardContent[]>([]);
 
     useEffect(() => {
-        window.onload = async function handleProjetos() {
-            const response = await api.get<CardContent[]>(`projetos`);
-            const data = response.data;
-            setProjetos(data);
-        }            
-    }, [projetos]);
+        api.get<CardContent[]>(`projetos`).then((response => {
+              setProjetos(response.data);
+        }));
+    }, []);
 
     if (!isModalVisible) {
         return null
@@ -69,13 +67,13 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                         <span onClick={onBackdropClick} />
                     </Title>
                     <Scroll>
-                        {projetos ? projetos.map((projeto) => 
+                        {/*projetos ? projetos.map((projeto) => 
                             <div className="projeto">
                                 <p>{projeto.infoprojetoDTO.titulo}</p>
                                 <p>{analisaValor(projeto.infoprojetoDTO.horas_apontadas * 2)}</p>
                                 <p>00%</p>
                             </div>
-                        ) : ''}
+                        ) : ''*/}
                     </Scroll>
                     <Graph>
                         <Bar>
