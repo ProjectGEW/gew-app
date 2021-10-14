@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Paper from "@material-ui/core/Paper";
 import Calendar from 'react-calendar';
-
+import { useHistory } from 'react-router-dom';
 import { useDropzone } from "react-dropzone";
 
 import MenuLeft from '../components/MenuLeft';
@@ -38,6 +38,8 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
 
+import { useToast } from "./../../hooks/toast";
+
 interface ISecaoResponse {
   nome: string;
 }
@@ -72,7 +74,11 @@ interface ICCpagantes{
   valor?: number;
 }
 
+
 const RegisterProjects: React.FC = () => {
+  const history = useHistory();
+  const { addToast } = useToast();
+
   const initalValue = {
     infoProjetosInputDTO: {
       numeroDoProjeto: 0,
@@ -350,6 +356,7 @@ const RegisterProjects: React.FC = () => {
     }
   }
 
+  
   const handleProjects = useCallback( async () => {
     try {
       const response = await api.post<IProjetoResponse>("projetos", projeto);
@@ -359,10 +366,25 @@ const RegisterProjects: React.FC = () => {
       formData.append("file", file ? file : "");
 
       await api.post(`files/upload/${data.id}`, formData);
+    
+      history.push("/projects");
+      
+      addToast({
+        type:"success",
+        title:"Projeto foi cadastrado com sucesso!",
+        description:"O projeto foi cadastrado!",
+      });
+      
     } catch (err) {
       console.log(err);
-    }
-  }, [projeto, file]);
+      // addToast({
+        //     type:"error",
+        //     title:"O projeto não foi cadastrado!",
+        //     description:"Alguma das informações informadas está incorreta",
+        //   });
+      }
+    }, [projeto, file, addToast, history]);
+
 
   async function handleSecao(nome: string, campo: string){ 
     try {
@@ -686,7 +708,7 @@ return (
       </SideContainer>
       <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
       <Footer tipo={"confirm_project"} ></Footer>
-      <div onClick={handleProjects}>
+      <div onClick={() => handleProjects()}>
         <Button  tipo={"Confirmar"} text={"Confirmar"} /> 
       </div>
     </BoxConfirm> 
