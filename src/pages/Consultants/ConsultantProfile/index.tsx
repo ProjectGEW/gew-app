@@ -114,7 +114,7 @@ const ConsultantProfile: React.FC = () => {
                         <div className='nome'>Título de Demanda</div>
                         <div className='projetos'>CC Pagante</div>
                         <div className='projetos'>Início</div>
-                        <div className='atribuicao'>Atribuição</div>
+                        <div className='atribuicao'>Desalocar</div>
                     </div>
                     <TableScroll>
                     {projects.map(project => (
@@ -133,7 +133,7 @@ const ConsultantProfile: React.FC = () => {
                                     </td>
                                     <td className='projetos'>{project.infoprojetoDTO.data_de_inicio}</td>
                                     <td className='atribuicao'>
-                                        <button>Atribuir</button>
+                                        <button>Desalocar</button>
                                     </td>
                                 </tr>
                             : ""}
