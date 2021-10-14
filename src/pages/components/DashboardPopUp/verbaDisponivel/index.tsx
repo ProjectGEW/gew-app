@@ -59,7 +59,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     if (!isModalVisible) {
         return null
     }
-    
+        
     return (
         <Modal onBackdropClick={onBackdropClick}>
             <Container>

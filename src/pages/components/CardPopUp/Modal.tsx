@@ -27,7 +27,7 @@ const Overlay = styled.div`
             opacity: 1;
         }
     }
-`
+`;
 
 const stopPropagation: MouseEventHandler<HTMLDivElement> = e => {
     e.persist();

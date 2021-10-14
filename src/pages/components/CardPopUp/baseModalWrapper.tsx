@@ -99,7 +99,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     return (
         <Modal onBackdropClick={onBackdropClick} >
           <DesktopModalContainer>
-            <button id="fechar" onClick={() => onBackdropClick} />
+            <button id="fechar" onClick={onBackdropClick} />
               <ModalContainerInfos>
                 <h1>{projeto ? projeto.infoprojetoDTO.titulo : ""}</h1>
                   <ContainerBox>
