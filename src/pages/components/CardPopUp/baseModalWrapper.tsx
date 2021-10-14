@@ -71,7 +71,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     }, [numeroDoProjeto, valorConsumido]);
   
     if(projeto?.infoprojetoDTO.id !== undefined) {
-      api.get<string>(`/files/${projeto ? projeto.infoprojetoDTO.id : 0}`).then((response => { setAta(response.data) }));
+      api.get<string>(`/files/${projeto ? projeto.infoprojetoDTO.numeroDoProjeto : 0}`).then((response => { setAta(response.data) }));
     }
 
     if(!isModalVisible) {
@@ -79,7 +79,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     }
 
     const downloadFile = () => {
-        window.open(`http://localhost:6868/files/download/${projeto ? projeto.infoprojetoDTO.id : 0}`);
+        window.open(`http://localhost:6868/files/download/${projeto ? projeto.infoprojetoDTO.numeroDoProjeto : 0}`);
     }
 
     return (
