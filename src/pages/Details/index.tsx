@@ -9,7 +9,9 @@ import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
-import api from '../../service/api'
+import api from '../../service/api';
+
+import analisaValor from "../../utils/analisaValor";
 
 import Button from '../components/Button';
 
@@ -17,15 +19,15 @@ import { ContIcons } from '../components/MenuRight/styles';
 import GraphCircular from '../components/GraphCircular';
 
 interface CardContent {
-    ccPagantes: [
-        centroDeCusto : {
-            id: number;
-            nome:  string;
-            responsavel: {
-                nome: String;
-            }
-        }
-    ];
+    // ccPagantes: [
+    //     centroDeCusto : {
+    //         id: number;
+    //         nome:  string;
+    //         responsavel: {
+    //             nome: String;
+    //         }
+    //     }
+    // ];
 
     infoprojetoDTO : {
         id: number;
@@ -46,9 +48,15 @@ interface CardContent {
     };
     valoresTotaisDTO : {
         valorTotalCcPagantes: number;
-        valorTotalDespesas: number;
+        // valorTotalDespesas: number;
         valorTotalEsforco: number;
     };      
+}
+
+interface IHorasApontadas {
+    horas_apontadas: number;
+    nome_funcionario: string;
+    valor_hora: number;
 }
 
 const Details: React.FC = () => {
@@ -57,24 +65,48 @@ const Details: React.FC = () => {
         headers: { Authorization: `Bearer ${token}`},
     };*/
     
-    const { id }: {id: string}  = useParams();
+    const { numeroDoProjeto }: {numeroDoProjeto: string}  = useParams();
     const [project, setProject] = useState<CardContent>();
-    const [ata, setAta] = useState<string>();
+    const [ata, setAta] = useState<string>('');
     const [valorConsumido, setValorConsumido] = useState(0);
+    const [horasApontadas, setHorasApontadas] = useState<IHorasApontadas[]>([]);
 
-    useEffect(() => {
-        api.get<CardContent>(`/projetos/${id ? id : null}`).then((response => { setProject(response.data);}));
-        api.get<string>(`/files/${project ? project.infoprojetoDTO.id : 0}`).then((response) => {setAta(response.data);});
-        api.get<number>(`projetos/count/verba/${project ? project.infoprojetoDTO.numeroDoProjeto : 0}`).then((response => {setValorConsumido(response.data)}));
-    }, [id, ata, project]);
+    window.onload = async function handleData() {
+        try {
+            await api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
+            .then((response => { setProject(response.data);}));
+        } catch(err) {
+            console.log(err);
+        }
+
+        try {
+            await api.get<string>(`/files/${numeroDoProjeto}`)
+            .then((response) => {setAta(response.data);});
+        } catch (err) {
+            console.log(err);
+        }
+
+        try {
+            await api.get<number>(`projetos/count/verba/${numeroDoProjeto}`)
+            .then((response => {setValorConsumido(response.data)}));
+        } catch (err) {
+            console.log(err);
+        }
+
+        try {
+            await api.get<IHorasApontadas[]>(`projetos/horas/${numeroDoProjeto}`)
+            .then((response) => {setHorasApontadas(response.data)});
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     const downloadFile = () => {
-        window.open(`http://localhost:6868/files/download/${project ? project.infoprojetoDTO.id : 0}`);
+        window.open(`http://localhost:6868/files/download/${numeroDoProjeto}`);
     }
 
     return (
         <>
-        {console.log(project)}
         <Navbar/>
         <MenuLeft/>
         <MenuRight>
@@ -133,42 +165,14 @@ const Details: React.FC = () => {
                             <h2>Valor Total</h2>
                         </div>
                         <ul className="scroller sc1">
-                            <li>
-                                <h3>Daiana dos Santos</h3>
-                                <h3>100</h3>
-                                <h3>R$ 50,00</h3>
-                                <h3>R$ 5.000,00</h3>
-                            </li>
-                            <li>
-                                <h3>Daiana dos Santos</h3>
-                                <h3>100</h3>
-                                <h3>R$ 50,00</h3>
-                                <h3>R$ 5.000,00</h3>
-                            </li>
-                            <li>
-                                <h3>Daiana dos Santos</h3>
-                                <h3>100</h3>
-                                <h3>R$ 50,00</h3>
-                                <h3>R$ 5.000,00</h3>
-                            </li>
-                            <li>
-                                <h3>Daiana dos Santos</h3>
-                                <h3>100</h3>
-                                <h3>R$ 50,00</h3>
-                                <h3>R$ 5.000,00</h3>
-                            </li>
-                            <li>
-                                <h3>Daiana dos Santos</h3>
-                                <h3>100</h3>
-                                <h3>R$ 50,00</h3>
-                                <h3>R$ 5.000,00</h3>
-                            </li>
-                            <li>
-                                <h3>Daiana dos Santos</h3>
-                                <h3>100</h3>
-                                <h3>R$ 50,00</h3>
-                                <h3>R$ 5.000,00</h3>
-                            </li>
+                            {horasApontadas ? horasApontadas.map(horas => (
+                                <li>
+                                    <h3>{horas.nome_funcionario}</h3>
+                                    <h3>{horas.horas_apontadas}</h3>
+                                    <h3>{horas.valor_hora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h3>
+                                    <h3>{analisaValor(horas.horas_apontadas * horas.valor_hora)}</h3>
+                                </li>
+                            )) : ""}
                         </ul>
                 </ContainerAppointments>
                 <ContainerGraphs>
