@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useParams } from "react-router-dom";
 
 import MenuLeft from '../../components/MenuLeft';
@@ -63,7 +63,11 @@ const ConsultantProfile: React.FC = () => {
         } catch(error) {
             console.log("Error: ", error);
         }
-    }
+    };
+
+    const desalocarConsultor = useCallback(async (numeroDoProjeto) => {
+        await api.delete(`projetos/desalocar/${numeroDoProjeto}/${numeroCracha}`);
+    }, [numeroCracha]);
 
     return (
         <>
@@ -133,7 +137,11 @@ const ConsultantProfile: React.FC = () => {
                                     </td>
                                     <td className='projetos'>{project.infoprojetoDTO.data_de_inicio}</td>
                                     <td className='atribuicao'>
-                                        <button>Desalocar</button>
+                                        <button 
+                                            onClick={() => desalocarConsultor(project.infoprojetoDTO.numeroDoProjeto)}
+                                        >
+                                            Desalocar
+                                        </button>
                                     </td>
                                 </tr>
                             : ""}
