@@ -66,20 +66,34 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     const [valorConsumido, setValorConsumido] = useState(0);
 
     useEffect(() => {
-      api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => { setProjeto(response.data) }));
-      api.get<number>(`projetos/count/verba/${numeroDoProjeto}`).then((response => { setValorConsumido(response.data) }));  
-    }, [numeroDoProjeto, valorConsumido]);
-  
-    if(projeto?.infoprojetoDTO.id !== undefined) {
-      api.get<string>(`/files/${projeto ? projeto.infoprojetoDTO.numeroDoProjeto : 0}`).then((response => { setAta(response.data) }));
-    }
+      try {
+        api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
+          .then((response => { setProjeto(response.data) }));
+      } catch(err) {
+        console.log(err);
+      }
+
+      try {
+        api.get<number>(`projetos/count/verba/${numeroDoProjeto}`)
+          .then((response => { setValorConsumido(response.data) }));
+      } catch(err) {
+        console.log(err);
+      }
+
+      try {
+        api.get<string>(`/files/${numeroDoProjeto}`)
+          .then((response => { setAta(response.data) }));
+      } catch (err) {
+        console.log(err);
+      }
+    });
 
     if(!isModalVisible) {
         return null;
     }
 
     const downloadFile = () => {
-        window.open(`http://localhost:6868/files/download/${projeto ? projeto.infoprojetoDTO.numeroDoProjeto : 0}`);
+        window.open(`http://localhost:6868/files/download/${numeroDoProjeto}`);
     }
 
     return (
@@ -113,14 +127,16 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                     <div className="tableHeader">
                       <h2>Despesa (Desembolso)</h2>
                       <h2>Valor</h2>
-                      <h2>Responsável</h2>
+                      <h2>Esforço</h2>
                     </div>
                     <ul className="scroller sc1">
-                      <li>
-                        <h2>Desenvolvimento Externo</h2>
-                        <h2>R$ 25.000,00</h2>
-                        <h2>João da Silva</h2>
-                      </li>
+                      {projeto ? projeto.despesas.map(despesa => (
+                        <li>
+                          <h2>{despesa.nome}</h2>
+                          <h2>{despesa.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h2>
+                          <h2>{despesa.esforco}</h2>
+                        </li>
+                      )) : ""}
                     </ul>
                   </CostCenters>
                 </ModalContainerInfos>
