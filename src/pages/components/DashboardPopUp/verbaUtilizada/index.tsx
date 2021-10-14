@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { unmountComponentAtNode } from 'react-dom';
 
 import api from '../../../../service/api';
 
@@ -25,7 +26,7 @@ interface CardContent {
         status: string;
         horas_apontadas: number;
     };
-    ccPagantes : [{
+    ccPagantes: [{
         secao: {
             id: number;
             responsavel: {
@@ -71,8 +72,6 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         api.get(`projetos/count/verba/total`).then((response => {
             setCountVerbaTotal(response.data)
         })); 
-
-        console.log(countVerbaTotal);
     }, [countVerbaTotal]);
 
     //alert(isModalVisible);
@@ -80,6 +79,9 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
     if(!isModalVisible) {
         return null;
     }
+
+
+
     
     return (
         <Modal onBackdropClick={onBackdropClick}>
@@ -87,7 +89,7 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
                 <PopUp>
                     <Title>
                         <h1>PROJETOS</h1>
-                        <span onClick={() => isModalVisible = false} />
+                        <span onClick={() => unmountComponentAtNode(document.getElementById("modal-root")!)} />
                     </Title>
                     <Scroll>
                         {projetos ? projetos.map((projeto, index) => 
