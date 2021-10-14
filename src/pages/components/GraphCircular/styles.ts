@@ -36,48 +36,92 @@ export const Container = styled.div<GraphCircularProps>`
             stroke-dashoffset: 500;
         `}
 
-        ${props => props.tipo === "%" && props.valor > 1 && props.valor <= 10 && css`
+        ${props => props.valor > 1 && props.valor <= 5 && css`
+            stroke-dashoffset: 470;
+        `}
+
+        ${props => props.valor > 5 && props.valor <= 10 && css`
             stroke-dashoffset: 450;
         `}
 
-        ${props => props.tipo === "%" && props.valor > 10 && props.valor <= 20 && css`
-            stroke-dashoffset: 420;
+        ${props => props.valor > 10 && props.valor <= 15 && css`
+            stroke-dashoffset: 430;
         `}
 
-        ${props => props.tipo === "%" && props.valor > 20 && props.valor <= 30 && css`
-            stroke-dashoffset: 380;
+        ${props => props.valor > 15 && props.valor <= 20 && css`
+            stroke-dashoffset: 410;
         `}
 
-        ${props => props.tipo === "%" && props.valor > 30 && props.valor <= 40 && css`
-            stroke-dashoffset: 340;
+        ${props => props.valor > 20 && props.valor <= 25 && css`
+            stroke-dashoffset: 390;
         `}
 
-        ${props => props.tipo === "%" && props.valor > 40 && props.valor <= 50 && css`
-            stroke-dashoffset: 280;
+        ${props => props.valor > 25 && props.valor <= 30 && css`
+            stroke-dashoffset: 370;
         `}
 
-        ${props => props.tipo === "%" && props.valor > 50 && props.valor <= 60 && css`
+        ${props => props.valor > 30 && props.valor <= 35 && css`
+            stroke-dashoffset: 350;
+        `}  
+
+        ${props => props.valor > 35 && props.valor <= 40 && css`
+            stroke-dashoffset: 330;
+        `}  
+
+        ${props => props.valor > 40 && props.valor <= 45 && css`
+            stroke-dashoffset: 310;
+        `}  
+
+        ${props => props.valor > 45 && props.valor <= 50 && css`
+            stroke-dashoffset: 290;
+        `}  
+
+        ${props => props.valor > 50 && props.valor <= 55 && css`
+            stroke-dashoffset: 270;
+        `}  
+
+        ${props => props.valor > 55 && props.valor <= 60 && css`
             stroke-dashoffset: 250;
-        `}  
+        `}
 
-        ${props => props.tipo === "%" && props.valor > 60 && props.valor <= 70 && css`
+        ${props => props.valor > 60 && props.valor <= 65 && css`
+            stroke-dashoffset: 230;
+        `}
+
+        ${props => props.valor > 65 && props.valor <= 70 && css`
             stroke-dashoffset: 210;
-        `}  
+        `}
 
-        ${props => props.tipo === "%" && props.valor > 70 && props.valor <= 80 && css`
-            stroke-dashoffset: 180;
-        `}  
+        ${props => props.valor > 70 && props.valor <= 75 && css`
+            stroke-dashoffset: 190;
+        `}
 
-        ${props => props.tipo === "%" && props.valor > 80 && props.valor <= 90 && css`
-            stroke-dashoffset: 120;
-        `}  
+        ${props => props.valor > 75 && props.valor <= 80 && css`
+            stroke-dashoffset: 170;
+        `}
 
-        ${props => props.tipo === "%" && props.valor > 90 && props.valor <= 100 && css`
+        ${props => props.valor > 80 && props.valor <= 85 && css`
+            stroke-dashoffset: 150;
+        `}
+
+        ${props => props.valor > 85 && props.valor <= 90 && css`
+            stroke-dashoffset: 130;
+        `}
+
+        ${props => props.valor > 90 && props.valor <= 95 && css`
+            stroke-dashoffset: 110;
+        `}
+
+        ${props => props.valor > 95 && props.valor <= 99 && css`
+            stroke-dashoffset: 90;
+        `}
+
+        ${props => props.valor === 100 && css`
             stroke-dashoffset: 0;
-        `}  
+        `}
 
         // =========================================================================
-
+/*
         ${props => props.tipo === "hora" && props.valor > 1 && props.valor <= 10 && css`
             stroke-dashoffset: 450;
         `}
@@ -158,7 +202,7 @@ export const Container = styled.div<GraphCircularProps>`
 
         ${props => props.tipo === "valor" && props.valor > 90 && props.valor <= 100 && css`
             stroke-dashoffset: 0;
-        `}  
+        `}  */
     }
 
     svg {
@@ -201,4 +245,3 @@ export const Number = styled.div`
     font-size: 2.4vh;     
     color: #555;
 `;
-
