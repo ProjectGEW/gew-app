@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import api from '../../../../service/api';
 import analisaValor from '../../../../utils/analisaValor';
+import retornaTituloMenor from '../../../../utils/tituloMenor';
+
+import { P } from '../styles';
 
 /*interface CardContent {
     infoprojetoDTO : {
@@ -56,7 +59,13 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
 
     return (
         <div className="projeto">
-            <p>{tituloDoProjeto ? tituloDoProjeto.length <= 25 ? tituloDoProjeto : "..." : "Não encontrado"}</p>
+            <P titulo={tituloDoProjeto}>{
+                tituloDoProjeto ? 
+                    tituloDoProjeto.length <= 20 ? 
+                        tituloDoProjeto
+                    : retornaTituloMenor(tituloDoProjeto, 20)
+                : "Não encontrado"
+            }</P>
             <p>{
                 countVerbaTotalPorProjeto ?
                     countVerbaTotalPorProjeto === 0 ? 0
@@ -71,7 +80,6 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
             }%</p>
         </div>             
     );
-
 }
 
 export default ListaProjetos;
