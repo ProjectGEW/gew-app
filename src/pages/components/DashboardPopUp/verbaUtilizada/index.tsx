@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import api from '../../../../service/api';
 
-import ListaProjetos from '../listaProjetos';
+import ListaProjetos from '../ListaProjetos';
 
 import Modal from '../../CardPopUp/Modal';
 
