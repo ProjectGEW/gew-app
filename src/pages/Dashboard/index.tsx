@@ -12,6 +12,7 @@ import GraphLiquid from "../components/GraphLiquid";
 import GL from "../components/GraphLine";
 import BaseModalWrapperverbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
 import BaseModalWrapperverbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
+import Modal from '../components/CardPopUp/Modal';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
     GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
@@ -131,7 +132,7 @@ const Dashboard: React.FC = () => {
     const [isModalVisibleVerbaUtilizada, setIsModalVisibleVerbaUtilizada] = useState(true);
     const [isModalVisibleVerbaDisponivel, setIsModalVisibleVerbaDisponivel] = useState(true);
     const [popUp, setPopUp] = useState<JSX.Element>();
-
+    
     const toggleModalVerbaUtilizada = () => {
         setPopUp(
             <BaseModalWrapperverbaUtilizada 
@@ -139,7 +140,7 @@ const Dashboard: React.FC = () => {
                 onBackdropClick={toggleModalVerbaUtilizada} 
                 valor={Math.trunc(porcentagemUtilizada)}
             />
-        );
+        )
         setIsModalVisibleVerbaUtilizada(!isModalVisibleVerbaUtilizada);
     }
 
@@ -154,11 +155,18 @@ const Dashboard: React.FC = () => {
         setIsModalVisibleVerbaDisponivel(!isModalVisibleVerbaDisponivel);
     }
 
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+        setShowModal(prev => !prev);
+    };
+
+
     async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
         
-        var btns = ["BRL", "USD", "EUR"];
-        var valor = document.activeElement?.id;
+        let btns = ["BRL", "USD", "EUR"];
+        let valor = document.activeElement?.id;
 
         for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.opacity = "0.4";
@@ -176,13 +184,13 @@ const Dashboard: React.FC = () => {
     function defineStatus(valor: string) {
         var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
 
-        for (var x = 0; x < btns.length; x++) {
+        for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
         setStatus(valor);
 
-        if (valor === "concluidos") {
+        if(valor === "concluidos") {
             document.getElementById(valor)!.style.backgroundColor = "#adffb0";
         } else if (valor === "atrasados") {
             document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
@@ -256,21 +264,14 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    const totalCcPagantes = [projetos.length], totalDespesas = [projetos.length];
-    const totalValorHoraFuncionario = [projetos.length], totalHorasApontadas = [projetos.length];
-
+    const totalCcPagantes = [projetos.length];
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
 
     for(var x = 0; x < projetos.length; x++) {
         totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
-        totalDespesas[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalDespesas)[x];
-        totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
-        totalHorasApontadas[x] = projetos.map((projetos) => projetos.infoprojetoDTO.horas_apontadas)[x];
     }
 
-    //const valorUtilizado = totalHorasApontadas.reduce(reducer) * totalValorHoraFuncionario.reduce(reducer);
     const porcentagemUtilizada = (Number(countUtilizada) / totalCcPagantes.reduce(reducer)) * 100;
-    
     const valorDisponivel = totalCcPagantes.reduce(reducer) - Number(countUtilizada);
     const porcentagemDisponivel = 100 - porcentagemUtilizada;
 
