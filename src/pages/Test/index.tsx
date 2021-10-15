@@ -21,6 +21,8 @@ import 'react-calendar/dist/Calendar.css';
 import Popup from 'reactjs-popup';
 import './estiloPopup.css';
 
+import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
+
 const Projects: React.FC = () => {
     const [file, setFile] = useState<Blob>();
     const [downloadUri, setDownloadUri] = useState();
@@ -83,10 +85,11 @@ const Projects: React.FC = () => {
                 <button onClick={uploadFile}>Enviar</button>
             </div>
             <button onClick={downloadFile}>Baixar</button>
-            <button>Testar popup</button>
-                <Popup trigger={<button> Trigger</button>} position="right center">
-                    <div>Popup content here !!</div>
-                </Popup>
+            <button onClick={() => successfulNotify('Projeto cadastrado com sucesso!')}>Testar popup</button>
+            <Popup trigger={<button> Trigger</button>} position="right center">
+                <div>Popup content here !!</div>
+            </Popup>
+            <button onClick={() => window.location.replace("/projects")}>Teste rota</button>
         </Container>
         <MenuRight>
             <ContIcons />

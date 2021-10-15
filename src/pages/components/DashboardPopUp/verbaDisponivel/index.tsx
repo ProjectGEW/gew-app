@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, PopUp} from './styles';
+import { Container, PopUp } from './styles';
 
 //import '../../../Test/estiloPopup.css';
 
