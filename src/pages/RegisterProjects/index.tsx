@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Paper from "@material-ui/core/Paper";
 import Calendar from 'react-calendar';
-
+import { useHistory } from 'react-router-dom';
 import { useDropzone } from "react-dropzone";
 
 import MenuLeft from '../components/MenuLeft';
@@ -37,6 +37,8 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface ISecaoResponse {
   nome: string;
@@ -76,7 +78,18 @@ interface ICCpagantes{
   valor?: number;
 }
 
+toast.configure();
 const RegisterProjects: React.FC = () => {
+  const history = useHistory();
+
+  const successfulNotify = () => {
+    toast.success('Projeto cadastrado com sucesso!');
+  }
+
+  const errorNotify = () => {
+    toast.error('O projeto não foi cadastrado com sucesso!');
+  }
+
   const initalValue = {
     infoProjetosInputDTO: {
       numeroDoProjeto: 0,
@@ -354,6 +367,7 @@ const RegisterProjects: React.FC = () => {
     }
   }
 
+  
   const handleProjects = useCallback( async () => {
     try {
       const response = await api.post<IProjetoResponse>("projetos", projeto);
@@ -363,10 +377,15 @@ const RegisterProjects: React.FC = () => {
       formData.append("file", file ? file : "");
 
       await api.post(`files/upload/${data.id}`, formData);
+    
+      history.push("/projects");  
+      successfulNotify();  
     } catch (err) {
-      console.log(err);
+      console.log(err);    
+      errorNotify();
     }
-  }, [projeto, file]);
+  }, [projeto, file, history]);
+
 
   async function handleSecao(nome: string, campo: string){ 
     try {
@@ -686,11 +705,10 @@ return (
             </li>
           </ul>
         </TableConfirm>
-        
       </SideContainer>
       <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
       <Footer tipo={"confirm_project"} ></Footer>
-      <div onClick={handleProjects}>
+      <div onClick={() => handleProjects()}>
         <Button  tipo={"Confirmar"} text={"Confirmar"} /> 
       </div>
     </BoxConfirm> 
