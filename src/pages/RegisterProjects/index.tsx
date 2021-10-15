@@ -367,7 +367,7 @@ const RegisterProjects: React.FC = () => {
 
       await api.post(`files/upload/${data.numeroDoProjeto}`, formData);
     
-      // history.push("/projects");
+      history.push("/projects");
       successfulNotify('Projeto cadastrado com sucesso!');
     } catch (err) {
       console.log(err);
