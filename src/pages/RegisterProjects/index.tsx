@@ -38,8 +38,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
 
-import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
-
+import { useToast } from "./../../hooks/toast";
 
 interface ISecaoResponse {
   nome: string;
@@ -78,6 +77,7 @@ interface ICCpagantes{
 
 const RegisterProjects: React.FC = () => {
   const history = useHistory();
+  const { addToast } = useToast();
 
   const initalValue = {
     infoProjetosInputDTO: {
@@ -367,28 +367,31 @@ const RegisterProjects: React.FC = () => {
 
       await api.post(`files/upload/${data.id}`, formData);
     
-      // history.push("/projects");
-      successfulNotify('Projeto cadastrado com sucesso!');
+      history.push("/projects");
+      
+      addToast({
+        type:"success",
+        title:"Projeto foi cadastrado com sucesso!",
+        description:"O projeto foi cadastrado!",
+      });
+      
     } catch (err) {
       console.log(err);
-      errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
-    }
-    }, [projeto, file,  history]);
+      // addToast({
+        //     type:"error",
+        //     title:"O projeto não foi cadastrado!",
+        //     description:"Alguma das informações informadas está incorreta",
+        //   });
+      }
+    }, [projeto, file, addToast, history]);
 
-  const [secaoSolicitante, setSecaoSolicitante] = useState('');
-  const [secaoResponsavel, setSecaoResponsavel] = useState('');
+
   async function handleSecao(nome: string, campo: string){ 
     try {
       const response = await api.get<ISecaoResponse>(`secoes/nome/${nome}`);
       const data = response.data;
-      (document.getElementById(campo) as HTMLInputElement).value = data.nome;
 
-      if (campo === "secao_solicitante"){
-        setSecaoSolicitante(data.nome);
-      }
-      if (campo === "secao_responsavel"){
-        setSecaoResponsavel(data.nome);
-      }
+      (document.getElementById(campo) as HTMLInputElement).value = data.nome;
 
     } catch (err) {
       console.log(err);
@@ -615,7 +618,7 @@ return (
           </div>
           <div>
             <h3>Seção do responsável:</h3>
-            <h2>{secaoResponsavel}</h2>
+            <h2>ABCDEFGHIJKLM</h2>
           </div>
         </ContentContainer>
         <ContentContainer>
@@ -625,7 +628,7 @@ return (
           </div>
           <div>
             <h3>Seção do solicitante:</h3>
-            <h2>{secaoSolicitante}</h2>
+            <h2>NOPQRSTUVWXYZ</h2>
           </div>
         </ContentContainer>
       </SideContainer>

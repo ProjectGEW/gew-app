@@ -5,7 +5,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import { useAuth }  from '../../hooks/AuthContext';
+import { useAuth }  from '../../context/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import WEG from "../../assets/weg.svg";
