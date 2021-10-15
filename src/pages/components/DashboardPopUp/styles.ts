@@ -7,6 +7,10 @@ interface GraphBarProps {
     valor: number;
 }
 
+interface PTitleProps {
+    titulo: string;
+}
+
 export const Container = styled.div`
     position: absolute;
     top: 14vh;
@@ -104,6 +108,36 @@ export const Scroll = styled.div`
     }
 `;
 
+export const P = styled.div<PTitleProps>`
+    color: #484848;
+
+    &::after {
+        content: '';
+        width: 0.2vh;
+        height: 3vh;
+        margin-left: 2vw;
+        position: absolute;
+        background-color: #ccc;
+    }
+
+    &:hover {
+        cursor: pointer;   
+    }
+
+    &:hover { 
+        &::before {
+           content: '${props => props.titulo}'; 
+           padding: 0.6vh;
+           border-radius: 0.8vh;
+           background: #fff;
+           box-shadow: 0.2vh 0.2vh 0.8vh #444;
+           position: absolute;
+           margin-top: -4vh;
+           margin-left: -3vw;
+           font-size: 1.8vh;
+        }
+    }    
+`;
 
 export const Title = styled.div`
     width: 35vw;

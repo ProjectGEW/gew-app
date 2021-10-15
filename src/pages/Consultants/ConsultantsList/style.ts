@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { TranspileOptions } from "typescript";
 
 interface ListRoute {
     tipo?: string;

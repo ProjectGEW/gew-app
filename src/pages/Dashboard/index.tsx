@@ -93,24 +93,17 @@ const Dashboard: React.FC = () => {
         }
 
         window.onload = async function handleProjetos() {
-            const responseProjetos = await api.get<CardContent>(`/projetos/${id ? id : 0 }`);
+            const responseProjetos = await api.get<CardContent>(`projetos/${id ? id : 0 }`);
             const dataProjetos = responseProjetos.data;
             setProject(dataProjetos);
+
+            console.log(project)
 
             const responseSecao = await api.get<ISecoes[]>('secoes');
             const dataSecao = responseSecao.data;
             setSecoes(dataSecao);
         }
-    }, [id, projetos]);
-
-    //console.log(funcionarios ? funcionarios[0].valor_hora : 0);
-
-    /*function teste() {
-        const asd = new Array(setTotalAprovado(projetos.map(projetos => 
-            projetos.valoresTotaisDTO.valorTotalCcPagantes)));
-
-        return asd;
-    }*/
+    }, [id, projetos, project]);
 
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -129,7 +122,7 @@ const Dashboard: React.FC = () => {
     const [isModalVisibleVerbaUtilizada, setIsModalVisibleVerbaUtilizada] = useState(true);
     const [isModalVisibleVerbaDisponivel, setIsModalVisibleVerbaDisponivel] = useState(true);
     const [popUp, setPopUp] = useState<JSX.Element>();
-
+    
     const toggleModalVerbaUtilizada = () => {
         setPopUp(
             <BaseModalWrapperverbaUtilizada 
@@ -137,7 +130,7 @@ const Dashboard: React.FC = () => {
                 onBackdropClick={toggleModalVerbaUtilizada} 
                 valor={Math.trunc(porcentagemUtilizada)}
             />
-        );
+        )
         setIsModalVisibleVerbaUtilizada(!isModalVisibleVerbaUtilizada);
     }
 
@@ -155,8 +148,8 @@ const Dashboard: React.FC = () => {
     async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
         
-        var btns = ["BRL", "USD", "EUR"];
-        var valor = document.activeElement?.id;
+        let btns = ["BRL", "USD", "EUR"];
+        let valor = document.activeElement?.id;
 
         for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.opacity = "0.4";
@@ -174,13 +167,13 @@ const Dashboard: React.FC = () => {
     function defineStatus(valor: string) {
         var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
 
-        for (var x = 0; x < btns.length; x++) {
+        for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
         setStatus(valor);
 
-        if (valor === "concluidos") {
+        if(valor === "concluidos") {
             document.getElementById(valor)!.style.backgroundColor = "#adffb0";
         } else if (valor === "atrasados") {
             document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
@@ -254,21 +247,14 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    const totalCcPagantes = [projetos.length], totalDespesas = [projetos.length];
-    const totalValorHoraFuncionario = [projetos.length], totalHorasApontadas = [projetos.length];
-
+    const totalCcPagantes = [projetos.length];
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
 
     for(var x = 0; x < projetos.length; x++) {
         totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
-        totalDespesas[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalDespesas)[x];
-        totalValorHoraFuncionario[x] = projetos.map((projetos, index) => projetos.ccPagantes[index].secao.responsavel.valor_hora)[x];
-        totalHorasApontadas[x] = projetos.map((projetos) => projetos.infoprojetoDTO.horas_apontadas)[x];
     }
 
-    const valorUtilizado = totalHorasApontadas.reduce(reducer) * totalValorHoraFuncionario.reduce(reducer);
     const porcentagemUtilizada = (Number(countUtilizada) / totalCcPagantes.reduce(reducer)) * 100;
-    
     const valorDisponivel = totalCcPagantes.reduce(reducer) - Number(countUtilizada);
     const porcentagemDisponivel = 100 - porcentagemUtilizada;
 
@@ -342,15 +328,7 @@ const Dashboard: React.FC = () => {
                             </div>                 
                         </Filtros>
                         <Line>
-                        {
-                            //testes
-                            //projetos ? projetos.map((projeto, index) => projeto.ccPagantes[index].secao.responsavel.valor_hora) : ''
-                            //totalValorHoraFuncionario.reduce(reducer)
-                            //totalHorasApontadas.reduce(reducer)
-                            //"valor: " + analisaValor(valorUtilizado) + " | %: " + porcentagemUtilizada +
-                            //" disponivel: " + analisaValor(valorDisponivel)
-                        }
-                        <GL/>
+                            <GL/>
                         </Line>
                         <Filtros>
                             <div id="filtro-periodo">
@@ -358,11 +336,8 @@ const Dashboard: React.FC = () => {
                                     <option value="d1">Últimos 14 dias</option>
                                     <option value="d2">Últimos 28 dias</option>
                                     <option value="d3">Últimos 90 dias</option>
-                                    <option value="d4">Últimos 365 dias</option>
-                                    <option value="d5">Setembro</option>
-                                    <option value="d6">Agosto</option>
-                                    <option value="d7">2021</option>
-                                    <option value="d8">2020</option>
+                                    <option value="d4">Últimos 180 dias</option>
+                                    <option value="d5">Últimos 365 dias</option>
                                 </select>
                             </div>  
                         </Filtros>

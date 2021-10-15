@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { unmountComponentAtNode } from 'react-dom';
 
 import api from '../../../../service/api';
-import analisaValor from '../../../../utils/analisaValor';
+
+import ListaProjetos from '../ListaProjetos';
 
 import Modal from '../../CardPopUp/Modal';
 
@@ -24,7 +26,7 @@ interface CardContent {
         status: string;
         horas_apontadas: number;
     };
-    ccPagantes : [{
+    ccPagantes: [{
         secao: {
             id: number;
             responsavel: {
@@ -47,49 +49,57 @@ interface CardContent {
 
 const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, valor}) => {
     const [projetos, setProjetos] = useState<CardContent[]>([]);
-    const [countVerbaTotalPorProjeto, setCountVerbaTotalPorProjeto] = useState();
     const [countVerbaTotal, setCountVerbaTotal] = useState();
 
-    useEffect(() => {
-        api.get<CardContent[]>(`/projetos`).then((response => {
-            setProjetos(response.data);
+    /*useEffect(() => {
+        window.onload = async function handleProjetos() {
+            const response = await api.get<CardContent[]>(`projetos`);
+            const data = response.data;
+            setProjetos(data);
+
+            const responseVerbaTotal = await api.get(`projetos/count/verba/total`);
+            const dataVerbaTotal = responseVerbaTotal.data;
+            setCountVerbaTotal(dataVerbaTotal);
         }
-    ))}, [projetos]);
+        //handleProjetos();
+    }, [projetos, countVerbaTotal]); */
 
     useEffect(() => {
-        api.get(`/projetos/count/verba/` + 182251).then((response => {
-            setCountVerbaTotalPorProjeto(response.data);
-        }
-    ))}, [projetos]);
+        api.get<CardContent[]>(`projetos`).then((response => {
+              setProjetos(response.data);
+        }));
+  
+        api.get(`projetos/count/verba/total`).then((response => {
+            setCountVerbaTotal(response.data)
+        })); 
+    }, [countVerbaTotal]);
 
-    useEffect(() => {
-        api.get(`/projetos/count/verba/total`).then((response => {
-            setCountVerbaTotal(response.data);
-        }
-    ))}, [projetos]);
+    //alert(isModalVisible);
 
     if(!isModalVisible) {
         return null;
     }
 
-    const porcentagemPorProjeto = (Number(countVerbaTotalPorProjeto) / Number(countVerbaTotal)) * 100;
-    
     return (
         <Modal onBackdropClick={onBackdropClick}>
             <Container>
                 <PopUp>
                     <Title>
                         <h1>PROJETOS</h1>
-                        <span onClick={() => onBackdropClick} />
+                        <span onClick={() => unmountComponentAtNode(document.getElementById("modal-root")!)} />
                     </Title>
                     <Scroll>
-                        {projetos ? projetos.map((projeto) => 
-                            <div className="projeto">
-                                <p>{projeto.infoprojetoDTO.titulo.length <= 25 ? projeto.infoprojetoDTO.titulo : "..."}</p>
-                                <p>{countVerbaTotalPorProjeto ? analisaValor(Number(countVerbaTotalPorProjeto)) : 0}</p>
-                                <p>{porcentagemPorProjeto}%</p>
-                            </div>
-                        ) : ''}
+                        {projetos ? projetos.map((projeto, index) => 
+                            <ListaProjetos key={index} 
+                                numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
+                                tituloDoProjeto={projeto.infoprojetoDTO.titulo}
+                            />
+                        ) : 
+                        <div className="projeto">
+                            <p>Sem projetos</p>
+                            <p>analisaValor(0)</p>
+                            <p>0%</p>
+                        </div>}
                     </Scroll>
                     <Graph>
                         <Bar>

@@ -26,7 +26,7 @@ export const ContainerInput = styled.div`
 export const Container = styled.div`
     display: flex;
     justify-content: center;
-    align-itens: center;
+    align-items: center;
 `;
 
 export const Line = styled.div`  
