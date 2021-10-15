@@ -8,10 +8,6 @@ interface GraphBarProps {
     valor: number;
 }
 
-interface PTitleProps {
-    titulo: string;
-}
-
 export const Container = styled.div`
     display: flex;
     align-items: center;
@@ -45,9 +41,9 @@ export const PopUp = styled.div`
 
         p {
             &:nth-child(1) {
-                width: 17vw;
-                color: #484848;
+                width: 17.5vw;
                 border-right: 0.1vh solid #c4c4c4;
+                color: #484848;
             }
         }
 
@@ -70,10 +66,13 @@ export const Texto = styled.p`
 `;
 
 export const P = styled(Popup)`
+    p {
+        width: auto;    
+    }
+
     &-content {
         background: transparent;
         animation: anvil 0.2s;
-        margin-left: 0.2vw;
     }
 
     .popup-arrow {

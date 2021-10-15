@@ -4,7 +4,7 @@ import api from '../../../../service/api';
 import analisaValor from '../../../../utils/analisaValor';
 import retornaTituloMenor from '../../../../utils/tituloMenor';
 
-import { P, Texto} from '../verbaUtilizada/styles';
+import { P, Texto } from '../verbaUtilizada/styles';
 
 import '../../../Test/estiloPopup.css';
 import '../../../Test/estiloPopupModal.css';
@@ -34,10 +34,14 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
                 tituloDoProjeto ? 
                     tituloDoProjeto.length <= 20 ? 
                         <p>{tituloDoProjeto}</p>
-                    : <p>{retornaTituloMenor(tituloDoProjeto, 23)}</p>
-                : <p>Não encontrado</p>
+                    : <p>{retornaTituloMenor(tituloDoProjeto, 24)}</p>
+                : <p>Projeto não encontrado!</p>
             } position="top center" on={['hover']}>
-                <Texto>{tituloDoProjeto}</Texto>
+                <Texto>{
+                    tituloDoProjeto ? 
+                        tituloDoProjeto
+                    : '...'
+                }</Texto>
             </P>
             <p>{
                 countVerbaTotalPorProjeto ?

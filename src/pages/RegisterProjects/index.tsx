@@ -40,7 +40,6 @@ import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
 
-
 interface ISecaoResponse {
   nome: string;
 }
@@ -367,13 +366,14 @@ const RegisterProjects: React.FC = () => {
 
       await api.post(`files/upload/${data.numeroDoProjeto}`, formData);
     
-      history.push("/projects");
+      history.replace("/projects");
+      //window.location.replace("/projects");
       successfulNotify('Projeto cadastrado com sucesso!');
     } catch (err) {
       console.log(err);
       errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
     }
-    }, [projeto, file,  history]);
+    }, [projeto, file, history]);
 
   const [secaoSolicitante, setSecaoSolicitante] = useState('');
   const [secaoResponsavel, setSecaoResponsavel] = useState('');

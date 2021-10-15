@@ -243,7 +243,7 @@ const Dashboard: React.FC = () => {
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.primeiro_card.title')}</h1>
-                            <PopupModal trigger={<span />} modal>
+                            <PopupModal closeOnEscape trigger={<span />} modal>
                                 {(close: any) => (
                                     <PopupVerbaUtilizada fechar={close} valor={Math.round(porcentagemUtilizada)} />
                                 )}
@@ -257,7 +257,7 @@ const Dashboard: React.FC = () => {
                         <Title>
                             <h1>{intl.get('tela_dashboards.segundo_card.title')}</h1>
                             <PopupTooltip trigger={<span />} position="right center">
-                                <PopupVerbaDisponivel verba={analisaValor(Number(totalCcPagantes.reduce(reducer)))} valor={Math.round(porcentagemDisponivel)} />
+                                <PopupVerbaDisponivel verba={analisaValor(Number(valorDisponivel))} valor={Math.round(porcentagemDisponivel)} />
                             </PopupTooltip>
                         </Title>
                         <Graph>

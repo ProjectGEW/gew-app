@@ -167,7 +167,7 @@ const RegisterConsultants: React.FC = () => {
             </SideContainer>
             <SideContainer>
                 <UserData>
-                    <h1>Dados do usuário</h1>
+                    <h1>Dados de Login</h1>
 
                     <div className="box1">
                         <label>Email do usuário:</label>
