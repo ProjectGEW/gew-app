@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-import Arrow from '../../../assets/arrow_grey.svg';
-import Close from '../../../assets/close.svg';
+import Popup from 'reactjs-popup';
+
+import Close from '../../../../assets/close.svg';
 
 interface GraphBarProps {
     valor: number;
@@ -12,12 +13,6 @@ interface PTitleProps {
 }
 
 export const Container = styled.div`
-    position: absolute;
-    top: 14vh;
-    left: 12vw;
-    width: 78vw;
-    height: 80vh;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,6 +27,7 @@ export const PopUp = styled.div`
 
     display: flex;
     flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; 
 
     .projeto {       
         margin-top: 0vh;         
@@ -49,32 +45,9 @@ export const PopUp = styled.div`
 
         p {
             &:nth-child(1) {
-                width: 14.5vw;
+                width: 17vw;
                 color: #484848;
-                border-right: 0.1vh solid #ccc;
-
-                &::after {
-                    content: '';
-                    width: 0.2vh;
-                    height: 3vh;
-                    margin-left: 3vw;
-                    position: absolute;
-                    //background-color: #ccc;
-                }
-            }
-
-            &:nth-child(2) {
-                &::after {
-                    content: '';
-                    width: 2vw;
-                    height: 2vh;
-                    margin-top: 0.4vh;
-                    margin-left: 2vw;
-                    position: absolute;
-                    //background-image: url(${Arrow});
-                    background-position: center;
-                    background-size: cover;
-                }
+                border-right: 0.1vh solid #c4c4c4;
             }
         }
 
@@ -84,6 +57,42 @@ export const PopUp = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+    }
+`;
+
+export const Texto = styled.p`
+    background-color: #c2e4ff;
+    padding: 1vh;
+    border-radius: 0.8vh;
+    font-size: 2.5vh;
+    font-weight: bold;
+    color: #00579D;
+`;
+
+export const P = styled(Popup)`
+    &-content {
+        background: transparent;
+        animation: anvil 0.2s;
+        margin-left: 0.2vw;
+    }
+
+    .popup-arrow {
+        color: #c2e4ff;
+        stroke-width: 1px;
+        stroke: rgba(0, 0, 0, 0.16);
+        stroke-dasharray: 30px;
+        stroke-dashoffset: -54px;
+    }
+
+    @keyframes anvil {
+        0% {
+            opacity: 0;
+            box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+        }
+        100% {
+            opacity: 1;
+            box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+        }
     }
 `;
 
@@ -106,37 +115,6 @@ export const Scroll = styled.div`
         background-color: rgb(196, 196, 196); 
         border-radius: 1vh;
     }
-`;
-
-export const P = styled.div<PTitleProps>`
-    color: #484848;
-
-    &::after {
-        content: '';
-        width: 0.2vh;
-        height: 3vh;
-        margin-left: 2vw;
-        position: absolute;
-        background-color: #ccc;
-    }
-
-    &:hover {
-        cursor: pointer;   
-    }
-
-    &:hover { 
-        &::before {
-           content: '${props => props.titulo}'; 
-           padding: 0.6vh;
-           border-radius: 0.8vh;
-           background: #fff;
-           box-shadow: 0.2vh 0.2vh 0.8vh #444;
-           position: absolute;
-           margin-top: -4vh;
-           margin-left: -3vw;
-           font-size: 1.8vh;
-        }
-    }    
 `;
 
 export const Title = styled.div`

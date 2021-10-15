@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { unmountComponentAtNode } from 'react-dom';
 
 import api from '../../../../service/api';
 
 import ListaProjetos from '../ListaProjetos';
 
-import Modal from '../../CardPopUp/Modal';
+import { Container, PopUp, Title, Graph, Scroll, Bar, Value } from './styles';
 
-import { Container, PopUp, Title, Graph, Scroll, Bar, Value } from '../styles';
-
-interface BaseModalWrapperProps {
+interface PopupVerbaUtilizadaProps {
     valor: number;
-    isModalVisible: boolean;
-    onBackdropClick: () => void;
+    fechar: () => void;
 }
 
 interface CardContent {
@@ -47,7 +43,7 @@ interface CardContent {
     };      
 }
 
-const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isModalVisible, valor}) => {
+const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({ valor, fechar }) => {
     const [projetos, setProjetos] = useState<CardContent[]>([]);
     const [countVerbaTotal, setCountVerbaTotal] = useState();
 
@@ -74,42 +70,34 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
         })); 
     }, [countVerbaTotal]);
 
-    //alert(isModalVisible);
-
-    if(!isModalVisible) {
-        return null;
-    }
-
     return (
-        <Modal onBackdropClick={onBackdropClick}>
-            <Container>
-                <PopUp>
-                    <Title>
-                        <h1>PROJETOS</h1>
-                        <span onClick={() => unmountComponentAtNode(document.getElementById("modal-root")!)} />
-                    </Title>
-                    <Scroll>
-                        {projetos ? projetos.map((projeto, index) => 
-                            <ListaProjetos key={index} 
-                                numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
-                                tituloDoProjeto={projeto.infoprojetoDTO.titulo}
-                            />
-                        ) : 
-                        <div className="projeto">
-                            <p>Sem projetos</p>
-                            <p>analisaValor(0)</p>
-                            <p>0%</p>
-                        </div>}
-                    </Scroll>
-                    <Graph>
-                        <Bar>
-                            <Value valor={valor}></Value>
-                        </Bar>
-                    </Graph>
-                </PopUp>
-            </Container>
-        </Modal>
+        <Container>
+            <PopUp>
+                <Title>
+                    <h1>PROJETOS</h1>
+                    <span onClick={() => fechar()} />
+                </Title>
+                <Scroll>
+                    {projetos ? projetos.map((projeto, index) => 
+                        <ListaProjetos key={index} 
+                            numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
+                            tituloDoProjeto={projeto.infoprojetoDTO.titulo}
+                        />
+                    ) : 
+                    <div className="projeto">
+                        <p>Sem projetos</p>
+                        <p>analisaValor(0)</p>
+                        <p>0%</p>
+                    </div>}
+                </Scroll>
+                <Graph>
+                    <Bar>
+                        <Value valor={valor}></Value>
+                    </Bar>
+                </Graph>
+            </PopUp>
+        </Container>
     );
 }
 
-export default BaseModalWrapper;
+export default PopupVerbaUtilizada;

@@ -4,39 +4,10 @@ import api from '../../../../service/api';
 import analisaValor from '../../../../utils/analisaValor';
 import retornaTituloMenor from '../../../../utils/tituloMenor';
 
-import { P } from '../styles';
+import { P, Texto} from '../verbaUtilizada/styles';
 
-/*interface CardContent {
-    infoprojetoDTO : {
-        id: number;
-        numeroDoProjeto: number;
-        titulo: string;
-        descricao: string;
-        data_de_inicio: string;
-        data_de_termino: string;
-        status: string;
-        horas_apontadas: number;
-    };
-    ccPagantes : [{
-        secao: {
-            id: number;
-            responsavel: {
-              numero_cracha: number;
-              nome: string;
-              cpf: string;
-              valor_hora: number;
-            };
-            nome: string;
-        },
-        percentual: number;
-        valor: number;
-    }];
-    valoresTotaisDTO : {
-        valorTotalCcPagantes: number;
-        valorTotalDespesas: number;
-        valorTotalEsforco: number;
-    };      
-}*/
+import '../../../Test/estiloPopup.css';
+import '../../../Test/estiloPopupModal.css';
 
 interface IListaProps {
     numeroDoProjeto: number;
@@ -59,13 +30,15 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
 
     return (
         <div className="projeto">
-            <P titulo={tituloDoProjeto}>{
+            <P trigger={
                 tituloDoProjeto ? 
                     tituloDoProjeto.length <= 20 ? 
-                        tituloDoProjeto
-                    : retornaTituloMenor(tituloDoProjeto, 20)
-                : "Não encontrado"
-            }</P>
+                        <p>{tituloDoProjeto}</p>
+                    : <p>{retornaTituloMenor(tituloDoProjeto, 23)}</p>
+                : <p>Não encontrado</p>
+            } position="top center" on={['hover']}>
+                <Texto>{tituloDoProjeto}</Texto>
+            </P>
             <p>{
                 countVerbaTotalPorProjeto ?
                     countVerbaTotalPorProjeto === 0 ? 0

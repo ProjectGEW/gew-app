@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import Popup from 'reactjs-popup';
+
 import Lupa from '../../assets/lupa-graph.svg';
 
 export const Container = styled.div`
@@ -109,6 +111,45 @@ export const Title = styled.div`
 
         &:active {
             opacity: 0.6;
+        }
+    }
+`;
+
+export const PopupModal = styled(Popup)`
+    &-content {
+        background: rgba(0, 0, 0, 0.5);
+        animation: anvil 0.2s;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+`;
+
+export const PopupTooltip = styled(Popup)`
+    &-content {
+        background: transparent;
+        animation: anvil 0.2s;
+        margin-left: 0.2vw;
+    }
+
+    .popup-arrow {
+        color: #c2e4ff;
+        stroke-width: 1px;
+        stroke: rgba(0, 0, 0, 0.16);
+        stroke-dasharray: 30px;
+        stroke-dashoffset: -54px;
+    }
+
+    @keyframes anvil {
+        0% {
+            opacity: 0;
+            box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+        }
+        100% {
+            opacity: 1;
+            box-shadow: 0 0 500px rgba(241, 241, 241, 0);
         }
     }
 `;

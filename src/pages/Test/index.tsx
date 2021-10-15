@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react';
 
+import styled from 'styled-components';
+
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
@@ -14,6 +16,10 @@ import api from "../../service/api";
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
+
+import Popup from 'reactjs-popup';
+import './estiloPopup.css';
 
 const Projects: React.FC = () => {
     const [file, setFile] = useState<Blob>();
@@ -77,6 +83,10 @@ const Projects: React.FC = () => {
                 <button onClick={uploadFile}>Enviar</button>
             </div>
             <button onClick={downloadFile}>Baixar</button>
+            <button>Testar popup</button>
+                <Popup trigger={<button> Trigger</button>} position="right center">
+                    <div>Popup content here !!</div>
+                </Popup>
         </Container>
         <MenuRight>
             <ContIcons />
