@@ -69,18 +69,10 @@ const BaseModalWrapper: React.FC<BaseModalWrapperProps> = ({onBackdropClick, isM
       try {
         api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
           .then((response => { setProjeto(response.data) }));
-      } catch(err) {
-        console.log(err);
-      }
 
-      try {
         api.get<number>(`projetos/count/verba/${numeroDoProjeto}`)
           .then((response => { setValorConsumido(response.data) }));
-      } catch(err) {
-        console.log(err);
-      }
-
-      try {
+  
         api.get<string>(`/files/${numeroDoProjeto}`)
           .then((response => { setAta(response.data) }));
       } catch (err) {
