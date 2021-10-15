@@ -46,7 +46,7 @@ interface ISecaoResponse {
 }
 
 interface IProjetoResponse {
-  id: number;
+  numeroDoProjeto: number;
 }
 
 interface IProjeto {
@@ -365,7 +365,7 @@ const RegisterProjects: React.FC = () => {
 
       formData.append("file", file ? file : "");
 
-      await api.post(`files/upload/${data.id}`, formData);
+      await api.post(`files/upload/${data.numeroDoProjeto}`, formData);
     
       // history.push("/projects");
       successfulNotify('Projeto cadastrado com sucesso!');
