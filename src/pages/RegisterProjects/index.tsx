@@ -37,8 +37,8 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
-
-import { useToast } from "./../../hooks/toast";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface ISecaoResponse {
   nome: string;
@@ -78,10 +78,17 @@ interface ICCpagantes{
   valor?: number;
 }
 
-
+toast.configure();
 const RegisterProjects: React.FC = () => {
   const history = useHistory();
-  const { addToast } = useToast();
+
+  const successfulNotify = () => {
+    toast.success('Projeto cadastrado com sucesso!');
+  }
+
+  const errorNotify = () => {
+    toast.error('O projeto não foi cadastrado com sucesso!');
+  }
 
   const initalValue = {
     infoProjetosInputDTO: {
@@ -371,23 +378,13 @@ const RegisterProjects: React.FC = () => {
 
       await api.post(`files/upload/${data.id}`, formData);
     
-      history.push("/projects");
-      
-      addToast({
-        type:"success",
-        title:"Projeto foi cadastrado com sucesso!",
-        description:"O projeto foi cadastrado!",
-      });
-      
+      history.push("/projects");  
+      successfulNotify();  
     } catch (err) {
-      console.log(err);
-      // addToast({
-        //     type:"error",
-        //     title:"O projeto não foi cadastrado!",
-        //     description:"Alguma das informações informadas está incorreta",
-        //   });
-      }
-    }, [projeto, file, addToast, history]);
+      console.log(err);    
+      errorNotify();
+    }
+  }, [projeto, file, history]);
 
 
   async function handleSecao(nome: string, campo: string){ 
@@ -708,7 +705,6 @@ return (
             </li>
           </ul>
         </TableConfirm>
-        
       </SideContainer>
       <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
       <Footer tipo={"confirm_project"} ></Footer>
