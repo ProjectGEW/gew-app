@@ -10,11 +10,12 @@ import MenuRight from '../components/MenuRight';
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphLiquid from "../components/GraphLiquid";
 import GL from "../components/GraphLine";
-import BaseModalWrapperverbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
-import BaseModalWrapperverbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
+import PopupVerbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
+import PopupVerbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
-    GraphLine, CardsMoney, Money, Filtros, Line } from './styles';
+    GraphLine, CardsMoney, Money, Filtros, Line, PopupModal, PopupTooltip } from './styles';
+
 import analisaValor from '../../utils/analisaValor';
 
 const locales = {
@@ -118,32 +119,6 @@ const Dashboard: React.FC = () => {
         currentLocale: language.code,
         locales
     });
-
-    const [isModalVisibleVerbaUtilizada, setIsModalVisibleVerbaUtilizada] = useState(true);
-    const [isModalVisibleVerbaDisponivel, setIsModalVisibleVerbaDisponivel] = useState(true);
-    const [popUp, setPopUp] = useState<JSX.Element>();
-    
-    const toggleModalVerbaUtilizada = () => {
-        setPopUp(
-            <BaseModalWrapperverbaUtilizada 
-                isModalVisible={isModalVisibleVerbaUtilizada} 
-                onBackdropClick={toggleModalVerbaUtilizada} 
-                valor={Math.trunc(porcentagemUtilizada)}
-            />
-        )
-        setIsModalVisibleVerbaUtilizada(!isModalVisibleVerbaUtilizada);
-    }
-
-    const toggleModalVerbaDisponivel = () => {
-        setPopUp(
-            <BaseModalWrapperverbaDisponivel
-                isModalVisible={isModalVisibleVerbaDisponivel} 
-                onBackdropClick={toggleModalVerbaDisponivel} 
-                valor={100 - Math.trunc(porcentagemUtilizada)}
-            />
-        );
-        setIsModalVisibleVerbaDisponivel(!isModalVisibleVerbaDisponivel);
-    }
 
     async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
@@ -265,11 +240,14 @@ const Dashboard: React.FC = () => {
         <Container>
             <ContainerDashboard>
                 <Liquid>
-                    {popUp ? popUp : null}
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.primeiro_card.title')}</h1>
-                            <span onClick={toggleModalVerbaUtilizada} />
+                            <PopupModal trigger={<span />} modal>
+                                {(close: any) => (
+                                    <PopupVerbaUtilizada fechar={close} valor={Math.round(porcentagemUtilizada)} />
+                                )}
+                            </PopupModal>
                         </Title>
                         <Graph>
                             <GraphLiquid dashboard={true} valor={Math.round(porcentagemUtilizada)} />
@@ -278,7 +256,9 @@ const Dashboard: React.FC = () => {
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.segundo_card.title')}</h1>
-                            <span onClick={toggleModalVerbaDisponivel} />
+                            <PopupTooltip trigger={<span />} position="right center">
+                                <PopupVerbaDisponivel verba={analisaValor(Number(totalCcPagantes.reduce(reducer)))} valor={Math.round(porcentagemDisponivel)} />
+                            </PopupTooltip>
                         </Title>
                         <Graph>
                             <GraphLiquid dashboard={true} valor={Math.round(porcentagemDisponivel)} />
