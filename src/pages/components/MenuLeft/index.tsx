@@ -9,6 +9,7 @@ import { IoNewspaperOutline, IoExitOutline } from 'react-icons/io5';
 import { FaUserAlt } from 'react-icons/fa';
 import { FiRefreshCcw } from 'react-icons/fi';
 import { RiDeleteBinLine} from 'react-icons/ri';
+import { useEffect } from "hoist-non-react-statics/node_modules/@types/react";
 
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
@@ -99,15 +100,13 @@ const MenuLeft: React.FC = () => {
     }
 
     const [tarefa] = useState(() => {
-        let tarefaStorage = localStorage.getItem('Language');
+        let tarefaStorage = localStorage.getItem('Notification');
 
         if(tarefaStorage) {
             let languageObject = JSON.parse(tarefaStorage);
             return languageObject;
         } 
     });
-
-    //alert(tarefa.user)
 
     return (
         <>
@@ -123,7 +122,11 @@ const MenuLeft: React.FC = () => {
                 </NewsImg>
                 <LineBlue id="line-blue" />
                 <RefreshImg id="refresh-img">
-                    <FiRefreshCcw id="iconRef"/>
+                    <FiRefreshCcw onClick={
+                        
+                        tarefa
+                        
+                    } id="iconRef"/>
                 </RefreshImg>
                 <DeleteImg id="delete-img">
                     <RiDeleteBinLine id="iconDel"/>
@@ -131,20 +134,18 @@ const MenuLeft: React.FC = () => {
                 <ContainerMsg id="container-msg">
                     <Msg>
                         <LineMsg>
-                            {tarefa.user === undefined ? 
-                            ''
-                            :
-                            <Aba>
-                                <TitleMsg>
-                                    <p>{intl.get('menu_esquerdo.card.titulo')}</p>
-                                </TitleMsg>
-                                <TextMsg>
-                                    <p> 
-                                     {intl.get('menu_esquerdo.card.msg', {name: tarefa.user})}
-   
-                                    </p>
-                                </TextMsg>
-                            </Aba>
+                            {!tarefa ? 
+                                '' :
+                                <Aba>
+                                    <TitleMsg>
+                                        <p>{intl.get('menu_esquerdo.card.titulo')}</p>
+                                    </TitleMsg>
+                                    <TextMsg>
+                                        <p> 
+                                        {intl.get('menu_esquerdo.card.msg', {name: tarefa ? tarefa.user : ''})}
+                                        </p>
+                                    </TextMsg>
+                                </Aba> 
                             }
                         </LineMsg>
                     </Msg>
