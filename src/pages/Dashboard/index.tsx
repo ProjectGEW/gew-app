@@ -273,7 +273,7 @@ const Dashboard: React.FC = () => {
                         <Filtros>
                             <div>
                                 <label>Seção:</label>
-                                <select name="secao" onChange={selectChange}>
+                                <select id="filtroSecao" name="secao" onChange={selectChange}>
                                     <option value="Todos">Todos</option>
                                     {
                                         secoes ?
@@ -310,7 +310,14 @@ const Dashboard: React.FC = () => {
                         <Line>
                             <GL/>
                         </Line>
-                        <Filtros>
+                        <Filtros id="filtrosDown">
+                            <div id="trocar-moeda">
+                                <select name="moedas">
+                                    <option value="m1">BRL - Real brasileiro</option>
+                                    <option value="m2">USD - Dólar americano</option>
+                                    <option value="m3">EUR - Euro</option>
+                                </select>
+                            </div>
                             <div id="filtro-periodo">
                                 <select name="dias">
                                     <option value="d1">Últimos 14 dias</option>
@@ -323,7 +330,7 @@ const Dashboard: React.FC = () => {
                         </Filtros>
                     </GraphLine>
                     <CardsMoney>
-                        <Money id="money">
+                        {/*<Money id="money">
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.primeiro')}</h1>
                             </Title>
@@ -334,12 +341,12 @@ const Dashboard: React.FC = () => {
                                     <button id="EUR" type="submit">EUR</button>
                                 </form>
                             </div>
-                        </Money>
+                        </Money>*/}
                         <Money>
                             <Title>
-                                <h1>{intl.get('tela_dashboards.cards.segundo')}</h1>
+                                <h1>{intl.get('tela_dashboards.cards.quarto')}</h1>
                             </Title>
-                            <h1>{analisaValor(valorDisponivel)}</h1>
+                                <h1>{analisaValor(totalCcPagantes.reduce(reducer))}</h1>
                         </Money>
                         <Money>
                             <Title>
@@ -349,9 +356,9 @@ const Dashboard: React.FC = () => {
                         </Money>
                         <Money>
                             <Title>
-                                <h1>{intl.get('tela_dashboards.cards.quarto')}</h1>
+                                <h1>{intl.get('tela_dashboards.cards.segundo')}</h1>
                             </Title>
-                                <h1>{analisaValor(totalCcPagantes.reduce(reducer))}</h1>
+                            <h1>{analisaValor(valorDisponivel)}</h1>
                         </Money>
                     </CardsMoney>
                 </Lines>
