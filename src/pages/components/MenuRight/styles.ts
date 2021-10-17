@@ -292,7 +292,7 @@ export const ContIcons = styled.div`
     justify-content: left;
     align-items: center;
     cursor: pointer;
-    transition: all 0.1s;  
+    transition: all 0.2s;  
 `;
 
 export const Icon = styled.div`
