@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import api from '../../../../service/api';
 
-import ListaProjetos from '../ListaProjetos';
+import ListaProjetos from '../listaProjetos';
 
 import { Container, PopUp, Title, Graph, Scroll, Bar, Value } from './styles';
 
