@@ -54,7 +54,7 @@ export const Card = styled.div`
 `;
 
 export const Money = styled.div`
-    width: 12vw;
+    width: 16.6vw;
     height: 14vh;
 
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
@@ -175,6 +175,10 @@ export const GraphLine = styled.div`
 
     overflow: hidden;
     border-radius: 0.8vh;
+
+    #filtrosDown {
+        justify-content: flex-end;
+    }
 `;
 
 export const Line = styled.div`
@@ -258,7 +262,17 @@ export const Filtros = styled.div`
     }
 
     #filtro-periodo {
-        margin-left: 42.5vw;
+        margin-left: 1.2vw;
+    }
+
+    #trocar-moeda {
+        select {
+            width: 12vw;
+        }
+    }
+
+    #filtroSecao {
+        width: 12vw;
     }
 `;
 

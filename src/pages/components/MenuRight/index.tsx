@@ -12,6 +12,10 @@ import { GoGraph } from "react-icons/go";
 import { GiOrganigram } from "react-icons/gi";
 import { IoPersonAddSharp } from "react-icons/io5";
 
+/* Novos */
+
+import { AiFillFolder } from "react-icons/ai";
+
 const locales = {
   'pt-BR': require('../../../language/pt-BR.json'),
   'en-US': require('../../../language/en-US.json'),

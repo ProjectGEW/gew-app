@@ -1,27 +1,23 @@
 import React, { useState, useCallback } from 'react';
 
-import styled from 'styled-components';
-
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
-import { Container, BoxDatas, Error } from './styles';
+import { Container } from './styles';
 import Paper from "@material-ui/core/Paper";
 import { useDropzone } from "react-dropzone";
 
 import api from "../../service/api";
 
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
 
 import Popup from 'reactjs-popup';
 import './estiloPopup.css';
 
-import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
+import { successfulNotify } from '../../hooks/SystemToasts'
 
 const Projects: React.FC = () => {
     const [file, setFile] = useState<Blob>();
@@ -67,6 +63,11 @@ const Projects: React.FC = () => {
         let addTarefa = {user: "67235", projeto: "182247"}
         localStorage.setItem('Notification', JSON.stringify(addTarefa));
     }
+
+    function teste() {
+        let addTarefa = {user: "67235", projeto: "182247"}
+        localStorage.setItem('Notification', JSON.stringify(addTarefa));
+    }
     
     return (
         <>
@@ -90,6 +91,7 @@ const Projects: React.FC = () => {
                 <div>Popup content here !!</div>
             </Popup>
             <button onClick={() => window.location.replace("/projects")}>Teste rota</button>
+            <button onClick={teste}>Testar localstorage</button>
         </Container>
         <MenuRight>
             <ContIcons />
