@@ -13,7 +13,11 @@ const PopupVerbaDisponivel: React.FC<PopupVerbaDisponivelProps> = ({ valor, verb
     return (
         <Container>
             <PopUp>
-                {verba} ➜ {valor}%
+                {
+                    verba && valor ?
+                        verba + ' ➜ ' + valor + ' % '
+                    : 'Sem informações'
+                }
             </PopUp>
         </Container>     
     );
