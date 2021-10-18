@@ -41,7 +41,9 @@ export const AuthProvider: React.FC = ({ children }) => {
         });
 
         const { jwt, usuario, nome } = respose.data;
-
+        let defaultLanguage = {flag: "BR", code: "pt-BR"}
+        
+        localStorage.setItem('Language', JSON.stringify(defaultLanguage));
         localStorage.setItem("Token", jwt);
         localStorage.setItem("User", JSON.stringify(usuario));
         localStorage.setItem("User:nome", nome);
