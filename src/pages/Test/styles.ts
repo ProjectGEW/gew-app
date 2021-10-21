@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { shade } from 'polished';
 
 interface FormProps {
     hasErrorInit: boolean;
@@ -22,6 +23,24 @@ export const Container = styled.div`
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border-radius: 0.8vh;
 
+    button {
+        padding: 1vh;
+        border: 0;
+        border-radius: 0.5vh;
+        margin-top: 0.5vh;
+        margin-bottom: 0.5vh;
+
+        font-size: 2vh;
+        color: white;
+        font-weight: bold;
+        background-color: #00579D;
+
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        &:hover {
+            background-color: ${shade(0.09, "#00579D")}
+        }
+    }
 `;
 
 export const BoxDatas = styled.div<FormProps>`
