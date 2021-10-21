@@ -1,19 +1,19 @@
 {
-    "head": {
-        "titulo_negrito": "Overview"
+  "head": {
+    "titulo_negrito": "Overview"
+  },
+  "cards": {
+    "primeiro": {
+      "titulo": "Completed Projects:"
     },
-    "cards": {
-        "primeiro": {
-            "titulo": "Completed Projects:"
-        },
-        "segundo": {
-            "titulo": "Ongoing Projects:"
-        },
-        "terceiro": {
-            "titulo": "Delayed Projects:"
-        },
-        "verba": "Total budget:"
+    "segundo": {
+      "titulo": "Ongoing Projects:"
     },
+    "terceiro": {
+      "titulo": "Delayed Projects:"
+    },
+    "verba": "Total budget:"
+  },
     "grafico": {
         "titulo": "PROJECTS COMPLETED IN THE LAST 7 DAYS"
     },

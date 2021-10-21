@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     localStorage.setItem('Language', JSON.stringify(defaultLanguage));
 
     const formRef = useRef<FormHandles>(null);
-    const { singIn } = useAuth();
+    const { signIn: singIn } = useAuth();
     const history = useHistory();
 
     const handleSubmit = useCallback(async (data: SingInFormData) => {
