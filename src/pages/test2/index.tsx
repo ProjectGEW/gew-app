@@ -42,9 +42,8 @@ const Test2: React.FC<IProjeto> = (teste) => {
     console.log(teste);
     return (
         <>
-            <Navbar />
+        <Navbar />
             <MenuLeft />
-
             <BoxConfirm> 
             <h1>Confirmar Informações</h1>
                 <SideContainer>

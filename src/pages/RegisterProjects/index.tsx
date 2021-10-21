@@ -39,6 +39,10 @@ interface ISecaoResponse {
   nome: string;
 }
 
+interface IError {
+  titulo: string;
+}
+
 interface IProjetoResponse {
   numeroDoProjeto: number;
 }
@@ -345,11 +349,13 @@ const RegisterProjects: React.FC = () => {
 
       await api.post(`files/upload/${data.numeroDoProjeto}`, formData);
     
-      history.replace("/projects");
+      history.push("/projects");
       //window.location.replace("/projects");
       successfulNotify('Projeto cadastrado com sucesso!');
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      
+      const result = (e as IError).titulo;
+      console.log(result);
       errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
     }
     }, [projeto, file, history]);

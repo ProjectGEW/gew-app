@@ -3,10 +3,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure();
 
-export const successfulNotify = (message: string) => {
-  toast.success(message)
+export const successfulNotify = (mensagem: string) => {
+  toast.success(mensagem)
 }
 
-export const errorfulNotify = (message: string) => {
-  toast.error(message)
+export const errorfulNotify = (mensagem: string) => {
+  toast.error(mensagem)
 }
