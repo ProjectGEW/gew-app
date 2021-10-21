@@ -7,7 +7,7 @@ interface FormDataProps {
 }
 
 export const BoxDatas = styled.div<FormDataProps>`
-    width: 80%;
+    width: 100%;
     height: 57vh;
 
     display: flex;
@@ -84,8 +84,7 @@ export const BoxDatas = styled.div<FormDataProps>`
 
     .calendario {
         width: 40vw;
-        margin-left: 11.2vw;
-        margin-top: 2vh;
+        margin-top: 3vh;
 
         border: 0;
         border-radius: 0.8vh;

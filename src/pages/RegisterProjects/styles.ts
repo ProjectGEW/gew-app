@@ -8,13 +8,27 @@ interface ErrorProps {
     localErro: any;
 }
 
+export const Container = styled.div`
+  height: 274vh;
+  position: absolute;
+  top: 14vh;
+  left: 21vw;
+  border-radius: 0.8vh;
+
+  input {
+      color: #424242;
+      &::placeholder {
+          color: #8f8f8f;
+      }
+  }
+`;
+
 export const ContainerRegister = styled.div`
-    width: 78vw;
-    height: 80vh;
+    width: 60vw;
+    height: 267vh;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
 
     background-color: #fff;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -42,29 +56,19 @@ export const Info = styled.div`
 export const Content = styled.div`
     width: 100%;
     height: 73vh;
+
+    padding: 1vw 0vw 0vh 1.6vw;
+
     background-color: white;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
 
     border-radius: 0vh 0vh 0.8vh 0.8vh;
 
-    #boxProjeto {
-        display: block;
-    }
-
-    #boxResponsavel {
-        display: none;
-    }
-
     #boxDinheiro {
-        display: none;
-    }
-
-    #boxDatas {
-        display: none;
+        display: flex;
+        margin-left: 3.1vw;
     }
 
     #btnDin {
@@ -73,6 +77,17 @@ export const Content = styled.div`
       margin-left: 57vw;
       margin-top: 58vh;
     }
+`;
+
+export const LinhaTitulo = styled.div`
+  background: transparent;
+  width: 96%;
+  padding: 0vh 0vw 2vh 0vw;
+  
+  border-bottom: 0.1vh solid #C4C4C4;
+  h1 {
+      color: #00579D;
+  }
 `;
 
 export const Line = styled.div<Etapa>`
@@ -526,20 +541,4 @@ export const Error = styled.span<ErrorProps>`
   `}
 
   display: none;
-`;
-
-export const Container = styled.div`
-    position: absolute;
-    top: 14vh;
-    left: 12vw;
-    width: 78vw;
-    height: 80vh;
-    border-radius: 0.8vh;
-
-    input {
-        color: #424242;
-        &::placeholder {
-            color: #8f8f8f;
-        }
-    }
 `;

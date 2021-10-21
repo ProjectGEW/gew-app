@@ -14,7 +14,7 @@ import analisaValor from '../../utils/analisaValor';
 import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
 import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
 
-import { BoxProjeto, Preview } from '../components/RegisterProject/Projeto/styles';
+import { BoxProjeto } from '../components/RegisterProject/Projeto/styles';
 import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles';
 import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../components/RegisterProject/Datas/styles';
@@ -22,15 +22,20 @@ import { ContIcons } from '../components/MenuRight/styles';
 import Footer from '../components/Footer';
 import 'react-calendar/dist/Calendar.css';
 
-import { AiOutlineUsergroupAdd } from 'react-icons/ai';
-import { HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
+import { RiErrorWarningFill } from 'react-icons/ri';
+import { IoIosCheckmarkCircle, IoMdRemoveCircle } from 'react-icons/io';
+import { AiFillPlusCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
+import { HiDotsCircleHorizontal, HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
+import { MdKeyboardArrowRight } from 'react-icons/md';
 import { RiPauseCircleFill } from 'react-icons/ri';
 
-import { Container, ContainerRegister, Info, Content, Error, LinhaTitulo } from './styles';
+import { Container, ContainerRegister, Info, Content, Line, Error } from './styles';
 
 import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '../test2/styles';
 
-import analisaCampo from '../../utils/confereCampo';
+//import { SideContainer } from '../RegisterConsultants/styles';
+
+import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
@@ -224,10 +229,18 @@ const RegisterProjects: React.FC = () => {
       ]
     );
 
+    document.getElementById("removeDP")!.style.visibility = "visible";  
+
     return rowDespesas;
   }
 
   function deleteLastRowDP() {
+    if(rowDespesas.length === 2) {
+      document.getElementById("removeDP")!.style.visibility = "hidden";  
+    } else {
+      document.getElementById("removeDP")!.style.visibility = "visible";
+    }
+
     if (rowDespesas.length > 1) {
       document.getElementById(`D${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
       rowDespesas.pop();
@@ -242,11 +255,19 @@ const RegisterProjects: React.FC = () => {
     setRowCC(
       [...rowCC, <RowCcPagantes number={rowCC[rowCC.length - 1].props.number + 1}/>]
     );
+
+    document.getElementById("removeCC")!.style.visibility = "visible";
     
     return rowCC;
   }
 
   function deleteLastRowCC(){
+    if(rowCC.length === 2) {
+      document.getElementById("removeCC")!.style.visibility = "hidden";  
+    } else {
+      document.getElementById("removeCC")!.style.visibility = "visible";
+    }
+
     if (rowCC.length > 1) {
       document.getElementById(`C${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
       rowCC.pop();
@@ -384,11 +405,32 @@ return (
           <h1>Cadastrar Projeto</h1>
         </Info>
         <Content id="content">
-          <LinhaTitulo>
-            <h1>
-              Descrição geral do projeto
-            </h1>
-          </LinhaTitulo>
+          <Line nome={etapa}>
+            <div onClick={() => trocarEtapa("boxProjeto")}>
+              <p>Projeto</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+            <div onClick={() => trocarEtapa("boxResponsavel")}>
+              <p>Responsáveis</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+            <div onClick={() => trocarEtapa("boxDinheiro")}>
+              <p>R$</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+            <div onClick={() => trocarEtapa("boxDatas")}>
+              <p>Datas</p>
+              <RiErrorWarningFill />
+              <HiDotsCircleHorizontal />
+              <IoIosCheckmarkCircle />
+            </div>
+          </Line>r
           <BoxProjeto id="boxProjeto">
             <span>
               <div id="left-box">
@@ -410,10 +452,6 @@ return (
                 <p id="ataResponse" className="msgErro"></p>
               </div>
             </span>
-            {file ?
-              <Preview src={file ? URL.createObjectURL(file) : file}/>
-            : <Preview src={'null'}/>
-            }
             <span onClick={() => {
               let confirm = 0;
 
@@ -424,13 +462,8 @@ return (
               if (confirm < 4 ) {
                 return;
               }
-              trocarEtapa("boxResponsavel")}}></span>
+              trocarEtapa("boxResponsavel")}}><Button  tipo={"etapaProjeto"} text={"Continuar"} /></span>
           </BoxProjeto>
-          <LinhaTitulo>
-            <h1>
-              Responsável e solicitante
-            </h1>
-          </LinhaTitulo>
           <BoxResponsavel id="boxResponsavel">
             <span>
               <div>
@@ -444,8 +477,10 @@ return (
               <div>
                 <label>Seção do responsável:</label>
                 <input type="text" id="secao_responsavel" />
+                <Button tipo={"Lupa"} text={""} />              
                 <label id="label_secao_solicitante">Seção do solicitante:</label>
                 <input type="text" id="secao_solicitante"/>
+                <Button tipo={"Lupa"} text={""} />
               </div>
             </span>
             <span onClick={() => {
@@ -455,59 +490,50 @@ return (
               if (confirm < 2 ) {
                 return;
               }
-              trocarEtapa("boxDinheiro")}}>{/*<Button  tipo={"etapaResponsaveis"} text={"Continuar"} />*/}</span>
+              trocarEtapa("boxDinheiro")}}><Button  tipo={"etapaResponsaveis"} text={"Continuar"} /></span>
           </BoxResponsavel>
-          <LinhaTitulo>
-            <h1>
-              Centro de Custos & Despesas
-            </h1>
-          </LinhaTitulo>
           <BoxDinheiro id="boxDinheiro">
-            <Table>
-              <div className="table">
-                <h1>Despesas (desembolsos)</h1>
-                <h1>Esforço</h1>
-                <h1>Valor (R$)</h1>
-              </div>
-              <div id="scroll">
-                {rowDespesas.map(linha => linha)}
-              </div>
-              <Total>
-                <div>
-                  <button onClick={() => setNovaLinhaDP()}>Adicionar</button>
-                  <button onClick={() => deleteLastRowDP()}>Remover</button>
+            <form>
+              <Table id="tableOne">
+                <div id="first-table">
+                  <h1>Despesas (desembolsos)</h1>
+                  <h1>Esforço</h1>
+                  <h1>Valor (R$)</h1>
                 </div>
-                <div>
-                  <h2>TOTAL:</h2>
-                  <input id="totalEsforco" type="text" value={sEsforco? sEsforco: 0} />
-                  <input id="totalValor" type="text" value={sValorDespesa? analisaValor(sValorDespesa): 0} />
-                  <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
+                <div id="first-scroll">
+                  {rowDespesas.map(teste => teste)}
+                  <span><AiFillPlusCircle onClick={() => setNovaLinhaDP()} /></span>
+                  <Total>
+                    <div id="removeDP" className="removeDP">
+                      <h2>REMOVER LINHA:</h2>
+                      <IoMdRemoveCircle onClick={() => deleteLastRowDP()} />
+                    </div>
+                    <h2>TOTAL:</h2>
+                    <input id="totalEsforco" type="text" value={sEsforco? sEsforco: 0} className="alinhar" />
+                    <input id="totalValor" type="text" value={sValorDespesa? analisaValor(sValorDespesa): 0} className="alinhar" />
+                    <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
+                  </Total>
                 </div>
-              </Total>
-            </Table>
-            <Table id="tableTwo">
-              <div className="table">
-                <h1>Centro de Custo</h1>
-                <h1>Responsável</h1>
-                <h1>Valor (R$)</h1>
-              </div>
-              <div id="scroll">
-                {rowCC.map(linha => linha)}
-              </div>
-              <Total>
-                <div>
-                  <button onClick={() => setNovaLinhaCC()}>Adicionar</button>
-                  <button onClick={() => deleteLastRowCC()}>Remover</button>
+              </Table>
+              <Table id="tableTwo">
+                <div id="second-table">
+                  <h1>Centro de Custo</h1>
+                  <h1>Responsável</h1>
+                  <h1>Valor (R$)</h1>
                 </div>
-                <div>
-                  <h2>TOTAL:</h2>
-                  <input id="totalValor" type="text" value={0} />
-                  <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
+                <div id="second-scroll">
+                  {rowCC.map(teste => teste)}
+                  <span><AiFillPlusCircle onClick={() => setNovaLinhaCC()} /></span>
+                  <div id="removeCC" className="rem">
+                    <h2>REMOVER LINHA:</h2>
+                    <IoMdRemoveCircle onClick={() => deleteLastRowCC()} />
+                  </div>
                 </div>
-              </Total>
-            </Table>
+              </Table>
+              <MdKeyboardArrowRight id="choose" onClick={trocarTabela} />
+            </form>
           </BoxDinheiro>
-          {/* <span id="btnDin" onClick={() => {
+          <span id="btnDin" onClick={() => {
             let confirm = 0;
             confirm += analisaCampoLinhasdDespesas(rowDespesas.length)!;
             confirm += analisaCampoLinhasdCcPagantes(rowCC.length);
@@ -517,13 +543,8 @@ return (
             trocarEtapa("boxDatas"); 
           }}>
             <Button  tipo={"etapaDinheiro"} text={"Continuar"} />
-          </span>  */}
-          <LinhaTitulo>
-          <h1>
-            Datas  
-          </h1>
-        </LinhaTitulo>
-        <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
+          </span> 
+          <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
             <span className="spanDatas">
               <div className="divDatas">
                 <label>Data de ínicio:</label>
@@ -555,10 +576,10 @@ return (
             }  
             return;    
           }}>
-           <Button tipo={"continuarCadastro"} text={"Confirmar"}/> 
+          <Button tipo={"continuarCadastro"} text={"Confirmar"}/>
           </span>
         </BoxDatas>
-        {/* <Footer tipo={"register_project"} ></Footer> */}
+        <Footer tipo={"register_project"} ></Footer>
       </Content>
     </ContainerRegister>
   </Container >

@@ -2,8 +2,12 @@ import styled from "styled-components";
 import { shade } from "polished";
 
 export const BoxDinheiro = styled.div`
-    width: 70%;
-    height: 57vh;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3vh;
+    margin-bottom: 10vh;
 
     /* Estilização dos erros */
     .msgErro {
@@ -34,153 +38,90 @@ export const BoxDinheiro = styled.div`
         color: rgb(255, 0, 0, 0.8);
     }
 
-    #tableOne {
-        display: block;
-    }
-
     #tableTwo {
-        display: none;
-    }
-
-    #choose {
-        width: 5vw;
-        height: auto;
-
-        color: #00579D;
-        visibility: visible;
-
-        position: absolute;
         margin-top: 5vh;
-        margin-left: 54vw;
 
-        &:hover {
-            cursor: pointer;
-        }
+        #scroll {
+            input {
+                &:nth-child(1) {
+                    width: 12vw;
+                }
 
-        &:active {
-            opacity: 0.8;
-        }
-    }
+                &:nth-child(3) {
+                    width: 18vw;
+                }
 
-    form {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-
-        div {
-            &:nth-child(1) {
-                div {
-                    &:nth-child(2) {
-                        div {
-                            &:last-child {
-                                justify-content: flex-start;
-
-                                div {
-                                  justify-content: flex-start;
-                                  align-items: center;
-
-                                  svg{
-                                    margin-top: 0vh;
-                                  }
-                                }
-
-                                h2 {
-                                    margin-right: 1.3vw;
-                                    margin-left: -0.5vw;
-                                }
-
-                                #totalEsforco {
-                                    width: 6.2vw;
-                                    margin-right: 0.7vw;
-                                }
-
-                                #totalValor {
-                                    width: 10vw;
-                                }
-                            }
-                        }
-                    }
+                &:nth-child(4) {
+                    width: 12vw;
                 }
             }
         }
-      }
-    #btnDin{
-      position: absolute; 
-      height: auto;
-      margin-top: 10vh;
+
+        .table {
+            h1 {
+                color: #fff;
+                font-size: 3vh;
+
+                &:nth-child(2) {
+                    margin-right: 3.5vw;
+                }
+
+                &:nth-child(3) {
+                    margin-right: 3vw;
+                }
+            }
+        }
     }
+
 `;
 
 export const Table = styled.div`
-    width: 50vw;
-    margin-top: 3vh;
-
-    #removeDP, #removeCC {
-        visibility: hidden;
-    }
-
-    svg {
-        float: right;
-        margin-top: -1.2vw;
-        margin-right: -0.8vw;
-        width: 3vw;
-        height: 3vh;
-        color: #00579D;
-        
-        &:hover {
-            cursor: pointer;
-            color: ${shade(0.08, '#00579D')};
-        }
-    }
-
-    #soma {
-        transform: rotate(90deg);
-    }
+    width: 90%;
+    border-radius: 0.8vh;
+    box-shadow: rgba(0, 0, 0, 0.15) -1.95px 1.95px 2.6px, rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;;
 
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
 
-    overflow: hidden;
-
-    background-color: #fff;
-    border-radius: 0.8vh;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-
-    input {
-        font-size: 2.2vh;
+    svg {
+        display: flex;
+        align-items: center;
     }
-
-    .alinhar {
-        text-align: center;
-    }
-
-    #first-table, #second-table {
+    
+    .table {
+        width: 100%;
         background-color: #00579D;
-    }
+        padding: 1.2vh;
+        border-radius: 0.8vh 0.8vh 0vh 0vh;
 
-    #second-table {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+
         h1 {
-            &:first-child {
-                margin-left: 0.7vw;
-            }
+            color: #fff;
+            font-size: 3vh;
 
             &:nth-child(2) {
-                margin-left: -16.5vw;
+                margin-left: 1.8vw;
             }
 
-            &:last-child {
-                margin-right: 3.5vw;
+            &:nth-child(3) {
+                margin-right: 3vw;
             }
         }
     }
 
-    #first-scroll, #second-scroll {
-        max-height: 40vh;
+    #scroll {
+        width: 100%;
+        height: 138px;
+        min-height: 138px;
 
-        flex-direction: column;
+        margin-top: 0.3vh;
+
         overflow: scroll;
         overflow-x: hidden;
 
@@ -193,134 +134,24 @@ export const Table = styled.div`
             background-color: rgb(196, 196, 196); 
             border-radius: 1vh;
         }
-    }
-
-    #first-table {
-        h1 {
-            margin-right: 3vw;
-
-            &:nth-child(1) {
-                margin-left: 0.7vw;
-            }
-
-            &:nth-child(2) {
-                margin-left: 11.5vw;
-            }
-
-            &:nth-child(3) {
-                margin-left: 0vw;
-                margin-right: 3.5vw;
-            }
-        }
-    }
-
-    #second-scroll {
-        .rem {
-            display: flex;
-            align-items: center;
-
-            h2 {
-                color: #00579D;
-                font-size: 2.6vh;
-            }
-
-            svg {   
-                margin-top: 0.1vh;
-                margin-right: 31.5vw;                
-            }
-        }
-
-    }
-
-    div {
-        width: 100%;
-        padding: 1.5vh;
-        padding-bottom: 1vh;
 
         display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-
-        h1 {
-            color: white;
-            font-size: 2.6vh;
-            margin-left: 4.4vw;
-            margin-right: 3vw;
-        }
+        align-items: center;
+        flex-direction: column;
     }
-
-    &:nth-child(2) {
-        div {
-            h1 {
-                margin-right: 2vw;
-                
-                &:nth-child(1) {
-                    margin-left: 1.8vw;
-                }
-
-                &:nth-child(2) {
-                    margin-left: 2.8vw;
-                }
-
-                &:nth-child(3) {
-                    margin-left: 1.6vw;
-                }
-
-                &:nth-child(4) {
-                    margin-left: 0vw;
-                }
-            }
-
-            &:last-child {
-                input {
-                    &:nth-child(1) {
-                        width: 10.3vw;
-                        margin-left: 0vw;
-                    }
-
-                    &:nth-child(3) {
-                        width: 24.7vw;
-                        margin-left: 0vw;
-                    }
-
-                    &:nth-child(4) {
-                        width: 10vw;
-                        margin-right: 0vw;
-                    }     
-                }
-            }
-        }
-    }
-
-    #removeRow {
-            h2 {
-                color: #00579D;
-                font-size: 2.6vh;
-                margin-left: 0.9vw;
-            } 
-            svg {
-                width: 3.3vw;
-                height: 3.3vh;
-                float: left;
-                margin-left: 20vw;
-                color: #00579D;
-                
-                &:hover {
-                    color: #0075B1;
-                }
-             }
-        }
 `;
 
 export const Linha = styled.div`
-    display: block;
     width: 100%;
-    transition: all 0.2s;
+
+    display: flex;
+    justify-content: space-between;
+    padding: 1vh;
 
     input {
-        display: block;
+        width: 10vw;
         height: 5vh;
-
+        font-size: 2.4vh;
         border-radius: 0.4vh;
         border: 0px;
         padding: 1vh;
@@ -328,80 +159,114 @@ export const Linha = styled.div`
         background-color: rgb(181, 181, 181, 0.6);
         box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
         color: #5E5E5E;
+    }
 
+    input {
         &:nth-child(1) {
-            width: 29vw;
+            width: 22vw;
         }
 
         &:nth-child(3) {
-            width: 6vw;
-        }
-
-        &:nth-child(5) {
-            width: 10vw;
-        }
-    }
-`;
-
-export const Total = styled.div`
-    width: 80%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    h2 {
-        color: #00579D;
-        font-size: 2.6vh;
-    }
-
-    svg {
-      margin-top: 4.8vh;
-      margin-left: -0.8vw;
-    }
-
-    div {
-      h2 {
-        color: #00579D;
-        font-size: 2.6vh;
-        float: right;
-      } 
-
-      svg {
-          margin-top: -0.2vh;
-          margin-left: -1.5vw;
-          width: 3vw;
-          height: 3vh;
-          color: #00579D;
-          
-          &:hover {
-            cursor: pointer;
-            color: ${shade(0.08, '#00579D')};
-        }
-      }
-    }
-
-    input {
-        height: 5vh;
-
-        &:nth-child(1) {
             width: 8vw;
         }
 
-        &:nth-child(2) {
+        &:nth-child(5) {
             width: 12vw;
         }
+    }
+    
+`;
 
+export const Total = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;    
+
+    div {
+        width: 70%;
+        padding: 1.3vh;
+        border-radius: 0vh 0vh 0.8vh 0.8vh;
+
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        // primeira div
         &:first-child {
-            margin-left: 25.5vw;
+            width: 30%;
+            padding: 0vh 0vw 0vh 0.5vw;
+
+            button {
+                padding: 1vh;
+                border: 0;
+                border-radius: 0.5vh;
+
+                font-size: 2vh;
+                color: white;
+                font-weight: bold;
+                background-color: #00579D;
+
+                box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+                &:hover {
+                    background-color: ${shade(0.09, "#00579D")}
+                }
+
+                // primeiro botão
+                &:first-child {
+                    margin-right: 1vw;
+                }
+            }
         }
 
-        border-radius: 0.4vh;
-        border: 0px;
-        padding: 1vh;
+        // segunda div
+        &:last-child {
+            justify-content: flex-end;
 
-        background-color: rgb(181, 181, 181, 0.6);
-        box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
-        color: #5E5E5E;
-    }  
+            h2 {
+                color: #00579D;
+                font-size: 3vh;
+            }
+
+            input {
+                // primeiro input
+                &:nth-child(2) {
+                    width: 8vw; 
+                    margin-left: 0.9vw;             
+                }
+
+                // segundo input
+                &:nth-child(3) {
+                    width: 12vw;              
+                    margin-left: 0.7vw;
+                    margin-right: 0.3vw;
+                }
+                
+                height: 5vh;
+                font-size: 2.4vh;
+                border-radius: 0.4vh;
+                border: 0px;
+                padding: 1vh;
+
+                background-color: rgb(181, 181, 181, 0.6);
+                box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
+                color: #5E5E5E;
+            }
+
+            svg {
+                position: absolute;
+                color: #00579D;
+                width: 2.5%;
+                height: 2.5%;
+                margin-top: 4vh;
+                margin-right: -0.5vw;
+
+                &:hover {
+                    cursor: pointer;
+
+                    color: ${shade(0.03, '#00579D')};
+                }   
+            }
+        }
+    }
 `;

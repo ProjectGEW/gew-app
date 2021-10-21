@@ -4,10 +4,10 @@ import { shade } from "polished";
 import Upload from "../../../../assets/upload.svg";
 
 export const BoxProjeto = styled.div`
-  width: 50%;
+  width: 80%;
   height: 57vh;
 
-  margin-left: -5vw;
+  padding: 0.2vh 0vw 0vh 1vw;
 
   display: flex;
   align-items: start;
@@ -76,12 +76,19 @@ export const BoxProjeto = styled.div`
       margin-bottom: 1vh;
     }
 
+    #numeroProjeto {
+      width: 15vw;
+    }
+
     #titulo {
-      width: 34vw;
+      width: 30vw;
     }
 
     #descricao {
-      width: 29vw;
+      max-width: 30vw;
+      max-height: 18vh;
+      min-width: 30vw;
+      min-height: 18vh;
     }
 
     input, textarea {
@@ -99,11 +106,11 @@ export const BoxProjeto = styled.div`
       color: #5E5E5E;
     }
 
-    textarea {
-      max-width: 80vh;
+   textarea {
+      /*max-width: 80vh;
       max-height: 20vh;
       min-width: 70.5vh;
-      min-height: 18vh;
+      min-height: 18vh;*/
     }
 
     &:last-child {
@@ -114,8 +121,8 @@ export const BoxProjeto = styled.div`
       label {
         width: 13.3vw;
 
-        margin-top: 2vh;
-
+        margin-top: 2.2vh;
+        margin-left: -16.3vw;
         background: #0090C5;
         border-radius: 0.8vh;
         color: #fff;
@@ -162,4 +169,18 @@ export const BoxProjeto = styled.div`
       }
     }
   }
+`;
+
+export const Preview = styled.iframe`
+  max-width: 640px;
+  max-height: 450px;
+
+  min-width: 320px;
+  min-height: 300px;
+
+  margin-top: 30px;
+  margin-left: -10vw;
+
+  border: 0.1vh solid #c4c4c4;
+  //background-color: rgb(181, 181, 181, 0.6);
 `;
