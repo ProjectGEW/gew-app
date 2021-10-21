@@ -257,25 +257,6 @@ const RegisterProjects: React.FC = () => {
     return rowCC;
   }
 
-  function trocarTabela() {
-    const recebe = document.getElementById("tableOne")!.style.display;
-
-    if(recebe === 'block' || recebe === '') {
-      document.getElementById("tableTwo")!.style.display = "block";
-      document.getElementById("tableOne")!.style.display = "none";
-
-      document.getElementById("choose")!.style.marginLeft = "-55vw";
-      document.getElementById("choose")!.style.transform = "rotate(180deg)";
-  
-    } else {
-      document.getElementById("tableOne")!.style.display = "block";
-      document.getElementById("tableTwo")!.style.display = "none";
-
-      document.getElementById("choose")!.style.marginLeft = "54vw";
-      document.getElementById("choose")!.style.transform = "rotate(0deg)";
-    }
-  }
-
   const [value, onChange] = useState(new Date());
   const [selected, setSelected] = useState<string>();
   const [dataInicio, setDataInicio] = useState<string>();
@@ -333,7 +314,6 @@ const RegisterProjects: React.FC = () => {
         }
     }
   }
-
   
   const handleProjects = useCallback( async () => {
     try {
@@ -531,9 +511,9 @@ return (
                 <label>Data de aprovação:</label>
               </div>
               <div className="divDatas">
-                <input type="text" value={dataInicio} id="data_de_inicio" defaultValue="01/01/2001" onClick={() => {setSelected("inicio")}} />
-                <input type="text" value={dataFim} id="data_de_termino" defaultValue="01/01/2001" onClick={() => {setSelected("fim")}} />
-                <input type="text" value={dataAprovacao} id="data_de_aprovacao" defaultValue="01/01/2001" onClick={() => {setSelected("aprovacao")}} />
+                <input type="text" value={dataInicio} id="data_de_inicio" onClick={() => {setSelected("inicio")}} />
+                <input type="text" value={dataFim} id="data_de_termino" onClick={() => {setSelected("fim")}} />
+                <input type="text" value={dataAprovacao} id="data_de_aprovacao" onClick={() => {setSelected("aprovacao")}} />
               </div>
               <div>
                   {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
