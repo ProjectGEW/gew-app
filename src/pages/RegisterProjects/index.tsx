@@ -30,7 +30,7 @@ import { Container, ContainerRegister, Info, Content, Error, LinhaTitulo } from 
 
 import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '../test2/styles';
 
-import analisaCampo from '../../utils/confereCampo';
+import analisaCampo, { vrfCampo } from '../../utils/confereCampo';
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
@@ -378,9 +378,10 @@ return (
             <span>
               <div id="left-box">
                 <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" />
+                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampo(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
+                <p id="numeroProjetoResponse" className="msgErro"></p>
                 <label>Título do projeto: </label>
-                <input type="text" id="titulo" />
+                <input type="text" id="titulo" onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
                 <textarea id="descricao" />
@@ -388,8 +389,9 @@ return (
               </div>
               <div ref={ref}>
                 <Paper elevation={0} {...rootProps}>
-                  <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
-                  <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf"/>
+                  <label id="ata" htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                  <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
+
                 </Paper>
                 <p id="ataResponse" className="msgErro"></p>
               </div>
