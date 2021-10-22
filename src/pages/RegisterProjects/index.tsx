@@ -30,7 +30,7 @@ import { Container, ContainerRegister, Info, Content, Error, LinhaTitulo } from 
 
 import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '../test2/styles';
 
-import analisaCampo from '../../utils/confereCampo';
+import analisaCampo, { vrfCampo } from '../../utils/confereCampo';
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
@@ -321,24 +321,23 @@ const RegisterProjects: React.FC = () => {
   
   const handleProjects = useCallback( async () => {
     try {
-      const response = await api.post<IProjetoResponse>("projetos", projeto);
-      const data = response.data;
-      const formData = new FormData();
+      await api
+      .post<IProjetoResponse>("projetos", projeto)
+      .then((response) => {
+        const formData = new FormData();
 
-      formData.append("file", file ? file : "");
+        formData.append("file", file ? file : "");
+        api.post(`files/upload/${response.data.numeroDoProjeto}`, formData);
 
-      await api.post(`files/upload/${data.numeroDoProjeto}`, formData);
-    
-      history.push("/projects");
-      //window.location.replace("/projects");
-      successfulNotify('Projeto cadastrado com sucesso!');
-    } catch (e) {
-      
-      const result = (e as IError).titulo;
-      console.log(result);
+        history.push('/projects');
+        successfulNotify('Projeto cadastrado com sucesso!');
+      })
+      .catch((e) => console.log(e.response.data.titulo));
+    } catch (e) { 
+      console.log(`Error: ${e}`);
       errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
     }
-    }, [projeto, file, history]);
+  }, [projeto, file, history]);
 
   const [secaoSolicitante, setSecaoSolicitante] = useState('');
   const [secaoResponsavel, setSecaoResponsavel] = useState('');
@@ -379,10 +378,10 @@ return (
             <span>
               <div id="left-box">
                 <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" />
+                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampo(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
                 <p id="numeroProjetoResponse" className="msgErro"></p>
                 <label>Título do projeto: </label>
-                <input type="text" id="titulo" />
+                <input type="text" id="titulo" onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
                 <textarea id="descricao" />
@@ -390,8 +389,9 @@ return (
               </div>
               <div ref={ref}>
                 <Paper elevation={0} {...rootProps}>
-                  <label htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
-                  <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf"/>
+                  <label id="ata" htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                  <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
+
                 </Paper>
                 <p id="ataResponse" className="msgErro"></p>
               </div>
@@ -493,39 +493,28 @@ return (
               </Total>
             </Table>
           </BoxDinheiro>
-          {/* <span id="btnDin" onClick={() => {
-            let confirm = 0;
-            confirm += analisaCampoLinhasdDespesas(rowDespesas.length)!;
-            confirm += analisaCampoLinhasdCcPagantes(rowCC.length);
-            if (confirm < 2) {
-              return;
-            }
-            trocarEtapa("boxDatas"); 
-          }}>
-            <Button  tipo={"etapaDinheiro"} text={"Continuar"} />
-          </span>  */}
-          <LinhaTitulo>
+        <LinhaTitulo>
           <h1>
             Datas  
           </h1>
         </LinhaTitulo>
         <BoxDatas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit} id="boxDatas">
-            <span className="spanDatas">
-              <div className="divDatas">
-                <label>Data de ínicio:</label>
-                <label>Data de término:</label>
-                <label>Data de aprovação:</label>
-              </div>
-              <div className="divDatas">
-                <input type="text" value={dataInicio} id="data_de_inicio" onClick={() => {setSelected("inicio")}} />
-                <input type="text" value={dataFim} id="data_de_termino" onClick={() => {setSelected("fim")}} />
-                <input type="text" value={dataAprovacao} id="data_de_aprovacao" onClick={() => {setSelected("aprovacao")}} />
-              </div>
-              <div>
-                  {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
-                  {inputErrorFim && <Error localErro={selected}>{inputErrorFim}</Error>}
-                  {inputErrorAprov && <Error localErro={selected}>{inputErrorAprov}</Error>}
-              </div>
+          <span className="spanDatas">
+            <div className="divDatas">
+              <label>Data de ínicio:</label>
+              <label>Data de término:</label>
+              <label>Data de aprovação:</label>
+            </div>
+            <div className="divDatas">
+              <input type="text" value={dataInicio} id="data_de_inicio" onClick={() => {setSelected("inicio")}} />
+              <input type="text" value={dataFim} id="data_de_termino" onClick={() => {setSelected("fim")}} />
+              <input type="text" value={dataAprovacao} id="data_de_aprovacao" onClick={() => {setSelected("aprovacao")}} />
+            </div>
+            <div>
+              {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
+              {inputErrorFim && <Error localErro={selected}>{inputErrorFim}</Error>}
+              {inputErrorAprov && <Error localErro={selected}>{inputErrorAprov}</Error>}
+            </div>
           </span>
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
           <span onClick={() => {
@@ -541,139 +530,136 @@ return (
             }  
             return;    
           }}>
-           <Button tipo={"continuarCadastro"} text={"Confirmar"}/> 
+            <Button tipo={"continuarCadastro"} text={"Confirmar"}/> 
           </span>
         </BoxDatas>
-        {/* <Footer tipo={"register_project"} ></Footer> */}
       </Content>
     </ContainerRegister>
   </Container >
-  <BoxConfirm id="confirm-data"> 
-    <h1>Confirmar Informações</h1>
-      <SideContainer>
-        <ContentContainer>
-          <div>
-            <h3>Número do projeto:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.numeroDoProjeto}</h2>
-          </div>
-          <div>
-            <h3>Ata da aprovação:</h3>
-            <h2>{fileName ? fileName.split(".")[0] : "Sem ATA"}</h2>
-          </div>
-        </ContentContainer>
-        <Box>
-          <div>
-            <h3>Título do projeto:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.titulo}</h2>
-          </div>
-        </Box>
-        <Box>
-          <div>
-            <h3>Descrição do projeto:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.descricao}</h2>
-          </div>
-        </Box>
-        <ContentContainer>
-          <div>
-            <h3>Nome do responsável:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.nome_responsavel}</h2>
-          </div>
-          <div>
-            <h3>Seção do responsável:</h3>
-            <h2>{secaoResponsavel}</h2>
-          </div>
-        </ContentContainer>
-        <ContentContainer>
-          <div>
-            <h3>Nome do solicitante:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.nome_solicitante}</h2>
-          </div>
-          <div>
-            <h3>Seção do solicitante:</h3>
-            <h2>{secaoSolicitante}</h2>
-          </div>
-        </ContentContainer>
-      </SideContainer>
-      <SideContainer>
-        <ContentContainer>
-          <div>
-            <h3>Valor total de despesas: </h3>
-            <h2>{analisaValor(sValorDespesa ? sValorDespesa : 0)}</h2>
-          </div>
-          <div>
-            <h3>Data de início:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.data_de_inicio}</h2>
-          </div>
-        </ContentContainer>
-        <ContentContainer>
-          <div>
-            <h3>Centro de custo:</h3>
-            <h2>{analisaValor(sValorCcPagantes ? sValorCcPagantes: 0)}</h2>
-          </div>
-          <div>
-            <h3>Data de término:</h3>
-              <h2>{projeto?.infoProjetosInputDTO?.data_de_termino}</h2>
-          </div>
-        </ContentContainer>
-        <ContentContainer>
-          <div>
-            <h3>Limite de horas aprovadas:</h3>
-            <h2>{sEsforco}</h2>
-          </div>
-          <div>
-            <h3>Data de aprovação:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.data_de_aprovacao}</h2>
-          </div>
-        </ContentContainer>
-
-        <TableConfirm>
-          <div>
-            <p>Funcionários alocados</p>
-            <AiOutlineUsergroupAdd />
-          </div>    
-          <ul>                    
-            <li>
-              <p>Heloise Stefany Bianchi</p>
-              <HiMinusCircle />
-            </li>
-            <li>
-              <p>Heloise Stefany Bianchi</p>
-              <HiMinusCircle />
-            </li>
-            <li>
-              <p>Heloise Stefany Bianchi</p>
-              <HiMinusCircle />
-            </li>
-            <li>
-              <p>Heloise Stefany Bianchi</p>
-              <HiMinusCircle />
-            </li>
-            <li>
-              <p>Heloise Stefany Bianchi</p>
-              <HiMinusCircle />
-            </li>
-            <li>
-              <p>Heloise Stefany Bianchi</p>
-              <HiMinusCircle />
-            </li>
-            <li>
-              <p>Heloise Stefany Bianchi</p>
-              <HiMinusCircle />
-            </li>
-            <li>
-              <p>Heloise Stefany Bianchi</p>
-              <HiMinusCircle />
-            </li>
-          </ul>
-        </TableConfirm>
-        
-      </SideContainer>
-      <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
-      <Footer tipo={"confirm_project"} ></Footer>
-      <div onClick={() => handleProjects()}>
-        <Button  tipo={"Confirmar"} text={"Confirmar"} /> 
-      </div>
-    </BoxConfirm> 
+<BoxConfirm id="confirm-data"> 
+  <h1>Confirmar Informações</h1>
+    <SideContainer>
+      <ContentContainer>
+        <div>
+          <h3>Número do projeto:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.numeroDoProjeto}</h2>
+        </div>
+        <div>
+          <h3>Ata da aprovação:</h3>
+          <h2>{fileName ? fileName.split(".")[0] : "Sem ATA"}</h2>
+        </div>
+      </ContentContainer>
+      <Box>
+        <div>
+          <h3>Título do projeto:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.titulo}</h2>
+        </div>
+      </Box>
+      <Box>
+        <div>
+          <h3>Descrição do projeto:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.descricao}</h2>
+        </div>
+      </Box>
+      <ContentContainer>
+        <div>
+          <h3>Nome do responsável:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.nome_responsavel}</h2>
+        </div>
+        <div>
+          <h3>Seção do responsável:</h3>
+          <h2>{secaoResponsavel}</h2>
+        </div>
+      </ContentContainer>
+      <ContentContainer>
+        <div>
+          <h3>Nome do solicitante:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.nome_solicitante}</h2>
+        </div>
+        <div>
+          <h3>Seção do solicitante:</h3>
+          <h2>{secaoSolicitante}</h2>
+        </div>
+      </ContentContainer>
+    </SideContainer>
+    <SideContainer>
+      <ContentContainer>
+        <div>
+          <h3>Valor total de despesas: </h3>
+          <h2>{analisaValor(sValorDespesa ? sValorDespesa : 0)}</h2>
+        </div>
+        <div>
+          <h3>Data de início:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.data_de_inicio}</h2>
+        </div>
+      </ContentContainer>
+      <ContentContainer>
+        <div>
+          <h3>Centro de custo:</h3>
+          <h2>{analisaValor(sValorCcPagantes ? sValorCcPagantes: 0)}</h2>
+        </div>
+        <div>
+          <h3>Data de término:</h3>
+            <h2>{projeto?.infoProjetosInputDTO?.data_de_termino}</h2>
+        </div>
+      </ContentContainer>
+      <ContentContainer>
+        <div>
+          <h3>Limite de horas aprovadas:</h3>
+          <h2>{sEsforco}</h2>
+        </div>
+        <div>
+          <h3>Data de aprovação:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.data_de_aprovacao}</h2>
+        </div>
+      </ContentContainer>
+      <TableConfirm>
+        <div>
+          <p>Funcionários alocados</p>
+          <AiOutlineUsergroupAdd />
+        </div>    
+        <ul>                    
+          <li>
+            <p>Heloise Stefany Bianchi</p>
+            <HiMinusCircle />
+          </li>
+          <li>
+            <p>Heloise Stefany Bianchi</p>
+            <HiMinusCircle />
+          </li>
+          <li>
+            <p>Heloise Stefany Bianchi</p>
+            <HiMinusCircle />
+          </li>
+          <li>
+            <p>Heloise Stefany Bianchi</p>
+            <HiMinusCircle />
+          </li>
+          <li>
+            <p>Heloise Stefany Bianchi</p>
+            <HiMinusCircle />
+          </li>
+          <li>
+            <p>Heloise Stefany Bianchi</p>
+            <HiMinusCircle />
+          </li>
+          <li>
+            <p>Heloise Stefany Bianchi</p>
+            <HiMinusCircle />
+          </li>
+          <li>
+            <p>Heloise Stefany Bianchi</p>
+            <HiMinusCircle />
+          </li>
+        </ul>
+      </TableConfirm>
+    </SideContainer>
+    <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
+    <Footer tipo={"confirm_project"} ></Footer>
+    <div onClick={() => handleProjects()}>
+      <Button  tipo={"Confirmar"} text={"Confirmar"} /> 
+    </div>
+  </BoxConfirm> 
   <MenuRight>
     <ContIcons />
   </MenuRight>

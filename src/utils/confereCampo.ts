@@ -4,6 +4,7 @@ export default function analisaCampo(idElement: string, textResponse: string, id
     document.getElementById(idElementResponse)!.innerHTML = textResponse;
     return 0;
   }
+  
   document.getElementById(idElement)!.style.border = "";
   document.getElementById(idElementResponse)!.innerHTML = "";
   return 1;
@@ -36,5 +37,31 @@ export function analisaCampoLinhasdCcPagantes(listaCcPagantes: number) {
   if (confirm < listaCcPagantes * 2) {
     return 0; 
   }
+  
   return 1;
 }
+
+export function vrfCampo(conteudo: string, idCampo: string, idCampoDeResposta: string){
+  if (conteudo !== "") {
+    document.getElementById(idCampo)!.style.border = "";
+    document.getElementById(idCampoDeResposta)!.innerHTML = "";
+
+    return 1;
+  }
+
+  document.getElementById(idCampo)!.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+  document.getElementById(idCampoDeResposta)!.innerHTML = "*O campo não pode estar vazio!";
+  return 0;
+};
+
+export function vrfCampoAta(idCampo: string, idCampoDeResposta: string) {
+  if ((document.getElementById(idCampo) as HTMLInputElement).value === "") {
+    document.getElementById(idCampo)!.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+    document.getElementById(idCampoDeResposta)!.innerHTML = "*Ata obrigatória";
+    return 0;
+  }
+  
+  document.getElementById(idCampo)!.style.border = "";
+  document.getElementById(idCampoDeResposta)!.innerHTML = "";
+  return 1;
+};
