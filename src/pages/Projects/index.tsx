@@ -4,7 +4,7 @@ import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 import Card from '../components/CardProject/Card';
-import CardEsqueleto from '../components/CardProject/CardEsqueleto';
+//import CardEsqueleto from '../components/CardProject/CardEsqueleto';
 
 import { ContIcons } from '../components/MenuRight/styles';
 

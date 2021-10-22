@@ -76,7 +76,7 @@ const ConsultantList: React.FC<ListRoute> = ({tipo}) => {
                     {/* <div> */}
                         <div>
                             <label>Consultor:</label>
-                            <input type="text" placeholder="Pesquise aqui..." />
+                            <input id="consultor" type="text" placeholder="Pesquise aqui..." />
                         </div>
                         <div>
                             <label>{intl.get('tela_projetos.filtros.segundo')}:</label>

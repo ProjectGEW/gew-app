@@ -138,6 +138,10 @@ export const ContainerFiltro = styled.div`
         &:last-child {
             margin-right: 1.4vw;
         }
+
+        #consultor {
+            width: 22vw;
+        }
     }
 `;
 

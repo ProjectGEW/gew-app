@@ -35,8 +35,8 @@ export const BoxProjeto = styled.div`
   }
 
   #ataResponse {
-    margin-top: 9.6vh;
-    margin-left: 6.2vw;
+    margin-top: 9.8vh;
+    margin-left: -10vw;
   }
 
   /* Fim */
