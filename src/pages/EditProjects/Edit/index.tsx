@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar';
 import MenuRight from '../../components/MenuRight';
 import { ContIcons } from '../../components/MenuRight/styles';
 
-import { Container, PageContainer } from './styles';
+import { Container, PageContainer, ContentContainer } from './styles';
 import { AiOutlineCaretDown } from 'react-icons/ai';
 import Button from '../../components/Button';
 
@@ -64,12 +64,12 @@ const Edit: React.FC = () => {
                         <h1>Editar Projeto</h1>
                         <AiOutlineCaretDown />
                     </header>
-                    <ContainerChild tipo={'EditLeft'}>
+                    <ContentContainer className="left">
                         <Subtittle tipo={'ProjectData'} text={'Dados do Projeto'} />
-                    </ContainerChild>
-                    <ContainerChild tipo={'EditRight'}>
-
-                    </ContainerChild>
+                    </ContentContainer>
+                    <ContentContainer className="right">
+                        <Subtittle tipo={'t'} text={'Dados do Projeto'} />
+                    </ContentContainer>
                 </Container>
 
                 <Button tipo={'editProjetos'} text={'Confirmar'} />

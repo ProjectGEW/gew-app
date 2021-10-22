@@ -6,7 +6,6 @@ interface containerProps {
 export const Container = styled.div<containerProps>`
     width: 70vw;
     height: 68vh;
-    background-color: grey;
 
     ${props => props.tipo === "EditLeft" && css`
         width: 47.5vw;
