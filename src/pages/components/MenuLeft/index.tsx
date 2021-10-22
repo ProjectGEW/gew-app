@@ -9,7 +9,6 @@ import { IoNewspaperOutline, IoExitOutline } from 'react-icons/io5';
 import { FaUserAlt } from 'react-icons/fa';
 import { FiRefreshCcw } from 'react-icons/fi';
 import { RiDeleteBinLine} from 'react-icons/ri';
-import { useEffect } from "hoist-non-react-statics/node_modules/@types/react";
 
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
