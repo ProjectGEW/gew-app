@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Paper from "@material-ui/core/Paper";
 import Calendar from 'react-calendar';
 import { useHistory } from 'react-router-dom';
@@ -112,7 +112,7 @@ const RegisterProjects: React.FC = () => {
   // Ata
   const [file, setFile] = useState<Blob>();
   //console.log(file);
-  const [fileName, setFileName] = useState<string>();
+  const [fileName, setFileName] = useState<string>('');
 
   //const [errorInput, setErrorInput] = useState<boolean>();
 
@@ -121,7 +121,6 @@ const RegisterProjects: React.FC = () => {
   const [rowCC, setRowCC] = useState<JSX.Element[]>([<RowCcPagantes number={1} />]);
 
   const onDrop = useCallback((acceptedFiles) => {
-    //console.log(acceptedFiles)
     setFile(acceptedFiles[0]);
     setFileName(acceptedFiles[0].name);
   }, []);
@@ -359,6 +358,22 @@ const RegisterProjects: React.FC = () => {
     }
   }
 
+  const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
+
+  useEffect(() => {
+    if(verificaCliqueAta === true && fileName === '') {
+      document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
+    } else if(fileName !== '') {
+      if(file?.type !== 'application/pdf') {
+        document.getElementById("ataResponse")!.innerHTML = "Selecione um PDF*";  
+        setFile(undefined);
+        setFileName('');
+      } else {
+        document.getElementById("ataResponse")!.innerHTML = "";  
+      }
+    }
+  }, [verificaCliqueAta, fileName]);
+
 return (
   <>
     <Navbar />
@@ -387,11 +402,10 @@ return (
                 <textarea id="descricao" />
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
-              <div ref={ref}>
+              <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
                 <Paper elevation={0} {...rootProps}>
                   <label id="ata" htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
                   <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
-
                 </Paper>
                 <p id="ataResponse" className="msgErro"></p>
               </div>
