@@ -23,7 +23,7 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
             setCountVerbaTotalPorProjeto(response.data)
         })); 
 
-        api.get<number>(`projetos/count/verba/total`).then((response => {
+        api.get<number>(`projetos/count/verba/0`).then((response => {
             setCountVerbaTotal(response.data)
         })); 
     }, [numeroDoProjeto]);

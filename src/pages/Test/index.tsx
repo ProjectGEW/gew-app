@@ -17,7 +17,9 @@ import 'react-calendar/dist/Calendar.css';
 import Popup from 'reactjs-popup';
 import './estiloPopup.css';
 
-import { successfulNotify } from '../../hooks/SystemToasts'
+import { successfulNotify } from '../../hooks/SystemToasts';
+
+import CardEsqueleto from '../components/CardProject/CardEsqueleto';
 
 const Projects: React.FC = () => {
     const [file, setFile] = useState<Blob>();
@@ -70,12 +72,6 @@ const Projects: React.FC = () => {
         let addTarefa = {user: "67235", projeto: "182247"}
         localStorage.setItem('Notification', JSON.stringify(addTarefa));
     }
-
-    const [cardFile, setCardFile] = useState();
-
-    const handleUploadFile = (e: any) => setCardFile(e.target.files[0]);
-
-    //const ur = window.URL.createObjectURL(file);
     
     return (
         <>
@@ -100,8 +96,7 @@ const Projects: React.FC = () => {
             </Popup>
             <button onClick={() => window.location.replace("/projects")}>Teste rota</button>
             <button onClick={teste}>Testar localstorage</button>
-            <input type="file" onChange={handleUploadFile} accept="application/pdf"/>
-            <iframe src={file ? URL.createObjectURL(file) : file} width="640" height="480" allow="autoplay"></iframe>
+            <CardEsqueleto/>
         </Container>
         <MenuRight>
             <ContIcons />

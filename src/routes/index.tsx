@@ -31,9 +31,9 @@ const Routes: React.FC = () => (
         <Route path="/settings" component={Settings} />
         <Route path="/dashboard/:id" component={Dashboard} />
         <Route path="/details/:numeroDoProjeto" component={Details} />
-        <Route path="/allocate_consultants/view_projects" component={ProjectsList} />
-        <Route path="/allocate_consultants/consultants/:numeroDoProjeto" component={ConsultantList} />
-        <Route path="/allocate_consultants/profile/:numeroCracha" component={ConsultantProfile} />
+        <Route path="/consultants/view_projects" component={ProjectsList} />
+        <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} />
+        <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} />
         <Route path="/edit/:numeroDoProjeto" component={Edit} />
         {/* Área para testes */}
         <Route path="/test" component={Test} />

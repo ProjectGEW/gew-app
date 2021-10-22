@@ -86,7 +86,7 @@ const Dashboard: React.FC = () => {
                 const dataSecao = responseSecao.data;
                 setSecoes(dataSecao);
 
-                const responseCountUtilizada = await api.get(`projetos/count/verba/total`);
+                const responseCountUtilizada = await api.get(`projetos/count/verba/0`);
                 const dataCountUtilizada = responseCountUtilizada.data;
                 setCountUtilizada(dataCountUtilizada);
             }
@@ -120,7 +120,7 @@ const Dashboard: React.FC = () => {
         locales
     });
 
-    async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
+    /*async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
         
         let btns = ["BRL", "USD", "EUR"];
@@ -137,7 +137,7 @@ const Dashboard: React.FC = () => {
         } else if(valor === "EUR") {
             document.getElementById(valor)!.style.opacity = "1";
         }
-    }
+    }*/
 
     function defineStatus(valor: string) {
         var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];

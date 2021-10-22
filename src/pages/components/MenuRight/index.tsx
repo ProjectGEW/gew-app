@@ -12,7 +12,6 @@ import { GoGraph } from "react-icons/go";
 import { GiOrganigram } from "react-icons/gi";
 import { IoPersonAddSharp } from "react-icons/io5";
 
-/* Novos */
 const locales = {
   'pt-BR': require('../../../language/pt-BR.json'),
   'en-US': require('../../../language/en-US.json'),
@@ -92,7 +91,7 @@ const MenuRight: React.FC = () => {
           </TextMenuRight>
         </ContIcons>
       </a>
-      <a href="../allocate_consultants/view_projects">
+      <a href="/consultants/view_projects">
         <ContIcons id="five">
           <Icon>
             <GiOrganigram id="icons" color="#fff" />
