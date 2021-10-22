@@ -65,7 +65,7 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({ valor, fechar
               setProjetos(response.data);
         }));
   
-        api.get(`projetos/count/verba/total`).then((response => {
+        api.get(`projetos/count/verba/0`).then((response => {
             setCountVerbaTotal(response.data)
         })); 
     }, [countVerbaTotal]);
