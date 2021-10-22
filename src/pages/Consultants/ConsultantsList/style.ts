@@ -1,3 +1,4 @@
+import { shade } from "polished";
 import styled, { css } from "styled-components";
 
 interface ListRoute {
@@ -21,53 +22,169 @@ export const Container = styled.div`
     border-radius: 0.8vh;
 `;
 
-export const Arrow = styled.div`
+export const ContainerInfo = styled.div`
     width: 100%;
-    height: 4vh;
-    padding: 0.4vh 0 0 1.2vw;
+    height: 12vh;
 
-    svg {
-        width: 4vh;
-        height: auto;
-        color: #787676;
-        cursor: pointer;
-    }
+    padding-top: 1vh;
 
+    display: flex;
+    flex-direction: column;
 `;
 
-export const Tittle = styled.h1`
+export const ContainerTitle = styled.div`
     width: 100%;
-    height: 6vh;
-    padding-left: 3.8vw;
+    height: 12vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    color: #005DA5;
-    font-weight: bold;
-    font-size: 3.8vh;
+    h1 {
+        color: #00579D;
+        font-size: 3vh;
+        margin-left: 1.2vw;
 
+        display: flex;
+        align-items: center;
+    }
+
+    span {
+        width: 10vw;
+        height: 2.5vh;
+        margin-right: 1.5vw;
+        background-image: linear-gradient(to left, 
+            #64C3D5 15%, #fff 10%, #fff 19.3%,
+            #0091BD 19.3%, #0091BD 33%, #fff 30%, #fff 37%,
+            #005DA5 36%, #005DA5 50%, #fff 49%, #fff 54%,
+            #00579D 54%, #00579D 67%, #fff 65.1%, #fff 71%,
+            #0075B1 71%, #0075B1 84%, #fff 80%, #fff 88%,
+            #6AACDA 10%, #6AACDA 100%);
+    }
+`;
+
+export const ContainerFiltro = styled.div`
+    width: 100%;
+    height: 16vh;
+
+    border-bottom: 0.2vh solid #ccc;
+
+    display: flex;
+    place-content: flex-start space-between;
+    align-items: center;
+
+    h1 {
+        color: #00579D;
+        font-size: 3vh;
+        margin-left: 1.2vw;
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+
+        &:nth-child(3) {
+            form {
+                button {
+                    border: 0;
+                    padding: 0.8vh;
+                    font-size: 2vh;
+                    margin-left: 0.3vw;
+                    border-radius: 0.8vh;
+                    background-color: rgba(212, 212, 212, 0.3);
+                    color: #575757;
+
+                    &:nth-child(1) {
+                        background-color: rgba(212, 212, 212, 0.7);
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: rgba(212, 212, 212, 0.5);
+                    }
+                }
+            }
+        }
+        
+        label {
+            font-size: 2.6vh;
+            color: #00579D;
+
+            margin-right: 0.5vw;
+        }
+
+        select {
+            width: 12vw;
+            padding: 0.5vh;
+
+            color: #575757;
+            border: 0.2vh solid #c4c4c4;
+        }
+
+        input {
+            width: 12vw;
+            padding: 0.5vh;
+            padding-left: 1vh;
+
+            border: 0.2vh solid #ccc;
+
+            color: #00579D;
+
+            ::placeholder {
+                font-size: 1.8vh;
+                color: rgb(0, 0, 0, 0.4);
+            }
+        }
+
+        &:last-child {
+            margin-right: 1.4vw;
+        }
+    }
 `;
 
 export const Table = styled.table<ListRoute>`
     width: 70vw;
+    margin-top: 2vh;
     border-spacing: 0;
 
     tr {
         height: 8vh;
+
+        &:hover {
+            background-color: #f8f8f8;
+        }
     }
 
     td {
         padding: 0.7vh 0 0 1vw;
-        border-bottom: 0.1vh solid #c4c4c4;
+        border-bottom: 0.1vh solid #e9e9e9;
         font-size: 2.1vh;
 
+        select {
+            width: auto;
+            padding: 0.5vh;
+            margin-left: -0.25vw;
+
+            background-color: #fff;
+
+            font-size: 2vh;
+            color: #575757;
+            border: 0.1vh solid #c4c4c4;
+            cursor: pointer;
+        }
+
         button {
-            width: 6vw; 
-            height: 3.6vh;
-            background: #005DA5;
-            border: none;
-            border-radius: 1vh;
-            color: #fff;
-            font-size: 1.8vh;
+            padding: 0.8vh;
+            border: 0;
+            border-radius: 0.5vh;
+            margin-left: 0.8vw;
+            font-size: 2vh;
+            color: white;
             font-weight: bold;
+            background-color: #00579D;
+
+            &:hover {
+                background-color: ${shade(0.09, "#00579D")}
+            }
         }
     
         &:first-child {
@@ -77,7 +194,7 @@ export const Table = styled.table<ListRoute>`
                 font-size: 3.4vh;
                 padding-top: -1vh;
                 padding-bottom: 1vh;
-                margin: 0 1vw 0 -0.8vw;
+                margin: 0 1vw 0 -1vw;
                 background: limegreen;
                 border-radius: 0 0.4vh 0.4vh 0;
             }
@@ -99,8 +216,7 @@ export const Table = styled.table<ListRoute>`
         background-color: #005DA5;
         font-weight: bold;
         font-size: 2.4vh;
-        border: 0.1vh solid #c4c4c4;
-        border-radius: 1vh 1vh 0 0;
+        border-radius: 0.8vh 0.8vh 0 0;
 
         color: #fff;
     }
