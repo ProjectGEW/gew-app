@@ -7,7 +7,7 @@ import MenuRight from '../../components/MenuRight';
 import { ContIcons } from '../../components/MenuRight/styles';
 
 import { Container, MainProfileGrid, Email, Tittle } from './style';
-import { Arrow, Table, TableDimensions, TableScroll } from '../ConsultantsList/style';
+import { Table, TableDimensions, TableScroll } from '../ConsultantsList/style';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 
 import api from "../../../service/api";
@@ -75,9 +75,10 @@ const ConsultantProfile: React.FC = () => {
             <MenuLeft />
 
             <Container>
-                <Arrow>
+                <Tittle>
                     <HiArrowNarrowLeft />
-                </Arrow>
+                    <h1>Consultores Registrados</h1>    
+                </Tittle>
                 <MainProfileGrid>
                     <div id="photo">
                         <div id="user" />
