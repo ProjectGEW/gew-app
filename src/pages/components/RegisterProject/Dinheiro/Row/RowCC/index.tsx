@@ -1,5 +1,5 @@
 import React from "react"
-import styled from "styled-components";
+
 import api from "../../../../../../service/api";
 import { Linha } from "../../styles";
 
