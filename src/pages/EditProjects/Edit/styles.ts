@@ -50,3 +50,9 @@ export const PageContainer = styled.div`
     height: 155vh;
 `;
 
+export const ContentContainer = styled.div`
+    width: 47.5vw;
+    height: 107.5vh;
+    margin: 10vh 0 0 5vh;
+`;
+

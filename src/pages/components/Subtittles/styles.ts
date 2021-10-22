@@ -15,13 +15,14 @@ export const Subtittles = styled.h1<subtittleProps>`
 
     &::after {
         content: '';
-        width: 40vw;
+        width: 34vw;
         height: 0.2vh;
-        color: #d3d3d3;
+        background-color: #d3d3d3;
         position: absolute;
+        margin: 5vh 0 0 -15vw;
     }
 
     ${props => props.tipo === "ProjectData" && css`
-       width: 40vw;
+       width: 34vw;
     `}
 `;
