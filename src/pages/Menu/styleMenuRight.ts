@@ -54,7 +54,7 @@ export const ContIcons = styled.div`
 
 export const Icon = styled.div`
     width: 5.5vh;
-    heigth: 6vh;
+    //height: 6vh;
     margin-left: 3vh;
 `;
 
