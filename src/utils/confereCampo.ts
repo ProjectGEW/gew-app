@@ -4,6 +4,7 @@ export default function analisaCampo(idElement: string, textResponse: string, id
     document.getElementById(idElementResponse)!.innerHTML = textResponse;
     return 0;
   }
+  
   document.getElementById(idElement)!.style.border = "";
   document.getElementById(idElementResponse)!.innerHTML = "";
   return 1;
@@ -36,5 +37,6 @@ export function analisaCampoLinhasdCcPagantes(listaCcPagantes: number) {
   if (confirm < listaCcPagantes * 2) {
     return 0; 
   }
+  
   return 1;
 }

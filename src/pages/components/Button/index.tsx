@@ -1,6 +1,4 @@
 import React from "react";
-import {BrowserRouter as Router, Route } from "react-router-dom";
-import Test2 from "../../test2";
 
 import { Container } from "./style";
 
