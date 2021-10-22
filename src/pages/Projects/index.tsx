@@ -4,6 +4,7 @@ import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 import Card from '../components/CardProject/Card';
+import CardEsqueleto from '../components/CardProject/CardEsqueleto';
 
 import { ContIcons } from '../components/MenuRight/styles';
 
@@ -70,13 +71,14 @@ const Projects: React.FC = () => {
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
-    //const [numeroProjeto, setNumeroProjeto] = useState<IProjetoProps>();
+    const [contagemProjetos, setContagemProjetos] = useState<IProjetoProps[]>([]);
 
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');
         const data = response.data;
         setProjetos(data);
         setGlobal(data);
+        setContagemProjetos(data);
 
         const responseSecao = await api.get<ISecoes[]>('secoes');
         const dataSecao = responseSecao.data;
@@ -126,6 +128,7 @@ const Projects: React.FC = () => {
             const data = response.data;
             setProjetos(data);
             setGlobal(data);
+            setContagemProjetos(data);
 
         } else if (selectedOption === 'Todos') {
             if (statusteste === 'Todos') {
@@ -137,6 +140,7 @@ const Projects: React.FC = () => {
             const data = response.data;
             setProjetos(data);
             setGlobal(data);
+            setContagemProjetos(data);
         }
     }
 
@@ -157,6 +161,7 @@ const Projects: React.FC = () => {
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
             setGlobal(dataPorSecao);
+            setContagemProjetos(dataPorSecao);
 
         } else if (value === 'Todos') {
             if (status === '') {
@@ -168,6 +173,7 @@ const Projects: React.FC = () => {
             const dataPorSecao = responsePorSecao.data;
             setProjetos(dataPorSecao);
             setGlobal(dataPorSecao);
+            setContagemProjetos(dataPorSecao);
         }
     };
 
@@ -250,14 +256,14 @@ const Projects: React.FC = () => {
                     <Center>
                         {
                             projetos ?
-                                projetos.map((projeto) =>
-                                    <Card key={projeto.infoprojetoDTO.id} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
-                                )
-                                :
-                                <Msg>
-                                    <BiHourglass size={40} />
-                                    <h1>{intl.get('tela_projetos.msg.texto')}</h1>
-                                </Msg>
+                            projetos.map((projeto) =>
+                                <Card key={projeto.infoprojetoDTO.id} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                            )
+                            :
+                            <Msg>
+                                <BiHourglass size={40} />
+                                <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                            </Msg>
                         }
                     </Center>
                 </ProjectsGrid>
