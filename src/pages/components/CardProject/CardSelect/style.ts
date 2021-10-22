@@ -17,26 +17,8 @@ interface StatusProps {
 }*/
 
 export const Link = styled.a`
-    :hover {
-        color: #00579d;
-
-        text-decoration: none;
-    }
-
-    :active {
-        color: #00579d;
-        text-decoration: none;
-    }
-    :link {
-        color: #00579d;
-
-        text-decoration: none;
-    }
-
-    :visited {
-        color: #00579d;
-        text-decoration: none;
-    }
+    text-decoration: none;
+    //color: ;
 `;
 
 export const Card = styled.div`
@@ -44,7 +26,7 @@ export const Card = styled.div`
     height: 20vh;
 
     margin-top: 3vh;
-
+    
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -91,12 +73,12 @@ export const BoxLeft = styled.div`
     width: 24vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     div {
         display: flex;
         flex-direction: column;
-        padding: 5px;
+        padding: 2px;
 
         strong { 
             color: #222;
@@ -119,21 +101,21 @@ export const BoxLeft = styled.div`
             font-size: 2.1vh;
             font-weight: bold;
             padding-top: 2px;
-            padding-left: 12px;
+            padding-left: 10px;
+            color: #000;
         }
 
         &:first-child p:first-child {
             color: #229FC6;
         }
-
-        &:last-child {
-            flex-direction: column;
-        }
         
         &:last-child p {
             color: #787676;
-            margin-bottom: 0.4vh;
-        } 
+        }
+        
+        &:last-child {
+            margin-top: 1.4vh;
+        }
     }
 `;
 
@@ -141,47 +123,35 @@ export const BoxRight = styled.div`
     width: 13vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     
     div {
-        margin-top: 13vh;
         display: flex;
-        
-        justify-content: center;
+        flex-direction: column;
         padding: 5px;
 
-        &:first-child {
-            flex-direction: row-reverse;
-            justify-content: space-between;
-        }
-
-        svg {
-            color: #00579D;
-            display: flex;
-
-            &:hover { 
-                color: #004985;
-            }
+        strong { 
+            color: #000;
+            font-weight: 500;
+            margin-right: 0.2vw;
         }
 
         p {
-            font-size: 2vh;           
+            font-size: 2vh;
+            padding: 2px;
+            padding-left: 0.6vw;
             text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.2);
             color: #5B5B5B;
 
             display: flex;
             align-items: center;
+        }
 
-            strong { 
-                color: #000;
-                font-weight: 500;
-                margin-right: 0.2vw;
-            }
-
-            svg {
-                color: #00579D;
-                margin-right: 0.2vw;
-            }
+        h1 {
+            font-size: 2.2vh;
+            font-weight: bold;
+            padding-top: 2px;
+            padding-left: 12px;
         }
 
         &:first-child strong {
@@ -189,13 +159,25 @@ export const BoxRight = styled.div`
         }
 
         &:last-child p:last-child {
-            padding-top: 1.7vh;
-            padding-bottom: 0.8vh;
             text-align: left;
         }
         
         &:last-child p {
             color: #5B5B5B;
+        }
+        
+        &:last-child strong {
+            font-weight: 500;
+        }
+
+        &:last-child {
+            padding: 0;
+            margin-top: 5.2vh;
+
+            svg {
+                color: #229FC6;
+                margin-right: 0.2vw;
+            }
         }
     }
 `;
