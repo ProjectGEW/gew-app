@@ -228,7 +228,7 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
         }
     `}
 
-    ${props => props.localDaRota === "/allocate_consultants/view_projects" && css`
+    ${props => props.localDaRota === "/consultants/view_projects" && css`
         #five { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;
