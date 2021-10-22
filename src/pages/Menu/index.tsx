@@ -79,7 +79,7 @@ const Menu: React.FC = () => {
 
             setCounts(contagem);
 
-            const response_perData = await api.get<CountPerData[]>(`projetos/count/${today_string}`);
+            const response_perData = await api.get<CountPerData[]>(`projetos/count/last-seven`);
             const contagem_perData = response_perData.data;
 
             setCountsPerData(contagem_perData);
@@ -237,7 +237,7 @@ const Menu: React.FC = () => {
                     </TextMenuRight>
                 </ContIcons>
             </a>
-            <a href="./allocate_consultants/view_projects">
+            <a href="./consultants/view_projects">
                 <ContIcons id="five">
                     <Icon> 
                         <GiOrganigram size={50} color="#fff" />
