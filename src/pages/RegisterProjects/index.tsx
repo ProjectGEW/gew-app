@@ -30,17 +30,13 @@ import { Container, ContainerRegister, Info, Content, Error, LinhaTitulo } from 
 
 import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '../test2/styles';
 
-import analisaCampo, { vrfCampo } from '../../utils/confereCampo';
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
+import { vrfCampo, validacaoDosCamposCadastros } from '../../utils/confereCampo';
 
 interface ISecaoResponse {
   nome: string;
-}
-
-interface IError {
-  titulo: string;
 }
 
 interface IProjetoResponse {
@@ -340,6 +336,7 @@ const RegisterProjects: React.FC = () => {
 
   const [secaoSolicitante, setSecaoSolicitante] = useState('');
   const [secaoResponsavel, setSecaoResponsavel] = useState('');
+  
   async function handleSecao(nome: string, campo: string){ 
     try {
       const response = await api.get<ISecaoResponse>(`secoes/nome/${nome}`);
@@ -390,7 +387,7 @@ return (
             </h1>
           </LinhaTitulo>
           <BoxProjeto id="boxProjeto">
-            <span>
+            <span> 
               <div id="left-box">
                 <label>Número do projeto:</label>
                 <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampo(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
@@ -399,7 +396,7 @@ return (
                 <input type="text" id="titulo" onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
-                <textarea id="descricao" />
+                <textarea id="descricao" onBlur={(props) => { vrfCampo(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
               <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
@@ -414,17 +411,6 @@ return (
               <Preview src={file ? URL.createObjectURL(file) : file}/>
             : <Preview src={'null'}/>
             }
-            <span onClick={() => {
-              let confirm = 0;
-
-              confirm += analisaCampo("btnUpload", "ATA obrigatória*", "ataResponse");
-              confirm += analisaCampo("numeroProjeto", "Informe o número do projeto*", "numeroProjetoResponse");
-              confirm += analisaCampo("titulo", "Informe o titulo do projeto*", "tituloResponse");
-              confirm += analisaCampo("descricao", "Informe a descrição do projeto*", "descricaoResponse");
-              if (confirm < 4 ) {
-                return;
-              }
-              trocarEtapa("boxResponsavel")}}></span>
           </BoxProjeto>
           <LinhaTitulo>
             <h1>
@@ -435,10 +421,22 @@ return (
             <span>
               <div>
                 <label>Nome do responsável:</label>
-                <input type="text" id="nome_responsavel" onBlur={(props) => handleSecao(props.target.value, "secao_responsavel")}/>
+                <input type="text" id="nome_responsavel" onBlur={(props) => {
+                  if (props.target.value !== "") {
+                    handleSecao(props.target.value, "secao_responsavel"); 
+                  }
+              
+                  vrfCampo(props.target.value, "nome_responsavel", "responsavelResponse");
+                }}/>
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
-                <input type="text" id="nome_solicitante" onBlur={(props) => handleSecao(props.target.value, "secao_solicitante")}/>
+                <input type="text" id="nome_solicitante" onBlur={(props) =>  {
+                  if (props.target.value !== "") {
+                    handleSecao(props.target.value, "secao_solicitante");
+                  }
+
+                  vrfCampo(props.target.value, "nome_solicitante", "solicitanteResponse");
+                }}/>
                 <p id="solicitanteResponse" className="msgErro"></p>
               </div>
               <div>
@@ -448,14 +446,6 @@ return (
                 <input type="text" id="secao_solicitante"/>
               </div>
             </span>
-            <span onClick={() => {
-              let confirm = 0;
-              confirm += analisaCampo("nome_responsavel", "Informe o nome do responsável*", "responsavelResponse");
-              confirm += analisaCampo("nome_solicitante", "Informe o nome do solicitante*", "solicitanteResponse");
-              if (confirm < 2 ) {
-                return;
-              }
-              trocarEtapa("boxDinheiro")}}>{/*<Button  tipo={"etapaResponsaveis"} text={"Continuar"} />*/}</span>
           </BoxResponsavel>
           <LinhaTitulo>
             <h1>
@@ -479,8 +469,8 @@ return (
                 </div>
                 <div>
                   <h2>TOTAL:</h2>
-                  <input id="totalEsforco" type="text" value={sEsforco? sEsforco: 0} />
-                  <input id="totalValor" type="text" value={sValorDespesa? analisaValor(sValorDespesa): 0} />
+                  <input id="totalEsforco" type="text" disabled value={sEsforco? sEsforco: 0}/>
+                  <input id="totalValor" type="text" disabled value={sValorDespesa? analisaValor(sValorDespesa): 0}/>
                   <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
                 </div>
               </Total>
@@ -520,9 +510,36 @@ return (
               <label>Data de aprovação:</label>
             </div>
             <div className="divDatas">
-              <input type="text" value={dataInicio} id="data_de_inicio" onClick={() => {setSelected("inicio")}} />
-              <input type="text" value={dataFim} id="data_de_termino" onClick={() => {setSelected("fim")}} />
-              <input type="text" value={dataAprovacao} id="data_de_aprovacao" onClick={() => {setSelected("aprovacao")}} />
+              <input type="text" value={dataInicio} id="data_de_inicio" 
+                onClick={() => {setSelected("inicio")}} 
+                onBlur={(props) => {
+                  if (props.target.value === "") {
+                    props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                    return;
+                  }
+                  props.target.style.border = "";
+                }}
+              />
+              <input type="text" value={dataFim} id="data_de_termino" 
+                onClick={() => {setSelected("fim")}}
+                onBlur={(props) => {
+                  if (props.target.value === "") {
+                    props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                    return;
+                  }
+                  props.target.style.border = "";
+                }} 
+              />
+              <input type="text" value={dataAprovacao} id="data_de_aprovacao" 
+                onClick={() => {setSelected("aprovacao")}} 
+                onBlur={(props) => {
+                  if (props.target.value === "") {
+                    props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                    return;
+                  }
+                  props.target.style.border = "";
+                }}    
+              />
             </div>
             <div>
               {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
@@ -531,27 +548,15 @@ return (
             </div>
           </span>
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
-          <span onClick={() => {
-            if( inputErrorInit === "") {
-              if (inputErrorFim === "") {
-                if(inputErrorAprov === "") {
-                  trocarMainEtapa("confirm-data");
-                  setInfos();
-                }
-                return; 
-              }
-              return; 
-            }  
-            return;    
-          }}>
-            <Button tipo={"continuarCadastro"} text={"Confirmar"}/> 
-          </span>
+          <button onClick={() => validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)}> 
+          teste
+          </button>
         </BoxDatas>
       </Content>
     </ContainerRegister>
   </Container >
-<BoxConfirm id="confirm-data"> 
-  <h1>Confirmar Informações</h1>
+  <BoxConfirm id="confirm-data"> 
+    <h1>Confirmar Informações</h1>
     <SideContainer>
       <ContentContainer>
         <div>
