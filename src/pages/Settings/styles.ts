@@ -237,8 +237,8 @@ export const Right = styled.div`
                 content: '';
                 position: absolute;
                 width: 1vw;
-                height: 1.9vh;
-                background: white;
+                height: 2vh;
+                background: #fff;
                 margin-left: 0.3vw;
 
                 border-radius: 50vw;
