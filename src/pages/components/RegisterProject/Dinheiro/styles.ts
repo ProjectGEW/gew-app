@@ -166,11 +166,11 @@ export const Linha = styled.div`
             width: 22vw;
         }
 
-        &:nth-child(3) {
+        &:nth-child(2) {
             width: 8vw;
         }
 
-        &:nth-child(5) {
+        &:nth-child(3) {
             width: 12vw;
         }
     }
