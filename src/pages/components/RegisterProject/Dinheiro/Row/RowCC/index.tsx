@@ -35,11 +35,17 @@ const RowCcPagantes: React.FC<Iteste> = ({number}) => {
   
   return (
     <Linha id={`C${number}`}>
-      <input type="text" id={conCatCentroDeCusto} placeholder="092765143" onBlur={(props) => handleSecao(
-        props.target.value, conCatResponsavel
-      )}/>
+      <input type="text" id={conCatCentroDeCusto} placeholder="092765143" onBlur={(props) => {
+        if (props.target.value === "") {
+          props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+          return;
+        }
+        
+        handleSecao(props.target.value, conCatResponsavel);
+        props.target!.style.border = "";
+      }}/>
       <p id={conCatccPagantesResponse} className="one msgErro"/>
-      <input type="text" id={conCatResponsavel} placeholder="André Borges Lima" />
+      <input type="text" id={conCatResponsavel} disabled placeholder="André Borges Lima" />
       <input type="text" id={conCatValor} placeholder="1" className="alinhar" />
       <p id={conCatccValorResponse} className="two msgErro"/>
     </Linha>

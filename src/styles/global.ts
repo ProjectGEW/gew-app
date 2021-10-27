@@ -23,6 +23,10 @@ export default createGlobalStyle`
     font: 16px Roboto, sans-serif;
   }
  
+  input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+  }
+
   button {
     cursor: pointer;
   }
