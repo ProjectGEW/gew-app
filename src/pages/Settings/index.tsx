@@ -23,14 +23,14 @@ const Settings: React.FC = () => {
 
     useEffect(() => {
         if(animacao === true) {
-            document.getElementById("animation")!.style.backgroundColor = "#00579D";
-            document.getElementById("animation")!.style.transform = "rotate(180deg)";
+            document.getElementById("animation")!.style.backgroundColor = "#adffb0";
+            document.getElementById("animation")!.innerHTML = "Ativado";
 
             localStorage.setItem('Animation', "true");
         } else {
-            document.getElementById("animation")!.style.backgroundColor = "#6B6B6B";
-            document.getElementById("animation")!.style.transform = "rotate(0deg)";   
-            
+            document.getElementById("animation")!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";            
+            document.getElementById("animation")!.innerHTML = "Desativado";
+
             localStorage.setItem('Animation', "false");
         }
     },[animacao]);
@@ -69,7 +69,7 @@ const Settings: React.FC = () => {
                 </Left>
                 <Right>
                     <div>
-                        <span id="animation" onClick={() => setAnimacao(!animacao)} />
+                        <button id="animation" onClick={() => setAnimacao(!animacao)}>Ativar</button>
                     </div>
                 </Right>
             </Container>
@@ -95,7 +95,7 @@ const Settings: React.FC = () => {
                             <input type="text"/>
                             <FaEdit size={20}/>
                         </p>
-                        <span id="notification"/>
+                        <button id="notification">Desativado</button>
                     </div>
                 </Right>
             </Container>

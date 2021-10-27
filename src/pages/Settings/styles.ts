@@ -18,6 +18,27 @@ export const ContainerHome = styled.div`
     background-color: #fff;
     box-shadow: 0.25vh 0.25vh rgb(0, 0, 0, 0.25);
     border-radius: 0.8vh;
+
+    #animation, #notification {
+        width: auto;
+        margin-top: 2vh;
+        margin-right: 0vw;
+        border: 0;
+        padding: 1vh 3vh 1vh 3vh;
+        font-size: 2vh;
+        border-radius: 0.8vh;
+        background-color: rgba(212, 212, 212, 0.3);
+        color: #575757;
+
+        &:nth-child(1) {
+            background-color: rgba(212, 212, 212, 0.7);
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(212, 212, 212, 0.5);
+        }
+    }     
 `;
 
 export const Container = styled.div`
@@ -218,31 +239,5 @@ export const Right = styled.div`
                 cursor: pointer;
             }
         }
-
-        span {
-            width: 4vw;
-            height: 3vh;
-            background: #6B6B6B;
-            border: 0;
-            border-radius: 50vw;
-
-            display: flex;
-            align-items: center;
-
-            &:hover {
-                cursor: pointer;
-            }
-
-            &:before {
-                content: '';
-                position: absolute;
-                width: 1vw;
-                height: 2vh;
-                background: #fff;
-                margin-left: 0.3vw;
-
-                border-radius: 50vw;
-            }
-        }     
     }
 `;

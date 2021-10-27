@@ -21,11 +21,11 @@ interface SingInFormData {
 
 const Login: React.FC = () => {  
 
-    /* Definição do idioma principal */
+    /* Definição do idioma principal - Revisar */
     let linguagemPadrao = {flag: "BR", code: "pt-BR"}
     localStorage.setItem('Language', JSON.stringify(linguagemPadrao));
 
-    /* Definição da animação dos gráficos */
+    /* Definição da animação dos gráficos - Revisar */
     localStorage.setItem('Animation', "false");
 
     const formRef = useRef<FormHandles>(null);
