@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import MenuRight from '../components/MenuRight';
@@ -10,32 +10,30 @@ import { ContainerHome, Container, Left, Right } from './styles';
 
 const Settings: React.FC = () => {
 
-    /*const storage = localStorage.getItem('Animation');
+    const [recebeAnimacao] = useState(() => {
+        let animacaoStorage = localStorage.getItem('Animation');
 
-      if(storage) {
-        const verifica = JSON.parse(storage);
-        alert(verifica);
+        if(animacaoStorage) {
+            let animacaoObject = JSON.parse(animacaoStorage);
+            return animacaoObject;
+        } 
+    });
 
-        if(verifica == "true") {
+    const [animacao, setAnimacao] = useState(recebeAnimacao);
+
+    useEffect(() => {
+        if(animacao === true) {
             document.getElementById("animation")!.style.backgroundColor = "#00579D";
             document.getElementById("animation")!.style.transform = "rotate(180deg)";
-        }
-      } */
 
-    // Revisão*****
-    const activeButton = (x: String) => {
-        if(x === "animation") {
-            document.getElementById("animation")!.style.backgroundColor = "#00579D";
-            document.getElementById("animation")!.style.transform = "rotate(180deg)";
-
-            let animation = {animation: "true"}
-            localStorage.setItem('Animation', JSON.stringify(animation));
-            
+            localStorage.setItem('Animation', "true");
         } else {
             document.getElementById("animation")!.style.backgroundColor = "#6B6B6B";
-            document.getElementById("animation")!.style.transform = "rotate(0deg)";
-        } 
-    }
+            document.getElementById("animation")!.style.transform = "rotate(0deg)";   
+            
+            localStorage.setItem('Animation', "false");
+        }
+    },[animacao]);
 
     const userName = localStorage.getItem('User:nome');
 
@@ -71,7 +69,7 @@ const Settings: React.FC = () => {
                 </Left>
                 <Right>
                     <div>
-                        <span id="animation" onClick={() => activeButton("animation")} />
+                        <span id="animation" onClick={() => setAnimacao(!animacao)} />
                     </div>
                 </Right>
             </Container>
@@ -86,18 +84,18 @@ const Settings: React.FC = () => {
                 <Right>
                     <div>
                         <p>
-                            <input type="text" placeholder={userName ? userName : "Renato Silva"}/>
+                            <input type="text" placeholder={userName ? userName : ""}/>
                             <FaEdit size={20}/>
                         </p>
                         <p>
-                            <input type="password" placeholder="**************"/>
+                            <input type="password"/>
                             <FaEdit size={20}/>
                         </p>
                         <p>
-                            <input type="text" placeholder="foto_perfil.png"/>
+                            <input type="text"/>
                             <FaEdit size={20}/>
                         </p>
-                        <span id="notification" onClick={() => activeButton("not")} />
+                        <span id="notification"/>
                     </div>
                 </Right>
             </Container>
