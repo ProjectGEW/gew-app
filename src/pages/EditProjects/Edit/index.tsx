@@ -51,7 +51,10 @@ interface CardContent {
         descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
+        data_de_aprovacao: string;
         status: string;
+        responsavel: IFuncionario;
+        solicitante: IFuncionario;
         horas_apontadas: number;
         secao: string;
     };
@@ -77,6 +80,9 @@ interface IProjeto {
   ccPagantesInputDTO?: ICCpagantes[]
 }
 
+interface IFuncionario {
+  nome:string;
+}
 interface IDespesas {
   nome?: string;
   esforco?: number;
@@ -91,6 +97,38 @@ interface ICCpagantes{
 
 const RegisterProjects: React.FC = () => {
 
+    const initalValue = {
+        infoProjetosInputDTO: {
+          numeroDoProjeto: 0,
+          titulo: "",
+          descricao: "",
+          nome_responsavel: "",
+          nome_solicitante: "",
+          data_de_inicio: "",
+          data_de_termino: "",
+          data_de_aprovacao: ""
+        },
+        despesasInputDTOS: [
+          {
+            nome: "",
+            esforco: 0,
+            valor: 0
+          }
+        ],
+        ccPagantesInputDTO: [
+          {
+            secao_id: 0,
+            valor: 0
+          }
+        ]
+      }
+    
+      initalValue.despesasInputDTOS.shift();
+      initalValue.ccPagantesInputDTO.shift();
+    
+      //Projeto
+      const [projeto, setProjeto] = useState<IProjeto>();
+
     const [data, setData] = useState("");
     const { numeroDoProjeto }: {numeroDoProjeto: string}  = useParams();
     function teste() {
@@ -98,10 +136,10 @@ const RegisterProjects: React.FC = () => {
         console.log(data.substring(12, -1));
     }
     //Projeto
-    const [projeto, setProjeto] = useState<CardContent>();
+    const [projetoEdit, setProjetoEdit] = useState<CardContent>();
     useEffect(() => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-            setProjeto(response.data);
+            setProjetoEdit(response.data);
       }))
     }, [numeroDoProjeto]);
   const history = useHistory();
@@ -281,25 +319,25 @@ const RegisterProjects: React.FC = () => {
     }
   }
   
-  const handleProjects = useCallback( async () => {
-    try {
-      await api
-      .post<IProjetoResponse>("projetos", projeto)
-      .then((response) => {
-        const formData = new FormData();
+//   const handleProjects = useCallback( async () => {
+//     try {
+//       await api
+//       .post<IProjetoResponse>("projetos", projetoEdit)
+//       .then((response) => {
+//         const formData = new FormData();
 
-        formData.append("file", file ? file : "");
-        api.post(`files/upload/${response.data.numeroDoProjeto}`, formData);
+//         formData.append("file", file ? file : "");
+//         api.post(`files/upload/${response.data.numeroDoProjeto}`, formData);
 
-        history.push('/projects');
-        successfulNotify('Projeto cadastrado com sucesso!');
-      })
-      .catch((e) => console.log(e.response.data.titulo));
-    } catch (e) { 
-      console.log(`Error: ${e}`);
-      errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
-    }
-  }, [projeto, file, history]);
+//         history.push('/projects');
+//         successfulNotify('Projeto cadastrado com sucesso!');
+//       })
+//       .catch((e) => console.log(e.response.data.titulo));
+//     } catch (e) { 
+//       console.log(`Error: ${e}`);
+//       errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
+//     }
+//   }, [projeto, file, history]);
 
   const [secaoSolicitante, setSecaoSolicitante] = useState('');
   const [secaoResponsavel, setSecaoResponsavel] = useState('');
@@ -322,6 +360,11 @@ const RegisterProjects: React.FC = () => {
     }
   }
 
+  function secao() {
+    handleSecao(projetoEdit?.infoprojetoDTO.responsavel.nome ? projetoEdit?.infoprojetoDTO.responsavel.nome: "" , "secao_responsavel");
+    handleSecao(projetoEdit?.infoprojetoDTO.solicitante.nome ? projetoEdit?.infoprojetoDTO.solicitante.nome: "" , "secao_solicitante")
+  }
+
   const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
 
   useEffect(() => {
@@ -342,7 +385,7 @@ return (
   <>
     <Navbar />
     <MenuLeft />
-    <Container id="set-data" >
+    <Container id="set-data" onLoad={secao}>
       <ContainerRegister id="ContainerRegister">
         <Info>
           <h1>Cadastrar Projeto</h1>
@@ -357,13 +400,17 @@ return (
             <span> 
               <div id="left-box">
                 <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampo(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
-                <p id="numeroProjetoResponse" className="msgErro"></p>
+                <input type="number" id="numeroProjeto" disabled value={projetoEdit?.infoprojetoDTO.numeroDoProjeto}/>
                 <label>Título do projeto: </label>
-                <input type="text" id="titulo" onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}/>
+                <input type="text" id="titulo" 
+                  defaultValue={projetoEdit?.infoprojetoDTO.titulo}
+                  onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}
+                />
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
-                <textarea id="descricao" onBlur={(props) => { vrfCampo(props.target.value, "descricao", "descricaoResponse"); }}/>
+                <textarea id="descricao" 
+                  defaultValue={projetoEdit?.infoprojetoDTO.descricao}
+                  onBlur={(props) => { vrfCampo(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
               <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
@@ -388,7 +435,9 @@ return (
             <span>
               <div>
                 <label>Nome do responsável:</label>
-                <input type="text" id="nome_responsavel" onBlur={(props) => {
+                <input type="text" id="nome_responsavel"
+                  defaultValue={projetoEdit?.infoprojetoDTO.responsavel.nome} 
+                  onBlur={(props) => {
                   if (props.target.value !== "") {
                     handleSecao(props.target.value, "secao_responsavel"); 
                   }
@@ -397,7 +446,9 @@ return (
                 }}/>
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
-                <input type="text" id="nome_solicitante" onBlur={(props) =>  {
+                <input type="text" id="nome_solicitante" 
+                  defaultValue={projetoEdit?.infoprojetoDTO.solicitante.nome}
+                  onBlur={(props) =>  {
                   if (props.target.value !== "") {
                     handleSecao(props.target.value, "secao_solicitante");
                   }
@@ -408,9 +459,9 @@ return (
               </div>
               <div>
                 <label>Seção do responsável:</label>
-                <input type="text" id="secao_responsavel" />
+                <input type="text" defaultValue={secaoResponsavel} id="secao_responsavel" />
                 <label id="label_secao_solicitante">Seção do solicitante:</label>
-                <input type="text" id="secao_solicitante"/>
+                <input type="text" defaultValue={secaoSolicitante} id="secao_solicitante"/>
               </div>
             </span>
           </BoxResponsavel>
@@ -479,6 +530,7 @@ return (
             <div className="divDatas">
               <input type="text" value={dataInicio} id="data_de_inicio" 
                 onClick={() => {setSelected("inicio")}} 
+                defaultValue={projetoEdit?.infoprojetoDTO.data_de_inicio}
                 onBlur={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -489,6 +541,7 @@ return (
               />
               <input type="text" value={dataFim} id="data_de_termino" 
                 onClick={() => {setSelected("fim")}}
+                defaultValue={projetoEdit?.infoprojetoDTO.data_de_termino}
                 onBlur={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -499,6 +552,7 @@ return (
               />
               <input type="text" value={dataAprovacao} id="data_de_aprovacao" 
                 onClick={() => {setSelected("aprovacao")}} 
+                defaultValue={projetoEdit?.infoprojetoDTO.data_de_aprovacao}
                 onBlur={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -642,7 +696,7 @@ return (
     </SideContainer>
     <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
     <Footer tipo={"confirm_project"} ></Footer>
-    <div onClick={() => handleProjects()}>
+    <div>
       <Button  tipo={"Confirmar"} text={"Confirmar"} /> 
     </div>
   </BoxConfirm> 
