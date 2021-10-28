@@ -9,7 +9,7 @@ interface ErrorProps {
 }
 
 export const Container = styled.div`
-  height: 274vh;
+  height: 279vh;
   position: absolute;
   top: 14vh;
   left: 21vw;
@@ -25,7 +25,7 @@ export const Container = styled.div`
 
 export const ContainerRegister = styled.div`
     width: 60vw;
-    height: 267vh;
+    height: 273vh;
 
     display: flex;
     flex-direction: column;
@@ -33,6 +33,11 @@ export const ContainerRegister = styled.div`
     background-color: #fff;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border-radius: 0.8vh;
+
+    #button-holding {
+        height: 1vh;
+        width: 2vw;
+    }
 `;
 
 export const Info = styled.div`
@@ -55,7 +60,7 @@ export const Info = styled.div`
 
 export const Content = styled.div`
     width: 100%;
-    height: 73vh;
+    height: 75vh;
 
     padding: 1vw 0vw 0vh 1.6vw;
 

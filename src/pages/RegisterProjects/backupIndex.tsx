@@ -35,7 +35,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 //import { SideContainer } from '../RegisterConsultants/styles';
 
-import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
+import { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'

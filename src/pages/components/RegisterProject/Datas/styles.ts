@@ -10,6 +10,7 @@ export const BoxDatas = styled.div<FormDataProps>`
     width: 100%;
     height: 57vh;
 
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: flex-start;

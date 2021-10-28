@@ -38,7 +38,7 @@ import { vrfCampo, validacaoDosCamposCadastros } from '../../utils/confereCampo'
 interface ISecaoResponse {
   nome: string;
 }
-
+ 
 interface IProjetoResponse {
   numeroDoProjeto: number;
 }
@@ -128,23 +128,23 @@ const RegisterProjects: React.FC = () => {
 
   const { ref, ...rootProps } = getRootProps();
   // Trocar etapas
-  var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
+  // var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
 
-  const [etapa, setEtapas] = useState('');
+  // const [etapa, setEtapas] = useState('');
 
-  function trocarEtapa(proxEtapa: string) {
-    if (proxEtapa === "boxDinheiro") {
-      document.getElementById("btnDin")!.style.display = "block";
-    } else if (proxEtapa === "boxDatas" || proxEtapa === "boxResponsavel" || proxEtapa === "boxProjeto") {
-      document.getElementById("btnDin")!.style.display = "none";
-    }
+  // function trocarEtapa(proxEtapa: string) {
+  //   if (proxEtapa === "boxDinheiro") {
+  //     document.getElementById("btnDin")!.style.display = "block";
+  //   } else if (proxEtapa === "boxDatas" || proxEtapa === "boxResponsavel" || proxEtapa === "boxProjeto") {
+  //     document.getElementById("btnDin")!.style.display = "none";
+  //   }
 
-    for (var x = 0; x < 4; x++) {
-      document.getElementById(etapas[x])!.style.display = "none";
-    }
-    document.getElementById(proxEtapa)!.style.display = "block";
-    setEtapas(proxEtapa);
-  }
+  //   for (var x = 0; x < 4; x++) {
+  //     document.getElementById(etapas[x])!.style.display = "none";
+  //   }
+  //   document.getElementById(proxEtapa)!.style.display = "block";
+  //   setEtapas(proxEtapa);
+  // }
 
   var setarEConfirmar = ["set-data", "confirm-data"];
 
@@ -327,7 +327,9 @@ const RegisterProjects: React.FC = () => {
         history.push('/projects');
         successfulNotify('Projeto cadastrado com sucesso!');
       })
-      .catch((e) => console.log(e.response.data.titulo));
+      .catch((e) => 
+        errorfulNotify(e.response.data.titulo)
+      );
     } catch (e) { 
       console.log(`Error: ${e}`);
       errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
@@ -491,7 +493,7 @@ return (
                 </div>
                 <div>
                   <h2>TOTAL:</h2>
-                  <input id="totalValor" type="text" value={0} />
+                  <input id="totalValor" type="text" value={sValorCcPagantes? analisaValor(sValorCcPagantes): 0} />
                   <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
                 </div>
               </Total>
@@ -548,11 +550,17 @@ return (
             </div>
           </span>
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
-          <button onClick={() => validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)}> 
-          teste
-          </button>
         </BoxDatas>
       </Content>
+      <span id='button-holding' onClick={() => { 
+        if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
+          setInfos();
+          trocarMainEtapa('confirm-data');
+        }
+      }}
+      > 
+        <Button tipo={"continuarCadastro"} text={"Confirmar"} />
+      </span>
     </ContainerRegister>
   </Container >
   <BoxConfirm id="confirm-data"> 

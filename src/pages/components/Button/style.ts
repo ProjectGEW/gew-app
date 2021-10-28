@@ -112,11 +112,8 @@ export const Container = styled.div<buttonProps>`
 
     ${props => props.tipo === "continuarCadastro" && css`
         button {
-            /* margin-top: 3vh;
-            margin-right: 2.5vw;
-            float: right; */
-            margin-top: 3vh;
-            margin-left: 45.3vw;
+            margin-top: 184vh;
+            margin-left: 49.5vw;
         }
     `}
 
