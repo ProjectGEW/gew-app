@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
     } else if (location.pathname === "/projects") {
       setPage("Projetos");
     } else if (location.pathname === "/dashboard/0") {
-      setPage("Dashboards");
+      setPage("Dashboard");
     } else if (location.pathname === "/register_projects") {
       setPage("Cad. Projetos");
     } else if (location.pathname === "/edit_projects") {

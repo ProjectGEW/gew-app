@@ -17,7 +17,6 @@ const ModalContainer = styled.div`
 
 export const DesktopModalContainer = styled(ModalContainer)`
     border-radius: 0.8vh;
-    box-shadow: 0 0 32px rgba(0,0,0,0.5);
     padding: 10vh 0 6vh 8vh;
     width: 70vw;
     height: 86.5vh;
