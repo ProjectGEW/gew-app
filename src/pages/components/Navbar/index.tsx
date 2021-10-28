@@ -147,9 +147,15 @@ const Navbar: React.FC = () => {
       <SandwichMenu onClick={openDropDown}>
         <DropdownMenu id="dropdownMenu">
           <ul>
-            <li><a href="/home">{intl.get('navbar.dropdown.perfil')}</a></li>
-            <li><a href="./settings">{intl.get('navbar.dropdown.configuracoes')}</a></li>
-            <li><a href="/">{intl.get('navbar.dropdown.sair')}</a></li>
+            <a href="/home">
+              <li>{intl.get('navbar.dropdown.perfil')}</li>
+            </a>
+            <a href="./settings">
+              <li>{intl.get('navbar.dropdown.configuracoes')}</li>
+            </a>
+            <a href="/">
+              <li>{intl.get('navbar.dropdown.sair')}</li>
+            </a>
           </ul>
         </DropdownMenu>
       </SandwichMenu>
