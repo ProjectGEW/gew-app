@@ -119,7 +119,7 @@ export const PopupModal = styled(Popup)`
     &-content {
         background: transparent;
         //overflow: hidden;
-        //animation: anvil 0.2s;
+        animation: anvil 0.25s;
         /* width: 100vw;
         height: 100vh; */
         display: flex;
