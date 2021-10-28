@@ -12,7 +12,6 @@ import analisaValor from "../../../../utils/analisaValor";
 
 import intl from 'react-intl-universal';
 import { PopupModal } from "../../../Dashboard/styles";
-import PopupVerbaUtilizada from "../../DashboardPopUp/verbaUtilizada";
 
 const locales = {
     'pt-BR': require('../../../../language/pt-BR.json'),
@@ -104,7 +103,6 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
   return (
     <>
     { projeto ? 
-
       <PopupModal closeOnEscape trigger={
         <Card key={projeto?.infoprojetoDTO.id}>
           {/* {popUp ? popUp : null} */}

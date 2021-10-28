@@ -12,17 +12,18 @@ const ModalContainer = styled.div`
     flex-direction: row;
     align-items: center;
     position: relative;
-    transition: all 3s;
+    transition: all 3s;    
 `;
 
 export const DesktopModalContainer = styled(ModalContainer)`
-    border-radius: 1vh;
+    border-radius: 0.8vh;
     box-shadow: 0 0 32px rgba(0,0,0,0.5);
     padding: 10vh 0 6vh 8vh;
     width: 70vw;
     height: 86.5vh;
     font-size: 26px;
     z-index: 10;
+    box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
 
     #fechar {
         background-image: url(${Close});
@@ -44,6 +45,7 @@ export const ModalContainerInfos = styled.div`
     width: 60%;
     height: 100%;
     margin-right: 1.5%;
+    border-radius: 0.8vh;
 
     h1 {
         height: 6vh;

@@ -117,13 +117,15 @@ export const Title = styled.div`
 
 export const PopupModal = styled(Popup)`
     &-content {
-        background: rgba(0, 0, 0, 0.5);
-        animation: anvil 0.2s;
-        width: 100vw;
-        height: 100vh;
+        background: transparent;
+        //overflow: hidden;
+        //animation: anvil 0.2s;
+        /* width: 100vw;
+        height: 100vh; */
         display: flex;
         justify-content: center;
         align-items: center;
+        //box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
     }
 `;
 
@@ -145,11 +147,11 @@ export const PopupTooltip = styled(Popup)`
     @keyframes anvil {
         0% {
             opacity: 0;
-            box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+           // box-shadow: 0 0 0 rgba(241, 241, 241, 0);
         }
         100% {
             opacity: 1;
-            box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+            //box-shadow: 0 0 500px rgba(241, 241, 241, 0);
         }
     }
 `;
