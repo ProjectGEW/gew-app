@@ -549,7 +549,7 @@ return (
               {inputErrorAprov && <Error localErro={selected}>{inputErrorAprov}</Error>}
             </div>
           </span>
-          <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
+          <Calendar calendarType={'US'} className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
         </BoxDatas>
       </Content>
       <span id='button-holding' onClick={() => { 
