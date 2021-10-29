@@ -5,6 +5,8 @@ export const BoxResponsavel = styled.div`
     height: 57vh;
 
     display: flex;
+    justify-content: center;
+    margin-left: 4vw;
     /* Estilização dos erros */
 
     .msgErro {

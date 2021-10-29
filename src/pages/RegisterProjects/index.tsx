@@ -69,6 +69,10 @@ interface ICCpagantes{
   valor?: number;
 }
 
+interface IFuncionario {
+  nome: string;
+  numero_cracha: number;
+}
 
 const RegisterProjects: React.FC = () => {
   const history = useHistory();
@@ -104,17 +108,19 @@ const RegisterProjects: React.FC = () => {
 
   //Projeto
   const [projeto, setProjeto] = useState<IProjeto>();
-  //console.log(projeto);
   // Ata
   const [file, setFile] = useState<Blob>();
-  //console.log(file);
   const [fileName, setFileName] = useState<string>('');
-
-  //const [errorInput, setErrorInput] = useState<boolean>();
 
   // Gerar linhas
   const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas number={1} />]);
   const [rowCC, setRowCC] = useState<JSX.Element[]>([<RowCcPagantes number={1} />]);
+  const [funcionariosAlocar, setFuncionariosAlocar] = useState<IFuncionario[]>([]);
+
+  window.onload = async function handleFuncionarios () {
+    const response = await api.get<IFuncionario[]>('funcionarios');
+    setFuncionariosAlocar(response.data);
+  }
 
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
@@ -127,24 +133,6 @@ const RegisterProjects: React.FC = () => {
   });
 
   const { ref, ...rootProps } = getRootProps();
-  // Trocar etapas
-  // var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
-
-  // const [etapa, setEtapas] = useState('');
-
-  // function trocarEtapa(proxEtapa: string) {
-  //   if (proxEtapa === "boxDinheiro") {
-  //     document.getElementById("btnDin")!.style.display = "block";
-  //   } else if (proxEtapa === "boxDatas" || proxEtapa === "boxResponsavel" || proxEtapa === "boxProjeto") {
-  //     document.getElementById("btnDin")!.style.display = "none";
-  //   }
-
-  //   for (var x = 0; x < 4; x++) {
-  //     document.getElementById(etapas[x])!.style.display = "none";
-  //   }
-  //   document.getElementById(proxEtapa)!.style.display = "block";
-  //   setEtapas(proxEtapa);
-  // }
 
   var setarEConfirmar = ["set-data", "confirm-data"];
 
@@ -514,7 +502,7 @@ return (
             <div className="divDatas">
               <input type="text" value={dataInicio} id="data_de_inicio" 
                 onClick={() => {setSelected("inicio")}} 
-                onBlur={(props) => {
+                onChange={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
                     return;
@@ -524,7 +512,7 @@ return (
               />
               <input type="text" value={dataFim} id="data_de_termino" 
                 onClick={() => {setSelected("fim")}}
-                onBlur={(props) => {
+                onChange={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
                     return;
@@ -534,7 +522,7 @@ return (
               />
               <input type="text" value={dataAprovacao} id="data_de_aprovacao" 
                 onClick={() => {setSelected("aprovacao")}} 
-                onBlur={(props) => {
+                onChange={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
                     return;
@@ -553,10 +541,10 @@ return (
         </BoxDatas>
       </Content>
       <span id='button-holding' onClick={() => { 
-        if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
+        // if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
           setInfos();
           trocarMainEtapa('confirm-data');
-        }
+        // }
       }}
       > 
         <Button tipo={"continuarCadastro"} text={"Confirmar"} />
@@ -643,48 +631,21 @@ return (
       <TableConfirm>
         <div>
           <p>Funcionários alocados</p>
-          <AiOutlineUsergroupAdd />
+          <AiOutlineUsergroupAdd onClick={() => {}}/>
         </div>    
-        <ul>                    
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-        </ul>
+          {
+            funcionariosAlocar.map(funcionario  => (
+              <span>
+                <p>{funcionario.nome}</p>
+                <p>{funcionario.numero_cracha}</p>
+              </span>
+            ))
+          }
       </TableConfirm>
     </SideContainer>
     <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
-    <Footer tipo={"confirm_project"} ></Footer>
     <div onClick={() => handleProjects()}>
-      <Button  tipo={"Confirmar"} text={"Confirmar"} /> 
+      <Button tipo={"Confirmar"} text={"Confirmar"} /> 
     </div>
   </BoxConfirm> 
   <MenuRight>
