@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Popup from 'reactjs-popup';
 
@@ -203,11 +203,11 @@ export const Filtros = styled.div`
         align-items: center;
 
         &:first-child {
-            margin-left: 3vw;
+            margin-left: 2.2vw;
         }
 
         &:last-child {
-            margin-right: 3vw;
+            margin-right: 2.2vw;
         }
 
         form {
@@ -246,9 +246,22 @@ export const Filtros = styled.div`
             }
         }
 
+        h1 {
+            color: #00579D;
+            font-size: 2.4vh;
+            margin-right: 0.5vw;
+            font-weight: 100;
+        }
+
+        p {
+            color: #575757;
+            font-size: 2.4vh;
+            
+        }
+
         label {
             color: #00579D;
-            font-size: 2.2vh;
+            font-size: 2.4vh;
             margin-right: 1vw;
         }
 
@@ -353,4 +366,31 @@ export const CardsMoney = styled.div`
             }            
         }
     }
+`;
+
+interface StatusProps {
+    status: string;
+}
+
+export const Status = styled.button<StatusProps>`
+    border: 0;
+    padding: 0.8vh;
+    font-size: 2vh;
+    margin-left: 0.3vw;
+    border-radius: 0.8vh;
+    color: #575757;
+
+    background-color: rgba(212, 212, 212, 0.3);
+    
+    ${props => props.status === "EM_ANDAMENTO" && css`
+        background-color: #c2e4ff;
+    `}
+
+    ${props => props.status === "ATRASADO" && css`
+        background-color: #ffbfbf;
+    `}
+
+    ${props => props.status === "CONCLUIDO" && css`
+        background-color: #adffb0;
+    `}
 `;
