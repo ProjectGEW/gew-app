@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
+
 import { shade } from "polished";
+import Popup from 'reactjs-popup';
 
 import Complete from "../../assets/complete.svg";
 import Up from "../../assets/up.svg";
@@ -301,11 +303,11 @@ export const GraphBars = styled.div`
     align-items: center;
 
     #bar1 {
-        margin-left: 0.9vw;
+        margin-left: 1.2vw;
     }
 
     #bar7 {
-        margin-right: 0.9vw;
+        margin-right: 1.2vw;
     }
 `;
 
@@ -319,7 +321,7 @@ export const Bar = styled.div<ValorGraphBar>`
     z-index: 10;
 
     &:hover {
-        background-color: ${shade(0.1, 'rgb(0, 79, 139)')}
+        background-color: ${shade(0.03, 'rgb(0, 79, 139)')}
     }
 
     ${props => props.valor === 1 && css`
@@ -375,4 +377,39 @@ export const Data = styled.div`
         position: absolute;
         z-index: 2;
     }
+`;
+
+export const PopupTooltip = styled(Popup)`
+    &-content {
+        background: transparent;
+        animation: anvil 0.2s;
+    }
+
+    .popup-arrow {
+        color: #c2e4ff;
+        stroke-width: 1px;
+        stroke: rgba(0, 0, 0, 0.16);
+        stroke-dasharray: 30px;
+        stroke-dashoffset: -54px;
+    }
+
+    @keyframes anvil {
+        0% {
+            opacity: 0;
+            box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+        }
+        100% {
+            opacity: 1;
+            box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+        }
+    }
+`;
+
+export const PopupGraphBar = styled.div`
+    background-color: #c2e4ff;
+    padding: 1vh;
+    border-radius: 0.8vh;
+    font-size: 2vh;
+    font-weight: bold;
+    color: #00579D;
 `;

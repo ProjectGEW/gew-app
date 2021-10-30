@@ -166,7 +166,7 @@ export const Right = styled.div`
         p {
             svg {
                 color: #00579D;
-                margin-left: -2vw;
+                margin-left: -1vw;
 
                 &:hover {
                     cursor: pointer;
@@ -197,6 +197,10 @@ export const Right = styled.div`
             }
         }
 
+        input[type='file'] {
+            display: none;
+        }
+
         input {
             width: 20vw;
             
@@ -208,10 +212,10 @@ export const Right = styled.div`
         }
 
         select {
+            width: 10vw;
             border: 0.2vh solid #c4c4c4;
             padding: 0.4vh;
             color: #00579D;
-            font-weight: bold;
             font-size: 2.5vh;
 
             &:hover {

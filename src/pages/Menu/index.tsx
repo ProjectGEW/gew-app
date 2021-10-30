@@ -18,7 +18,7 @@ import { GiOrganigram } from "react-icons/gi";
 import { ContainerMenuRight, ContIcons, Icon,TextMenuRight } from "./styleMenuRight";
 
 import { ContainerHome, ContainerHomeGraph, Card, ContainerHomeCards, ContainerHomeTitle, Graph, GraphTitle,
-    CardContent, GraphContainer, GraphCont, GraphContNum, GraphBars, Bar, GraphData, Data } from "./styles";
+    CardContent, GraphContainer, GraphCont, GraphContNum, GraphBars, Bar, GraphData, Data, PopupTooltip, PopupGraphBar } from "./styles";
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -172,13 +172,27 @@ const Menu: React.FC = () => {
                         <GraphContNum>0</GraphContNum>
                     </GraphCont>
                     <GraphBars>
-                        <Bar valor={countsPerData[6] ? countsPerData[6].projetosConcluidos : 0} id="bar1"/>
-                        <Bar valor={countsPerData[5] ? countsPerData[5].projetosConcluidos : 0} id="bar2"/>
-                        <Bar valor={countsPerData[4] ? countsPerData[4].projetosConcluidos : 0} id="bar3"/>
-                        <Bar valor={countsPerData[3] ? countsPerData[3].projetosConcluidos : 0} id="bar4"/>
-                        <Bar valor={countsPerData[2] ? countsPerData[2].projetosConcluidos : 0} id="bar5"/>
-                        <Bar valor={countsPerData[1] ? countsPerData[1].projetosConcluidos : 0} id="bar6"/>
-                        <Bar valor={countsPerData[0] ? countsPerData[0].projetosConcluidos : 0} id="bar7"/>
+                        <PopupTooltip trigger={<Bar valor={countsPerData[6] ? countsPerData[6].projetosConcluidos : 0} id="bar1"/>} position="top center" on={['hover']}>
+                            <PopupGraphBar>R$ 12.500,00</PopupGraphBar>
+                        </PopupTooltip>
+                        <PopupTooltip trigger={<Bar valor={countsPerData[5] ? countsPerData[5].projetosConcluidos : 0} id="bar2"/>} position="top center" on={['hover']}>
+                            <PopupGraphBar>R$ 12.500,00</PopupGraphBar>
+                        </PopupTooltip>
+                        <PopupTooltip trigger={<Bar valor={countsPerData[4] ? countsPerData[4].projetosConcluidos : 0} id="bar3"/>} position="top center" on={['hover']}>
+                            <PopupGraphBar>R$ 12.500,00</PopupGraphBar>
+                        </PopupTooltip>
+                        <PopupTooltip trigger={<Bar valor={countsPerData[3] ? countsPerData[3].projetosConcluidos : 0} id="bar4"/>} position="top center" on={['hover']}>
+                            <PopupGraphBar>R$ 12.500,00</PopupGraphBar>
+                        </PopupTooltip>
+                        <PopupTooltip trigger={<Bar valor={countsPerData[2] ? countsPerData[2].projetosConcluidos : 0} id="bar5"/>} position="top center" on={['hover']}>
+                            <PopupGraphBar>R$ 12.500,00</PopupGraphBar>
+                        </PopupTooltip>
+                        <PopupTooltip trigger={<Bar valor={countsPerData[1] ? countsPerData[1].projetosConcluidos : 0} id="bar6"/>} position="top center" on={['hover']}>
+                            <PopupGraphBar>R$ 12.500,00</PopupGraphBar>
+                        </PopupTooltip>
+                        <PopupTooltip trigger={<Bar valor={countsPerData[0] ? countsPerData[0].projetosConcluidos : 0} id="bar7"/>} position="top center" on={['hover']}>
+                            <PopupGraphBar>R$ 12.500,00</PopupGraphBar>
+                        </PopupTooltip>
                     </GraphBars>
                 </Graph>
                 <GraphData>
