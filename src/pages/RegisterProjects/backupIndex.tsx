@@ -35,7 +35,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 //import { SideContainer } from '../RegisterConsultants/styles';
 
-import analisaCampo, { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
+import { analisaCampoLinhasdCcPagantes, analisaCampoLinhasdDespesas } from '../../utils/confereCampo';
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
@@ -452,7 +452,7 @@ return (
                 <p id="ataResponse" className="msgErro"></p>
               </div>
             </span>
-            <span onClick={() => {
+            {/* <span onClick={() => {
               let confirm = 0;
 
               confirm += analisaCampo("btnUpload", "ATA obrigatória*", "ataResponse");
@@ -462,7 +462,7 @@ return (
               if (confirm < 4 ) {
                 return;
               }
-              trocarEtapa("boxResponsavel")}}><Button  tipo={"etapaProjeto"} text={"Continuar"} /></span>
+              trocarEtapa("boxResponsavel")}}><Button  tipo={"etapaProjeto"} text={"Continuar"} /></span> */}
           </BoxProjeto>
           <BoxResponsavel id="boxResponsavel">
             <span>
@@ -485,8 +485,8 @@ return (
             </span>
             <span onClick={() => {
               let confirm = 0;
-              confirm += analisaCampo("nome_responsavel", "Informe o nome do responsável*", "responsavelResponse");
-              confirm += analisaCampo("nome_solicitante", "Informe o nome do solicitante*", "solicitanteResponse");
+              // confirm += analisaCampo("nome_responsavel", "Informe o nome do responsável*", "responsavelResponse");
+              // confirm += analisaCampo("nome_solicitante", "Informe o nome do solicitante*", "solicitanteResponse");
               if (confirm < 2 ) {
                 return;
               }

@@ -30,19 +30,15 @@ import { Container, ContainerRegister, Info, Content, Error, LinhaTitulo } from 
 
 import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '../test2/styles';
 
-import analisaCampo, { vrfCampo } from '../../utils/confereCampo';
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
+import { vrfCampo, validacaoDosCamposCadastros } from '../../utils/confereCampo';
 
 interface ISecaoResponse {
   nome: string;
 }
-
-interface IError {
-  titulo: string;
-}
-
+ 
 interface IProjetoResponse {
   numeroDoProjeto: number;
 }
@@ -73,6 +69,10 @@ interface ICCpagantes{
   valor?: number;
 }
 
+interface IFuncionario {
+  nome: string;
+  numero_cracha: number;
+}
 
 const RegisterProjects: React.FC = () => {
   const history = useHistory();
@@ -108,17 +108,19 @@ const RegisterProjects: React.FC = () => {
 
   //Projeto
   const [projeto, setProjeto] = useState<IProjeto>();
-  //console.log(projeto);
   // Ata
   const [file, setFile] = useState<Blob>();
-  //console.log(file);
   const [fileName, setFileName] = useState<string>('');
-
-  //const [errorInput, setErrorInput] = useState<boolean>();
 
   // Gerar linhas
   const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas number={1} />]);
   const [rowCC, setRowCC] = useState<JSX.Element[]>([<RowCcPagantes number={1} />]);
+  const [funcionariosAlocar, setFuncionariosAlocar] = useState<IFuncionario[]>([]);
+
+  window.onload = async function handleFuncionarios () {
+    const response = await api.get<IFuncionario[]>('funcionarios');
+    setFuncionariosAlocar(response.data);
+  }
 
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
@@ -131,24 +133,6 @@ const RegisterProjects: React.FC = () => {
   });
 
   const { ref, ...rootProps } = getRootProps();
-  // Trocar etapas
-  var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
-
-  const [etapa, setEtapas] = useState('');
-
-  function trocarEtapa(proxEtapa: string) {
-    if (proxEtapa === "boxDinheiro") {
-      document.getElementById("btnDin")!.style.display = "block";
-    } else if (proxEtapa === "boxDatas" || proxEtapa === "boxResponsavel" || proxEtapa === "boxProjeto") {
-      document.getElementById("btnDin")!.style.display = "none";
-    }
-
-    for (var x = 0; x < 4; x++) {
-      document.getElementById(etapas[x])!.style.display = "none";
-    }
-    document.getElementById(proxEtapa)!.style.display = "block";
-    setEtapas(proxEtapa);
-  }
 
   var setarEConfirmar = ["set-data", "confirm-data"];
 
@@ -331,7 +315,9 @@ const RegisterProjects: React.FC = () => {
         history.push('/projects');
         successfulNotify('Projeto cadastrado com sucesso!');
       })
-      .catch((e) => console.log(e.response.data.titulo));
+      .catch((e) => 
+        errorfulNotify(e.response.data.titulo)
+      );
     } catch (e) { 
       console.log(`Error: ${e}`);
       errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
@@ -340,6 +326,7 @@ const RegisterProjects: React.FC = () => {
 
   const [secaoSolicitante, setSecaoSolicitante] = useState('');
   const [secaoResponsavel, setSecaoResponsavel] = useState('');
+  
   async function handleSecao(nome: string, campo: string){ 
     try {
       const response = await api.get<ISecaoResponse>(`secoes/nome/${nome}`);
@@ -390,7 +377,7 @@ return (
             </h1>
           </LinhaTitulo>
           <BoxProjeto id="boxProjeto">
-            <span>
+            <span> 
               <div id="left-box">
                 <label>Número do projeto:</label>
                 <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampo(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
@@ -399,7 +386,7 @@ return (
                 <input type="text" id="titulo" onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
-                <textarea id="descricao" />
+                <textarea id="descricao" onBlur={(props) => { vrfCampo(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
               <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
@@ -414,17 +401,6 @@ return (
               <Preview src={file ? URL.createObjectURL(file) : file}/>
             : <Preview src={'null'}/>
             }
-            <span onClick={() => {
-              let confirm = 0;
-
-              confirm += analisaCampo("btnUpload", "ATA obrigatória*", "ataResponse");
-              confirm += analisaCampo("numeroProjeto", "Informe o número do projeto*", "numeroProjetoResponse");
-              confirm += analisaCampo("titulo", "Informe o titulo do projeto*", "tituloResponse");
-              confirm += analisaCampo("descricao", "Informe a descrição do projeto*", "descricaoResponse");
-              if (confirm < 4 ) {
-                return;
-              }
-              trocarEtapa("boxResponsavel")}}></span>
           </BoxProjeto>
           <LinhaTitulo>
             <h1>
@@ -435,10 +411,22 @@ return (
             <span>
               <div>
                 <label>Nome do responsável:</label>
-                <input type="text" id="nome_responsavel" onBlur={(props) => handleSecao(props.target.value, "secao_responsavel")}/>
+                <input type="text" id="nome_responsavel" onBlur={(props) => {
+                  if (props.target.value !== "") {
+                    handleSecao(props.target.value, "secao_responsavel"); 
+                  }
+              
+                  vrfCampo(props.target.value, "nome_responsavel", "responsavelResponse");
+                }}/>
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
-                <input type="text" id="nome_solicitante" onBlur={(props) => handleSecao(props.target.value, "secao_solicitante")}/>
+                <input type="text" id="nome_solicitante" onBlur={(props) =>  {
+                  if (props.target.value !== "") {
+                    handleSecao(props.target.value, "secao_solicitante");
+                  }
+
+                  vrfCampo(props.target.value, "nome_solicitante", "solicitanteResponse");
+                }}/>
                 <p id="solicitanteResponse" className="msgErro"></p>
               </div>
               <div>
@@ -448,14 +436,6 @@ return (
                 <input type="text" id="secao_solicitante"/>
               </div>
             </span>
-            <span onClick={() => {
-              let confirm = 0;
-              confirm += analisaCampo("nome_responsavel", "Informe o nome do responsável*", "responsavelResponse");
-              confirm += analisaCampo("nome_solicitante", "Informe o nome do solicitante*", "solicitanteResponse");
-              if (confirm < 2 ) {
-                return;
-              }
-              trocarEtapa("boxDinheiro")}}>{/*<Button  tipo={"etapaResponsaveis"} text={"Continuar"} />*/}</span>
           </BoxResponsavel>
           <LinhaTitulo>
             <h1>
@@ -479,8 +459,8 @@ return (
                 </div>
                 <div>
                   <h2>TOTAL:</h2>
-                  <input id="totalEsforco" type="text" value={sEsforco? sEsforco: 0} />
-                  <input id="totalValor" type="text" value={sValorDespesa? analisaValor(sValorDespesa): 0} />
+                  <input id="totalEsforco" type="text" disabled value={sEsforco? sEsforco: 0}/>
+                  <input id="totalValor" type="text" disabled value={sValorDespesa? analisaValor(sValorDespesa): 0}/>
                   <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
                 </div>
               </Total>
@@ -501,7 +481,7 @@ return (
                 </div>
                 <div>
                   <h2>TOTAL:</h2>
-                  <input id="totalValor" type="text" value={0} />
+                  <input id="totalValor" type="text" value={sValorCcPagantes? analisaValor(sValorCcPagantes): 0} />
                   <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
                 </div>
               </Total>
@@ -520,9 +500,36 @@ return (
               <label>Data de aprovação:</label>
             </div>
             <div className="divDatas">
-              <input type="text" value={dataInicio} id="data_de_inicio" onClick={() => {setSelected("inicio")}} />
-              <input type="text" value={dataFim} id="data_de_termino" onClick={() => {setSelected("fim")}} />
-              <input type="text" value={dataAprovacao} id="data_de_aprovacao" onClick={() => {setSelected("aprovacao")}} />
+              <input type="text" value={dataInicio} id="data_de_inicio" 
+                onClick={() => {setSelected("inicio")}} 
+                onChange={(props) => {
+                  if (props.target.value === "") {
+                    props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                    return;
+                  }
+                  props.target.style.border = "";
+                }}
+              />
+              <input type="text" value={dataFim} id="data_de_termino" 
+                onClick={() => {setSelected("fim")}}
+                onChange={(props) => {
+                  if (props.target.value === "") {
+                    props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                    return;
+                  }
+                  props.target.style.border = "";
+                }} 
+              />
+              <input type="text" value={dataAprovacao} id="data_de_aprovacao" 
+                onClick={() => {setSelected("aprovacao")}} 
+                onChange={(props) => {
+                  if (props.target.value === "") {
+                    props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                    return;
+                  }
+                  props.target.style.border = "";
+                }}    
+              />
             </div>
             <div>
               {inputErrorInit && <Error localErro={selected}>{inputErrorInit}</Error>}
@@ -530,28 +537,22 @@ return (
               {inputErrorAprov && <Error localErro={selected}>{inputErrorAprov}</Error>}
             </div>
           </span>
-          <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
-          <span onClick={() => {
-            if( inputErrorInit === "") {
-              if (inputErrorFim === "") {
-                if(inputErrorAprov === "") {
-                  trocarMainEtapa("confirm-data");
-                  setInfos();
-                }
-                return; 
-              }
-              return; 
-            }  
-            return;    
-          }}>
-            <Button tipo={"continuarCadastro"} text={"Confirmar"}/> 
-          </span>
+          <Calendar calendarType={'US'} className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
         </BoxDatas>
       </Content>
+      <span id='button-holding' onClick={() => { 
+        // if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
+          setInfos();
+          trocarMainEtapa('confirm-data');
+        // }
+      }}
+      > 
+        <Button tipo={"continuarCadastro"} text={"Confirmar"} />
+      </span>
     </ContainerRegister>
   </Container >
-<BoxConfirm id="confirm-data"> 
-  <h1>Confirmar Informações</h1>
+  <BoxConfirm id="confirm-data"> 
+    <h1>Confirmar Informações</h1>
     <SideContainer>
       <ContentContainer>
         <div>
@@ -630,48 +631,21 @@ return (
       <TableConfirm>
         <div>
           <p>Funcionários alocados</p>
-          <AiOutlineUsergroupAdd />
+          <AiOutlineUsergroupAdd onClick={() => {}}/>
         </div>    
-        <ul>                    
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-          <li>
-            <p>Heloise Stefany Bianchi</p>
-            <HiMinusCircle />
-          </li>
-        </ul>
+          {
+            funcionariosAlocar.map(funcionario  => (
+              <span>
+                <p>{funcionario.nome}</p>
+                <p>{funcionario.numero_cracha}</p>
+              </span>
+            ))
+          }
       </TableConfirm>
     </SideContainer>
     <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
-    <Footer tipo={"confirm_project"} ></Footer>
     <div onClick={() => handleProjects()}>
-      <Button  tipo={"Confirmar"} text={"Confirmar"} /> 
+      <Button tipo={"Confirmar"} text={"Confirmar"} /> 
     </div>
   </BoxConfirm> 
   <MenuRight>

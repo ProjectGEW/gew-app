@@ -41,17 +41,24 @@ export const BoxDinheiro = styled.div`
     #tableTwo {
         margin-top: 5vh;
 
+        #totalValor {
+            input {
+                width: 14vw;
+            }
+        }
+
         #scroll {
             input {
                 &:nth-child(1) {
                     width: 12vw;
                 }
 
-                &:nth-child(3) {
+                &:nth-child(2) {
                     width: 18vw;
+                    text-align: start;
                 }
 
-                &:nth-child(4) {
+                &:nth-child(3) {
                     width: 12vw;
                 }
             }
@@ -166,12 +173,14 @@ export const Linha = styled.div`
             width: 22vw;
         }
 
-        &:nth-child(3) {
+        &:nth-child(2) {
             width: 8vw;
+            text-align: end;
         }
 
-        &:nth-child(5) {
+        &:nth-child(3) {
             width: 12vw;
+            text-align: end;
         }
     }
     
@@ -232,7 +241,8 @@ export const Total = styled.div`
                 // primeiro input
                 &:nth-child(2) {
                     width: 8vw; 
-                    margin-left: 0.9vw;             
+                    margin-left: 0.9vw;    
+                    text-align: end;        
                 }
 
                 // segundo input
@@ -253,6 +263,11 @@ export const Total = styled.div`
                 color: #5E5E5E;
             }
 
+            #totalValor {
+                width: 12vw;
+                text-align: end;
+            }
+
             svg {
                 position: absolute;
                 color: #00579D;
@@ -260,7 +275,7 @@ export const Total = styled.div`
                 height: 2.5%;
                 margin-top: 4vh;
                 margin-right: -0.5vw;
-
+                transform: rotate(90deg);
                 &:hover {
                     cursor: pointer;
 

@@ -134,6 +134,21 @@ export const DropdownMenu = styled.div`
     justify-content: center;
     flex-direction: column;
 
+    a {
+      width: 100%;
+      color: #005da5;
+      font-size: 2.5vh;
+
+      &:before {
+        content: "";
+        width: 90%;
+        height: 0.1vh;
+        margin: 6vh 0 0 5%;
+        position: absolute;
+        background: rgb(200, 200, 200, 0.4);
+      }
+    }
+
     li {
       width: 100%;
       height: 6vh;
@@ -145,36 +160,11 @@ export const DropdownMenu = styled.div`
 
       &:hover {
         background: rgb(200, 200, 200, 0.2);
-      }
-
-      &:active {
-        background: #00579d;
-
-        a {
-          color: #fff;
-        }
-      }
-
-      a {
-        color: #005da5;
-        font-size: 2.5vh;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      &:after {
-        content: "";
-        width: 90%;
-        height: 0.1vh;
-        margin: 6vh 0 0 5%;
-        position: absolute;
-        background: rgb(200, 200, 200, 0.6);
+        cursor: pointer;
       }
     }
 
-    li:last-child:after {
+    a:last-child:before {
       display: none;
     }
   }

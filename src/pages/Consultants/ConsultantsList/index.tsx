@@ -61,6 +61,8 @@ const ConsultantList: React.FC<ListRoute> = ({tipo}) => {
         await api.post(`projetos/atrelar/${numeroDoProjeto}/${numero_cracha}`);
     }, [numeroDoProjeto]);
 
+    console.log(consultants);
+
     return (
         <>
         <Navbar />
@@ -103,7 +105,7 @@ const ConsultantList: React.FC<ListRoute> = ({tipo}) => {
                     <div className='atribuicao'>Atribuição</div>
                 </div>
                 <TableScroll>
-                {consultants.map(consultant => (
+                {consultants ? consultants.map(consultant => (
                     <tr id='column'>
                         <td className='cadastro'>{consultant.numero_cracha}</td>
                         <td className='status' id={`status${consultant.numero_cracha}`}>{consultant.status}</td>
@@ -121,7 +123,7 @@ const ConsultantList: React.FC<ListRoute> = ({tipo}) => {
                             <button onClick={() => atribuir(consultant.numero_cracha)}>Atribuir</button>
                         </td>
                     </tr>
-                ))}
+                )) : <h1>asd</h1>}
                 </TableScroll>
             </Table>
             </TableDimensions>

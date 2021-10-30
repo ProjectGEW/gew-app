@@ -2,7 +2,8 @@ import styled, { css } from "styled-components";
 
 interface HistoricPageProps {
     localDaRota?: string;
-  }
+    numeroDoProjeto?: number;
+}
 
 export const ContainerMenuRight = styled.div<HistoricPageProps>`
     width: 30vw;
@@ -256,6 +257,33 @@ export const ContainerMenuRight = styled.div<HistoricPageProps>`
     `}
 
     ${props => props.localDaRota === "/dashboard/0" && css`
+        #six { 
+            transform: translateX(-3vh);
+            border-left: 1vh solid white;
+            box-shadow: -0.05vh 0 0.05vh 0 rgba(50, 50, 93, 0.45);
+
+            #icons {
+                transform: scale(1.6, 1.6);
+                margin-left: 2vh;
+            }
+
+            &:hover {
+                transform: translateX(-30vh);
+                opacity: 1;
+        
+                &:before {
+                    display: none;
+                }
+        
+                #icons {
+                    transform: scale(3.2, 3.2);
+                    margin-left: 5vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.localDaRota === `/dashboard/${props.numeroDoProjeto}` && css`
         #six { 
             transform: translateX(-3vh);
             border-left: 1vh solid white;

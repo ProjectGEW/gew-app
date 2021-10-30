@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Paper from "@material-ui/core/Paper";
 
@@ -13,17 +13,16 @@ import { ContainerHome, Container, Left, Right } from './styles';
 
 const Settings: React.FC = () => {
 
-    /*const storage = localStorage.getItem('Animation');
+    const [recebeAnimacao] = useState(() => {
+        let animacaoStorage = localStorage.getItem('Animation');
 
-      if(storage) {
-        const verifica = JSON.parse(storage);
-        alert(verifica);
+        if(animacaoStorage) {
+            let animacaoObject = JSON.parse(animacaoStorage);
+            return animacaoObject;
+        } 
+    });
 
-        if(verifica == "true") {
-            document.getElementById("animation")!.style.backgroundColor = "#00579D";
-            document.getElementById("animation")!.style.transform = "rotate(180deg)";
-        }
-      } */
+    const [animacao, setAnimacao] = useState(recebeAnimacao);
 
     // Revisão*****
   const activeButton = (x: String) => {

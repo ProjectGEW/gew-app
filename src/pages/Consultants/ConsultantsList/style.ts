@@ -162,6 +162,7 @@ export const Table = styled.table<ListRoute>`
         padding: 0.7vh 0 0 1vw;
         border-bottom: 0.1vh solid #e9e9e9;
         font-size: 2.1vh;
+        color: #444;
 
         select {
             width: auto;

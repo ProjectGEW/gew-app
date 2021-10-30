@@ -14,9 +14,10 @@ import PopupVerbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
 import PopupVerbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
-    GraphLine, CardsMoney, Money, Filtros, Line, PopupModal, PopupTooltip } from './styles';
+    GraphLine, CardsMoney, Money, Filtros, Line, PopupModal, PopupTooltip, Status } from './styles';
 
 import analisaValor from '../../utils/analisaValor';
+import formatStatus from '../../utils/formatStatus';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -61,14 +62,20 @@ interface ISecoes {
     nome: string;
 }
 
+interface CountPerData {
+    data: string;
+    verbaUtilizada: number;
+}
+
 const Dashboard: React.FC = () => {
-    const { id }: {id: string}  = useParams();
+    const { id }: { id: string }  = useParams();
 
     const [status, setStatus] = useState('');
     const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<CardContent[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [countUtilizada, setCountUtilizada] = useState();
+    const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
 
     /*const token = localStorage.getItem('Token');
     let config = {
@@ -89,22 +96,30 @@ const Dashboard: React.FC = () => {
                 const responseCountUtilizada = await api.get(`projetos/count/verba/0`);
                 const dataCountUtilizada = responseCountUtilizada.data;
                 setCountUtilizada(dataCountUtilizada);
+
+                const response_perData = await api.get<CountPerData[]>(`projetos/count/14`);
+                const contagem_perData = response_perData.data;
+                setCountsPerData(contagem_perData);
             }
             return;
         }
 
         window.onload = async function handleProjetos() {
-            const responseProjetos = await api.get<CardContent>(`projetos/${id ? id : 0 }`);
-            const dataProjetos = responseProjetos.data;
-            setProject(dataProjetos);
+            const response = await api.get<CardContent[]>("projetos");
+            const data = response.data;
+            setProjetos(data);
 
-            console.log(project)
+            projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
 
             const responseSecao = await api.get<ISecoes[]>('secoes');
             const dataSecao = responseSecao.data;
             setSecoes(dataSecao);
+
+            const responseCountUtilizada = await api.get(`projetos/count/verba/${id ? id : 0}`);
+            const dataCountUtilizada = responseCountUtilizada.data;
+            setCountUtilizada(dataCountUtilizada);
         }
-    }, [id, projetos, project]);
+    }, [id, projetos]);
 
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -119,25 +134,6 @@ const Dashboard: React.FC = () => {
         currentLocale: language.code,
         locales
     });
-
-    /*async function defineMoeda(event: FormEvent<HTMLFormElement>): Promise<void> {
-        event.preventDefault();
-        
-        let btns = ["BRL", "USD", "EUR"];
-        let valor = document.activeElement?.id;
-
-        for(var x = 0; x < btns.length; x++) {
-            document.getElementById(btns[x])!.style.opacity = "0.4";
-        }
-
-        if(valor === "BRL") {
-            document.getElementById(valor)!.style.opacity = "1";
-        } else if(valor === "USD") {
-            document.getElementById(valor)!.style.opacity = "1";
-        } else if(valor === "EUR") {
-            document.getElementById(valor)!.style.opacity = "1";
-        }
-    }*/
 
     function defineStatus(valor: string) {
         var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
@@ -225,13 +221,20 @@ const Dashboard: React.FC = () => {
     const totalCcPagantes = [projetos.length];
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
 
-    for(var x = 0; x < projetos.length; x++) {
-        totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
+    if(Number(id) === 0) {
+        for(var x = 0; x < projetos.length; x++) {
+            totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
+        }
+    } else {
+        const recebe = projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
+        totalCcPagantes[0] = recebe.map(projeto => projeto.valoresTotaisDTO.valorTotalCcPagantes)[0];
     }
 
     const porcentagemUtilizada = (Number(countUtilizada) / totalCcPagantes.reduce(reducer)) * 100;
     const valorDisponivel = totalCcPagantes.reduce(reducer) - Number(countUtilizada);
     const porcentagemDisponivel = 100 - porcentagemUtilizada;
+
+    const infoProjeto = projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
 
     return (
         <>
@@ -243,11 +246,13 @@ const Dashboard: React.FC = () => {
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.primeiro_card.title')}</h1>
+                            {Number(id) === 0 ? 
                             <PopupModal closeOnEscape trigger={<span />} modal>
                                 {(close: any) => (
                                     <PopupVerbaUtilizada fechar={close} valor={Math.round(porcentagemUtilizada)} />
                                 )}
                             </PopupModal>
+                            : ''}
                         </Title>
                         <Graph>
                             <GraphLiquid dashboard={true} valor={Math.round(porcentagemUtilizada)} />
@@ -270,6 +275,7 @@ const Dashboard: React.FC = () => {
                         <Title>
                             <h1>{intl.get('tela_dashboards.terceiro_card.title')}</h1>
                         </Title>
+                        {Number(id) === 0 ? 
                         <Filtros>
                             <div>
                                 <label>Seção:</label>
@@ -305,10 +311,28 @@ const Dashboard: React.FC = () => {
                                         {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
                                 </form>
-                            </div>                 
-                        </Filtros>
+                            </div>               
+                        </Filtros> 
+                        :
+                        <Filtros>
+                            <div>
+                                <h1>Número:</h1> 
+                                <p>{infoProjeto.map(projeto => projeto.infoprojetoDTO.numeroDoProjeto)}</p>
+                            </div>    
+                            <div>
+                                <h1>Projeto:</h1> 
+                                <p>{infoProjeto.map(projeto => projeto.infoprojetoDTO.titulo)}</p>
+                            </div>  
+                            <div>
+                                {infoProjeto.map((projeto, index) => 
+                                    <Status key={index} status={projeto.infoprojetoDTO.status} disabled>
+                                        {formatStatus(projeto.infoprojetoDTO.status)}
+                                    </Status>
+                                )}
+                            </div>   
+                        </Filtros>}
                         <Line>
-                            <GL/>
+                            <GL counts={countsPerData} />
                         </Line>
                         <Filtros id="filtrosDown">
                             <div id="trocar-moeda">
@@ -330,23 +354,11 @@ const Dashboard: React.FC = () => {
                         </Filtros>
                     </GraphLine>
                     <CardsMoney>
-                        {/*<Money id="money">
-                            <Title>
-                                <h1>{intl.get('tela_dashboards.cards.primeiro')}</h1>
-                            </Title>
-                            <div>
-                                <form onSubmit={defineMoeda}>
-                                    <button id="BRL" type="submit">BRL</button>
-                                    <button id="USD" type="submit">USD</button>
-                                    <button id="EUR" type="submit">EUR</button>
-                                </form>
-                            </div>
-                        </Money>*/}
                         <Money>
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.quarto')}</h1>
                             </Title>
-                                <h1>{analisaValor(totalCcPagantes.reduce(reducer))}</h1>
+                            <h1>{analisaValor(Number(totalCcPagantes.reduce(reducer)))}</h1>
                         </Money>
                         <Money>
                             <Title>
@@ -364,7 +376,7 @@ const Dashboard: React.FC = () => {
                 </Lines>
             </ContainerDashboard>
         </Container> 
-        <MenuRight>
+        <MenuRight numeroDoProjeto={Number(id)}>
             <ContIcons />
         </MenuRight>
         </>

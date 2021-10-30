@@ -12,6 +12,10 @@ import { GoGraph } from "react-icons/go";
 import { GiOrganigram } from "react-icons/gi";
 import { IoPersonAddSharp } from "react-icons/io5";
 
+interface PageProps {
+  numeroDoProjeto?: number;
+}
+
 const locales = {
   'pt-BR': require('../../../language/pt-BR.json'),
   'en-US': require('../../../language/en-US.json'),
@@ -19,7 +23,7 @@ const locales = {
   'fr-FR': require('../../../language/fr-FR.json'),
 };
 
-const MenuRight: React.FC = () => {
+const MenuRight: React.FC<PageProps>= ({ numeroDoProjeto }) => {
   const [language] = useState(() => {
     let languageStorage = localStorage.getItem('Language');
 
@@ -46,7 +50,7 @@ const MenuRight: React.FC = () => {
   }, [historicPage]);
 
   return (
-    <ContainerMenuRight localDaRota={page}>
+    <ContainerMenuRight numeroDoProjeto={numeroDoProjeto} localDaRota={page}>
       <a href="../projects">
         <ContIcons id="first"> 
           <Icon>

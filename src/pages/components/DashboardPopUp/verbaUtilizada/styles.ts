@@ -12,6 +12,9 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
+    border-radius: 0.8vh;
+    overflow: hidden;
 `;
 
 export const PopUp = styled.div`
@@ -19,7 +22,7 @@ export const PopUp = styled.div`
     height: 40vh;
     background: #fff;
     border-radius: 0.8vh;
-    overflow: hidden;
+    //overflow: hidden;
 
     display: flex;
     flex-direction: column;

@@ -20,8 +20,13 @@ interface SingInFormData {
 }
 
 const Login: React.FC = () => {  
-    let defaultLanguage = {flag: "BR", code: "pt-BR"}
-    localStorage.setItem('Language', JSON.stringify(defaultLanguage));
+
+    /* Definição do idioma principal - Revisar */
+    let linguagemPadrao = {flag: "BR", code: "pt-BR"}
+    localStorage.setItem('Language', JSON.stringify(linguagemPadrao));
+
+    /* Definição da animação dos gráficos - Revisar */
+    localStorage.setItem('Animation', "false");
 
     const formRef = useRef<FormHandles>(null);
     const { signIn: singIn } = useAuth();
