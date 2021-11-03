@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Popup from 'reactjs-popup';
 
@@ -182,7 +182,22 @@ export const Value = styled.div<GraphBarProps>`
 
     display: flex;
     
-    justify-content: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+
+    h1 {
+        color: #fff;
+        font-size: 3vh;
+        margin-left: 0.8vw;
+    }
+
+    ${props => props.valor <= 10 && css`
+        h1 {
+            color: #00579D;
+        }
+    `}
+
 
     &::after {
         //content: '${props => props.valor}%';
