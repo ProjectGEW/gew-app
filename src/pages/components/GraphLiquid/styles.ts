@@ -49,24 +49,28 @@ export const Circle = styled.div<WavesProps>`
         &:nth-child(1) {
             &::before {
                 background-color: #00579D;     
+                top: 20vh;
             }
         }
 
         &:nth-child(2) {
             &::before {
-                background-color: #0075b1;     
+                background-color: #0075b1;   
+                top: 20vh;  
             }
         }
 
         &:nth-child(3) {
             &::before {
-                background-color: #0091BD;          
+                background-color: #0091BD; 
+                top: 20vh;         
             }
         }
 
         &:nth-child(4) {
             &::before {
-                background-color: #009ecf;             
+                background-color: #009ecf; 
+                top: 20vh;            
             }
         }
 
@@ -87,731 +91,43 @@ export const Circle = styled.div<WavesProps>`
                 transform: translateX(-50%) rotate(0deg);
             }
         }
-
-        @keyframes wave-height-5 {
-            from {
-                top: 100px;
-            }
-            to {
-                top: 100px;
-            }
-        }
-        @keyframes wave-height-10 {
-            from {
-                top: 90px;
-            }
-            to {
-                top: 90px;
-            }
-        }
-        @keyframes wave-height-15 {
-            from {
-                top: 85px;
-            }
-            to {
-                top: 85px;
-            }
-        }
-        @keyframes wave-height-20 {
-            from {
-                top: 80px;
-            }
-            to {
-                top: 80px;
-            }
-        }
-        @keyframes wave-height-25 {
-            from {
-                top: 75px;
-            }
-            to {
-                top: 75px;
-            }
-        }
-        @keyframes wave-height-30 {
-            from {
-                top: 70px;
-            }
-            to {
-                top: 70px;
-            }
-        }  
-        @keyframes wave-height-35 {
-            from {
-                top: 65px;
-            }
-            to {
-                top: 65px;
-            }
-        }
-        @keyframes wave-height-40 {
-            from {
-                top: 60px;
-            }
-            to {
-                top: 60px;
-            }
-        }
-        @keyframes wave-height-45 {
-            from {
-                top: 55px;
-            }
-            to {
-                top: 55px;
-            }
-        }
-        @keyframes wave-height-50 {
-            from {
-                top: 50px;
-            }
-            to {
-                top: 50px;
-            }
-        }
-        @keyframes wave-height-55 {
-            from {
-                top: 45px;
-            }
-            to {
-                top: 45px;
-            }
-        } 
-        @keyframes wave-height-60 {
-            from {
-                top: 40px;
-            }
-            to {
-                top: 40px;
-            }
-        }
-        @keyframes wave-height-65 {
-            from {
-                top: 35px;
-            }
-            to {
-                top: 35px;
-            }
-        }
-        @keyframes wave-height-70 {
-            from {
-                top: 30px;
-            }
-            to {
-                top: 30px;
-            }
-        }
-        @keyframes wave-height-75 {
-            from {
-                top: 25px;
-            }
-            to {
-                top: 25px;
-            }
-        }
-        @keyframes wave-height-80 {
-            from {
-                top: 20px;
-            }
-            to {
-                top: 20px;
-            }
-        }
-        @keyframes wave-height-85 {
-            from {
-                top: 15px;
-            }
-            to {
-                top: 15px;
-            }
-        }  
-        @keyframes wave-height-90 {
-            from {
-                top: 10px;
-            }
-            to {
-                top: 10px;
-            }
-        }
-        @keyframes wave-height-95 {
-            from {
-                top: 5px;
-            }
-            to {
-                top: 5px;
-            }
-        }
-        @keyframes wave-height-100 {
-            from {
-                top: 0px;
-            }
-            to {
-                top: 0px;
-            }
-        }     
     }     
 
-    ${props => props.valor <= 5 && css`
+    ${props => props.valor <= 40 && css`
         &::after {
             content: '${props.valor}%';
         }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-20 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-10 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-10 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-5 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
     `}
 
-    ${props => props.valor > 5 && props.valor <= 10 && css`
+    ${props => props.valor > 40 && css`
         &::after {
             content: '${props.valor}%';
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-25 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-15 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-10 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-5 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
+            color: #fff;
         }
     `}
 
-    ${props => props.valor > 10 && props.valor <= 15 && css`
-        &::after {
-            content: '${props.valor}%';
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-25 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-20 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-10 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-5 12s linear infinite, wave-left 10s linear infinite;
-                }
+    div {
+        &:nth-child(1) {
+            &::before {
+                animation: wave-right 10s linear infinite;
             }
         }
-    `}
-
-    ${props => props.valor > 15 && props.valor <= 20 && css`
-        &::after {
-            content: '${props.valor}%';
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-30 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-25 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-15 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-5 12s linear infinite, wave-left 10s linear infinite;
-                }
+        &:nth-child(2) {
+            &::before {
+                animation: wave-left 10s linear infinite;
             }
         }
-    `}
-
-    ${props => props.valor > 20 && props.valor <= 25 && css`
-        &::after {
-            content: '${props.valor}%';
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-35 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-30 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-20 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-5 12s linear infinite, wave-left 10s linear infinite;
-                }
+        &:nth-child(3) {
+            &::before {
+                animation: wave-right 10s linear infinite;
             }
         }
-    `}
-
-    ${props => props.valor > 25 && props.valor <= 30 && css`
-        &::after {
-            content: '${props.valor}%';
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-40 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-30 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-20 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-5 12s linear infinite, wave-left 10s linear infinite;
-                }
+        &:nth-child(4) {
+            &::before {
+                animation: wave-left 10s linear infinite;
             }
         }
-    `}
-
-    ${props => props.valor > 30 && props.valor <= 35 && css`
-        &::after {
-            content: '${props.valor}%';
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-45 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-35 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-25 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-5 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 35 && props.valor <= 40 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-50 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-40 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-30 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-10 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 40 && props.valor <= 45 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-55 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-45 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-35 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-10 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 45 && props.valor <= 50 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-60 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-50 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-40 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-15 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 50 && props.valor <= 55 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-65 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-55 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-45 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-20 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 55 && props.valor <= 60 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-70 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-60 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-50 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-25 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 60 && props.valor <= 65 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-75 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-65 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-55 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-30 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 65 && props.valor <= 70 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-80 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-70 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-60 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-35 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 75 && props.valor <= 80 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-85 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-75 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-65 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-35 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 80 && props.valor <= 85 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-90 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-80 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-65 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-40 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 85 && props.valor <= 90 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-95 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-85 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-75 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-40 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 90 && props.valor <= 95 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-95 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-80 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-60 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-30 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
-
-    ${props => props.valor > 95 && props.valor <= 100 && css`
-        &::after {
-            content: '${props.valor}%';
-            color: white;
-        }
-
-        div {
-            &:nth-child(1) {
-                &::before {
-                    animation: wave-height-100 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(2) {
-                &::before {
-                    animation: wave-height-85 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-            &:nth-child(3) {
-                &::before {
-                    animation: wave-height-65 12s linear infinite, wave-right 10s linear infinite;
-                }
-            }
-            &:nth-child(4) {
-                &::before {
-                    animation: wave-height-35 12s linear infinite, wave-left 10s linear infinite;
-                }
-            }
-        }
-    `}
+    }
 
     ${props => props.dashboard === true && css`
         box-shadow: 0 0 0 1vh white, 0 0 0 2vh #00579D;
@@ -828,7 +144,7 @@ export const Circle = styled.div<WavesProps>`
         }            
     `}
 
-    ${props => props.dashboard === true && props.valor <= 5 && css`
+    ${props => props.dashboard === true && props.valor === 0 && css`
         &::after {
             content: '${props.valor}%';
         }
@@ -836,25 +152,54 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 450px;
+                    top: 100vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 100vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 100vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 100vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard === true && props.valor >= 1 && props.valor <= 5 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 180px;
+                    top: 100vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 180px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 40px;
+                    top: 23vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -869,25 +214,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 450px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 170px;
+                    top: 100vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 165px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 30px;
+                    top: 21vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -902,25 +247,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 450px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 150px;
+                    top: 100vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 155px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 28px;
+                    top: 20vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -935,25 +280,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 450px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 135px;
+                    top: 100vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 150px;
+                    top: 20vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 25px;
+                    top: 19vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -968,25 +313,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 450px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 130px;
+                    top: 100vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 145px;
+                    top: 18vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 20px;
+                    top: 19vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1001,25 +346,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 450px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 125px;
+                    top: 100vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 140px;
+                    top: 17vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 20px;
+                    top: 18vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1034,25 +379,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 450px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 120px;
+                    top: 100vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 135px;
+                    top: 16vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 18px;
+                    top: 18vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1068,25 +413,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 280px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 115px;
+                    top: 15vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 130px;
+                    top: 15vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 16px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1102,25 +447,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 265px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 110px;
+                    top: 13vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 120px;
+                    top: 14vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 14px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1136,25 +481,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 215px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 90px;
+                    top: 10vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 110px;
+                    top: 12vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 10px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1170,25 +515,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 206px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 85px;
+                    top: 9vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 106px;
+                    top: 11vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 6px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1204,25 +549,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 190px;
+                    top: 100vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 80px;
+                    top: 8vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 106px;
+                    top: 11vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 2px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1238,25 +583,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 175px;
+                    top: 7vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 75px;
+                    top: 8vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 90px;
+                    top: 11vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: 0px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1272,25 +617,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 170px;
+                    top: 7vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 70px;
+                    top: 7vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 90px;
+                    top: 11vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: -5px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1306,25 +651,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 165px;
+                    top: 6vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 65px;
+                    top: 7vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 90px;
+                    top: 11vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: -5px;
+                    top: 18vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1340,25 +685,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 150px;
+                    top: 5vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 60px;
+                    top: 6vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 90px;
+                    top: 11vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: -5px;
+                    top: 18vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1374,25 +719,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 135px;
+                    top: 4.8vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 58px;
+                    top: 6vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 90px;
+                    top: 10vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: -5px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1408,25 +753,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 115px;
+                    top: 4.2vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 55px;
+                    top: 6vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 90px;
+                    top: 10vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: -5px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1442,25 +787,25 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 100px;
+                    top: 3.8vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 50px;
+                    top: 5.8vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 85px;
+                    top: 10vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: -5px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
@@ -1476,28 +821,637 @@ export const Circle = styled.div<WavesProps>`
         div {
             &:nth-child(1) {
                 &::before {
-                    margin-top: 70px;
+                    top: 2vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
-                    top: 40px;
+                    top: 5.8vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
-                    top: 80px;
+                    top: 10vh;
                     animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
-                    margin-top: -5px;
+                    top: 17vh;
                     animation: wave-left 10s linear infinite;
                 }
             }
         }
-    `}    
+    `}  
+    
+    ${props => props.dashboard !== true && props.valor === 0 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 13vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor >= 1 && props.valor <= 5 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 10vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 5 && props.valor <= 10 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 10vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 10vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 10 && props.valor <= 15 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 10vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 9vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 15 && props.valor <= 20 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 9vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 20 && props.valor <= 25 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 7.5vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 25 && props.valor <= 30 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 7vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 30 && props.valor <= 35 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 6vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 7.8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 35 && props.valor <= 40 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 5.8vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 7.4vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 40 && props.valor <= 45 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 6vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 5.6vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 7.2vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 45 && props.valor <= 50 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 4vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 5.4vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 7vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 50 && props.valor <= 55 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 20vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 3.8vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 5.4vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 55 && props.valor <= 60 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 10vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 3.6vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 5.4vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 60 && props.valor <= 65 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 10vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 3.4vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 5.2vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 65 && props.valor <= 70 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 3.2vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 5vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 70 && props.valor <= 75 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 4vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 3vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 5vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 75 && props.valor <= 80 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 4vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 2.8vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 4.6vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 80 && props.valor <= 85 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 3.2vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 2.6vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 4.4vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 85 && props.valor <= 90 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 3vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 2vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 4vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 90 && props.valor <= 95 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 1.4vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 2vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 4vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 8vh;
+                }
+            }
+        }
+    `}
+
+    ${props => props.dashboard !== true && props.valor > 95 && props.valor <= 100 && css`
+        &::after {
+            content: '${props.valor}%';
+        }
+
+        div {
+            &:nth-child(1) {
+                &::before {
+                    top: 0vh;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    top: 2vh;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    top: 4.4vh;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    top: 7.4vh;
+                }
+            }
+        }
+    `}
 `;

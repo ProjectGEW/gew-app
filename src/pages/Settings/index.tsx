@@ -24,20 +24,19 @@ const Settings: React.FC = () => {
 
     const [animacao, setAnimacao] = useState(recebeAnimacao);
 
-    // Revisão*****
-  const activeButton = (x: String) => {
-    if(x === "animation") {
-      document.getElementById("animation")!.style.backgroundColor = "#00579D";
-      document.getElementById("animation")!.style.transform = "rotate(180deg)";
+    useEffect(() => {
+      if(animacao === true) {
+          document.getElementById("animation")!.style.backgroundColor = "#adffb0";
+          document.getElementById("animation")!.innerHTML = "Ativado";
 
-      let animation = {animation: "true"}
-      localStorage.setItem('Animation', JSON.stringify(animation));
-        
-    } else {
-      document.getElementById("animation")!.style.backgroundColor = "#6B6B6B";
-      document.getElementById("animation")!.style.transform = "rotate(0deg)";
-    } 
-  }
+          localStorage.setItem('Animation', "true");
+      } else {
+          document.getElementById("animation")!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";            
+          document.getElementById("animation")!.innerHTML = "Desativado";
+
+          localStorage.setItem('Animation', "false");
+      }
+  },[animacao]);
 
   const userName = localStorage.getItem('User:nome');
 
@@ -92,7 +91,7 @@ const Settings: React.FC = () => {
           </Left>
           <Right>
             <div>
-              <span id="animation" onClick={() => activeButton("animation")} />
+              <button id="animation" onClick={() => setAnimacao(!animacao)}>Ativar</button>
             </div>
           </Right>
         </Container>
@@ -119,7 +118,7 @@ const Settings: React.FC = () => {
                   <input type="text" placeholder={fileName ? fileName : 'foto_perfil.png'} disabled/>
                   <label htmlFor="fotoPerfil"><FaEdit size={20}/></label>
               </p>
-              <span id="notification" onClick={() => activeButton("not")} />
+              <button id="notification">Desativado</button>
             </div>
           </Right>
         </Container>

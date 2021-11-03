@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import intl from "react-intl-universal";
 import api from '../../service/api';
+import { Line } from 'react-chartjs-2';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -14,10 +15,12 @@ import PopupVerbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
 import PopupVerbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
-    GraphLine, CardsMoney, Money, Filtros, Line, PopupModal, PopupTooltip, Status } from './styles';
+    GraphLine, CardsMoney, Money, Filtros, BoxLine, PopupModal, PopupTooltip, Status } from './styles';
 
 import analisaValor from '../../utils/analisaValor';
 import formatStatus from '../../utils/formatStatus';
+import { ContainerLine } from '../components/GraphLine/styles';
+import { CardContent } from '../Menu/styles';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -71,11 +74,12 @@ const Dashboard: React.FC = () => {
     const { id }: { id: string }  = useParams();
 
     const [status, setStatus] = useState('');
-    const [project, setProject] = useState<CardContent>();
+    //const [project, setProject] = useState<CardContent>();
     const [projetos, setProjetos] = useState<CardContent[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [countUtilizada, setCountUtilizada] = useState();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
+    const [dataSelecionada, setDataSelecionada] = useState('14');
 
     /*const token = localStorage.getItem('Token');
     let config = {
@@ -83,8 +87,26 @@ const Dashboard: React.FC = () => {
     };*/
 
     useEffect(() => {
-        if(id === '0') {
-            window.onload = async function handleProjetos() {
+        window.onload = async function handleProjetos() {
+            const response = await api.get<CardContent[]>("projetos");
+            const data = response.data;
+            setProjetos(data);
+
+            const responseSecao = await api.get<ISecoes[]>('secoes');
+            const dataSecao = responseSecao.data;
+            setSecoes(dataSecao);
+
+            const responseDatas = await api.get<CountPerData[]>(`projetos/count/14`)
+            const dataDatas = responseDatas.data;
+            setCountsPerData(dataDatas);  
+
+            const responseCountUtilizada = await api.get(`projetos/count/verba/0`);
+            const dataCountUtilizada = responseCountUtilizada.data;
+            setCountUtilizada(dataCountUtilizada);
+        }
+       
+        if(id !== '0') {
+            window.onload = async function handleProjeto() {
                 const response = await api.get<CardContent[]>("projetos");
                 const data = response.data;
                 setProjetos(data);
@@ -93,32 +115,18 @@ const Dashboard: React.FC = () => {
                 const dataSecao = responseSecao.data;
                 setSecoes(dataSecao);
 
-                const responseCountUtilizada = await api.get(`projetos/count/verba/0`);
+                const responseDatas = await api.get<CountPerData[]>(`projetos/count/14`)
+                const dataDatas = responseDatas.data;
+                setCountsPerData(dataDatas); 
+                
+                projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
+    
+                const responseCountUtilizada = await api.get(`projetos/count/verba/${id ? id : 0}`);
                 const dataCountUtilizada = responseCountUtilizada.data;
                 setCountUtilizada(dataCountUtilizada);
-
-                const response_perData = await api.get<CountPerData[]>(`projetos/count/14`);
-                const contagem_perData = response_perData.data;
-                setCountsPerData(contagem_perData);
             }
-            return;
         }
 
-        window.onload = async function handleProjetos() {
-            const response = await api.get<CardContent[]>("projetos");
-            const data = response.data;
-            setProjetos(data);
-
-            projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
-
-            const responseSecao = await api.get<ISecoes[]>('secoes');
-            const dataSecao = responseSecao.data;
-            setSecoes(dataSecao);
-
-            const responseCountUtilizada = await api.get(`projetos/count/verba/${id ? id : 0}`);
-            const dataCountUtilizada = responseCountUtilizada.data;
-            setCountUtilizada(dataCountUtilizada);
-        }
     }, [id, projetos]);
 
     const [language] = useState(() => {
@@ -228,13 +236,35 @@ const Dashboard: React.FC = () => {
     } else {
         const recebe = projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
         totalCcPagantes[0] = recebe.map(projeto => projeto.valoresTotaisDTO.valorTotalCcPagantes)[0];
+        console.log(totalCcPagantes[0]);
     }
 
     const porcentagemUtilizada = (Number(countUtilizada) / totalCcPagantes.reduce(reducer)) * 100;
     const valorDisponivel = totalCcPagantes.reduce(reducer) - Number(countUtilizada);
     const porcentagemDisponivel = 100 - porcentagemUtilizada;
+    
+    const alterarData = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        setDataSelecionada(value);
+        
+        api.get<CountPerData[]>(`projetos/count/${Number(value)}`).then((response => {
+            setCountsPerData(response.data)
+        }));         
+    }
+ 
+    const datas = countsPerData.map(datas => datas.data);
+    const verbas = countsPerData.map(verbas => verbas.verbaUtilizada);
 
-    const infoProjeto = projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
+    const data = {
+        labels: datas.reverse(),
+        datasets: [{
+        label: 'VERBA',
+        data: verbas.reverse(),
+        fill: true,
+        backgroundColor: 'rgba(0, 186, 255, 0.19)',
+        borderColor: '#0090C5',
+        }],
+    };
 
     return (
         <>
@@ -282,12 +312,8 @@ const Dashboard: React.FC = () => {
                                 <select id="filtroSecao" name="secao" onChange={selectChange}>
                                     <option value="Todos">Todos</option>
                                     {
-                                        secoes ?
-                                            secoes.map(secoes =>
-                                                <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
-                                            )
-                                            :
-                                            'Nenhuma seção foi encontrada'
+                                        secoes ? secoes.map(secoes =><option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
+                                        :'Nenhuma seção foi encontrada'
                                     }
                                 </select>
                             </div>  
@@ -317,23 +343,25 @@ const Dashboard: React.FC = () => {
                         <Filtros>
                             <div>
                                 <h1>Número:</h1> 
-                                <p>{infoProjeto.map(projeto => projeto.infoprojetoDTO.numeroDoProjeto)}</p>
+                                <p>{projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map(projeto => projeto.infoprojetoDTO.numeroDoProjeto)}</p>
                             </div>    
                             <div>
                                 <h1>Projeto:</h1> 
-                                <p>{infoProjeto.map(projeto => projeto.infoprojetoDTO.titulo)}</p>
+                                <p>{projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map(projeto => projeto.infoprojetoDTO.titulo)}</p>
                             </div>  
                             <div>
-                                {infoProjeto.map((projeto, index) => 
+                                {projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map((projeto, index) => 
                                     <Status key={index} status={projeto.infoprojetoDTO.status} disabled>
                                         {formatStatus(projeto.infoprojetoDTO.status)}
                                     </Status>
                                 )}
                             </div>   
                         </Filtros>}
-                        <Line>
-                            <GL counts={countsPerData} />
-                        </Line>
+                        <BoxLine>
+                            <ContainerLine> 
+                                <Line width={50} height={50} data={data} options={{ maintainAspectRatio: false }} />
+                            </ContainerLine>
+                        </BoxLine>
                         <Filtros id="filtrosDown">
                             <div id="trocar-moeda">
                                 <select name="moedas">
@@ -343,12 +371,9 @@ const Dashboard: React.FC = () => {
                                 </select>
                             </div>
                             <div id="filtro-periodo">
-                                <select name="dias">
-                                    <option value="d1">Últimos 14 dias</option>
-                                    <option value="d2">Últimos 28 dias</option>
-                                    <option value="d3">Últimos 90 dias</option>
-                                    <option value="d4">Últimos 180 dias</option>
-                                    <option value="d5">Últimos 365 dias</option>
+                                <select name="dias" onChange={alterarData}>
+                                    <option value="14">Últimos 14 dias</option>
+                                    <option value="28">Últimos 28 dias</option>
                                 </select>
                             </div>  
                         </Filtros>

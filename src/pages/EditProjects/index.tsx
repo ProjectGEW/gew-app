@@ -9,12 +9,13 @@ import { ContIcons } from '../components/MenuRight/styles';
 import api from "../../service/api";
 import intl from 'react-intl-universal';
 
-import { IoMdArrowDropright } from 'react-icons/io';
-
 import { ContainerProject, ContainerInfo, Projects, Container, ContainerTitle,
     ContainerFiltro, Center } from './styles';
-import { Msg } from '../components/MenuLeft/styles';
+import { Msg } from '../Projects/styles';
+
+import { IoMdArrowDropright } from 'react-icons/io';
 import { BiHourglass } from 'react-icons/bi';
+
 
 
 const locales = {
@@ -173,18 +174,13 @@ const EditProjects: React.FC = () => {
     };   
 
     const search = async (event: React.ChangeEvent<{ value: string }>) => {
-        if(event.target.value !== '') {
-            try {
-                const responsePorNome = await api.get<IProjetoProps[]>(`projetos/titulo/` + event.target.value);
-                const dataPorNome = responsePorNome.data;
+        const recebeTexto = event.target.value;
 
-                setNomeProjeto(dataPorNome);
-                setProjetos(dataPorNome);
-                
-                console.log(nomeProjeto);
-            } catch(err: any) {
-                console.log(err.message);
-            }
+        if(event.target.value !== '') {
+            setProjetos(global.filter(projeto => 
+                projeto.infoprojetoDTO.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
+                projeto.infoprojetoDTO.numeroDoProjeto.toString().includes(recebeTexto)
+            ))
         } else {
             setProjetos(global);
         }        
@@ -208,12 +204,8 @@ const EditProjects: React.FC = () => {
                     <select name="secao" onChange={selectChange}>
                       <option value="Todos">Todos</option>
                       {
-                      secoes ?
-                          secoes.map(secoes =>
-                              <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
-                          )
-                          :
-                          'Nenhuma seção foi encontrada'
+                        secoes ? secoes.map(secoes =><option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
+                        :'Nenhuma seção foi encontrada'
                       }
                     </select>
                   </div>

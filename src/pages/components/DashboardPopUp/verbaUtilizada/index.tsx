@@ -92,7 +92,9 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({ valor, fechar
                 </Scroll>
                 <Graph>
                     <Bar>
-                        <Value valor={valor}></Value>
+                        <Value valor={valor}>
+                            {/* <h1>{valor}%</h1> */}
+                        </Value>
                     </Bar>
                 </Graph>
             </PopUp>

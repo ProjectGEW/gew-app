@@ -111,8 +111,8 @@ const ConsultantProfile: React.FC = () => {
                 <Tittle>
                     Projetos atribuídos
                 </Tittle>
-                <TableDimensions tipo={'Perfil'}>
-                <Table tipo={'Perfil'}>
+                <TableDimensions>
+                <Table>
                     <div id='header'>
                         <div className='cadastro'>Número</div>
                         <div className='status'>Status</div>
