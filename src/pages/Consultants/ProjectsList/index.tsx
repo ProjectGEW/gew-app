@@ -9,15 +9,29 @@ import CardSelect from '../../components/CardProject/CardSelect';
 
 import { ContainerProject, ContainerInfo, Projects, Container, ContainerTitle,
     ContainerFiltro, Center } from './style';
+
 import { IoMdArrowDropright } from 'react-icons/io';
+import { BiHourglass } from 'react-icons/bi';
 
 import api from "../../../service/api";
 import intl from 'react-intl-universal';
+import { Msg } from '../../Projects/styles';
 
 interface IProjetoProps {
     infoprojetoDTO: {
+        id: number;
         numeroDoProjeto: number;
+        titulo: string;
+        descricao: string;
+        data_de_inicio: string;
+        data_de_termino: string;
         status: string;
+        secao: string;
+    };
+    valoresTotaisDTO: {
+        valorTotalCcPagantes: number;
+        valorTotalDespesas: number;
+        valorTotalEsforco: number;
     };
 }
 
@@ -160,15 +174,13 @@ const ProjectsList: React.FC = () => {
     }
 
     const search = async (event: React.ChangeEvent<{ value: string }>) => {
-        if(event.target.value !== '') {
-            try {
-                const responsePorNome = await api.get<IProjetoProps[]>(`projetos/titulo/` + event.target.value);
-                const dataPorNome = responsePorNome.data;
+        const recebeTexto = event.target.value;
 
-                setProjetos(dataPorNome);
-            } catch(err: any) {
-                console.log(err.message);
-            }
+        if(event.target.value !== '') {
+            setProjetos(global.filter(projeto => 
+                projeto.infoprojetoDTO.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
+                projeto.infoprojetoDTO.numeroDoProjeto.toString().includes(recebeTexto)
+            ))
         } else {
             setProjetos(global);
         }        
@@ -226,11 +238,17 @@ const ProjectsList: React.FC = () => {
                     </ContainerInfo>
                     <Projects>
                         <Center>
-                            {projetos.map(projeto => (
-                                projeto.infoprojetoDTO.status !== "CONCLUIDO" ? 
-                                    <CardSelect key={projeto.infoprojetoDTO.numeroDoProjeto} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
-                                : null
-                            ))}
+                            {
+                                projetos ? projetos.map(projeto => (
+                                    projeto.infoprojetoDTO.status !== "CONCLUIDO" ? 
+                                        <CardSelect key={projeto.infoprojetoDTO.numeroDoProjeto} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                                    : null
+                                )) :
+                                <Msg>
+                                    <BiHourglass size={40} />
+                                    <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                                </Msg>
+                            }
                         </Center>                     
                     </Projects>
                 </ContainerProject>
