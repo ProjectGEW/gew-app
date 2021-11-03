@@ -1,8 +1,9 @@
 import { shade } from "polished";
+import Popup from 'reactjs-popup';
 import styled, { css } from "styled-components";
 
-interface ListRoute {
-    tipo?: string;
+interface TableProps {
+    status: string;
 }
 
 export const Container = styled.div`
@@ -140,29 +141,27 @@ export const ContainerFiltro = styled.div`
         }
 
         #consultor {
-            width: 22vw;
+            width: 20vw;
         }
     }
 `;
 
-export const Table = styled.table<ListRoute>`
+export const Table = styled.div`
     width: 70vw;
     margin-top: 2vh;
     border-spacing: 0;
+    
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 
-    tr {
-        height: 8vh;
-
-        &:hover {
-            background-color: #f8f8f8;
-        }
-    }
-
-    td {
-        padding: 0.7vh 0 0 1vw;
-        border-bottom: 0.1vh solid #e9e9e9;
+    span {
+        padding: 0.4vh 0 0.4vh 1vw;
         font-size: 2.1vh;
         color: #444;
+        
+        display: flex;
+        align-items: center;
 
         select {
             width: auto;
@@ -191,7 +190,16 @@ export const Table = styled.table<ListRoute>`
                 background-color: ${shade(0.09, "#00579D")}
             }
         }
-    
+
+        #atrelado {
+            opacity: 0.6;
+            cursor: default;
+
+            &:hover {
+                background-color: #00579D;
+            }
+        }
+
         &:first-child {
             &:before {
                 content: '|';
@@ -214,10 +222,11 @@ export const Table = styled.table<ListRoute>`
     #header {
         width: 70vw;
         height: 5.4vh;
-        position: fixed;
+        
         display: flex;
         justify-content: center;
         align-items: center;
+
         background-color: #005DA5;
         font-weight: bold;
         font-size: 2.4vh;
@@ -226,25 +235,20 @@ export const Table = styled.table<ListRoute>`
         color: #fff;
     }
 
-    #column {
-        margin-top: 8vh;
-        height: 6vh;
-    }
-
     .cadastro {
-        width: 10vw;
+        width: 8vw;
     }
 
     .status {
-        width: 10vw;
+        width: 8vw;
     }
 
     .nome {
-        width: 30vw;
+        width: 31vw;
     }
 
     .projetos {
-        width: 10vw;
+        width: 9vw;
 
         select {
             border: 0;
@@ -252,47 +256,73 @@ export const Table = styled.table<ListRoute>`
     }
 
     .atribuicao {
-        width: 8vw;
+        width: 9vw;
     }
 
-    ${props => props.tipo === 'Perfil' && css`
-        .cadastro {
-            margin-left: 0.4vw;
-        }
-
-        .status {
-            margin-left: -1.4vw;
-        }
-        .projetos {
-            width: 8vw;
-        }
-
-        .nome {
-            width: 24vw;
-        }
-
-        div.atribuicao {
-            padding-left: 0.6vw;
-        }
-    `}
+    .perfil {
+        //width: 4vw;
+    }
 `;
 
-export const TableDimensions = styled.div<ListRoute>`
+export const TableDimensions = styled.div`
     width: 90%;
     margin: 1vh 0 0 5%;
     height: 64vh;
-    overflow: hidden ;
+    overflow: hidden;
+`;
 
-    ${props => props.tipo === "Perfil" && css`
-        height: 30vh;
-        margin-top: 4vh;
-    `}
+export const LinhaConsultor = styled.div<TableProps>`
+    display: flex;
+    align-items: center;
+    border-bottom: 0.1vh solid #e9e9e9;
+
+    
+    ${props => props.status === 'ATIVO' && css`
+        &:hover {
+            background-color: #eaffe8;
+        }
+
+        span {
+            &:first-child {
+                &:before {
+                    color: limegreen;
+                    background: limegreen;
+                }
+            }
+
+            &:nth-child(2) {
+                color: limegreen;
+            }
+        }
+    `}  
+    
+    ${props => props.status === 'INATIVO' && css`
+        &:hover {
+            background-color: #ffe8e8;
+        }
+
+        span {
+            &:first-child {
+                &:before {
+                    color: red;
+                    background: red;
+                }
+            }
+
+            &:nth-child(2) {
+                color: red;
+            }
+        }
+    `}  
 `;
 
 export const TableScroll = styled.div`
     width: 70vw;
     height: 60vh;
-    margin-top: 5vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 
     overflow: scroll;
     overflow-x: hidden;
@@ -305,5 +335,33 @@ export const TableScroll = styled.div`
     ::-webkit-scrollbar-thumb {
         background-color: rgb(196, 196, 196); 
         border-radius: 1vh;
+    }
+`;
+
+
+export const PopupPerfilConsultor = styled(Popup)`
+    &-content {
+        background: transparent;
+        animation: anvil 0.2s;
+        margin-left: 0.2vw;
+    }
+
+    .popup-arrow {
+        color: #c2e4ff;
+        stroke-width: 1px;
+        stroke: rgba(0, 0, 0, 0.16);
+        stroke-dasharray: 30px;
+        stroke-dashoffset: -54px;
+    }
+
+    @keyframes anvil {
+        0% {
+            opacity: 0;
+           // box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+        }
+        100% {
+            opacity: 1;
+            //box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+        }
     }
 `;
