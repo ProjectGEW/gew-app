@@ -28,6 +28,8 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
         })); 
     }, [numeroDoProjeto]);
 
+    console.log(countVerbaTotalPorProjeto);
+
     return (
         <div className="projeto">
             <P trigger={
