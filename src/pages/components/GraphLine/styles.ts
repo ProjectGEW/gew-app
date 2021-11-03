@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const ContainerLine = styled.div`
     width: 98%;
     height: 100%;   
 
