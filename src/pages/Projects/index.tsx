@@ -177,22 +177,14 @@ const Projects: React.FC = () => {
         }
     };
 
-    //const [inputValue, setInputValue] = useState("");
-
     const search = async (event: React.ChangeEvent<{ value: string }>) => {
-        //setInputValue(event.target.value);
+        const recebeTexto = event.target.value;
 
         if(event.target.value !== '') {
-            try {
-                const responsePorNumero = await api.get<IProjetoProps>(`projetos/` + event.target.value);
-                const dataPorNumero = responsePorNumero.data;
-                //setNumeroProjeto(dataPorNumero);
-
-                const converte = new Array<IProjetoProps>(dataPorNumero);
-                setProjetos(converte);
-            } catch(err: any) {
-                console.log(err.message);
-            }
+            setProjetos(global.filter(projeto => 
+                projeto.infoprojetoDTO.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
+                projeto.infoprojetoDTO.numeroDoProjeto.toString().includes(recebeTexto)
+            ))
         } else {
             setProjetos(global);
         }        
@@ -216,12 +208,8 @@ const Projects: React.FC = () => {
                             <select name="secao" onChange={selectChange}>
                                 <option value="Todos">Todos</option>
                                 {
-                                    secoes ?
-                                        secoes.map(secoes =>
-                                            <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>
-                                        )
-                                        :
-                                        'Nenhuma seção foi encontrada'
+                                    secoes ? secoes.map(secoes => <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
+                                    : 'Nenhuma seção foi encontrada'
                                 }
                             </select>
                         </div>
@@ -255,8 +243,7 @@ const Projects: React.FC = () => {
                 <ProjectsGrid>
                     <Center>
                         {
-                            projetos ?
-                            projetos.map((projeto) =>
+                            projetos ? projetos.map((projeto) =>
                                 <Card key={projeto.infoprojetoDTO.id} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
                             )
                             :
