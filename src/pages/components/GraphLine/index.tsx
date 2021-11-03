@@ -4,10 +4,10 @@ import { Line } from 'react-chartjs-2';
 
 import api from '../../../service/api';
 
-import { Container } from './styles';
+import { ContainerLine } from './styles';
 
 interface LineProps {
-  counts: any;
+  counts: number;
 }
 
 interface CardContent {
@@ -53,50 +53,47 @@ interface CountPerData {
 
 const GraphLine: React.FC<LineProps> = ({ counts }) => {
   const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
+  
+  const datas = countsPerData.map(datas => datas.data);
+  const verbas = countsPerData.map(verbas => verbas.verbaUtilizada);
 
   useEffect(() => {
-    window.onload = async function handleProjetos() {
-      const response_perData = await api.get<CountPerData[]>(`projetos/count/14`);
-      const contagem_perData = response_perData.data;
-      setCountsPerData(contagem_perData);        
-    }
-  },[]);
-
+    api.get<CountPerData[]>(`projetos/count/${counts}`).then((response => {
+      setCountsPerData(response.data)
+    })); 
+  },[counts]);
 
   const data = {
-    labels: ['01/10', '02/10', '03/10', '04/10', '05/10', '06/10', '07/10', '08/10', '09/10', '10/10', '11/10', '12/10', '13/10', '14/10'],
+    labels: datas.reverse(),
     datasets: [{
       label: 'VERBA',
-      data: [],
+      data: verbas.reverse(),
       fill: true,
       backgroundColor: 'rgba(0, 186, 255, 0.19)',
       borderColor: '#0090C5',
     }],
   };
 
-  //console.log(counts);
+  console.log(counts);
       
-      /*const options = {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
+  /*const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
         },
-      };
-
-      console.log(options);*/
-
-    //console.log(countsPerData);
+      ],
+    },
+  };
+  console.log(options);*/
 
   return (
     <>
-    <Container> 
+    <ContainerLine> 
       <Line width={50} height={50} data={data} options={{ maintainAspectRatio: false }} />
-    </Container>
+    </ContainerLine>
     </>
   );
 }
