@@ -45,6 +45,23 @@ export const ContainerTitle = styled.div`
 
         display: flex;
         align-items: center;
+
+        svg {
+            margin-left: 0vw;
+
+            &:last-child {
+                margin-left: 0vw;
+
+                &:hover {
+                    opacity: 0.85;
+                    cursor: pointer;
+                }
+
+                &:active {
+                    opacity: 0.75;
+                }
+            }
+        }
     }
 
     span {
