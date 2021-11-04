@@ -10,14 +10,15 @@ import { Container, ContainerInfo, ContainerTitle, ContainerFiltro, Table, Table
 
 import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts';
 
-import PerfilConsultor from '../../components/PerfilConsultor';
+import PerfilConsultor from '../../components/ConsultorPopUp/perfilConsultor';
+import ProjetosConsultor from '../../components/ConsultorPopUp/projetos';
 
 import api from "../../../service/api";
 
 import intl from 'react-intl-universal';
 import { IoMdArrowDropright } from 'react-icons/io';
 import { ImSearch } from 'react-icons/im';
-import { PopupModal } from '../../Dashboard/styles';
+import { PopupTooltip } from '../../Dashboard/styles';
 
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
@@ -30,6 +31,7 @@ interface IConsultor {
     numero_cracha: number;
     status: string;
     nome: string;
+    email: string;
     projetos: number[];
 }
 
@@ -160,6 +162,7 @@ const ConsultantList: React.FC = () => {
                     <div className='cadastro'>Cadastro</div>
                     <div className='status'>Status</div>
                     <div className='nome'>Nome completo</div>
+                    <div className='fornecedor'>Fornecedor</div>
                     <div className='projetos'>Projetos</div>
                     <div className='atribuicao'>Atribuição</div>
                     <div className='perfil'>Perfil</div>
@@ -170,14 +173,14 @@ const ConsultantList: React.FC = () => {
                         <span className='cadastro'>{consultant.numero_cracha}</span>
                         <span className='status' id={`status${consultant.numero_cracha}`}>{consultant.status}</span>
                         <span className='nome'>{consultant.nome}</span>
+                        <span className='fornecedor'>...</span>
                         <span className='projetos'>
-                            {consultant.projetos.length > 1 ? 
-                                <select>
-                                    {consultant.projetos.map((projeto, index) => (
-                                        <option key={index}>{projeto}</option>
-                                    ))}
-                                </select> 
-                            : consultant.projetos.length > 0 ? consultant.projetos : ''}
+                            {consultant.projetos.length > 0 ? 
+                                <PopupTooltip trigger={<button>Gerenciar</button>} position="right center">
+                                    <ProjetosConsultor projetos={consultant.projetos} />
+                                </PopupTooltip>
+                                : ''
+                            }
                         </span>
                         <span className='atribuicao'>
                             <button onClick={() => setRecebeCracha(consultant.numero_cracha)}>Atribuir</button>
@@ -185,7 +188,7 @@ const ConsultantList: React.FC = () => {
                         <span className='perfil'>
                             <PopupPerfilConsultor closeOnEscape trigger={<button><ImSearch size={20} color="#fff"/></button>} modal>
                                 {(close: any) => (
-                                    <PerfilConsultor nome={consultant.nome} cracha={consultant.numero_cracha} fechar={close} />
+                                    <PerfilConsultor nome={consultant.nome} cracha={consultant.numero_cracha} email={consultant.email} fechar={close} />
                                 )}
                             </PopupPerfilConsultor>
                         </span>
