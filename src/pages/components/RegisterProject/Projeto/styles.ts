@@ -179,6 +179,9 @@ export const Preview = styled.iframe`
   min-height: 300px;
 
   margin-top: 30px;
+  margin-left: -10vw; 
+  
+  margin-top: 30px;
   margin-left: -10vw;
 
   border: 0.1vh solid #c4c4c4;
