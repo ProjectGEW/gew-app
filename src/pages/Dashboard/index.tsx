@@ -239,9 +239,10 @@ const Dashboard: React.FC = () => {
         console.log(totalCcPagantes[0]);
     }
 
-    const porcentagemUtilizada = (Number(countUtilizada) / totalCcPagantes.reduce(reducer)) * 100;
-    const valorDisponivel = totalCcPagantes.reduce(reducer) - Number(countUtilizada);
-    const porcentagemDisponivel = 100 - porcentagemUtilizada;
+    const porcentagemUtilizada = totalCcPagantes.reduce(reducer) > 0 ? (Number(countUtilizada) / (totalCcPagantes.reduce(reducer))) * 100 : 0;
+
+    const valorDisponivel = Number(totalCcPagantes.reduce(reducer)) !== 0 ? totalCcPagantes.reduce(reducer) - Number(countUtilizada) : 0;
+    const porcentagemDisponivel = Number(totalCcPagantes.reduce(reducer)) !== 0 ? 100 - porcentagemUtilizada : 0;
     
     const alterarData = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
@@ -389,7 +390,7 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.terceiro')}</h1>
                             </Title>
-                            <h1>{analisaValor(Number(countUtilizada))}</h1>
+                            <h1>{Number(totalCcPagantes.reduce(reducer)) !== 0 ? analisaValor(Number(countUtilizada)) : analisaValor(0)}</h1>
                         </Money>
                         <Money>
                             <Title>
