@@ -245,7 +245,7 @@ const RegisterProjects: React.FC = () => {
   }
 
   const [value, onChange] = useState(new Date());
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<string>("inicio");
   const [dataInicio, setDataInicio] = useState<string>();
   const [dataFim, setDataFim] = useState<string>();
   const [dataAprovacao, setDataAprovacao] = useState<string>();
@@ -256,49 +256,52 @@ const RegisterProjects: React.FC = () => {
   function setData(value: Date) {
     const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
     if (selected === "inicio") {
-        if (value.getFullYear() >= new Date().getFullYear()) {
-            setDataInicio(dataFormat);
-            setInputErrorInit("");
-        } else {
-            setInputErrorInit("Ano inválido");
-        }
+      if (value.getFullYear() >= new Date().getFullYear()) {
+        setDataInicio(dataFormat);
+        setInputErrorInit("");
+        setSelected("fim");
+      } else {
+        setInputErrorInit("Ano inválido");
+      }
+
+      const valorFim = dataFim ? new Date(dataFim.split("/")[1] + "/" + dataFim.split("/")[0] + "/" + dataFim.split("/")[2]) : "01/01/0001";
+
+      if (value >= valorFim) {
+        setInputErrorFim("Data de término menor do que a de inicio");
+      }
+
+      const valorAprov = dataAprovacao ? new Date(dataAprovacao.split("/")[1] + "/" + dataAprovacao.split("/")[0] + "/" + dataAprovacao.split("/")[2]) : "01/01/0001";
+
+      if (value < valorAprov) {
+        setInputErrorAprov("Data de aprovação maior do que a de inicio");
+      }
     } else if (selected === "fim") {
-        const validation = dataInicio ? true : false;
-        const anoValidation = value.getFullYear() >= parseInt(dataInicio ? dataInicio.split("/")[2] : "") 
-        || value.getFullYear() <= new Date().getFullYear() + 100;
-        const mesValidation = value.getMonth() + 1 >= parseInt(dataInicio ? dataInicio.split("/")[1] : "");
-        const diaValidation = value.getDate() > parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (validation) {
-          if (anoValidation) {
-              if (mesValidation) {
-                  if (diaValidation) {
-                      setDataFim(dataFormat);
-                      setInputErrorFim("");
-                  } else {
-                      setInputErrorFim("Dia inválido");
-                  }
-              } else {
-                  setInputErrorFim("Mês inválido");
-              }
-          } else {
-              setInputErrorFim("Ano inválido");
-          }
+      const validation = dataInicio ? true : false;
+      const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
+      if (validation) {
+        if (value > valorInicio) {
+          setDataFim(dataFormat);
+          setInputErrorFim("");
+          setSelected("aprovacao");
         } else {
-          setInputErrorFim("Informe primeiro a data de inicio");
+          setInputErrorFim("Data de término menor do que a de inicio");
         }
+      } else {
+        setInputErrorFim("Informe primeiro a data de inicio");
+      }
     } else if (selected === "aprovacao") {
-        const validation = value.getFullYear() >= new Date().getFullYear() - 1;
-        const diaValidation = value.getDate() <= parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (validation) { 
-          if (diaValidation) {
-            setDataAprovacao(dataFormat);
-            setInputErrorAprov("");
-          } else {
-            setInputErrorAprov("Dia inválido");
-          }
+      const validation = dataInicio ? true : false;
+      const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
+      if (validation) {
+        if (value <= valorInicio) {
+          setDataAprovacao(dataFormat);
+          setInputErrorAprov("");
         } else {
-            setInputErrorAprov("Ano inválido");
+          setInputErrorAprov("Data de aprovação maior do que a de inicio");
         }
+      } else {
+        setInputErrorAprov("Informe primeiro a data de inicio");
+      }
     }
   }
   
