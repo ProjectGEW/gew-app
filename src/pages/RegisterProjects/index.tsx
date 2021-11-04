@@ -19,11 +19,11 @@ import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles
 import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../components/RegisterProject/Datas/styles';
 import { ContIcons } from '../components/MenuRight/styles';
-import Footer from '../components/Footer';
+//import Footer from '../components/Footer';
 import 'react-calendar/dist/Calendar.css';
 
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
-import { HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { RiPauseCircleFill } from 'react-icons/ri';
 
 import { Container, ContainerRegister, Info, Content, Error, LinhaTitulo } from './styles';
@@ -33,7 +33,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
-import { vrfCampo, validacaoDosCamposCadastros } from '../../utils/confereCampo';
+import { vrfCampo } from '../../utils/confereCampo';
 
 interface ISecaoResponse {
   nome: string;
@@ -359,7 +359,7 @@ const RegisterProjects: React.FC = () => {
         document.getElementById("ataResponse")!.innerHTML = "";  
       }
     }
-  }, [verificaCliqueAta, fileName]);
+  }, [verificaCliqueAta, file, fileName]);
 
 return (
   <>

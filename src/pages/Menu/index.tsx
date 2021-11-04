@@ -68,9 +68,9 @@ const Menu: React.FC = () => {
 
     const [counts, setCounts] = useState<Count>();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
-    const today = new Date();
+    //const today = new Date();
 
-    const today_string = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    //const today_string = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
 
     window.onload = async function handleData(): Promise<void> {
         try {

@@ -81,6 +81,8 @@ const Projects: React.FC = () => {
         setGlobal(data);
         setContagemProjetos(data);
 
+        console.log(contagemProjetos);
+
         const responseSecao = await api.get<ISecoes[]>('secoes');
         const dataSecao = responseSecao.data;
         setSecoes(dataSecao);

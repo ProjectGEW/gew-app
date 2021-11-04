@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Paper from "@material-ui/core/Paper";
 import Calendar from 'react-calendar';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDropzone } from "react-dropzone";
 
 import MenuLeft from '../../components/MenuLeft';
@@ -32,16 +32,16 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 import api from "../../../service/api";
 
-import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts'
+//import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts'
 import { vrfCampo, validacaoDosCamposCadastros } from '../../../utils/confereCampo';
 
 interface ISecaoResponse {
   nome: string;
 }
 
-interface IProjetoResponse {
-  numeroDoProjeto: number;
-}
+// interface IProjetoResponse {
+//   numeroDoProjeto: number;
+// }
 
 interface CardContent {
     infoprojetoDTO : {
@@ -65,34 +65,34 @@ interface CardContent {
     };      
 }
 
-interface IProjeto {
-  infoProjetosInputDTO?: {
-    numeroDoProjeto: number;
-    titulo: string;
-    descricao: string;
-    nome_responsavel: string;
-    nome_solicitante: string;
-    data_de_inicio: string;
-    data_de_termino: string;
-    data_de_aprovacao: string;    
-  },
-  despesasInputDTOS?: IDespesas[],
-  ccPagantesInputDTO?: ICCpagantes[]
-}
+// interface IProjeto {
+//   infoProjetosInputDTO?: {
+//     numeroDoProjeto: number;
+//     titulo: string;
+//     descricao: string;
+//     nome_responsavel: string;
+//     nome_solicitante: string;
+//     data_de_inicio: string;
+//     data_de_termino: string;
+//     data_de_aprovacao: string;    
+//   },
+//   despesasInputDTOS?: IDespesas[],
+//   ccPagantesInputDTO?: ICCpagantes[]
+// }
 
 interface IFuncionario {
   nome:string;
 }
-interface IDespesas {
-  nome?: string;
-  esforco?: number;
-  valor?: number;
-}
+// interface IDespesas {
+//   nome?: string;
+//   esforco?: number;
+//   valor?: number;
+// }
 
-interface ICCpagantes{
-  secao_id?: number;
-  valor?: number;
-}
+// interface ICCpagantes{
+//   secao_id?: number;
+//   valor?: number;
+// }
 
 
 const RegisterProjects: React.FC = () => {
@@ -127,14 +127,15 @@ const RegisterProjects: React.FC = () => {
       initalValue.ccPagantesInputDTO.shift();
     
       //Projeto
-      const [projeto, setProjeto] = useState<IProjeto>();
+      //const [projeto, setProjeto] = useState<IProjeto>();
 
-    const [data, setData] = useState("");
+    //const [data, setData] = useState("");
     const { numeroDoProjeto }: {numeroDoProjeto: string}  = useParams();
-    function teste() {
-        setData((document.getElementById("ata") as HTMLInputElement).value);
-        console.log(data.substring(12, -1));
-    }
+    // function teste() {
+    //     setData((document.getElementById("ata") as HTMLInputElement).value);
+    //     console.log(data.substring(12, -1));
+    // }
+
     //Projeto
     const [projetoEdit, setProjetoEdit] = useState<CardContent>();
     useEffect(() => {
@@ -142,7 +143,7 @@ const RegisterProjects: React.FC = () => {
             setProjetoEdit(response.data);
       }))
     }, [numeroDoProjeto]);
-  const history = useHistory();
+  //const history = useHistory();
 
 
   //console.log(projeto);
@@ -169,23 +170,23 @@ const RegisterProjects: React.FC = () => {
 
   const { ref, ...rootProps } = getRootProps();
   // Trocar etapas
-  var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
+  //var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
 
-  const [etapa, setEtapas] = useState('');
+ // const [etapa, setEtapas] = useState('');
 
-  function trocarEtapa(proxEtapa: string) {
-    if (proxEtapa === "boxDinheiro") {
-      document.getElementById("btnDin")!.style.display = "block";
-    } else if (proxEtapa === "boxDatas" || proxEtapa === "boxResponsavel" || proxEtapa === "boxProjeto") {
-      document.getElementById("btnDin")!.style.display = "none";
-    }
+  // function trocarEtapa(proxEtapa: string) {
+  //   if (proxEtapa === "boxDinheiro") {
+  //     document.getElementById("btnDin")!.style.display = "block";
+  //   } else if (proxEtapa === "boxDatas" || proxEtapa === "boxResponsavel" || proxEtapa === "boxProjeto") {
+  //     document.getElementById("btnDin")!.style.display = "none";
+  //   }
 
-    for (var x = 0; x < 4; x++) {
-      document.getElementById(etapas[x])!.style.display = "none";
-    }
-    document.getElementById(proxEtapa)!.style.display = "block";
-    setEtapas(proxEtapa);
-  }
+  //   for (var x = 0; x < 4; x++) {
+  //     document.getElementById(etapas[x])!.style.display = "none";
+  //   }
+  //   document.getElementById(proxEtapa)!.style.display = "block";
+  //   setEtapas(proxEtapa);
+  // }
 
   var setarEConfirmar = ["set-data", "confirm-data"];
 
@@ -379,7 +380,7 @@ const RegisterProjects: React.FC = () => {
         document.getElementById("ataResponse")!.innerHTML = "";  
       }
     }
-  }, [verificaCliqueAta, fileName]);
+  }, [verificaCliqueAta, file, fileName]);
 
 return (
   <>
@@ -582,7 +583,7 @@ return (
       <ContentContainer>
         <div>
           <h3>Número do projeto:</h3>
-          <h2></h2>
+          {/* <h2></h2> */}
         </div>
         <div>
           <h3>Ata da aprovação:</h3>
@@ -592,19 +593,19 @@ return (
       <Box>
         <div>
           <h3>Título do projeto:</h3>
-          <h2></h2>
+          {/* <h2></h2> */}
         </div>
       </Box>
       <Box>
         <div>
           <h3>Descrição do projeto:</h3>
-          <h2></h2>
+          {/* <h2></h2> */}
         </div>
       </Box>
       <ContentContainer>
         <div>
           <h3>Nome do responsável:</h3>
-          <h2></h2>
+          {/* <h2></h2> */}
         </div>
         <div>
           <h3>Seção do responsável:</h3>
@@ -614,7 +615,7 @@ return (
       <ContentContainer>
         <div>
           <h3>Nome do solicitante:</h3>
-          <h2></h2>
+          {/* <h2></h2> */}
         </div>
         <div>
           <h3>Seção do solicitante:</h3>
@@ -630,7 +631,7 @@ return (
         </div>
         <div>
           <h3>Data de início:</h3>
-          <h2></h2>
+          {/* <h2></h2> */}
         </div>
       </ContentContainer>
       <ContentContainer>
@@ -640,7 +641,7 @@ return (
         </div>
         <div>
           <h3>Data de término:</h3>
-            <h2></h2>
+            {/* <h2></h2> */}
         </div>
       </ContentContainer>
       <ContentContainer>
@@ -650,7 +651,7 @@ return (
         </div>
         <div>
           <h3>Data de aprovação:</h3>
-          <h2></h2>
+          {/* <h2></h2> */}
         </div>
       </ContentContainer>
       <TableConfirm>

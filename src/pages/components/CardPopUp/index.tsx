@@ -70,12 +70,11 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
         api.get<number>(`projetos/count/verba/${numeroDoProjeto}`)
           .then((response => { setValorConsumido(response.data) }));
   
-        // api.get<string>(`/files/${numeroDoProjeto}`)
-        //   .then((response => { setAta(response.data) }));
+        api.get<string>(`/files/${numeroDoProjeto}`).then((response => { setAta(response.data) }));
       } catch (err) {
         console.log(err);
       }
-    },[]);
+    },[numeroDoProjeto]);
 
     const downloadFile = () => {
       window.open(`http://localhost:6868/files/download/${numeroDoProjeto}`);

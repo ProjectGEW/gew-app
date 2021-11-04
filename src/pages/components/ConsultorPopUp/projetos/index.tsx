@@ -9,7 +9,6 @@ interface PopupProjetosConsultorProps {
 }
 
 const PopupProjetosConsultor: React.FC<PopupProjetosConsultorProps> = ({projetos}) => {
-    console.log(projetos);
     return (
         <Container>
             <PopUp>

@@ -16,8 +16,6 @@ import { Msg } from '../Projects/styles';
 import { IoMdArrowDropright } from 'react-icons/io';
 import { BiHourglass } from 'react-icons/bi';
 
-
-
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
     'en-US': require('../../language/en-US.json'),
@@ -71,7 +69,7 @@ const EditProjects: React.FC = () => {
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [status, setStatus] = useState('');
-    const [nomeProjeto, setNomeProjeto] = useState<IProjetoProps[]>([]);
+    //const [nomeProjeto, setNomeProjeto] = useState<IProjetoProps[]>([]);
 
     window.onload = async function handleProjetos() {
         const response = await api.get<IProjetoProps[]>('projetos');

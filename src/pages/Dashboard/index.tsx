@@ -10,7 +10,6 @@ import Navbar from '../components/Navbar';
 import MenuRight from '../components/MenuRight';
 import { ContIcons } from '../components/MenuRight/styles';
 import GraphLiquid from "../components/GraphLiquid";
-import GL from "../components/GraphLine";
 import PopupVerbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
 import PopupVerbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
 
@@ -20,7 +19,6 @@ import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
 import analisaValor from '../../utils/analisaValor';
 import formatStatus from '../../utils/formatStatus';
 import { ContainerLine } from '../components/GraphLine/styles';
-import { CardContent } from '../Menu/styles';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -30,7 +28,7 @@ const locales = {
 };
 
 interface CardContent {
-    infoprojetoDTO : {
+    infoprojetoDTO: {
         id: number;
         numeroDoProjeto: number;
         titulo: string;
@@ -79,7 +77,7 @@ const Dashboard: React.FC = () => {
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [countUtilizada, setCountUtilizada] = useState();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
-    const [dataSelecionada, setDataSelecionada] = useState('14');
+    //const [dataSelecionada, setDataSelecionada] = useState('14');
 
     /*const token = localStorage.getItem('Token');
     let config = {
@@ -246,7 +244,7 @@ const Dashboard: React.FC = () => {
     
     const alterarData = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
-        setDataSelecionada(value);
+        //setDataSelecionada(value);
         
         api.get<CountPerData[]>(`projetos/count/${Number(value)}`).then((response => {
             setCountsPerData(response.data)

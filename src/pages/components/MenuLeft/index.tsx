@@ -121,11 +121,7 @@ const MenuLeft: React.FC = () => {
                 </NewsImg>
                 <LineBlue id="line-blue" />
                 <RefreshImg id="refresh-img">
-                    <FiRefreshCcw onClick={
-                        
-                        tarefa
-                        
-                    } id="iconRef"/>
+                    <FiRefreshCcw id="iconRef"/>
                 </RefreshImg>
                 <DeleteImg id="delete-img">
                     <RiDeleteBinLine id="iconDel"/>

@@ -79,7 +79,7 @@ const ConsultantList: React.FC = () => {
                 setRecebeCracha(undefined);
             }
         }
-    },[recebeCracha]);
+    },[consultants, numeroDoProjeto, recebeCracha]);
 
     function defineStatus(valor: string) {
 
@@ -105,8 +105,9 @@ const ConsultantList: React.FC = () => {
         
         const recebeStatus = document.activeElement?.id.toUpperCase();
 
-        if(recebeStatus != 'TODOS') {
+        if(recebeStatus !== 'TODOS') {
             setConsultants(global.filter(status => status.status === recebeStatus));
+            console.log(status);
         } else {
             setConsultants(global);
         }

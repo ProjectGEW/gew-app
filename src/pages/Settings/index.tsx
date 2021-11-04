@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import Paper from "@material-ui/core/Paper";
+import React, { useState, useEffect } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import MenuRight from '../components/MenuRight';
@@ -40,24 +38,22 @@ const Settings: React.FC = () => {
 
   const userName = localStorage.getItem('User:nome');
 
-  const [file, setFile] = useState();
-  const [fileName, setFileName] = useState<string>('');
+  // const [file, setFile] = useState();
+  // const [fileName, setFileName] = useState<string>('');
 
-  const onDrop = useCallback((acceptedFiles) => {
-    setFile(acceptedFiles[0]);
-    setFileName(acceptedFiles[0].name);
-  }, []);
+  // const onDrop = useCallback((acceptedFiles) => {
+  //   setFile(acceptedFiles[0]);
+  //   setFileName(acceptedFiles[0].name);
+  // }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({
-    multiple: false,
-    onDropAccepted: onDrop,
-  });
+  // const { getRootProps, getInputProps } = useDropzone({
+  //   multiple: false,
+  //   onDropAccepted: onDrop,
+  // });
 
-  const { ref, ...rootProps } = getRootProps();
+  // const { ref, ...rootProps } = getRootProps();
 
-  function uploadFotoPerfil() {
-    
-  }
+  // console.log(file);
 
   return (
     <>
@@ -114,8 +110,8 @@ const Settings: React.FC = () => {
                 <FaEdit size={20}/>
               </p>
               <p>
-                  <input id="fotoPerfil" type="file" {...getInputProps()}/>
-                  <input type="text" placeholder={fileName ? fileName : 'foto_perfil.png'} disabled/>
+                  <input id="fotoPerfil" type="file"/>
+                  <input type="text" placeholder={'foto_perfil.png'} disabled/>
                   <label htmlFor="fotoPerfil"><FaEdit size={20}/></label>
               </p>
               <button id="notification">Desativado</button>
