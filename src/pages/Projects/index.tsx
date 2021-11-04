@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useEffect, useState, FormEvent } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -14,6 +14,7 @@ import intl from 'react-intl-universal';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 import { BiHourglass } from 'react-icons/bi';
+import { FiRefreshCcw } from 'react-icons/fi';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
     ContainerFiltro, Center, Msg } from './styles';
@@ -190,6 +191,14 @@ const Projects: React.FC = () => {
         }        
     };
 
+    const [atualizar, setAtualizar] = useState(false);
+
+    useEffect(() => {
+        if(atualizar) {
+            api.get<IProjetoProps[]>('projetos').then((response) => (setProjetos(response.data)));
+        }
+    },[atualizar]);
+
     return (
         <>
         <Navbar />
@@ -198,7 +207,7 @@ const Projects: React.FC = () => {
             <ContainerProject>
                 <ContainerInfo>
                     <ContainerTitle>
-                        <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25} /></h1>
+                        <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25}/> <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/></h1>
                         <span />
                     </ContainerTitle>
                     <ContainerFiltro>
