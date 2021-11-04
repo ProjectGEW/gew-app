@@ -233,30 +233,52 @@ export const Table = styled.div`
         border-radius: 0.8vh 0.8vh 0 0;
 
         color: #fff;
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cadastro {
+            width: 8vw;
+            justify-content: left;
+        }
+
+        .status {
+            justify-content: left;
+        }
+    }
+
+    span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .cadastro {
         width: 8vw;
+        justify-content: left;
     }
 
     .status {
-        width: 8vw;
+        width: 4vw;
     }
 
     .nome {
-        width: 31vw;
+        width: 20vw;
+    }
+
+    .fornecedor {
+        width: 12vw;
     }
 
     .projetos {
-        width: 9vw;
-
-        select {
-            border: 0;
-        }
+        width: 11vw;
     }
 
     .atribuicao {
-        width: 9vw;
+        width: 10vw;
     }
 
     .perfil {
