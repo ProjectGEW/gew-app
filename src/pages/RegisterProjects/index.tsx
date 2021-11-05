@@ -37,6 +37,7 @@ import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
 import { vrfCampo } from '../../utils/confereCampo';
 import Footer from '../components/Footer';
 
+
 interface ISecaoResponse {
   nome: string;
 }
@@ -247,7 +248,7 @@ const RegisterProjects: React.FC = () => {
   }
 
   const [value, onChange] = useState(new Date());
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<string>("inicio");
   const [dataInicio, setDataInicio] = useState<string>();
   const [dataFim, setDataFim] = useState<string>();
   const [dataAprovacao, setDataAprovacao] = useState<string>();
@@ -258,49 +259,52 @@ const RegisterProjects: React.FC = () => {
   function setData(value: Date) {
     const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
     if (selected === "inicio") {
-        if (value.getFullYear() >= new Date().getFullYear()) {
-            setDataInicio(dataFormat);
-            setInputErrorInit("");
-        } else {
-            setInputErrorInit("Ano inválido");
-        }
+      if (value.getFullYear() >= new Date().getFullYear()) {
+        setDataInicio(dataFormat);
+        setInputErrorInit("");
+        setSelected("fim");
+      } else {
+        setInputErrorInit("Ano inválido");
+      }
+
+      const valorFim = dataFim ? new Date(dataFim.split("/")[1] + "/" + dataFim.split("/")[0] + "/" + dataFim.split("/")[2]) : "01/01/0001";
+
+      if (value >= valorFim) {
+        setInputErrorFim("Data de término menor do que a de inicio");
+      }
+
+      const valorAprov = dataAprovacao ? new Date(dataAprovacao.split("/")[1] + "/" + dataAprovacao.split("/")[0] + "/" + dataAprovacao.split("/")[2]) : "01/01/0001";
+
+      if (value < valorAprov) {
+        setInputErrorAprov("Data de aprovação maior do que a de inicio");
+      }
     } else if (selected === "fim") {
-        const validation = dataInicio ? true : false;
-        const anoValidation = value.getFullYear() >= parseInt(dataInicio ? dataInicio.split("/")[2] : "") 
-        || value.getFullYear() <= new Date().getFullYear() + 100;
-        const mesValidation = value.getMonth() + 1 >= parseInt(dataInicio ? dataInicio.split("/")[1] : "");
-        const diaValidation = value.getDate() > parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (validation) {
-          if (anoValidation) {
-              if (mesValidation) {
-                  if (diaValidation) {
-                      setDataFim(dataFormat);
-                      setInputErrorFim("");
-                  } else {
-                      setInputErrorFim("Dia inválido");
-                  }
-              } else {
-                  setInputErrorFim("Mês inválido");
-              }
-          } else {
-              setInputErrorFim("Ano inválido");
-          }
+      const validation = dataInicio ? true : false;
+      const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
+      if (validation) {
+        if (value > valorInicio) {
+          setDataFim(dataFormat);
+          setInputErrorFim("");
+          setSelected("aprovacao");
         } else {
-          setInputErrorFim("Informe primeiro a data de inicio");
+          setInputErrorFim("Data de término menor do que a de inicio");
         }
+      } else {
+        setInputErrorFim("Informe primeiro a data de inicio");
+      }
     } else if (selected === "aprovacao") {
-        const validation = value.getFullYear() >= new Date().getFullYear() - 1;
-        const diaValidation = value.getDate() <= parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (validation) { 
-          if (diaValidation) {
-            setDataAprovacao(dataFormat);
-            setInputErrorAprov("");
-          } else {
-            setInputErrorAprov("Dia inválido");
-          }
+      const validation = dataInicio ? true : false;
+      const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
+      if (validation) {
+        if (value <= valorInicio) {
+          setDataAprovacao(dataFormat);
+          setInputErrorAprov("");
         } else {
-            setInputErrorAprov("Ano inválido");
+          setInputErrorAprov("Data de aprovação maior do que a de inicio");
         }
+      } else {
+        setInputErrorAprov("Informe primeiro a data de inicio");
+      }
     }
   }
   
@@ -382,13 +386,13 @@ return (
             <span> 
               <div id="left-box">
                 <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampo(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
+                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampoComMsg(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
                 <p id="numeroProjetoResponse" className="msgErro"></p>
                 <label>Título do projeto: </label>
-                <input type="text" id="titulo" onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}/>
+                <input type="text" id="titulo" onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
-                <textarea id="descricao" onBlur={(props) => { vrfCampo(props.target.value, "descricao", "descricaoResponse"); }}/>
+                <textarea id="descricao" onBlur={(props) => { vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
               <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
@@ -418,7 +422,7 @@ return (
                     handleSecao(props.target.value, "secao_responsavel"); 
                   }
               
-                  vrfCampo(props.target.value, "nome_responsavel", "responsavelResponse");
+                  vrfCampoComMsg(props.target.value, "nome_responsavel", "responsavelResponse");
                 }}/>
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
@@ -427,7 +431,7 @@ return (
                     handleSecao(props.target.value, "secao_solicitante");
                   }
 
-                  vrfCampo(props.target.value, "nome_solicitante", "solicitanteResponse");
+                  vrfCampoComMsg(props.target.value, "nome_solicitante", "solicitanteResponse");
                 }}/>
                 <p id="solicitanteResponse" className="msgErro"></p>
               </div>
