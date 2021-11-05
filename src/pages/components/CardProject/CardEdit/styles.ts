@@ -40,6 +40,8 @@ export const CardStatus = styled.div<StatusProps>`
     ${props => props.statusColor === "NAO_INICIADO" && css`background-color: grey;`}
 
     ${props => props.statusColor === "EM_ANDAMENTO" && css`background-color: #00579D`}
+
+    ${props => props.statusColor === "CONCLUIDO" && css`background-color: #1FB712`}
 `;
 
 export const CardBox = styled.div`
