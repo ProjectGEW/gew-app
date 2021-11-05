@@ -74,4 +74,9 @@ export const FooterForm = styled.div<footerProps>`
         background: #0091BD;
       }
     `}
+
+    ${props => props.tipo === "registerProjects" && css`
+      margin-top: 72vh;
+      margin-left: 2.4vw;
+    `}
 `;
