@@ -130,7 +130,7 @@ const RegisterProjects: React.FC = () => {
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     onDropAccepted: onDrop,
-  });
+  }); 
 
   const { ref, ...rootProps } = getRootProps();
   // Trocar etapas
