@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -12,6 +12,7 @@ import { ContainerProject, ContainerInfo, Projects, Container, ContainerTitle,
 
 import { IoMdArrowDropright } from 'react-icons/io';
 import { BiHourglass } from 'react-icons/bi';
+import { FiRefreshCcw } from 'react-icons/fi';
 
 import api from "../../../service/api";
 import intl from 'react-intl-universal';
@@ -186,11 +187,18 @@ const ProjectsList: React.FC = () => {
         }        
     };
 
+    const [atualizar, setAtualizar] = useState(false);
+
+    useEffect(() => {
+        if(atualizar) {
+            api.get<IProjetoProps[]>('projetos').then((response) => (setProjetos(response.data)));
+        }
+    },[atualizar]);
+
     return (
         <>
             <Navbar />
             <MenuLeft />
-
             <Container> 
             <ContainerProject>
                     <ContainerInfo>
@@ -233,6 +241,9 @@ const ProjectsList: React.FC = () => {
                             <div>
                                 <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
                                 <input type="text" placeholder="Número do projeto" onChange={search} />
+                            </div>
+                            <div>
+                                <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/>
                             </div>
                         </ContainerFiltro>
                     </ContainerInfo>
