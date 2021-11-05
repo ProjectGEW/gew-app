@@ -78,7 +78,7 @@ const ConsultantList: React.FC = () => {
                 errorfulNotify(`Projeto ${numeroDoProjeto} já está atrelado ao consultor ${recebeCracha}.`);
                 setRecebeCracha(undefined);
             } else {
-                api.post(`projetos/atrelar/${numeroDoProjeto}/${recebeCracha}`).then((response => response.data));
+                api.post(`projetos/alocar/${numeroDoProjeto}/${recebeCracha}`).then((response => response.data));
                 successfulNotify(`Projeto ${numeroDoProjeto} atrelado ao consultor ${recebeCracha}.`);
                 setRecebeCracha(undefined);
             }
