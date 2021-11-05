@@ -61,7 +61,7 @@ export const BoxConfirm = styled.div`
         }
     }
 
-    h1 {
+    .header {
         color: white;
         margin-left: 3.5vw;
         font-size: 3.6vh;
@@ -95,23 +95,33 @@ export const SideContainer = styled.div`
 
 export const ContentContainer = styled.div`
     width:98%;
-    height: 6vh;
+    height: 6vh;    
     margin-bottom: 4%;
     display: flex;
     justify-content: space-between;
 
     &:nth-child(1) {
-        margin-top: 4vh;
+        margin-top: 8vh;
         margin-bottom: 1.4vh;
+    }
+
+    &:nth-child(2) {
+        margin-top: 10vh;
+    }
+
+    &:nth-child(5) {
+        margin-top: 4vh;
     }
 
     div {
         width: 50%;
         height: 8vh;
         display: flex;
-        flex-direction: COLUMN;
+        flex-direction: column;
 
         &:nth-child(2) {
+            margin-left: -3vw;
+
             h3, h2 {
                 margin-left: 3vw;
             }
@@ -129,6 +139,12 @@ export const ContentContainer = styled.div`
             color: #5E5E5E;
             font-weight: normal;
             margin-top: 1vh;
+            display: flex;
+            align-items: center;
+
+            svg {
+                margin-right: 1vw;
+            }
         }
 
     }

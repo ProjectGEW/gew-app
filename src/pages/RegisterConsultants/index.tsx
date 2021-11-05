@@ -15,6 +15,10 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 
 import { ConsultantData, Container, PricePerHour, SideContainer, SupplierData, UserData } from './styles';
 
+import { vrfCampo, verificaCadConsultor, verificaFornecedor } from "../../utils/confereCampo";
+
+import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts';
+
 //import analisaValor from "../../utils/analisaValor";
 
 interface CadConsultor {
@@ -84,7 +88,6 @@ const RegisterConsultants: React.FC = () => {
     }
 
     const setConsultorInfos = useCallback( async () => {
-        const inputs = ["numero_cracha", "nome", "email", "senha", "cpf", "telefone", "valor_hora"];
         const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
         const nome = (document.getElementById("nome") as HTMLInputElement).value;
         const email = (document.getElementById("email") as HTMLInputElement).value;
@@ -108,14 +111,34 @@ const RegisterConsultants: React.FC = () => {
             nome_fornecedor: nome_fornecedor
         };
 
-        await api.post(`funcionarios/consultor`, consultor);
+        enviarInfo(consultor);
+    }, []);
+
+    function resetarCampos() {
+        const inputs = ["numero_cracha", "nome", "email", "senha", "cpf", "telefone", "valor_hora"];
 
         for (let i = 0; i < inputs.length; i ++){ 
             (document.getElementById(inputs[i]) as HTMLInputElement).value = "";
         }
 
         (document.getElementById("nome_fornecedor") as HTMLSelectElement).value = "Todos";
-    }, []);
+    }
+
+    async function enviarInfo(consultor: CadConsultor) {
+        try {
+            await api.post(`funcionarios/consultor`, consultor)
+                .then(() => {
+                    successfulNotify('Consultor cadastrado com sucesso!');
+                    resetarCampos();
+                })
+                .catch((e) => 
+                    errorfulNotify(e.response.data.titulo)
+                );
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            errorfulNotify('Não foi possivel realizar o cadastro do consultor!'); 
+        }
+    }
 
     useEffect(() => {
         api.get("fornecedores").then((response) => {
@@ -138,22 +161,42 @@ const RegisterConsultants: React.FC = () => {
                     <h1>Dados do consultor</h1>
                     <div className="box1">
                         <label>Nome:</label>
-                        <input type='text' id="nome" />
+                        <input 
+                            type='text' 
+                            id="nome" 
+                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                        />
                         <GoPencil />
                     </div>
                     <div className="box3">
                         <label>CPF:</label>
-                        <input type='text' id="cpf" onChange={formatCpf} maxLength={14} />
+                        <input 
+                            type='text' 
+                            id="cpf" 
+                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)} 
+                            onChange={formatCpf} 
+                            maxLength={14} 
+                        />
                         <BsFillPersonLinesFill />
                     </div>
                     <div className="box4">
                         <label>Telefone:</label>
-                        <input type="text" onChange={formatTelefone} id="telefone" maxLength={14} />
+                        <input 
+                            type='text' 
+                            id="telefone"
+                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                            onChange={formatTelefone} 
+                            maxLength={14} 
+                        />
                         <AiOutlinePhone />
                     </div>
                     <div className="box3">
                         <label>N° do crachá:</label>
-                        <input type='text' id="numero_cracha" />
+                        <input 
+                            type='text' 
+                            id="numero_cracha" 
+                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                        />
                         <BsFillPersonLinesFill />
                     </div>
                 </ConsultantData>
@@ -161,7 +204,11 @@ const RegisterConsultants: React.FC = () => {
                     <h1>Preço por hora</h1>
                     <div>
                         <label>Valor horista:</label>
-                        <input type='text' id="valor_hora"/>
+                        <input 
+                            type='text' 
+                            id="valor_hora"
+                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                        />
                     </div>
                 </PricePerHour>
             </SideContainer>
@@ -171,12 +218,20 @@ const RegisterConsultants: React.FC = () => {
 
                     <div className="box1">
                         <label>Email do usuário:</label>
-                        <input type='text' id="email" />
+                        <input 
+                            type='email' 
+                            id="email"
+                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                        />
                         <AiOutlineMail />
                     </div>
                     <div className="box1">
                         <label>Senha:</label>
-                        <input type='password' id="senha"/>
+                        <input 
+                            type='password' 
+                            id="senha"
+                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                        />
                         <RiLockPasswordLine />
                     </div>
                 </UserData>
@@ -185,7 +240,11 @@ const RegisterConsultants: React.FC = () => {
 
                     <div className="box5">
                         <label>Nome:</label>
-                        <select name="secao" id="nome_fornecedor" >
+                        <select 
+                            name="secao" 
+                            id="nome_fornecedor"
+                            onChange={verificaFornecedor}
+                        >
                             <option value="Todos">Todos</option>
                             {
                             suppliers ?
@@ -198,12 +257,15 @@ const RegisterConsultants: React.FC = () => {
                         </select>
                     </div>
                 </SupplierData>
-                <button id="enviarDados" onClick={setConsultorInfos}>
+                <button id="enviarDados" onClick={() => {
+                    if (verificaCadConsultor() === 0) {
+                        setConsultorInfos();
+                    }
+                }}>
                     Cadastrar
                 </button>              
             </SideContainer>
-            <Footer tipo={"register_consultants"}>
-            </Footer>
+            <Footer tipo={"register_consultants"} />
         </Container>
         <MenuRight>
             <ContIcons />

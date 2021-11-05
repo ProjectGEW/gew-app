@@ -11,8 +11,8 @@ import Button from '../../components/Button';
 
 import analisaValor from '../../../utils/analisaValor';
 
-import RowDespesas from '../../components/RegisterProject/Dinheiro/Row/RowDP';
-import RowCcPagantes from '../../components/RegisterProject/Dinheiro/Row/RowCC';
+import { RowDespesasEdit } from '../../components/RegisterProject/Dinheiro/Row/RowDP';
+import { RowCcPagantesEdit } from '../../components/RegisterProject/Dinheiro/Row/RowCC';
 
 import { BoxProjeto, Preview } from '../../components/RegisterProject/Projeto/styles';
 import { BoxResponsavel } from '../../components/RegisterProject/Responsavel/styles';
@@ -33,7 +33,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import api from "../../../service/api";
 
 //import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts'
-import { vrfCampo, validacaoDosCamposCadastros } from '../../../utils/confereCampo';
+import { vrfCampoComMsg, validacaoDosCamposCadastros } from '../../../utils/confereCampo';
 
 interface ISecaoResponse {
   nome: string;
@@ -44,7 +44,7 @@ interface ISecaoResponse {
 // }
 
 interface CardContent {
-    infoprojetoDTO : {
+    infoprojetoDTO: {
         id: number;
         numeroDoProjeto: number;
         titulo: string;
@@ -52,17 +52,11 @@ interface CardContent {
         data_de_inicio: string;
         data_de_termino: string;
         data_de_aprovacao: string;
-        status: string;
         responsavel: IFuncionario;
         solicitante: IFuncionario;
-        horas_apontadas: number;
-        secao: string;
-    };
-    valoresTotaisDTO : {
-        valorTotalCcPagantes: number;
-        valorTotalDespesas: number;
-        valorTotalEsforco: number;
-    };      
+    },
+    despesas: IDespesas[],
+    ccPagantes: ICCpagantes[]
 }
 
 // interface IProjeto {
@@ -83,81 +77,141 @@ interface CardContent {
 interface IFuncionario {
   nome:string;
 }
-// interface IDespesas {
-//   nome?: string;
-//   esforco?: number;
-//   valor?: number;
-// }
+interface IDespesas {
+  nome: string;
+  esforco: number;
+  valor: number;
+}
 
-// interface ICCpagantes{
-//   secao_id?: number;
-//   valor?: number;
-// }
+interface ICCpagantes{
+  secao: {
+    id: number;
+    responsavel: {
+      nome: string;
+    }
+  };
+  valor: number;
+}
 
 
-const RegisterProjects: React.FC = () => {
-
-    const initalValue = {
-        infoProjetosInputDTO: {
-          numeroDoProjeto: 0,
-          titulo: "",
-          descricao: "",
-          nome_responsavel: "",
-          nome_solicitante: "",
-          data_de_inicio: "",
-          data_de_termino: "",
-          data_de_aprovacao: ""
-        },
-        despesasInputDTOS: [
-          {
-            nome: "",
-            esforco: 0,
-            valor: 0
-          }
-        ],
-        ccPagantesInputDTO: [
-          {
-            secao_id: 0,
-            valor: 0
-          }
-        ]
-      }
+const EditProjects: React.FC = () => {
+  const initalValue = {
+      infoProjetosInputDTO: {
+        numeroDoProjeto: 0,
+        titulo: "",
+        descricao: "",
+        nome_responsavel: "",
+        nome_solicitante: "",
+        data_de_inicio: "",
+        data_de_termino: "",
+        data_de_aprovacao: ""
+      },
+      despesasInputDTOS: [
+        {
+          nome: "",
+          esforco: 0,
+          valor: 0
+        }
+      ],
+      ccPagantesInputDTO: [
+        {
+          secao_id: 0,
+          valor: 0
+        }
+      ]
+    }
     
-      initalValue.despesasInputDTOS.shift();
-      initalValue.ccPagantesInputDTO.shift();
+    initalValue.despesasInputDTOS.shift();
+    initalValue.ccPagantesInputDTO.shift();
     
-      //Projeto
-      //const [projeto, setProjeto] = useState<IProjeto>();
+    const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
 
-    //const [data, setData] = useState("");
-    const { numeroDoProjeto }: {numeroDoProjeto: string}  = useParams();
-    // function teste() {
-    //     setData((document.getElementById("ata") as HTMLInputElement).value);
-    //     console.log(data.substring(12, -1));
-    // }
-
-    //Projeto
+    //Setar as informações, para usar nos campos
+    const { nm }: {nm: string}  = useParams();
     const [projetoEdit, setProjetoEdit] = useState<CardContent>();
+    const [file, setFile] = useState<Blob>();
+    const [fileName, setFileName] = useState<string>('');
+    const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([]);
+    const [rowCC, setRowCC] = useState<JSX.Element[]>([]);
+    
     useEffect(() => {
-      api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-            setProjetoEdit(response.data);
-      }))
-    }, [numeroDoProjeto]);
-  //const history = useHistory();
+      try {
+        api.get<CardContent>(`/projetos/${nm}`)
+        .then((response => {
+          setProjetoEdit(response.data)
+          //Impedir looping infinito
+          if(rowDespesas.length < response.data.despesas.length){
+            //Setar as linhas para a tablea de despesas 
+            for (let i = 0; i < Number(response.data.despesas.length); i++) {
+              setRowDespesas(
+                [...rowDespesas, 
+                  <RowDespesasEdit 
+                  number={i+1} 
+                  nomeDespesa={String(response.data.despesas[i]?.nome)}
+                  esforco={Number(response.data.despesas[i]?.esforco)}
+                  valor={Number(response.data.despesas[i]?.esforco)}
+                  />
+                ]
+              );   
+            }
+          }
+          //Impedir looping infinito
+          if(rowCC.length < response.data.ccPagantes.length){
+            //Setar as linhas para a tablea de Centro de Custos
+            for (let i = 0; i < Number(response.data.ccPagantes.length); i++) {
+              setRowCC([...rowCC,
+                <RowCcPagantesEdit 
+                  number={i+1} 
+                  numeroCracha={response.data.ccPagantes[i].secao.id}
+                  valor={response.data.ccPagantes[i].valor}
+                  responsavel={response.data.ccPagantes[i].secao.responsavel.nome}
+                />
+              ])
+            }
+          }
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }, [projetoEdit]);
 
+    // useEffect(() => {
+    //   if(verificaCliqueAta === true && fileName === '') {
+    //     document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
+    //   } else if(fileName !== '') {
+    //     if(file?.type !== 'application/pdf') {
+    //       document.getElementById("ataResponse")!.innerHTML = "Selecione um PDF*";  
+    //       setFile(undefined);
+    //       setFileName('');
+    //     } else {
+    //       document.getElementById("ataResponse")!.innerHTML = "";  
+    //     }
+    //   }
+    // }, [verificaCliqueAta, file, fileName]);  
 
-  //console.log(projeto);
-  // Ata
-  const [file, setFile] = useState<Blob>();
-  //console.log(file);
-  const [fileName, setFileName] = useState<string>('');
-
-  //const [errorInput, setErrorInput] = useState<boolean>();
-
-  // Gerar linhas
-  const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([<RowDespesas number={1} />]);
-  const [rowCC, setRowCC] = useState<JSX.Element[]>([<RowCcPagantes number={1} />]);
-
+  // Gerar novas linhas  
+  function setNovaLinhaDP() {
+    setRowDespesas(
+      [...rowDespesas, 
+        <RowDespesasEdit 
+          number={ rowDespesas[rowDespesas.length - 1].props.number + 1} 
+          nomeDespesa={""}
+          esforco={0}
+          valor={0}
+        />
+      ]);
+    return rowDespesas;
+  }
+      
+  function setNovaLinhaCC(){
+    setRowCC([...rowCC,
+      <RowCcPagantesEdit
+        number={ rowCC[rowCC.length - 1].props.number +1}
+      />
+    ]);
+    return rowCC;
+  }
+      
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
     setFileName(acceptedFiles[0].name);
@@ -169,24 +223,6 @@ const RegisterProjects: React.FC = () => {
   });
 
   const { ref, ...rootProps } = getRootProps();
-  // Trocar etapas
-  //var etapas = ["boxProjeto", "boxResponsavel", "boxDinheiro", "boxDatas"];
-
- // const [etapa, setEtapas] = useState('');
-
-  // function trocarEtapa(proxEtapa: string) {
-  //   if (proxEtapa === "boxDinheiro") {
-  //     document.getElementById("btnDin")!.style.display = "block";
-  //   } else if (proxEtapa === "boxDatas" || proxEtapa === "boxResponsavel" || proxEtapa === "boxProjeto") {
-  //     document.getElementById("btnDin")!.style.display = "none";
-  //   }
-
-  //   for (var x = 0; x < 4; x++) {
-  //     document.getElementById(etapas[x])!.style.display = "none";
-  //   }
-  //   document.getElementById(proxEtapa)!.style.display = "block";
-  //   setEtapas(proxEtapa);
-  // }
 
   var setarEConfirmar = ["set-data", "confirm-data"];
 
@@ -208,33 +244,25 @@ const RegisterProjects: React.FC = () => {
     var somaValorCcPagantes = 0;
 
     for (let i = 1; i <= rowDespesas.length; i++) {
-      somaEsforco += parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value);
-      somaValorDespesa += parseInt((document.getElementById(`valor${i}`) as HTMLInputElement).value);
+      somaEsforco += parseInt((document.getElementById(`esforcoE${i}`) as HTMLInputElement).value);
+      somaValorDespesa += parseInt((document.getElementById(`valorE${i}`) as HTMLInputElement).value);
 
       setSEsforco(somaEsforco);
       setValorDespesa(somaValorDespesa);
     }
 
     for (let i = 1; i <= rowCC.length; i++) {
-      somaValorCcPagantes += parseInt((document.getElementById(`valorC${i}`) as HTMLInputElement).value);
+      somaValorCcPagantes += parseInt((document.getElementById(`valorCE${i}`) as HTMLInputElement).value);
       setValorCcPagantes(somaValorCcPagantes);
     }
   };
 
 
-  function setNovaLinhaDP() {
-    setRowDespesas(
-      [...rowDespesas, 
-       <RowDespesas number={ rowDespesas[rowDespesas.length - 1].props.number + 1 } />
-      ]
-    );
-
-    return rowDespesas;
-  }
+  
 
   function deleteLastRowDP() {
-    if (rowDespesas.length > 1) {
-      document.getElementById(`D${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
+    if (rowDespesas.length > Number(projetoEdit?.despesas?.length)) {
+      document.getElementById(`DE${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
       rowDespesas.pop();
       setRowDespesas([...rowDespesas]);
       return rowDespesas;
@@ -243,17 +271,10 @@ const RegisterProjects: React.FC = () => {
     return rowDespesas;
   }
 
-  function setNovaLinhaCC(){
-    setRowCC(
-      [...rowCC, <RowCcPagantes number={rowCC[rowCC.length - 1].props.number + 1}/>]
-    );
-    
-    return rowCC;
-  }
 
   function deleteLastRowCC(){
-    if (rowCC.length > 1) {
-      document.getElementById(`C${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
+    if (rowCC.length > Number(projetoEdit?.ccPagantes.length)) {
+      document.getElementById(`CE${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
       rowCC.pop();
       setRowCC([...rowCC]);
       return rowCC;
@@ -343,44 +364,30 @@ const RegisterProjects: React.FC = () => {
   const [secaoSolicitante, setSecaoSolicitante] = useState('');
   const [secaoResponsavel, setSecaoResponsavel] = useState('');
   
-  async function handleSecao(nome: string, campo: string){ 
-    try {
-      const response = await api.get<ISecaoResponse>(`secoes/nome/${nome}`);
-      const data = response.data;
-      (document.getElementById(campo) as HTMLInputElement).value = data.nome;
+  // async function handleSecao(nome: string, campo: string){ 
+  //   try {
+  //     const response = await api.get<ISecaoResponse>(`secoes/nome/${nome}`);
+  //     const data = response.data;
+  //     (document.getElementById(campo) as HTMLInputElement).value = data.nome;
 
-      if (campo === "secao_solicitante"){
-        setSecaoSolicitante(data.nome);
-      }
-      if (campo === "secao_responsavel"){
-        setSecaoResponsavel(data.nome);
-      }
+  //     if (campo === "secao_solicitante"){
+  //       setSecaoSolicitante(data.nome);
+  //     }
+  //     if (campo === "secao_responsavel"){
+  //       setSecaoResponsavel(data.nome);
+  //     }
 
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   function secao() {
-    handleSecao(projetoEdit?.infoprojetoDTO.responsavel.nome ? projetoEdit?.infoprojetoDTO.responsavel.nome: "" , "secao_responsavel");
-    handleSecao(projetoEdit?.infoprojetoDTO.solicitante.nome ? projetoEdit?.infoprojetoDTO.solicitante.nome: "" , "secao_solicitante")
+    // handleSecao(projetoEdit?.infoprojetoDTO.responsavel.nome ? projetoEdit?.infoprojetoDTO.responsavel.nome: "" , "secao_responsavel");
+    // handleSecao(projetoEdit?.infoprojetoDTO.solicitante.nome ? projetoEdit?.infoprojetoDTO.solicitante.nome: "" , "secao_solicitante")
   }
 
-  const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
-
-  useEffect(() => {
-    if(verificaCliqueAta === true && fileName === '') {
-      document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
-    } else if(fileName !== '') {
-      if(file?.type !== 'application/pdf') {
-        document.getElementById("ataResponse")!.innerHTML = "Selecione um PDF*";  
-        setFile(undefined);
-        setFileName('');
-      } else {
-        document.getElementById("ataResponse")!.innerHTML = "";  
-      }
-    }
-  }, [verificaCliqueAta, file, fileName]);
+  
 
 return (
   <>
@@ -405,13 +412,13 @@ return (
                 <label>Título do projeto: </label>
                 <input type="text" id="titulo" 
                   defaultValue={projetoEdit?.infoprojetoDTO.titulo}
-                  onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}
+                  onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}
                 />
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
                 <textarea id="descricao" 
                   defaultValue={projetoEdit?.infoprojetoDTO.descricao}
-                  onBlur={(props) => { vrfCampo(props.target.value, "descricao", "descricaoResponse"); }}/>
+                  onBlur={(props) => { vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
               <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
@@ -422,10 +429,10 @@ return (
                 <p id="ataResponse" className="msgErro"></p>
               </div>
             </span>
-            {file ?
+            {/* {file ?
               <Preview src={file ? URL.createObjectURL(file) : file}/>
             : <Preview src={'null'}/>
-            }
+            } */}
           </BoxProjeto>
           <LinhaTitulo>
             <h1>
@@ -440,10 +447,10 @@ return (
                   defaultValue={projetoEdit?.infoprojetoDTO.responsavel.nome} 
                   onBlur={(props) => {
                   if (props.target.value !== "") {
-                    handleSecao(props.target.value, "secao_responsavel"); 
+                    // handleSecao(props.target.value, "secao_responsavel"); 
                   }
               
-                  vrfCampo(props.target.value, "nome_responsavel", "responsavelResponse");
+                  vrfCampoComMsg(props.target.value, "nome_responsavel", "responsavelResponse");
                 }}/>
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
@@ -451,10 +458,10 @@ return (
                   defaultValue={projetoEdit?.infoprojetoDTO.solicitante.nome}
                   onBlur={(props) =>  {
                   if (props.target.value !== "") {
-                    handleSecao(props.target.value, "secao_solicitante");
+                    // handleSecao(props.target.value, "secao_solicitante");
                   }
 
-                  vrfCampo(props.target.value, "nome_solicitante", "solicitanteResponse");
+                  vrfCampoComMsg(props.target.value, "nome_solicitante", "solicitanteResponse");
                 }}/>
                 <p id="solicitanteResponse" className="msgErro"></p>
               </div>
@@ -708,4 +715,4 @@ return (
 );
 };
 
-export default RegisterProjects;
+export default EditProjects;

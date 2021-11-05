@@ -1,6 +1,6 @@
 import { errorfulNotify } from '../hooks/SystemToasts'
 
-export function vrfCampo(conteudo: string, idCampo: string, idCampoDeResposta: string){
+export function vrfCampoComMsg(conteudo: string, idCampo: string, idCampoDeResposta: string){
   if (conteudo !== "") {
     document.getElementById(idCampo)!.style.border = "";
     document.getElementById(idCampoDeResposta)!.innerHTML = "";
@@ -12,6 +12,45 @@ export function vrfCampo(conteudo: string, idCampo: string, idCampoDeResposta: s
   document.getElementById(idCampoDeResposta)!.innerHTML = "*O campo não pode estar vazio!";
   return -1;
 };
+
+export function vrfCampo(conteudo: string, idCampo: string) {
+  if (conteudo === "") {
+    document.getElementById(idCampo)!.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+
+    return 1;
+  }
+
+  document.getElementById(idCampo)!.style.border = "";
+  return 0;
+}
+
+export function verificaCadConsultor() {
+  const ids = ["nome", "cpf", "telefone", "numero_cracha", "valor_hora", "email", "senha"];
+  let erro;
+
+  for (let i = 0; i < ids.length; i ++) {
+    let valorCampo = (document.getElementById(ids[i]) as HTMLInputElement).value;
+
+    vrfCampo(valorCampo, ids[i]) === 1 ? erro = 1 : erro = 0;
+  }
+
+  verificaFornecedor() === 1 ? erro = 1 : erro = 0;
+
+  return erro;
+}
+
+export function verificaFornecedor() {
+  const conteudo = (document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
+
+  if (conteudo === "Todos") {
+    document.getElementById("nome_fornecedor")!.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+
+    return 1;
+  }
+
+  document.getElementById("nome_fornecedor")!.style.border = "";
+  return 0;
+}
 
 export function analisaCampoLinhasdDespesas(listaDespesa: number) {
   let confirm = 0;
