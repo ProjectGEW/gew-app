@@ -32,8 +32,9 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 import api from "../../../service/api";
 
-//import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts'
+import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts'
 import { vrfCampoComMsg, validacaoDosCamposCadastros } from '../../../utils/confereCampo';
+import { type } from 'os';
 
 interface ISecaoResponse {
   nome: string;
@@ -43,7 +44,7 @@ interface ISecaoResponse {
 //   numeroDoProjeto: number;
 // }
 
-interface CardContent {
+interface IProjeto {
     infoprojetoDTO: {
         id: number;
         numeroDoProjeto: number;
@@ -58,21 +59,6 @@ interface CardContent {
     despesas: IDespesas[],
     ccPagantes: ICCpagantes[]
 }
-
-// interface IProjeto {
-//   infoProjetosInputDTO?: {
-//     numeroDoProjeto: number;
-//     titulo: string;
-//     descricao: string;
-//     nome_responsavel: string;
-//     nome_solicitante: string;
-//     data_de_inicio: string;
-//     data_de_termino: string;
-//     data_de_aprovacao: string;    
-//   },
-//   despesasInputDTOS?: IDespesas[],
-//   ccPagantesInputDTO?: ICCpagantes[]
-// }
 
 interface IFuncionario {
   nome:string;
@@ -128,15 +114,15 @@ const EditProjects: React.FC = () => {
 
     //Setar as informações, para usar nos campos
     const { nm }: {nm: string}  = useParams();
-    const [projetoEdit, setProjetoEdit] = useState<CardContent>();
+    const [projetoEdit, setProjetoEdit] = useState<IProjeto>();
     const [file, setFile] = useState<Blob>();
     const [fileName, setFileName] = useState<string>('');
     const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([]);
     const [rowCC, setRowCC] = useState<JSX.Element[]>([]);
-    
+
     useEffect(() => {
       try {
-        api.get<CardContent>(`/projetos/${nm}`)
+        api.get<IProjeto>(`/projetos/${nm}`)
         .then((response => {
           setProjetoEdit(response.data)
           //Impedir looping infinito
@@ -169,25 +155,28 @@ const EditProjects: React.FC = () => {
               ])
             }
           }
+
+          handleSecao(String(projetoEdit?.infoprojetoDTO.responsavel.nome), "secao_responsavel");
+          handleSecao(String(projetoEdit?.infoprojetoDTO.solicitante.nome), "secao_solicitante");
         }));
       } catch (error) {
         console.log(error);
       }
     }, [projetoEdit]);
 
-    // useEffect(() => {
-    //   if(verificaCliqueAta === true && fileName === '') {
-    //     document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
-    //   } else if(fileName !== '') {
-    //     if(file?.type !== 'application/pdf') {
-    //       document.getElementById("ataResponse")!.innerHTML = "Selecione um PDF*";  
-    //       setFile(undefined);
-    //       setFileName('');
-    //     } else {
-    //       document.getElementById("ataResponse")!.innerHTML = "";  
-    //     }
-    //   }
-    // }, [verificaCliqueAta, file, fileName]);  
+    useEffect(() => {
+      if(verificaCliqueAta === true && fileName === '') {
+        document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
+      } else if(fileName !== '') {
+        if(file?.type !== 'application/pdf') {
+          document.getElementById("ataResponse")!.innerHTML = "Selecione um PDF*";  
+          setFile(undefined);
+          setFileName('');
+        } else {
+          document.getElementById("ataResponse")!.innerHTML = "";  
+        }
+      }
+    }, [verificaCliqueAta, file, fileName]);  
 
   // Gerar novas linhas  
   function setNovaLinhaDP() {
@@ -212,6 +201,28 @@ const EditProjects: React.FC = () => {
     return rowCC;
   }
       
+  function deleteLastRowDP() {
+    if (rowDespesas.length > Number(projetoEdit?.despesas?.length)) {
+      document.getElementById(`DE${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
+      rowDespesas.pop();
+      setRowDespesas([...rowDespesas]);
+      return rowDespesas;
+    }
+    setRowDespesas([...rowDespesas]);
+    return rowDespesas;
+  }
+
+  function deleteLastRowCC(){
+    if (rowCC.length > Number(projetoEdit?.ccPagantes.length)) {
+      document.getElementById(`CE${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
+      rowCC.pop();
+      setRowCC([...rowCC]);
+      return rowCC;
+    }
+    setRowCC([...rowCC]);
+    return rowCC;
+  }
+
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
     setFileName(acceptedFiles[0].name);
@@ -257,34 +268,8 @@ const EditProjects: React.FC = () => {
     }
   };
 
-
-  
-
-  function deleteLastRowDP() {
-    if (rowDespesas.length > Number(projetoEdit?.despesas?.length)) {
-      document.getElementById(`DE${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
-      rowDespesas.pop();
-      setRowDespesas([...rowDespesas]);
-      return rowDespesas;
-    }
-    setRowDespesas([...rowDespesas]);
-    return rowDespesas;
-  }
-
-
-  function deleteLastRowCC(){
-    if (rowCC.length > Number(projetoEdit?.ccPagantes.length)) {
-      document.getElementById(`CE${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
-      rowCC.pop();
-      setRowCC([...rowCC]);
-      return rowCC;
-    }
-    setRowCC([...rowCC]);
-    return rowCC;
-  }
-
   const [value, onChange] = useState(new Date());
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<string>("inicio");
   const [dataInicio, setDataInicio] = useState<string>();
   const [dataFim, setDataFim] = useState<string>();
   const [dataAprovacao, setDataAprovacao] = useState<string>();
@@ -292,111 +277,92 @@ const EditProjects: React.FC = () => {
   const [inputErrorFim, setInputErrorFim] = useState('');
   const [inputErrorAprov, setInputErrorAprov] = useState('');
 
-  function setDataA(value: Date) {
+  function setData(value: Date) {
     const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
     if (selected === "inicio") {
-        if (value.getFullYear() >= new Date().getFullYear()) {
-            setDataInicio(dataFormat);
-            setInputErrorInit("");
-        } else {
-            setInputErrorInit("Ano inválido");
-        }
+      if (value.getFullYear() >= new Date().getFullYear()) {
+        setDataInicio(dataFormat);
+        setInputErrorInit("");
+        setSelected("fim");
+      } else {
+        setInputErrorInit("Ano inválido");
+      }
+
+      const valorFim = dataFim ? new Date(dataFim.split("/")[1] + "/" + dataFim.split("/")[0] + "/" + dataFim.split("/")[2]) : "01/01/0001";
+
+      if (value >= valorFim) {
+        setInputErrorFim("Data de término menor do que a de inicio");
+      }
+
+      const valorAprov = dataAprovacao ? new Date(dataAprovacao.split("/")[1] + "/" + dataAprovacao.split("/")[0] + "/" + dataAprovacao.split("/")[2]) : "01/01/0001";
+
+      if (value < valorAprov) {
+        setInputErrorAprov("Data de aprovação maior do que a de inicio");
+      }
     } else if (selected === "fim") {
-        const validation = dataInicio ? true : false;
-        const anoValidation = value.getFullYear() >= parseInt(dataInicio ? dataInicio.split("/")[2] : "") 
-        || value.getFullYear() <= new Date().getFullYear() + 100;
-        const mesValidation = value.getMonth() + 1 >= parseInt(dataInicio ? dataInicio.split("/")[1] : "");
-        const diaValidation = value.getDate() > parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (validation) {
-          if (anoValidation) {
-              if (mesValidation) {
-                  if (diaValidation) {
-                      setDataFim(dataFormat);
-                      setInputErrorFim("");
-                  } else {
-                      setInputErrorFim("Dia inválido");
-                  }
-              } else {
-                  setInputErrorFim("Mês inválido");
-              }
-          } else {
-              setInputErrorFim("Ano inválido");
-          }
+      const validation = dataInicio ? true : false;
+      const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
+      if (validation) {
+        if (value > valorInicio) {
+          setDataFim(dataFormat);
+          setInputErrorFim("");
+          setSelected("aprovacao");
         } else {
-          setInputErrorFim("Informe primeiro a data de inicio");
+          setInputErrorFim("Data de término menor do que a de inicio");
         }
+      } else {
+        setInputErrorFim("Informe primeiro a data de inicio");
+      }
     } else if (selected === "aprovacao") {
-        const validation = value.getFullYear() >= new Date().getFullYear() - 1;
-        const diaValidation = value.getDate() <= parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (validation) { 
-          if (diaValidation) {
-            setDataAprovacao(dataFormat);
-            setInputErrorAprov("");
-          } else {
-            setInputErrorAprov("Dia inválido");
-          }
+      const validation = dataInicio ? true : false;
+      const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
+      if (validation) {
+        if (value <= valorInicio) {
+          setDataAprovacao(dataFormat);
+          setInputErrorAprov("");
         } else {
-            setInputErrorAprov("Ano inválido");
+          setInputErrorAprov("Data de aprovação maior do que a de inicio");
         }
+      } else {
+        setInputErrorAprov("Informe primeiro a data de inicio");
+      }
     }
   }
-  
-//   const handleProjects = useCallback( async () => {
-//     try {
-//       await api
-//       .post<IProjetoResponse>("projetos", projetoEdit)
-//       .then((response) => {
-//         const formData = new FormData();
-
-//         formData.append("file", file ? file : "");
-//         api.post(`files/upload/${response.data.numeroDoProjeto}`, formData);
-
-//         history.push('/projects');
-//         successfulNotify('Projeto cadastrado com sucesso!');
-//       })
-//       .catch((e) => console.log(e.response.data.titulo));
-//     } catch (e) { 
-//       console.log(`Error: ${e}`);
-//       errorfulNotify('Não foi possivel realizar o cadastro do projeto!'); 
-//     }
-//   }, [projeto, file, history]);
 
   const [secaoSolicitante, setSecaoSolicitante] = useState('');
   const [secaoResponsavel, setSecaoResponsavel] = useState('');
   
-  // async function handleSecao(nome: string, campo: string){ 
-  //   try {
-  //     const response = await api.get<ISecaoResponse>(`secoes/nome/${nome}`);
-  //     const data = response.data;
-  //     (document.getElementById(campo) as HTMLInputElement).value = data.nome;
+  async function handleSecao(nome: string, campo: string){ 
+    try {
+      await api.get<ISecaoResponse>(`secoes/nome/${nome}`)
+      .then((response => {
+        (document.getElementById(campo) as HTMLInputElement).value = response.data.nome;
 
-  //     if (campo === "secao_solicitante"){
-  //       setSecaoSolicitante(data.nome);
-  //     }
-  //     if (campo === "secao_responsavel"){
-  //       setSecaoResponsavel(data.nome);
-  //     }
-
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  function secao() {
-    // handleSecao(projetoEdit?.infoprojetoDTO.responsavel.nome ? projetoEdit?.infoprojetoDTO.responsavel.nome: "" , "secao_responsavel");
-    // handleSecao(projetoEdit?.infoprojetoDTO.solicitante.nome ? projetoEdit?.infoprojetoDTO.solicitante.nome: "" , "secao_solicitante")
+        if (campo === "secao_solicitante"){
+          setSecaoSolicitante(response.data.nome);
+        }
+        if (campo === "secao_responsavel"){
+          setSecaoResponsavel(response.data.nome);
+        }
+      }))
+      .catch((e) => {
+        if((document.getElementById(campo) as HTMLInputElement).value !== ""){
+          errorfulNotify("Nome informado inválido");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-
   
-
 return (
   <>
     <Navbar />
     <MenuLeft />
-    <Container id="set-data" onLoad={secao}>
+    <Container id="set-data">
       <ContainerRegister id="ContainerRegister">
         <Info>
-          <h1>Cadastrar Projeto</h1>
+          <h1>Editar Projeto</h1>
         </Info>
         <Content id="content">
           <LinhaTitulo>
@@ -429,10 +395,10 @@ return (
                 <p id="ataResponse" className="msgErro"></p>
               </div>
             </span>
-            {/* {file ?
+            {file ?
               <Preview src={file ? URL.createObjectURL(file) : file}/>
-            : <Preview src={'null'}/>
-            } */}
+            : <Preview src={''}/>
+            }
           </BoxProjeto>
           <LinhaTitulo>
             <h1>
@@ -447,7 +413,7 @@ return (
                   defaultValue={projetoEdit?.infoprojetoDTO.responsavel.nome} 
                   onBlur={(props) => {
                   if (props.target.value !== "") {
-                    // handleSecao(props.target.value, "secao_responsavel"); 
+                    handleSecao(props.target.value, "secao_responsavel"); 
                   }
               
                   vrfCampoComMsg(props.target.value, "nome_responsavel", "responsavelResponse");
@@ -458,7 +424,7 @@ return (
                   defaultValue={projetoEdit?.infoprojetoDTO.solicitante.nome}
                   onBlur={(props) =>  {
                   if (props.target.value !== "") {
-                    // handleSecao(props.target.value, "secao_solicitante");
+                    handleSecao(props.target.value, "secao_solicitante");
                   }
 
                   vrfCampoComMsg(props.target.value, "nome_solicitante", "solicitanteResponse");
@@ -467,9 +433,9 @@ return (
               </div>
               <div>
                 <label>Seção do responsável:</label>
-                <input type="text" defaultValue={secaoResponsavel} id="secao_responsavel" />
+                <input type="text" defaultValue={secaoResponsavel} disabled id="secao_responsavel" />
                 <label id="label_secao_solicitante">Seção do solicitante:</label>
-                <input type="text" defaultValue={secaoSolicitante} id="secao_solicitante"/>
+                <input type="text" defaultValue={secaoSolicitante} disabled id="secao_solicitante"/>
               </div>
             </span>
           </BoxResponsavel>
@@ -576,12 +542,18 @@ return (
               {inputErrorAprov && <Error localErro={selected}>{inputErrorAprov}</Error>}
             </div>
           </span>
-          <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setDataA(props)}} />
-          <button onClick={() => validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)}> 
-          TESTE
-          </button>
+          <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
         </BoxDatas>
       </Content>
+          <span id='button-holding' onClick={() => { 
+            if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
+              //setInfos();
+              trocarMainEtapa('confirm-data');
+            }
+          }}
+          > 
+        <Button tipo={"botaoEdicao"} text={"Confirmar"} />
+        </span>
     </ContainerRegister>
   </Container >
   <BoxConfirm id="confirm-data"> 

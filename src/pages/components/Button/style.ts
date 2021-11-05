@@ -165,4 +165,12 @@ export const Container = styled.div<buttonProps>`
           position: absolute;
         }
     `}
+
+    ${props => props.tipo === "botaoEdicao" && css`
+        button {
+          position: absolute;
+          margin-top: 180vh;
+          margin-left: 50vw;
+        }
+    `}
 `;
