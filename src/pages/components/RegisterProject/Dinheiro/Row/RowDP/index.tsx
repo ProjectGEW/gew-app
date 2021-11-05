@@ -1,10 +1,18 @@
 import React from "react"
 import { Linha } from "../../styles";
-interface Iteste {
+
+interface INumeroProjetos {
   number: number;
 }
 
-const RowDespesas: React.FC<Iteste> = ({number}) => {
+interface ILinhasEdicao {
+  number: number;
+  nomeDespesa: string;
+  esforco: number;
+  valor: number;
+}
+
+const RowDespesas: React.FC<INumeroProjetos> = ({number}) => {
 
   const conCatDespesa = `despesa${number}`;
   const conCatEsforco = `esforco${number}`;
@@ -39,5 +47,42 @@ const RowDespesas: React.FC<Iteste> = ({number}) => {
     </Linha>
   );
 }
+
+export const RowDespesasEdit: React.FC<ILinhasEdicao> = ({number, nomeDespesa, esforco, valor}) => {
+
+  const conCatDespesa = `despesaE${number}`;
+  const conCatEsforco = `esforcoE${number}`;
+  const conCatValor = `valorE${number}`;
+  
+  return (
+    <Linha id={`DE${number}`}>
+      <input type="text" id={conCatDespesa} defaultValue={nomeDespesa} onBlur={(props) => {
+        if (props.target.value === "") {
+         props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+         return;
+        }
+
+        props.target!.style.border = "";
+      }}/>
+      <input type="number" id={conCatEsforco} defaultValue={esforco} onBlur={(props) => { 
+        if (props.target.value === "") {
+          props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+          return;
+        }
+ 
+        props.target!.style.border = "";
+      }}/>
+      <input type="number" id={conCatValor} defaultValue={valor} onBlur={(props) => {
+        if (props.target.value === "") {
+          props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+          return;
+        }
+  
+        props.target!.style.border = "";
+      }}/>
+    </Linha>
+  );
+}
+
 
 export default RowDespesas;
