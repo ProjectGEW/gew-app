@@ -154,6 +154,19 @@ export const ContainerFiltro = styled.div`
         &:last-child {
             margin-right: 1.4vw;
         }
+
+        svg {
+            color: #00579D;
+            
+            &:hover {
+                opacity: 0.85;
+                cursor: pointer;
+            }
+
+            &:active {
+                opacity: 0.75;
+            }
+        }
     }
 `;
 
