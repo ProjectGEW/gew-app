@@ -79,10 +79,13 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({ valor, fechar
                 </Title>
                 <Scroll>
                     {projetos ? projetos.map((projeto, index) => 
-                        <ListaProjetos key={index} 
-                            numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
-                            tituloDoProjeto={projeto.infoprojetoDTO.titulo}
-                        />
+                        projeto.infoprojetoDTO.horas_apontadas !== 0 ? 
+                            <ListaProjetos key={index} 
+                                numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
+                                tituloDoProjeto={projeto.infoprojetoDTO.titulo}
+                            />
+                            : ''
+                        
                     ) : 
                     <div className="projeto">
                         <p>Sem projetos</p>
