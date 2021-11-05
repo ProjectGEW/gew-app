@@ -77,6 +77,7 @@ const Dashboard: React.FC = () => {
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
     const [countUtilizada, setCountUtilizada] = useState();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
+    const [countsPerDataSolo, setCountsPerDataSolo] = useState<CountPerData[]>([]);
     //const [dataSelecionada, setDataSelecionada] = useState('14');
 
     /*const token = localStorage.getItem('Token');
@@ -98,6 +99,8 @@ const Dashboard: React.FC = () => {
             const dataDatas = responseDatas.data;
             setCountsPerData(dataDatas);  
 
+        
+
             const responseCountUtilizada = await api.get(`projetos/count/verba/0`);
             const dataCountUtilizada = responseCountUtilizada.data;
             setCountUtilizada(dataCountUtilizada);
@@ -113,9 +116,9 @@ const Dashboard: React.FC = () => {
                 const dataSecao = responseSecao.data;
                 setSecoes(dataSecao);
 
-                const responseDatas = await api.get<CountPerData[]>(`projetos/count/14`)
+                const responseDatas = await api.get<CountPerData[]>(`projetos/count/14/${Number(id)}`)
                 const dataDatas = responseDatas.data;
-                setCountsPerData(dataDatas); 
+                setCountsPerData(dataDatas);
                 
                 projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
     
@@ -246,12 +249,24 @@ const Dashboard: React.FC = () => {
         const value = event.target.value;
         //setDataSelecionada(value);
         
-        api.get<CountPerData[]>(`projetos/count/${Number(value)}`).then((response => {
-            setCountsPerData(response.data)
-        }));         
+        if(Number(id) === 0) {
+            api.get<CountPerData[]>(`projetos/count/${Number(value)}`).then((response => {
+                setCountsPerData(response.data)
+            })); 
+        } else if(Number(id) !== 0) {
+            api.get<CountPerData[]>(`projetos/count/${Number(value)}/${Number(id)}`).then((response => {
+                setCountsPerData(response.data)
+            })); 
+        }
     }
  
-    const datas = totalCcPagantes.reduce(reducer) > 0 ? countsPerData.map(datas => datas.data) : ["0"];
+    console.log(totalCcPagantes.reduce(reducer));
+    //console.log(`projetos/count/14/${Number(id)}`);
+
+    // const datas = totalCcPagantes.reduce(reducer) > 0 && Number(id) === 0 ? countsPerData.map(datas => datas.data) : ["0"];    
+    // const verbas = totalCcPagantes.reduce(reducer) > 0 && Number(id) === 0 ? countsPerData.map(verbas => verbas.verbaUtilizada) : [0];
+
+    const datas = totalCcPagantes.reduce(reducer) > 0 ? countsPerData.map(datas => datas.data) : ["0"];    
     const verbas = totalCcPagantes.reduce(reducer) > 0 ? countsPerData.map(verbas => verbas.verbaUtilizada) : [0];
 
     const data = {
