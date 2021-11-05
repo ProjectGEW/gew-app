@@ -54,7 +54,7 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
             <p>{
                 countVerbaTotalPorProjeto ?
                     countVerbaTotalPorProjeto === 0 ? 0 
-                    : Math.trunc((countVerbaTotalPorProjeto / countVerbaTotal) * 100)
+                    : ((countVerbaTotalPorProjeto / countVerbaTotal) * 100).toFixed(1)
                 : 0
             }%</p>
         </div>             
