@@ -34,7 +34,6 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
-
 import { vrfCampoComMsg } from '../../utils/confereCampo';
 import Footer from '../components/Footer';
 
