@@ -148,7 +148,7 @@ const RegisterConsultants: React.FC = () => {
                     </div>
                     <div className="box4">
                         <label>Telefone:</label>
-                        <input type='text' id="telefone" onChange={formatTelefone} maxLength={14} />
+                        <input type="text" onChange={formatTelefone} id="telefone" maxLength={14} />
                         <AiOutlinePhone />
                     </div>
                     <div className="box3">
