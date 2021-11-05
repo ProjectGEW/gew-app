@@ -29,7 +29,7 @@ export const Subtittles = styled.h1<subtittleProps>`
     ${props => props.tipo === "RegisterProjectData" && css`
         margin-top: -7vh;
         font-size: 3vh;
-        text-shadow: 0.1vh 0.1vh #c4c4c4;
+        text-shadow: 0.2vh 0.2vh rgba(94, 94, 94, 0.1);
 
         &::after {
             margin: 4.4vh 0 0 -13vw;
@@ -39,7 +39,7 @@ export const Subtittles = styled.h1<subtittleProps>`
     ${props => props.tipo === "Encharged" && css`
         margin-top: -3vh;
         font-size: 3vh;
-        text-shadow: 0.1vh 0.1vh #c4c4c4;
+        text-shadow: 0.2vh 0.2vh rgba(94, 94, 94, 0.1);
 
         &::after {
             margin: 4.4vh 0 0 -11vw;
@@ -49,7 +49,7 @@ export const Subtittles = styled.h1<subtittleProps>`
     ${props => props.tipo === "Costs" && css`
         margin-top: -7vh;
         font-size: 3vh;
-        text-shadow: 0.1vh 0.1vh #c4c4c4;
+        text-shadow: 0.2vh 0.2vh rgba(94, 94, 94, 0.1);
 
         &::after {
             margin: 4.4vh 0 0 -7vw;
@@ -59,7 +59,7 @@ export const Subtittles = styled.h1<subtittleProps>`
     ${props => props.tipo === "Dates" && css`
         margin-top: -7vh;
         font-size: 3vh;
-        text-shadow: 0.1vh 0.1vh #c4c4c4;
+        text-shadow: 0.2vh 0.2vh rgba(94, 94, 94, 0.1);
 
         &::after {
             margin: 4.4vh 0 0 -7vw;
