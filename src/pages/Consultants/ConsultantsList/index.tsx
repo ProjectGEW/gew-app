@@ -6,19 +6,23 @@ import Navbar from '../../components/Navbar';
 import MenuRight from '../../components/MenuRight';
 import { ContIcons } from '../../components/MenuRight/styles';
 
-import { Container, ContainerInfo, ContainerTitle, ContainerFiltro, Table, TableDimensions, TableScroll, LinhaConsultor, PopupPerfilConsultor } from './style';
+import { Container, ContainerInfo, ContainerTitle, ContainerFiltro, Table, TableDimensions,
+    TableScroll, LinhaConsultor, PopupPerfilConsultor, Msg, ContainerTooltip, PopUpTooltip } from './style';
 
 import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts';
 
 import PerfilConsultor from '../../components/ConsultorPopUp/perfilConsultor';
-import ProjetosConsultor from '../../components/ConsultorPopUp/projetos';
 
 import api from "../../../service/api";
 
 import intl from 'react-intl-universal';
+
+import { PopupTooltip } from '../../Dashboard/styles';
+
 import { IoMdArrowDropright } from 'react-icons/io';
 import { ImSearch } from 'react-icons/im';
-import { PopupTooltip } from '../../Dashboard/styles';
+import { BiHourglass } from 'react-icons/bi';
+import { TiDelete } from 'react-icons/ti';
 
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
@@ -62,10 +66,10 @@ const ConsultantList: React.FC = () => {
     }
 
     const [recebeCracha, setRecebeCracha] = useState<Number>();
-
+    
     useEffect(() => {
         api.get("funcionarios/consultor").then(response => setConsultants(response.data));
-
+        
         const identifica = consultants.filter(consultor => consultor.numero_cracha === recebeCracha);
         const salva = identifica.map(consultor => consultor.projetos.indexOf(Number(numeroDoProjeto)));
 
@@ -79,7 +83,7 @@ const ConsultantList: React.FC = () => {
                 setRecebeCracha(undefined);
             }
         }
-    },[consultants, numeroDoProjeto, recebeCracha]);
+    },[numeroDoProjeto, recebeCracha]);
 
     function defineStatus(valor: string) {
 
@@ -108,6 +112,8 @@ const ConsultantList: React.FC = () => {
         if(recebeStatus !== 'TODOS') {
             setConsultants(global.filter(status => status.status === recebeStatus));
             console.log(status);
+            console.log(global.filter(status => status.status === recebeStatus));
+            console.log(consultants);
         } else {
             setConsultants(global);
         }
@@ -124,7 +130,7 @@ const ConsultantList: React.FC = () => {
             setConsultants(global);
         }
     };
-
+    
     return (
         <>
         <Navbar />
@@ -178,7 +184,21 @@ const ConsultantList: React.FC = () => {
                         <span className='projetos'>
                             {consultant.projetos.length > 0 ? 
                                 <PopupTooltip trigger={<button>Gerenciar</button>} position="right center">
-                                    <ProjetosConsultor projetos={consultant.projetos} />
+                                    <ContainerTooltip>
+                                        <PopUpTooltip>
+                                            {
+                                                consultant.projetos.map((projeto, index) => (
+                                                    <div key={index}>
+                                                        <h1>{projeto}</h1>
+                                                        <TiDelete onClick={() => {
+                                                            api.delete(`projetos/desalocar/${projeto}/${consultant.numero_cracha}`);
+                                                            api.get("funcionarios/consultor").then(response => setConsultants(response.data));
+                                                        }}/>
+                                                    </div>
+                                                ))
+                                            }
+                                        </PopUpTooltip>
+                                    </ContainerTooltip>
                                 </PopupTooltip>
                                 : ''
                             }
@@ -187,19 +207,24 @@ const ConsultantList: React.FC = () => {
                             <button onClick={() => setRecebeCracha(consultant.numero_cracha)}>Atribuir</button>
                         </span>
                         <span className='perfil'>
-                            <PopupPerfilConsultor closeOnEscape trigger={<button><ImSearch size={20} color="#fff"/></button>} modal>
+                            <PopupPerfilConsultor closeOnEscape trigger={<button><ImSearch size={15} color="#fff"/></button>} modal>
                                 {(close: any) => (
                                     <PerfilConsultor nome={consultant.nome} cracha={consultant.numero_cracha} email={consultant.email} fechar={close} />
                                 )}
                             </PopupPerfilConsultor>
                         </span>
                     </LinhaConsultor>
-                )) : ''}
+                )) : 
+                    <Msg>
+                        <BiHourglass size={40} />
+                        <h1>Nenhum consultor foi encontrado!</h1>
+                    </Msg>
+                }
                 </TableScroll>
             </Table>
             </TableDimensions>
         </Container>
-        <MenuRight>
+        <MenuRight numeroDoProjeto={Number(numeroDoProjeto)}>
             <ContIcons />
         </MenuRight>
         </>
