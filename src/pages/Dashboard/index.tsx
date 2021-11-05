@@ -251,8 +251,8 @@ const Dashboard: React.FC = () => {
         }));         
     }
  
-    const datas = countsPerData.map(datas => datas.data);
-    const verbas = countsPerData.map(verbas => verbas.verbaUtilizada);
+    const datas = totalCcPagantes.reduce(reducer) > 0 ? countsPerData.map(datas => datas.data) : ["0"];
+    const verbas = totalCcPagantes.reduce(reducer) > 0 ? countsPerData.map(verbas => verbas.verbaUtilizada) : [0];
 
     const data = {
         labels: datas.reverse(),

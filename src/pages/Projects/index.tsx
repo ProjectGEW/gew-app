@@ -209,7 +209,7 @@ const Projects: React.FC = () => {
             <ContainerProject>
                 <ContainerInfo>
                     <ContainerTitle>
-                        <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25}/> <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/></h1>
+                        <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25}/></h1>
                         <span />
                     </ContainerTitle>
                     <ContainerFiltro>
@@ -248,6 +248,9 @@ const Projects: React.FC = () => {
                         <div>
                             <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
                             <input type="text" placeholder="Pesquise aqui..." onChange={search} />
+                        </div>
+                        <div>
+                            <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/>
                         </div>
                     </ContainerFiltro>
                 </ContainerInfo>

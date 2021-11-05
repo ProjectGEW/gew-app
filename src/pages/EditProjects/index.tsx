@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useEffect, useState, FormEvent } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import Navbar from '../components/Navbar';
@@ -15,6 +15,7 @@ import { Msg } from '../Projects/styles';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 import { BiHourglass } from 'react-icons/bi';
+import { FiRefreshCcw } from 'react-icons/fi';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -184,6 +185,14 @@ const EditProjects: React.FC = () => {
         }        
     };
 
+    const [atualizar, setAtualizar] = useState(false);
+
+    useEffect(() => {
+        if(atualizar) {
+            api.get<IProjetoProps[]>('projetos').then((response) => (setProjetos(response.data)));
+        }
+    },[atualizar]);
+
     return (
         <>
         <Navbar />
@@ -231,6 +240,9 @@ const EditProjects: React.FC = () => {
                   <div>
                       <label>Projeto:</label>
                       <input placeholder="Pesquise aqui..." onChange={search}/>
+                  </div>
+                  <div>
+                    <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/>
                   </div>
               </ContainerFiltro>
             </ContainerInfo>

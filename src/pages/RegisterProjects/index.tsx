@@ -397,7 +397,7 @@ return (
               </div>
               <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
                 <Paper elevation={0} {...rootProps}>
-                  <label id="ata" htmlFor="ata">{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                  <label id="ata" htmlFor="ata"  >{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
                   <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
                 </Paper>
                 <p id="ataResponse" className="msgErro"></p>
