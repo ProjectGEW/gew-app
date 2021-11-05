@@ -146,7 +146,9 @@ const MenuLeft: React.FC = () => {
                     </Msg>
                 </ContainerMsg>
                 <ExitImg id="exit-img">
-                    <a href="./" ><IoExitOutline id="iconExit" onClick={singOut}/></a>
+                    <a href="/">
+                        <IoExitOutline id="iconExit" onClick={singOut}>{intl.get('navbar.dropdown.sair')}</IoExitOutline>
+                    </a>
                 </ExitImg>
             </ContainerInfo>
             <BtnOpen id="btn-open" onClick={handdleClick} />

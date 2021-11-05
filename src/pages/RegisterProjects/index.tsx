@@ -19,10 +19,11 @@ import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles
 import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../components/RegisterProject/Datas/styles';
 import { ContIcons } from '../components/MenuRight/styles';
+import { Subtittles } from '../components/Subtittles/styles';
 //import Footer from '../components/Footer';
 import 'react-calendar/dist/Calendar.css';
 
-import { AiOutlineUsergroupAdd } from 'react-icons/ai';
+import { AiOutlineCalendar, AiOutlineClockCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { RiPauseCircleFill } from 'react-icons/ri';
 
@@ -33,7 +34,9 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
-import { vrfCampo } from '../../utils/confereCampo';
+import { vrfCampoComMsg } from '../../utils/confereCampo';
+import Footer from '../components/Footer';
+
 
 interface ISecaoResponse {
   nome: string;
@@ -245,7 +248,7 @@ const RegisterProjects: React.FC = () => {
   }
 
   const [value, onChange] = useState(new Date());
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<string>("inicio");
   const [dataInicio, setDataInicio] = useState<string>();
   const [dataFim, setDataFim] = useState<string>();
   const [dataAprovacao, setDataAprovacao] = useState<string>();
@@ -256,49 +259,52 @@ const RegisterProjects: React.FC = () => {
   function setData(value: Date) {
     const dataFormat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
     if (selected === "inicio") {
-        if (value.getFullYear() >= new Date().getFullYear()) {
-            setDataInicio(dataFormat);
-            setInputErrorInit("");
-        } else {
-            setInputErrorInit("Ano inválido");
-        }
+      if (value.getFullYear() >= new Date().getFullYear()) {
+        setDataInicio(dataFormat);
+        setInputErrorInit("");
+        setSelected("fim");
+      } else {
+        setInputErrorInit("Ano inválido");
+      }
+
+      const valorFim = dataFim ? new Date(dataFim.split("/")[1] + "/" + dataFim.split("/")[0] + "/" + dataFim.split("/")[2]) : "01/01/0001";
+
+      if (value >= valorFim) {
+        setInputErrorFim("Data de término menor do que a de inicio");
+      }
+
+      const valorAprov = dataAprovacao ? new Date(dataAprovacao.split("/")[1] + "/" + dataAprovacao.split("/")[0] + "/" + dataAprovacao.split("/")[2]) : "01/01/0001";
+
+      if (value < valorAprov) {
+        setInputErrorAprov("Data de aprovação maior do que a de inicio");
+      }
     } else if (selected === "fim") {
-        const validation = dataInicio ? true : false;
-        const anoValidation = value.getFullYear() >= parseInt(dataInicio ? dataInicio.split("/")[2] : "") 
-        || value.getFullYear() <= new Date().getFullYear() + 100;
-        const mesValidation = value.getMonth() + 1 >= parseInt(dataInicio ? dataInicio.split("/")[1] : "");
-        const diaValidation = value.getDate() > parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (validation) {
-          if (anoValidation) {
-              if (mesValidation) {
-                  if (diaValidation) {
-                      setDataFim(dataFormat);
-                      setInputErrorFim("");
-                  } else {
-                      setInputErrorFim("Dia inválido");
-                  }
-              } else {
-                  setInputErrorFim("Mês inválido");
-              }
-          } else {
-              setInputErrorFim("Ano inválido");
-          }
+      const validation = dataInicio ? true : false;
+      const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
+      if (validation) {
+        if (value > valorInicio) {
+          setDataFim(dataFormat);
+          setInputErrorFim("");
+          setSelected("aprovacao");
         } else {
-          setInputErrorFim("Informe primeiro a data de inicio");
+          setInputErrorFim("Data de término menor do que a de inicio");
         }
+      } else {
+        setInputErrorFim("Informe primeiro a data de inicio");
+      }
     } else if (selected === "aprovacao") {
-        const validation = value.getFullYear() >= new Date().getFullYear() - 1;
-        const diaValidation = value.getDate() <= parseInt(dataInicio ? dataInicio.split("/")[0] : "");
-        if (validation) { 
-          if (diaValidation) {
-            setDataAprovacao(dataFormat);
-            setInputErrorAprov("");
-          } else {
-            setInputErrorAprov("Dia inválido");
-          }
+      const validation = dataInicio ? true : false;
+      const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
+      if (validation) {
+        if (value <= valorInicio) {
+          setDataAprovacao(dataFormat);
+          setInputErrorAprov("");
         } else {
-            setInputErrorAprov("Ano inválido");
+          setInputErrorAprov("Data de aprovação maior do que a de inicio");
         }
+      } else {
+        setInputErrorAprov("Informe primeiro a data de inicio");
+      }
     }
   }
   
@@ -380,13 +386,13 @@ return (
             <span> 
               <div id="left-box">
                 <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampo(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
+                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampoComMsg(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
                 <p id="numeroProjetoResponse" className="msgErro"></p>
                 <label>Título do projeto: </label>
-                <input type="text" id="titulo" onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}/>
+                <input type="text" id="titulo" onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
-                <textarea id="descricao" onBlur={(props) => { vrfCampo(props.target.value, "descricao", "descricaoResponse"); }}/>
+                <textarea id="descricao" onBlur={(props) => { vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
               <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
@@ -416,7 +422,7 @@ return (
                     handleSecao(props.target.value, "secao_responsavel"); 
                   }
               
-                  vrfCampo(props.target.value, "nome_responsavel", "responsavelResponse");
+                  vrfCampoComMsg(props.target.value, "nome_responsavel", "responsavelResponse");
                 }}/>
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
@@ -425,7 +431,7 @@ return (
                     handleSecao(props.target.value, "secao_solicitante");
                   }
 
-                  vrfCampo(props.target.value, "nome_solicitante", "solicitanteResponse");
+                  vrfCampoComMsg(props.target.value, "nome_solicitante", "solicitanteResponse");
                 }}/>
                 <p id="solicitanteResponse" className="msgErro"></p>
               </div>
@@ -552,9 +558,10 @@ return (
     </ContainerRegister>
   </Container >
   <BoxConfirm id="confirm-data"> 
-    <h1>Confirmar Informações</h1>
+    <h1 className="header">Confirmar Informações</h1>
     <SideContainer>
       <ContentContainer>
+        <Subtittles tipo={'RegisterProjectData'}>Dados do Projeto</Subtittles>
         <div>
           <h3>Número do projeto:</h3>
           <h2>{projeto?.infoProjetosInputDTO?.numeroDoProjeto}</h2>
@@ -576,6 +583,7 @@ return (
           <h2>{projeto?.infoProjetosInputDTO?.descricao}</h2>
         </div>
       </Box>
+      <Subtittles tipo={'Encharged'}>Encarregados</Subtittles>
       <ContentContainer>
         <div>
           <h3>Nome do responsável:</h3>
@@ -599,36 +607,49 @@ return (
     </SideContainer>
     <SideContainer>
       <ContentContainer>
+        <Subtittles tipo={'Costs'}>Custos</Subtittles>
         <div>
-          <h3>Valor total de despesas: </h3>
-          <h2>{analisaValor(sValorDespesa ? sValorDespesa : 0)}</h2>
+          <h3>Limite de horas:</h3>
+          <h2>
+            <AiOutlineClockCircle />
+            {sEsforco}
+          </h2>
         </div>
-        <div>
-          <h3>Data de início:</h3>
-          <h2>{projeto?.infoProjetosInputDTO?.data_de_inicio}</h2>
-        </div>
-      </ContentContainer>
-      <ContentContainer>
         <div>
           <h3>Centro de custo:</h3>
           <h2>{analisaValor(sValorCcPagantes ? sValorCcPagantes: 0)}</h2>
         </div>
         <div>
-          <h3>Data de término:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.data_de_termino}</h2>
+          <h3>Percentual Aprovado: </h3>
+          <h2>{analisaValor(sValorDespesa ? sValorDespesa : 0)}</h2>
         </div>
       </ContentContainer>
       <ContentContainer>
+      <Subtittles tipo={'Dates'}>Datas</Subtittles>
         <div>
-          <h3>Limite de horas aprovadas:</h3>
-          <h2>{sEsforco}</h2>
+          <h3>Data de início:</h3>
+          <h2>
+            <AiOutlineCalendar />
+            {projeto?.infoProjetosInputDTO?.data_de_inicio}
+          </h2>
+        </div>
+        <div>
+          <h3>Data de término:</h3>
+            <h2>
+              <AiOutlineCalendar />
+              {projeto?.infoProjetosInputDTO?.data_de_termino}
+            </h2>
         </div>
         <div>
           <h3>Data de aprovação:</h3>
-          <h2>{projeto?.infoProjetosInputDTO?.data_de_aprovacao}</h2>
+          <h2>
+            <AiOutlineCalendar />
+            {projeto?.infoProjetosInputDTO?.data_de_aprovacao}
+          </h2>
         </div>
       </ContentContainer>
-      <TableConfirm>
+      
+      {/*<TableConfirm>
         <div>
           <p>Funcionários alocados</p>
           <AiOutlineUsergroupAdd onClick={() => {}}/>
@@ -641,8 +662,9 @@ return (
               </span>
             ))
           }
-      </TableConfirm>
+        </TableConfirm>*/}
     </SideContainer>
+    <Footer tipo={"registerProjects"} />
     <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
     <div onClick={() => handleProjects()}>
       <Button tipo={"Confirmar"} text={"Confirmar"} /> 
