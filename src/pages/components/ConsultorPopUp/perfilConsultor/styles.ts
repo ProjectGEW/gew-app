@@ -1,3 +1,4 @@
+import { shade } from "polished";
 import styled from "styled-components";
 
 import Close from '../../../../assets/close.svg';
@@ -12,8 +13,8 @@ export const Container = styled.div`
 `;
 
 export const PopUp = styled.div`
-    width: 30vw;
-    height: 26vh;
+    width: 35vw;
+    height: 45vh;
     background: #fff;
     border-radius: 0.8vh;
 
@@ -32,7 +33,7 @@ export const Texto = styled.p`
 `;
 
 export const Title = styled.div`
-    width: 30vw;
+    width: 40vw;
     padding: 1vh;
     background: #00579D;
 
@@ -52,7 +53,7 @@ export const Title = styled.div`
         width: 4vh;
         height: 4vh;
         margin-top: -0.4vh;
-        margin-left: 27vw;
+        margin-left: 32vw;
         position: absolute;
         background-size: cover;
         cursor: pointer;
@@ -72,7 +73,7 @@ export const Header = styled.div`
     height: 26vh;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
 
     padding: 0vh 2vh 2vh 2vh;
@@ -82,15 +83,13 @@ export const Header = styled.div`
         color: #00579D;
         font-weight: bold;
 
-        padding: 0.5vh 0 0.5vh 0;
+        padding: 1vh 0 1vh 0;
     }
 
     .header {
         width: 100%;
-        padding-top: 1vh;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
 
         .detalhe {
             border-bottom: 0.1vh solid #ccc;
@@ -103,7 +102,7 @@ export const Header = styled.div`
         div {
             &:first-child {
                 div {
-                    width: 19vw;
+                    width: 22vw;
                 }
             }
         }
@@ -129,10 +128,10 @@ export const Header = styled.div`
 
                     &:last-child {
                         background-color: rgba(220, 220, 220, 0.6);
-                        width: 8vw;
-                        height: 17vh;
-                        margin-top: 1vh;
-                        //margin-left: 2.5vw;
+                        width: 10vw;
+                        height: 20vh;
+                        margin-top: 2.2vh;
+                        margin-left: 1vw;
 
                         display: flex;
                         justify-content: center;
@@ -141,6 +140,39 @@ export const Header = styled.div`
                         
                     }
                 }
+            }
+        }
+    }
+
+    .projetos {
+        width: 33vw;
+        margin-top: 4vh;
+
+        text-align: left;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+
+        p {
+            width: 22vw;
+            font-size: 2.2vh;
+        }
+
+        button {
+            padding: 0.8vh;
+            height: 4.5vh;
+            border: 0;
+            border-radius: 0.5vh;
+            margin-right: 0.2vw;
+            font-size: 2vh;
+            color: white;
+            font-weight: bold;
+            background-color: #e21d1d;
+
+            &:hover {
+                background-color: ${shade(0.09, "#e21d1d")}
             }
         }
     }
