@@ -34,7 +34,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
-import { vrfCampoComMsg } from '../../utils/confereCampo';
+import { vrfCampoComMsg, validacaoDosCamposCadastros } from '../../utils/confereCampo';
 import Footer from '../components/Footer';
 
 
@@ -362,11 +362,11 @@ const RegisterProjects: React.FC = () => {
         setFile(undefined);
         setFileName('');
       } else {
+        console.log(URL.createObjectURL(file));
         document.getElementById("ataResponse")!.innerHTML = "";  
       }
     }
   }, [verificaCliqueAta, file, fileName]);
-
 return (
   <>
     <Navbar />
@@ -547,10 +547,10 @@ return (
         </BoxDatas>
       </Content>
       <span id='button-holding' onClick={() => { 
-        // if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
+        if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
           setInfos();
           trocarMainEtapa('confirm-data');
-        // }
+        }
       }}
       > 
         <Button tipo={"continuarCadastro"} text={"Confirmar"} />
