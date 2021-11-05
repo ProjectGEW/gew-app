@@ -19,10 +19,11 @@ import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles
 import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../components/RegisterProject/Datas/styles';
 import { ContIcons } from '../components/MenuRight/styles';
+import { Subtittles } from '../components/Subtittles/styles';
 //import Footer from '../components/Footer';
 import 'react-calendar/dist/Calendar.css';
 
-import { AiOutlineUsergroupAdd } from 'react-icons/ai';
+import { AiOutlineCalendar, AiOutlineClockCircle, AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { RiPauseCircleFill } from 'react-icons/ri';
 
@@ -33,7 +34,9 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
-import { vrfCampoComMsg } from '../../utils/confereCampo';
+import { vrfCampo } from '../../utils/confereCampo';
+import Footer from '../components/Footer';
+
 
 interface ISecaoResponse {
   nome: string;
@@ -555,9 +558,10 @@ return (
     </ContainerRegister>
   </Container >
   <BoxConfirm id="confirm-data"> 
-    <h1>Confirmar Informações</h1>
+    <h1 className="header">Confirmar Informações</h1>
     <SideContainer>
       <ContentContainer>
+        <Subtittles tipo={'RegisterProjectData'}>Dados do Projeto</Subtittles>
         <div>
           <h3>Número do projeto:</h3>
           <h2>{projeto?.infoProjetosInputDTO?.numeroDoProjeto}</h2>
@@ -579,6 +583,7 @@ return (
           <h2>{projeto?.infoProjetosInputDTO?.descricao}</h2>
         </div>
       </Box>
+      <Subtittles tipo={'Encharged'}>Encarregados</Subtittles>
       <ContentContainer>
         <div>
           <h3>Nome do responsável:</h3>
@@ -602,36 +607,49 @@ return (
     </SideContainer>
     <SideContainer>
       <ContentContainer>
+        <Subtittles tipo={'Costs'}>Custos</Subtittles>
         <div>
-          <h3>Valor total de despesas: </h3>
-          <h2>{analisaValor(sValorDespesa ? sValorDespesa : 0)}</h2>
+          <h3>Limite de horas:</h3>
+          <h2>
+            <AiOutlineClockCircle />
+            {sEsforco}
+          </h2>
         </div>
-        <div>
-          <h3>Data de início:</h3>
-          <h2>{projeto?.infoProjetosInputDTO?.data_de_inicio}</h2>
-        </div>
-      </ContentContainer>
-      <ContentContainer>
         <div>
           <h3>Centro de custo:</h3>
           <h2>{analisaValor(sValorCcPagantes ? sValorCcPagantes: 0)}</h2>
         </div>
         <div>
-          <h3>Data de término:</h3>
-            <h2>{projeto?.infoProjetosInputDTO?.data_de_termino}</h2>
+          <h3>Percentual Aprovado: </h3>
+          <h2>{analisaValor(sValorDespesa ? sValorDespesa : 0)}</h2>
         </div>
       </ContentContainer>
       <ContentContainer>
+      <Subtittles tipo={'Dates'}>Datas</Subtittles>
         <div>
-          <h3>Limite de horas aprovadas:</h3>
-          <h2>{sEsforco}</h2>
+          <h3>Data de início:</h3>
+          <h2>
+            <AiOutlineCalendar />
+            {projeto?.infoProjetosInputDTO?.data_de_inicio}
+          </h2>
+        </div>
+        <div>
+          <h3>Data de término:</h3>
+            <h2>
+              <AiOutlineCalendar />
+              {projeto?.infoProjetosInputDTO?.data_de_termino}
+            </h2>
         </div>
         <div>
           <h3>Data de aprovação:</h3>
-          <h2>{projeto?.infoProjetosInputDTO?.data_de_aprovacao}</h2>
+          <h2>
+            <AiOutlineCalendar />
+            {projeto?.infoProjetosInputDTO?.data_de_aprovacao}
+          </h2>
         </div>
       </ContentContainer>
-      <TableConfirm>
+      
+      {/*<TableConfirm>
         <div>
           <p>Funcionários alocados</p>
           <AiOutlineUsergroupAdd onClick={() => {}}/>
@@ -644,8 +662,9 @@ return (
               </span>
             ))
           }
-      </TableConfirm>
+        </TableConfirm>*/}
     </SideContainer>
+    <Footer tipo={"registerProjects"} />
     <HiArrowNarrowLeft id="voltar" onClick={() => trocarMainEtapa("set-data")}/>
     <div onClick={() => handleProjects()}>
       <Button tipo={"Confirmar"} text={"Confirmar"} /> 

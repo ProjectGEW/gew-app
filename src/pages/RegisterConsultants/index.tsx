@@ -265,8 +265,7 @@ const RegisterConsultants: React.FC = () => {
                     Cadastrar
                 </button>              
             </SideContainer>
-            <Footer tipo={"register_consultants"}>
-            </Footer>
+            <Footer tipo={"register_consultants"} />
         </Container>
         <MenuRight>
             <ContIcons />
