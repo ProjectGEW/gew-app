@@ -33,7 +33,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
-import { vrfCampo } from '../../utils/confereCampo';
+import { vrfCampoComMsg } from '../../utils/confereCampo';
 
 interface ISecaoResponse {
   nome: string;
@@ -383,13 +383,13 @@ return (
             <span> 
               <div id="left-box">
                 <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampo(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
+                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampoComMsg(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
                 <p id="numeroProjetoResponse" className="msgErro"></p>
                 <label>Título do projeto: </label>
-                <input type="text" id="titulo" onBlur={(props) => { vrfCampo(props.target.value, "titulo", "tituloResponse"); }}/>
+                <input type="text" id="titulo" onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
-                <textarea id="descricao" onBlur={(props) => { vrfCampo(props.target.value, "descricao", "descricaoResponse"); }}/>
+                <textarea id="descricao" onBlur={(props) => { vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
               <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
@@ -419,7 +419,7 @@ return (
                     handleSecao(props.target.value, "secao_responsavel"); 
                   }
               
-                  vrfCampo(props.target.value, "nome_responsavel", "responsavelResponse");
+                  vrfCampoComMsg(props.target.value, "nome_responsavel", "responsavelResponse");
                 }}/>
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
@@ -428,7 +428,7 @@ return (
                     handleSecao(props.target.value, "secao_solicitante");
                   }
 
-                  vrfCampo(props.target.value, "nome_solicitante", "solicitanteResponse");
+                  vrfCampoComMsg(props.target.value, "nome_solicitante", "solicitanteResponse");
                 }}/>
                 <p id="solicitanteResponse" className="msgErro"></p>
               </div>
