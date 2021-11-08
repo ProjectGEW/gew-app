@@ -14,7 +14,7 @@ export const Container = styled.div`
 
 export const PopUp = styled.div`
     width: 35vw;
-    height: 45vh;
+    height: 43vh;
     background: #fff;
     border-radius: 0.8vh;
 

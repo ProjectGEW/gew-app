@@ -99,7 +99,7 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
             </ContainerBox>
             <ContainerBox>
               <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={projeto ? projeto.infoprojetoDTO.numeroDoProjeto: 0}/>
-              <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : ""}</label>
+              <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : "indisponível"}</label>
             </ContainerBox>
             <ContainerObjectives>
               <h1>Descrição:</h1>

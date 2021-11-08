@@ -293,51 +293,6 @@ export const TableDimensions = styled.div`
     overflow: hidden;
 `;
 
-export const LinhaConsultor = styled.div<TableProps>`
-    display: flex;
-    align-items: center;
-    border-bottom: 0.1vh solid #e9e9e9;
-
-    
-    ${props => props.status === 'ATIVO' && css`
-        &:hover {
-            background-color: #eaffe8;
-        }
-
-        span {
-            &:first-child {
-                &:before {
-                    color: #2bd42b;
-                    background: #2bd42b;
-                }
-            }
-
-            &:nth-child(2) {
-                color: #2bd42b;
-            }
-        }
-    `}  
-    
-    ${props => props.status === 'INATIVO' && css`
-        &:hover {
-            background-color: #ffe8e8;
-        }
-
-        span {
-            &:first-child {
-                &:before {
-                    color: #e21d1d;
-                    background: #e21d1d;
-                }
-            }
-
-            &:nth-child(2) {
-                color: #e21d1d;
-            }
-        }
-    `}  
-`;
-
 export const TableScroll = styled.div`
     width: 70vw;
     height: 60vh;
@@ -360,6 +315,53 @@ export const TableScroll = styled.div`
     }
 `;
 
+export const LinhaConsultor = styled.div<TableProps>`
+    display: flex;
+    align-items: center;
+    border-bottom: 0.1vh solid #e9e9e9;
+
+    &:nth-child(2n + 1) {
+        background-color: rgb(155, 155, 155, 0.05);
+    }
+    
+    ${props => props.status === 'ATIVO' && css`
+        &:hover {
+            background-color: #eaffe8;
+        }
+
+        span {
+            &:first-child {
+                &:before {
+                    color: #2bd42b;
+                    background-color: #2bd42b;
+                }
+            }
+
+            &:nth-child(2) {
+                color: #2bd42b;
+            }
+        }
+    `}  
+    
+    ${props => props.status === 'INATIVO' && css`
+        &:hover {
+            background-color: #ffe8e8;
+        }
+
+        span {
+            &:first-child {
+                &:before {
+                    color: #e21d1d;
+                    background-color: #e21d1d;
+                }
+            }
+
+            &:nth-child(2) {
+                color: #e21d1d;
+            }
+        }
+    `}  
+`;
 
 export const PopupPerfilConsultor = styled(Popup)`
     &-content {
@@ -489,7 +491,7 @@ export const PopUpTooltip = styled.div`
         }
 
         &:hover {
-            background-color: rgba(255, 255, 255, 0.25);
+            background-color: #d2ebff;
         }
     }
 `;

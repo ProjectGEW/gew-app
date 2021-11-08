@@ -111,9 +111,9 @@ const ConsultantList: React.FC = () => {
 
         if(recebeStatus !== 'TODOS') {
             setConsultants(global.filter(status => status.status === recebeStatus));
-            console.log(status);
-            console.log(global.filter(status => status.status === recebeStatus));
-            console.log(consultants);
+            // console.log(status);
+            // console.log(global.filter(status => status.status === recebeStatus));
+            // console.log(consultants);
         } else {
             setConsultants(global);
         }

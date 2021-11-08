@@ -812,7 +812,7 @@ export const Circle = styled.div<WavesProps>`
         }
     `}    
 
-    ${props => props.dashboard === true && props.valor > 95 && props.valor <= 100 && css`
+    ${props => props.dashboard === true && props.valor > 95 && props.valor >= 100 && css`
         &::after {
             content: '${props.valor}%';
             color: white;
@@ -1426,7 +1426,7 @@ export const Circle = styled.div<WavesProps>`
         }
     `}
 
-    ${props => props.dashboard !== true && props.valor > 95 && props.valor <= 100 && css`
+    ${props => props.dashboard !== true && props.valor > 95 && props.valor >= 100 && css`
         &::after {
             content: '${props.valor}%';
         }

@@ -37,6 +37,7 @@ interface CardContent {
         data_de_termino: string;
         status: string;
         horas_apontadas: number;
+        secao: string;
     };
     ccPagantes : [{
         secao: {
@@ -85,6 +86,8 @@ const Dashboard: React.FC = () => {
         headers: { Authorization: `Bearer ${token}`},
     };*/
 
+    const [guardaVerba, setGuardaVerba] = useState([]);
+
     useEffect(() => {
         window.onload = async function handleProjetos() {
             const response = await api.get<CardContent[]>("projetos");
@@ -99,11 +102,21 @@ const Dashboard: React.FC = () => {
             const dataDatas = responseDatas.data;
             setCountsPerData(dataDatas);  
 
-        
-
             const responseCountUtilizada = await api.get(`projetos/count/verba/0`);
             const dataCountUtilizada = responseCountUtilizada.data;
             setCountUtilizada(dataCountUtilizada);
+
+            const pegaNumero = data.map(a => a.infoprojetoDTO.numeroDoProjeto);
+            pegaNumero.forEach(async (b) => {
+                const responseGuarda = await api.get(`projetos/count/verba/${pegaNumero[b]}`);
+                const dataGuarda = responseGuarda.data;
+                setGuardaVerba(dataGuarda); 
+
+                //const converte = {numero: pegaNumero[b], verba: dataGuarda};
+                //setGuardaVerba(converte); 
+            })
+        
+            //console.log(guardaVerba);
         }
        
         if(id !== '0') {
@@ -129,6 +142,8 @@ const Dashboard: React.FC = () => {
         }
 
     }, [id, projetos]);
+
+    console.log(guardaVerba);
 
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -203,6 +218,14 @@ const Dashboard: React.FC = () => {
     const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         var resultado = '';
+
+        //const pegaNumero = projetos.filter(a => a.infoprojetoDTO.secao.toUpperCase() === value.toUpperCase());
+
+        //console.log(pegaNumero);
+        //api.get(`projetos/count/verba/${Number(pegaNumero)}`).then(response => {setCountUtilizada(response.data); console.log(response.data)});
+
+        console.log(guardaVerba);
+
         setSelectedOption(value);
 
         if (value !== 'Todos') {
@@ -227,9 +250,9 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    const totalCcPagantes = [projetos.length];
+    const totalCcPagantes = projetos.filter(a => a.infoprojetoDTO.secao === selectedOption) ? projetos.filter(b => b.infoprojetoDTO.horas_apontadas === 0) ? [0] : [projetos.length] : [0];
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
-
+    
     if(Number(id) === 0) {
         for(var x = 0; x < projetos.length; x++) {
             totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
@@ -239,12 +262,13 @@ const Dashboard: React.FC = () => {
         totalCcPagantes[0] = recebe.map(projeto => projeto.valoresTotaisDTO.valorTotalCcPagantes)[0];
         console.log(totalCcPagantes[0]);
     }
-
+    
     const porcentagemUtilizada = totalCcPagantes.reduce(reducer) > 0 ? (Number(countUtilizada) / (totalCcPagantes.reduce(reducer))) * 100 : 0;
-
+    
     const valorDisponivel = Number(totalCcPagantes.reduce(reducer)) !== 0 ? totalCcPagantes.reduce(reducer) - Number(countUtilizada) : 0;
     const porcentagemDisponivel = Number(totalCcPagantes.reduce(reducer)) !== 0 ? 100 - porcentagemUtilizada : 0;
     
+    console.log(countUtilizada);
     const alterarData = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         //setDataSelecionada(value);
@@ -260,7 +284,7 @@ const Dashboard: React.FC = () => {
         }
     }
  
-    console.log(totalCcPagantes.reduce(reducer));
+    //console.log(totalCcPagantes.reduce(reducer));
     //console.log(`projetos/count/14/${Number(id)}`);
 
     // const datas = totalCcPagantes.reduce(reducer) > 0 && Number(id) === 0 ? countsPerData.map(datas => datas.data) : ["0"];    
