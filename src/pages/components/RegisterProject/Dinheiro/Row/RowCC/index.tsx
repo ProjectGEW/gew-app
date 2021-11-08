@@ -58,13 +58,13 @@ const RowCcPagantes: React.FC<ICcPagantes> = ({number}) => {
 }
 
 export const RowCcPagantesEdit: React.FC<ICcPagantes> = ({number, numeroCracha, valor, responsavel}) => {
-  const conCatCentroDeCusto = `centroE${number}`;
-  const conCatValor = `valorCE${number}`;
+  const conCatCentroDeCusto = `centro${number}`;
+  const conCatValor = `valorC${number}`;
 
   const conCatResponsavel = `responsavel${number}`;
   
   return (
-    <Linha id={`CE${number}`}>
+    <Linha id={`C${number}`}>
       <input type="text" id={conCatCentroDeCusto} defaultValue={numeroCracha} placeholder="092765143" onBlur={(props) => {
         if (props.target.value === "") {
           props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
