@@ -34,7 +34,6 @@ import api from "../../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts'
 import { vrfCampoComMsg, validacaoDosCamposCadastros } from '../../../utils/confereCampo';
-import { type } from 'os';
 
 interface ISecaoResponse {
   nome: string;
@@ -81,35 +80,6 @@ interface ICCpagantes{
 
 
 const EditProjects: React.FC = () => {
-  const initalValue = {
-      infoProjetosInputDTO: {
-        numeroDoProjeto: 0,
-        titulo: "",
-        descricao: "",
-        nome_responsavel: "",
-        nome_solicitante: "",
-        data_de_inicio: "",
-        data_de_termino: "",
-        data_de_aprovacao: ""
-      },
-      despesasInputDTOS: [
-        {
-          nome: "",
-          esforco: 0,
-          valor: 0
-        }
-      ],
-      ccPagantesInputDTO: [
-        {
-          secao_id: 0,
-          valor: 0
-        }
-      ]
-    }
-    
-    initalValue.despesasInputDTOS.shift();
-    initalValue.ccPagantesInputDTO.shift();
-    
     const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
 
     //Setar as informações, para usar nos campos
@@ -158,6 +128,18 @@ const EditProjects: React.FC = () => {
 
           handleSecao(String(projetoEdit?.infoprojetoDTO.responsavel.nome), "secao_responsavel");
           handleSecao(String(projetoEdit?.infoprojetoDTO.solicitante.nome), "secao_solicitante");
+
+          if(dataInicio === undefined) {
+            setDataInicio(projetoEdit?.infoprojetoDTO.data_de_inicio);
+          }
+
+          if(dataFim === undefined) {
+            setDataFim(projetoEdit?.infoprojetoDTO.data_de_termino);
+          }
+
+          if(dataAprovacao === undefined) {
+            setDataAprovacao(projetoEdit?.infoprojetoDTO.data_de_aprovacao)
+          }
         }));
       } catch (error) {
         console.log(error);
@@ -248,24 +230,31 @@ const EditProjects: React.FC = () => {
   const [sValorDespesa, setValorDespesa] = useState<number>();
   const [sValorCcPagantes, setValorCcPagantes] = useState<number>();
 
-  function somaTotal() {
+  function somaTotalDP() {
     var somaEsforco = 0;
     var somaValorDespesa = 0;
 
-    var somaValorCcPagantes = 0;
-
     for (let i = 1; i <= rowDespesas.length; i++) {
-      somaEsforco += parseInt((document.getElementById(`esforcoE${i}`) as HTMLInputElement).value);
-      somaValorDespesa += parseInt((document.getElementById(`valorE${i}`) as HTMLInputElement).value);
-
-      setSEsforco(somaEsforco);
-      setValorDespesa(somaValorDespesa);
+      somaEsforco += parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value);
+      somaValorDespesa += parseInt((document.getElementById(`valor${i}`) as HTMLInputElement).value);
     }
 
+    setSEsforco(somaEsforco);
+    setValorDespesa(somaValorDespesa);
+  }
+
+  function somaTotalCc() {
+    var somaValorCcPagantes = 0;
+  
     for (let i = 1; i <= rowCC.length; i++) {
-      somaValorCcPagantes += parseInt((document.getElementById(`valorCE${i}`) as HTMLInputElement).value);
+      somaValorCcPagantes += parseInt((document.getElementById(`valorC${i}`) as HTMLInputElement).value);
       setValorCcPagantes(somaValorCcPagantes);
     }
+  }
+
+  function somaTotal() {
+    somaTotalCc();
+    somaTotalDP();
   };
 
   const [value, onChange] = useState(new Date());
@@ -463,7 +452,7 @@ return (
                   <h2>TOTAL:</h2>
                   <input id="totalEsforco" type="text" disabled value={sEsforco? sEsforco: 0}/>
                   <input id="totalValor" type="text" disabled value={sValorDespesa? analisaValor(sValorDespesa): 0}/>
-                  <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
+                  <RiPauseCircleFill id="soma" onClick={() => somaTotalDP()}/>
                 </div>
               </Total>
             </Table>
@@ -483,8 +472,8 @@ return (
                 </div>
                 <div>
                   <h2>TOTAL:</h2>
-                  <input id="totalValor" type="text" value={0} />
-                  <RiPauseCircleFill id="soma" onClick={() => somaTotal()}/>
+                  <input id="totalValor" type="text" disabled value={sValorCcPagantes? analisaValor(sValorCcPagantes): 0} />
+                  <RiPauseCircleFill id="soma" onClick={() => somaTotalCc()}/>
                 </div>
               </Total>
             </Table>
@@ -545,24 +534,24 @@ return (
           <Calendar className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
         </BoxDatas>
       </Content>
-          <span id='button-holding' onClick={() => { 
-            if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
-              //setInfos();
-              trocarMainEtapa('confirm-data');
-            }
-          }}
-          > 
-        <Button tipo={"botaoEdicao"} text={"Confirmar"} />
-        </span>
+      <span id='button-holding' onClick={() => { 
+        if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
+          trocarMainEtapa('confirm-data');
+          somaTotalDP();
+        }
+      }}
+      > 
+    <Button tipo={"botaoEdicao"} text={"Confirmar"} />
+    </span>
     </ContainerRegister>
   </Container >
   <BoxConfirm id="confirm-data"> 
-    <h1>Confirmar Informações</h1>
+  <h1 className="header">Confirmar Informações</h1>
     <SideContainer>
       <ContentContainer>
         <div>
           <h3>Número do projeto:</h3>
-          {/* <h2></h2> */}
+          <h2>{projetoEdit?.infoprojetoDTO.numeroDoProjeto}</h2>
         </div>
         <div>
           <h3>Ata da aprovação:</h3>
@@ -572,19 +561,19 @@ return (
       <Box>
         <div>
           <h3>Título do projeto:</h3>
-          {/* <h2></h2> */}
+          <h2>{projetoEdit?.infoprojetoDTO.titulo}</h2>
         </div>
       </Box>
       <Box>
         <div>
           <h3>Descrição do projeto:</h3>
-          {/* <h2></h2> */}
+          <h2>{projetoEdit?.infoprojetoDTO.descricao}</h2>
         </div>
       </Box>
       <ContentContainer>
         <div>
           <h3>Nome do responsável:</h3>
-          {/* <h2></h2> */}
+          <h2>{projetoEdit?.infoprojetoDTO.responsavel.nome}</h2>
         </div>
         <div>
           <h3>Seção do responsável:</h3>
@@ -594,7 +583,7 @@ return (
       <ContentContainer>
         <div>
           <h3>Nome do solicitante:</h3>
-          {/* <h2></h2> */}
+          <h2>{projetoEdit?.infoprojetoDTO.solicitante.nome}</h2>
         </div>
         <div>
           <h3>Seção do solicitante:</h3>
@@ -610,7 +599,7 @@ return (
         </div>
         <div>
           <h3>Data de início:</h3>
-          {/* <h2></h2> */}
+          <h2>{projetoEdit?.infoprojetoDTO.data_de_inicio}</h2>
         </div>
       </ContentContainer>
       <ContentContainer>
@@ -620,7 +609,7 @@ return (
         </div>
         <div>
           <h3>Data de término:</h3>
-            {/* <h2></h2> */}
+            <h2>{projetoEdit?.infoprojetoDTO.data_de_termino}</h2>
         </div>
       </ContentContainer>
       <ContentContainer>
@@ -630,7 +619,7 @@ return (
         </div>
         <div>
           <h3>Data de aprovação:</h3>
-          {/* <h2></h2> */}
+          <h2>{projetoEdit?.infoprojetoDTO.data_de_aprovacao}</h2>
         </div>
       </ContentContainer>
       <TableConfirm>
