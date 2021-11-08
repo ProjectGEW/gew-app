@@ -50,12 +50,12 @@ const RowDespesas: React.FC<INumeroProjetos> = ({number}) => {
 
 export const RowDespesasEdit: React.FC<ILinhasEdicao> = ({number, nomeDespesa, esforco, valor}) => {
 
-  const conCatDespesa = `despesaE${number}`;
-  const conCatEsforco = `esforcoE${number}`;
-  const conCatValor = `valorE${number}`;
+  const conCatDespesa = `despesa${number}`;
+  const conCatEsforco = `esforco${number}`;
+  const conCatValor = `valor${number}`;
   
   return (
-    <Linha id={`DE${number}`}>
+    <Linha id={`D${number}`}>
       <input type="text" id={conCatDespesa} defaultValue={nomeDespesa} onBlur={(props) => {
         if (props.target.value === "") {
          props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
