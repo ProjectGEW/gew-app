@@ -90,7 +90,7 @@ const Projects: React.FC = () => {
 
     function defineStatus(valor: string) {
 
-        var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
+        var btns = ["Todos", "concluido", "atrasado", "em_andamento"];
 
         for (var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
@@ -98,9 +98,9 @@ const Projects: React.FC = () => {
 
         setStatus(valor);
 
-        if (valor === "concluidos") {
+        if (valor === "concluido") {
             document.getElementById(valor)!.style.backgroundColor = "#adffb0";
-        } else if (valor === "atrasados") {
+        } else if (valor === "atrasado") {
             document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
         } else if (valor === "em_andamento") {
             document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
@@ -137,7 +137,7 @@ const Projects: React.FC = () => {
             if (statusteste === 'Todos') {
                 resultado = `projetos`;
             } else if (statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/Todos`;
+                resultado = `projetos/` + statusteste.toUpperCase() + `/Todos`;
             }
             const response = await api.get<IProjetoProps[]>(resultado);
             const data = response.data;
@@ -235,12 +235,12 @@ const Projects: React.FC = () => {
                                     onClick={() => defineStatus('em_andamento')}>
                                     {intl.get('tela_projetos.filtros.options.emandamento')}
                                 </button>
-                                <button type="submit" id="atrasados" className="2"
-                                    onClick={() => defineStatus('atrasados')}>
+                                <button type="submit" id="atrasado" className="2"
+                                    onClick={() => defineStatus('atrasado')}>
                                     {intl.get('tela_projetos.filtros.options.atrasado')}
                                 </button>
-                                <button type="submit" id="concluidos" className="3"
-                                    onClick={() => defineStatus('concluidos')}>
+                                <button type="submit" id="concluido" className="3"
+                                    onClick={() => defineStatus('concluido')}>
                                     {intl.get('tela_projetos.filtros.options.concluido')}
                                 </button>
                             </form>
