@@ -16,7 +16,7 @@ import { RowCcPagantesEdit } from '../../components/RegisterProject/Dinheiro/Row
 
 import { BoxProjeto, Preview } from '../../components/RegisterProject/Projeto/styles';
 import { BoxResponsavel } from '../../components/RegisterProject/Responsavel/styles';
-import { BoxDinheiro, Table, Total } from '../../components/RegisterProject/Dinheiro/styles';
+import { BoxDinheiro, Linha, Table, Total } from '../../components/RegisterProject/Dinheiro/styles';
 import { BoxDatas } from '../../components/RegisterProject/Datas/styles';
 import { ContIcons } from '../../components/MenuRight/styles';
 import Footer from '../../components/Footer';
@@ -78,10 +78,9 @@ interface ICCpagantes{
   valor: number;
 }
 
-
 const EditProjects: React.FC = () => {
     const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
-
+    // console.log("a");
     //Setar as informações, para usar nos campos
     const { nm }: {nm: string}  = useParams();
     const [projetoEdit, setProjetoEdit] = useState<IProjeto>();
@@ -91,61 +90,92 @@ const EditProjects: React.FC = () => {
     const [rowCC, setRowCC] = useState<JSX.Element[]>([]);
 
     useEffect(() => {
-      try {
-        api.get<IProjeto>(`/projetos/${nm}`)
-        .then((response => {
-          setProjetoEdit(response.data)
-          //Impedir looping infinito
-          if(rowDespesas.length < response.data.despesas.length){
-            //Setar as linhas para a tablea de despesas 
-            for (let i = 0; i < Number(response.data.despesas.length); i++) {
-              setRowDespesas(
-                [...rowDespesas, 
-                  <RowDespesasEdit 
-                  number={i+1} 
-                  nomeDespesa={String(response.data.despesas[i]?.nome)}
-                  esforco={Number(response.data.despesas[i]?.esforco)}
-                  valor={Number(response.data.despesas[i]?.esforco)}
-                  />
-                ]
-              );   
-            }
-          }
-          //Impedir looping infinito
-          if(rowCC.length < response.data.ccPagantes.length){
-            //Setar as linhas para a tablea de Centro de Custos
-            for (let i = 0; i < Number(response.data.ccPagantes.length); i++) {
-              setRowCC([...rowCC,
-                <RowCcPagantesEdit 
-                  number={i+1} 
-                  numeroCracha={response.data.ccPagantes[i].secao.id}
-                  valor={response.data.ccPagantes[i].valor}
-                  responsavel={response.data.ccPagantes[i].secao.responsavel.nome}
-                />
-              ])
-            }
-          }
-
-          handleSecao(String(projetoEdit?.infoprojetoDTO.responsavel.nome), "secao_responsavel");
-          handleSecao(String(projetoEdit?.infoprojetoDTO.solicitante.nome), "secao_solicitante");
-
-          if(dataInicio === undefined) {
-            setDataInicio(projetoEdit?.infoprojetoDTO.data_de_inicio);
-          }
-
-          if(dataFim === undefined) {
-            setDataFim(projetoEdit?.infoprojetoDTO.data_de_termino);
-          }
-
-          if(dataAprovacao === undefined) {
-            setDataAprovacao(projetoEdit?.infoprojetoDTO.data_de_aprovacao)
-          }
-        }));
-      } catch (error) {
-        console.log(error);
+      window.onload = async function handleProjeto() {
+        api.get<IProjeto>(`projetos/${nm}`).then((response => setProjetoEdit(response.data)));
       }
+
+      console.log(projetoEdit);
+      //Impedir looping infinito
+
+      // if(rowDespesas.length < projetoEdit!?.despesas.length){
+      //   //Setar as linhas para a tablea de despesas 
+      //   for (let i = 0; i < Number(projetoEdit!?.despesas.length); i++) {
+      //     setRowDespesas(
+      //       [...rowDespesas, 
+      //         <RowDespesasEdit 
+      //         number={i+1} 
+      //         nomeDespesa={String(projetoEdit!?.despesas[i]?.nome)}
+      //         esforco={Number(projetoEdit!?.despesas[i]?.esforco)}
+      //         valor={Number(projetoEdit!?.despesas[i]?.esforco)}
+      //         />
+      //       ]
+      //     );   
+      //   }
+      // }
+
+      
+          // //Impedir looping infinito
+          // if(rowCC.length < response.data.ccPagantes.length){
+          //   //Setar as linhas para a tablea de Centro de Custos
+          //   for (let i = 0; i < Number(response.data.ccPagantes.length); i++) {
+          //     setRowCC([...rowCC,
+          //       <RowCcPagantesEdit 
+          //         number={i+1} 
+          //         numeroCracha={response.data.ccPagantes[i].secao.id}
+          //         valor={response.data.ccPagantes[i].valor}
+          //         responsavel={response.data.ccPagantes[i].secao.responsavel.nome}
+          //       />
+          //     ])
+          //   }
+          // }
+
+          // handleSecao(String(projetoEdit?.infoprojetoDTO.responsavel.nome), "secao_responsavel");
+          // handleSecao(String(projetoEdit?.infoprojetoDTO.solicitante.nome), "secao_solicitante");
+
+          // if(dataInicio === undefined) {
+          //   setDataInicio(projetoEdit?.infoprojetoDTO.data_de_inicio);
+          // }
+
+          // if(dataFim === undefined) {
+          //   setDataFim(projetoEdit?.infoprojetoDTO.data_de_termino);
+          // }
+
+          // if(dataAprovacao === undefined) {
+          //   setDataAprovacao(projetoEdit?.infoprojetoDTO.data_de_aprovacao)
+          // }
+        
     }, [projetoEdit]);
 
+    // console.log(projetoEdit!?.despesas[0]);
+     if(rowDespesas.length < projetoEdit!?.despesas.length){
+    //   //Setar as linhas para a tablea de despesas 
+    //   for(let i = 0; i < Number(projetoEdit!?.despesas.length); i++) {
+    //     setRowDespesas(
+    //       [...rowDespesas, 
+    //         <RowDespesasEdit 
+    //         number={i+1} 
+    //         nomeDespesa={String(projetoEdit!?.despesas[i]?.nome)}
+    //         esforco={Number(projetoEdit!?.despesas[i]?.esforco)}
+    //         valor={Number(projetoEdit!?.despesas[i]?.valor)}
+    //         />
+    //       ]
+    //     );   
+    //   }
+
+
+
+    // setRowDespesas(
+    //   [...rowDespesas, 
+    //     <RowDespesasEdit 
+    //     number={0} 
+    //     nomeDespesa={String(projetoEdit!?.despesas[0]?.nome)}
+    //     esforco={Number(projetoEdit!?.despesas[0]?.esforco)}
+    //     valor={Number(projetoEdit!?.despesas[0]?.valor)}
+    //     />
+    //   ]
+    // );   
+     }
+      
     useEffect(() => {
       if(verificaCliqueAta === true && fileName === '') {
         document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
@@ -343,6 +373,8 @@ const EditProjects: React.FC = () => {
       console.log(err);
     }
   }
+
+  rowDespesas.push();
   
 return (
   <>
@@ -441,7 +473,16 @@ return (
                 <h1>Valor (R$)</h1>
               </div>
               <div id="scroll">
-                {rowDespesas.map(linha => linha)}
+                {
+                  projetoEdit ? projetoEdit.despesas.map((a, index) => (
+                      <Linha id={`D${index+1}`}>
+                        <input type="text" id={`despesa${index+1}`} defaultValue={a.nome} />
+                        <input type="number" id={`esforco${index+1}`} defaultValue={a.esforco} />
+                        <input type="number" id={`valor${index+1}`} defaultValue={a.valor}/>
+                      </Linha>
+                      )) 
+                  : ''
+                }
               </div>
               <Total>
                 <div>
