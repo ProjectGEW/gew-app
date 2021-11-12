@@ -55,6 +55,7 @@ interface IProjeto {
     numeroDoProjeto: number;
     titulo: string;
     descricao: string;
+    ata: string;
     cracha_responsavel: number;
     cracha_solicitante: number;
     data_de_inicio: string;
@@ -89,6 +90,7 @@ const RegisterProjects: React.FC = () => {
       numeroDoProjeto: 0,
       titulo: "",
       descricao: "",
+      ata: "",
       cracha_responsavel: 0,
       cracha_solicitante: 0,
       data_de_inicio: "",
@@ -370,8 +372,8 @@ const RegisterProjects: React.FC = () => {
         setFile(undefined);
         setFileName('');
       } else {
-        console.log(URL.createObjectURL(file));
-        document.getElementById("ataResponse")!.innerHTML = "";  
+        document.getElementById("ataResponse")!.innerHTML = "";
+        (document.getElementById("ataNome") as HTMLInputElement).value = String(fileName.split(".")[0]);
       }
     }
   }, [verificaCliqueAta, file, fileName]);
@@ -396,6 +398,13 @@ return (
                 <label>Número do projeto:</label>
                 <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampoComMsg(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
                 <p id="numeroProjetoResponse" className="msgErro"></p>
+                <label>Ata do projeto: </label>
+                <input 
+                  type="text" 
+                  id="ataNome" 
+                  onBlur={(props) => { vrfCampoComMsg(props.target.value, "ataNome", "ataResponse"); }}
+                />
+                <p id="ataResponse" className="msgErro"></p>
                 <label>Título do projeto: </label>
                 <input type="text" id="titulo" onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>
@@ -403,12 +412,11 @@ return (
                 <textarea id="descricao" onBlur={(props) => { vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
-              <div ref={ref} onClick={() => setVerificaCliqueAta(true)}>
+              <div ref={ref} >
                 <Paper elevation={0} {...rootProps}>
                   <label id="ata" htmlFor="ata"  >{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
                   <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
                 </Paper>
-                <p id="ataResponse" className="msgErro"></p>
               </div>
             </span>
             {file ?
