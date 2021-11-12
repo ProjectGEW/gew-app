@@ -13,7 +13,7 @@ import WEG from "../../assets/weg.svg";
 import Input from '../components/InputPrimary';
 
 import { Container, Line, LoginCont, ContainerBottom, ContainerBtn, ContainerInput,
-        Rectangle } from './styles';
+        Rectangle, Section, Image } from './styles';
 
 interface SingInFormData {
     email: string;
@@ -78,7 +78,12 @@ const NewLogin: React.FC = () => {
 
     return (
         <>
-        <Rectangle />
+        <Section>
+        <Rectangle>
+          
+          <Image />
+        </Rectangle>
+        </Section>
         {/*
         <Container>
             <LoginCont>

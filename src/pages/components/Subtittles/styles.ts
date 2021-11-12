@@ -65,4 +65,14 @@ export const Subtittles = styled.h1<subtittleProps>`
             margin: 4.4vh 0 0 -7vw;
         }
     `}
+
+    ${props => props.tipo === "DatesEdit" && css`
+        margin-top: -7vh;
+        font-size: 3vh;
+        text-shadow: 0.2vh 0.2vh rgba(94, 94, 94, 0.1);
+
+        &::after {
+            margin: 4.4vh 0 0 -7vw;
+        }
+    `}
 `;
