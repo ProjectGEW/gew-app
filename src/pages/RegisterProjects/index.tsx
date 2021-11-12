@@ -38,6 +38,10 @@ import { vrfCampoComMsg, validacaoDosCamposCadastros } from '../../utils/confere
 import Footer from '../components/Footer';
 
 
+interface IFuncionarioResponse {
+  nome: string;
+}
+
 interface ISecaoResponse {
   nome: string;
 }
@@ -51,8 +55,8 @@ interface IProjeto {
     numeroDoProjeto: number;
     titulo: string;
     descricao: string;
-    nome_responsavel: string;
-    nome_solicitante: string;
+    cracha_responsavel: number;
+    cracha_solicitante: number;
     data_de_inicio: string;
     data_de_termino: string;
     data_de_aprovacao: string;    
@@ -85,8 +89,8 @@ const RegisterProjects: React.FC = () => {
       numeroDoProjeto: 0,
       titulo: "",
       descricao: "",
-      nome_responsavel: "",
-      nome_solicitante: "",
+      cracha_responsavel: 0,
+      cracha_solicitante: 0,
       data_de_inicio: "",
       data_de_termino: "",
       data_de_aprovacao: ""
@@ -176,8 +180,8 @@ const RegisterProjects: React.FC = () => {
     initalValue.infoProjetosInputDTO["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
     initalValue.infoProjetosInputDTO["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
 
-    initalValue.infoProjetosInputDTO.nome_responsavel = (document.getElementById("nome_responsavel") as HTMLInputElement).value;
-    initalValue.infoProjetosInputDTO.nome_solicitante = (document.getElementById("nome_solicitante") as HTMLInputElement).value;
+    initalValue.infoProjetosInputDTO.cracha_responsavel = parseInt((document.getElementById("nome_responsavel") as HTMLInputElement).value);
+    initalValue.infoProjetosInputDTO.cracha_solicitante = parseInt((document.getElementById("nome_solicitante") as HTMLInputElement).value);
 
     initalValue.infoProjetosInputDTO.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
     initalValue.infoProjetosInputDTO.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
@@ -330,20 +334,24 @@ const RegisterProjects: React.FC = () => {
     }
   }, [projeto, file, history]);
 
-  const [secaoSolicitante, setSecaoSolicitante] = useState('');
-  const [secaoResponsavel, setSecaoResponsavel] = useState('');
+  const [nomeSolicitante, setNomeSolicitante] = useState('');
+  const [nomeResponsavel, setNomeResponsavel] = useState('');
   
-  async function handleSecao(nome: string, campo: string){ 
+  async function handleSecao(cracha: string, nome: string, secao: string){ 
     try {
-      const response = await api.get<ISecaoResponse>(`secoes/nome/${nome}`);
+      const response = await api.get<IFuncionarioResponse>(`funcionarios/${cracha}`);
       const data = response.data;
-      (document.getElementById(campo) as HTMLInputElement).value = data.nome;
+      (document.getElementById(nome) as HTMLInputElement).value = data.nome;
 
-      if (campo === "secao_solicitante"){
-        setSecaoSolicitante(data.nome);
+      const secaoResponse = await api.get<ISecaoResponse>(`secoes/cracha/${cracha}`);
+      (document.getElementById(secao) as HTMLInputElement).value = secaoResponse.data.nome;
+      console.log(secaoResponse.data.nome);
+      
+      if (nome === "nome_solicitante"){
+        setNomeSolicitante(data.nome);
       }
-      if (campo === "secao_responsavel"){
-        setSecaoResponsavel(data.nome);
+      if (nome === "nome_responsavel"){
+        setNomeResponsavel(data.nome);
       }
 
     } catch (err) {
@@ -416,30 +424,34 @@ return (
           <BoxResponsavel id="boxResponsavel">
             <span>
               <div>
-                <label>Nome do responsável:</label>
-                <input type="text" id="nome_responsavel" onBlur={(props) => {
+                <label>Crachá do responsável:</label>
+                <input type="text" id="cracha_responsavel" onBlur={(props) => {
                   if (props.target.value !== "") {
-                    handleSecao(props.target.value, "secao_responsavel"); 
+                    handleSecao(props.target.value, "nome_responsavel", "secao_responsavel"); 
                   }
               
-                  vrfCampoComMsg(props.target.value, "nome_responsavel", "responsavelResponse");
+                  vrfCampoComMsg(props.target.value, "cracha_responsavel", "responsavelResponse");
                 }}/>
                 <p id="responsavelResponse" className="msgErro"></p>
-                <label>Nome do solicitante:</label>
-                <input type="text" id="nome_solicitante" onBlur={(props) =>  {
+                <label>Crachá do solicitante:</label>
+                <input type="text" id="cracha_solicitante" onBlur={(props) =>  {
                   if (props.target.value !== "") {
-                    handleSecao(props.target.value, "secao_solicitante");
+                    handleSecao(props.target.value, "nome_solicitante", "secao_solicitante");
                   }
 
-                  vrfCampoComMsg(props.target.value, "nome_solicitante", "solicitanteResponse");
+                  vrfCampoComMsg(props.target.value, "cracha_solicitante", "solicitanteResponse");
                 }}/>
                 <p id="solicitanteResponse" className="msgErro"></p>
               </div>
               <div>
+                <label>Nome do responsável:</label>
+                <input type="text" id="nome_responsavel" />
                 <label>Seção do responsável:</label>
                 <input type="text" id="secao_responsavel" />
+                <label id="label_secao_solicitante">Nome do solicitante:</label>
+                <input type="text" id="nome_solicitante"/>
                 <label id="label_secao_solicitante">Seção do solicitante:</label>
-                <input type="text" id="secao_solicitante"/>
+                <input type="text" id="secao_solicitante" />
               </div>
             </span>
           </BoxResponsavel>
@@ -586,22 +598,22 @@ return (
       <Subtittles tipo={'Encharged'}>Encarregados</Subtittles>
       <ContentContainer>
         <div>
-          <h3>Nome do responsável:</h3>
-          <h2>{projeto?.infoProjetosInputDTO?.nome_responsavel}</h2>
+          <h3>Crachá do responsável:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.cracha_responsavel}</h2>
         </div>
         <div>
-          <h3>Seção do responsável:</h3>
-          <h2>{secaoResponsavel}</h2>
+          <h3>Nome do responsável:</h3>
+          <h2>{nomeResponsavel}</h2>
         </div>
       </ContentContainer>
       <ContentContainer>
         <div>
-          <h3>Nome do solicitante:</h3>
-          <h2>{projeto?.infoProjetosInputDTO?.nome_solicitante}</h2>
+          <h3>Crachá do solicitante:</h3>
+          <h2>{projeto?.infoProjetosInputDTO?.cracha_solicitante}</h2>
         </div>
         <div>
-          <h3>Seção do solicitante:</h3>
-          <h2>{secaoSolicitante}</h2>
+          <h3>Nome do solicitante:</h3>
+          <h2>{nomeSolicitante}</h2>
         </div>
       </ContentContainer>
     </SideContainer>
