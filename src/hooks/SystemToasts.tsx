@@ -4,9 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
 export const successfulNotify = (mensagem: string) => {
-  toast.success(mensagem)
+  toast.success(mensagem);
 }
 
 export const errorfulNotify = (mensagem: string) => {
-  toast.error(mensagem)
+  toast.error(mensagem);
+}
+
+export const warnNotify = (mensagem: string) => {
+  toast.warn(mensagem);
 }
