@@ -5,7 +5,7 @@ import Upload from "../../../../assets/upload.svg";
 
 export const BoxProjeto = styled.div`
   width: 80%;
-  height: 57vh;
+  height: 72vh;
 
   padding: 0.2vh 0vw 0vh 1vw;
 
@@ -24,19 +24,19 @@ export const BoxProjeto = styled.div`
     margin-left: 0vw;
   }
 
-  #tituloResponse {
+  #ataResponse {
     margin-top: 22vh;
     margin-left: 0vw;
   }
 
-  #descricaoResponse {
-    margin-top: 47.2vh;
+  #tituloResponse {
+    margin-top: 35vh;
     margin-left: 0vw;
   }
 
-  #ataResponse {
-    margin-top: 9.8vh;
-    margin-left: -10vw;
+  #descricaoResponse {
+    margin-top: 60.5vh;
+    margin-left: 0vw;
   }
 
   /* Fim */
