@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
+import wegImage from '../../assets/weg_banner_img.jpg';
 
 export const ContainerInput = styled.div`
     width: 100%;
@@ -30,12 +31,13 @@ export const Container = styled.div`
 `;
 
 export const Rectangle = styled.div`
-    width: 100vw;
-    height: 150vh;
-    margin: -30vh 0 0 -60vw;
+    width: 102.6vw;
+    height: 155vh;
+    margin: -35vh 0 0 -60vw;
     transform: rotate(15deg);
     background: #00579D;
     box-shadow: 0 0.4vh 0.4vh rgba(0, 0, 0, 0.25);
+    overflow: hidden;
   
     &::after {
       content: '';
@@ -43,8 +45,35 @@ export const Rectangle = styled.div`
       height: 170vh;
       background-color: #0075B1;
       position: absolute;
-      margin: -10vh 0 0 99vw;
+      margin: -10vh 0 0 101vw;
       box-shadow: 0 0.8vh 0.4vh rgba(0, 0, 0, 0.25), inset 0 0.6vh 0.6vh rgba(0, 0, 0, 0.25);
+    }
+`;
+
+export const Section = styled.div`
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+`;
+
+export const Image = styled.div`
+    width: 80vw;
+    height: 50vh;
+    margin: 85vh 0 0 40vw;
+    position: absolute;
+    transform: rotate(-25deg);
+    background-image: url(${wegImage});
+    background-size: contain;
+    background-size: 74vw 60vh;
+    
+
+    &::after {
+        content: '';
+        width: 100%;
+        height: 4vh;
+        position: absolute;
+        background-color: #0075B1;
+        box-shadow: 0 0.8vh 0.4vh rgba(0, 0, 0, 0.25), inset 0 0.6vh 0.6vh rgba(0, 0, 0, 0.25);
     }
 `;
 
