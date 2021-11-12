@@ -32,7 +32,7 @@ import { Box, BoxConfirm, ContentContainer, TableConfirm, SideContainer } from '
 
 import api from "../../../service/api";
 
-import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts'
+import { successfulNotify, errorfulNotify, warnNotify} from '../../../hooks/SystemToasts'
 import { vrfCampoComMsg, validacaoDosCamposCadastros } from '../../../utils/confereCampo';
 
 interface ISecaoResponse {
@@ -78,104 +78,63 @@ interface ICCpagantes{
   valor: number;
 }
 
+interface ISecoes{
+  nome: string;
+  responsavel: {
+    nome: string;
+  }
+}
+
 const EditProjects: React.FC = () => {
     const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
-    // console.log("a");
+    
+
     //Setar as informações, para usar nos campos
     const { nm }: {nm: string}  = useParams();
+    const [despesas, setDespesas] = useState<IDespesas[]>([]);
+    const [ccPagante, setCCpagante] = useState<ICCpagantes[]>([]);
     const [projetoEdit, setProjetoEdit] = useState<IProjeto>();
     const [file, setFile] = useState<Blob>();
     const [fileName, setFileName] = useState<string>('');
-    const [rowDespesas, setRowDespesas] = useState<JSX.Element[]>([]);
-    const [rowCC, setRowCC] = useState<JSX.Element[]>([]);
+
+    const [secaoSolicitante, setSecaoSolicitante] = useState('');
+    const [secaoResponsavel, setSecaoResponsavel] = useState('');
+    const [secoes, setSecoes] = useState<ISecoes[]>([]);
+
+    async function handleProject() {
+      try {
+        await api.get<IProjeto>(`projetos/${nm}`)
+          .then((response => {
+            setProjetoEdit(response.data); 
+            setDespesas(response.data.despesas);
+            setCCpagante(response.data.ccPagantes);
+            setDataInicio(response.data.infoprojetoDTO.data_de_inicio);
+            setDataFim(response.data.infoprojetoDTO.data_de_termino);
+            setDataAprovacao(response.data.infoprojetoDTO.data_de_aprovacao);
+          })).catch(() => errorfulNotify("Não foi possível encontrar este projeto."));
+      } catch(e) {
+      console.log(e);
+      }
+    }
+
+    console.log(ccPagante);
+
+    async function handleSecoes() {
+      try {
+        await api.get<ISecoes[]>(`secoes`)
+          .then((response => {setSecoes(response.data)}))
+          .catch(() => errorfulNotify("Não foi possível encontrar esta seção."));
+      } catch(e) {
+      console.log(e);
+      }
+    }
 
     useEffect(() => {
-      window.onload = async function handleProjeto() {
-        api.get<IProjeto>(`projetos/${nm}`).then((response => setProjetoEdit(response.data)));
-      }
-
-      console.log(projetoEdit);
-      //Impedir looping infinito
-
-      // if(rowDespesas.length < projetoEdit!?.despesas.length){
-      //   //Setar as linhas para a tablea de despesas 
-      //   for (let i = 0; i < Number(projetoEdit!?.despesas.length); i++) {
-      //     setRowDespesas(
-      //       [...rowDespesas, 
-      //         <RowDespesasEdit 
-      //         number={i+1} 
-      //         nomeDespesa={String(projetoEdit!?.despesas[i]?.nome)}
-      //         esforco={Number(projetoEdit!?.despesas[i]?.esforco)}
-      //         valor={Number(projetoEdit!?.despesas[i]?.esforco)}
-      //         />
-      //       ]
-      //     );   
-      //   }
-      // }
-
+      handleProject();
+      handleSecoes();
+    },[]);
       
-          // //Impedir looping infinito
-          // if(rowCC.length < response.data.ccPagantes.length){
-          //   //Setar as linhas para a tablea de Centro de Custos
-          //   for (let i = 0; i < Number(response.data.ccPagantes.length); i++) {
-          //     setRowCC([...rowCC,
-          //       <RowCcPagantesEdit 
-          //         number={i+1} 
-          //         numeroCracha={response.data.ccPagantes[i].secao.id}
-          //         valor={response.data.ccPagantes[i].valor}
-          //         responsavel={response.data.ccPagantes[i].secao.responsavel.nome}
-          //       />
-          //     ])
-          //   }
-          // }
-
-          // handleSecao(String(projetoEdit?.infoprojetoDTO.responsavel.nome), "secao_responsavel");
-          // handleSecao(String(projetoEdit?.infoprojetoDTO.solicitante.nome), "secao_solicitante");
-
-          // if(dataInicio === undefined) {
-          //   setDataInicio(projetoEdit?.infoprojetoDTO.data_de_inicio);
-          // }
-
-          // if(dataFim === undefined) {
-          //   setDataFim(projetoEdit?.infoprojetoDTO.data_de_termino);
-          // }
-
-          // if(dataAprovacao === undefined) {
-          //   setDataAprovacao(projetoEdit?.infoprojetoDTO.data_de_aprovacao)
-          // }
-        
-    }, [projetoEdit]);
-
-    // console.log(projetoEdit!?.despesas[0]);
-     if(rowDespesas.length < projetoEdit!?.despesas.length){
-    //   //Setar as linhas para a tablea de despesas 
-    //   for(let i = 0; i < Number(projetoEdit!?.despesas.length); i++) {
-    //     setRowDespesas(
-    //       [...rowDespesas, 
-    //         <RowDespesasEdit 
-    //         number={i+1} 
-    //         nomeDespesa={String(projetoEdit!?.despesas[i]?.nome)}
-    //         esforco={Number(projetoEdit!?.despesas[i]?.esforco)}
-    //         valor={Number(projetoEdit!?.despesas[i]?.valor)}
-    //         />
-    //       ]
-    //     );   
-    //   }
-
-
-
-    // setRowDespesas(
-    //   [...rowDespesas, 
-    //     <RowDespesasEdit 
-    //     number={0} 
-    //     nomeDespesa={String(projetoEdit!?.despesas[0]?.nome)}
-    //     esforco={Number(projetoEdit!?.despesas[0]?.esforco)}
-    //     valor={Number(projetoEdit!?.despesas[0]?.valor)}
-    //     />
-    //   ]
-    // );   
-     }
-      
+    // Obriga a colocar uma ATA (PDF)
     useEffect(() => {
       if(verificaCliqueAta === true && fileName === '') {
         document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
@@ -192,47 +151,34 @@ const EditProjects: React.FC = () => {
 
   // Gerar novas linhas  
   function setNovaLinhaDP() {
-    setRowDespesas(
-      [...rowDespesas, 
-        <RowDespesasEdit 
-          number={ rowDespesas[rowDespesas.length - 1].props.number + 1} 
-          nomeDespesa={""}
-          esforco={0}
-          valor={0}
-        />
-      ]);
-    return rowDespesas;
+    return setDespesas([...despesas, {nome: "", esforco: Number(null), valor: Number(null)}]);
   }
       
   function setNovaLinhaCC(){
-    setRowCC([...rowCC,
-      <RowCcPagantesEdit
-        number={ rowCC[rowCC.length - 1].props.number +1}
-      />
-    ]);
-    return rowCC;
+    return setCCpagante([...ccPagante, {secao: {id: Number(null), responsavel: {nome: ""}}, valor: Number(null)}])
   }
       
   function deleteLastRowDP() {
-    if (rowDespesas.length > Number(projetoEdit?.despesas?.length)) {
-      document.getElementById(`DE${rowDespesas[rowDespesas.length - 1].props.number}`)!.style.display = "none";
-      rowDespesas.pop();
-      setRowDespesas([...rowDespesas]);
-      return rowDespesas;
+    if (despesas.length > Number(projetoEdit?.despesas?.length)) {
+      despesas.pop();
+      setDespesas([...despesas]);
+
+      return;
     }
-    setRowDespesas([...rowDespesas]);
-    return rowDespesas;
+    
+    warnNotify("Não é possível remover os registros.")
+    return despesas;
   }
 
   function deleteLastRowCC(){
-    if (rowCC.length > Number(projetoEdit?.ccPagantes.length)) {
-      document.getElementById(`CE${rowCC[rowCC.length - 1].props.number}`)!.style.display = "none";
-      rowCC.pop();
-      setRowCC([...rowCC]);
-      return rowCC;
+    if (ccPagante.length > Number(projetoEdit?.ccPagantes.length)) {
+      ccPagante.pop();
+      setCCpagante([...ccPagante]);
+      return;
     }
-    setRowCC([...rowCC]);
-    return rowCC;
+
+    warnNotify("Não é possível remover os registros.")
+    return ccPagante;
   }
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -264,7 +210,7 @@ const EditProjects: React.FC = () => {
     var somaEsforco = 0;
     var somaValorDespesa = 0;
 
-    for (let i = 1; i <= rowDespesas.length; i++) {
+    for (let i = 1; i <= despesas.length; i++) {
       somaEsforco += parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value);
       somaValorDespesa += parseInt((document.getElementById(`valor${i}`) as HTMLInputElement).value);
     }
@@ -276,7 +222,7 @@ const EditProjects: React.FC = () => {
   function somaTotalCc() {
     var somaValorCcPagantes = 0;
   
-    for (let i = 1; i <= rowCC.length; i++) {
+    for (let i = 1; i <= ccPagante.length; i++) {
       somaValorCcPagantes += parseInt((document.getElementById(`valorC${i}`) as HTMLInputElement).value);
       setValorCcPagantes(somaValorCcPagantes);
     }
@@ -348,9 +294,6 @@ const EditProjects: React.FC = () => {
     }
   }
 
-  const [secaoSolicitante, setSecaoSolicitante] = useState('');
-  const [secaoResponsavel, setSecaoResponsavel] = useState('');
-  
   async function handleSecao(nome: string, campo: string){ 
     try {
       await api.get<ISecaoResponse>(`secoes/nome/${nome}`)
@@ -374,7 +317,8 @@ const EditProjects: React.FC = () => {
     }
   }
 
-  rowDespesas.push();
+  //console.log(projetoEdit!?.despesas);
+  console.log("a");
   
 return (
   <>
@@ -395,16 +339,16 @@ return (
             <span> 
               <div id="left-box">
                 <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" disabled value={projetoEdit?.infoprojetoDTO.numeroDoProjeto}/>
+                <input type="number" id="numeroProjeto" value={nm || ''} disabled />
                 <label>Título do projeto: </label>
                 <input type="text" id="titulo" 
-                  defaultValue={projetoEdit?.infoprojetoDTO.titulo}
+                  defaultValue={projetoEdit?.infoprojetoDTO.titulo || ''}
                   onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}
                 />
                 <p id="tituloResponse" className="msgErro"></p>
                 <label>Descrição do projeto:</label>
                 <textarea id="descricao" 
-                  defaultValue={projetoEdit?.infoprojetoDTO.descricao}
+                  defaultValue={projetoEdit?.infoprojetoDTO.descricao || ''}
                   onBlur={(props) => { vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse"); }}/>
                 <p id="descricaoResponse" className="msgErro"></p>
               </div>
@@ -431,7 +375,7 @@ return (
               <div>
                 <label>Nome do responsável:</label>
                 <input type="text" id="nome_responsavel"
-                  defaultValue={projetoEdit?.infoprojetoDTO.responsavel.nome} 
+                  defaultValue={projetoEdit?.infoprojetoDTO.responsavel.nome || ''}
                   onBlur={(props) => {
                   if (props.target.value !== "") {
                     handleSecao(props.target.value, "secao_responsavel"); 
@@ -442,7 +386,7 @@ return (
                 <p id="responsavelResponse" className="msgErro"></p>
                 <label>Nome do solicitante:</label>
                 <input type="text" id="nome_solicitante" 
-                  defaultValue={projetoEdit?.infoprojetoDTO.solicitante.nome}
+                  defaultValue={projetoEdit?.infoprojetoDTO.solicitante.nome || ''}
                   onBlur={(props) =>  {
                   if (props.target.value !== "") {
                     handleSecao(props.target.value, "secao_solicitante");
@@ -454,9 +398,9 @@ return (
               </div>
               <div>
                 <label>Seção do responsável:</label>
-                <input type="text" defaultValue={secaoResponsavel} disabled id="secao_responsavel" />
+                {secoes.filter(retorna => retorna.responsavel.nome === projetoEdit?.infoprojetoDTO.responsavel.nome).map((exibe, index) => <input key={index} type="text" id="secao_responsavel" defaultValue={exibe.nome || ''} disabled/>)}
                 <label id="label_secao_solicitante">Seção do solicitante:</label>
-                <input type="text" defaultValue={secaoSolicitante} disabled id="secao_solicitante"/>
+                {secoes.filter(retorna => retorna.responsavel.nome === projetoEdit?.infoprojetoDTO.solicitante.nome).map((exibe, index) => <input key={index} type="text" id="secao_solicitante" defaultValue={exibe.nome || ''} disabled/>)}
               </div>
             </span>
           </BoxResponsavel>
@@ -474,14 +418,14 @@ return (
               </div>
               <div id="scroll">
                 {
-                  projetoEdit ? projetoEdit.despesas.map((a, index) => (
-                      <Linha id={`D${index+1}`}>
-                        <input type="text" id={`despesa${index+1}`} defaultValue={a.nome} />
-                        <input type="number" id={`esforco${index+1}`} defaultValue={a.esforco} />
-                        <input type="number" id={`valor${index+1}`} defaultValue={a.valor}/>
+                  despesas.map((exibe, index) => (
+                      <Linha id={`D${index+1}`} key={index}>
+                        <input type="text" id={`despesa${index+1}`} defaultValue={exibe.nome || ''}/>
+                        <input type="number" id={`esforco${index+1}`} defaultValue={exibe.esforco || ''}/>
+                        <input type="number" id={`valor${index+1}`} defaultValue={exibe.valor || ''}/>
                       </Linha>
                       )) 
-                  : ''
+                  || ''
                 }
               </div>
               <Total>
@@ -491,8 +435,8 @@ return (
                 </div>
                 <div>
                   <h2>TOTAL:</h2>
-                  <input id="totalEsforco" type="text" disabled value={sEsforco? sEsforco: 0}/>
-                  <input id="totalValor" type="text" disabled value={sValorDespesa? analisaValor(sValorDespesa): 0}/>
+                  <input id="totalEsforco" type="number" value={sEsforco || 0} disabled/>
+                  <input id="totalValor" type="text" value={analisaValor(sValorDespesa || 0)} disabled/>
                   <RiPauseCircleFill id="soma" onClick={() => somaTotalDP()}/>
                 </div>
               </Total>
@@ -504,7 +448,15 @@ return (
                 <h1>Valor (R$)</h1>
               </div>
               <div id="scroll">
-                {rowCC.map(linha => linha)}
+                { 
+                ccPagante.map((exibe, index) => (
+                  <Linha id={`C${index + 1}`} key={index}>
+                    <input type="text" id={`centro${index + 1}`} defaultValue={exibe.secao.id || ''}/>
+                    <input type="text" id={`responsavel${index + 1}`} defaultValue={exibe.secao.responsavel.nome || ''} disabled/>
+                    <input type="text" id={`valorC${index + 1}`} defaultValue={exibe.valor || ''}/>
+                  </Linha>
+                )) || ''
+                }
               </div>
               <Total>
                 <div>
@@ -513,7 +465,7 @@ return (
                 </div>
                 <div>
                   <h2>TOTAL:</h2>
-                  <input id="totalValor" type="text" disabled value={sValorCcPagantes? analisaValor(sValorCcPagantes): 0} />
+                  <input id="totalValor" type="text" value={analisaValor(sValorCcPagantes || 0)} disabled/>
                   <RiPauseCircleFill id="soma" onClick={() => somaTotalCc()}/>
                 </div>
               </Total>
@@ -534,7 +486,7 @@ return (
             <div className="divDatas">
               <input type="text" value={dataInicio} id="data_de_inicio" 
                 onClick={() => {setSelected("inicio")}} 
-                defaultValue={projetoEdit?.infoprojetoDTO.data_de_inicio}
+                defaultValue={projetoEdit?.infoprojetoDTO.data_de_inicio || ''}
                 onBlur={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -545,7 +497,7 @@ return (
               />
               <input type="text" value={dataFim} id="data_de_termino" 
                 onClick={() => {setSelected("fim")}}
-                defaultValue={projetoEdit?.infoprojetoDTO.data_de_termino}
+                defaultValue={projetoEdit?.infoprojetoDTO.data_de_termino || ''}
                 onBlur={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -556,7 +508,7 @@ return (
               />
               <input type="text" value={dataAprovacao} id="data_de_aprovacao" 
                 onClick={() => {setSelected("aprovacao")}} 
-                defaultValue={projetoEdit?.infoprojetoDTO.data_de_aprovacao}
+                defaultValue={projetoEdit?.infoprojetoDTO.data_de_aprovacao || ''}
                 onBlur={(props) => {
                   if (props.target.value === "") {
                     props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -576,7 +528,7 @@ return (
         </BoxDatas>
       </Content>
       <span id='button-holding' onClick={() => { 
-        if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
+        if(validacaoDosCamposCadastros(despesas.length, ccPagante.length)) {
           trocarMainEtapa('confirm-data');
           somaTotalDP();
         }
