@@ -92,9 +92,9 @@ function analisaCampo(idElement: string) {
 
 const idCampos = [
   'numeroProjeto',
+  'ataNome',
   'titulo',
   'descricao',
-  'btnUpload',
   'nome_responsavel',
   'nome_solicitante',
   'data_de_inicio',
