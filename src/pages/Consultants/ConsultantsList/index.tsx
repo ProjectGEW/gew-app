@@ -7,22 +7,24 @@ import MenuRight from '../../components/MenuRight';
 import { ContIcons } from '../../components/MenuRight/styles';
 
 import { Container, ContainerInfo, ContainerTitle, ContainerFiltro, Table, TableDimensions,
-    TableScroll, LinhaConsultor, PopupPerfilConsultor, Msg, ContainerTooltip, PopUpTooltip } from './style';
+    TableScroll, LinhaConsultor, PopupPerfilConsultor, Msg, ContainerTooltip, PopUpTooltip, PopupModal } from './style';
 
 import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts';
 
 import PerfilConsultor from '../../components/ConsultorPopUp/perfilConsultor';
+import PopupVerbaUtilizada from '../../components/ConsultorPopUp/projetos2';
 
 import api from "../../../service/api";
 
 import intl from 'react-intl-universal';
 
-import { PopupTooltip } from '../../Dashboard/styles';
+// import { PopupModal, PopupTooltip } from '../../Dashboard/styles';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 import { ImSearch } from 'react-icons/im';
 import { BiHourglass } from 'react-icons/bi';
 import { TiDelete } from 'react-icons/ti';
+import { PopUp, Scroll, Title } from '../../components/DashboardPopUp/verbaUtilizada/styles';
 
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
@@ -183,23 +185,37 @@ const ConsultantList: React.FC = () => {
                         <span className='fornecedor'>...</span>
                         <span className='projetos'>
                             {consultant.projetos.length > 0 ? 
-                                <PopupTooltip trigger={<button>Gerenciar</button>} position="right center">
-                                    <ContainerTooltip>
-                                        <PopUpTooltip>
-                                            {
-                                                consultant.projetos.map((projeto, index) => (
-                                                    <div key={index}>
-                                                        <h1>{projeto}</h1>
-                                                        <TiDelete onClick={() => {
-                                                            api.delete(`projetos/desalocar/${projeto}/${consultant.numero_cracha}`);
-                                                            api.get("funcionarios/consultor").then(response => setConsultants(response.data));
-                                                        }}/>
-                                                    </div>
-                                                ))
-                                            }
-                                        </PopUpTooltip>
-                                    </ContainerTooltip>
-                                </PopupTooltip>
+                                // <PopupModal closeOnEscape trigger={<button>Gerenciar</button>} modal>
+                                //     <ContainerTooltip>
+                                //         <Container>
+                                //             <PopUp>
+                                //                 <Title>
+                                //                     <h1>PROJETOS</h1>
+                                //                     <span/>
+                                //                 </Title>
+                                //                 <Scroll>
+                                //             {
+                                //                 consultant.projetos.map((projeto, index) => (
+                                //                     <div key={index}>
+                                //                         <h1>{projeto}</h1>
+                                //                         <TiDelete onClick={() => {
+                                //                             api.delete(`projetos/desalocar/${projeto}/${consultant.numero_cracha}`);
+                                //                             api.get("funcionarios/consultor").then(response => setConsultants(response.data));
+                                //                             successfulNotify('Projeto removido!');
+                                //                         }}/>
+                                //                     </div>
+                                //                 ))
+                                //             }
+                                //                 </Scroll>
+                                //             </PopUp>
+                                //         </Container>
+                                //     </ContainerTooltip>
+                                // </PopupModal>
+                                <PopupModal closeOnEscape trigger={<button>Gerenciar</button>} modal>
+                                    {(close: any) => (
+                                        <PopupVerbaUtilizada fechar={close} cracha={consultant.numero_cracha} projetoSelecionado={Number(numeroDoProjeto)}/>
+                                    )}
+                                </PopupModal>
                                 : ''
                             }
                         </span>
