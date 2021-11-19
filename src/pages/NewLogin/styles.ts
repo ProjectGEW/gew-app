@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { shade } from 'polished';
 import wegImage from '../../assets/weg_banner_img.jpg';
 import wegLogo from '../../assets/weg.svg';
+import email from '../../assets/email.svg';
+import lock from '../../assets/lock.svg';
 
 export const ContainerInput = styled.div`
     width: 100%;
@@ -11,12 +13,38 @@ export const ContainerInput = styled.div`
     position: relative;
     margin-top: 5vh;
 
+    &:nth-child(1) {
+        &::after {
+            content: '';
+            width: 3vh;
+            height: 3vh;
+            background-image: url(${email});
+            background-size: cover;
+            position: absolute;
+            margin: 1.2vh 0 0 20vw;
+            color: #005DA5;
+        }
+    }
+
+    &:nth-child(2) {
+        &::after {
+            content: '';
+            width: 3vh;
+            height: 3vh;
+            background-image: url(${lock});
+            background-size: cover;
+            position: absolute;
+            margin: 1.2vh 0 0 20vw;
+            color: #005DA5;
+        }
+    }
+
     label {
         margin-top: 0vh;
         margin-left: 0vh;
         position: absolute;
         cursor: text;
-        font-size: 2.5vh;
+        font-size: 2.4vh;
         padding: 1vh;
         color: #00579D;
         font-weight: bold;
@@ -94,6 +122,26 @@ export const SideContainer = styled.div`
         background-image: url(${wegLogo});
         background-size: cover;
         float: right;
+    }
+`;
+
+export const LoginContainer = styled.div`
+    width: 24vw;
+    height: 60vh;
+    margin: 30vh 0 0 10vw;
+
+    h1 {
+        color: #00579D;
+        margin: -4vh 0 10vh 0;
+
+        &::before {
+            content: '';
+            width: 0.5vh;
+            height: 6vh;
+            position: absolute;
+            background-color: #0090C5;
+            margin-left: -3vh;
+        }
     }
 `;
 

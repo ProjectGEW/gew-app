@@ -76,6 +76,7 @@ export const User = styled.div<ContainerProps>`
         &:valid ~ label {
             transform: scale(0.9) translateY(-100%) translateX(-3vh);
         }
+    }
 `;
 
 export const Error = styled(Tooltip)`
