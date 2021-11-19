@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 import wegImage from '../../assets/weg_banner_img.jpg';
+import wegLogo from '../../assets/weg.svg';
 
 export const ContainerInput = styled.div`
     width: 100%;
@@ -38,7 +39,37 @@ export const Rectangle = styled.div`
     background: #00579D;
     box-shadow: 0 0.4vh 0.4vh rgba(0, 0, 0, 0.25);
     overflow: hidden;
+
+    .textBox {
+      width: 21vw;
+      height: 15vh;
+      position: absolute;
+      margin: 40vh 0 0 62vw;
+      transform: rotate(-15deg);
+
+    h1 {
+        color: #ffffff ;
+        font-size: 7vh;
+        position: absolute;
+
+        &::before {
+            content: '';
+            width: 0.5vh;
+            height: 20vh;
+            margin: 0 0 0 -2vw;
+            background-color: #0090C5;
+            position: absolute;
+        }
+    }
+
+    h2 {
+      color: #ffffff ;
+      font-size: 2.7vh;
+      font-weight: normal;
+      margin-top: 12vh;
+    }
   
+    }
     &::after {
       content: '';
       width: 1.75vw;
@@ -50,18 +81,35 @@ export const Rectangle = styled.div`
     }
 `;
 
+export const SideContainer = styled.div`
+    width: 50vw;
+    height: 100vh;
+    position: absolute;
+    margin: -120vh 0 0 50vw;
+    
+    .logo {
+        width: 10vw;
+        height: 14vh;
+        margin: 5vh 10vh 0 0;
+        background-image: url(${wegLogo});
+        background-size: cover;
+        float: right;
+    }
+`;
+
 export const Section = styled.div`
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background: #ffffff;
 `;
 
 export const Image = styled.div`
     width: 80vw;
     height: 50vh;
-    margin: 85vh 0 0 40vw;
+    margin: 82.5vh 0 0 40vw;
     position: absolute;
-    transform: rotate(-25deg);
+    transform: rotate(-23deg);
     background-image: url(${wegImage});
     background-size: contain;
     background-size: 74vw 60vh;
@@ -70,7 +118,7 @@ export const Image = styled.div`
     &::after {
         content: '';
         width: 100%;
-        height: 4vh;
+        height: 3vh;
         position: absolute;
         background-color: #0075B1;
         box-shadow: 0 0.8vh 0.4vh rgba(0, 0, 0, 0.25), inset 0 0.6vh 0.6vh rgba(0, 0, 0, 0.25);
