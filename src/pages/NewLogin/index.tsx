@@ -8,12 +8,10 @@ import * as Yup from 'yup';
 import { useAuth }  from '../../hooks/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import WEG from "../../assets/weg.svg";
-
 import Input from '../components/InputPrimary';
 
 import { Container, Line, LoginCont, ContainerBottom, ContainerBtn, ContainerInput,
-        Rectangle, Section, Image, SideContainer } from './styles';
+        Rectangle, Section, Image, SideContainer, LoginContainer } from './styles';
 
 interface SingInFormData {
     email: string;
@@ -88,17 +86,11 @@ const NewLogin: React.FC = () => {
         </Rectangle>
         <SideContainer>
             <div className="logo" ></div>
-        </SideContainer>
-        </Section>
-        {/*
-        <Container>
-            <LoginCont>
-                <Line />
-                <img src={WEG} alt="logo"/>
-                <ContainerBottom id="container-login">
+            <LoginContainer>
+                <h1>Login</h1>
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     <ContainerInput>
-                        <Input type="text" name="email" placeholder="" text="Usuário"/>
+                        <Input type="text" name="email" placeholder="" text="Usuário" />
                     </ContainerInput>
                     <ContainerInput>
                         <Input type="password" name="senha" placeholder="" text="Senha" autoComplete="off"/>
@@ -108,17 +100,9 @@ const NewLogin: React.FC = () => {
                         <p onClick={() => trocar("true")}>Esqueceu sua senha?</p>
                     </ContainerBtn>
                 </Form>
-                </ContainerBottom>
-                <ContainerBottom id="container-pwd">
-                    <div>
-                        <h1>Alterar senha da conta</h1>
-                        <p>Entre em contato com algum administrador do sistema.</p>
-                        <button onClick={() => trocar("false")}>Voltar</button>
-                    </div>
-                </ContainerBottom>
-            </LoginCont>
-        </Container>
-        */}
+            </LoginContainer>
+        </SideContainer>
+        </Section>
         </>
     );
 };
