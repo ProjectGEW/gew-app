@@ -33,6 +33,20 @@ export const ContainerInfo = styled.div`
     flex-direction: column;
 `;
 
+export const PopupModal = styled(Popup)`
+    &-content {
+        background: transparent;
+        //overflow: hidden;
+        animation: anvil 0.25s;
+        /* width: 100vw;
+        height: 100vh; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        //box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
+    }
+`;
+
 export const ContainerTitle = styled.div`
     width: 100%;
     height: 12vh;
@@ -326,7 +340,7 @@ export const LinhaConsultor = styled.div<TableProps>`
     
     ${props => props.status === 'ATIVO' && css`
         &:hover {
-            background-color: #eaffe8;
+            background-color: #f1fff0;
         }
 
         span {
@@ -345,7 +359,7 @@ export const LinhaConsultor = styled.div<TableProps>`
     
     ${props => props.status === 'INATIVO' && css`
         &:hover {
-            background-color: #ffe8e8;
+            background-color: #fff0f0;
         }
 
         span {
@@ -422,6 +436,9 @@ export const ContainerTooltip = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
+    border-radius: 0.8vh;
+    overflow: hidden;
 `;
 
 export const PopUpTooltip = styled.div`
