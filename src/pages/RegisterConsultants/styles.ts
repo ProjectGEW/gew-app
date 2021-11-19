@@ -210,17 +210,16 @@ export const ConsultantData = styled.div`
 
     .box1 { grid-area: one }
 
-    .box2 { grid-area: two }
-
     .box3 { 
         grid-area: three;
+        margin-top: 1vh;
 
         &:last-child {
-            margin-top: 11vh;
+            margin-top: 11.5vh;
         }
      }
 
-    .box4 { grid-area: four }
+    .box4 { grid-area: four; margin-top: 1vh; }
 `;
 
 export const UserData = styled.div`
@@ -233,7 +232,10 @@ export const UserData = styled.div`
                          'one one';
     padding: 1%;
 
-    .box1 { grid-area: one;
+    .box1 { 
+        grid-area: one;
+        margin-top: -0.5vh;
+
         &:last-child {
             margin-top: 10vh;
         }
