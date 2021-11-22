@@ -560,3 +560,17 @@ export const Linha = styled.div`
     }
   }
 `;
+
+export const Datas = styled.div`
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 3.5vh;
+    padding-bottom: 1.8vh;
+    border-bottom: 0.1vh solid #ebebeb;
+    color: #00579D;
+  }
+
+`;

@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import MenuRight from '../components/MenuRight';
 import Navbar from '../components/Navbar';
 
 import { ContIcons } from '../components/MenuRight/styles';
+import VoltarAoTopo from '../components/VoltarAoTopo';
 
 import { FiRefreshCcw } from 'react-icons/fi';
 
 import { Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
-Total, Table, Linha } from './styles2';
+Total, Table, Linha, Datas } from './styles2';
 
 import { RiPauseCircleFill } from 'react-icons/ri';
 
 const CadastroProjeto: React.FC = () => {
+  const [pegaAltura, setPegaAltura] = useState<Number>(0);
+
+  useEffect(() => {
+    setPegaAltura(document.scrollingElement!.scrollTop);
+  },[pegaAltura, document.scrollingElement!.scrollTop]);
+
   return (
     <>
     <Navbar />
     <MenuLeft />
+    <h6 id="topo"/>
     <Container id="set-data" >
       <ContainerRegister id="ContainerRegister">
         <Info>  
@@ -61,7 +69,7 @@ const CadastroProjeto: React.FC = () => {
             </div>
           </Projetos>
           <Responsavel>
-            <h1>Responsáveis pelo projeto</h1>
+            <h1 onClick={() => alert(document.scrollingElement!.scrollTop)}>Responsáveis pelo projeto</h1>
             <div id="primeiraLinha">
               <h1>Responsável <FiRefreshCcw size={20}/></h1>
               <div>
@@ -159,9 +167,15 @@ const CadastroProjeto: React.FC = () => {
               </Table>
             </div>
           </Gastos>
+          <Datas>
+            <h1>Datas</h1>
+          </Datas>
         </Content>
       </ContainerRegister>
     </Container>
+    {
+      pegaAltura >= 480 ? <VoltarAoTopo idRedirect="#topo"/> : ''
+    }
     <MenuRight>
       <ContIcons />
     </MenuRight>
