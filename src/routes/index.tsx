@@ -38,6 +38,7 @@ const Routes: React.FC = () => (
         <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} />
         <Route path="/edit/:nm" component={Edit} />
         {/* Área para testes */}
+        <Route path="/novocadastro" component={NovoCadastro} />
         <Route path="/" exact component={NewLogin}/>
         <Route path="/test" component={Test} />
         <Route path="/test2" component={Test2} />
