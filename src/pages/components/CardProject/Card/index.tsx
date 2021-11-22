@@ -32,7 +32,7 @@ interface CardContent {
         descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
-        status: string;
+        statusProjeto: string;
         horas_apontadas: number;
         secao: string;
     };
@@ -70,7 +70,7 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
   useEffect(() => {
     api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
       setProjeto(response.data);
-      setStatus(response.data.infoprojetoDTO.status);
+      setStatus(response.data.infoprojetoDTO.statusProjeto);
     }));
 
     api.get<number>(`projetos/count/verba/${numeroDoProjeto}`).then((response => {
@@ -124,10 +124,10 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
             </BoxLeft>
             <BoxRight>
               <div>
-                <p>{intl.get('card_projetos.status')} <strong>{formatStatus(projeto ? projeto.infoprojetoDTO.status : '')}</strong></p>
+                <p>{intl.get('card_projetos.status')} <strong>{formatStatus(projeto ? projeto.infoprojetoDTO.statusProjeto : '')}</strong></p>
               </div>
               <div>
-                {projeto ? projeto.infoprojetoDTO.status !== "CONCLUIDO" ?
+                {projeto ? projeto.infoprojetoDTO.statusProjeto !== "CONCLUIDO" ?
                   <>
                     <p><strong>{intl.get('card_projetos.horas')}:</strong> <AiOutlineClockCircle size={15} /> 
                       {projeto.valoresTotaisDTO.valorTotalEsforco} {intl.get('card_projetos.horas')}

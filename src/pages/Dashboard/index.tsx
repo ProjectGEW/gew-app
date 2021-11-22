@@ -35,7 +35,7 @@ interface CardContent {
         descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
-        status: string;
+        statusProjeto: string;
         horas_apontadas: number;
         secao: string;
     };
@@ -106,15 +106,15 @@ const Dashboard: React.FC = () => {
             const dataCountUtilizada = responseCountUtilizada.data;
             setCountUtilizada(dataCountUtilizada);
 
-            const pegaNumero = data.map(a => a.infoprojetoDTO.numeroDoProjeto);
-            pegaNumero.forEach(async (b) => {
-                const responseGuarda = await api.get(`projetos/count/verba/${pegaNumero[b]}`);
-                const dataGuarda = responseGuarda.data;
-                setGuardaVerba(dataGuarda); 
+            // const pegaNumero = data.map(a => a.infoprojetoDTO.numeroDoProjeto);
+            // pegaNumero.forEach(async (b) => {
+            //     const responseGuarda = await api.get(`projetos/count/verba/${pegaNumero[b]}`);
+            //     const dataGuarda = responseGuarda.data;
+            //     setGuardaVerba(dataGuarda); 
 
-                //const converte = {numero: pegaNumero[b], verba: dataGuarda};
-                //setGuardaVerba(converte); 
-            })
+            //     //const converte = {numero: pegaNumero[b], verba: dataGuarda};
+            //     //setGuardaVerba(converte); 
+            // })
         
             //console.log(guardaVerba);
         }
@@ -250,7 +250,8 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    const totalCcPagantes = projetos.filter(a => a.infoprojetoDTO.secao === selectedOption) ? projetos.filter(b => b.infoprojetoDTO.horas_apontadas === 0) ? [0] : [projetos.length] : [0];
+    //const totalCcPagantes = projetos.filter(a => a.infoprojetoDTO.secao === selectedOption) ? projetos.filter(b => b.infoprojetoDTO.horas_apontadas === 0) ? [0] : [projetos.length] : [0];
+    const totalCcPagantes = [projetos.length];
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
     
     if(Number(id) === 0) {
@@ -389,8 +390,8 @@ const Dashboard: React.FC = () => {
                             </div>  
                             <div>
                                 {projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map((projeto, index) => 
-                                    <Status key={index} status={projeto.infoprojetoDTO.status} disabled>
-                                        {formatStatus(projeto.infoprojetoDTO.status)}
+                                    <Status key={index} status={projeto.infoprojetoDTO.statusProjeto} disabled>
+                                        {formatStatus(projeto.infoprojetoDTO.statusProjeto)}
                                     </Status>
                                 )}
                             </div>   

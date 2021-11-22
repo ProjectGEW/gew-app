@@ -8,6 +8,7 @@ import Menu from '../pages/Menu';
 import RegisterConsultants from '../pages/RegisterConsultants';
 import Projects from '../pages/Projects';
 import RegisterProjects from '../pages/RegisterProjects';
+import NovoCadastro from '../pages/RegisterProjects/index2';
 import EditProjects from '../pages/EditProjects';
 import Settings from '../pages/Settings';
 import Dashboard from '../pages/Dashboard';
@@ -37,6 +38,7 @@ const Routes: React.FC = () => (
         <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} />
         <Route path="/edit/:nm" component={Edit} />
         {/* Área para testes */}
+        <Route path="/novocadastro" component={NovoCadastro} />
         <Route path="/newlogin" component={NewLogin} />
         <Route path="/test" component={Test} />
         <Route path="/test2" component={Test2} />

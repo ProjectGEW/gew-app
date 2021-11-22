@@ -395,16 +395,18 @@ return (
           <BoxProjeto id="boxProjeto">
             <span> 
               <div id="left-box">
-                <label>Número do projeto:</label>
-                <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampoComMsg(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
-                <p id="numeroProjetoResponse" className="msgErro"></p>
-                <label>Ata do projeto: </label>
-                <input 
-                  type="text" 
-                  id="ataNome" 
-                  onBlur={(props) => { vrfCampoComMsg(props.target.value, "ataNome", "ataResponse"); }}
-                />
-                <p id="ataResponse" className="msgErro"></p>
+                <div id="projetoRow">
+                  <div>
+                    <label>Número do projeto:</label>
+                    <input type="number" id="numeroProjeto" onBlur={(props) => { vrfCampoComMsg(props.target.value, "numeroProjeto", "numeroProjetoResponse"); }}/>
+                    <p id="numeroProjetoResponse" className="msgErro"></p>
+                  </div>
+                  <div>
+                    <label>Ata do projeto: </label>
+                    <input type="text" id="ataNome" onBlur={(props) => { vrfCampoComMsg(props.target.value, "ataNome", "ataResponse"); }}/>
+                    <p id="ataResponse" className="msgErro"></p>
+                  </div>
+                </div>
                 <label>Título do projeto: </label>
                 <input type="text" id="titulo" onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}/>
                 <p id="tituloResponse" className="msgErro"></p>

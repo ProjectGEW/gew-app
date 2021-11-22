@@ -21,7 +21,7 @@ interface CardContent {
         descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
-        status: string;
+        statusProjeto: string;
         horas_apontadas: number;
     };
     ccPagantes: [{

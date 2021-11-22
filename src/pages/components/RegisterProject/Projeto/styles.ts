@@ -47,12 +47,13 @@ export const BoxProjeto = styled.div`
     
     #left-box{
       margin-left: 0;
-    /*  p {
-        margin-top: -2.6vh;
-        margin-bottom: 1vh;
-        font-size: 2.3vh;
-        color: rgb(255, 0, 0, 0.8);
-      }*/
+
+      #projetoRow {
+        width: auto;
+        flex-direction: row;
+        margin-left: 0vw;
+        background-color: red;
+      }
     }
   }
 
@@ -78,6 +79,10 @@ export const BoxProjeto = styled.div`
 
     #numeroProjeto {
       width: 15vw;
+    }
+
+    #ataNome {
+      background-color: red;
     }
 
     #titulo {
@@ -122,7 +127,7 @@ export const BoxProjeto = styled.div`
         width: 13.3vw;
 
         margin-top: 2.2vh;
-        margin-left: -16.3vw;
+        margin-left: 1.5vw;
         background: #0090C5;
         border-radius: 0.8vh;
         color: #fff;
@@ -177,12 +182,9 @@ export const Preview = styled.iframe`
 
   min-width: 320px;
   min-height: 300px;
-
-  margin-top: 30px;
-  margin-left: -10vw; 
   
-  margin-top: 30px;
-  margin-left: -10vw;
+  margin-top: 110px;
+  margin-left: -25vw;
 
   border: 0.1vh solid #c4c4c4;
   //background-color: rgb(181, 181, 181, 0.6);

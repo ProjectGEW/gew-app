@@ -21,7 +21,7 @@ interface CardContent {
       descricao: string;
       data_de_inicio: string;
       data_de_termino: string;
-      status: string;
+      statusProjeto: string;
       horas_apontadas: number;
       secao: string;
   };
@@ -40,7 +40,7 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
     useEffect(() => {
       api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
             setProjeto(response.data);
-            setStatus(response.data.infoprojetoDTO.status);
+            setStatus(response.data.infoprojetoDTO.statusProjeto);
       }))
     }, [numeroDoProjeto]);
 

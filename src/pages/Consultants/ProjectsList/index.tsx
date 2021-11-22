@@ -26,7 +26,7 @@ interface IProjetoProps {
         descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
-        status: string;
+        statusProjeto: string;
         secao: string;
     };
     valoresTotaisDTO: {
@@ -251,7 +251,7 @@ const ProjectsList: React.FC = () => {
                         <Center>
                             {
                                 projetos ? projetos.map(projeto => (
-                                    projeto.infoprojetoDTO.status !== "CONCLUIDO" ? 
+                                    projeto.infoprojetoDTO.statusProjeto !== "CONCLUIDO" ? 
                                         <CardSelect key={projeto.infoprojetoDTO.numeroDoProjeto} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
                                     : null
                                 )) :
