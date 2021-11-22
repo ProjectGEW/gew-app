@@ -10,8 +10,8 @@ import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../components/InputPrimary';
 
-import { Container, Line, LoginCont, ContainerBottom, ContainerBtn, ContainerInput,
-        Rectangle, Section, Image, SideContainer, LoginContainer } from './styles';
+import { ContainerBtn, ContainerInput, Rectangle, Section,
+     Image, SideContainer, LoginContainer } from './styles';
 
 interface SingInFormData {
     email: string;
