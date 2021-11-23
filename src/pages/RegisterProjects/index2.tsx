@@ -11,21 +11,16 @@ import { ContIcons } from '../components/MenuRight/styles';
 import VoltarAoTopo from '../components/VoltarAoTopo';
 
 import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
+import { RiPauseCircleFill } from 'react-icons/ri';
+import { AiOutlineClockCircle, AiOutlineCalendar } from 'react-icons/ai';
+import { IoMdClose } from 'react-icons/io';
+import { FaEquals } from 'react-icons/fa';
 
 import { Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
-Total, Table, Linha, Datas, Finalizar, Confirmar } from './styles2';
+Total, Table, Linha, Datas, Finalizar, PopupModal, ContainerPopup, BoxPopup } from './styles2';
 
-import { RiPauseCircleFill } from 'react-icons/ri';
 
 const CadastroProjeto: React.FC = () => {
-  function trocarMainEtapa(proxMainEtapa: string) {
-    //Desativa todas
-    document.getElementById("set-data")!.style.display = "none";
-    document.getElementById("confirm-data")!.style.display = "none";
-    //Ativa uma
-    document.getElementById(`${proxMainEtapa}`)!.style.display = "block";
-  }
-
   return (
     <>
     <Navbar />
@@ -145,7 +140,7 @@ const CadastroProjeto: React.FC = () => {
                     <h2>TOTAL:</h2>
                     <input id="totalEsforco" type="number" value="" disabled/>
                     <input id="totalValor" type="text" value="" disabled/>
-                    <RiPauseCircleFill id="soma" onClick={() => alert(0)}/>
+                    <FaEquals id="soma" onClick={() => alert(0)}/>
                   </div>
                 </Total>
               </Table>
@@ -182,7 +177,7 @@ const CadastroProjeto: React.FC = () => {
                   <div>
                     <h2>TOTAL:</h2>
                     <input id="totalValor" type="text" value="" disabled/>
-                    <RiPauseCircleFill id="soma" onClick={() => alert(0)}/>
+                    <FaEquals id="soma" onClick={() => alert(0)}/>
                   </div>
                 </Total>
               </Table>
@@ -209,33 +204,116 @@ const CadastroProjeto: React.FC = () => {
             </div>
           </Datas>
           <Finalizar>
-            <span id='button-holding' onClick={() => trocarMainEtapa('confirm-data')}> 
-              <Button tipo={"continuarCadastro"} text={"Confirmar"} />
-            </span>
+            <PopupModal closeOnEscape trigger={
+              <span id='button-holding'> 
+                <Button tipo={"continuarCadastro"} text={"Confirmar"} />
+              </span>
+            } modal>
+              {(close: any) => (
+                <ContainerPopup>
+                  <BoxPopup>
+                    <h1 className="header">
+                      <IoMdClose id="voltar" onClick={() => close()}/>
+                      Confirmar informações
+                    </h1>
+                    <div>
+                      <div id="ladoEsquerdo">
+                        <div className="projeto">
+                          <h1>Dados do projeto</h1>
+                          <div className="linhaUm">
+                            <div>
+                              <label>Número do projeto:</label>
+                              <p>188224647</p>
+                            </div>
+                            <div>
+                              <label>Ata de aprovação:</label>
+                              <p>ASD213SD3213S1</p>
+                            </div>
+                          </div>
+                          <div className="linhaDois">
+                            <div>
+                              <label>Título do projeto:</label>
+                              <p>WEC - Implantação de Sistemas</p>
+                            </div>
+                          </div>
+                          <div className="linhaTres">
+                            <div>
+                              <label>Descrição do projeto:</label>
+                              <textarea id="descricao" disabled/>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="responsavel">
+                          <h1>Encarregados</h1>
+                          <div className="linhaUm">
+                            <div>
+                              <label>Crachá do responsável:</label>
+                              <p>4234242112</p>
+                            </div>
+                            <div>
+                              <label>Nome do responsável:</label>
+                              <p>João Antônio de Oliveira</p>
+                            </div>
+                          </div>
+                          <div className="linhaDois">
+                            <div>
+                              <label>Crachá do solicitante:</label>
+                              <p>1232132132</p>
+                            </div>
+                            <div>
+                              <label>Nome do solicitante:</label>
+                              <p>José da Silva</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="ladoDireito">
+                        <div className="gastos">
+                          <h1>Custos</h1>
+                          <div className="linhaUm">
+                            <div>
+                              <label>Limite de horas:</label>
+                              <p><AiOutlineClockCircle size={15} /> 0</p>
+                            </div>
+                            <div>
+                              <label>Centro de custo:</label>
+                              <p>R$ 0,00</p>
+                            </div>
+                            <div>
+                              <label>Percentual Aprovado:</label>
+                              <p>0%</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="datas">
+                          <h1>Datas</h1>
+                          <div className="linhaUm">
+                            <div>
+                              <label>Data de início:</label>
+                              <p><AiOutlineCalendar /> 00/00/0000</p>
+                            </div>
+                            <div>
+                              <label>Data de término:</label>
+                              <p><AiOutlineCalendar /> 00/00/0000</p>
+                            </div>
+                            <div>
+                              <label>Data de aprovação:</label>
+                              <p><AiOutlineCalendar /> 00/00/0000</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </BoxPopup>
+                </ContainerPopup>
+              )}
+            </PopupModal>
           </Finalizar>
         </Content>
       </ContainerRegister>
     </Container>
-    <Confirmar id="confirm-data"> 
-      <h1 className="header">Confirmar Informações</h1>
-      <div id="ladoDireito">
-        <div className="projeto">
-
-        </div>
-        <div className="responsavel">
-          
-        </div>
-      </div>
-      <div id="ladoEsquerdo">
-        <div className="projeto">
-
-        </div>
-        <div className="responsavel">
-          
-        </div>
-      </div>
-    </Confirmar>
     {
+      // Ativa botão para voltar pro topo da página
       document.scrollingElement!?.scrollTop >= 480 ? <VoltarAoTopo idRedirect="#topo"/> : ''
     }
     <MenuRight>
