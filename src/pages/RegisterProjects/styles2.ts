@@ -1,9 +1,13 @@
 import { shade } from 'polished';
 
+import Popup from 'reactjs-popup';
+
 import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 304vh;
+  max-height: 304vh;
+  min-height: 304vh;
   position: absolute;
   top: 14vh;
   left: 21vw;
@@ -20,6 +24,8 @@ export const Container = styled.div`
 export const ContainerRegister = styled.div`
   width: 60vw;
   height: 298vh;
+  max-height: 298vh;
+  min-height: 298vh;
 
   display: flex;
   flex-direction: column;
@@ -278,6 +284,8 @@ export const Responsavel = styled.div`
   margin-top: 5vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  justify-content: center;
 
   h1 {
     font-size: 3.5vh;
@@ -301,9 +309,11 @@ export const Responsavel = styled.div`
   }
 
   #primeiraLinha, #segundaLinha {
+    width: 55.5vw;
     display: flex;
     flex-direction: column;
     margin-top: 2vh;
+    margin-left: 1.5vw;
     padding-top: 2vh;
     border: 0.1vh solid #ebebeb;
     background-color: #f8f8f8;
@@ -332,11 +342,11 @@ export const Responsavel = styled.div`
       //font-weight: 400;
       display: flex;
       align-items: center;
-      margin-left: 1.4vw;
+      margin-left: 1vw;
       justify-content: space-between;
 
       svg {
-        margin-right: 1.4vw;
+        margin-right: 1vw;
 
         &:hover {
           opacity: 0.85;
@@ -413,7 +423,8 @@ export const Gastos = styled.div`
 `;
 
 export const Table = styled.div`
-  width: 58vw;
+  width: 55.5vw;
+  margin-left: 0.5vw;
   border-radius: 0.5vh;
   border: 0.1vh solid #ebebeb;
   box-shadow: rgba(0, 0, 0, 0.15) -1.95px 1.95px 2.6px;
@@ -605,15 +616,18 @@ export const Total = styled.div`
       svg {
         position: absolute;
         color: #00579D;
-        width: 2.5%;
-        height: 2.5%;
-        margin-top: 4vh;
-        margin-right: -0.5vw;
-        transform: rotate(90deg);
+        width: 2%;
+        height: 2%;
+        margin-top: 3.2vh;
+        margin-right: 0vw;
 
         &:hover {
           cursor: pointer;
-          color: ${shade(0.03, '#00579D')};
+          color: ${shade(0.09, '#00579D')};
+        }   
+
+        &:active {
+          color: ${shade(0.12, '#00579D')};
         }   
       }
     }
@@ -685,10 +699,12 @@ export const Datas = styled.div`
   }
 
   #primeiraLinha {
+    width: 55.5vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-top: 2vh;
+    margin-left: 1.5vw;
     padding: 1vh;
     border: 0.1vh solid #ebebeb;
     background-color: #f8f8f8;
@@ -710,12 +726,13 @@ export const Datas = styled.div`
     justify-content: center;
 
     .calendario {
-      width: 60vw;
+      width: 55.5vw;
       margin-top: 3vh;
 
       border: 0;
       border-radius: 0.8vh;
-      box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+      border: 0.1vh solid #ebebeb;
+      box-shadow: rgba(0, 0, 0, 0.15) -1.95px 1.95px 2.6px;
 
       .react-calendar__navigation {
         height: 4vh;
@@ -804,29 +821,198 @@ export const Finalizar = styled.div`
   }
 `;
 
-export const Confirmar = styled.div`
-  position: absolute;
-  top: 14vh;
-  left: 12vw;
+export const PopupModal = styled(Popup)`
+  &-content {
+    background: transparent;
+    animation: anvil 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+export const ContainerPopup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
+  border-radius: 0.8vh;
+  overflow: hidden;
+`;
+
+export const BoxPopup = styled.div`
   width: 78vw;
   height: 80vh;
-  display: none;
-
-  flex-direction: column;
-
+  border-radius: 0.8vh;
   overflow: hidden;
 
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; 
   background-color: #fff;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  border-radius: 0.8vh;
 
-  h1 {
+  .header {
     background-color: #00579D;
     color: white;
     font-size: 3.6vh;
     padding: 1.5vh;
-    padding-left: 8vh;
+    //padding-left: 0vh;
     display: flex;
     align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    #voltar {
+      width: 2vw;
+      height: 4vh;
+      z-index: 2;
+      color: #fff;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.95;
+      }
+
+      &:active {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #ladoEsquerdo, #ladoDireito {
+    width: 50%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 2vh;
+
+    h1 {
+      width: 95%;
+      font-size: 3.5vh;
+      padding-top: 1vh;
+      padding-bottom: 1.8vh;
+      border-bottom: 0.1vh solid #ebebeb;
+      color: #00579D;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      color: #5E5E5E;
+
+      svg {
+        color: #00579D;
+        margin-right: 0.4vw;
+      }
+    }
+  }
+
+  #ladoEsquerdo {
+    padding-left: 5vh;
+    padding-right: 5vh;
+  }
+
+  #ladoDireito {
+    padding-left: 5vh;
+    padding-right: 5vh;
+    justify-content: flex-start;
+  }
+
+  .projeto {
+    .linhaUm {
+      //width: 95%;
+    }
+
+    #descricao {
+      width: 34vw;
+      max-width: 34vw;
+      min-width: 34vw;
+      height: 10vh;
+      max-height: 10vh;
+      min-height: 10vh;
+      padding: 1vh;
+      margin-top: 0.5vh;
+      border: 0;
+      background-color: transparent;
+      border: 0.1vh solid #ebebeb;
+      color: #5E5E5E;
+
+      overflow: scroll;
+      overflow-x: hidden;
+
+      ::-webkit-scrollbar {
+        background-color: rgb(196, 196, 196, 0.5);
+        width: 0.5vw;
+      }
+        
+      ::-webkit-scrollbar-thumb {
+        background-color: rgb(196, 196, 196); 
+        border-radius: 1vh;
+      }
+    }
+  }
+
+  .projeto, .responsavel, .gastos, .datas {
+    display: flex;
+    flex-direction: column;
+
+    .linhaUm {
+      margin-top: 1vh;
+    }
+
+    .linhaUm, .linhaDois, .linhaTres {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        padding: 1vh 0vh 2vh 0vh;
+
+        p {
+          /* width: 20vw;
+          max-width: 20vw;
+          min-width: 20vw; */
+
+          height: 3.5vh;
+          max-height: 3.5vh;
+          min-height: 3.5vh;
+
+          font-size: 2.5vh;
+
+          overflow: auto;
+          overflow-x: hidden;
+
+          ::-webkit-scrollbar {
+            background-color: rgb(196, 196, 196, 0.5);
+            width: 0.5vw;
+          }
+            
+          ::-webkit-scrollbar-thumb {
+            background-color: rgb(196, 196, 196); 
+            border-radius: 1vh;
+          }
+
+          //background-color: red;
+          padding-top: 0.5vh;
+        }
+      }
+
+      label {
+        color: #00579D;
+        font-size: 2.4vh;
+        font-weight: bold;
+      }
+    }
   }
 `;
