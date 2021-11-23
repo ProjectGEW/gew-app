@@ -2,7 +2,7 @@ import { shade } from 'polished';
 
 import Popup from 'reactjs-popup';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   height: 304vh;
@@ -142,7 +142,7 @@ export const Projetos = styled.div`
   }
 
   #ataResponse {
-    margin-top: 22vh;
+    margin-top: 9.5vh;
     margin-left: 0vw;
   }
 
@@ -248,6 +248,10 @@ export const Projetos = styled.div`
     #descricao {
       width: 28vw;
       height: 20vh;
+      max-width: 28vw;
+      min-width: 28vw;
+      max-height: 20vh;
+      min-height: 20vh;
     }
     
     div {
@@ -672,7 +676,13 @@ export const Linha = styled.div`
   }
 `;
 
-export const Datas = styled.div`
+interface FormDataProps {
+  hasErrorInicio: boolean;
+  hasErrorFim: boolean;
+  hasErrorAprovacao: boolean;
+}
+
+export const Datas = styled.div<FormDataProps>`
   margin-top: 5vh;
   display: flex;
   flex-direction: column;
@@ -715,8 +725,27 @@ export const Datas = styled.div`
       display: flex;
       flex-direction: column;
 
+      #data_de_inicio {
+            ${props => props.hasErrorInicio && css`
+                border: 0.25vh solid rgb(255, 0, 0, 0.8);
+            `}
+        }
+
+        #data_de_termino {
+            ${props => props.hasErrorFim && css`
+                border: 0.25vh solid rgb(255, 0, 0, 0.8);
+            `}
+        }
+
+        #data_de_aprovacao {
+            ${props => props.hasErrorAprovacao && css`
+                border: 0.25vh solid rgb(255, 0, 0, 0.8);
+            `}
+        }
+
       input {
         margin-bottom: 0;
+        text-align: center;
       }      
     }
   }
@@ -807,6 +836,32 @@ export const Datas = styled.div`
       }
     }
   }
+`;
+
+interface ErrorProps {
+  localErro: any;
+}
+
+export const Error = styled.span<ErrorProps>`
+  color: #c53030;
+  margin-top: 1vh;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: absolute;
+
+  ${props => props.localErro === 'inicio' && css`
+    margin-left: -18.2vw;
+  `}
+
+  ${props => props.localErro === 'aprovacao' && css`
+    margin-left: 12.5vw;
+  `}
+
+  ${props => props.localErro === 'fim' && css`
+    margin-left: -2.7vw;
+  `}
+
+  display: none;
 `;
 
 export const Finalizar = styled.div`
