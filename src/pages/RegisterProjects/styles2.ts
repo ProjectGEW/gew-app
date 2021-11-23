@@ -1,4 +1,5 @@
 import { shade } from 'polished';
+
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -276,8 +277,26 @@ export const Responsavel = styled.div`
     flex-direction: column;
     margin-top: 2vh;
     padding-top: 2vh;
+    border: 0.1vh solid #ebebeb;
     background-color: #f8f8f8;
-    border-radius: 0.5vh ;
+    box-shadow: rgba(0, 0, 0, 0.15) -1.95px 1.95px 2.6px;
+    border-radius: 0.5vh;
+
+    label {
+      display: flex;
+      justify-content: space-between;
+
+      svg {
+        &:hover {
+          opacity: 0.95;
+          cursor: pointer;
+        }
+
+        &:active {
+          opacity: 0.90;
+        }
+      }
+    }   
 
     h1 {
       border-bottom: 0;
@@ -289,7 +308,7 @@ export const Responsavel = styled.div`
       justify-content: space-between;
 
       svg {
-        margin-right: 2vw;
+        margin-right: 1.4vw;
 
         &:hover {
           opacity: 0.85;
@@ -352,8 +371,9 @@ export const Gastos = styled.div`
 `;
 
 export const Table = styled.div`
-  width: 56vw;
-  border-radius: 0.8vh;
+  width: 58vw;
+  border-radius: 0.5vh;
+  border: 0.1vh solid #ebebeb;
   box-shadow: rgba(0, 0, 0, 0.15) -1.95px 1.95px 2.6px;
   background-color: #f8f8f8;
 
@@ -374,9 +394,9 @@ export const Table = styled.div`
   
   .table {
     width: 100%;
-    background-color: #00579D;
+    background-color: transparent;
     padding: 1.2vh;
-    border-radius: 0.8vh 0.8vh 0vh 0vh;
+    border-radius: 0.5vh 0.5vh 0vh 0vh;
 
     display: flex;
     justify-content: space-between;
@@ -384,24 +404,57 @@ export const Table = styled.div`
     flex-direction: row;
 
     h1 {
-      color: #fff;
+      color: #00579D;
       font-size: 3vh;
-      margin-left: 1vw;
+      
+      font-weight: 100;
 
       &:nth-child(2) {
-        margin-left: 6vw;
+        margin-left: 7.8vw;
       }
 
       &:nth-child(3) {
-        margin-right: 1.2vw;
+        margin-right: 9vw;
+      }
+    }
+  }
+
+  .segundaTabela {
+    h1 {
+      &:nth-child(2) {
+        margin-left: -8.5vw;
+      }
+
+      &:nth-child(3) {
+        margin-right: 8vw;
+      }
+    }
+  }
+
+  .segundaTabelaLinha {
+    div {
+      input {
+        &:nth-child(1) {
+          width: 14vw;
+        }
+
+        &:nth-child(2) {
+          width: 24vw;
+          text-align: end;
+        }
+
+        &:nth-child(3) {
+          width: 14vw;
+          text-align: end;
+        }
       }
     }
   }
 
   #scroll {
     width: 100%;
-    height: 138px;
-    min-height: 138px;
+    height: 170px;
+    min-height: 170px;
 
     margin-top: 0.3vh;
 
@@ -421,6 +474,7 @@ export const Table = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: flex-start;
   }
 `;
 
@@ -431,8 +485,8 @@ export const Total = styled.div`
 
   div {
     width: 70%;
-    padding: 1.3vh;
-    border-radius: 0vh 0vh 0.8vh 0.8vh;
+    padding: 1vh;
+    border-radius: 0vh 0vh 0.5vh 0.5vh;
 
     display: flex;
     align-items: center;
@@ -441,7 +495,6 @@ export const Total = styled.div`
     // primeira div
     &:first-child {
       width: 30%;
-      padding: 0vh 0vw 0vh 0.5vw;
 
       button {
         padding: 1vh;
@@ -461,7 +514,7 @@ export const Total = styled.div`
 
         // primeiro botão
         &:first-child {
-          margin-right: 1vw;
+          margin-right: 0.5vw;
         }
       }
     }
@@ -495,6 +548,7 @@ export const Total = styled.div`
         border-radius: 0.4vh;
         border: 0px;
         padding: 1vh;
+        margin-bottom: 1vh;
 
         background-color: #f0f0f0;
         box-shadow: 0vh 0vh 0vh transparent;
@@ -538,6 +592,7 @@ export const Linha = styled.div`
     border-radius: 0.4vh;
     border: 0px;
     padding: 1vh;
+    margin-bottom: 0;
 
     background-color: #e9e9e9;
     box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);

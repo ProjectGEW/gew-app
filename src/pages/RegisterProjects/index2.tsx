@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import MenuLeft from '../components/MenuLeft';
 import MenuRight from '../components/MenuRight';
@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import { ContIcons } from '../components/MenuRight/styles';
 import VoltarAoTopo from '../components/VoltarAoTopo';
 
-import { FiRefreshCcw } from 'react-icons/fi';
+import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
 
 import { Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
 Total, Table, Linha, Datas } from './styles2';
@@ -15,12 +15,6 @@ Total, Table, Linha, Datas } from './styles2';
 import { RiPauseCircleFill } from 'react-icons/ri';
 
 const CadastroProjeto: React.FC = () => {
-  const [pegaAltura, setPegaAltura] = useState<Number>(0);
-
-  useEffect(() => {
-    setPegaAltura(document.scrollingElement!.scrollTop);
-  },[pegaAltura, document.scrollingElement!.scrollTop]);
-
   return (
     <>
     <Navbar />
@@ -69,20 +63,20 @@ const CadastroProjeto: React.FC = () => {
             </div>
           </Projetos>
           <Responsavel>
-            <h1 onClick={() => alert(document.scrollingElement!.scrollTop)}>Responsáveis pelo projeto</h1>
+            <h1>Responsáveis pelo projeto</h1>
             <div id="primeiraLinha">
               <h1>Responsável <FiRefreshCcw size={20}/></h1>
               <div>
                 <div>
-                  <label htmlFor="">Crachá</label>
+                  <label htmlFor="cracha_responsavel">Crachá</label>
                   <input type="text" id="cracha_responsavel" />
                 </div>
                 <div>
-                  <label htmlFor="">Nome</label>
+                    <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20}/></label>
                   <input type="text" id="nome_responsavel" disabled />
                 </div>
                 <div>
-                  <label htmlFor="">Seção</label>
+                  <label htmlFor="secao_responsavel">Seção <FiInfo id="iconSecaoResponsavel" size={20}/></label>
                   <input type="text" id="secao_responsavel" disabled />
                 </div>
               </div>
@@ -91,15 +85,15 @@ const CadastroProjeto: React.FC = () => {
               <h1>Solicitante <FiRefreshCcw size={20}/></h1>
               <div> 
                 <div>
-                  <label htmlFor="">Crachá</label>
+                  <label htmlFor="cracha_solicitante">Crachá</label>
                   <input type="text" id="cracha_solicitante" />
                 </div>
                 <div>
-                  <label htmlFor="">Nome</label>
+                  <label htmlFor="nome_solicitante">Nome <FiInfo id="iconNomeSolicitante" size={20}/></label>
                   <input type="text" id="nome_solicitante" disabled />
                 </div>
                 <div>
-                  <label htmlFor="">Seção</label>
+                  <label htmlFor="secao_solicitante">Seção <FiInfo id="iconSecaoSolicitante" size={20}/></label>
                   <input type="text" id="secao_solicitante" disabled />
                 </div>
               </div>
@@ -115,6 +109,16 @@ const CadastroProjeto: React.FC = () => {
                   <h1>Valor (R$)</h1>
                 </div>
                 <div id="scroll">
+                  <Linha id={`D1`} >
+                    <input type="text" defaultValue=''/>
+                    <input type="number"  defaultValue='0'/>
+                    <input type="number" defaultValue='0'/>
+                  </Linha>
+                  <Linha id={`D1`} >
+                    <input type="text" defaultValue=''/>
+                    <input type="number"  defaultValue='0'/>
+                    <input type="number" defaultValue='0'/>
+                  </Linha>
                   <Linha id={`D1`} >
                     <input type="text" defaultValue=''/>
                     <input type="number"  defaultValue='0'/>
@@ -137,21 +141,27 @@ const CadastroProjeto: React.FC = () => {
             </div>
             <div id="segundaLinha">
               <Table id="tableTwo">
-                <div className="table">
+                <div className="table segundaTabela">
                   <h1>Seção (Nº)</h1>
                   <h1>Responsável</h1>
                   <h1>Valor (R$)</h1>
                 </div>
-                <div id="scroll">
-                  {/* { 
-                  ccPagante.map((exibe, index) => (
-                    <Linha id={`C${index + 1}`} key={index}>
-                      <input type="text" id={`centro${index + 1}`} defaultValue={exibe.secao.id || ''}/>
-                      <input type="text" id={`responsavel${index + 1}`} defaultValue={exibe.secao.responsavel.nome || ''} disabled/>
-                      <input type="text" id={`valorC${index + 1}`} defaultValue={exibe.valor || ''}/>
-                    </Linha>
-                  )) || ''
-                  } */}
+                <div id="scroll" className="segundaTabelaLinha">
+                  <Linha id={`D1`} >
+                    <input type="text" defaultValue=''/>
+                    <input type="number"  defaultValue='0'/>
+                    <input type="number" defaultValue='0'/>
+                  </Linha>
+                  <Linha id={`D1`} >
+                    <input type="text" defaultValue=''/>
+                    <input type="number"  defaultValue='0'/>
+                    <input type="number" defaultValue='0'/>
+                  </Linha>
+                  <Linha id={`D1`} >
+                    <input type="text" defaultValue=''/>
+                    <input type="number"  defaultValue='0'/>
+                    <input type="number" defaultValue='0'/>
+                  </Linha>
                 </div>
                 <Total>
                   <div>
@@ -174,7 +184,7 @@ const CadastroProjeto: React.FC = () => {
       </ContainerRegister>
     </Container>
     {
-      pegaAltura >= 480 ? <VoltarAoTopo idRedirect="#topo"/> : ''
+      document.scrollingElement!?.scrollTop >= 480 ? <VoltarAoTopo idRedirect="#topo"/> : ''
     }
     <MenuRight>
       <ContIcons />
