@@ -498,6 +498,8 @@ export const Table = styled.div`
         &:nth-child(2) {
           width: 24vw;
           text-align: end;
+          background-color: #f0f0f0;
+          box-shadow: 0vh 0vh 0vh transparent;
         }
 
         &:nth-child(3) {

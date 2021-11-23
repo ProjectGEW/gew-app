@@ -19,15 +19,12 @@ import { FaEquals } from 'react-icons/fa';
 import { Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
 Total, Table, Linha, Datas, Finalizar, PopupModal, ContainerPopup, BoxPopup } from './styles2';
 
-import { RiPauseCircleFill } from 'react-icons/ri';
 import { vrfCampoComMsg } from '../../utils/confereCampo';
 import api from '../../service/api';
 import { useState } from 'react';
 import { errorfulNotify, warnNotify } from '../../hooks/SystemToasts';
 import analisaValor from '../../utils/analisaValor';
 import { Error } from './styles';
-
-const CadastroProjeto: React.FC = () => {
 
 //Interfaces
 interface IProjetoInputDTO {
@@ -76,8 +73,6 @@ interface IFuncionarioResponse {
   secao: string;
 }
 
-
-const CadastroProjeto: React.FC = () => {
   const infosProjeto = {
     infoProjetosInputDTO: {
       numeroDoProjeto: 0,
@@ -105,6 +100,7 @@ const CadastroProjeto: React.FC = () => {
     ]
   }
 
+const CadastroProjeto: React.FC = () => {
   infosProjeto.despesasInputDTOS.shift();
   infosProjeto.ccPagantesInputDTO.shift();
 
