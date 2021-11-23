@@ -1,17 +1,19 @@
 import styled from "styled-components";
 
 export const Box = styled.a`
+    width: auto;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
-    background-color: #fff;
     overflow: hidden;
-    bottom: 30px;
-    right: 14vw;
+    bottom: 35px;
+    right: 13vw;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    border-radius: 100%;
+    border-radius: 100vw;
     text-decoration: none;
+    background-color: #fff;
 
     svg {
         color: #00579D;
