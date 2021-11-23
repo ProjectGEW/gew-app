@@ -568,13 +568,7 @@ return (
           <Calendar calendarType={'US'} className={"calendario"} value={value} onChange={onChange} onClickDay={(props) => {setData(props)}} />
         </BoxDatas>
       </Content>
-      <span id='button-holding' onClick={() => { 
-        if(validacaoDosCamposCadastros(rowDespesas.length, rowCC.length)) {
-          setInfos();
-          trocarMainEtapa('confirm-data');
-        }
-      }}
-      > 
+      <span id='button-holding' onClick={() => trocarMainEtapa('confirm-data')}> 
         <Button tipo={"continuarCadastro"} text={"Confirmar"} />
       </span>
     </ContainerRegister>

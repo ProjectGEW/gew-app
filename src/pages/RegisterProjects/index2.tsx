@@ -1,33 +1,44 @@
 import React from 'react';
 
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
 import MenuLeft from '../components/MenuLeft';
 import MenuRight from '../components/MenuRight';
 import Navbar from '../components/Navbar';
-
+import Button from '../components/Button';
 import { ContIcons } from '../components/MenuRight/styles';
 import VoltarAoTopo from '../components/VoltarAoTopo';
 
 import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
 
 import { Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
-Total, Table, Linha, Datas } from './styles2';
+Total, Table, Linha, Datas, Finalizar, Confirmar } from './styles2';
 
 import { RiPauseCircleFill } from 'react-icons/ri';
 
 const CadastroProjeto: React.FC = () => {
+  function trocarMainEtapa(proxMainEtapa: string) {
+    //Desativa todas
+    document.getElementById("set-data")!.style.display = "none";
+    document.getElementById("confirm-data")!.style.display = "none";
+    //Ativa uma
+    document.getElementById(`${proxMainEtapa}`)!.style.display = "block";
+  }
+
   return (
     <>
     <Navbar />
     <MenuLeft />
     <h6 id="topo"/>
-    <Container id="set-data" >
+    <Container id="set-data">
       <ContainerRegister id="ContainerRegister">
         <Info>  
           <h1>Cadastrar Projeto</h1>
         </Info>
         <Content id="content">
           <Projetos>
-            <h1>Descrição geral do projeto</h1>
+            <h1>Descrição geral do projeto <FiInfo size={20}/></h1>
             <div id="primeiraLinha">
               <div>
                 <label htmlFor="">Número do projeto</label>
@@ -63,7 +74,7 @@ const CadastroProjeto: React.FC = () => {
             </div>
           </Projetos>
           <Responsavel>
-            <h1>Responsáveis pelo projeto</h1>
+            <h1>Responsáveis pelo projeto <FiInfo size={20}/></h1>
             <div id="primeiraLinha">
               <h1>Responsável <FiRefreshCcw size={20}/></h1>
               <div>
@@ -100,7 +111,7 @@ const CadastroProjeto: React.FC = () => {
             </div>
           </Responsavel>
           <Gastos>
-            <h1>Despesas & Seções pagantes</h1>
+            <h1>Despesas & Seções pagantes <FiInfo size={20}/></h1>
             <div id="primeiraLinha">
               <Table>
                 <div className="table">
@@ -178,11 +189,52 @@ const CadastroProjeto: React.FC = () => {
             </div>
           </Gastos>
           <Datas>
-            <h1>Datas</h1>
+            <h1>Datas <FiInfo size={20}/></h1>
+            <div id="primeiraLinha">
+              <div>
+                <label htmlFor="">Data de início:</label>
+                <input type="text" id="data_de_inicio" />
+              </div>
+              <div>
+                <label htmlFor="">Data de término:</label>
+                <input type="text" id="data_de_termino" />
+              </div>
+              <div>
+                <label htmlFor="">Data de aprovação:</label>
+                <input type="text" id="data_de_aprovacao" />
+              </div>
+            </div>
+            <div id="segundaLinha">
+              <Calendar calendarType={'US'} className={"calendario"} />
+            </div>
           </Datas>
+          <Finalizar>
+            <span id='button-holding' onClick={() => trocarMainEtapa('confirm-data')}> 
+              <Button tipo={"continuarCadastro"} text={"Confirmar"} />
+            </span>
+          </Finalizar>
         </Content>
       </ContainerRegister>
     </Container>
+    <Confirmar id="confirm-data"> 
+      <h1 className="header">Confirmar Informações</h1>
+      <div id="ladoDireito">
+        <div className="projeto">
+
+        </div>
+        <div className="responsavel">
+          
+        </div>
+      </div>
+      <div id="ladoEsquerdo">
+        <div className="projeto">
+
+        </div>
+        <div className="responsavel">
+          
+        </div>
+      </div>
+    </Confirmar>
     {
       document.scrollingElement!?.scrollTop >= 480 ? <VoltarAoTopo idRedirect="#topo"/> : ''
     }
