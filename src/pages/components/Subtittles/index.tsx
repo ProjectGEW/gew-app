@@ -8,10 +8,9 @@ interface subtittleProps {
 
 
 const Subtittle: React.FC<subtittleProps> = ({text, tipo}) => {
-    
     return (
-            <Subtittles tipo={tipo}>{text}</Subtittles>
+        <Subtittles tipo={tipo}>{text}</Subtittles>
     );
- };
+};
 
 export default Subtittle;
