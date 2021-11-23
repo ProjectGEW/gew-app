@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box } from './styles';
 
-import { FaArrowCircleUp } from 'react-icons/fa';
+import { IoArrowUpCircleOutline } from 'react-icons/io5';
 
 interface IProps {
     idRedirect: string;
@@ -12,7 +12,7 @@ const VoltarAoTopo: React.FC<IProps> = ({idRedirect}) => {
     return (
         <>
         <Box href={idRedirect}>
-            <FaArrowCircleUp size={40} />
+            <IoArrowUpCircleOutline size={60} />
         </Box>
         </>
     );
