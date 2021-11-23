@@ -3,7 +3,7 @@ import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 279vh;
+  height: 304vh;
   position: absolute;
   top: 14vh;
   left: 21vw;
@@ -19,7 +19,7 @@ export const Container = styled.div`
 
 export const ContainerRegister = styled.div`
   width: 60vw;
-  height: 273vh;
+  height: 298vh;
 
   display: flex;
   flex-direction: column;
@@ -157,6 +157,20 @@ export const Projetos = styled.div`
     padding-bottom: 1.8vh;
     border-bottom: 0.1vh solid #ebebeb;
     color: #00579D;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      &:hover {
+        opacity: 0.95;
+        cursor: pointer;
+      }
+
+      &:active {
+        opacity: 0.90;
+      }
+    }
   }
 
   div {
@@ -270,6 +284,20 @@ export const Responsavel = styled.div`
     padding-bottom: 1.8vh;
     border-bottom: 0.1vh solid #ebebeb;
     color: #00579D;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      &:hover {
+        opacity: 0.95;
+        cursor: pointer;
+      }
+
+      &:active {
+        opacity: 0.90;
+      }
+    }
   }
 
   #primeiraLinha, #segundaLinha {
@@ -361,6 +389,20 @@ export const Gastos = styled.div`
     padding-bottom: 1.8vh;
     border-bottom: 0.1vh solid #ebebeb;
     color: #00579D;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      &:hover {
+        opacity: 0.95;
+        cursor: pointer;
+      }
+
+      &:active {
+        opacity: 0.90;
+      }
+    }
   }
 
   #primeiraLinha, #segundaLinha {
@@ -453,8 +495,8 @@ export const Table = styled.div`
 
   #scroll {
     width: 100%;
-    height: 170px;
-    min-height: 170px;
+    height: 145px;
+    min-height: 145px;
 
     margin-top: 0.3vh;
 
@@ -626,6 +668,165 @@ export const Datas = styled.div`
     padding-bottom: 1.8vh;
     border-bottom: 0.1vh solid #ebebeb;
     color: #00579D;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      &:hover {
+        opacity: 0.95;
+        cursor: pointer;
+      }
+
+      &:active {
+        opacity: 0.90;
+      }
+    }    
   }
 
+  #primeiraLinha {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 2vh;
+    padding: 1vh;
+    border: 0.1vh solid #ebebeb;
+    background-color: #f8f8f8;
+    box-shadow: rgba(0, 0, 0, 0.15) -1.95px 1.95px 2.6px;
+    border-radius: 0.5vh;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        margin-bottom: 0;
+      }      
+    }
+  }
+
+  #segundaLinha {
+    display: flex;
+    justify-content: center;
+
+    .calendario {
+      width: 60vw;
+      margin-top: 3vh;
+
+      border: 0;
+      border-radius: 0.8vh;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+      .react-calendar__navigation {
+        height: 4vh;
+        background: #f8f8f8;
+        border-bottom: 0vh solid rgba(60, 64, 67, 0.15);            
+        margin-bottom: 0vh;
+        margin-top: 0vh;
+        border-radius: 0.8vh 0.8vh 0 0;
+      }
+
+      .react-calendar__month-view__weekdays {
+        font-size: 1.8vh;
+        background: #f8f8f8;
+        color: #00579D;
+      }
+
+      .react-calendar__navigation button {
+        font-size: 2.4vh;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #00579D;
+
+        &:nth-child(1), &:nth-child(2), &:nth-child(4), &:nth-child(5) {
+          font-size: 3vh;
+        }
+      }
+
+      .react-calendar__tile {
+        padding: 1vh;
+        padding-top: 1.5vh;
+        font-weight: bold;
+        border-radius: 0.4vh;
+        box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+        color: #00579D;
+      }
+
+      .react-calendar__month-view__days__day--weekend {
+        color: #36a6ff;
+      }
+
+      .react-calendar__month-view__days__day--neighboringMonth {
+        color: #999;
+      }
+
+      .react-calendar__tile--now {
+        background: #78ff7c;
+      }
+
+      .react-calendar__tile--now:enabled:hover,
+      .react-calendar__tile--now:enabled:focus {
+        background: #96ff9a;
+      }
+
+      .react-calendar__tile--active {
+        background: #00579D;
+        color: white;
+      }
+
+      .react-calendar__tile--active:enabled:hover,
+      .react-calendar__tile--active:enabled:focus {
+        background: #006abf;
+      }
+
+      .react-calendar__tile:hover {
+        background-color: #c2e4ff;
+      }
+
+      .react-calendar__navigation button:enabled:hover,
+      .react-calendar__navigation button:enabled:focus {
+        border-radius: 0.8vh 0.8vh 0 0;
+        background-color: #ebebeb;
+      }
+    }
+  }
+`;
+
+export const Finalizar = styled.div`
+  margin-top: 7vh;
+  display: flex;
+  flex-direction: column;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+`;
+
+export const Confirmar = styled.div`
+  position: absolute;
+  top: 14vh;
+  left: 12vw;
+  width: 78vw;
+  height: 80vh;
+  display: none;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background-color: #fff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 0.8vh;
+
+  h1 {
+    background-color: #00579D;
+    color: white;
+    font-size: 3.6vh;
+    padding: 1.5vh;
+    padding-left: 8vh;
+    display: flex;
+    align-items: center;
+  }
 `;
