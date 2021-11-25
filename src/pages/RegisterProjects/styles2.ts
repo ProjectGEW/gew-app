@@ -4,10 +4,16 @@ import Popup from 'reactjs-popup';
 
 import styled, { css } from 'styled-components';
 
+import info from '../../assets/info.svg';
+
+interface ErrorProps {
+  localErro: any;
+}
+
 export const Container = styled.div`
-  height: 304vh;
-  max-height: 304vh;
-  min-height: 304vh;
+  height: 284vh;
+  max-height: 284vh;
+  min-height: 284vh;
   position: absolute;
   top: 14vh;
   left: 21vw;
@@ -23,9 +29,9 @@ export const Container = styled.div`
 
 export const ContainerRegister = styled.div`
   width: 60vw;
-  height: 298vh;
-  max-height: 298vh;
-  min-height: 298vh;
+  height: 278vh;
+  max-height: 278vh;
+  min-height: 278vh;
 
   display: flex;
   flex-direction: column;
@@ -158,23 +164,54 @@ export const Projetos = styled.div`
 
   /* Fim */
 
+  .info {
+    &::before {
+      content: '2';
+      z-index: 999;
+      width: 2vw;
+      height: 4vh;
+      background-color: red;
+      color: orange;
+      position: relative;
+    }
+  }
+
   h1 {
     font-size: 3.5vh;
     padding-bottom: 1.8vh;
-    border-bottom: 0.1vh solid #ebebeb;
+    border-bottom: 0.1vh solid #D1CFCF;
     color: #00579D;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    svg {
-      &:hover {
-        opacity: 0.95;
-        cursor: pointer;
-      }
+    span {
+      width: 1.5vw;
+      height: 3vh;
 
-      &:active {
-        opacity: 0.90;
+      background-size: cover;
+      background-position: center;
+      background-image: url(${info});
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        cursor: pointer;
+        
+        &::before {
+          content: 'Informações para identificação do projeto.';
+          position: absolute;
+          width: 20vw;
+          height: 2vh;
+          text-align: center;
+          background-color: #c2e4ff;
+          padding: 0.8vh;
+          border-radius: 0.5vh;
+          font-size: 1.8vh;
+          margin-top: -8vh;
+        }
       }
     }
   }
@@ -203,7 +240,7 @@ export const Projetos = styled.div`
         label {
           width: 14vw;
 
-          margin-top: 2.2vh;
+          margin-top: 1vh;
           background: #0090C5;
           border-radius: 0.8vh;
           color: #fff;
@@ -294,20 +331,39 @@ export const Responsavel = styled.div`
   h1 {
     font-size: 3.5vh;
     padding-bottom: 1.8vh;
-    border-bottom: 0.1vh solid #ebebeb;
+    border-bottom: 0.1vh solid #D1CFCF;
     color: #00579D;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    svg {
-      &:hover {
-        opacity: 0.95;
-        cursor: pointer;
-      }
+    span {
+      width: 1.5vw;
+      height: 3vh;
 
-      &:active {
-        opacity: 0.90;
+      background-size: cover;
+      background-position: center;
+      background-image: url(${info});
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        cursor: pointer;
+        
+        &::before {
+          content: 'Informações sobre o responsável e solicitante do projeto.';
+          position: absolute;
+          width: 26vw;
+          height: 2vh;
+          text-align: center;
+          background-color: #c2e4ff;
+          padding: 0.8vh;
+          border-radius: 0.5vh;
+          font-size: 1.8vh;
+          margin-top: -8vh;
+        }
       }
     }
   }
@@ -401,20 +457,39 @@ export const Gastos = styled.div`
   h1 {
     font-size: 3.5vh;
     padding-bottom: 1.8vh;
-    border-bottom: 0.1vh solid #ebebeb;
+    border-bottom: 0.1vh solid #D1CFCF;
     color: #00579D;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    svg {
-      &:hover {
-        opacity: 0.95;
-        cursor: pointer;
-      }
+    span {
+      width: 1.5vw;
+      height: 3vh;
 
-      &:active {
-        opacity: 0.90;
+      background-size: cover;
+      background-position: center;
+      background-image: url(${info});
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        cursor: pointer;
+        
+        &::before {
+          content: 'Informações sobre as despesas e C.C. do projeto.';
+          position: absolute;
+          width: 23vw;
+          height: 2vh;
+          text-align: center;
+          background-color: #c2e4ff;
+          padding: 0.8vh;
+          border-radius: 0.5vh;
+          font-size: 1.8vh;
+          margin-top: -8vh;
+        }
       }
     }
   }
@@ -685,6 +760,9 @@ interface FormDataProps {
 }
 
 export const Datas = styled.div<FormDataProps>`
+  height: 53vh;
+  max-height: 53vh;
+  min-height: 53vh;
   margin-top: 5vh;
   display: flex;
   flex-direction: column;
@@ -692,22 +770,41 @@ export const Datas = styled.div<FormDataProps>`
   h1 {
     font-size: 3.5vh;
     padding-bottom: 1.8vh;
-    border-bottom: 0.1vh solid #ebebeb;
+    border-bottom: 0.1vh solid #D1CFCF;
     color: #00579D;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    svg {
-      &:hover {
-        opacity: 0.95;
-        cursor: pointer;
-      }
+    span {
+      width: 1.5vw;
+      height: 3vh;
 
-      &:active {
-        opacity: 0.90;
+      background-size: cover;
+      background-position: center;
+      background-image: url(${info});
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        cursor: pointer;
+        
+        &::before {
+          content: 'Informações sobre o início, término e aprovação do projeto.';
+          position: absolute;
+          width: 27vw;
+          height: 2vh;
+          text-align: center;
+          background-color: #c2e4ff;
+          padding: 0.8vh;
+          border-radius: 0.5vh;
+          font-size: 1.8vh;
+          margin-top: -8vh;
+        }
       }
-    }    
+    }
   }
 
   #primeiraLinha {
@@ -716,7 +813,7 @@ export const Datas = styled.div<FormDataProps>`
     flex-direction: row;
     justify-content: space-between;
     margin-top: 2vh;
-    margin-left: 1.5vw;
+    margin-left: 1.2vw;
     padding: 1vh;
     border: 0.1vh solid #ebebeb;
     background-color: #f8f8f8;
@@ -840,34 +937,9 @@ export const Datas = styled.div<FormDataProps>`
   }
 `;
 
-interface ErrorProps {
-  localErro: any;
-}
-
-export const Error = styled.span<ErrorProps>`
-  color: #c53030;
-  margin-top: 1vh;
-  font-weight: bold;
-  text-transform: uppercase;
-  position: absolute;
-
-  ${props => props.localErro === 'inicio' && css`
-    margin-left: -18.2vw;
-  `}
-
-  ${props => props.localErro === 'aprovacao' && css`
-    margin-left: 12.5vw;
-  `}
-
-  ${props => props.localErro === 'fim' && css`
-    margin-left: -2.7vw;
-  `}
-
-  display: none;
-`;
-
 export const Finalizar = styled.div`
   margin-top: 7vh;
+  margin-right: 1.2vw;
   display: flex;
   flex-direction: column;
 
@@ -886,6 +958,44 @@ export const PopupModal = styled(Popup)`
     justify-content: center;
     align-items: center;
   }
+`;
+
+export const PopupTooltip = styled(Popup)`
+  &-content {
+    background: transparent;
+    animation: anvil 0.2s;
+  }
+
+  .popup-arrow {
+    color: #c2e4ff;
+    stroke-width: 1px;
+    stroke: rgba(0, 0, 0, 0.16);
+    stroke-dasharray: 30px;
+    stroke-dashoffset: -54px;
+  }
+
+  @keyframes anvil {
+    0% {
+      opacity: 0;
+      box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+    }
+  }
+`;
+
+export const Texto = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #c2e4ff;
+  padding: 1vh;
+  border-radius: 0.8vh;
+  font-size: 1.5vh;
+  font-weight: bold;
+  color: #00579D;
 `;
 
 export const ContainerPopup = styled.div`
@@ -1072,4 +1182,26 @@ export const BoxPopup = styled.div`
       }
     }
   }
+`;
+
+export const Error = styled.span<ErrorProps>`
+  color: #c53030;
+  margin-top: 1vh;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: absolute;
+
+  ${props => props.localErro === 'inicio' && css`
+    margin-left: -18.2vw;
+  `}
+
+  ${props => props.localErro === 'aprovacao' && css`
+    margin-left: 12.5vw;
+  `}
+
+  ${props => props.localErro === 'fim' && css`
+    margin-left: -2.7vw;
+  `}
+
+  display: none;
 `;

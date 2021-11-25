@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
+import api from '../../service/api';
+
+import { useDropzone } from "react-dropzone";
+
+import { vrfCampoComMsg } from '../../utils/confereCampo';
+import analisaValor from '../../utils/analisaValor';
+import tituloMenor from '../../utils/tituloMenor';
+
+import Paper from "@material-ui/core/Paper";
+
+import { errorfulNotify, warnNotify } from '../../hooks/SystemToasts';
 
 import MenuLeft from '../components/MenuLeft';
 import MenuRight from '../components/MenuRight';
@@ -11,20 +23,12 @@ import { ContIcons } from '../components/MenuRight/styles';
 import VoltarAoTopo from '../components/VoltarAoTopo';
 
 import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
-import { RiPauseCircleFill } from 'react-icons/ri';
 import { AiOutlineClockCircle, AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
 import { FaEquals } from 'react-icons/fa';
 
 import { Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
-Total, Table, Linha, Datas, Finalizar, PopupModal, ContainerPopup, BoxPopup } from './styles2';
-
-import { vrfCampoComMsg } from '../../utils/confereCampo';
-import api from '../../service/api';
-import { useState } from 'react';
-import { errorfulNotify, warnNotify } from '../../hooks/SystemToasts';
-import analisaValor from '../../utils/analisaValor';
-import { Error } from './styles';
+Total, Table, Linha, Datas, Finalizar, PopupModal, ContainerPopup, BoxPopup, Error } from './styles2';
 
 //Interfaces
 interface IProjetoInputDTO {
@@ -73,32 +77,32 @@ interface IFuncionarioResponse {
   secao: string;
 }
 
-  const infosProjeto = {
-    infoProjetosInputDTO: {
-      numeroDoProjeto: 0,
-      titulo: "",
-      descricao: "",
-      ata: "",
-      cracha_responsavel: 0,
-      cracha_solicitante: 0,
-      data_de_inicio: "",
-      data_de_termino: "",
-      data_de_aprovacao: ""
-    },
-    despesasInputDTOS: [
-      {
-        nome: "",
-        esforco: 0,
-        valor: 0
-      }
-    ],
-    ccPagantesInputDTO: [
-      {
-        secao_id: 0,
-        valor: 0
-      }
-    ]
-  }
+const infosProjeto = {
+  infoProjetosInputDTO: {
+    numeroDoProjeto: 0,
+    titulo: "",
+    descricao: "",
+    ata: "",
+    cracha_responsavel: 0,
+    cracha_solicitante: 0,
+    data_de_inicio: "",
+    data_de_termino: "",
+    data_de_aprovacao: ""
+  },
+  despesasInputDTOS: [
+    {
+      nome: "",
+      esforco: 0,
+      valor: 0
+    }
+  ],
+  ccPagantesInputDTO: [
+    {
+      secao_id: 0,
+      valor: 0
+    }
+  ]
+}
 
 const CadastroProjeto: React.FC = () => {
   infosProjeto.despesasInputDTOS.shift();
@@ -257,6 +261,22 @@ const CadastroProjeto: React.FC = () => {
     }
   }
 
+  //Ata
+  const [file, setFile] = useState<Blob>();
+  const [fileName, setFileName] = useState<string>('');
+
+  const onDrop = useCallback((acceptedFiles) => {
+    setFile(acceptedFiles[0]);
+    setFileName(acceptedFiles[0].name);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    multiple: false,
+    onDropAccepted: onDrop,
+  });
+
+  const { ref, ...rootProps } = getRootProps();
+
   //Setar informações
   function setarInformações(){
     infosProjeto.infoProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
@@ -266,7 +286,6 @@ const CadastroProjeto: React.FC = () => {
     <>
     <Navbar />
     <MenuLeft />
-    <h6 id="topo"/>
     <Container id="set-data">
       <ContainerRegister id="ContainerRegister">
         <Info>  
@@ -274,7 +293,7 @@ const CadastroProjeto: React.FC = () => {
         </Info>
         <Content id="content">
           <Projetos>
-            <h1>Descrição geral do projeto <FiInfo size={20}/></h1>
+            <h1>Descrição geral do projeto <span/></h1>
             <div id="primeiraLinha">
               <div>
                 <label htmlFor="">Número do projeto</label>
@@ -286,14 +305,16 @@ const CadastroProjeto: React.FC = () => {
               </div>
               <div>
                 <label htmlFor="">Número da ATA</label>
-                <input type="text" id="ataNome" onBlur={(props) => 
+                <input type="text" id="ataNome" defaultValue={fileName ? tituloMenor(fileName, fileName.length - 4, 'pdf') : ''} onBlur={(props) => 
                   vrfCampoComMsg(props.target.value, "ataNome", "ataResponse")}
                 />
                 <p id="ataResponse" className="msgErro"></p>
               </div>
               <div>
-                <label id="ata" htmlFor="ata">SELECIONAR ARQUIVO</label>
-                <input id="btnUpload" type="file" accept="application/pdf" />
+                <Paper elevation={0} {...rootProps}>
+                  <label id="ata" htmlFor="ata"  >{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                  <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
+                </Paper>
               </div>
             </div>
             <div id="segundaLinha">
@@ -314,12 +335,12 @@ const CadastroProjeto: React.FC = () => {
                 </div>
               </div>
               <div id="ladoDireito">
-                <iframe src="file:///C:/Users/Aluno/Documents/ATA_implantacao.pdf"></iframe>
+              {file ? <iframe src={file ? URL.createObjectURL(file) : file}/> : <iframe src={'null'}/>}
               </div>
             </div>
           </Projetos>
           <Responsavel>
-            <h1>Responsáveis pelo projeto <FiInfo size={20}/></h1>
+            <h1>Responsáveis pelo projeto <span/></h1>
             <div id="primeiraLinha">
               <h1>Responsável <FiRefreshCcw size={20}/></h1>
               <div>
@@ -356,7 +377,7 @@ const CadastroProjeto: React.FC = () => {
             </div>
           </Responsavel>
           <Gastos>
-            <h1>Despesas & Seções pagantes <FiInfo size={20}/></h1>
+            <h1>Despesas & Seções pagantes <span/></h1>
             <div id="primeiraLinha">
               <Table>
                 <div className="table">
@@ -367,14 +388,14 @@ const CadastroProjeto: React.FC = () => {
                 <div id="scroll">
                   {
                     despesas.map((exibe, index) => (
-                        <>
-                          <Linha id={`D${index+1}`} key={index}>
-                            <input type="text" id={`despesa${index+1}`} />
-                            <input type="number" id={`esforco${index+1}`} />
-                            <input type="number" id={`valor${index+1}`} />  
-                          </Linha>
-                        </>
-                      )) || ''
+                      <>
+                        <Linha id={`D${index+1}`} key={index}>
+                          <input type="text" id={`despesa${index+1}`} />
+                          <input type="number" id={`esforco${index+1}`} />
+                          <input type="number" id={`valor${index+1}`} />  
+                        </Linha>
+                      </>
+                    )) || ''
                   }
                 </div>
                 <Total>
@@ -424,7 +445,7 @@ const CadastroProjeto: React.FC = () => {
             </div>
           </Gastos>
           <Datas hasErrorAprovacao={!!inputErrorAprov} hasErrorFim={!!inputErrorFim} hasErrorInicio={!!inputErrorInit}>
-            <h1>Datas <FiInfo size={20}/></h1>
+            <h1>Datas <span/></h1>
             <div id="primeiraLinha">
               <div>
                 <label htmlFor="">Data de aprovação:</label>
@@ -478,7 +499,7 @@ const CadastroProjeto: React.FC = () => {
           <Finalizar>
             <PopupModal closeOnEscape trigger={
               <span id='button-holding'> 
-                <Button tipo={"continuarCadastro"} text={"Confirmar"} />
+                <Button tipo={"continuarCadastro"} text={"Continuar"} />
               </span>
             } modal>
               {(close: any) => (
@@ -594,7 +615,7 @@ const CadastroProjeto: React.FC = () => {
     </Container>
     {
       // Ativa botão para voltar pro topo da página
-      document.scrollingElement!?.scrollTop >= 480 ? <VoltarAoTopo idRedirect="#topo"/> : ''
+      window.innerHeight >= 780 ? <VoltarAoTopo/> : ''
     }
     <MenuRight>
       <ContIcons />
