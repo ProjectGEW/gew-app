@@ -8,6 +8,7 @@ interface buttonProps {
   tipo?: string;
   numeroProjeto?: number;
   teste?: IProjetos;
+  onClick?: () => void;
 }
 
 interface IProjetos {
@@ -36,7 +37,7 @@ interface ICCpagantes{
   valor: number;
 }
 
-const Button: React.FC<buttonProps> = ({text, rota, tipo, numeroProjeto}) => {
+const Button: React.FC<buttonProps> = ({text, rota, tipo, numeroProjeto, onClick}) => {
   function redirecionamentoDeRotas() {
     if(numeroProjeto != null) {
         return window.location.href = `http://localhost:3000/${rota}/${numeroProjeto}`;
@@ -51,7 +52,7 @@ const Button: React.FC<buttonProps> = ({text, rota, tipo, numeroProjeto}) => {
   
   return (
     <>
-      <Container tipo={tipo}><button onClick={redirecionamentoDeRotas}>{text}</button></Container>
+      <Container onClick={onClick} tipo={tipo}><button onClick={redirecionamentoDeRotas}>{text}</button></Container>
     </>
   );
  };
