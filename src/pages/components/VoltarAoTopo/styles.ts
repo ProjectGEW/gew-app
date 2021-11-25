@@ -8,12 +8,13 @@ export const Box = styled.a`
     align-items: center;
     position: fixed;
     overflow: hidden;
-    bottom: 35px;
+    bottom: 45px;
     right: 13vw;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     border-radius: 100vw;
     text-decoration: none;
     background-color: #fff;
+    display: none;
 
     svg {
         color: #00579D;
