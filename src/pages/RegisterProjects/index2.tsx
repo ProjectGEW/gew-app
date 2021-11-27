@@ -472,9 +472,30 @@ const CadastroProjeto: React.FC = () => {
                       despesas.map((exibe, index) => (
                         <>
                           <Linha id={`D${index + 1}`} key={index}>
-                            <input type="text" id={`despesa${index + 1}`} />
-                            <input type="number" id={`esforco${index + 1}`} />
-                            <input type="number" id={`valor${index + 1}`} />
+                            <input type="text" id={`despesa${index + 1}`} onBlur={(props) => {
+                              if (props.target.value === "") {
+                                props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                                errorfulNotify("O campo não pode estar vazio!");
+                                return;
+                              }
+                              props.target.style.border = "";
+                            }} />
+                            <input type="number" id={`esforco${index + 1}`} onBlur={(props) => {
+                              if (props.target.value === "") {
+                                props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                                errorfulNotify("O campo não pode estar vazio!");
+                                return;
+                              }
+                              props.target.style.border = "";
+                            }} />
+                            <input type="number" id={`valor${index + 1}`} onBlur={(props) => {
+                              if (props.target.value === "") {
+                                props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                                errorfulNotify("O campo não pode estar vazio!");
+                                return;
+                              }
+                              props.target.style.border = "";
+                            }} />
                           </Linha>
                         </>
                       )) || ''
