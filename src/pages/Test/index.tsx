@@ -1,3 +1,5 @@
+/* Arquivo para realizar testes gerais */
+
 import React, { useState, useCallback } from 'react';
 
 import MenuLeft from '../components/MenuLeft';
@@ -20,6 +22,7 @@ import './estiloPopup.css';
 import { successfulNotify } from '../../hooks/SystemToasts';
 
 import CardEsqueleto from '../components/CardProject/CardEsqueleto';
+import analisaValor from '../../utils/analisaValor';
 
 const Projects: React.FC = () => {
     const [file, setFile] = useState<Blob>();
@@ -96,6 +99,7 @@ const Projects: React.FC = () => {
             </Popup>
             <button onClick={() => window.location.replace("/projects")}>Teste rota</button>
             <button onClick={teste}>Testar localstorage</button>
+            <p>{analisaValor(0)}</p>
             <CardEsqueleto/>
         </Container>
         <MenuRight>

@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import Popup from 'reactjs-popup';
 
 import Lupa from '../../assets/lupa-graph.svg';
+import info from '../../assets/infoBranco.svg';
 
 export const Container = styled.div`
     position: absolute;
@@ -26,14 +27,14 @@ export const Liquid = styled.div`
     height: 80vh;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
 `;
 
 
 export const Lines = styled.div`
-    width: 54vw;
+    width: 60vw;
     height: 80vh;
 
     display: flex;
@@ -90,6 +91,10 @@ export const Title = styled.div`
         margin-top: 0;
         color: white;
         font-size: 2.6vh;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     span {
