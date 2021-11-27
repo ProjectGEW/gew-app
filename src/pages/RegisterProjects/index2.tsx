@@ -332,7 +332,22 @@ const CadastroProjeto: React.FC = () => {
     alert(1);
   }
 
-
+  async function cadastrarProjeto() {
+    try {
+      await api.post<IProjetoInputDTO>('projetos', projeto)
+        .then((response) => {
+          history.push('/projects')
+          successfulNotify('Projeto cadastrado com sucesso!');
+        })
+        .catch((e) => {
+          errorfulNotify('Não foi possivel cadastrar o projeto!');
+        })
+    } catch (e) {
+      console.log(`Error: ${e}`);
+      errorfulNotify('Não foi possivel realizar o cadastro do projeto!');
+    }
+  }
+  
   return (
     <>
       <Navbar />
