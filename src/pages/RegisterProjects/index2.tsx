@@ -7,7 +7,7 @@ import api from '../../service/api';
 
 import { useDropzone } from "react-dropzone";
 
-import { vrfCampoComMsg } from '../../utils/confereCampo';
+import { validacaoDosCamposCadastros, vrfCampoComMsg } from '../../utils/confereCampo';
 import analisaValor from '../../utils/analisaValor';
 import tituloMenor from '../../utils/tituloMenor';
 
@@ -79,7 +79,8 @@ interface IFuncionarioResponse {
   secao: string;
 }
 
-const infosProjeto = {
+const CadastroProjeto: React.FC = () => {
+  const infosProjeto = {
   infoProjetosInputDTO: {
     numeroDoProjeto: 0,
     titulo: "",
@@ -112,7 +113,6 @@ interface ISecao {
   }
 }
 
-const CadastroProjeto: React.FC = () => {
   infosProjeto.despesasInputDTOS.shift();
   infosProjeto.ccPagantesInputDTO.shift();
 
@@ -711,6 +711,12 @@ const CadastroProjeto: React.FC = () => {
                                 <label>Data de término:</label>
                                 <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_termino}</p>
                               </div>
+                              <button onClick={() => {
+                                if (validacaoDosCamposCadastros(despesas.length, ccPagante.length)) {
+                                  cadastrarProjeto();
+                                }
+                              }}>AAAA</button>
+                            </div>
                             </div>
                           </div>
                         </div>
