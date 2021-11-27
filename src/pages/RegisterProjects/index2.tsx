@@ -498,7 +498,7 @@ const CadastroProjeto: React.FC = () => {
           </Datas>
           <Finalizar>
             <PopupModal closeOnEscape trigger={
-              <span id='button-holding'> 
+              <span id='button-holding' > 
                 <Button tipo={"continuarCadastro"} text={"Continuar"} />
               </span>
             } modal>

@@ -1,3 +1,5 @@
+/* PopUps de sucesso, aviso e erro */
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
