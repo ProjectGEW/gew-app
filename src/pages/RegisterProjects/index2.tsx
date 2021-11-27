@@ -412,7 +412,15 @@ const CadastroProjeto: React.FC = () => {
                 <div>
                   <div>
                     <label htmlFor="cracha_responsavel">Crachá</label>
-                    <input type="number" id="cracha_responsavel" onBlur={(props) => buscarInfosFuncionario(props.target.value, "responsavel")} />
+                    <input type="number" id="cracha_responsavel" onBlur={(props) => {
+                        if (props.target.value === "") {
+                          props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                          errorfulNotify("O campo não pode estar vazio!");
+                          return;
+                        }
+                        props.target.style.border = "";
+                        buscarInfosFuncionario(props.target.value, "responsavel");
+                      }} />
                   </div>
                   <div>
                     <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20} /></label>
@@ -429,7 +437,15 @@ const CadastroProjeto: React.FC = () => {
                 <div>
                   <div>
                     <label htmlFor="cracha_solicitante">Crachá</label>
-                    <input type="text" id="cracha_solicitante" onBlur={(props) => buscarInfosFuncionario(props.target.value, "solicitante")} />
+                    <input type="text" id="cracha_solicitante" onBlur={(props) => {
+                      if (props.target.value === "") {
+                        props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                        errorfulNotify("O campo não pode estar vazio!");
+                        return;
+                      }
+                      props.target.style.border = "";
+                      buscarInfosFuncionario(props.target.value, "solicitante");
+                    }} />
                   </div>
                   <div>
                     <label htmlFor="nome_solicitante">Nome <FiInfo id="iconNomeSolicitante" size={20} /></label>
