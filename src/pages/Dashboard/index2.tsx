@@ -104,6 +104,11 @@ const Dashboard: React.FC = () => {
             .then((response => {
                 setSecoes(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+
+            await api.get<ISecoes[]>(`secoes`)
+            .then((response => {
+                setSecoes(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
         } catch(e) {
             console.log(e);
         }

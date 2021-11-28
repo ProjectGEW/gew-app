@@ -41,7 +41,7 @@ const Login: React.FC<InputProps> = ({name, icon: Icon, text, ...rest}) => {
     return (
        <>
         <User isErrored={!!error} isFocused={isFocused} isFilled={isFilled}>
-            <input required onFocus={handleInputFocus} defaultValue={defaultValue} onBlur={handleInputBlur} ref={inputRef} {...rest} />
+            <input onFocus={handleInputFocus} defaultValue={defaultValue} onBlur={handleInputBlur} ref={inputRef} {...rest} />
             {error && (
                 <Error title={error}>
                     <FiAlertCircle color="#c53030" size={20} />

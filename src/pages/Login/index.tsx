@@ -82,18 +82,18 @@ const Login: React.FC = () => {
                 <Line />
                 <img src={WEG} alt="logo"/>
                 <ContainerBottom id="container-login">
-                <Form ref={formRef} onSubmit={handleSubmit}>
-                    <ContainerInput>
-                        <Input type="text" name="email" placeholder="" text="Usuário"/>
-                    </ContainerInput>
-                    <ContainerInput>
-                        <Input type="password" name="senha" placeholder="" text="Senha" autoComplete="off"/>
-                    </ContainerInput>     
-                    <ContainerBtn>
-                        <button type="submit">entrar</button>
-                        <p onClick={() => trocar("true")}>Esqueceu sua senha?</p>
-                    </ContainerBtn>
-                </Form>
+                    <Form ref={formRef} onSubmit={handleSubmit}>
+                        <ContainerInput>
+                            <Input type="text" name="email" placeholder="" text="Usuário"/>
+                        </ContainerInput>
+                        <ContainerInput>
+                            <Input type="password" name="senha" placeholder="" text="Senha" autoComplete="off"/>
+                        </ContainerInput>     
+                        <ContainerBtn>
+                            <button type="submit">entrar</button>
+                            <p onClick={() => trocar("true")}>Esqueceu sua senha?</p>
+                        </ContainerBtn>
+                    </Form>
                 </ContainerBottom>
                 <ContainerBottom id="container-pwd">
                     <div>

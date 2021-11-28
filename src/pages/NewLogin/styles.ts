@@ -1,5 +1,9 @@
 import styled from 'styled-components';
+
 import { shade } from 'polished';
+
+import Popup from 'reactjs-popup';
+
 import wegImage from '../../assets/weg_banner_img.jpg';
 import wegLogo from '../../assets/weg.svg';
 import email from '../../assets/email.svg';
@@ -21,7 +25,7 @@ export const ContainerInput = styled.div`
             background-image: url(${email});
             background-size: cover;
             position: absolute;
-            margin: 1.2vh 0 0 20vw;
+            margin: 1vh 0 0 20vw;
             color: #005DA5;
         }
     }
@@ -34,7 +38,7 @@ export const ContainerInput = styled.div`
             background-image: url(${lock});
             background-size: cover;
             position: absolute;
-            margin: 1.2vh 0 0 20vw;
+            margin: 1vh 0 0 20vw;
             color: #005DA5;
         }
     }
@@ -116,8 +120,8 @@ export const SideContainer = styled.div`
     margin: -120vh 0 0 50vw;
     
     .logo {
-        width: 10vw;
-        height: 14vh;
+        width: 8vw;
+        height: 11vh;
         margin: 5vh 10vh 0 0;
         background-image: url(${wegLogo});
         background-size: cover;
@@ -297,7 +301,11 @@ export const ContainerBtn = styled.div`
 
         &:hover {
             cursor: pointer;
-            background-color: ${shade(0.1, 'rgb(0, 79, 139)')}
+            background-color: ${shade(0.06, '#005DA5')}
+        }
+
+        &:active {
+            background-color: ${shade(0.12, '#005DA5')}
         }
     }
 
@@ -309,7 +317,66 @@ export const ContainerBtn = styled.div`
         
         &:hover {
             cursor: pointer;
-            color: ${shade(0.01, 'rgb(0, 79, 139)')}
+            color: ${shade(0.03, '#005DA5')}
         }
+
+        &:active {
+            color: ${shade(0.09, '#005DA5')}
+        }
+    }
+`;
+
+export const PopupTooltip = styled(Popup)`
+    &-content {
+        background: transparent;
+        animation: anvil 0.2s;
+        margin-left: 0.2vw;
+    }
+
+    .popup-arrow {
+        color: #c2e4ff;
+        stroke-width: 1px;
+        stroke: rgba(0, 0, 0, 0.16);
+        stroke-dasharray: 30px;
+        stroke-dashoffset: -54px;
+    }
+
+    @keyframes anvil {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+`;
+
+export const ContainerPopUp = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const PopUp = styled.div`
+    width: 20vw;
+    height: 6vh;
+    background: #c2e4ff;
+    border-radius: 0.8vh;
+    overflow: hidden;
+
+    font-size: 2.5vh;
+    font-weight: bold;
+    color: #00579D;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 3px;
+    text-align: center;
+
+    p {
+        padding: 1vh;
+        font-size: 1.8vh;
     }
 `;

@@ -28,13 +28,20 @@ export const User = styled.div<ContainerProps>`
     border-radius: 0;
 
     ${props => props.isFocused && css`
-        color: #228B22;
         border-color: #00579D;
-        transition: all 0.2s;        
+        transition: all 0.2s;       
+
+        label {
+            transform: scale(0.9) translateY(-100%) translateX(-3vh); 
+        }
     `}
 
     ${props => props.isFilled && css`
         color: #228B22;
+
+        label {
+            transform: scale(0.9) translateY(-100%) translateX(-3vh); 
+        }
     `}
 
     ${props => props.isErrored && css`
@@ -67,14 +74,6 @@ export const User = styled.div<ContainerProps>`
             font-weight: bold;
             z-index: 0;
             transition: all 0.2s;
-        }
-
-        &:focus ~ label {
-            transform: scale(0.9) translateY(-100%) translateX(-3vh);
-        }
-
-        &:valid ~ label {
-            transform: scale(0.9) translateY(-100%) translateX(-3vh);
         }
     }
 `;

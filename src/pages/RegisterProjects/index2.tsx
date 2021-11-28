@@ -13,7 +13,7 @@ import tituloMenor from '../../utils/tituloMenor';
 
 import Paper from "@material-ui/core/Paper";
 
-import { errorfulNotify, warnNotify } from '../../hooks/SystemToasts';
+import { successfulNotify, errorfulNotify, warnNotify } from '../../hooks/SystemToasts';
 
 import MenuLeft from '../components/MenuLeft';
 import MenuRight from '../components/MenuRight';
@@ -336,7 +336,7 @@ interface ISecao {
     try {
       await api.post<IProjetoInputDTO>('projetos', projeto)
         .then((response) => {
-          history.push('/projects')
+          //history.push('/projects')
           successfulNotify('Projeto cadastrado com sucesso!');
         })
         .catch((e) => {
@@ -716,7 +716,6 @@ interface ISecao {
                                   cadastrarProjeto();
                                 }
                               }}>AAAA</button>
-                            </div>
                             </div>
                           </div>
                         </div>

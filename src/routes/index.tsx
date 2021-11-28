@@ -23,7 +23,7 @@ import NewLogin from '../pages/NewLogin';
 const Routes: React.FC = () => (
     <Switch>
         {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
-        <Route path="/oldlogin" component={Login}/>
+        <Route path="/" exact component={NewLogin}/>
         <Route path="/home" component={Menu} />
         <Route path="/projects" component={Projects} />
         <Route path="/register_projects" component={CadastroProjeto} />
@@ -37,8 +37,7 @@ const Routes: React.FC = () => (
         <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} />
         <Route path="/edit/:nm" component={Edit} />
         {/* Área para testes */}
-        <Route path="/novocadastro" component={CadastroProjeto} />
-        <Route path="/" exact component={NewLogin}/>
+        <Route path="/oldlogin" component={Login}/>
         <Route path="/test" component={Test} />
         <Route path="/test2" component={Test2} />
     </Switch>

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const Box = styled.a`
-    width: auto;
-    height: auto;
+export const Box = styled.div`
+    width: 4vw;
+    height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,14 +10,17 @@ export const Box = styled.a`
     overflow: hidden;
     bottom: 45px;
     right: 13vw;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    border-radius: 100vw;
-    text-decoration: none;
-    background-color: #fff;
+    background-color: transparent;
     display: none;
-
+    
     svg {
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        border-radius: 100%;
+        background-color: #fff;
         color: #00579D;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &:hover {
             cursor: pointer;

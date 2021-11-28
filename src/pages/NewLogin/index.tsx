@@ -10,8 +10,8 @@ import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../components/InputPrimary';
 
-import { ContainerBtn, ContainerInput, Rectangle, Section,
-     Image, SideContainer, LoginContainer } from './styles';
+import { ContainerBtn, ContainerInput, Rectangle, Section, Image, SideContainer, LoginContainer,
+    PopupTooltip, ContainerPopUp, PopUp } from './styles';
 
 interface SingInFormData {
     email: string;
@@ -61,47 +61,40 @@ const NewLogin: React.FC = () => {
       }
   }, [history, singIn]);
 
-  const trocar = (x: String) => {
-      if(x === "true") {
-        document.getElementById("container-login")!.style.display = "none";
-        document.getElementById("container-pwd")!.style.display = "block";
-        x = "false";
-      } else if(x === "false") {
-        document.getElementById("container-login")!.style.display = "block";
-        document.getElementById("container-login")!.style.display = "flex";
-        document.getElementById("container-pwd")!.style.display = "none";
-        x = "true";
-    }
-  } 
-
     return (
         <>
         <Section>
-        <Rectangle>
-          <div className="textBox">
-            <h1>GEW</h1>
-            <h2>Gestão de Projetos para Controle de Desenvolvimento de Software</h2>
-          </div>
-          <Image />
-        </Rectangle>
-        <SideContainer>
-            <div className="logo" ></div>
-            <LoginContainer>
-                <h1>Login</h1>
-                <Form ref={formRef} onSubmit={handleSubmit}>
-                    <ContainerInput>
-                        <Input type="text" name="email" placeholder="" text="Usuário" />
-                    </ContainerInput>
-                    <ContainerInput>
-                        <Input type="password" name="senha" placeholder="" text="Senha" autoComplete="off"/>
-                    </ContainerInput>     
-                    <ContainerBtn>
-                        <button type="submit">entrar</button>
-                        <p onClick={() => trocar("true")}>Esqueceu sua senha?</p>
-                    </ContainerBtn>
-                </Form>
-            </LoginContainer>
-        </SideContainer>
+            <Rectangle>
+                <div className="textBox">
+                    <h1>GEW</h1>
+                    <h2>Gestão de Projetos para Controle de Desenvolvimento de Software</h2>
+                </div>
+                <Image />
+            </Rectangle>
+            <SideContainer>
+                <div className="logo"/>
+                <LoginContainer id="containerLogin">
+                    <h1>Login</h1>
+                    <Form ref={formRef} onSubmit={handleSubmit}>
+                        <ContainerInput>
+                            <Input type="text" name="email" placeholder="" text="Usuário" />
+                        </ContainerInput>
+                        <ContainerInput>
+                            <Input type="password" name="senha" placeholder="" text="Senha" autoComplete="off"/>
+                        </ContainerInput>     
+                        <ContainerBtn>
+                            <button type="submit">entrar</button>
+                            <PopupTooltip trigger={<p>Esqueceu sua senha?</p>} position="top center" on={['hover']}>
+                                <ContainerPopUp>
+                                    <PopUp>
+                                        <p>Entre em contato com algum administrador do sistema para redefinir sua senha.</p>
+                                    </PopUp>
+                                </ContainerPopUp>
+                            </PopupTooltip>
+                        </ContainerBtn>
+                    </Form>
+                </LoginContainer>
+            </SideContainer>
         </Section>
         </>
     );
