@@ -17,7 +17,7 @@ import Test2 from '../pages/test2';
 import ProjectsList from '../pages/Consultants/ProjectsList';
 import ConsultantList from '../pages/Consultants/ConsultantsList';
 import ConsultantProfile from '../pages/Consultants/ConsultantProfile';
-import Edit from '../pages/EditProjects/Edit';
+import Edit from '../pages/EditProjects/Edit/index2';
 import NewLogin from '../pages/NewLogin';
 
 const Routes: React.FC = () => (
