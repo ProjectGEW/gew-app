@@ -327,7 +327,7 @@ interface ISecao {
 
   async function buscarResponsavelSecao(idSecao: string, index:number) {
     await api.get<ISecao>(`secoes/${idSecao}`).then((response) => 
-      (document.getElementById(`responsavel${index}`) as HTMLInputElement).value = response.data.responsavel.nome
+      (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = response.data.responsavel.nome
     );
     alert(1);
   }
