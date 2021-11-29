@@ -640,7 +640,7 @@ return (
     </div>
   </BoxConfirm> 
 
-  <MenuRight>
+  <MenuRight numeroDoProjeto={Number(nm)}>
     <ContIcons />
   </MenuRight>
 </>

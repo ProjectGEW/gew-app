@@ -762,7 +762,7 @@ const EditarProjeto: React.FC = () => {
                                 <p>{analisaValor(0)}</p>
                               </div>
                               <div>
-                                <label>Valor total Seções pagantes</label>
+                                <label>Valor total</label>
                                 <p>{analisaValor(0)}</p>
                               </div>
                             </div>
@@ -812,7 +812,7 @@ const EditarProjeto: React.FC = () => {
         // Ativa botão para voltar pro topo da página
         window.innerHeight >= 780 ? <VoltarAoTopo /> : ''
       }
-      <MenuRight>
+      <MenuRight numeroDoProjeto={Number(nm)}>
         <ContIcons />
       </MenuRight>
     </>

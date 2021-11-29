@@ -19,12 +19,17 @@ export default createGlobalStyle`
     display: none;
   }
   
-  body, input, button {
+  body, input, button, textarea {
     font: 16px Roboto, sans-serif;
   }
  
   input[type=number]::-webkit-inner-spin-button { 
     -webkit-appearance: none;
+  }
+
+  ::-ms-reveal {
+    display: none;
+    //margin-right: 3vw;
   }
 
   button {

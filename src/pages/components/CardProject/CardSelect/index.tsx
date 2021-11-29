@@ -24,7 +24,7 @@ interface IProjeto {
     infoprojetoDTO: {
         numeroDoProjeto: number;
         titulo: string;
-        status: string;
+        statusProjeto: string;
         secao: string;
     };
     valoresTotaisDTO: {
@@ -61,7 +61,7 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
         <>
         <Link href={`http://localhost:3000/consultants/${numeroDoProjeto}`}>
             <Card>
-                <CardStatus statusColor={projeto ? projeto.infoprojetoDTO.status : ""}/>
+                <CardStatus statusColor={projeto ? projeto.infoprojetoDTO.statusProjeto : ""}/>
                 <CardBox>
                 <BoxLeft>
                     <div>

@@ -80,7 +80,7 @@ const NewLogin: React.FC = () => {
                             <Input type="text" name="email" placeholder="" text="Usuário" />
                         </ContainerInput>
                         <ContainerInput>
-                            <Input type="password" name="senha" placeholder="" text="Senha" autoComplete="off"/>
+                            <Input type="password"  name="senha" placeholder="" text="Senha" autoComplete="off"/>
                         </ContainerInput>     
                         <ContainerBtn>
                             <button type="submit">entrar</button>

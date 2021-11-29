@@ -691,7 +691,7 @@ interface ISecao {
                                 <p>{analisaValor(valorDespesa || 0)}</p>
                               </div>
                               <div>
-                                <label>Valor total Seções pagantes</label>
+                                <label>Valor total</label>
                                 <p>{analisaValor(valorSecoesPagantes || 0)}</p>
                               </div>
                             </div>
@@ -711,12 +711,14 @@ interface ISecao {
                                 <label>Data de término:</label>
                                 <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_termino}</p>
                               </div>
-                              <button onClick={() => {
-                                if (validacaoDosCamposCadastros(despesas.length, ccPagante.length)) {
-                                  cadastrarProjeto();
-                                }
-                              }}>AAAA</button>
                             </div>
+                          </div>
+                          <div className="final">
+                            <button onClick={() => {
+                              if (validacaoDosCamposCadastros(despesas.length, ccPagante.length)) {
+                                cadastrarProjeto();
+                              }
+                            }}>Finalizar</button>
                           </div>
                         </div>
                       </div>

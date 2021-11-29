@@ -89,8 +89,19 @@ const Dashboard: React.FC = () => {
     });
     
     const { id }: { id: string }  = useParams();
+
     const [projetos, setProjetos] = useState<CardContent[]>([]);
+    const [global, setGlobal] = useState<CardContent[]>([]);
+
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
+
+    const [contagemVerba14, setContagemVerba14] = useState('');
+    const [contagemVerba28, setContagemVerba28] = useState('');
+    const [contagemVerbaGeral, setContagemVerbaGeral] = useState('');
+    const [contagemVerbaDoProjeto, setContagemVerbaDoProjeto] = useState('');
+
+    const [statusAtual, setStatusAtual] = useState('');
+    const [secaoAtual, setSecaoAtual] = useState('');
     const [status, setStatus] = useState('');
 
     async function handleProject() {
@@ -98,6 +109,7 @@ const Dashboard: React.FC = () => {
             await api.get<CardContent[]>(`projetos`)
             .then((response => {
                 setProjetos(response.data); 
+                setGlobal(response.data);
             })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
 
             await api.get<ISecoes[]>(`secoes`)
@@ -105,10 +117,25 @@ const Dashboard: React.FC = () => {
                 setSecoes(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
 
-            await api.get<ISecoes[]>(`secoes`)
+            await api.get(`projetos/count/0`)
             .then((response => {
-                setSecoes(response.data); 
-            })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+                setContagemVerbaGeral(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas."));
+
+            await api.get(`projetos/count/14`)
+            .then((response => {
+                setContagemVerba14(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas nos últimos 14 dias."));
+
+            await api.get(`projetos/count/28`)
+            .then((response => {
+                setContagemVerba28(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas nos últimos 28 dias."));
+
+            await api.get(`projetos/count/verba/${id ? id : 0}`)
+            .then((response => {
+                setContagemVerbaDoProjeto(response.data); 
+            })).catch(() => errorfulNotify(`Não foi possível encontrar a contagem de verbas do projeto ${id ? id : 0}.`));
         } catch(e) {
             console.log(e);
         }
@@ -118,91 +145,47 @@ const Dashboard: React.FC = () => {
         handleProject();
     },[]);
 
+    function filtraDadosPorStatus(status: string) {
+        setStatusAtual(status);
+        const separaProjetos = projetos.filter(res => res.infoprojetoDTO.statusProjeto === status);
 
-    function defineStatus(valor: string) {
-        var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
+        var btns = ["todos", "concluidos", "atrasados", "em_andamento"];
 
         for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
-        //setStatus(valor);
-
-        if(valor === "concluidos") {
-            document.getElementById(valor)!.style.backgroundColor = "#adffb0";
-        } else if (valor === "atrasados") {
-            document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
-        } else if (valor === "em_andamento") {
-            document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
-        } else if (valor === "") {
-            document.getElementById(btns[0])!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+        if(status === "concluidos") {
+            document.getElementById(status)!.style.backgroundColor = "#adffb0";
+        } else if (status === "atrasados") {
+            document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
+        } else if (status === "em_andamento") {
+            document.getElementById(status)!.style.backgroundColor = "#c2e4ff";
+        } else if (status === "") {
+            document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
         }
+
+        if(secaoAtual.length > 0) {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.infoprojetoDTO.secao === secaoAtual);
+            setProjetos(separaPorStatusSecao);
+            return;
+        }
+        setProjetos(separaProjetos);
     }
 
-    async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
-        event.preventDefault();
+    const filtraDadosPorSecao = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSecaoAtual(event.target.value);
+        const separaProjetos = projetos.filter(res => res.infoprojetoDTO.secao === event.target.value);
 
-        let statusteste = '';
-        var resultado = '';
-
-        if (document.activeElement) {
-            statusteste = document.activeElement?.id;
-        } else {
-            statusteste = status;
+        if(statusAtual.length > 0) {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.infoprojetoDTO.statusProjeto === statusAtual);
+            setProjetos(separaPorStatusSecao);
+            return;
         }
-
-        if (selectedOption !== 'Todos') {
-            if (statusteste === 'Todos') {
-                resultado = `projetos/secao/` + selectedOption;
-            } else if (statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/` + selectedOption;
-            }
-            const response = await api.get<CardContent[]>(resultado);
-            const data = response.data;
-            setProjetos(data);
-
-        } else if (selectedOption === 'Todos') {
-            if (statusteste === 'Todos') {
-                resultado = `projetos`;
-            } else if (statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/Todos`;
-            }
-            const response = await api.get<CardContent[]>(resultado);
-            const data = response.data;
-            setProjetos(data);
-        }
+        setProjetos(separaProjetos);
     }
 
-    const [selectedOption, setSelectedOption] = useState('Todos');
-
-    const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = event.target.value;
-        var resultado = '';
-
-        setSelectedOption(value);
-
-        if (value !== 'Todos') {
-            if (status === '') {
-                resultado = `projetos/secao/` + value;
-            } else if (status !== '') {
-                resultado = `projetos/` + status + `/` + value;
-            }
-            const responsePorSecao = await api.get<CardContent[]>(resultado);
-            const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);
-
-        } else if (value === 'Todos') {
-            if (status === '') {
-                resultado = `projetos`;
-            } else if (status !== '') {
-                resultado = `projetos/` + status + `/Todos`;
-            }
-            const responsePorSecao = await api.get<CardContent[]>(resultado);
-            const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);
-        }
-    };
-
+    
     
     const data = {
         labels: [0],
@@ -258,34 +241,35 @@ const Dashboard: React.FC = () => {
                         <Filtros>
                             <div>
                                 <label>Seção:</label>
-                                <select id="filtroSecao" name="secao" onChange={selectChange}>
+                                <select id="filtroSecao" name="secao" onChange={filtraDadosPorSecao}>
                                     <option value="Todos">Todos</option>
                                     {
-                                        secoes ? secoes.map(secoes =><option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
-                                        :'Nenhuma seção foi encontrada'
+                                        secoes ? secoes.map(secoes =>
+                                            <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
+                                        : 'Nenhuma seção foi encontrada'
                                     }
                                 </select>
                             </div>  
                             <div>
                                 <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                                <form onSubmit={filtraPorStatus}>
-                                    <button type="submit" id="Todos" className="0"
-                                        onClick={() => defineStatus('')}>
+                                <div>
+                                    <button type="submit" id="todos" className="0"
+                                        onClick={() => filtraDadosPorStatus('')}>
                                         {intl.get('tela_projetos.filtros.options.todos')}
                                     </button>
                                     <button type="submit" id="em_andamento" className="1"
-                                        onClick={() => defineStatus('em_andamento')}>
+                                        onClick={() => filtraDadosPorStatus('em_andamento')}>
                                         {intl.get('tela_projetos.filtros.options.emandamento')}
                                     </button>
                                     <button type="submit" id="atrasados" className="2"
-                                        onClick={() => defineStatus('atrasados')}>
+                                        onClick={() => filtraDadosPorStatus('atrasados')}>
                                         {intl.get('tela_projetos.filtros.options.atrasado')}
                                     </button>
                                     <button type="submit" id="concluidos" className="3"
-                                        onClick={() => defineStatus('concluidos')}>
+                                        onClick={() => filtraDadosPorStatus('concluidos')}>
                                         {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
-                                </form>
+                                </div>
                             </div>               
                         </Filtros> 
                         :
