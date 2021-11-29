@@ -67,6 +67,7 @@ interface ICCpagantesInput {
 interface IFuncionarioResponse {
   infosFuncionarioDTO: {
     nome: string;
+    numero_cracha: number;
   };
   secao: string;
 }
@@ -92,6 +93,7 @@ interface IProjeto {
 }
 
 interface IFuncionario {
+  numero_cracha: number;
   nome:string;
 }
 interface IDespesas {
@@ -118,6 +120,7 @@ interface ISecoes{
 }
 
 interface ISecao {
+  nome: string;
   responsavel: {
     nome: string;
   }
@@ -163,7 +166,6 @@ const EditarProjeto: React.FC = () => {
 
     const [secaoSolicitante, setSecaoSolicitante] = useState('');
     const [secaoResponsavel, setSecaoResponsavel] = useState('');
-    const [secoes, setSecoes] = useState<ISecoes[]>([]);
 
     async function handleProject() {
       try {
@@ -175,19 +177,9 @@ const EditarProjeto: React.FC = () => {
             setDataInicio(response.data.infoprojetoDTO.data_de_inicio);
             setDataFim(response.data.infoprojetoDTO.data_de_termino);
             setDataAprovacao(response.data.infoprojetoDTO.data_de_aprovacao);
+            buscarInfosFuncionario(String(response.data.infoprojetoDTO.responsavel.numero_cracha), "responsavel");
+            buscarInfosFuncionario(String(response.data.infoprojetoDTO.solicitante.numero_cracha), "solicitante");
           })).catch(() => errorfulNotify("Não foi possível encontrar este projeto."));
-      } catch(e) {
-      console.log(e);
-      }
-    }
-
-    console.log(ccPagante);
-
-    async function handleSecoes() {
-      try {
-        await api.get<ISecoes[]>(`secoes`)
-          .then((response => {setSecoes(response.data)}))
-          .catch(() => errorfulNotify("Não foi possível encontrar esta seção."));
       } catch(e) {
       console.log(e);
       }
@@ -195,7 +187,6 @@ const EditarProjeto: React.FC = () => {
 
     useEffect(() => {
       handleProject();
-      handleSecoes();
     },[]);
 
     // Obriga a colocar uma ATA (PDF)
@@ -256,15 +247,6 @@ const EditarProjeto: React.FC = () => {
   });
 
   const { ref, ...rootProps } = getRootProps();
-
-  var setarEConfirmar = ["set-data", "confirm-data"];
-
-  function trocarMainEtapa(proxMainEtapa: string) {
-    for(let i = 0; i < setarEConfirmar.length; i ++) {
-      document.getElementById(setarEConfirmar[i])!.style.display = "none";
-    }
-    document.getElementById(proxMainEtapa)!.style.display = "flex";
-  }
 
   const [sEsforco, setSEsforco] = useState<number>();
   const [sValorDespesa, setValorDespesa] = useState<number>();
@@ -358,29 +340,6 @@ const EditarProjeto: React.FC = () => {
     }
   }
 
-  async function handleSecao(nome: string, campo: string){ 
-    try {
-      await api.get<ISecaoResponse>(`secoes/nome/${nome}`)
-      .then((response => {
-        (document.getElementById(campo) as HTMLInputElement).value = response.data.nome;
-
-        if (campo === "secao_solicitante"){
-          setSecaoSolicitante(response.data.nome);
-        }
-        if (campo === "secao_responsavel"){
-          setSecaoResponsavel(response.data.nome);
-        }
-      }))
-      .catch((e) => {
-        if((document.getElementById(campo) as HTMLInputElement).value !== ""){
-          errorfulNotify("Nome informado inválido");
-        }
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   //Setar nome e secao na parte de responsavel e solicitante
   const [responavel, setResponsavel] = useState<IFuncionarioResponse>();
   const [solicitante, setSolicitante] = useState<IFuncionarioResponse>();
@@ -403,9 +362,8 @@ const EditarProjeto: React.FC = () => {
 
   async function buscarResponsavelSecao(idSecao: string, index:number) {
     await api.get<ISecao>(`secoes/${idSecao}`).then((response) => 
-      (document.getElementById(`responsavel${index}`) as HTMLInputElement).value = response.data.responsavel.nome
+      (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = response.data.responsavel.nome
     );
-    alert(1);
   }
 
   //Setar informações
@@ -533,21 +491,15 @@ const EditarProjeto: React.FC = () => {
                         }
                         props.target.style.border = "";
                         buscarInfosFuncionario(props.target.value, "responsavel");
-                      }} defaultValue={projetoEdit?.infoprojetoDTO.responsavel.nome || ''} />
+                      }} defaultValue={responavel?.infosFuncionarioDTO.numero_cracha || ''} />
                   </div>
                   <div>
                     <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20} /></label>
-                    <input type="text" id="nome_responsavel" defaultValue={projetoEdit?.infoprojetoDTO.responsavel.nome || ''}
-                      onBlur={(props) => {
-                      if (props.target.value !== "") {
-                        handleSecao(props.target.value, "secao_responsavel"); 
-                      }
-                      vrfCampoComMsg(props.target.value, "nome_responsavel", "responsavelResponse");}} disabled
-                    />
+                    <input type="text" id="nome_responsavel" defaultValue={responavel?.infosFuncionarioDTO.nome || ''} disabled />
                   </div>
                   <div>
                     <label htmlFor="secao_responsavel">Seção <FiInfo id="iconSecaoResponsavel" size={20} /></label>
-                    {secoes.filter(retorna => retorna.responsavel.nome === projetoEdit?.infoprojetoDTO.responsavel.nome).map((exibe, index) => <input key={index} type="text" id="secao_responsavel" defaultValue={exibe.nome || ''} disabled/>)}
+                    <input type="text" id="secao_responsavel" defaultValue={responavel?.secao || ''} disabled/>
                   </div>
                 </div>
               </div>
@@ -564,21 +516,15 @@ const EditarProjeto: React.FC = () => {
                       }
                       props.target.style.border = "";
                       buscarInfosFuncionario(props.target.value, "solicitante");
-                    }} />
+                    }} defaultValue={solicitante?.infosFuncionarioDTO.numero_cracha || ''}/>
                   </div>
                   <div>
                     <label htmlFor="nome_solicitante">Nome <FiInfo id="iconNomeSolicitante" size={20} /></label>
-                    <input type="text" id="nome_solicitante" defaultValue={projetoEdit?.infoprojetoDTO.solicitante.nome || ''}
-                      onBlur={(props) =>  {
-                      if (props.target.value !== "") {
-                        handleSecao(props.target.value, "secao_solicitante");
-                      }
-                      vrfCampoComMsg(props.target.value, "nome_solicitante", "solicitanteResponse");}}
-                    />
+                    <input type="text" id="nome_solicitante" defaultValue={solicitante?.infosFuncionarioDTO.nome || ''} />
                   </div>
                   <div>
                     <label htmlFor="secao_solicitante">Seção <FiInfo id="iconSecaoSolicitante" size={20} /></label>
-                    {secoes.filter(retorna => retorna.responsavel.nome === projetoEdit?.infoprojetoDTO.solicitante.nome).map((exibe, index) => <input key={index} type="text" id="secao_solicitante" defaultValue={exibe.nome || ''} disabled/>)}
+                    <input type="text" id="secao_solicitante" defaultValue={solicitante?.secao || ''} disabled/>
                   </div>
                 </div>
               </div>
@@ -594,15 +540,37 @@ const EditarProjeto: React.FC = () => {
                   </div>
                   <div id="scroll">
                   {
-                    despesas.map((exibe, index) => (
-                        <Linha id={`D${index+1}`} key={index}>
-                          <input type="text" id={`despesa${index+1}`} defaultValue={exibe.nome || ''}/>
-                          <input type="number" id={`esforco${index+1}`} defaultValue={exibe.esforco || ''}/>
-                          <input type="number" id={`valor${index+1}`} defaultValue={exibe.valor || ''}/>
-                        </Linha>
-                        )) 
-                    || ''
-                  }
+                      despesas.map((exibe, index) => (
+                        <>
+                          <Linha id={`D${index + 1}`} key={index}>
+                            <input type="text" id={`despesa${index + 1}`} onBlur={(props) => {
+                              if (props.target.value === "") {
+                                props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                                errorfulNotify("O campo não pode estar vazio!");
+                                return;
+                              }
+                              props.target.style.border = "";
+                            }} defaultValue={exibe.nome}/>
+                            <input type="number" id={`esforco${index + 1}`} onBlur={(props) => {
+                              if (props.target.value === "") {
+                                props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                                errorfulNotify("O campo não pode estar vazio!");
+                                return;
+                              }
+                              props.target.style.border = "";
+                            }} defaultValue={exibe.esforco}/>
+                            <input type="number" id={`valor${index + 1}`} onBlur={(props) => {
+                              if (props.target.value === "") {
+                                props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                                errorfulNotify("O campo não pode estar vazio!");
+                                return;
+                              }
+                              props.target.style.border = "";
+                            }} defaultValue={exibe.valor}/>
+                          </Linha>
+                        </>
+                      )) || ''
+                    }
                   </div>
                   <Total>
                     <div>
@@ -626,15 +594,30 @@ const EditarProjeto: React.FC = () => {
                     <h1>Valor (R$)</h1>
                   </div>
                   <div id="scroll" className="segundaTabelaLinha">
-                  { 
-                    ccPagante.map((exibe, index) => (
-                      <Linha id={`C${index + 1}`} key={index}>
-                        <input type="text" id={`centro${index + 1}`} defaultValue={exibe.secao.id || ''}/>
-                        <input type="text" id={`responsavel${index + 1}`} defaultValue={exibe.secao.responsavel.nome || ''} disabled/>
-                        <input type="text" id={`valorC${index + 1}`} defaultValue={exibe.valor || ''}/>
-                      </Linha>
-                    )) || ''
-                  }
+                  {
+                      ccPagante.map((exibe, index) => (
+                        <Linha id={`C${index + 1}`} key={index}>
+                          <input type="text" id={`centro${index + 1}`} onBlur={(props) => {
+                            if (props.target.value === "") {
+                              props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                              errorfulNotify("O campo não pode estar vazio!");
+                              return;
+                            }
+                            props.target.style.border = "";
+                            buscarResponsavelSecao(props.target.value, index);
+                          }} defaultValue={exibe.secao.id}/>
+                          <input type="text" id={`responsavel${index + 1}`} defaultValue={exibe.secao.responsavel.nome} disabled />
+                          <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
+                            if (props.target.value === "") {
+                              props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                              errorfulNotify("O campo não pode estar vazio!");
+                              return;
+                            }
+                            props.target.style.border = "";
+                          }} defaultValue={exibe.valor}/>
+                        </Linha>
+                      )) || ''
+                    }
                   </div>
                   <Total>
                     <div>
