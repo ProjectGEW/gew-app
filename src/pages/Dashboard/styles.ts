@@ -215,7 +215,7 @@ export const Filtros = styled.div`
             margin-right: 2.2vw;
         }
 
-        form {
+        div {
             button {
                 border: 0;
                 padding: 0.8vh;
