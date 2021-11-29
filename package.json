@@ -16,7 +16,7 @@
     "@types/react-router-dom": "^5.1.8",
     "@types/styled-components": "^5.1.11",
     "@unform/web": "^2.1.6",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "chart.js": "^3.5.1",
     "history": "^5.0.1",
     "polished": "^4.1.3",
