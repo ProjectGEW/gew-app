@@ -11,9 +11,9 @@ interface ErrorProps {
 }
 
 export const Container = styled.div`
-  height: 284vh;
-  max-height: 284vh;
-  min-height: 284vh;
+  height: 298vh;
+  max-height: 298vh;
+  min-height: 298vh;
   position: absolute;
   top: 14vh;
   left: 21vw;
@@ -29,9 +29,9 @@ export const Container = styled.div`
 
 export const ContainerRegister = styled.div`
   width: 60vw;
-  height: 278vh;
-  max-height: 278vh;
-  min-height: 278vh;
+  height: 292vh;
+  max-height: 292vh;
+  min-height: 292vh;
 
   display: flex;
   flex-direction: column;
@@ -572,7 +572,6 @@ export const Table = styled.div`
 
         &:nth-child(2) {
           width: 24vw;
-          text-align: end;
           background-color: #f0f0f0;
           box-shadow: 0vh 0vh 0vh transparent;
         }
@@ -743,12 +742,10 @@ export const Linha = styled.div`
 
     &:nth-child(2) {
       width: 11vw;
-      text-align: end;
     }
 
     &:nth-child(3) {
       width: 15vw;
-      text-align: end;
     }
   }
 `;
@@ -938,7 +935,7 @@ export const Datas = styled.div<FormDataProps>`
 `;
 
 export const Finalizar = styled.div`
-  margin-top: 7vh;
+  margin-top: 8.5vh;
   margin-right: 1.2vw;
   display: flex;
   flex-direction: column;
@@ -1181,6 +1178,35 @@ export const BoxPopup = styled.div`
         font-weight: bold;
       }
     }
+  }
+
+  .final {
+    height: 32vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    button {
+      width: 7vw;
+      height: 5vh;
+      margin-top: 13vh;
+      border-radius: 1vh;
+      border: 0;
+      text-transform: uppercase;
+      font-weight: 600;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      background-color: #005DA5;
+      color: white;
+      font-size: 2.2vh;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: ${shade(0.03, '#00579D')}
+      }
+  }
   }
 `;
 

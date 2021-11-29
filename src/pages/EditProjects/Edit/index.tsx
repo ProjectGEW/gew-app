@@ -62,7 +62,7 @@ interface IProjeto {
 }
 
 interface IFuncionario {
-  nome:string;
+  nome: string;
 }
 interface IDespesas {
   nome: string;
