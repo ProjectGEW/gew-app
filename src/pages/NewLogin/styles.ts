@@ -121,7 +121,7 @@ export const SideContainer = styled.div`
     
     .logo {
         width: 8vw;
-        height: 11vh;
+        height: 11.5vh;
         margin: 5vh 10vh 0 0;
         background-image: url(${wegLogo});
         background-size: cover;
