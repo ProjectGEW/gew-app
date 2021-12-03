@@ -91,18 +91,20 @@ const Dashboard: React.FC = () => {
     const { id }: { id: string }  = useParams();
 
     const [projetos, setProjetos] = useState<CardContent[]>([]);
+    const [projeto, setProjeto] = useState<CardContent>();
     const [global, setGlobal] = useState<CardContent[]>([]);
 
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
 
-    const [contagemVerba14, setContagemVerba14] = useState('');
-    const [contagemVerba28, setContagemVerba28] = useState('');
+    const [contagemVerba14, setContagemVerba14] = useState<CountPerData[]>([]);
+    const [contagemVerba28, setContagemVerba28] = useState<CountPerData[]>([]);
     const [contagemVerbaGeral, setContagemVerbaGeral] = useState('');
-    const [contagemVerbaDoProjeto, setContagemVerbaDoProjeto] = useState('');
+    const [contagemVerbaDoProjeto14, setContagemVerbaDoProjeto14] = useState<CountPerData[]>([]);
+    const [contagemVerbaDoProjeto28, setContagemVerbaDoProjeto28] = useState<CountPerData[]>([]);
+    const [contagemPorData, setContagemPorData] = useState<CountPerData[]>([]);
 
-    const [statusAtual, setStatusAtual] = useState('');
+    const [statusAtual, setStatusAtual] = useState('TODOS');
     const [secaoAtual, setSecaoAtual] = useState('');
-    const [status, setStatus] = useState('');
 
     async function handleProject() {
         try {
@@ -117,7 +119,7 @@ const Dashboard: React.FC = () => {
                 setSecoes(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
 
-            await api.get(`projetos/count/0`)
+            await api.get(`projetos/count/verba/0`)
             .then((response => {
                 setContagemVerbaGeral(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas."));
@@ -125,6 +127,7 @@ const Dashboard: React.FC = () => {
             await api.get(`projetos/count/14`)
             .then((response => {
                 setContagemVerba14(response.data); 
+                setContagemPorData(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas nos últimos 14 dias."));
 
             await api.get(`projetos/count/28`)
@@ -132,10 +135,28 @@ const Dashboard: React.FC = () => {
                 setContagemVerba28(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas nos últimos 28 dias."));
 
-            await api.get(`projetos/count/verba/${id ? id : 0}`)
-            .then((response => {
-                setContagemVerbaDoProjeto(response.data); 
-            })).catch(() => errorfulNotify(`Não foi possível encontrar a contagem de verbas do projeto ${id ? id : 0}.`));
+            if(id != '0') {
+                await api.get<CardContent>(`projetos/${id}`)
+                .then((response => {
+                    setProjeto(response.data); 
+                })).catch(() => errorfulNotify(`Não foi possível encontrar o projeto ${id ? id : 0}.`));
+
+                await api.get(`projetos/count/14/${id}`)
+                .then((response => {
+                    setContagemVerbaDoProjeto14(response.data); 
+                    setContagemPorData(response.data); 
+                })).catch(() => errorfulNotify(`Não foi possível encontrar a contagem de verbas nos últimos 14 dias do projeto ${id ? id : 0}.`));
+
+                await api.get(`projetos/count/28/${id}`)
+                .then((response => {
+                    setContagemVerbaDoProjeto28(response.data); 
+                })).catch(() => errorfulNotify(`Não foi possível encontrar a contagem de verbas nos últimos 28 dias do projeto ${id ? id : 0}.`));
+
+                await api.get(`projetos/count/verba/${id}`)
+                .then((response => {
+                    setContagemVerbaGeral(response.data); 
+                })).catch(() => errorfulNotify(`Não foi possível encontrar a contagem de verbas do projeto ${id ? id : 0}.`));
+            }
         } catch(e) {
             console.log(e);
         }
@@ -147,21 +168,22 @@ const Dashboard: React.FC = () => {
 
     function filtraDadosPorStatus(status: string) {
         setStatusAtual(status);
-        const separaProjetos = projetos.filter(res => res.infoprojetoDTO.statusProjeto === status);
+        const separaProjetos = status === "TODOS" ? 
+            global.filter(res => res) : global.filter(res => res.infoprojetoDTO.statusProjeto === status);
 
-        var btns = ["todos", "concluidos", "atrasados", "em_andamento"];
+        var btns = ["todos", "CONCLUIDOS", "ATRASADOS", "EM_ANDAMENTO"];
 
         for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
-        if(status === "concluidos") {
+        if(status === "CONCLUIDOS") {
             document.getElementById(status)!.style.backgroundColor = "#adffb0";
-        } else if (status === "atrasados") {
+        } else if (status === "ATRASADOS") {
             document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
-        } else if (status === "em_andamento") {
+        } else if (status === "EM_ANDAMENTO") {
             document.getElementById(status)!.style.backgroundColor = "#c2e4ff";
-        } else if (status === "") {
+        } else if (status === "TODOS") {
             document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
         }
 
@@ -185,13 +207,90 @@ const Dashboard: React.FC = () => {
         setProjetos(separaProjetos);
     }
 
+    const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
+    const totalCCPagantes = [projetos.length];
     
+    for(var x = 0; x < projetos.length; x++) {
+        totalCCPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
+    }
+    
+    let dados = {aprovada: 0, utilizada: 0, disponivel: 0, porcentagemUtilizada: 0, porcentagemDisponivel: 0,
+        datasGrafico: [''], verbasGrafico: [0]};
+        
+        
+    function calculaDadosGeral() {
+        const verbaDisponivel = totalCCPagantes.reduce(reducer) - Number(contagemVerbaGeral);
+    
+        const porcentagemUtilizada = ((Number(contagemVerbaGeral) * 100) / (totalCCPagantes.reduce(reducer)));
+        const porcentagemDisponivel = 100 - porcentagemUtilizada;
+
+        const datas = totalCCPagantes.reduce(reducer) > 0 ? contagemPorData.map(datas => datas.data) : ["0"];    
+        const verbas = totalCCPagantes.reduce(reducer) > 0 ? contagemPorData.map(verbas => verbas.verbaUtilizada) : [0];
+
+        dados = {
+            aprovada: totalCCPagantes.reduce(reducer),
+            utilizada: Number(contagemVerbaGeral),
+            disponivel: verbaDisponivel,
+            porcentagemUtilizada: porcentagemUtilizada,
+            porcentagemDisponivel: porcentagemDisponivel,
+            datasGrafico: datas,
+            verbasGrafico: verbas
+        };
+    }
+
+    function calculaDadosPorProjeto() {
+        const totalCCPagantes = projeto ? projeto.valoresTotaisDTO.valorTotalCcPagantes : 0;
+    
+        const verbaDisponivel = totalCCPagantes - Number(contagemVerbaGeral);
+    
+        const porcentagemUtilizada = ((Number(contagemVerbaGeral) * 100) / totalCCPagantes);
+        const porcentagemDisponivel = 100 - porcentagemUtilizada;
+
+        const datas = totalCCPagantes > 0 ? contagemPorData.map(datas => datas.data) : ["0"];    
+        const verbas = totalCCPagantes > 0 ? contagemPorData.map(verbas => verbas.verbaUtilizada) : [0];
+
+        dados = {
+            aprovada: totalCCPagantes,
+            utilizada: Number(contagemVerbaGeral),
+            disponivel: verbaDisponivel,
+            porcentagemUtilizada: porcentagemUtilizada,
+            porcentagemDisponivel: porcentagemDisponivel,
+            datasGrafico: datas,
+            verbasGrafico: verbas
+        };    
+    }
+
+    if(totalCCPagantes.reduce(reducer) > 0 && id === '0') {
+        calculaDadosGeral();
+    } else if(totalCCPagantes.reduce(reducer) > 0 && id !== '0') {
+        calculaDadosPorProjeto();
+    }
+
+    const alterarData = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        
+        if(id === '0') {
+            if(value === '14') {
+                setContagemPorData(contagemVerba14);
+            } else if(value === '28') {
+                setContagemPorData(contagemVerba28);
+            }
+        } else {
+            if(value === '14') {
+                setContagemPorData(contagemVerbaDoProjeto14);
+            } else if(value === '28') {
+                setContagemPorData(contagemVerbaDoProjeto28);
+            }
+        }
+    }
+
+    console.log(projeto);
     
     const data = {
-        labels: [0],
+        labels: dados.datasGrafico.reverse(),
         datasets: [{
         label: 'VERBA',
-        data: [0],
+        data: dados.verbasGrafico.reverse(),
         fill: true,
         backgroundColor: 'rgba(0, 186, 255, 0.19)',
         borderColor: '#0090C5',
@@ -211,24 +310,24 @@ const Dashboard: React.FC = () => {
                             {Number(id) === 0 ? 
                             <PopupModal closeOnEscape trigger={<span />} modal>
                                 {(close: any) => (
-                                    <PopupVerbaUtilizada fechar={close} valor={Math.round(0)} />
+                                    <PopupVerbaUtilizada fechar={close} status={statusAtual} valor={Math.round(dados.porcentagemUtilizada)} />
                                 )}
                             </PopupModal>
                             : ''}
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={Math.round(0)} />
+                            <GraphLiquid dashboard={true} valor={Math.round(dados.porcentagemUtilizada)} />
                         </Graph>
                     </Card>
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.segundo_card.title')}</h1>
                             <PopupTooltip trigger={<span />} position="right center">
-                                <PopupVerbaDisponivel verba={analisaValor(Number(0))} valor={Math.round(0)} />
+                                <PopupVerbaDisponivel verba={analisaValor(Number(dados.disponivel))} valor={Math.round(dados.porcentagemDisponivel)} />
                             </PopupTooltip>
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={Math.round(0)} />
+                            <GraphLiquid dashboard={true} valor={Math.round(dados.porcentagemDisponivel)} />
                         </Graph>
                     </Card>
                 </Liquid>
@@ -254,19 +353,19 @@ const Dashboard: React.FC = () => {
                                 <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
                                 <div>
                                     <button type="submit" id="todos" className="0"
-                                        onClick={() => filtraDadosPorStatus('')}>
+                                        onClick={() => filtraDadosPorStatus('TODOS')}>
                                         {intl.get('tela_projetos.filtros.options.todos')}
                                     </button>
-                                    <button type="submit" id="em_andamento" className="1"
-                                        onClick={() => filtraDadosPorStatus('em_andamento')}>
+                                    <button type="submit" id="EM_ANDAMENTO" className="1"
+                                        onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
                                         {intl.get('tela_projetos.filtros.options.emandamento')}
                                     </button>
-                                    <button type="submit" id="atrasados" className="2"
-                                        onClick={() => filtraDadosPorStatus('atrasados')}>
+                                    <button type="submit" id="ATRASADOS" className="2"
+                                        onClick={() => filtraDadosPorStatus('ATRASADOS')}>
                                         {intl.get('tela_projetos.filtros.options.atrasado')}
                                     </button>
-                                    <button type="submit" id="concluidos" className="3"
-                                        onClick={() => filtraDadosPorStatus('concluidos')}>
+                                    <button type="submit" id="CONCLUIDOS" className="3"
+                                        onClick={() => filtraDadosPorStatus('CONCLUIDOS')}>
                                         {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
                                 </div>
@@ -304,7 +403,7 @@ const Dashboard: React.FC = () => {
                                 </select>
                             </div>
                             <div id="filtro-periodo">
-                                <select name="dias" onChange={undefined}>
+                                <select name="dias" onChange={alterarData}>
                                     <option value="14">Últimos 14 dias</option>
                                     <option value="28">Últimos 28 dias</option>
                                 </select>
@@ -316,19 +415,19 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.quarto')}</h1>
                             </Title>
-                            <h1>{analisaValor(0)}</h1>
+                            <h1>{analisaValor(dados.aprovada)}</h1>
                         </Money>
                         <Money>
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.terceiro')}</h1>
                             </Title>
-                            <h1>{analisaValor(0)}</h1>
+                            <h1>{analisaValor(dados.utilizada)}</h1>
                         </Money>
                         <Money>
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.segundo')}</h1>
                             </Title>
-                            <h1>{analisaValor(0)}</h1>
+                            <h1>{analisaValor(dados.disponivel)}</h1>
                         </Money>
                     </CardsMoney>
                 </Lines>
