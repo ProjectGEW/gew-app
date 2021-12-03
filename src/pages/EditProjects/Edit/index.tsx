@@ -11,9 +11,6 @@ import Button from '../../components/Button';
 
 import analisaValor from '../../../utils/analisaValor';
 
-import { RowDespesasEdit } from '../../components/RegisterProject/Dinheiro/Row/RowDP';
-import { RowCcPagantesEdit } from '../../components/RegisterProject/Dinheiro/Row/RowCC';
-
 import { BoxProjeto, Preview } from '../../components/RegisterProject/Projeto/styles';
 import { BoxResponsavel } from '../../components/RegisterProject/Responsavel/styles';
 import { BoxDinheiro, Linha, Table, Total } from '../../components/RegisterProject/Dinheiro/styles';

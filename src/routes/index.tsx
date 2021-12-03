@@ -18,13 +18,15 @@ import ProjectsList from '../pages/Consultants/ProjectsList';
 import ConsultantList from '../pages/Consultants/ConsultantsList';
 import ConsultantProfile from '../pages/Consultants/ConsultantProfile';
 import Edit from '../pages/EditProjects/Edit/index2';
+import Consultor from '../pages/Consultor';
 import NewLogin from '../pages/NewLogin';
 
 const Routes: React.FC = () => (
     <Switch>
         {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
         <Route path="/" exact component={NewLogin}/>
-        <Route path="/home" component={Menu} />
+        <Route path="/home" component={Menu} isPrivate/>
+        <Route path="/homeConsultor" component={Consultor} isPrivate />
         <Route path="/projects" component={Projects} />
         <Route path="/register_projects" component={CadastroProjeto} />
         <Route path="/edit_projects" component={EditProjects} />
