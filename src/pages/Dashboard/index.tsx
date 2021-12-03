@@ -318,7 +318,7 @@ const Dashboard: React.FC = () => {
                             {Number(id) === 0 ? 
                             <PopupModal closeOnEscape trigger={<span />} modal>
                                 {(close: any) => (
-                                    <PopupVerbaUtilizada fechar={close} valor={Math.round(porcentagemUtilizada)} />
+                                    <PopupVerbaUtilizada fechar={close} status={status} valor={Math.round(porcentagemUtilizada)} />
                                 )}
                             </PopupModal>
                             : ''}
