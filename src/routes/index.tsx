@@ -26,8 +26,8 @@ const Routes: React.FC = () => (
     <Switch>
         {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
         <Route path="/" exact component={NewLogin}/>
-        <Route path="/home" component={Menu} isPrivate/>
-        <Route path="/homeConsultor" component={Consultor} isPrivate />
+        <Route path="/home" component={Menu} />
+        <Route path="/homeConsultor" component={Consultor} />
         <Route path="/projects" component={Projects} />
         <Route path="/register_projects" component={CadastroProjeto} />
         <Route path="/edit_projects" component={EditProjects} />
