@@ -41,16 +41,16 @@ interface CardContent {
         data_de_termino: string;
         statusProjeto: string;
         horas_apontadas: number;
-        secao: string;
+        secao: string,
     };
     ccPagantes : [{
         secao: {
             id: number;
             responsavel: {
-              numero_cracha: number;
-              nome: string;
-              cpf: string;
-              valor_hora: number;
+                numero_cracha: number;
+                nome: string;
+                cpf: string;
+                valor_hora: number;
             };
             nome: string;
         },
@@ -195,16 +195,19 @@ const Dashboard: React.FC = () => {
         setProjetos(separaProjetos);
     }
 
-    const filtraDadosPorSecao = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const filtraDadosPorSecao = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSecaoAtual(event.target.value);
-        const separaProjetos = projetos.filter(res => res.infoprojetoDTO.secao === event.target.value);
+        
+        const separaProjetos = (event.target.value !== 'TODOS') ?
+            global.filter(res => res.infoprojetoDTO.secao === event.target.value)
+        : global
 
-        if(statusAtual.length > 0) {
+        if(statusAtual !== 'TODOS') {
             const separaPorStatusSecao = separaProjetos.filter(res => res.infoprojetoDTO.statusProjeto === statusAtual);
             setProjetos(separaPorStatusSecao);
-            return;
+        } else {
+            setProjetos(separaProjetos);
         }
-        setProjetos(separaProjetos);
     }
 
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
@@ -341,7 +344,7 @@ const Dashboard: React.FC = () => {
                             <div>
                                 <label>Seção:</label>
                                 <select id="filtroSecao" name="secao" onChange={filtraDadosPorSecao}>
-                                    <option value="Todos">Todos</option>
+                                    <option value="TODOS">Todos</option>
                                     {
                                         secoes ? secoes.map(secoes =>
                                             <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)

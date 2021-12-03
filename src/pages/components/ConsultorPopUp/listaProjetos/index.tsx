@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import api from '../../../../service/api';
-import analisaValor from '../../../../utils/analisaValor';
+
 import retornaTituloMenor from '../../../../utils/tituloMenor';
 
 import { P, Texto } from '../../DashboardPopUp/verbaUtilizada/styles';
-
-import '../../../Test/estiloPopup.css';
-import '../../../Test/estiloPopupModal.css';
 
 interface IListaProps {
     numeroDoProjeto: number;
@@ -47,7 +44,7 @@ interface CardContent {
 
 const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto}) => {
     const [projeto, setProjeto] = useState<CardContent>();
-    console.log(numeroDoProjeto);
+
     async function conexaoApi() {
         try {
             api.get<CardContent>(`projetos/${numeroDoProjeto}`).then((response => {
@@ -62,7 +59,10 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto}) => {
         conexaoApi();
     },[]);
 
-    //console.log(projeto);
+    function removerProjeto() {
+        
+    }
+
     const tituloDoProjeto = projeto?.infoprojetoDTO.titulo;
 
     return (
@@ -81,7 +81,7 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto}) => {
                 }</Texto>
             </P>
             <p>{numeroDoProjeto ? numeroDoProjeto : 0}</p>
-            <button>Remover</button>
+            <button onClick={() => removerProjeto()}>Remover</button>
         </div>             
     );
 }

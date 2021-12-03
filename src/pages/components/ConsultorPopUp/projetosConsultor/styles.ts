@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import Popup from 'reactjs-popup';
 
 import Close from '../../../../assets/close.svg';
+import { shade } from "polished";
 
 export const Container = styled.div`
     display: flex;
@@ -112,6 +113,23 @@ export const Scroll = styled.div`
     ::-webkit-scrollbar-thumb {
         background-color: rgb(196, 196, 196); 
         border-radius: 1vh;
+    }
+
+    .projeto {
+        button {
+            padding: 0.6vh;
+            border: 0;
+            border-radius: 0.5vh;
+            margin-right: 0.2vw;
+            font-size: 1.8vh;
+            color: white;
+            font-weight: bold;
+            background-color: #e21d1d;
+
+            &:hover {
+                background-color: ${shade(0.09, "#e21d1d")}
+            }
+        }
     }
 `;
 

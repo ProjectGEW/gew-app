@@ -36,14 +36,10 @@ export const ContainerInfo = styled.div`
 export const PopupModal = styled(Popup)`
     &-content {
         background: transparent;
-        //overflow: hidden;
         animation: anvil 0.25s;
-        /* width: 100vw;
-        height: 100vh; */
         display: flex;
         justify-content: center;
         align-items: center;
-        //box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
     }
 `;
 
@@ -340,7 +336,7 @@ export const LinhaConsultor = styled.div<TableProps>`
     
     ${props => props.status === 'ATIVO' && css`
         &:hover {
-            background-color: #f1fff0;
+            background-color: #f6fff5;
         }
 
         span {
@@ -359,7 +355,7 @@ export const LinhaConsultor = styled.div<TableProps>`
     
     ${props => props.status === 'INATIVO' && css`
         &:hover {
-            background-color: #fff0f0;
+            background-color: #fff6f6;
         }
 
         span {
