@@ -12,7 +12,7 @@ import { Container, ContainerInfo, ContainerTitle, ContainerFiltro, Table, Table
 import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts';
 
 import PerfilConsultor from '../../components/ConsultorPopUp/perfilConsultor';
-import PopupVerbaUtilizada from '../../components/ConsultorPopUp/projetos2';
+import PopupProjetosConsultor from '../../components/ConsultorPopUp/projetosConsultor';
 
 import api from "../../../service/api";
 
@@ -213,7 +213,7 @@ const ConsultantList: React.FC = () => {
                                 // </PopupModal>
                                 <PopupModal closeOnEscape trigger={<button>Gerenciar</button>} modal>
                                     {(close: any) => (
-                                        <PopupVerbaUtilizada fechar={close} cracha={consultant.numero_cracha} projetoSelecionado={Number(numeroDoProjeto)}/>
+                                        <PopupProjetosConsultor fechar={close} cracha={consultant.numero_cracha} projetoSelecionado={Number(numeroDoProjeto)}/>
                                     )}
                                 </PopupModal>
                                 : ''
