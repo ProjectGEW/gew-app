@@ -8,6 +8,7 @@ import { Container, PopUp, Title, Graph, Scroll, Bar, Value } from './styles';
 
 interface PopupVerbaUtilizadaProps {
     valor: number;
+    status: string;
     fechar: () => void;
 }
 
@@ -43,7 +44,7 @@ interface CardContent {
     };      
 }
 
-const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({ valor, fechar }) => {
+const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({status, valor, fechar }) => {
     const [projetos, setProjetos] = useState<CardContent[]>([]);
     const [countVerbaTotal, setCountVerbaTotal] = useState();
 
@@ -78,20 +79,27 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({ valor, fechar
                     <span onClick={() => fechar()} />
                 </Title>
                 <Scroll>
-                    {projetos ? projetos.map((projeto, index) => 
-                        projeto.infoprojetoDTO.horas_apontadas !== 0 ? 
-                            <ListaProjetos key={index} 
-                                numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
-                                tituloDoProjeto={projeto.infoprojetoDTO.titulo}
-                            />
-                            : ''
-                        
-                    ) : 
-                    <div className="projeto">
-                        <p>Sem projetos</p>
-                        <p>analisaValor(0)</p>
-                        <p>0%</p>
-                    </div>}
+                    {
+                        projetos ? 
+                            status === "TODOS" ?
+                                projetos.map((projeto, index) => 
+                                    projeto.infoprojetoDTO.horas_apontadas !== 0 ? 
+                                        <ListaProjetos key={index} 
+                                            numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
+                                            tituloDoProjeto={projeto.infoprojetoDTO.titulo}
+                                        />
+                                    : ''
+                                ) : 
+                                projetos.map((projeto, index) => 
+                                    projeto.infoprojetoDTO.horas_apontadas !== 0 && projeto.infoprojetoDTO.statusProjeto === status ? 
+                                        <ListaProjetos key={index} 
+                                            numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
+                                            tituloDoProjeto={projeto.infoprojetoDTO.titulo}
+                                        />
+                                    : ''
+                                )
+                        : ''                           
+                    }
                 </Scroll>
                 <Graph>
                     <Bar>
