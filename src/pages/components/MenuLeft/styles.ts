@@ -145,20 +145,43 @@ export const DeleteImg = styled.div`
 `;
 
 export const ContainerMsg = styled.div`
-    width: 14vw;
+    width: 15vw;
     height: 22vw;
+    max-height: 22vw;
+    min-height: 22vw;
+
     margin-top: 11vw;
-    margin-left: 1vw;
+    margin-left: 1.5vw;
+
     position: absolute;
     display: none;
+
+    overflow: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+        background-color: rgb(196, 196, 196, 0.5);
+        width: 0.5vw;
+    }
+       
+    ::-webkit-scrollbar-thumb {
+        background-color: rgb(196, 196, 196); 
+        border-radius: 1vh;
+    }
 `;
 
 export const Msg = styled.div`
-    width: 14vw;
+    width: 15vw;
     height: 10vh;
     margin-top: 1vh;
     display: flex;
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.025);
+    border-radius: 0.5vh;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
 `;
 
 export const LineMsg = styled.div`
@@ -189,7 +212,7 @@ export const TitleMsg = styled.div`
 `;
 
 export const TextMsg = styled.div`
-    width: 12vw;
+    width: 13vw;
     margin-left: 1.4vw;
     transition: display 0.2s;
 

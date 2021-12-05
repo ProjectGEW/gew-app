@@ -1,4 +1,4 @@
-import React , { MouseEvent, useState } from "react";
+import React , { MouseEvent, useEffect, useState } from "react";
 
 import intl from 'react-intl-universal';
 
@@ -16,6 +16,12 @@ const locales = {
     'es': require('../../../language/es.json'),
     'fr-FR': require('../../../language/fr-FR.json'),
 };
+
+interface IDados {
+    user: number,
+    horas: number,
+    projeto: number
+}
 
 const MenuLeft: React.FC = () => {
     const [language] = useState(() => {
@@ -98,14 +104,18 @@ const MenuLeft: React.FC = () => {
         localStorage.removeItem("User");
     }
 
-    const [tarefa] = useState(() => {
-        let tarefaStorage = localStorage.getItem('Notification');
+    // Notificações
+    const [guardaDadosLocalStorege, setGuardaDadosLocalStorega] = useState<IDados[]>([]);
 
-        if(tarefaStorage) {
-            let languageObject = JSON.parse(tarefaStorage);
-            return languageObject;
-        } 
-    });
+    useEffect(() => {
+        let buscaDadosLocalStorage = localStorage.getItem('Notification');
+
+        if(buscaDadosLocalStorage) {
+            let transforma = JSON.parse(buscaDadosLocalStorage);
+            setGuardaDadosLocalStorega(transforma);
+        }
+
+    },[localStorage.getItem('Notification')]);
 
     return (
         <>
@@ -127,23 +137,22 @@ const MenuLeft: React.FC = () => {
                     <RiDeleteBinLine id="iconDel"/>
                 </DeleteImg>
                 <ContainerMsg id="container-msg">
-                    <Msg>
-                        <LineMsg>
-                            {!tarefa ? 
-                                '' :
-                                <Aba>
-                                    <TitleMsg>
-                                        <p>{intl.get('menu_esquerdo.card.titulo')}</p>
-                                    </TitleMsg>
-                                    <TextMsg>
-                                        <p> 
-                                        {intl.get('menu_esquerdo.card.msg', {name: tarefa ? tarefa.user : ''})}
-                                        </p>
-                                    </TextMsg>
-                                </Aba> 
-                            }
-                        </LineMsg>
-                    </Msg>
+                    {!guardaDadosLocalStorege ? '' :
+                        guardaDadosLocalStorege.map((res, index) => (
+                            <Msg key={index}>
+                                <LineMsg>
+                                        <Aba>
+                                            <TitleMsg>
+                                                <p>{intl.get('menu_esquerdo.card.titulo')}</p>
+                                            </TitleMsg>
+                                            <TextMsg>
+                                                <p>O funcionário {res.user} apontou {res.horas} horas no projeto {res.projeto}.</p>
+                                            </TextMsg>
+                                        </Aba> 
+                                </LineMsg>
+                            </Msg>
+                        ))
+                    }
                 </ContainerMsg>
                 <ExitImg id="exit-img">
                     <a href="/">

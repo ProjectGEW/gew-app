@@ -24,10 +24,17 @@ import { successfulNotify } from '../../hooks/SystemToasts';
 import CardEsqueleto from '../components/CardProject/CardEsqueleto';
 import analisaValor from '../../utils/analisaValor';
 
+interface IDados {
+    user: number,
+    horas: number,
+    projeto: number
+}
+
 const Projects: React.FC = () => {
     const [file, setFile] = useState<Blob>();
     //const [ur, setUr] = useState('');
     const [downloadUri, setDownloadUri] = useState();
+    const [dados, setDados] = useState<IDados[]>([{user: 67235, horas: 10, projeto: 182247}]);
 
     const onDrop = useCallback((acceptedFiles) => {
         console.log(acceptedFiles);
@@ -72,8 +79,11 @@ const Projects: React.FC = () => {
     }
 
     function teste() {
-        let addTarefa = {user: "67235", projeto: "182247"}
-        localStorage.setItem('Notification', JSON.stringify(addTarefa));
+        setDados([...dados, {user: 67235, horas: 10, projeto: 182247}]);
+
+        //let recebeDados = localStorage.getItem('Notification');
+
+        localStorage.setItem('Notification', JSON.stringify(dados));
     }
     
     return (
