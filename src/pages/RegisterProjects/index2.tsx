@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -80,6 +81,15 @@ interface IFuncionarioResponse {
 }
 
 const CadastroProjeto: React.FC = () => {
+  const history = useHistory();
+  if(localStorage.getItem('Level') !== 'GZ4_7WPQgajvmSlKlRgn8A' || 
+     localStorage.getItem('Level') !== 'fmb8xNYF02BPXsGJohcOkw '){
+    localStorage.removeItem("Token");
+    localStorage.removeItem("User");
+    localStorage.removeItem("User:nome");
+    localStorage.removeItem("Level");
+    history.push('/');
+  }
   const infosProjeto = {
   infoProjetosInputDTO: {
     numeroDoProjeto: 0,
