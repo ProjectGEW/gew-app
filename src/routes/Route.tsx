@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { RouteProps as ReactDOMRouteProps, Route as ReactDOMRoute, Redirect } from "react-router-dom";
 
@@ -12,31 +13,22 @@ interface RouteProps extends ReactDOMRouteProps {
 
 const Route: React.FC<RouteProps> = ({ isPrivate = false, component: Component, ...rest }) => {
   const { usuario } = useAuth();
-  const [teste, setTeste] = useState(0);
-
-  const buscarCargo = async () => { 
-    await api.get(`funcionarios/cargo/${Object.values(usuario)[0]}`).then((response) => {
-      setTeste(response.data);
-    });
-  }
-
+  const history = useHistory();
+  
   return (
     <ReactDOMRoute {...rest} render={({ location }) => {
       if(isPrivate === !!usuario) {
-          return (<Component />);
+        return (<Component />);
       } else {
-        buscarCargo();
-        if(teste === 1) {
+        if(localStorage.getItem('Level') === 'fmb8xNYF02BPXsGJohcOkw' || localStorage.getItem('Level') === 'GZ4_7WPQgajvmSlKlRgn8A' || 
+           localStorage.getItem('Level') === 'aIj5vqAY-nXFQC0DLJUrxA' || localStorage.getItem('Level') === 'V_mJKGFmvh7XtkEVhOCgTw') {
           return (<Redirect to={{ pathname: isPrivate ? "/" : "/home", state: { from: location },}}/>)
-        }
-        else if(teste === 2) {
-          return (<Redirect to={{ pathname: isPrivate ? "/" : "/home", state: { from: location },}}/>)
-        }
-        else if(teste === 3) {
-          return (<Redirect to={{ pathname: isPrivate ? "/" : "/fornecedor", state: { from: location },}}/>)
-        }
-        else if(teste === 4) {
-          return (<Redirect to={{ pathname: isPrivate ? "/" : "/consultor", state: { from: location },}}/>)
+        } else {
+          localStorage.removeItem("Token");
+          localStorage.removeItem("User");
+          localStorage.removeItem("User:nome");
+          localStorage.removeItem("Level");
+          return (<Component />)
         }
       }
     }} />
