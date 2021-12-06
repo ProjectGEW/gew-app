@@ -72,10 +72,6 @@ interface IFuncionarioResponse {
   secao: string;
 }
 
-interface ISecaoResponse {
-  nome: string;
-}
-
 interface IProjeto {
   infoprojetoDTO: {
     id: number;
@@ -110,13 +106,6 @@ interface ICCpagantes{
     }
   };
   valor: number;
-}
-
-interface ISecoes{
-  nome: string;
-  responsavel: {
-    nome: string;
-  }
 }
 
 interface ISecao {
@@ -163,10 +152,7 @@ const EditarProjeto: React.FC = () => {
     const [projetoEdit, setProjetoEdit] = useState<IProjeto>();
     const [file, setFile] = useState<Blob>();
     const [fileName, setFileName] = useState<string>('');
-
-    const [secaoSolicitante, setSecaoSolicitante] = useState('');
-    const [secaoResponsavel, setSecaoResponsavel] = useState('');
-
+    
     async function handleProject() {
       try {
         await api.get<IProjeto>(`projetos/${nm}`)

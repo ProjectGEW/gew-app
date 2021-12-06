@@ -106,6 +106,7 @@ const MenuLeft: React.FC = () => {
 
     // Notificações
     const [guardaDadosLocalStorege, setGuardaDadosLocalStorega] = useState<IDados[]>([]);
+    let busca = localStorage.getItem('Notification');
 
     useEffect(() => {
         let buscaDadosLocalStorage = localStorage.getItem('Notification');
@@ -115,7 +116,7 @@ const MenuLeft: React.FC = () => {
             setGuardaDadosLocalStorega(transforma);
         }
 
-    },[localStorage.getItem('Notification')]);
+    },[busca]);
 
     return (
         <>

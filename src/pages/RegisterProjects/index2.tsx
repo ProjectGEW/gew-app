@@ -123,9 +123,7 @@ interface ISecao {
   //Setar nome e secao na parte de responsavel e solicitante
   const [responavel, setResponsavel] = useState<IFuncionarioResponse>();
   const [solicitante, setSolicitante] = useState<IFuncionarioResponse>();
-  function teste(teste: string) {
 
-  }
   async function buscarInfosFuncionario(numero_cracha: string, tipo: string) {
     await api.get<IFuncionarioResponse>(`funcionarios/${numero_cracha}`)
       .then((response) => {

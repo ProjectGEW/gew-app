@@ -6,8 +6,11 @@ import retornaTituloMenor from '../../../../utils/tituloMenor';
 
 import { P, Texto } from '../../DashboardPopUp/verbaUtilizada/styles';
 
+import { successfulNotify } from '../../../../hooks/SystemToasts';
+
 interface IListaProps {
     numeroDoProjeto: number;
+    cracha: number;
 }
 
 interface CardContent {
@@ -42,7 +45,15 @@ interface CardContent {
     };      
 }
 
-const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto}) => {
+interface IConsultor {
+    numero_cracha: number;
+    status: string;
+    nome: string;
+    email: string;
+    projetos: number[];
+}
+
+const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha }) => {
     const [projeto, setProjeto] = useState<CardContent>();
 
     async function conexaoApi() {
@@ -59,8 +70,13 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto}) => {
         conexaoApi();
     },[]);
 
-    function removerProjeto() {
-        
+    async function removerProjeto() {
+        try {
+            await api.delete(`projetos/desalocar/${numeroDoProjeto}/${cracha}`);
+            successfulNotify(`Projeto ${numeroDoProjeto} removido do funcionário ${cracha}.`);
+        } catch(e) {
+            console.log(e);
+        }
     }
 
     const tituloDoProjeto = projeto?.infoprojetoDTO.titulo;

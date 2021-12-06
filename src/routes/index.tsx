@@ -6,7 +6,6 @@ import Route from './Route';
 import Login from '../pages/Login';
 import Menu from '../pages/Menu';
 import RegisterConsultants from '../pages/RegisterConsultants';
-import RC from '../pages/RegisterConsultants/index2';
 import Projects from '../pages/Projects';
 import CadastroProjeto from '../pages/RegisterProjects/index2';
 import EditProjects from '../pages/EditProjects';

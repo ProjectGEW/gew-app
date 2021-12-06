@@ -1189,7 +1189,7 @@ export const BoxPopup = styled.div`
     button {
       width: 7vw;
       height: 5vh;
-      margin-top: 13vh;
+      //margin-top: 13vh;
       border-radius: 1vh;
       border: 0;
       text-transform: uppercase;

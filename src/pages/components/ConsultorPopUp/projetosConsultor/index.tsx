@@ -47,7 +47,9 @@ const PopupProjetosConsultor: React.FC<PopupVerbaUtilizadaProps> = ({ cracha, pr
                 <Scroll>    
                     {
                         consultor ? consultor?.projetos.length > 1 ?
-                            consultor.projetos.map((res, index) => <ListaProjetos key={index} numeroDoProjeto={res}/>)
+                            consultor.projetos.map((res, index) => 
+                                <ListaProjetos key={index} numeroDoProjeto={res} cracha={consultor.numero_cracha}/>
+                            )
                             : ''
                         : ''
                     }
