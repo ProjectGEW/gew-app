@@ -26,8 +26,17 @@ const Route: React.FC<RouteProps> = ({ isPrivate = false, component: Component, 
           return (<Component />);
       } else {
         buscarCargo();
-        if(teste === 2) {
-            return (<Redirect to={{ pathname: isPrivate ? "/" : "/home", state: { from: location },}}/>)
+        if(teste === 1) {
+          return (<Redirect to={{ pathname: isPrivate ? "/" : "/home", state: { from: location },}}/>)
+        }
+        else if(teste === 2) {
+          return (<Redirect to={{ pathname: isPrivate ? "/" : "/home", state: { from: location },}}/>)
+        }
+        else if(teste === 3) {
+          return (<Redirect to={{ pathname: isPrivate ? "/" : "/fornecedor", state: { from: location },}}/>)
+        }
+        else if(teste === 4) {
+          return (<Redirect to={{ pathname: isPrivate ? "/" : "/consultor", state: { from: location },}}/>)
         }
       }
     }} />
