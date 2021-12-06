@@ -23,11 +23,11 @@ import NewLogin from '../pages/NewLogin';
 import Fornecedor from '../pages/Fornecedor';
 import Gestor from '../pages/Gestor';
 
-const Routes: React.FC = () => (
-  <Switch>
+const Routes: React.FC = () => {
+  return (<Switch>
     {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
     {/* Rotas gerais para todas as personas */}
-    <Route path="/" exact component={NewLogin} isPrivate />
+    <Route path="/" exact component={NewLogin} />
     <Route path="/settings" component={Settings} isPrivate/>
 
     {/* Rotas para Gerente */}
@@ -57,6 +57,6 @@ const Routes: React.FC = () => (
     <Route path="/test" component={Test} isPrivate />
     <Route path="/test2" component={Test2} />
   </Switch>
-);
+  )};
 
 export default Routes;

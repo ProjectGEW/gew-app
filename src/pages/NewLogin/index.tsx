@@ -29,7 +29,6 @@ const NewLogin: React.FC = () => {
 
     const formRef = useRef<FormHandles>(null);
     const { signIn: singIn } = useAuth();
-    const history = useHistory();
 
     const handleSubmit = useCallback(async (data: SingInFormData) => {
       try {
@@ -49,8 +48,6 @@ const NewLogin: React.FC = () => {
               senha: data.senha
           })
 
-          history.push('/');
-
       } catch(err) {
           if(err instanceof Yup.ValidationError) {
             const errors = getValidationErrors(err);
@@ -59,45 +56,45 @@ const NewLogin: React.FC = () => {
             return;
           }
       }
-  }, [history, singIn]);
+  }, [singIn]);
 
-    return (
-        <>
-        <Section>
-            <Rectangle>
-                <div className="textBox">
-                    <h1>GEW</h1>
-                    <h2>Gestão de Projetos para Controle de Desenvolvimento de Software</h2>
-                </div>
-                <Image />
-            </Rectangle>
-            <SideContainer>
-                <div className="logo"/>
-                <LoginContainer id="containerLogin">
-                    <h1>Login</h1>
-                    <Form ref={formRef} onSubmit={handleSubmit}>
-                        <ContainerInput>
-                            <Input type="text" name="email" placeholder="" text="Usuário" />
-                        </ContainerInput>
-                        <ContainerInput>
-                            <Input type="password"  name="senha" placeholder="" text="Senha" autoComplete="off"/>
-                        </ContainerInput>     
-                        <ContainerBtn>
-                            <button type="submit">entrar</button>
-                            <PopupTooltip trigger={<p>Esqueceu sua senha?</p>} position="top center" on={['hover']}>
-                                <ContainerPopUp>
-                                    <PopUp>
-                                        <p>Entre em contato com algum administrador do sistema para redefinir sua senha.</p>
-                                    </PopUp>
-                                </ContainerPopUp>
-                            </PopupTooltip>
-                        </ContainerBtn>
-                    </Form>
-                </LoginContainer>
-            </SideContainer>
-        </Section>
-        </>
-    );
+  return (
+    <>
+    <Section>
+      <Rectangle>
+        <div className="textBox">
+          <h1>GEW</h1>
+          <h2>Gestão de Projetos para Controle de Desenvolvimento de Software</h2>
+        </div>
+        <Image />
+      </Rectangle>
+      <SideContainer>
+        <div className="logo"/>
+        <LoginContainer id="containerLogin">
+          <h1>Login</h1>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <ContainerInput>
+              <Input type="text" name="email" placeholder="" text="Usuário" />
+            </ContainerInput>
+            <ContainerInput>
+              <Input type="password"  name="senha" placeholder="" text="Senha" autoComplete="off"/>
+            </ContainerInput>     
+            <ContainerBtn>
+              <button type="submit">entrar</button>
+              <PopupTooltip trigger={<p>Esqueceu sua senha?</p>} position="top center" on={['hover']}>
+                <ContainerPopUp>
+                  <PopUp>
+                    <p>Entre em contato com algum administrador do sistema para redefinir sua senha.</p>
+                  </PopUp>
+                </ContainerPopUp>
+              </PopupTooltip>
+            </ContainerBtn>
+          </Form>
+        </LoginContainer>
+      </SideContainer>
+    </Section>
+    </>
+  );
 };
 
 export default NewLogin;

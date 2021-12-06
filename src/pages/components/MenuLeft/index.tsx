@@ -100,8 +100,10 @@ const MenuLeft: React.FC = () => {
     }
 
     function singOut() {
-        localStorage.removeItem("Token");
-        localStorage.removeItem("User");
+      localStorage.removeItem("Token");
+      localStorage.removeItem("User");
+      localStorage.removeItem("User:nome");
+      localStorage.removeItem("Level");
     }
 
     // Notificações

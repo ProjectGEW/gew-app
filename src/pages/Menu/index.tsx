@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import {useHistory} from 'react-router-dom'
 import intl from "react-intl-universal";
 import api from '../../service/api';
 import analisaValor from '../../utils/analisaValor';
@@ -47,6 +47,7 @@ interface CountPerData {
 }
 
 const Menu: React.FC = () => {
+  const history = useHistory();
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
 
