@@ -15,7 +15,6 @@ interface SingInCredentials {
 interface AuthContextData {
   usuario: object;
   signIn(credentials: SingInCredentials): Promise<void>;
-  signOut(): void;
 }
 
 export const AuthContext = createContext<AuthContextData>(
@@ -24,22 +23,34 @@ export const AuthContext = createContext<AuthContextData>(
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const jwt = localStorage.getItem("Token");
-    const usuario = localStorage.getItem("User");
-    const nome = localStorage.getItem("User:nome");
+  const jwt = localStorage.getItem("Token");
+  const usuario = localStorage.getItem("User");
+  const nome = localStorage.getItem("User:nome");
 
-    if(jwt && usuario && nome){
-      return { jwt, usuario: JSON.parse(usuario), nome};
-    }
-    return {} as AuthState;
+  if(jwt && usuario && nome){
+    return { jwt, usuario: JSON.parse(usuario), nome};
+  }
+
+  return {} as AuthState;
   });
 
+  function buscarCargo(email: string){ 
+    api.get(`funcionarios/cargo/${email}`).then((response) => {
+      if(response.data === 1) {
+        localStorage.setItem("Level", 'GZ4_7WPQgajvmSlKlRgn8A')
+      }
+      if(response.data === 2) {
+        localStorage.setItem("Level", 'fmb8xNYF02BPXsGJohcOkw')
+      }
+    });
+  }
+  
   const signIn = useCallback(async ({ email, senha }) => {
+    buscarCargo(email);
     const response = await api.post("authenticate", {
       email,
       senha,
     });
-
     const { jwt, usuario, nome } = response.data;
     // let defaultLanguage = {flag: "BR", code: "pt-BR"}
     // localStorage.setItem('Language', JSON.stringify(defaultLanguage));
@@ -49,16 +60,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({ jwt, usuario, nome });
   }, []);
 
-    const signOut = useCallback(() => {
-      localStorage.removeItem("Token");
-      localStorage.removeItem("User");
-      localStorage.removeItem("User:nome");
-
-      setData({} as AuthState);
-    }, []);
-
     return (
-      <AuthContext.Provider value={{ usuario: data.usuario, signIn: signIn, signOut: signOut}}>
+      <AuthContext.Provider value={{ usuario: data.usuario, signIn: signIn,}}>
         {children}
       </AuthContext.Provider>
     );
