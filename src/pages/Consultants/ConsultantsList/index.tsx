@@ -7,7 +7,7 @@ import MenuRight from '../../components/MenuRight';
 import { ContIcons } from '../../components/MenuRight/styles';
 
 import { Container, ContainerInfo, ContainerTitle, ContainerFiltro, Table, TableDimensions,
-    TableScroll, LinhaConsultor, PopupPerfilConsultor, Msg, ContainerTooltip, PopUpTooltip, PopupModal } from './style';
+    TableScroll, LinhaConsultor, PopupPerfilConsultor, Msg, PopupModal } from './style';
 
 import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts';
 
@@ -23,8 +23,6 @@ import intl from 'react-intl-universal';
 import { IoMdArrowDropright } from 'react-icons/io';
 import { ImSearch } from 'react-icons/im';
 import { BiHourglass } from 'react-icons/bi';
-import { TiDelete } from 'react-icons/ti';
-import { PopUp, Scroll, Title } from '../../components/DashboardPopUp/verbaUtilizada/styles';
 
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
@@ -56,7 +54,6 @@ const ConsultantList: React.FC = () => {
         locales
     });
 
-    const [status, setStatus] = useState('');
     const [consultants, setConsultants] = useState<IConsultor[]>([]);
     const [global, setGlobal] = useState<IConsultor[]>([]);
     const { numeroDoProjeto }: {numeroDoProjeto: string} = useParams();
@@ -94,8 +91,6 @@ const ConsultantList: React.FC = () => {
         for (var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
-
-        setStatus(valor);
 
         if (valor === "ativo") {
             document.getElementById(valor)!.style.backgroundColor = "#adffb0";
@@ -185,32 +180,6 @@ const ConsultantList: React.FC = () => {
                         <span className='fornecedor'>...</span>
                         <span className='projetos'>
                             {consultant.projetos.length > 0 ? 
-                                // <PopupModal closeOnEscape trigger={<button>Gerenciar</button>} modal>
-                                //     <ContainerTooltip>
-                                //         <Container>
-                                //             <PopUp>
-                                //                 <Title>
-                                //                     <h1>PROJETOS</h1>
-                                //                     <span/>
-                                //                 </Title>
-                                //                 <Scroll>
-                                //             {
-                                //                 consultant.projetos.map((projeto, index) => (
-                                //                     <div key={index}>
-                                //                         <h1>{projeto}</h1>
-                                //                         <TiDelete onClick={() => {
-                                //                             api.delete(`projetos/desalocar/${projeto}/${consultant.numero_cracha}`);
-                                //                             api.get("funcionarios/consultor").then(response => setConsultants(response.data));
-                                //                             successfulNotify('Projeto removido!');
-                                //                         }}/>
-                                //                     </div>
-                                //                 ))
-                                //             }
-                                //                 </Scroll>
-                                //             </PopUp>
-                                //         </Container>
-                                //     </ContainerTooltip>
-                                // </PopupModal>
                                 <PopupModal closeOnEscape trigger={<button>Gerenciar</button>} modal>
                                     {(close: any) => (
                                         <PopupProjetosConsultor fechar={close} cracha={consultant.numero_cracha} projetoSelecionado={Number(numeroDoProjeto)}/>

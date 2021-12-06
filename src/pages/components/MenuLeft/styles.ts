@@ -156,7 +156,7 @@ export const ContainerMsg = styled.div`
     position: absolute;
     display: none;
 
-    overflow: scroll;
+    overflow: auto;
     overflow-x: hidden;
 
     ::-webkit-scrollbar {

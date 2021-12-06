@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Line } from 'react-chartjs-2';
@@ -135,7 +135,7 @@ const Dashboard: React.FC = () => {
                 setContagemVerba28(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas nos últimos 28 dias."));
 
-            if(id != '0') {
+            if(id !== '0') {
                 await api.get<CardContent>(`projetos/${id}`)
                 .then((response => {
                     setProjeto(response.data); 

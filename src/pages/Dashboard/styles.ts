@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import Popup from 'reactjs-popup';
 
 import Lupa from '../../assets/lupa-graph.svg';
-import info from '../../assets/infoBranco.svg';
 
 export const Container = styled.div`
     position: absolute;
