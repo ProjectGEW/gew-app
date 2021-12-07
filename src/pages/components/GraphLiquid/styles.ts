@@ -49,28 +49,28 @@ export const Circle = styled.div<WavesProps>`
         &:nth-child(1) {
             &::before {
                 background-color: #00579D;     
-                top: 20vh;
+                top: 200vh;
             }
         }
 
         &:nth-child(2) {
             &::before {
                 background-color: #0075b1;   
-                top: 20vh;  
+                top: 200vh;  
             }
         }
 
         &:nth-child(3) {
             &::before {
                 background-color: #0091BD; 
-                top: 20vh;         
+                top: 200vh;         
             }
         }
 
         &:nth-child(4) {
             &::before {
                 background-color: #009ecf; 
-                top: 20vh;            
+                top: 200vh;            
             }
         }
 

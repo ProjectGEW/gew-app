@@ -21,18 +21,43 @@ interface CardStatusColor {
 }
 
 interface IProjeto {
-    infoprojetoDTO: {
-        numeroDoProjeto: number;
-        titulo: string;
-        statusProjeto: string;
-        secao: string;
+    projetoData: {
+      id: number;
+      numeroDoProjeto: number;
+      titulo: string;
+      descricao: string;
+      data_de_inicio: string;
+      data_de_termino: string;
+      data_de_aprovacao: string;
+      statusProjeto: string;
+      horas_apontadas: number;
+      secao: string,
     };
-    valoresTotaisDTO: {
-        valorTotalCcPagantes: number;
-        valorTotalDespesas: number;
-        valorTotalEsforco: number;
-    };
-}
+    secoesPagantes : [{
+      secao: {
+        id: number;
+        responsavel: {
+          numero_cracha: number;
+          nome: string;
+          cpf: string;
+          valor_hora: number;
+        };
+        nome: string;
+      },
+      percentual: number;
+      valor: number;
+    }];
+    valoresTotais : {
+      valorTotalCcPagantes: number;
+      valorTotalDespesas: number;
+      valorTotalEsforco: number;
+    };  
+    despesas: [{
+      nome: string;
+      esforco: number;
+      valor: number;
+    }];
+  }
 
 const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
     const [language] = useState(() => {
@@ -61,12 +86,12 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
         <>
         <Link href={`http://localhost:3000/consultants/${numeroDoProjeto}`}>
             <Card>
-                <CardStatus statusColor={projeto ? projeto.infoprojetoDTO.statusProjeto : ""}/>
+                <CardStatus statusColor={projeto ? projeto.projetoData.statusProjeto : ""}/>
                 <CardBox>
                 <BoxLeft>
                     <div>
-                        <p>{projeto ? projeto.infoprojetoDTO.numeroDoProjeto : "00000000"} - {projeto ? projeto.infoprojetoDTO.secao : "ABC"}</p>
-                        <h1>{projeto ? projeto.infoprojetoDTO.titulo : ""}</h1>
+                        <p>{projeto ? projeto.projetoData.numeroDoProjeto : "00000000"} - {projeto ? projeto.projetoData.secao : "ABC"}</p>
+                        <h1>{projeto ? projeto.projetoData.titulo : ""}</h1>
                     </div>
                     <div>
                         <p><strong>{intl.get('card_projetos.saldo_um')}</strong>{analisaValor(15000)}</p>

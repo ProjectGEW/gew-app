@@ -102,7 +102,7 @@ const idCampos = [
   'data_de_aprovacao'
 ];
 const numeroDeCampos = 11;
-export function validacaoDosCamposCadastros(lengthDespesas: number, lengthCentroDeCustos: number) {
+export function validacaoDosCamposCadastros(lengthDespesas: number, lengthCentroDeCustos: number, fechar?: Function) {
   let totalValidacao = 0;
 
   idCampos.forEach(element => {
@@ -116,7 +116,11 @@ export function validacaoDosCamposCadastros(lengthDespesas: number, lengthCentro
   totalValidacao += analisaCampoLinhasdDespesas(lengthDespesas);
   totalValidacao += analisaCampoLinhasdCcPagantes(lengthCentroDeCustos);
 
-  if (totalValidacao !== numeroDeCampos) {
+  if(totalValidacao !== numeroDeCampos) {
+    if(fechar) {
+      fechar();
+    } 
+
     errorfulNotify('Todos os campos precisam estar prenchidos!'); 
     return false;
   }

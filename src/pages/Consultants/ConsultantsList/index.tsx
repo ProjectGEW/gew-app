@@ -32,11 +32,16 @@ const locales = {
 };
 
 interface IConsultor {
-    numero_cracha: number;
-    status: string;
-    nome: string;
-    email: string;
+    funcionarioData: {
+        numero_cracha: number;
+        status: string;
+        nome: string;
+        email: string;
+    },
     projetos: number[];
+    skills: [];
+    fornecedor: string;
+    status: boolean;
 }
 
 const ConsultantList: React.FC = () => {
@@ -69,7 +74,7 @@ const ConsultantList: React.FC = () => {
     useEffect(() => {
         api.get("funcionarios/consultor").then(response => setConsultants(response.data));
         
-        const identifica = consultants.filter(consultor => consultor.numero_cracha === recebeCracha);
+        const identifica = consultants.filter(consultor => consultor.funcionarioData.numero_cracha === recebeCracha);
         const salva = identifica.map(consultor => consultor.projetos.indexOf(Number(numeroDoProjeto)));
 
         if(salva[0] !== undefined) {
@@ -85,7 +90,6 @@ const ConsultantList: React.FC = () => {
     },[numeroDoProjeto, recebeCracha]);
 
     function defineStatus(valor: string) {
-
         var btns = ["Todos", "ativo", "inativo"];
 
         for (var x = 0; x < btns.length; x++) {
@@ -107,10 +111,7 @@ const ConsultantList: React.FC = () => {
         const recebeStatus = document.activeElement?.id.toUpperCase();
 
         if(recebeStatus !== 'TODOS') {
-            setConsultants(global.filter(status => status.status === recebeStatus));
-            // console.log(status);
-            // console.log(global.filter(status => status.status === recebeStatus));
-            // console.log(consultants);
+            setConsultants(global.filter(status => status.funcionarioData.status === recebeStatus));
         } else {
             setConsultants(global);
         }
@@ -120,8 +121,8 @@ const ConsultantList: React.FC = () => {
         const recebeTexto = event.target.value;
         if(recebeTexto !== '') {
             setConsultants(global.filter(consultor => 
-                consultor.nome.toLowerCase().includes(recebeTexto.toLocaleLowerCase()) === true || 
-                consultor.numero_cracha.toString().includes(recebeTexto.toLocaleLowerCase()) === true
+                consultor.funcionarioData.nome.toLowerCase().includes(recebeTexto.toLocaleLowerCase()) === true || 
+                consultor.funcionarioData.numero_cracha.toString().includes(recebeTexto.toLocaleLowerCase()) === true
             ));
         } else {
             setConsultants(global);
@@ -173,28 +174,28 @@ const ConsultantList: React.FC = () => {
                 </div>
                 <TableScroll>
                 {consultants ? consultants.map((consultant, index) => (  
-                    <LinhaConsultor id='column' status={consultant.status} key={index}>
-                        <span className='cadastro'>{consultant.numero_cracha}</span>
-                        <span className='status' id={`status${consultant.numero_cracha}`}>{consultant.status}</span>
-                        <span className='nome'>{consultant.nome}</span>
+                    <LinhaConsultor id='column' status={consultant.funcionarioData.status} key={index}>
+                        <span className='cadastro'>{consultant.funcionarioData.numero_cracha}</span>
+                        <span className='status' id={`status${consultant.funcionarioData.numero_cracha}`}>{consultant.status}</span>
+                        <span className='nome'>{consultant.funcionarioData.nome}</span>
                         <span className='fornecedor'>...</span>
                         <span className='projetos'>
                             {consultant.projetos.length > 0 ? 
                                 <PopupModal closeOnEscape trigger={<button>Gerenciar</button>} modal>
                                     {(close: any) => (
-                                        <PopupProjetosConsultor fechar={close} cracha={consultant.numero_cracha} projetoSelecionado={Number(numeroDoProjeto)}/>
+                                        <PopupProjetosConsultor fechar={close} cracha={consultant.funcionarioData.numero_cracha} projetoSelecionado={Number(numeroDoProjeto)}/>
                                     )}
                                 </PopupModal>
                                 : ''
                             }
                         </span>
                         <span className='atribuicao'>
-                            <button onClick={() => setRecebeCracha(consultant.numero_cracha)}>Atribuir</button>
+                            <button onClick={() => setRecebeCracha(consultant.funcionarioData.numero_cracha)}>Atribuir</button>
                         </span>
                         <span className='perfil'>
                             <PopupPerfilConsultor closeOnEscape trigger={<button><ImSearch size={15} color="#fff"/></button>} modal>
                                 {(close: any) => (
-                                    <PerfilConsultor nome={consultant.nome} cracha={consultant.numero_cracha} email={consultant.email} fechar={close} />
+                                    <PerfilConsultor nome={consultant.funcionarioData.nome} cracha={consultant.funcionarioData.numero_cracha} email={consultant.funcionarioData.email} fechar={close} />
                                 )}
                             </PopupPerfilConsultor>
                         </span>

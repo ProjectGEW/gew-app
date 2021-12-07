@@ -19,22 +19,43 @@ import intl from 'react-intl-universal';
 import { Msg } from '../../Projects/styles';
 
 interface IProjetoProps {
-    infoprojetoDTO: {
+    projetoData: {
+      id: number;
+      numeroDoProjeto: number;
+      titulo: string;
+      descricao: string;
+      data_de_inicio: string;
+      data_de_termino: string;
+      data_de_aprovacao: string;
+      statusProjeto: string;
+      horas_apontadas: number;
+      secao: string,
+    };
+    secoesPagantes : [{
+      secao: {
         id: number;
-        numeroDoProjeto: number;
-        titulo: string;
-        descricao: string;
-        data_de_inicio: string;
-        data_de_termino: string;
-        statusProjeto: string;
-        secao: string;
-    };
-    valoresTotaisDTO: {
-        valorTotalCcPagantes: number;
-        valorTotalDespesas: number;
-        valorTotalEsforco: number;
-    };
-}
+        responsavel: {
+          numero_cracha: number;
+          nome: string;
+          cpf: string;
+          valor_hora: number;
+        };
+        nome: string;
+      },
+      percentual: number;
+      valor: number;
+    }];
+    valoresTotais : {
+      valorTotalCcPagantes: number;
+      valorTotalDespesas: number;
+      valorTotalEsforco: number;
+    };  
+    despesas: [{
+      nome: string;
+      esforco: number;
+      valor: number;
+    }];
+  }
 
 interface ISecao {
     nome: string;
@@ -179,8 +200,8 @@ const ProjectsList: React.FC = () => {
 
         if(event.target.value !== '') {
             setProjetos(global.filter(projeto => 
-                projeto.infoprojetoDTO.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
-                projeto.infoprojetoDTO.numeroDoProjeto.toString().includes(recebeTexto)
+                projeto.projetoData.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
+                projeto.projetoData.numeroDoProjeto.toString().includes(recebeTexto)
             ))
         } else {
             setProjetos(global);
@@ -251,8 +272,8 @@ const ProjectsList: React.FC = () => {
                         <Center>
                             {
                                 projetos ? projetos.map(projeto => (
-                                    projeto.infoprojetoDTO.statusProjeto !== "CONCLUIDO" ? 
-                                        <CardSelect key={projeto.infoprojetoDTO.numeroDoProjeto} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                                    projeto.projetoData.statusProjeto !== "CONCLUIDO" ? 
+                                        <CardSelect key={projeto.projetoData.numeroDoProjeto} numeroDoProjeto={projeto.projetoData.numeroDoProjeto} />
                                     : null
                                 )) :
                                 <Msg>

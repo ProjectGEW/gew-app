@@ -32,18 +32,19 @@ const locales = {
 };
 
 interface CardContent {
-    infoprojetoDTO: {
+    projetoData: {
         id: number;
         numeroDoProjeto: number;
         titulo: string;
         descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
+        data_de_aprovacao: string;
         statusProjeto: string;
         horas_apontadas: number;
         secao: string,
     };
-    ccPagantes : [{
+    secoesPagantes : [{
         secao: {
             id: number;
             responsavel: {
@@ -57,7 +58,7 @@ interface CardContent {
         percentual: number;
         valor: number;
     }];
-    valoresTotaisDTO : {
+    valoresTotais : {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
@@ -104,7 +105,7 @@ const Dashboard: React.FC = () => {
     const [contagemPorData, setContagemPorData] = useState<CountPerData[]>([]);
 
     const [statusAtual, setStatusAtual] = useState('TODOS');
-    const [secaoAtual, setSecaoAtual] = useState('');
+    const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
     async function handleProject() {
         try {
@@ -166,17 +167,18 @@ const Dashboard: React.FC = () => {
         handleProject();
     },[]);
 
+    
     function filtraDadosPorStatus(status: string) {
         setStatusAtual(status);
         const separaProjetos = status === "TODOS" ? 
-            global.filter(res => res) : global.filter(res => res.infoprojetoDTO.statusProjeto === status);
-
+        global.filter(res => res) : global.filter(res => res.projetoData.statusProjeto === status);
+        
         var btns = ["todos", "CONCLUIDOS", "ATRASADOS", "EM_ANDAMENTO"];
-
+        
         for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
-
+        
         if(status === "CONCLUIDOS") {
             document.getElementById(status)!.style.backgroundColor = "#adffb0";
         } else if (status === "ATRASADOS") {
@@ -186,43 +188,43 @@ const Dashboard: React.FC = () => {
         } else if (status === "TODOS") {
             document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
         }
-
-        if(secaoAtual.length > 0) {
-            const separaPorStatusSecao = separaProjetos.filter(res => res.infoprojetoDTO.secao === secaoAtual);
+        
+        if(secaoAtual !== "TODOS") {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.secao === secaoAtual);
             setProjetos(separaPorStatusSecao);
             return;
         }
         setProjetos(separaProjetos);
     }
-
+    
     const filtraDadosPorSecao = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSecaoAtual(event.target.value);
         
         const separaProjetos = (event.target.value !== 'TODOS') ?
-            global.filter(res => res.infoprojetoDTO.secao === event.target.value)
+        global.filter(res => res.projetoData.secao === event.target.value)
         : global
-
+        
         if(statusAtual !== 'TODOS') {
-            const separaPorStatusSecao = separaProjetos.filter(res => res.infoprojetoDTO.statusProjeto === statusAtual);
+            const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.statusProjeto === statusAtual);
             setProjetos(separaPorStatusSecao);
         } else {
             setProjetos(separaProjetos);
         }
     }
-
+    
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
     const totalCCPagantes = [projetos.length];
     
     for(var x = 0; x < projetos.length; x++) {
-        totalCCPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
+        totalCCPagantes[x] = projetos.map((projetos) => projetos.valoresTotais.valorTotalCcPagantes)[x];
     }
     
     let dados = {aprovada: 0, utilizada: 0, disponivel: 0, porcentagemUtilizada: 0, porcentagemDisponivel: 0,
         datasGrafico: [''], verbasGrafico: [0]};
         
         
-    function calculaDadosGeral() {
-        const verbaDisponivel = totalCCPagantes.reduce(reducer) - Number(contagemVerbaGeral);
+        function calculaDadosGeral() {
+            const verbaDisponivel = totalCCPagantes.reduce(reducer) - Number(contagemVerbaGeral);
     
         const porcentagemUtilizada = ((Number(contagemVerbaGeral) * 100) / (totalCCPagantes.reduce(reducer)));
         const porcentagemDisponivel = 100 - porcentagemUtilizada;
@@ -242,7 +244,7 @@ const Dashboard: React.FC = () => {
     }
 
     function calculaDadosPorProjeto() {
-        const totalCCPagantes = projeto ? projeto.valoresTotaisDTO.valorTotalCcPagantes : 0;
+        const totalCCPagantes = projeto ? projeto.valoresTotais.valorTotalCcPagantes : 0;
     
         const verbaDisponivel = totalCCPagantes - Number(contagemVerbaGeral);
     
@@ -378,16 +380,16 @@ const Dashboard: React.FC = () => {
                         <Filtros>
                             <div>
                                 <h1>Número:</h1> 
-                                <p>{projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map(projeto => projeto.infoprojetoDTO.numeroDoProjeto)}</p>
+                                <p>{projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id)).map(projeto => projeto.projetoData.numeroDoProjeto)}</p>
                             </div>    
                             <div>
                                 <h1>Projeto:</h1> 
-                                <p>{projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map(projeto => projeto.infoprojetoDTO.titulo)}</p>
+                                <p>{projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id)).map(projeto => projeto.projetoData.titulo)}</p>
                             </div>  
                             <div>
-                                {projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map((projeto, index) => 
-                                    <Status key={index} status={projeto.infoprojetoDTO.statusProjeto} disabled>
-                                        {formatStatus(projeto.infoprojetoDTO.statusProjeto)}
+                                {projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id)).map((projeto, index) => 
+                                    <Status key={index} status={projeto.projetoData.statusProjeto} disabled>
+                                        {formatStatus(projeto.projetoData.statusProjeto)}
                                     </Status>
                                 )}
                             </div>   

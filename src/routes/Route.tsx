@@ -16,8 +16,8 @@ const Route: React.FC<RouteProps> = ({ isPrivate = false, component: Component, 
   
   return (
     <ReactDOMRoute {...rest} render={({ location }) => {
-      console.log('isPrivate: ' + isPrivate);
-      console.log('usuario: ' + usuario);
+      // console.log('isPrivate: ' + isPrivate);
+      // console.log('usuario: ' + usuario);
       if(isPrivate === !!usuario) {
         return (<Component />);
       } else {

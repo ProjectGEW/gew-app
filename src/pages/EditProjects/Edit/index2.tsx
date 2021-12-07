@@ -65,15 +65,17 @@ interface ICCpagantesInput {
 }
 
 interface IFuncionarioResponse {
-  infosFuncionarioDTO: {
+  funcionario: {
     nome: string;
     numero_cracha: number;
+    valor_hora: number;
+    email: string;
   };
   secao: string;
 }
 
 interface IProjeto {
-  infoprojetoDTO: {
+  projetoData: {
     id: number;
     numeroDoProjeto: number;
     titulo: string;
@@ -81,11 +83,46 @@ interface IProjeto {
     data_de_inicio: string;
     data_de_termino: string;
     data_de_aprovacao: string;
-    responsavel: IFuncionario;
-    solicitante: IFuncionario;
-  },
-  despesas: IDespesas[],
-  ccPagantes: ICCpagantes[]
+    statusProjeto: string;
+    horas_apontadas: number;
+    secao: string,
+    solicitante: {
+      numero_cracha: number;
+      nome: string;
+      email: string;
+      valor_hora: number;
+    },
+    responsavel: {
+      numero_cracha: number;
+      nome: string;
+      email: string;
+      valor_hora: number;
+    },
+  };
+  secoesPagantes : [{
+    secao: {
+      id: number;
+      responsavel: {
+        numero_cracha: number;
+        nome: string;
+        cpf: string;
+        valor_hora: number;
+      };
+      nome: string;
+    },
+    percentual: number;
+    valor: number;
+  }];
+  valoresTotais : {
+    valorTotalCcPagantes: number;
+    valorTotalDespesas: number;
+    valorTotalEsforco: number;
+  };  
+  despesas: [{
+    nome: string;
+    esforco: number;
+    valor: number;
+  }];
 }
 
 interface IFuncionario {
@@ -159,12 +196,12 @@ const EditarProjeto: React.FC = () => {
           .then((response => {
             setProjetoEdit(response.data); 
             setDespesas(response.data.despesas);
-            setCCpagante(response.data.ccPagantes);
-            setDataInicio(response.data.infoprojetoDTO.data_de_inicio);
-            setDataFim(response.data.infoprojetoDTO.data_de_termino);
-            setDataAprovacao(response.data.infoprojetoDTO.data_de_aprovacao);
-            buscarInfosFuncionario(String(response.data.infoprojetoDTO.responsavel.numero_cracha), "responsavel");
-            buscarInfosFuncionario(String(response.data.infoprojetoDTO.solicitante.numero_cracha), "solicitante");
+            setCCpagante(response.data.secoesPagantes);
+            setDataInicio(response.data.projetoData.data_de_inicio);
+            setDataFim(response.data.projetoData.data_de_termino);
+            setDataAprovacao(response.data.projetoData.data_de_aprovacao);
+            buscarInfosFuncionario(String(response.data.projetoData.responsavel.numero_cracha), "responsavel");
+            buscarInfosFuncionario(String(response.data.projetoData.solicitante.numero_cracha), "solicitante");
           })).catch(() => errorfulNotify("Não foi possível encontrar este projeto."));
       } catch(e) {
       console.log(e);
@@ -212,7 +249,7 @@ const EditarProjeto: React.FC = () => {
   }
 
   function deleteLastRowCC(){
-    if (ccPagante.length > Number(projetoEdit?.ccPagantes.length)) {
+    if (ccPagante.length > Number(projetoEdit?.secoesPagantes.length)) {
       ccPagante.pop();
       setCCpagante([...ccPagante]);
       return;
@@ -444,14 +481,14 @@ const EditarProjeto: React.FC = () => {
                 <div id="ladoEsquerdo">
                   <div>
                     <label>Título do projeto: </label>
-                    <input type="text" id="titulo" defaultValue={projetoEdit?.infoprojetoDTO.titulo || ''}
+                    <input type="text" id="titulo" defaultValue={projetoEdit?.projetoData.titulo || ''}
                       onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}
                     />
                     <p id="tituloResponse" className="msgErro"></p>
                   </div>
                   <div>
                     <label>Descrição do projeto: </label>
-                    <textarea id="descricao" defaultValue={projetoEdit?.infoprojetoDTO.descricao || ''}
+                    <textarea id="descricao" defaultValue={projetoEdit?.projetoData.descricao || ''}
                      onBlur={(props) => { vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse"); }}
                     />
                     <p id="descricaoResponse" className="msgErro"></p>
@@ -477,11 +514,11 @@ const EditarProjeto: React.FC = () => {
                         }
                         props.target.style.border = "";
                         buscarInfosFuncionario(props.target.value, "responsavel");
-                      }} defaultValue={responavel?.infosFuncionarioDTO.numero_cracha || ''} />
+                      }} defaultValue={responavel?.funcionario.numero_cracha || ''} />
                   </div>
                   <div>
                     <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20} /></label>
-                    <input type="text" id="nome_responsavel" defaultValue={responavel?.infosFuncionarioDTO.nome || ''} disabled />
+                    <input type="text" id="nome_responsavel" defaultValue={responavel?.funcionario.nome || ''} disabled />
                   </div>
                   <div>
                     <label htmlFor="secao_responsavel">Seção <FiInfo id="iconSecaoResponsavel" size={20} /></label>
@@ -502,11 +539,11 @@ const EditarProjeto: React.FC = () => {
                       }
                       props.target.style.border = "";
                       buscarInfosFuncionario(props.target.value, "solicitante");
-                    }} defaultValue={solicitante?.infosFuncionarioDTO.numero_cracha || ''}/>
+                    }} defaultValue={solicitante?.funcionario.numero_cracha || ''}/>
                   </div>
                   <div>
                     <label htmlFor="nome_solicitante">Nome <FiInfo id="iconNomeSolicitante" size={20} /></label>
-                    <input type="text" id="nome_solicitante" defaultValue={solicitante?.infosFuncionarioDTO.nome || ''} />
+                    <input type="text" id="nome_solicitante" defaultValue={solicitante?.funcionario.nome || ''} />
                   </div>
                   <div>
                     <label htmlFor="secao_solicitante">Seção <FiInfo id="iconSecaoSolicitante" size={20} /></label>
@@ -720,7 +757,7 @@ const EditarProjeto: React.FC = () => {
                               </div>
                               <div>
                                 <label>Nome do responsável:</label>
-                                <p>{responavel?.infosFuncionarioDTO.nome}</p>
+                                <p>{responavel?.funcionario.nome}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
@@ -730,7 +767,7 @@ const EditarProjeto: React.FC = () => {
                               </div>
                               <div>
                                 <label>Nome do solicitante:</label>
-                                <p>{solicitante?.infosFuncionarioDTO.nome}</p>
+                                <p>{solicitante?.funcionario.nome}</p>
                               </div>
                             </div>
                           </div>

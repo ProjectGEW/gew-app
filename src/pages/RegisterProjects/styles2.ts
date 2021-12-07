@@ -1005,7 +1005,7 @@ export const ContainerPopup = styled.div`
 `;
 
 export const BoxPopup = styled.div`
-  width: 78vw;
+  width: 65vw;
   height: 80vh;
   border-radius: 0.8vh;
   overflow: hidden;
@@ -1014,6 +1014,17 @@ export const BoxPopup = styled.div`
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; 
   background-color: #fff;
+
+  p {
+    display: flex;
+    align-items: center;
+    color: #5E5E5E;
+
+    svg {
+      color: #00579D;
+      margin-right: 0.4vw;
+    }
+  }
 
   .header {
     background-color: #00579D;
@@ -1054,13 +1065,13 @@ export const BoxPopup = styled.div`
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    padding: 2vh;
+    padding: 1vh;
 
     h1 {
       width: 95%;
       font-size: 3.5vh;
       padding-top: 1vh;
-      padding-bottom: 1.8vh;
+      padding-bottom: 2vh;
       border-bottom: 0.1vh solid #ebebeb;
       color: #00579D;
       display: flex;
@@ -1097,9 +1108,9 @@ export const BoxPopup = styled.div`
     }
 
     #descricao {
-      width: 34vw;
-      max-width: 34vw;
-      min-width: 34vw;
+      width: 30vw;
+      max-width: 30vw;
+      min-width: 30vw;
       height: 10vh;
       max-height: 10vh;
       min-height: 10vh;

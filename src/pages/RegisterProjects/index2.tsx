@@ -24,9 +24,9 @@ import { ContIcons } from '../components/MenuRight/styles';
 import VoltarAoTopo from '../components/VoltarAoTopo';
 
 import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
-import { AiOutlineClockCircle, AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
-import { FaEquals } from 'react-icons/fa';
+import { FaEquals, FaRegIdBadge } from 'react-icons/fa';
+import { AiOutlineClockCircle, AiOutlineCalendar, AiOutlineNumber, AiOutlineFilePdf } from 'react-icons/ai';
 
 import {
   Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
@@ -643,23 +643,23 @@ interface ISecao {
                             <h1>Dados do projeto</h1>
                             <div className="linhaUm">
                               <div>
-                                <label>Número do projeto:</label>
-                                <p>{projeto?.infoProjetosInputDTO.numeroDoProjeto || 0}</p>
+                                <label>Número:</label>
+                                <p><AiOutlineNumber/> {projeto?.infoProjetosInputDTO.numeroDoProjeto || 0}</p>
                               </div>
                               <div>
                                 <label>Ata de aprovação:</label>
-                                <p>{projeto?.infoProjetosInputDTO.ata}</p>
+                                <p><AiOutlineFilePdf/> {projeto?.infoProjetosInputDTO.ata}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
-                                <label>Título do projeto:</label>
+                                <label>Título:</label>
                                 <p>{projeto?.infoProjetosInputDTO.titulo}</p>
                               </div>
                             </div>
                             <div className="linhaTres">
                               <div>
-                                <label>Descrição do projeto:</label>
+                                <label>Descrição:</label>
                                 <textarea id="descricao" defaultValue={projeto?.infoProjetosInputDTO.descricao} disabled />
                               </div>
                             </div>
@@ -669,7 +669,7 @@ interface ISecao {
                             <div className="linhaUm">
                               <div>
                                 <label>Crachá do responsável:</label>
-                                <p>{projeto?.infoProjetosInputDTO.cracha_responsavel}</p>
+                                <p><FaRegIdBadge/> {projeto?.infoProjetosInputDTO.cracha_responsavel}</p>
                               </div>
                               <div>
                                 <label>Nome do responsável:</label>
@@ -679,7 +679,7 @@ interface ISecao {
                             <div className="linhaDois">
                               <div>
                                 <label>Crachá do solicitante:</label>
-                                <p>{projeto?.infoProjetosInputDTO.cracha_solicitante}</p>
+                                <p><FaRegIdBadge/> {projeto?.infoProjetosInputDTO.cracha_solicitante}</p>
                               </div>
                               <div>
                                 <label>Nome do solicitante:</label>
@@ -697,11 +697,11 @@ interface ISecao {
                                 <p><AiOutlineClockCircle size={15} /> 0</p>
                               </div>
                               <div>
-                                <label>Total despesas</label>
+                                <label>Total despesas:</label>
                                 <p>{analisaValor(valorDespesa || 0)}</p>
                               </div>
                               <div>
-                                <label>Valor total</label>
+                                <label>Valor total:</label>
                                 <p>{analisaValor(valorSecoesPagantes || 0)}</p>
                               </div>
                             </div>
@@ -710,22 +710,22 @@ interface ISecao {
                             <h1>Datas</h1>
                             <div className="linhaUm">
                               <div>
-                                <label>Data de aprovação:</label>
+                                <label>Aprovação:</label>
                                 <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_aprovacao}</p>
                               </div>
                               <div>
-                                <label>Data de início:</label>
+                                <label>Início:</label>
                                 <p><AiOutlineCalendar />{projeto?.infoProjetosInputDTO.data_de_inicio}</p>
                               </div>
                               <div>
-                                <label>Data de término:</label>
+                                <label>Término:</label>
                                 <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_termino}</p>
                               </div>
                             </div>
                           </div>
                           <div className="final">
                             <button onClick={() => {
-                              if (validacaoDosCamposCadastros(despesas.length, ccPagante.length)) {
+                              if (validacaoDosCamposCadastros(despesas.length, ccPagante.length, close())) {
                                 cadastrarProjeto();
                               }
                             }}>Finalizar</button>

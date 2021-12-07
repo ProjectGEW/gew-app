@@ -9,6 +9,8 @@ import { ContIcons } from '../components/MenuRight/styles';
 import api from "../../service/api";
 import intl from 'react-intl-universal';
 
+import { errorfulNotify } from '../../hooks/SystemToasts';
+
 import { ContainerProject, ContainerInfo, Projects, Container, ContainerTitle,
     ContainerFiltro, Center } from './styles';
 import { Msg } from '../Projects/styles';
@@ -25,22 +27,43 @@ const locales = {
 };
 
 interface IProjetoProps {
-  infoprojetoDTO: {
+    projetoData: {
+      id: number;
+      numeroDoProjeto: number;
+      titulo: string;
+      descricao: string;
+      data_de_inicio: string;
+      data_de_termino: string;
+      data_de_aprovacao: string;
+      statusProjeto: string;
+      horas_apontadas: number;
+      secao: string,
+    };
+    secoesPagantes : [{
+      secao: {
         id: number;
-        numeroDoProjeto: number;
-        titulo: string;
-        descricao: string;
-        data_de_inicio: string;
-        data_de_termino: string;
-        statusProjeto: string;
-        secao: string;
-    };
-    valoresTotaisDTO: {
-        valorTotalCcPagantes: number;
-        valorTotalDespesas: number;
-        valorTotalEsforco: number;
-    };
-}
+        responsavel: {
+          numero_cracha: number;
+          nome: string;
+          cpf: string;
+          valor_hora: number;
+        };
+        nome: string;
+      },
+      percentual: number;
+      valor: number;
+    }];
+    valoresTotais : {
+      valorTotalCcPagantes: number;
+      valorTotalDespesas: number;
+      valorTotalEsforco: number;
+    };  
+    despesas: [{
+      nome: string;
+      esforco: number;
+      valor: number;
+    }];
+  }
 
 interface ISecoes {
     nome: string;
@@ -69,116 +92,82 @@ const EditProjects: React.FC = () => {
     const [global, setGlobal] = useState<IProjetoProps[]>([]);
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecoes[]>([]);
-    const [status, setStatus] = useState('');
-    //const [nomeProjeto, setNomeProjeto] = useState<IProjetoProps[]>([]);
 
-    window.onload = async function handleProjetos() {
-        const response = await api.get<IProjetoProps[]>('projetos');
-        const data = response.data;
-        setProjetos(data);
-        setGlobal(data);
+    const [statusAtual, setStatusAtual] = useState('TODOS');
+    const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
-        const responseSecao = await api.get<ISecoes[]>('secoes');
-        const dataSecao = responseSecao.data;
-        setSecoes(dataSecao);
+    async function handleProject() {
+        try {
+            await api.get<IProjetoProps[]>(`projetos`)
+            .then((response => {
+                setProjetos(response.data); 
+                setGlobal(response.data);
+            })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
 
-        console.log(projetos);
+            await api.get<ISecoes[]>(`secoes`)
+            .then((response => {
+                setSecoes(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+        } catch(e) {
+            console.log(e);
+        }
     }
 
-    function defineStatus(valor: string) {
-        var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
+    useEffect(() => {
+        handleProject();
+    },[]);
+
+    function filtraDadosPorStatus(status: string) {
+        setStatusAtual(status);
+        const separaProjetos = status === "TODOS" ? 
+            global.filter(res => res) : global.filter(res => res.projetoData.statusProjeto === status);
+
+        var btns = ["todos", "CONCLUIDOS", "ATRASADOS", "EM_ANDAMENTO"];
 
         for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
-        setStatus(valor);
+        if(status === "CONCLUIDOS") {
+            document.getElementById(status)!.style.backgroundColor = "#adffb0";
+        } else if (status === "ATRASADOS") {
+            document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
+        } else if (status === "EM_ANDAMENTO") {
+            document.getElementById(status)!.style.backgroundColor = "#c2e4ff";
+        } else if (status === "TODOS") {
+            document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+        }
 
-        if (valor === "concluidos") {
-            document.getElementById(valor)!.style.backgroundColor = "#adffb0";
-        } else if (valor === "atrasados") {
-            document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
-        } else if (valor === "em_andamento") {
-            document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
-        } else if (valor === "") {
-            document.getElementById(btns[0])!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
-        }       
+        if(secaoAtual !== "TODOS") {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.secao === secaoAtual);
+            setProjetos(separaPorStatusSecao);
+            return;
+        }
+        setProjetos(separaProjetos);
     }
 
-    async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
-        event.preventDefault();
-
-        let statusteste = '';
-        var resultado = '';
-
-        if(document.activeElement) {
-            statusteste = document.activeElement?.id;
-        } else {
-            statusteste = status;
-        }
+    const filtraDadosPorSecao = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSecaoAtual(event.target.value);
         
-        if(selectedOption !== 'Todos') {     
-            if(statusteste === 'Todos') {
-                resultado = `projetos/secao/` + selectedOption;
-            } else if(statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/` + selectedOption;
-            }
-            const response = await api.get<IProjetoProps[]>(resultado);
-            const data = response.data;
-            setProjetos(data);  
-            setGlobal(data);
-
-        } else if(selectedOption === 'Todos') {
-            if(statusteste === 'Todos') {
-                resultado = `projetos`;
-            } else if(statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/Todos`;       
-            }     
-            const response = await api.get<IProjetoProps[]>(resultado);
-            const data = response.data;
-            setProjetos(data);       
-            setGlobal(data);
+        const separaProjetos = (event.target.value !== 'TODOS') ?
+            global.filter(res => res.projetoData.secao === event.target.value)
+        : global;
+        
+        if(statusAtual !== 'TODOS') {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.statusProjeto === statusAtual);
+            setProjetos(separaPorStatusSecao);
+        } else {
+            setProjetos(separaProjetos);
         }
     }
-
-    const [selectedOption, setSelectedOption] = useState('Todos');
-
-    const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = event.target.value;
-        var resultado = '';
-        setSelectedOption(value);
-      
-        if(value !== 'Todos') {
-            if(status === '') {
-                resultado = `projetos/secao/` + value;
-            } else if(status !== '') {
-                resultado = `projetos/` + status + `/` + value;
-            }  
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
-            const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);
-            setGlobal(dataPorSecao);
-
-        } else if(value === 'Todos') {
-            if(status === '') {
-                resultado = `projetos`;
-            } else if(status !== '') {
-                resultado = `projetos/` + status + `/Todos`;
-            }  
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
-            const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);
-            setGlobal(dataPorSecao);
-        }
-    };   
 
     const search = async (event: React.ChangeEvent<{ value: string }>) => {
         const recebeTexto = event.target.value;
 
         if(event.target.value !== '') {
             setProjetos(global.filter(projeto => 
-                projeto.infoprojetoDTO.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
-                projeto.infoprojetoDTO.numeroDoProjeto.toString().includes(recebeTexto)
+                projeto.projetoData.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
+                projeto.projetoData.numeroDoProjeto.toString().includes(recebeTexto)
             ))
         } else {
             setProjetos(global);
@@ -208,8 +197,8 @@ const EditProjects: React.FC = () => {
                 <h1>Filtros:</h1>
                   <div>
                     <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
-                    <select name="secao" onChange={selectChange}>
-                      <option value="Todos">Todos</option>
+                    <select name="secao" onChange={filtraDadosPorSecao}>
+                      <option value="TODOS">Todos</option>
                       {
                         secoes ? secoes.map(secoes =><option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
                         :'Nenhuma seção foi encontrada'
@@ -218,24 +207,24 @@ const EditProjects: React.FC = () => {
                   </div>
                   <div>
                     <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                    <form onSubmit={filtraPorStatus}>
-                        <button type="submit" id="Todos" className="0"
-                            onClick={() => defineStatus('')}>
+                    <div>
+                        <button type="submit" id="todos" className="0"
+                            onClick={() => filtraDadosPorStatus('TODOS')}>
                             {intl.get('tela_projetos.filtros.options.todos')}
                         </button>
-                        <button type="submit" id="em_andamento" className="1"
-                            onClick={() => defineStatus('em_andamento')}>
+                        <button type="submit" id="EM_ANDAMENTO" className="1"
+                            onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
                             {intl.get('tela_projetos.filtros.options.emandamento')}
                         </button>
-                        <button type="submit" id="atrasados" className="2"
-                            onClick={() => defineStatus('atrasados')}>
+                        <button type="submit" id="ATRASADOS" className="2"
+                            onClick={() => filtraDadosPorStatus('ATRASADOS')}>
                             {intl.get('tela_projetos.filtros.options.atrasado')}
                         </button>
-                        <button type="submit" id="concluidos" className="3"
-                            onClick={() => defineStatus('concluidos')}>
+                        <button type="submit" id="CONCLUIDOS" className="3"
+                            onClick={() => filtraDadosPorStatus('CONCLUIDOS')}>
                             {intl.get('tela_projetos.filtros.options.concluido')}
                         </button>
-                    </form>
+                    </div>
                   </div>
                   <div>
                       <label>Projeto:</label>
@@ -249,11 +238,11 @@ const EditProjects: React.FC = () => {
             <Projects>
                 <Center>
                     {
-                        projetos ?
+                        projetos && projetos.length > 0 ?
                             projetos.map((projeto) =>
-                                <CardEdit key={projeto.infoprojetoDTO.id} numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} />
+                                <CardEdit key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto} />
                             )
-                            :
+                        :
                             <Msg>
                                 <BiHourglass size={40} />
                                 <h1>{intl.get('tela_projetos.msg.texto')}</h1>

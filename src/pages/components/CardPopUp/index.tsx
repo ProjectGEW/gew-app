@@ -18,43 +18,42 @@ interface PopUpCardProps {
 }
 
 interface CardContent {
-  infoprojetoDTO : {
+  projetoData: {
     id: number;
     numeroDoProjeto: number;
     titulo: string;
     descricao: string;
     data_de_inicio: string;
     data_de_termino: string;
+    data_de_aprovacao: string;
     statusProjeto: string;
-    secao: string;
     horas_apontadas: number;
+    secao: string,
   };
-
-  ccPagantes : [{
+  secoesPagantes : [{
     secao: {
       id: number;
       responsavel: {
         numero_cracha: number;
         nome: string;
         cpf: string;
+        valor_hora: number;
       };
       nome: string;
     },
     percentual: number;
     valor: number;
   }];
-
-  despesas : [{
+  valoresTotais : {
+    valorTotalCcPagantes: number;
+    valorTotalDespesas: number;
+    valorTotalEsforco: number;
+  };  
+  despesas: [{
     nome: string;
     esforco: number;
     valor: number;
   }];
-
-  valoresTotaisDTO : {
-    valorTotalCcPagantes: number;
-    valorTotalDespesas: number;
-    valorTotalEsforco: number;
-  };      
 }
 
 const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
@@ -84,26 +83,26 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
       <DesktopModalContainer>
         <button id="fechar" onClick={() => fechar()}/>
         <ModalContainerInfos>
-          <h1>{projeto ? projeto.infoprojetoDTO.titulo : ""}</h1>
+          <h1>{projeto ? projeto.projetoData.titulo : ""}</h1>
             <ContainerBox>
-              <p>{projeto ? projeto.infoprojetoDTO.numeroDoProjeto : ""} - {projeto ? projeto.infoprojetoDTO.secao : "Seção ABC"}</p>
+              <p>{projeto ? projeto.projetoData.numeroDoProjeto : ""} - {projeto ? projeto.projetoData.secao : "Seção ABC"}</p>
               <h3>{ata ? "ATA: " + ata.split(".")[0] : "Nenhuma ATA anexada."}</h3>
             </ContainerBox>
             <ContainerBox>
               <div>
-                <h1>Data de início:</h1><h2>{projeto ? projeto.infoprojetoDTO.data_de_inicio : "00/00/0000"}</h2>
+                <h1>Data de início:</h1><h2>{projeto ? projeto.projetoData.data_de_inicio : "00/00/0000"}</h2>
               </div>
               <div>
-                <h1>Data de finalização:</h1><h2>{projeto ? projeto.infoprojetoDTO.data_de_termino : "00/00/0000"}</h2>
+                <h1>Data de finalização:</h1><h2>{projeto ? projeto.projetoData.data_de_termino : "00/00/0000"}</h2>
               </div>
             </ContainerBox>
             <ContainerBox>
-              <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={projeto ? projeto.infoprojetoDTO.numeroDoProjeto: 0}/>
+              <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={projeto ? projeto.projetoData.numeroDoProjeto: 0}/>
               <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : "indisponível"}</label>
             </ContainerBox>
             <ContainerObjectives>
               <h1>Descrição:</h1>
-              <h2>{projeto ? projeto.infoprojetoDTO.descricao : ""}
+              <h2>{projeto ? projeto.projetoData.descricao : ""}
               </h2>
             </ContainerObjectives>
           <CostCenters>
@@ -129,34 +128,34 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
               <h1>Horas esperadas:</h1>
               <div>
                 <AiOutlineClockCircle size={15} />
-                <h2>{projeto ? projeto.valoresTotaisDTO.valorTotalEsforco : ""} Horas</h2>
+                <h2>{projeto ? projeto.valoresTotais.valorTotalEsforco : ""} Horas</h2>
               </div>
             </div>
             <div>
               <h1>Horas trabalhadas:</h1>
               <div>
                 <AiOutlineClockCircle size={15} />
-                <h2>{projeto ? projeto.infoprojetoDTO.horas_apontadas : ""} Horas </h2>
+                <h2>{projeto ? projeto.projetoData.horas_apontadas : ""} Horas </h2>
               </div>
             </div>
           </ContainerValues>
           <HourGraphics>
-            <GraphCircular valor={projeto ? projeto.infoprojetoDTO.horas_apontadas : 0} total={projeto ? projeto.valoresTotaisDTO.valorTotalEsforco : 0} tipo={"%"} />
+            <GraphCircular valor={projeto ? projeto.projetoData.horas_apontadas : 0} total={projeto ? projeto.valoresTotais.valorTotalEsforco : 0} tipo={"%"} />
           </HourGraphics>
           <ContainerValues>
             <div>
               <h1>Valor do projeto:</h1><h2>{projeto ?
-                analisaValor(projeto.valoresTotaisDTO.valorTotalDespesas) : ""}</h2>
+                analisaValor(projeto.valoresTotais.valorTotalDespesas) : ""}</h2>
             </div>
             <div>
               <h1>Valor consumido:</h1><h2>{analisaValor(valorConsumido)}</h2>
             </div>
             <div>
               <h1>Saldo:</h1><h2>{analisaValor(projeto ? 
-                projeto.valoresTotaisDTO.valorTotalDespesas - valorConsumido : 0)}</h2>
+                projeto.valoresTotais.valorTotalDespesas - valorConsumido : 0)}</h2>
             </div>
           </ContainerValues>
-          <Button text={'Detalhes'} tipo={'PopUp'} rota={"details"} numeroProjeto={projeto ? projeto.infoprojetoDTO.numeroDoProjeto: 0}/>
+          <Button text={'Detalhes'} tipo={'PopUp'} rota={"details"} numeroProjeto={projeto ? projeto.projetoData.numeroDoProjeto: 0}/>
         </ModalContainerGraphs>
       </DesktopModalContainer>
     );

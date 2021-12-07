@@ -28,36 +28,37 @@ const locales = {
 };
 
 interface CardContent {
-    infoprojetoDTO: {
+    projetoData: {
         id: number;
         numeroDoProjeto: number;
         titulo: string;
         descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
+        data_de_aprovacao: string;
         statusProjeto: string;
         horas_apontadas: number;
-        secao: string;
+        secao: string,
     };
-    ccPagantes : [{
+    secoesPagantes : [{
         secao: {
             id: number;
             responsavel: {
-              numero_cracha: number;
-              nome: string;
-              cpf: string;
-              valor_hora: number;
+                numero_cracha: number;
+                nome: string;
+                cpf: string;
+                valor_hora: number;
             };
             nome: string;
         },
         percentual: number;
         valor: number;
     }];
-    valoresTotaisDTO : {
+    valoresTotais : {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
-    };      
+    };     
 }
 
 interface ISecoes {
@@ -133,7 +134,7 @@ const Dashboard: React.FC = () => {
                 const dataDatas = responseDatas.data;
                 setCountsPerData(dataDatas);
                 
-                projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
+                projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id));
     
                 const responseCountUtilizada = await api.get(`projetos/count/verba/${id ? id : 0}`);
                 const dataCountUtilizada = responseCountUtilizada.data;
@@ -256,11 +257,11 @@ const Dashboard: React.FC = () => {
     
     if(Number(id) === 0) {
         for(var x = 0; x < projetos.length; x++) {
-            totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotaisDTO.valorTotalCcPagantes)[x];
+            totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotais.valorTotalCcPagantes)[x];
         }
     } else {
-        const recebe = projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id));
-        totalCcPagantes[0] = recebe.map(projeto => projeto.valoresTotaisDTO.valorTotalCcPagantes)[0];
+        const recebe = projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id));
+        totalCcPagantes[0] = recebe.map(projeto => projeto.valoresTotais.valorTotalCcPagantes)[0];
         console.log(totalCcPagantes[0]);
     }
     
@@ -382,16 +383,16 @@ const Dashboard: React.FC = () => {
                         <Filtros>
                             <div>
                                 <h1>Número:</h1> 
-                                <p>{projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map(projeto => projeto.infoprojetoDTO.numeroDoProjeto)}</p>
+                                <p>{projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id)).map(projeto => projeto.projetoData.numeroDoProjeto)}</p>
                             </div>    
                             <div>
                                 <h1>Projeto:</h1> 
-                                <p>{projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map(projeto => projeto.infoprojetoDTO.titulo)}</p>
+                                <p>{projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id)).map(projeto => projeto.projetoData.titulo)}</p>
                             </div>  
                             <div>
-                                {projetos.filter(projeto => projeto.infoprojetoDTO.numeroDoProjeto === Number(id)).map((projeto, index) => 
-                                    <Status key={index} status={projeto.infoprojetoDTO.statusProjeto} disabled>
-                                        {formatStatus(projeto.infoprojetoDTO.statusProjeto)}
+                                {projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id)).map((projeto, index) => 
+                                    <Status key={index} status={projeto.projetoData.statusProjeto} disabled>
+                                        {formatStatus(projeto.projetoData.statusProjeto)}
                                     </Status>
                                 )}
                             </div>   

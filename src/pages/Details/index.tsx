@@ -19,39 +19,55 @@ import { ContIcons } from '../components/MenuRight/styles';
 import GraphCircular from '../components/GraphCircular';
 
 interface CardContent {
-    // ccPagantes: [
-    //     centroDeCusto : {
-    //         id: number;
-    //         nome:  string;
-    //         responsavel: {
-    //             nome: String;
-    //         }
-    //     }
-    // ];
-
-    infoprojetoDTO : {
-        id: number;
-        numeroDoProjeto: number;
-        titulo: string;
-        descricao: string;
-        data_de_inicio: string;
-        data_de_termino: string;
-        statusProjeto: string;
-        secao: string;
-        horas_apontadas: number;
-        responsavel: {
-            nome: string;
-        };
-        solicitante: {
-            nome: string;
-        };
+    projetoData: {
+      id: number;
+      numeroDoProjeto: number;
+      titulo: string;
+      descricao: string;
+      data_de_inicio: string;
+      data_de_termino: string;
+      data_de_aprovacao: string;
+      statusProjeto: string;
+      horas_apontadas: number;
+      secao: string,
+      solicitante: {
+        numero_cracha: number;
+        nome: string;
+        email: string;
+        valor_hora: number;
+      },
+      responsavel: {
+        numero_cracha: number;
+        nome: string;
+        email: string;
+        valor_hora: number;
+      },
     };
-    valoresTotaisDTO : {
-        valorTotalCcPagantes: number;
-        // valorTotalDespesas: number;
-        valorTotalEsforco: number;
-    };      
-}
+    secoesPagantes : [{
+      secao: {
+        id: number;
+        responsavel: {
+          numero_cracha: number;
+          nome: string;
+          cpf: string;
+          valor_hora: number;
+        };
+        nome: string;
+      },
+      percentual: number;
+      valor: number;
+    }];
+    valoresTotais : {
+      valorTotalCcPagantes: number;
+      valorTotalDespesas: number;
+      valorTotalEsforco: number;
+    };  
+    despesas: [{
+      nome: string;
+      esforco: number;
+      valor: number;
+    }];
+  }
 
 interface IHorasApontadas {
     horas_apontadas: number;
@@ -115,44 +131,44 @@ const Details: React.FC = () => {
         <Container>
             <ContainerDetails>
                 <ContainerSection>
-                    <h1>{project ? project.infoprojetoDTO.numeroDoProjeto : ""} - {project ? project.infoprojetoDTO.secao : "Seção ABC"}</h1>
+                    <h1>{project ? project.projetoData.numeroDoProjeto : ""} - {project ? project.projetoData.secao : "Seção ABC"}</h1>
                 </ContainerSection>
                 <ContainerTittles>
-                    <Tittle>{project ? project.infoprojetoDTO.titulo : ""}</Tittle>
+                    <Tittle>{project ? project.projetoData.titulo : ""}</Tittle>
                     <Inputs>
-                    <Button text={'Dashboard'} tipo={"DashboardDetails"} rota={"dashboard"} numeroProjeto={project ? project.infoprojetoDTO.numeroDoProjeto: 0}/>
+                    <Button text={'Dashboard'} tipo={"DashboardDetails"} rota={"dashboard"} numeroProjeto={project ? project.projetoData.numeroDoProjeto: 0}/>
                         <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : ""}</label>
                     </Inputs>
                 </ContainerTittles>
                 <ContainerInfos>
                     <ul>
                         <li>
-                            <h1>NÚMERO:</h1><h2>{project?.infoprojetoDTO.numeroDoProjeto}</h2>
+                            <h1>NÚMERO:</h1><h2>{project?.projetoData.numeroDoProjeto}</h2>
                         </li>
                         <li>
-                            <h1>STATUS:</h1><h2>{project?.infoprojetoDTO.statusProjeto === "NAO_INICIADO" ? "NÃO INICIADO" 
-                                                : project?.infoprojetoDTO.statusProjeto}</h2>
+                            <h1>STATUS:</h1><h2>{project?.projetoData.statusProjeto === "NAO_INICIADO" ? "NÃO INICIADO" 
+                                                : project?.projetoData.statusProjeto}</h2>
                         </li>
                         <li>
-                            <h1>DATA DE CRIAÇÃO:</h1><h2>{project?.infoprojetoDTO.data_de_inicio}</h2>
+                            <h1>DATA DE CRIAÇÃO:</h1><h2>{project?.projetoData.data_de_inicio}</h2>
                         </li>
                     </ul>
                 </ContainerInfos>
                 <ContainerDesc>
                     <h1>DESCRIÇÃO:</h1>
                     <h2>
-                        {project?.infoprojetoDTO.descricao}
+                        {project?.projetoData.descricao}
                     </h2>
                 </ContainerDesc>
                 <ContainerInfos>
                     <Box>
                         <h1>Solicitante / Seção Solicitante:</h1>
-                        <h2>{project?.infoprojetoDTO.solicitante.nome.toUpperCase()}</h2>
+                        <h2>{project?.projetoData.solicitante.nome.toUpperCase()}</h2>
                         <h2>SEÇÃO ASSISTÊNCIA TÉCNICA</h2>
                     </Box>
                     <Box>
                         <h1>Responsável / Seção Responsável:</h1>
-                        <h2>{project?.infoprojetoDTO.responsavel.nome.toUpperCase()}</h2>
+                        <h2>{project?.projetoData.responsavel.nome.toUpperCase()}</h2>
                         <h2>INSIDE SALES DEPARTMENT</h2>
                     </Box>
                 </ContainerInfos>
@@ -178,13 +194,13 @@ const Details: React.FC = () => {
                 <ContainerGraphs>
                     <Graphic>
                         <h1>Verba utilizada sobre o total orçado</h1>
-                        <GraphCircular total={project ? project?.valoresTotaisDTO.valorTotalCcPagantes : 0} valor={valorConsumido} tipo={"valor"}/>
+                        <GraphCircular total={project ? project?.valoresTotais.valorTotalCcPagantes : 0} valor={valorConsumido} tipo={"valor"}/>
                     </Graphic>
                     <Graphic>
                         <h1>Horas das demandas sobre o total estabelecido</h1>
                         <GraphCircular 
-                            total={project ? project?.valoresTotaisDTO.valorTotalEsforco : 0} 
-                            valor={project ? project?.infoprojetoDTO.horas_apontadas : 0} 
+                            total={project ? project?.valoresTotais.valorTotalEsforco : 0} 
+                            valor={project ? project?.projetoData.horas_apontadas : 0} 
                             tipo={"hora"}
                         />
                     </Graphic>
