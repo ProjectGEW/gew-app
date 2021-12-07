@@ -48,19 +48,19 @@ interface CountPerData {
 
 const Menu: React.FC = () => {
     const history = useHistory();
-    let level = localStorage.getItem('Level');
+    // let level = localStorage.getItem('Level');
     
-    if(level === null){
-      if(level !== 'GZ4_7WPQgajvmSlKlRgn8A') {
-        if(level !== 'fmb8xNYF02BPXsGJohcOkw') {
-          if(level !== 'aIj5vqAY-nXFQC0DLJUrxA') {
-            if(level !== 'V_mJKGFmvh7XtkEVhOCgTw') {
-              history.push('/');
-            }
-          }
-        }
-      }
-    }
+    // if(level === null){
+    //   if(level !== 'GZ4_7WPQgajvmSlKlRgn8A') {
+    //     if(level !== 'fmb8xNYF02BPXsGJohcOkw') {
+    //       if(level !== 'aIj5vqAY-nXFQC0DLJUrxA') {
+    //         if(level !== 'V_mJKGFmvh7XtkEVhOCgTw') {
+    //           history.push('/');
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');

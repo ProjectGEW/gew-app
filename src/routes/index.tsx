@@ -24,39 +24,41 @@ import Fornecedor from '../pages/Fornecedor';
 import Gestor from '../pages/Gestor';
 
 const Routes: React.FC = () => {
-  return (<Switch>
-    {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
-    {/* Rotas gerais para todas as personas */}
-    <Route path="/" exact component={NewLogin} />
-    <Route path="/settings" component={Settings} />
+  return (
+    <Switch>
+      {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
+      {/* Rotas gerais para todas as personas */}
+      <Route path="/" exact component={NewLogin} />
+      <Route path="/settings" component={Settings} />
 
-    {/* Rotas para Gerente */}
-    <Route path="/home" component={Menu}  />
-    <Route path="/projects" component={Projects} />
-    <Route path="/register_projects" component={CadastroProjeto} />
-    <Route path="/edit_projects" component={EditProjects} />
-    <Route path="/register_consultants" component={RegisterConsultants} />
-    <Route path="/dashboard/:id" component={Dashboard} />
-    <Route path="/details/:numeroDoProjeto" component={Details} />
-    <Route path="/consultants/view_projects" component={ProjectsList} />
-    <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} />
-    <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} />
-    <Route path="/edit/:nm" component={Edit} />
+      {/* Rotas para Gerente */}
+      <Route path="/home" component={Menu}  />
+      <Route path="/projects" component={Projects} />
+      <Route path="/register_projects" component={CadastroProjeto} />
+      <Route path="/edit_projects" component={EditProjects} />
+      <Route path="/register_consultants" component={RegisterConsultants} />
+      <Route path="/dashboard/:id" component={Dashboard} />
+      <Route path="/details/:numeroDoProjeto" component={Details} />
+      <Route path="/consultants/view_projects" component={ProjectsList} />
+      <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} />
+      <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} />
+      <Route path="/edit/:nm" component={Edit} />
 
-    {/* Rotas para o gestor */}
-    <Route path="/gestor" component={Gestor} />
+      {/* Rotas para o gestor */}
+      <Route path="/gestor" component={Gestor} />
 
-    {/* Rotas para o fornecedor */}
-    <Route path="/fornecedor" component={Fornecedor} />
-    
-    {/* Rotas para o consultor */}
-    <Route path="/consultor" component={Consultor} />
+      {/* Rotas para o fornecedor */}
+      <Route path="/fornecedor" component={Fornecedor} />
+      
+      {/* Rotas para o consultor */}
+      <Route path="/consultor" component={Consultor} />
 
-    {/* Área para testes */}
-    <Route path="/oldlogin" component={Login}/>
-    <Route path="/test" component={Test}  />
-    <Route path="/test2" component={Test2} />
-  </Switch>
-  )};
+      {/* Área para testes */}
+      <Route path="/oldlogin" component={Login}/>
+      <Route path="/test" component={Test}  />
+      <Route path="/test2" component={Test2} />
+    </Switch>
+  )
+};
 
 export default Routes;
