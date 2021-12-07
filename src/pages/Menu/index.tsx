@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom'
 import intl from "react-intl-universal";
 import api from '../../service/api';
@@ -47,7 +47,21 @@ interface CountPerData {
 }
 
 const Menu: React.FC = () => {
-  const history = useHistory();
+    const history = useHistory();
+    let level = localStorage.getItem('Level');
+    
+    if(level === null){
+      if(level !== 'GZ4_7WPQgajvmSlKlRgn8A') {
+        if(level !== 'fmb8xNYF02BPXsGJohcOkw') {
+          if(level !== 'aIj5vqAY-nXFQC0DLJUrxA') {
+            if(level !== 'V_mJKGFmvh7XtkEVhOCgTw') {
+              history.push('/');
+            }
+          }
+        }
+      }
+    }
+
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
 

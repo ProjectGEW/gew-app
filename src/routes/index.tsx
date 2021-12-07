@@ -28,33 +28,33 @@ const Routes: React.FC = () => {
     {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
     {/* Rotas gerais para todas as personas */}
     <Route path="/" exact component={NewLogin} />
-    <Route path="/settings" component={Settings} isPrivate/>
+    <Route path="/settings" component={Settings} />
 
     {/* Rotas para Gerente */}
-    <Route path="/home" component={Menu} isPrivate />
-    <Route path="/projects" component={Projects} isPrivate/>
-    <Route path="/register_projects" component={CadastroProjeto} isPrivate/>
-    <Route path="/edit_projects" component={EditProjects} isPrivate/>
-    <Route path="/register_consultants" component={RegisterConsultants} isPrivate/>
-    <Route path="/dashboard/:id" component={Dashboard} isPrivate/>
-    <Route path="/details/:numeroDoProjeto" component={Details} isPrivate/>
-    <Route path="/consultants/view_projects" component={ProjectsList} isPrivate/>
-    <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} isPrivate/>
-    <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} isPrivate/>
-    <Route path="/edit/:nm" component={Edit} isPrivate/>
+    <Route path="/home" component={Menu}  />
+    <Route path="/projects" component={Projects} />
+    <Route path="/register_projects" component={CadastroProjeto} />
+    <Route path="/edit_projects" component={EditProjects} />
+    <Route path="/register_consultants" component={RegisterConsultants} />
+    <Route path="/dashboard/:id" component={Dashboard} />
+    <Route path="/details/:numeroDoProjeto" component={Details} />
+    <Route path="/consultants/view_projects" component={ProjectsList} />
+    <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} />
+    <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} />
+    <Route path="/edit/:nm" component={Edit} />
 
     {/* Rotas para o gestor */}
-    <Route path="/gestor" component={Gestor} isPrivate/>
+    <Route path="/gestor" component={Gestor} />
 
     {/* Rotas para o fornecedor */}
-    <Route path="/fornecedor" component={Fornecedor} isPrivate/>
+    <Route path="/fornecedor" component={Fornecedor} />
     
     {/* Rotas para o consultor */}
-    <Route path="/consultor" component={Consultor} isPrivate/>
+    <Route path="/consultor" component={Consultor} />
 
     {/* Área para testes */}
     <Route path="/oldlogin" component={Login}/>
-    <Route path="/test" component={Test} isPrivate />
+    <Route path="/test" component={Test}  />
     <Route path="/test2" component={Test2} />
   </Switch>
   )};

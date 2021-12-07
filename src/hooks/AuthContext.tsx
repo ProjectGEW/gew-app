@@ -42,6 +42,12 @@ export const AuthProvider: React.FC = ({ children }) => {
       if(response.data === 2) {
         localStorage.setItem("Level", 'fmb8xNYF02BPXsGJohcOkw')
       }
+      if(response.data === 3) {
+        localStorage.setItem("Level", 'aIj5vqAY-nXFQC0DLJUrxA')
+      }
+      if(response.data === 4) {
+        localStorage.setItem("Level", 'V_mJKGFmvh7XtkEVhOCgTw')
+      }
     });
   }
   
