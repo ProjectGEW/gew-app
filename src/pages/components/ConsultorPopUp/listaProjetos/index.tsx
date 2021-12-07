@@ -14,43 +14,55 @@ interface IListaProps {
 }
 
 interface CardContent {
-    infoprojetoDTO : {
-        id: number;
-        numeroDoProjeto: number;
-        titulo: string;
-        descricao: string;
-        data_de_inicio: string;
-        data_de_termino: string;
-        statusProjeto: string;
-        horas_apontadas: number;
+    projetoData: {
+      id: number;
+      numeroDoProjeto: number;
+      titulo: string;
+      descricao: string;
+      data_de_inicio: string;
+      data_de_termino: string;
+      data_de_aprovacao: string;
+      statusProjeto: string;
+      horas_apontadas: number;
+      secao: string,
     };
-    ccPagantes: [{
-        secao: {
-            id: number;
-            responsavel: {
-              numero_cracha: number;
-              nome: string;
-              cpf: string;
-              valor_hora: number;
-            };
-            nome: string;
-        },
-        percentual: number;
-        valor: number;
+    secoesPagantes : [{
+      secao: {
+        id: number;
+        responsavel: {
+          numero_cracha: number;
+          nome: string;
+          cpf: string;
+          valor_hora: number;
+        };
+        nome: string;
+      },
+      percentual: number;
+      valor: number;
     }];
-    valoresTotaisDTO : {
-        valorTotalCcPagantes: number;
-        valorTotalDespesas: number;
-        valorTotalEsforco: number;
-    };      
-}
+    valoresTotais : {
+      valorTotalCcPagantes: number;
+      valorTotalDespesas: number;
+      valorTotalEsforco: number;
+    };  
+    despesas: [{
+      nome: string;
+      esforco: number;
+      valor: number;
+    }];
+  }
 
 interface IConsultor {
-    numero_cracha: number;
-    status: string;
-    nome: string;
-    email: string;
+    funcionarioData: {
+        numero_cracha: number;
+        status: string;
+        nome: string;
+        email: string;
+    },
     projetos: number[];
+    skills: [];
+    fornecedor: string;
+    status: boolean;
 }
 
 const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha }) => {
@@ -79,7 +91,7 @@ const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha }) => {
         }
     }
 
-    const tituloDoProjeto = projeto?.infoprojetoDTO.titulo;
+    const tituloDoProjeto = projeto?.projetoData.titulo;
 
     return (
         <div className="projeto">

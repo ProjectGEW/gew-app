@@ -47,24 +47,25 @@ interface IConsultor {
 const ConsultantList: React.FC = () => {
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
-
+        
         if (languageStorage) {
             let languageObject = JSON.parse(languageStorage);
             return languageObject;
         }
     });
-
+    
     intl.init({
         currentLocale: language.code,
         locales
     });
-
+    
     const [consultants, setConsultants] = useState<IConsultor[]>([]);
     const [global, setGlobal] = useState<IConsultor[]>([]);
     const { numeroDoProjeto }: {numeroDoProjeto: string} = useParams();
-
+    console.log(consultants);
+    
     window.onload = async function handleConsultores() {
-        await api.get("funcionarios/consultor").then((response) => {
+        await api.get("consultores").then((response) => {
             setConsultants(response.data); setGlobal(response.data);
         });
     }
@@ -72,7 +73,7 @@ const ConsultantList: React.FC = () => {
     const [recebeCracha, setRecebeCracha] = useState<Number>();
     
     useEffect(() => {
-        api.get("funcionarios/consultor").then(response => setConsultants(response.data));
+        api.get("consultores").then(response => setConsultants(response.data));
         
         const identifica = consultants.filter(consultor => consultor.funcionarioData.numero_cracha === recebeCracha);
         const salva = identifica.map(consultor => consultor.projetos.indexOf(Number(numeroDoProjeto)));
