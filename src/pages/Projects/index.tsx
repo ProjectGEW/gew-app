@@ -4,7 +4,7 @@ import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
 import MenuRight from '../../components/MenuRight';
 import Card from '../../components/CardProjeto/Card';
-//import CardEsqueleto from '../components/CardProject/CardEsqueleto';
+import CardEsqueleto from '../../components/CardProjeto/CardEsqueleto';
 
 import { ContIcons } from '../../components/MenuRight/styles';
 
@@ -19,8 +19,7 @@ import { BiHourglass } from 'react-icons/bi';
 import { FiRefreshCcw } from 'react-icons/fi';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
-    ContainerFiltro, Center, Msg } from './styles';
-import analisaValor from '../../utils/analisaValor';
+    ContainerFiltro, Center, Msg, Atualizar } from './styles';
     
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -230,7 +229,8 @@ const Projects: React.FC = () => {
                             <input type="text" placeholder="Pesquise aqui..." onChange={search} />
                         </div>
                         <div>
-                            <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/>
+                            {/* <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/> */}
+                            <Atualizar/>
                         </div>
                     </ContainerFiltro>
                 </ContainerInfo>
