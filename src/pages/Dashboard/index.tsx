@@ -5,20 +5,20 @@ import intl from "react-intl-universal";
 import api from '../../service/api';
 import { Line } from 'react-chartjs-2';
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
-import { ContIcons } from '../components/MenuRight/styles';
-import GraphLiquid from "../components/GraphLiquid";
-import PopupVerbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
-import PopupVerbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
+import { ContIcons } from '../../components/MenuRight/styles';
+import GraphLiquid from "../../components/GraphLiquid";
+import PopupVerbaUtilizada from '../../components/DashboardPopUp/verbaUtilizada';
+import PopupVerbaDisponivel from '../../components/DashboardPopUp/verbaDisponivel';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
     GraphLine, CardsMoney, Money, Filtros, BoxLine, PopupModal, PopupTooltip, Status } from './styles';
 
 import analisaValor from '../../utils/analisaValor';
 import formatStatus from '../../utils/formatStatus';
-import { ContainerLine } from '../components/GraphLine/styles';
+import { ContainerLine } from '../../components/GraphLine/styles';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),

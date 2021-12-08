@@ -1,14 +1,14 @@
 import React from 'react';
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { HiMinusCircle, HiArrowNarrowLeft } from 'react-icons/hi';
 
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
-import { ContIcons } from '../components/MenuRight/styles';
+import { ContIcons } from '../../components/MenuRight/styles';
 
 import { BoxConfirm, SideContainer, ContentContainer, Box, TableConfirm } from './styles';
 

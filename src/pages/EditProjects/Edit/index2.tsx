@@ -17,12 +17,12 @@ import Paper from "@material-ui/core/Paper";
 
 import { successfulNotify, errorfulNotify, warnNotify } from '../../../hooks/SystemToasts';
 
-import MenuLeft from '../../components/MenuLeft';
-import MenuRight from '../../components/MenuRight';
-import Navbar from '../../components/Navbar';
-import Button from '../../components/Button';
-import { ContIcons } from '../../components/MenuRight/styles';
-import VoltarAoTopo from '../../components/VoltarAoTopo';
+import MenuLeft from '../../../components/MenuLeft';
+import MenuRight from '../../../components/MenuRight';
+import Navbar from '../../../components/Navbar';
+import Button from '../../../components/Button';
+import { ContIcons } from '../../../components/MenuRight/styles';
+import VoltarAoTopo from '../../../components/VoltarAoTopo';
 
 import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
 import { AiOutlineClockCircle, AiOutlineCalendar } from 'react-icons/ai';

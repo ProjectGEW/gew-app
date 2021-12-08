@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import MenuLeft from '../components/MenuLeft';
-import MenuRight from '../components/MenuRight';
-import Navbar from '../components/Navbar';
+import MenuLeft from '../../components/MenuLeft';
+import MenuRight from '../../components/MenuRight';
+import Navbar from '../../components/Navbar';
 
 import { FaEdit } from "react-icons/fa";
 

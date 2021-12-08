@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
-import Card from '../components/CardProject/Card';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
+import Card from '../../components/CardProjeto/Card';
 //import CardEsqueleto from '../components/CardProject/CardEsqueleto';
 
-import { ContIcons } from '../components/MenuRight/styles';
+import { ContIcons } from '../../components/MenuRight/styles';
 
 import api from "../../service/api";
 
@@ -20,6 +20,7 @@ import { FiRefreshCcw } from 'react-icons/fi';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
     ContainerFiltro, Center, Msg } from './styles';
+import analisaValor from '../../utils/analisaValor';
     
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -117,8 +118,8 @@ const Projects: React.FC = () => {
 
     function filtraDadosPorStatus(status: string) {
         setStatusAtual(status);
-        const separaProjetos = status === "TODOS" ? 
-            global.filter(res => res) : global.filter(res => res.projetoData.statusProjeto === status);
+        const separaProjetos = (status === "TODOS") ? global.filter(res => res) 
+        : global.filter(res => res.projetoData.statusProjeto === status);
 
         var btns = ["todos", "CONCLUIDOS", "ATRASADOS", "EM_ANDAMENTO"];
 

@@ -1,18 +1,18 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
 
-import MenuLeft from '../../components/MenuLeft';
-import Navbar from '../../components/Navbar';
-import MenuRight from '../../components/MenuRight';
-import { ContIcons } from '../../components/MenuRight/styles';
+import MenuLeft from '../../../components/MenuLeft';
+import Navbar from '../../../components/Navbar';
+import MenuRight from '../../../components/MenuRight';
+import { ContIcons } from '../../../components/MenuRight/styles';
 
 import { Container, ContainerInfo, ContainerTitle, ContainerFiltro, Table, TableDimensions,
     TableScroll, LinhaConsultor, PopupPerfilConsultor, Msg, PopupModal } from './style';
 
 import { successfulNotify, errorfulNotify } from '../../../hooks/SystemToasts';
 
-import PerfilConsultor from '../../components/ConsultorPopUp/perfilConsultor';
-import PopupProjetosConsultor from '../../components/ConsultorPopUp/projetosConsultor';
+import PerfilConsultor from '../../../components/ConsultorPopUp/perfilConsultor';
+import PopupProjetosConsultor from '../../../components/ConsultorPopUp/projetosConsultor';
 
 import api from "../../../service/api";
 

@@ -4,22 +4,22 @@ import Calendar from 'react-calendar';
 import { useHistory } from 'react-router-dom';
 import { useDropzone } from "react-dropzone";
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
-import Button from '../components/Button';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
+import Button from '../../components/Button';
 
 import analisaValor from '../../utils/analisaValor';
 
-import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
-import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
+import RowDespesas from '../../components/CadastroProjeto/Dinheiro/Row/RowDP';
+import RowCcPagantes from '../../components/CadastroProjeto/Dinheiro/Row/RowCC';
 
-import { BoxProjeto, Preview } from '../components/RegisterProject/Projeto/styles';
-import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles';
-import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
-import { BoxDatas } from '../components/RegisterProject/Datas/styles';
-import { ContIcons } from '../components/MenuRight/styles';
-import { Subtittles } from '../components/Subtittles/styles';
+import { BoxProjeto, Preview } from '../../components/CadastroProjeto/Projeto/styles';
+import { BoxResponsavel } from '../../components/CadastroProjeto/Responsavel/styles';
+import { BoxDinheiro, Table, Total } from '../../components/CadastroProjeto/Dinheiro/styles';
+import { BoxDatas } from '../../components/CadastroProjeto/Datas/styles';
+import { ContIcons } from '../../components/MenuRight/styles';
+import { Subtittles } from '../../components/Subtittles/styles';
 //import Footer from '../components/Footer';
 import 'react-calendar/dist/Calendar.css';
 
@@ -35,7 +35,7 @@ import api from "../../service/api";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts'
 import { vrfCampoComMsg, validacaoDosCamposCadastros } from '../../utils/confereCampo';
-import Footer from '../components/Footer';
+import Footer from '../../components/Footer';
 
 
 interface IFuncionarioResponse {

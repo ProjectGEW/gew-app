@@ -10,7 +10,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 
 import WEG from "../../assets/weg.svg";
 
-import Input from '../components/InputPrimary';
+import Input from '../../components/InputPrimary';
 
 import { Container, Line, LoginCont, ContainerBottom, ContainerBtn, ContainerInput } from './styles';
 

@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { useAuth }  from '../../hooks/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import Input from '../components/InputPrimary';
+import Input from '../../components/InputPrimary';
 
 import { ContainerBtn, ContainerInput, Rectangle, Section, Image, SideContainer, LoginContainer,
     PopupTooltip, ContainerPopUp, PopUp } from './styles';

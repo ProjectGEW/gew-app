@@ -1,6 +1,6 @@
 import React from 'react';
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
 import { ContainerProject } from '../Projects/styles';
 import { Container  } from './styles';
 

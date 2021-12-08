@@ -4,9 +4,9 @@ import intl from "react-intl-universal";
 import api from '../../service/api';
 import analisaValor from '../../utils/analisaValor';
 
-import MenuLeft from "../components/MenuLeft";
-import Navbar from "../components/Navbar";
-import GraphLiquid from "../components/GraphLiquid";
+import MenuLeft from "../../components/MenuLeft";
+import Navbar from "../../components/Navbar";
+import GraphLiquid from "../../components/GraphLiquid";
 
 import { IoPersonAddSharp } from "react-icons/io5";
 import { RiFileEditFill } from "react-icons/ri";

@@ -5,18 +5,18 @@ import { Inputs, ContainerDesc, ContainerInfos, ContainerSection, ContainerTittl
     ContainerDetails, Box, ContainerAppointments, ContainerGraphs, Graphic, Graphic2, Filtros, Top, Bottom,
     Graph, Left, Right, Square, Bar, Pack, Footer } from './style';
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
 
 import api from '../../service/api';
 
 import analisaValor from "../../utils/analisaValor";
 
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
-import { ContIcons } from '../components/MenuRight/styles';
-import GraphCircular from '../components/GraphCircular';
+import { ContIcons } from '../../components/MenuRight/styles';
+import GraphCircular from '../../components/GraphCircular';
 
 interface CardContent {
     projetoData: {

@@ -4,22 +4,22 @@ import Calendar from 'react-calendar';
 import { useHistory } from 'react-router-dom';
 import { useDropzone } from "react-dropzone";
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
-import Button from '../components/Button';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
+import Button from '../../components/Button';
 
 import analisaValor from '../../utils/analisaValor';
 
-import RowDespesas from '../components/RegisterProject/Dinheiro/Row/RowDP';
-import RowCcPagantes from '../components/RegisterProject/Dinheiro/Row/RowCC';
+import RowDespesas from '../../components/CadastroProjeto/Dinheiro/Row/RowDP';
+import RowCcPagantes from '../../components/CadastroProjeto/Dinheiro/Row/RowCC';
 
-import { BoxProjeto } from '../components/RegisterProject/Projeto/styles';
-import { BoxResponsavel } from '../components/RegisterProject/Responsavel/styles';
-import { BoxDinheiro, Table, Total } from '../components/RegisterProject/Dinheiro/styles';
-import { BoxDatas } from '../components/RegisterProject/Datas/styles';
-import { ContIcons } from '../components/MenuRight/styles';
-import Footer from '../components/Footer';
+import { BoxProjeto } from '../../components/CadastroProjeto/Projeto/styles';
+import { BoxResponsavel } from '../../components/CadastroProjeto/Responsavel/styles';
+import { BoxDinheiro, Table, Total } from '../../components/CadastroProjeto/Dinheiro/styles';
+import { BoxDatas } from '../../components/CadastroProjeto/Datas/styles';
+import { ContIcons } from '../../components/MenuRight/styles';
+import Footer from '../../components/Footer';
 import 'react-calendar/dist/Calendar.css';
 
 import { RiErrorWarningFill } from 'react-icons/ri';

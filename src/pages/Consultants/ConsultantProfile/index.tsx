@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { useParams } from "react-router-dom";
 
-import MenuLeft from '../../components/MenuLeft';
-import Navbar from '../../components/Navbar';
-import MenuRight from '../../components/MenuRight';
-import { ContIcons } from '../../components/MenuRight/styles';
+import MenuLeft from '../../../components/MenuLeft';
+import Navbar from '../../../components/Navbar';
+import MenuRight from '../../../components/MenuRight';
+import { ContIcons } from '../../../components/MenuRight/styles';
 
 import { Container, MainProfileGrid, Email, Tittle } from './style';
 import { Table, TableDimensions, TableScroll } from '../ConsultantsList/style';

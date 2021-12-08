@@ -11,14 +11,14 @@ import formatStatus from '../../utils/formatStatus';
 
 import { errorfulNotify } from '../../hooks/SystemToasts';
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
-import { ContIcons } from '../components/MenuRight/styles';
-import GraphLiquid from "../components/GraphLiquid";
-import PopupVerbaUtilizada from '../components/DashboardPopUp/verbaUtilizada';
-import PopupVerbaDisponivel from '../components/DashboardPopUp/verbaDisponivel';
-import { ContainerLine } from '../components/GraphLine/styles';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
+import { ContIcons } from '../../components/MenuRight/styles';
+import GraphLiquid from "../../components/GraphLiquid";
+import PopupVerbaUtilizada from '../../components/DashboardPopUp/verbaUtilizada';
+import PopupVerbaDisponivel from '../../components/DashboardPopUp/verbaDisponivel';
+import { ContainerLine } from '../../components/GraphLine/styles';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
     GraphLine, CardsMoney, Money, Filtros, BoxLine, PopupModal, PopupTooltip, Status } from './styles';

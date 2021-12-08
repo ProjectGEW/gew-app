@@ -1,10 +1,10 @@
 import React, { useEffect, useState, FormEvent } from 'react';
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
-import CardEdit from '../components/CardProject/CardEdit';
-import { ContIcons } from '../components/MenuRight/styles';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
+import CardEdit from '../../components/CardProjeto/CardEdit';
+import { ContIcons } from '../../components/MenuRight/styles';
 
 import api from "../../service/api";
 import intl from 'react-intl-universal';

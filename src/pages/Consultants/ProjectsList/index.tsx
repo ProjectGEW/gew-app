@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import MenuLeft from '../../components/MenuLeft';
-import Navbar from '../../components/Navbar';
-import MenuRight from '../../components/MenuRight';
-import { ContIcons } from '../../components/MenuRight/styles';
+import MenuLeft from '../../../components/MenuLeft';
+import Navbar from '../../../components/Navbar';
+import MenuRight from '../../../components/MenuRight';
+import { ContIcons } from '../../../components/MenuRight/styles';
 
-import CardSelect from '../../components/CardProject/CardSelect';
+import CardSelect from '../../../components/CardProjeto/CardSelect';
 
 import { ContainerProject, ContainerInfo, Projects, Container, ContainerTitle,
     ContainerFiltro, Center } from './style';

@@ -2,11 +2,11 @@
 
 import React, { useState, useCallback } from 'react';
 
-import MenuLeft from '../components/MenuLeft';
-import Navbar from '../components/Navbar';
-import MenuRight from '../components/MenuRight';
+import MenuLeft from '../../components/MenuLeft';
+import Navbar from '../../components/Navbar';
+import MenuRight from '../../components/MenuRight';
 
-import { ContIcons } from '../components/MenuRight/styles';
+import { ContIcons } from '../../components/MenuRight/styles';
 
 import { Container } from './styles';
 import Paper from "@material-ui/core/Paper";
@@ -21,7 +21,7 @@ import './estiloPopup.css';
 
 import { successfulNotify } from '../../hooks/SystemToasts';
 
-import CardEsqueleto from '../components/CardProject/CardEsqueleto';
+import CardEsqueleto from '../../components/CardProjeto/CardEsqueleto';
 import analisaValor from '../../utils/analisaValor';
 
 interface IDados {
