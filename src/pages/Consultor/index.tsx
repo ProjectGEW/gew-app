@@ -244,9 +244,6 @@ async function handleProject() {
           </ProjectsGrid>
         </ContainerProject>
       </Container>
-      <MenuRight>
-        <ContIcons />
-      </MenuRight>
     </>
   )
 }

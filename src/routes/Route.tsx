@@ -21,14 +21,14 @@ const Route: React.FC<RouteProps> = ({ isPrivate = false, component: Component, 
       if(isPrivate === !!usuario) {
         return (<Component />);
       } else {
-        if(localStorage.getItem('Level') === 'fmb8xNYF02BPXsGJohcOkw' || localStorage.getItem('Level') === 'GZ4_7WPQgajvmSlKlRgn8A' || 
-           localStorage.getItem('Level') === 'aIj5vqAY-nXFQC0DLJUrxA' || localStorage.getItem('Level') === 'V_mJKGFmvh7XtkEVhOCgTw') {
+        if(localStorage.getItem('Cargo') === 'fmb8xNYF02BPXsGJohcOkw' || localStorage.getItem('Cargo') === 'GZ4_7WPQgajvmSlKlRgn8A' || 
+           localStorage.getItem('Cargo') === 'aIj5vqAY-nXFQC0DLJUrxA' || localStorage.getItem('Cargo') === 'V_mJKGFmvh7XtkEVhOCgTw') {
           return (<Redirect to={{ pathname: isPrivate ? "/" : "/home", state: { from: location },}}/>)
         } else {
           localStorage.removeItem("Token");
           localStorage.removeItem("User");
           localStorage.removeItem("User:nome");
-          localStorage.removeItem("Level");
+          localStorage.removeItem("Cargo");
           return (<Component />)
         }
       }

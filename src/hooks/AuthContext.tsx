@@ -37,16 +37,16 @@ export const AuthProvider: React.FC = ({ children }) => {
   function buscarCargo(email: string){ 
     api.get(`funcionarios/cargo/${email}`).then((response) => {
       if(response.data === 1) {
-        localStorage.setItem("Level", 'GZ4_7WPQgajvmSlKlRgn8A')
+        localStorage.setItem("Cargo", 'GZ4_7WPQgajvmSlKlRgn8A')
       }
       if(response.data === 2) {
-        localStorage.setItem("Level", 'fmb8xNYF02BPXsGJohcOkw')
+        localStorage.setItem("Cargo", 'fmb8xNYF02BPXsGJohcOkw')
       }
       if(response.data === 3) {
-        localStorage.setItem("Level", 'aIj5vqAY-nXFQC0DLJUrxA')
+        localStorage.setItem("Cargo", 'aIj5vqAY-nXFQC0DLJUrxA')
       }
       if(response.data === 4) {
-        localStorage.setItem("Level", 'V_mJKGFmvh7XtkEVhOCgTw')
+        localStorage.setItem("Cargo", 'V_mJKGFmvh7XtkEVhOCgTw')
       }
     });
   }
