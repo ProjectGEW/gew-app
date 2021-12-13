@@ -97,7 +97,7 @@ export const P = styled(Popup)`
 
 export const Scroll = styled.div`
     width: 35vw;
-    height: 25vh;
+    height: 40vh;
 
     display: flex;
     flex-direction: column;

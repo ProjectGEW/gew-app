@@ -74,6 +74,10 @@ interface CountPerData {
     verbaUtilizada: number;
 }
 
+interface Coutverba {
+    total: number;
+}
+
 const Dashboard: React.FC = () => {
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -99,7 +103,7 @@ const Dashboard: React.FC = () => {
 
     const [contagemVerba14, setContagemVerba14] = useState<CountPerData[]>([]);
     const [contagemVerba28, setContagemVerba28] = useState<CountPerData[]>([]);
-    const [contagemVerbaGeral, setContagemVerbaGeral] = useState('');
+    const [contagemVerbaGeral, setContagemVerbaGeral] = useState<Coutverba>();
     const [contagemVerbaDoProjeto14, setContagemVerbaDoProjeto14] = useState<CountPerData[]>([]);
     const [contagemVerbaDoProjeto28, setContagemVerbaDoProjeto28] = useState<CountPerData[]>([]);
     const [contagemPorData, setContagemPorData] = useState<CountPerData[]>([]);
@@ -120,7 +124,7 @@ const Dashboard: React.FC = () => {
                 setSecoes(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
 
-            await api.get(`projetos/count/verba/0`)
+            await api.get<Coutverba>(`projetos/count/verba/0`)
             .then((response => {
                 setContagemVerbaGeral(response.data); 
             })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas."));
@@ -166,7 +170,6 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         handleProject();
     },[]);
-
     
     function filtraDadosPorStatus(status: string) {
         setStatusAtual(status);
@@ -221,12 +224,12 @@ const Dashboard: React.FC = () => {
     
     let dados = {aprovada: 0, utilizada: 0, disponivel: 0, porcentagemUtilizada: 0, porcentagemDisponivel: 0,
         datasGrafico: [''], verbasGrafico: [0]};
-        
-        
-        function calculaDadosGeral() {
-            const verbaDisponivel = totalCCPagantes.reduce(reducer) - Number(contagemVerbaGeral);
+                
+    function calculaDadosGeral() {
+        const contVerbaTotal = contagemVerbaGeral ? contagemVerbaGeral?.total : 0;
+        const verbaDisponivel = totalCCPagantes.reduce(reducer) - contVerbaTotal;
     
-        const porcentagemUtilizada = ((Number(contagemVerbaGeral) * 100) / (totalCCPagantes.reduce(reducer)));
+        const porcentagemUtilizada = ((contVerbaTotal * 100) / (totalCCPagantes.reduce(reducer)));
         const porcentagemDisponivel = 100 - porcentagemUtilizada;
 
         const datas = totalCCPagantes.reduce(reducer) > 0 ? contagemPorData.map(datas => datas.data) : ["0"];    
@@ -234,7 +237,7 @@ const Dashboard: React.FC = () => {
 
         dados = {
             aprovada: totalCCPagantes.reduce(reducer),
-            utilizada: Number(contagemVerbaGeral),
+            utilizada: contVerbaTotal,
             disponivel: verbaDisponivel,
             porcentagemUtilizada: porcentagemUtilizada,
             porcentagemDisponivel: porcentagemDisponivel,
@@ -288,8 +291,6 @@ const Dashboard: React.FC = () => {
             }
         }
     }
-
-    console.log(projeto);
     
     const data = {
         labels: dados.datasGrafico.reverse(),

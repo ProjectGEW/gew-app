@@ -13,31 +13,33 @@ interface PopupVerbaUtilizadaProps {
 }
 
 interface CardContent {
-    infoprojetoDTO : {
+    projetoData: {
         id: number;
         numeroDoProjeto: number;
         titulo: string;
         descricao: string;
         data_de_inicio: string;
         data_de_termino: string;
+        data_de_aprovacao: string;
         statusProjeto: string;
         horas_apontadas: number;
+        secao: string,
     };
-    ccPagantes: [{
+    secoesPagantes : [{
         secao: {
             id: number;
             responsavel: {
-              numero_cracha: number;
-              nome: string;
-              cpf: string;
-              valor_hora: number;
+                numero_cracha: number;
+                nome: string;
+                cpf: string;
+                valor_hora: number;
             };
             nome: string;
         },
         percentual: number;
         valor: number;
     }];
-    valoresTotaisDTO : {
+    valoresTotais : {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
@@ -48,28 +50,23 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({status, valor,
     const [projetos, setProjetos] = useState<CardContent[]>([]);
     const [countVerbaTotal, setCountVerbaTotal] = useState();
 
-    /*useEffect(() => {
-        window.onload = async function handleProjetos() {
-            const response = await api.get<CardContent[]>(`projetos`);
-            const data = response.data;
-            setProjetos(data);
+    async function handleProject() {
+        try {
+            api.get<CardContent[]>(`projetos`).then((response => {
+                setProjetos(response.data);
+            }));
 
-            const responseVerbaTotal = await api.get(`projetos/count/verba/total`);
-            const dataVerbaTotal = responseVerbaTotal.data;
-            setCountVerbaTotal(dataVerbaTotal);
+            api.get(`projetos/count/verba/0`).then((response => {
+                setCountVerbaTotal(response.data)
+            })); 
+        } catch(e) {
+            console.log("🚀 ~ file: index.tsx ~ line 62 ~ e", e);        
         }
-        //handleProjetos();
-    }, [projetos, countVerbaTotal]); */
+    }
 
     useEffect(() => {
-        api.get<CardContent[]>(`projetos`).then((response => {
-              setProjetos(response.data);
-        }));
-  
-        api.get(`projetos/count/verba/0`).then((response => {
-            setCountVerbaTotal(response.data)
-        })); 
-    }, [countVerbaTotal]);
+        handleProject();
+    },[]);
 
     return (
         <Container>
@@ -83,22 +80,22 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({status, valor,
                         projetos ? 
                             status === "TODOS" ?
                                 projetos.map((projeto, index) => 
-                                    projeto.infoprojetoDTO.horas_apontadas !== 0 ? 
+                                    projeto.projetoData.horas_apontadas !== 0 ? 
                                         <ListaProjetos key={index} 
-                                            numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
-                                            tituloDoProjeto={projeto.infoprojetoDTO.titulo}
+                                            numeroDoProjeto={projeto.projetoData.numeroDoProjeto} 
+                                            tituloDoProjeto={projeto.projetoData.titulo}
                                         />
-                                    : ''
+                                    : <h1 id="info">Nenhum projeto está utilizando verba!</h1>
                                 ) : 
                                 projetos.map((projeto, index) => 
-                                    projeto.infoprojetoDTO.horas_apontadas !== 0 && projeto.infoprojetoDTO.statusProjeto === status ? 
+                                    projeto.projetoData.horas_apontadas !== 0 && projeto.projetoData.statusProjeto === status ? 
                                         <ListaProjetos key={index} 
-                                            numeroDoProjeto={projeto.infoprojetoDTO.numeroDoProjeto} 
-                                            tituloDoProjeto={projeto.infoprojetoDTO.titulo}
+                                            numeroDoProjeto={projeto.projetoData.numeroDoProjeto} 
+                                            tituloDoProjeto={projeto.projetoData.titulo}
                                         />
-                                    : ''
+                                    : <h1 id="info">Nenhum projeto está utilizando verba!</h1>
                                 )
-                        : ''                           
+                        : <h1 id="info">Nenhum projeto foi encontrado!</h1>
                     }
                 </Scroll>
                 <Graph>

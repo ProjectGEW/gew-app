@@ -15,7 +15,7 @@ import Details from '../pages/Details';
 import Test from '../pages/Test';
 import Test2 from '../pages/test2';
 import ProjectsList from '../pages/Consultants/ProjectsList';
-import ConsultantList from '../pages/Consultants/ConsultantsList';
+import ConsultantList from '../pages/Consultants/ConsultantsList/index2';
 import ConsultantProfile from '../pages/Consultants/ConsultantProfile';
 import Edit from '../pages/EditProjects/Edit/index2';
 import Consultor from '../pages/Consultor';

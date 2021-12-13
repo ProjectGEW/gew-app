@@ -2,8 +2,10 @@ import { shade } from "polished";
 import Popup from 'reactjs-popup';
 import styled, { css } from "styled-components";
 
+import Close from '../../../assets/close.svg';
+
 interface TableProps {
-    status: string;
+    status: boolean;
 }
 
 export const Container = styled.div`
@@ -306,6 +308,8 @@ export const TableDimensions = styled.div`
 export const TableScroll = styled.div`
     width: 70vw;
     height: 60vh;
+    
+    border: 0.1vh solid rgb(196, 196, 196, 0.5);    
 
     display: flex;
     flex-direction: column;
@@ -334,7 +338,7 @@ export const LinhaConsultor = styled.div<TableProps>`
         background-color: rgb(155, 155, 155, 0.05);
     }
     
-    ${props => props.status === 'ATIVO' && css`
+    ${props => props.status === true && css`
         &:hover {
             background-color: #f6fff5;
         }
@@ -353,7 +357,7 @@ export const LinhaConsultor = styled.div<TableProps>`
         }
     `}  
     
-    ${props => props.status === 'INATIVO' && css`
+    ${props => props.status === false && css`
         &:hover {
             background-color: #fff6f6;
         }
@@ -505,6 +509,157 @@ export const PopUpTooltip = styled.div`
 
         &:hover {
             background-color: #d2ebff;
+        }
+    }
+`;
+
+export const ContainerPopupHoras = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
+    border-radius: 0.8vh;
+    overflow: hidden;
+`;
+
+export const PopupAdicionarHoras = styled.div`
+    width: 35vw;
+    height: 20vh;
+    background: #fff;
+    border-radius: 0.8vh;
+    //overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; 
+
+    .projeto {       
+        margin-top: 0vh;         
+        margin-left: 1vw;
+        margin-right: 1vw;
+
+        font-size: 2.5vh;
+        color: #00579D;
+
+        border-bottom: 0.1vh solid #ccc;
+
+        &:hover {
+            background-color: rgba(220, 220, 220, 0.25);
+        }
+
+        p {
+            &:nth-child(1) {
+                width: 17.5vw;
+                border-right: 0.1vh solid #c4c4c4;
+                color: #484848;
+            }
+        }
+
+        font-weight: bold;
+        padding: 1.4vh;
+        padding-top: 2vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+`;
+
+export const ScrollPopupHoras = styled.div`
+    width: 35vw;
+    height: 20vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    overflow-x: hidden;
+
+    h1 {
+        color: #00579D;
+        font-size: 2.6vh;
+    }
+
+    div {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        input {
+            height: 5vh;
+            margin-top: 1vh;
+            margin-bottom: 1vh;
+            margin-right: 0.5vw;
+
+            text-align: center;
+    
+            font-size: 2.4vh;
+    
+            border-radius: 0.4vh;
+            border: 0px;
+            padding: 1vh;
+    
+            background-color: #e9e9e9;
+            box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
+            color: #424242;
+    
+            &::placeholder {
+                color: #8f8f8f;
+            }
+        }
+    
+        button {
+            padding: 0.8vh;
+            border: 0;
+            border-radius: 0.5vh;
+            margin-left: 0.5vw;
+            font-size: 2.6vh;
+            color: white;
+            font-weight: bold;
+            background-color: #00579D;
+    
+            &:hover {
+                background-color: ${shade(0.09, "#00579D")}
+            }
+        }
+    }
+
+`;
+
+export const TitlePopupHoras = styled.div`
+    width: 35vw;
+    padding: 1vh;
+    background-color: #00579D;
+
+    display: flex;
+    flex-direction: row;
+
+    h1 {
+        color: #fff;
+        font-size: 3vh;
+        margin-left: 0.5vw;
+    }
+
+    span {
+        background-image: url(${Close});
+        border: 0;
+        background-color: transparent;
+        width: 4vh;
+        height: 4vh;
+        margin-top: -0.4vh;
+        margin-left: 32vw;
+        position: absolute;
+        background-size: cover;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        &:active {
+            opacity: 0.8;
         }
     }
 `;

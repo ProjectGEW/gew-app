@@ -117,6 +117,12 @@ export const Scroll = styled.div`
         background-color: rgb(196, 196, 196); 
         border-radius: 1vh;
     }
+
+    #info {
+        font-size: 2.6vh;
+        color: #00579D;
+        margin: 2vh;
+    }
 `;
 
 export const Title = styled.div`
