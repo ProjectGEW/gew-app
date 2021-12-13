@@ -29,18 +29,18 @@ const locales = {
 };
 
 interface IProjetoProps {
-    projetoData: {
-        id: number;
-        numeroDoProjeto: number;
-        titulo: string;
-        descricao: string;
-        data_de_inicio: string;
-        data_de_termino: string;
-        data_de_aprovacao: string;
-        statusProjeto: string;
-        horas_apontadas: number;
-        secao: string,
-    };
+  projetoData: {
+    id: number;
+    numeroDoProjeto: number;
+    titulo: string;
+    descricao: string;
+    data_de_inicio: string;
+    data_de_termino: string;
+    data_de_aprovacao: string;
+    statusProjeto: string;
+    horas_apontadas: number;
+    secao: string,
+  };
     secoesPagantes : [{
         secao: {
             id: number;
@@ -95,20 +95,20 @@ const Projects: React.FC = () => {
     const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
     async function handleProject() {
-        try {
-            await api.get<IProjetoProps[]>(`projetos`)
-            .then((response => {
-                setProjetos(response.data); 
-                setGlobal(response.data);
-            })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
+      try {
+        await api.get<IProjetoProps[]>(`projetos`)
+        .then((response => {
+            setProjetos(response.data); 
+            setGlobal(response.data);
+        })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
 
-            await api.get<ISecoes[]>(`secoes`)
-            .then((response => {
-                setSecoes(response.data); 
-            })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
-        } catch(e) {
-            console.log(e);
-        }
+        await api.get<ISecoes[]>(`secoes`)
+        .then((response => {
+            setSecoes(response.data); 
+        })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+      } catch(e) {
+          console.log(e);
+      }
     }
 
     useEffect(() => {
@@ -186,68 +186,68 @@ const Projects: React.FC = () => {
         <MenuLeft />
         <Container>
             <ContainerProject>
-                <ContainerInfo>
-                    <ContainerTitle>
-                        <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25}/></h1>
-                        <span />
-                    </ContainerTitle>
-                    <ContainerFiltro>
-                        <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
+              <ContainerInfo>
+                <ContainerTitle>
+                    <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25}/></h1>
+                    <span />
+                </ContainerTitle>
+                <ContainerFiltro>
+                    <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
+                    <div>
+                        <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
+                        <select name="secao" onChange={filtraDadosPorSecao}>
+                            <option value="TODOS">Todos</option>
+                            {
+                                secoes ? secoes.map(secoes => <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
+                                : 'Nenhuma seção foi encontrada'
+                            }
+                        </select>
+                    </div>
+                    <div>
+                        <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
                         <div>
-                            <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
-                            <select name="secao" onChange={filtraDadosPorSecao}>
-                                <option value="TODOS">Todos</option>
-                                {
-                                    secoes ? secoes.map(secoes => <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
-                                    : 'Nenhuma seção foi encontrada'
-                                }
-                            </select>
+                            <button type="submit" id="todos" className="0"
+                                onClick={() => filtraDadosPorStatus('TODOS')}>
+                                {intl.get('tela_projetos.filtros.options.todos')}
+                            </button>
+                            <button type="submit" id="EM_ANDAMENTO" className="1"
+                                onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
+                                {intl.get('tela_projetos.filtros.options.emandamento')}
+                            </button>
+                            <button type="submit" id="ATRASADOS" className="2"
+                                onClick={() => filtraDadosPorStatus('ATRASADOS')}>
+                                {intl.get('tela_projetos.filtros.options.atrasado')}
+                            </button>
+                            <button type="submit" id="CONCLUIDOS" className="3"
+                                onClick={() => filtraDadosPorStatus('CONCLUIDOS')}>
+                                {intl.get('tela_projetos.filtros.options.concluido')}
+                            </button>
                         </div>
-                        <div>
-                            <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                            <div>
-                                <button type="submit" id="todos" className="0"
-                                    onClick={() => filtraDadosPorStatus('TODOS')}>
-                                    {intl.get('tela_projetos.filtros.options.todos')}
-                                </button>
-                                <button type="submit" id="EM_ANDAMENTO" className="1"
-                                    onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
-                                    {intl.get('tela_projetos.filtros.options.emandamento')}
-                                </button>
-                                <button type="submit" id="ATRASADOS" className="2"
-                                    onClick={() => filtraDadosPorStatus('ATRASADOS')}>
-                                    {intl.get('tela_projetos.filtros.options.atrasado')}
-                                </button>
-                                <button type="submit" id="CONCLUIDOS" className="3"
-                                    onClick={() => filtraDadosPorStatus('CONCLUIDOS')}>
-                                    {intl.get('tela_projetos.filtros.options.concluido')}
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-                            <input type="text" placeholder="Pesquise aqui..." onChange={search} />
-                        </div>
-                        <div>
-                            {/* <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/> */}
-                            <Atualizar/>
-                        </div>
-                    </ContainerFiltro>
-                </ContainerInfo>
-                <ProjectsGrid>
-                    <Center>
-                        {
-                            projetos && projetos.length > 0 ? projetos.map((projeto) =>
-                                <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto} />
-                            )
-                            :
-                            <Msg>
-                                <BiHourglass size={40} />
-                                <h1>{intl.get('tela_projetos.msg.texto')}</h1>
-                            </Msg>
-                        }
-                    </Center>
-                </ProjectsGrid>
+                    </div>
+                    <div>
+                        <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
+                        <input type="text" placeholder="Pesquise aqui..." onChange={search} />
+                    </div>
+                    <div>
+                        {/* <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/> */}
+                        <Atualizar/>
+                    </div>
+                </ContainerFiltro>
+              </ContainerInfo>
+              <ProjectsGrid>
+                  <Center>
+                      {
+                        projetos && projetos.length > 0 ? projetos.map((projeto) =>
+                          <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto} />
+                        )
+                        :
+                        <Msg>
+                          <BiHourglass size={40} />
+                          <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                        </Msg>
+                      }
+                  </Center>
+              </ProjectsGrid>
             </ContainerProject>
         </Container>
         <MenuRight>

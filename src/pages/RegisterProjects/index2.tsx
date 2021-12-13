@@ -35,9 +35,9 @@ import {
 
 //Interfaces
 interface IProjetoInputDTO {
-  infoProjetosInputDTO: IInfoProjetosInputDTO;
-  despesasInputDTOS: IDespesas[];
-  ccPagantesInputDTO: ICCpagantesInput[];
+  projetoData: IInfoProjetosInputDTO;
+  despesas: IDespesas[];
+  secoesPagantes: ICCpagantesInput[];
 }
 
 interface IInfoProjetosInputDTO {
@@ -74,7 +74,7 @@ interface ICCpagantes {
 }
 
 interface IFuncionarioResponse {
-  infosFuncionarioDTO: {
+  funcionario: {
     nome: string;
   };
   secao: string;
@@ -93,7 +93,7 @@ const CadastroProjeto: React.FC = () => {
   // }
   
   const infosProjeto = {
-  infoProjetosInputDTO: {
+  projetoData: {
     numeroDoProjeto: 0,
     titulo: "",
     descricao: "",
@@ -104,14 +104,14 @@ const CadastroProjeto: React.FC = () => {
     data_de_termino: "",
     data_de_aprovacao: ""
   },
-  despesasInputDTOS: [
+  despesas: [
     {
       nome: "",
       esforco: 0,
       valor: 0
     }
   ],
-  ccPagantesInputDTO: [
+  secoesPagantes: [
     {
       secao_id: 0,
       valor: 0
@@ -125,8 +125,8 @@ interface ISecao {
   }
 }
 
-  infosProjeto.despesasInputDTOS.shift();
-  infosProjeto.ccPagantesInputDTO.shift();
+  infosProjeto.despesas.shift();
+  infosProjeto.secoesPagantes.shift();
 
   //Lista para fazer linha de despesas
   const [despesas, setDespesas] = useState<IDespesas[]>([{ nome: "", esforco: Number(null), valor: Number(null) }]);
@@ -298,20 +298,20 @@ interface ISecao {
   //Setar informações
   const [projeto, setProjeto] = useState<IProjetoInputDTO>();
   function setarInformações() {
-    infosProjeto.infoProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
-    infosProjeto.infoProjetosInputDTO["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
-    infosProjeto.infoProjetosInputDTO["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
-    infosProjeto.infoProjetosInputDTO["ata"] = (document.getElementById('ataNome') as HTMLInputElement).value;
+    infosProjeto.projetoData["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
+    infosProjeto.projetoData["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
+    infosProjeto.projetoData["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
+    infosProjeto.projetoData["ata"] = (document.getElementById('ataNome') as HTMLInputElement).value;
 
-    infosProjeto.infoProjetosInputDTO.cracha_responsavel = parseInt((document.getElementById("cracha_responsavel") as HTMLInputElement).value);
-    infosProjeto.infoProjetosInputDTO.cracha_solicitante = parseInt((document.getElementById("cracha_solicitante") as HTMLInputElement).value);
+    infosProjeto.projetoData.cracha_responsavel = parseInt((document.getElementById("cracha_responsavel") as HTMLInputElement).value);
+    infosProjeto.projetoData.cracha_solicitante = parseInt((document.getElementById("cracha_solicitante") as HTMLInputElement).value);
 
-    infosProjeto.infoProjetosInputDTO.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
-    infosProjeto.infoProjetosInputDTO.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
-    infosProjeto.infoProjetosInputDTO.data_de_aprovacao = (document.getElementById("data_de_aprovacao") as HTMLInputElement).value;
+    infosProjeto.projetoData.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
+    infosProjeto.projetoData.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
+    infosProjeto.projetoData.data_de_aprovacao = (document.getElementById("data_de_aprovacao") as HTMLInputElement).value;
 
     for (let i = 1; i <= despesas.length; i++) {
-      infosProjeto.despesasInputDTOS.push(
+      infosProjeto.despesas.push(
         {
           nome: (document.getElementById(`despesa${i}`) as HTMLInputElement).value,
           esforco: parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value),
@@ -321,7 +321,7 @@ interface ISecao {
     };
 
     for (let i = 1; i <= ccPagante.length; i++) {
-      infosProjeto.ccPagantesInputDTO.push(
+      infosProjeto.secoesPagantes.push(
         {
           secao_id: parseInt((document.getElementById(`centro${i}`) as HTMLInputElement).value),
           valor: parseFloat((document.getElementById(`valorC${i}`) as HTMLInputElement).value)
@@ -339,14 +339,13 @@ interface ISecao {
     await api.get<ISecao>(`secoes/${idSecao}`).then((response) => 
       (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = response.data.responsavel.nome
     );
-    alert(1);
   }
 
   async function cadastrarProjeto() {
     try {
       await api.post<IProjetoInputDTO>('projetos', projeto)
         .then((response) => {
-          //history.push('/projects')
+          history.push('/projects');
           successfulNotify('Projeto cadastrado com sucesso!');
         })
         .catch((e) => {
@@ -434,7 +433,7 @@ interface ISecao {
                   </div>
                   <div>
                     <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20} /></label>
-                    <input type="text" id="nome_responsavel" value={responavel?.infosFuncionarioDTO.nome} disabled />
+                    <input type="text" id="nome_responsavel" value={responavel?.funcionario.nome} disabled />
                   </div>
                   <div>
                     <label htmlFor="secao_responsavel">Seção <FiInfo id="iconSecaoResponsavel" size={20} /></label>
@@ -459,7 +458,7 @@ interface ISecao {
                   </div>
                   <div>
                     <label htmlFor="nome_solicitante">Nome <FiInfo id="iconNomeSolicitante" size={20} /></label>
-                    <input type="text" id="nome_solicitante" value={solicitante?.infosFuncionarioDTO.nome} disabled />
+                    <input type="text" id="nome_solicitante" value={solicitante?.funcionario.nome} disabled />
                   </div>
                   <div>
                     <label htmlFor="secao_solicitante">Seção <FiInfo id="iconSecaoSolicitante" size={20} /></label>
@@ -644,23 +643,23 @@ interface ISecao {
                             <div className="linhaUm">
                               <div>
                                 <label>Número:</label>
-                                <p><AiOutlineNumber/> {projeto?.infoProjetosInputDTO.numeroDoProjeto || 0}</p>
+                                <p><AiOutlineNumber/> {projeto?.projetoData.numeroDoProjeto || 0}</p>
                               </div>
                               <div>
                                 <label>Ata de aprovação:</label>
-                                <p><AiOutlineFilePdf/> {projeto?.infoProjetosInputDTO.ata}</p>
+                                <p><AiOutlineFilePdf/> {projeto?.projetoData.ata}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
                                 <label>Título:</label>
-                                <p>{projeto?.infoProjetosInputDTO.titulo}</p>
+                                <p>{projeto?.projetoData.titulo}</p>
                               </div>
                             </div>
                             <div className="linhaTres">
                               <div>
                                 <label>Descrição:</label>
-                                <textarea id="descricao" defaultValue={projeto?.infoProjetosInputDTO.descricao} disabled />
+                                <textarea id="descricao" defaultValue={projeto?.projetoData.descricao} disabled />
                               </div>
                             </div>
                           </div>
@@ -669,21 +668,21 @@ interface ISecao {
                             <div className="linhaUm">
                               <div>
                                 <label>Crachá do responsável:</label>
-                                <p><FaRegIdBadge/> {projeto?.infoProjetosInputDTO.cracha_responsavel}</p>
+                                <p><FaRegIdBadge/> {projeto?.projetoData.cracha_responsavel}</p>
                               </div>
                               <div>
                                 <label>Nome do responsável:</label>
-                                <p>{responavel?.infosFuncionarioDTO.nome}</p>
+                                <p>{responavel?.funcionario.nome}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
                                 <label>Crachá do solicitante:</label>
-                                <p><FaRegIdBadge/> {projeto?.infoProjetosInputDTO.cracha_solicitante}</p>
+                                <p><FaRegIdBadge/> {projeto?.projetoData.cracha_solicitante}</p>
                               </div>
                               <div>
                                 <label>Nome do solicitante:</label>
-                                <p>{solicitante?.infosFuncionarioDTO.nome}</p>
+                                <p>{solicitante?.funcionario.nome}</p>
                               </div>
                             </div>
                           </div>
@@ -711,15 +710,15 @@ interface ISecao {
                             <div className="linhaUm">
                               <div>
                                 <label>Aprovação:</label>
-                                <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_aprovacao}</p>
+                                <p><AiOutlineCalendar /> {projeto?.projetoData.data_de_aprovacao}</p>
                               </div>
                               <div>
                                 <label>Início:</label>
-                                <p><AiOutlineCalendar />{projeto?.infoProjetosInputDTO.data_de_inicio}</p>
+                                <p><AiOutlineCalendar />{projeto?.projetoData.data_de_inicio}</p>
                               </div>
                               <div>
                                 <label>Término:</label>
-                                <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_termino}</p>
+                                <p><AiOutlineCalendar /> {projeto?.projetoData.data_de_termino}</p>
                               </div>
                             </div>
                           </div>
