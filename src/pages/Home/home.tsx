@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import HomeGerente from '../Menu';
 import HomeGestor from '../Gestor';
@@ -9,7 +9,7 @@ import HomeConsultor from '../Consultor';
 const Home: React.FC = () => {
   const [cargo] = useState(() => {
     let recebeCargo = localStorage.getItem('Cargo');
-    
+
     if (recebeCargo) {
       let objetoCargo = recebeCargo;
       return objetoCargo;
@@ -18,22 +18,22 @@ const Home: React.FC = () => {
 
   const history = useHistory();
 
-  if(cargo === 'GZ4_7WPQgajvmSlKlRgn8A') {
+  if (cargo === 'GZ4_7WPQgajvmSlKlRgn8A') {
     return (
-      <HomeGerente/>
-    );  
-  } else if(cargo === 'fmb8xNYF02BPXsGJohcOkw') {
+      <HomeGerente />
+    );
+  } else if (cargo === 'fmb8xNYF02BPXsGJohcOkw') {
     return (
-      <HomeGestor/>
-    );  
-  } else if(cargo === 'aIj5vqAY-nXFQC0DLJUrxA') {
+      <HomeGestor />
+    );
+  } else if (cargo === 'aIj5vqAY-nXFQC0DLJUrxA') {
     return (
-      <HomeFornecedor/>
-    );  
-  } else if(cargo === 'V_mJKGFmvh7XtkEVhOCgTw') {
+      <HomeFornecedor />
+    );
+  } else if (cargo === 'V_mJKGFmvh7XtkEVhOCgTw') {
     return (
-      <HomeConsultor/>
-    );  
+      <HomeConsultor />
+    );
   } else {
     history.push('/');
     return (

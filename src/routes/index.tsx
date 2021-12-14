@@ -33,23 +33,23 @@ const Routes: React.FC = () => {
       <Route path="/settings" component={Settings} />
 
       {/* Rotas para Gerente */}
-      <Route path="/home" component={Home} isPrivate/>
-      <Route path="/projects" component={Projects} isPrivate/>
-      <Route path="/register_projects" component={CadastroProjeto} isPrivate/>
-      <Route path="/edit_projects" component={EditProjects} isPrivate/>
-      <Route path="/register_consultants" component={RegisterConsultants} isPrivate/>
-      <Route path="/dashboard/:id" component={Dashboard} isPrivate/>
-      <Route path="/details/:numeroDoProjeto" component={Details} isPrivate/>
-      <Route path="/consultants/view_projects" component={ProjectsList} isPrivate/>
-      <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} isPrivate/>
-      <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} isPrivate/>
-      <Route path="/edit/:nm" component={Edit} isPrivate/>
-      <Route path="*" component={NewLogin} isPrivate/>
+      <Route path="/home" component={Home} isPrivate />
+      <Route path="/projects" component={Projects} isPrivate />
+      <Route path="/register_projects" component={CadastroProjeto} isPrivate />
+      <Route path="/edit_projects" component={EditProjects} isPrivate />
+      <Route path="/register_consultants" component={RegisterConsultants} isPrivate />
+      <Route path="/dashboard/:id" component={Dashboard} isPrivate />
+      <Route path="/details/:numeroDoProjeto" component={Details} isPrivate />
+      <Route path="/consultants/view_projects" component={ProjectsList} isPrivate />
+      <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} isPrivate />
+      <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} isPrivate />
+      <Route path="/edit/:nm" component={Edit} isPrivate />
+      {/* <Route path="*" component={NewLogin} isPrivate /> */}
 
       {/* Área para testes */}
       {/* <Route path="/oldlogin" component={Login}/> */}
-      <Route path="/test" component={Test}  />
-      <Route path="/test2" component={Test2} />
+      <Route path="/test" component={Test} isPrivate />
+      <Route path="/test2" component={Test2} isPrivate />
     </Switch>
   )
 };

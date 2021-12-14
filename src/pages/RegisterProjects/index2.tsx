@@ -83,47 +83,47 @@ interface IFuncionarioResponse {
 const CadastroProjeto: React.FC = () => {
   const history = useHistory();
 
-  if(localStorage.getItem('Level') !== 'GZ4_7WPQgajvmSlKlRgn8A' || 
-     localStorage.getItem('Level') !== 'fmb8xNYF02BPXsGJohcOkw '){
+  if (localStorage.getItem('Cargo') !== 'GZ4_7WPQgajvmSlKlRgn8A' &&
+    localStorage.getItem('Cargo') !== 'fmb8xNYF02BPXsGJohcOkw ') {
     localStorage.removeItem("Token");
     localStorage.removeItem("User");
     localStorage.removeItem("User:nome");
     localStorage.removeItem("Level");
     history.push('/');
   }
-  
-  const infosProjeto = {
-  projetoData: {
-    numeroDoProjeto: 0,
-    titulo: "",
-    descricao: "",
-    ata: "",
-    cracha_responsavel: 0,
-    cracha_solicitante: 0,
-    data_de_inicio: "",
-    data_de_termino: "",
-    data_de_aprovacao: ""
-  },
-  despesas: [
-    {
-      nome: "",
-      esforco: 0,
-      valor: 0
-    }
-  ],
-  secoesPagantes: [
-    {
-      secao_id: 0,
-      valor: 0
-    }
-  ]
-}
 
-interface ISecao {
-  responsavel: {
-    nome: string;
+  const infosProjeto = {
+    projetoData: {
+      numeroDoProjeto: 0,
+      titulo: "",
+      descricao: "",
+      ata: "",
+      cracha_responsavel: 0,
+      cracha_solicitante: 0,
+      data_de_inicio: "",
+      data_de_termino: "",
+      data_de_aprovacao: ""
+    },
+    despesas: [
+      {
+        nome: "",
+        esforco: 0,
+        valor: 0
+      }
+    ],
+    secoesPagantes: [
+      {
+        secao_id: 0,
+        valor: 0
+      }
+    ]
   }
-}
+
+  interface ISecao {
+    responsavel: {
+      nome: string;
+    }
+  }
 
   infosProjeto.despesas.shift();
   infosProjeto.secoesPagantes.shift();
@@ -335,9 +335,9 @@ interface ISecao {
     return console.log(projeto);
   }
 
-  async function buscarResponsavelSecao(idSecao: string, index:number) {
-    await api.get<ISecao>(`secoes/${idSecao}`).then((response) => 
-      (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = response.data.responsavel.nome
+  async function buscarResponsavelSecao(idSecao: string, index: number) {
+    await api.get<ISecao>(`secoes/${idSecao}`).then((response) =>
+      (document.getElementById(`responsavel${index + 1}`) as HTMLInputElement).value = response.data.responsavel.nome
     );
   }
 
@@ -356,7 +356,7 @@ interface ISecao {
       errorfulNotify('Não foi possivel realizar o cadastro do projeto!');
     }
   }
-  
+
   return (
     <>
       <Navbar />
@@ -422,14 +422,14 @@ interface ISecao {
                   <div>
                     <label htmlFor="cracha_responsavel">Crachá</label>
                     <input type="number" id="cracha_responsavel" onBlur={(props) => {
-                        if (props.target.value === "") {
-                          props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
-                          errorfulNotify("O campo não pode estar vazio!");
-                          return;
-                        }
-                        props.target.style.border = "";
-                        buscarInfosFuncionario(props.target.value, "responsavel");
-                      }} />
+                      if (props.target.value === "") {
+                        props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                        errorfulNotify("O campo não pode estar vazio!");
+                        return;
+                      }
+                      props.target.style.border = "";
+                      buscarInfosFuncionario(props.target.value, "responsavel");
+                    }} />
                   </div>
                   <div>
                     <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20} /></label>
@@ -643,11 +643,11 @@ interface ISecao {
                             <div className="linhaUm">
                               <div>
                                 <label>Número:</label>
-                                <p><AiOutlineNumber/> {projeto?.projetoData.numeroDoProjeto || 0}</p>
+                                <p><AiOutlineNumber /> {projeto?.projetoData.numeroDoProjeto || 0}</p>
                               </div>
                               <div>
                                 <label>Ata de aprovação:</label>
-                                <p><AiOutlineFilePdf/> {projeto?.projetoData.ata}</p>
+                                <p><AiOutlineFilePdf /> {projeto?.projetoData.ata}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
@@ -668,7 +668,7 @@ interface ISecao {
                             <div className="linhaUm">
                               <div>
                                 <label>Crachá do responsável:</label>
-                                <p><FaRegIdBadge/> {projeto?.projetoData.cracha_responsavel}</p>
+                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_responsavel}</p>
                               </div>
                               <div>
                                 <label>Nome do responsável:</label>
@@ -678,7 +678,7 @@ interface ISecao {
                             <div className="linhaDois">
                               <div>
                                 <label>Crachá do solicitante:</label>
-                                <p><FaRegIdBadge/> {projeto?.projetoData.cracha_solicitante}</p>
+                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_solicitante}</p>
                               </div>
                               <div>
                                 <label>Nome do solicitante:</label>
