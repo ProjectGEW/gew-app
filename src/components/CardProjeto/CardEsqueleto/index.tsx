@@ -7,8 +7,8 @@ const CardProject: React.FC = () => {
   return (
     <>
       <Card>
-        <CardStatus/>
-        <CardBox/>
+        <CardStatus />
+        <CardBox />
       </Card>
     </>
   );
