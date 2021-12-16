@@ -85,7 +85,7 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({status, valor,
                                             numeroDoProjeto={projeto.projetoData.numeroDoProjeto} 
                                             tituloDoProjeto={projeto.projetoData.titulo}
                                         />
-                                    : <h1 id="info">Nenhum projeto está utilizando verba!</h1>
+                                    : ''
                                 ) : 
                                 projetos.map((projeto, index) => 
                                     projeto.projetoData.horas_apontadas !== 0 && projeto.projetoData.statusProjeto === status ? 
@@ -93,9 +93,9 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({status, valor,
                                             numeroDoProjeto={projeto.projetoData.numeroDoProjeto} 
                                             tituloDoProjeto={projeto.projetoData.titulo}
                                         />
-                                    : <h1 id="info">Nenhum projeto está utilizando verba!</h1>
+                                    : ''
                                 )
-                        : <h1 id="info">Nenhum projeto foi encontrado!</h1>
+                        : ''
                     }
                 </Scroll>
                 <Graph>

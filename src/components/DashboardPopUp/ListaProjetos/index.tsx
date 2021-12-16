@@ -11,21 +11,25 @@ interface IListaProps {
     tituloDoProjeto: string;
 }
 
+interface ITotal {
+    total: number;
+}
+
 const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}) => {
-    const [countVerbaTotalPorProjeto, setCountVerbaTotalPorProjeto] = useState(0);
-    const [countVerbaTotal, setCountVerbaTotal] = useState(0);
+    const [countVerbaTotalPorProjeto, setCountVerbaTotalPorProjeto] = useState<ITotal>();
+    const [countVerbaTotal, setCountVerbaTotal] = useState<ITotal>();
 
     useEffect(() => {
-        api.get<number>(`projetos/count/verba/${numeroDoProjeto}`).then((response => {
+        api.get<ITotal>(`projetos/count/verba/${numeroDoProjeto}`).then((response => {
             setCountVerbaTotalPorProjeto(response.data)
         })); 
 
-        api.get<number>(`projetos/count/verba/0`).then((response => {
+        api.get<ITotal>(`projetos/count/verba/0`).then((response => {
             setCountVerbaTotal(response.data)
         })); 
     }, [numeroDoProjeto]);
 
-    console.log(countVerbaTotalPorProjeto);
+    console.log(countVerbaTotal);
 
     return (
         <div className="projeto">
@@ -44,14 +48,14 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
             </P>
             <p>{
                 countVerbaTotalPorProjeto ?
-                    countVerbaTotalPorProjeto === 0 ? 0
-                    : analisaValor(countVerbaTotalPorProjeto) 
+                    countVerbaTotalPorProjeto.total === 0 ? 0
+                    : analisaValor(countVerbaTotalPorProjeto.total) 
                 : analisaValor(0)
             }</p>
             <p>{
-                countVerbaTotalPorProjeto ?
-                    countVerbaTotalPorProjeto === 0 ? 0 
-                    : ((countVerbaTotalPorProjeto / countVerbaTotal) * 100).toFixed(1)
+                countVerbaTotalPorProjeto && countVerbaTotal ?
+                    countVerbaTotalPorProjeto.total === 0 ? 0 
+                    : ((countVerbaTotalPorProjeto.total / countVerbaTotal.total ) * 100).toFixed(1)
                 : 0
             }%</p>
         </div>             

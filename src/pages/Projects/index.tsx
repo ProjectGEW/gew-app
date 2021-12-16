@@ -120,13 +120,13 @@ const Projects: React.FC = () => {
         const separaProjetos = (status === "TODOS") ? global.filter(res => res)
             : global.filter(res => res.projetoData.statusProjeto === status);
 
-        var btns = ["todos", "CONCLUIDOS", "ATRASADOS", "EM_ANDAMENTO"];
+        var btns = ["todos", "CONCLUIDO", "ATRASADOS", "EM_ANDAMENTO"];
 
         for (var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
-        if (status === "CONCLUIDOS") {
+        if (status === "CONCLUIDO") {
             document.getElementById(status)!.style.backgroundColor = "#adffb0";
         } else if (status === "ATRASADOS") {
             document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
@@ -218,8 +218,8 @@ const Projects: React.FC = () => {
                                         onClick={() => filtraDadosPorStatus('ATRASADOS')}>
                                         {intl.get('tela_projetos.filtros.options.atrasado')}
                                     </button>
-                                    <button type="submit" id="CONCLUIDOS" className="3"
-                                        onClick={() => filtraDadosPorStatus('CONCLUIDOS')}>
+                                    <button type="submit" id="CONCLUIDO" className="3"
+                                        onClick={() => filtraDadosPorStatus('CONCLUIDO')}>
                                         {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
                                 </div>
