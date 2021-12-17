@@ -108,6 +108,8 @@ const Dashboard: React.FC = () => {
     const [contagemVerbaDoProjeto28, setContagemVerbaDoProjeto28] = useState<CountPerData[]>([]);
     const [contagemPorData, setContagemPorData] = useState<CountPerData[]>([]);
 
+    const [verbaDosProjetos, setVerbaDosProjetos] = useState<Coutverba[]>([]);
+
     const [statusAtual, setStatusAtual] = useState('TODOS');
     const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
@@ -170,19 +172,28 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         handleProject();
     },[]);
+
+    async function buscaVerbaDosProjetos() {
+        if(id !== '0') {
+            await api.get(`projetos/coutn/verba/${id}`)
+            .then((response => {
+                setVerbaDosProjetos([...verbaDosProjetos, response.data]);
+            })).catch(() => errorfulNotify(`Não foi possível encontrar a verba do projeto ${id ? id : 0}.`));
+        }
+    }
     
     function filtraDadosPorStatus(status: string) {
         setStatusAtual(status);
         const separaProjetos = status === "TODOS" ? 
         global.filter(res => res) : global.filter(res => res.projetoData.statusProjeto === status);
         
-        var btns = ["todos", "CONCLUIDOS", "ATRASADOS", "EM_ANDAMENTO"];
+        var btns = ["todos", "CONCLUIDO", "ATRASADOS", "EM_ANDAMENTO"];
         
         for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
         
-        if(status === "CONCLUIDOS") {
+        if(status === "CONCLUIDO") {
             document.getElementById(status)!.style.backgroundColor = "#adffb0";
         } else if (status === "ATRASADOS") {
             document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
@@ -226,6 +237,8 @@ const Dashboard: React.FC = () => {
         datasGrafico: [''], verbasGrafico: [0]};
                 
     function calculaDadosGeral() {
+        // const pega = (statusAtual !== 'TODOS' ? projetos.map(res => res.valoresTotais.) : '');
+        
         const contVerbaTotal = contagemVerbaGeral ? contagemVerbaGeral?.total : 0;
         const verbaDisponivel = totalCCPagantes.reduce(reducer) - contVerbaTotal;
     
@@ -246,12 +259,14 @@ const Dashboard: React.FC = () => {
         };
     }
 
+    console.log(verbaDosProjetos);
+
     function calculaDadosPorProjeto() {
         const totalCCPagantes = projeto ? projeto.valoresTotais.valorTotalCcPagantes : 0;
     
-        const verbaDisponivel = totalCCPagantes - Number(contagemVerbaGeral);
+        const verbaDisponivel = totalCCPagantes - Number(contagemVerbaGeral?.total);
     
-        const porcentagemUtilizada = ((Number(contagemVerbaGeral) * 100) / totalCCPagantes);
+        const porcentagemUtilizada = ((Number(contagemVerbaGeral?.total) * 100) / totalCCPagantes);
         const porcentagemDisponivel = 100 - porcentagemUtilizada;
 
         const datas = totalCCPagantes > 0 ? contagemPorData.map(datas => datas.data) : ["0"];    
@@ -259,7 +274,7 @@ const Dashboard: React.FC = () => {
 
         dados = {
             aprovada: totalCCPagantes,
-            utilizada: Number(contagemVerbaGeral),
+            utilizada: Number(contagemVerbaGeral?.total),
             disponivel: verbaDisponivel,
             porcentagemUtilizada: porcentagemUtilizada,
             porcentagemDisponivel: porcentagemDisponivel,
@@ -370,8 +385,8 @@ const Dashboard: React.FC = () => {
                                         onClick={() => filtraDadosPorStatus('ATRASADOS')}>
                                         {intl.get('tela_projetos.filtros.options.atrasado')}
                                     </button>
-                                    <button type="submit" id="CONCLUIDOS" className="3"
-                                        onClick={() => filtraDadosPorStatus('CONCLUIDOS')}>
+                                    <button type="submit" id="CONCLUIDO" className="3"
+                                        onClick={() => filtraDadosPorStatus('CONCLUIDO')}>
                                         {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
                                 </div>

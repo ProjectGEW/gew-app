@@ -10,7 +10,6 @@ import { ContainerHome, Container, Left, Right } from './styles';
 
 
 const Settings: React.FC = () => {
-
     const [recebeAnimacao] = useState(() => {
         let animacaoStorage = localStorage.getItem('Animation');
 

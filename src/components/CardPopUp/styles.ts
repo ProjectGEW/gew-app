@@ -332,7 +332,7 @@ export const CostCenters = styled.div`
             flex-direction: row;
             align-items: center;
             justify-content: space-around;
-            padding: 1.4vh;
+            padding: 1vh;
             border-bottom: 0.1vh solid #c4c4c4;
 
             h2 {
@@ -350,7 +350,7 @@ export const CostCenters = styled.div`
         .row {
             width: 34.6vw;
             height: 0.2vh;
-            margin-left: 1vh;
+            //margin-left: 1vh;
             background-color: #c4c4c4;
             position: relative;
         }

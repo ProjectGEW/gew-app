@@ -29,7 +29,7 @@ const ListaProjetos: React.FC<IListaProps> = ({numeroDoProjeto, tituloDoProjeto}
         })); 
     }, [numeroDoProjeto]);
 
-    console.log(countVerbaTotal);
+    console.log(countVerbaTotal!?.total);
 
     return (
         <div className="projeto">
