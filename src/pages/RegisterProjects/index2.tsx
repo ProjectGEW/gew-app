@@ -40,6 +40,10 @@ interface IProjetoInputDTO {
   secoesPagantes: ICCpagantesInput[];
 }
 
+interface IProjetoResponse {
+  numeroDoProjeto: number;
+}
+
 interface IInfoProjetosInputDTO {
   numeroDoProjeto: number;
   titulo: string;
@@ -343,12 +347,24 @@ const CadastroProjeto: React.FC = () => {
 
   async function cadastrarProjeto() {
     try {
-      await api.post<IProjetoInputDTO>('projetos', projeto)
+      await api.post<IProjetoResponse>('projetos', projeto)
         .then((response) => {
+          const data = response.data;
+
+          console.log(data);
+
+          if (file != null) {
+            const formData = new FormData();
+
+            formData.append("file", file ? file : "");
+
+            api.post(`files/upload/${data.numeroDoProjeto}`, formData);
+          }
+
           history.push('/projects');
           successfulNotify('Projeto cadastrado com sucesso!');
         })
-        .catch((e) => {
+        .catch(() => {
           errorfulNotify('Não foi possivel cadastrar o projeto!');
         })
     } catch (e) {
@@ -385,7 +401,7 @@ const CadastroProjeto: React.FC = () => {
                   />
                   <p id="ataResponse" className="msgErro"></p>
                 </div>
-                <div>
+                <div ref={ref}>
                   <Paper elevation={0} {...rootProps}>
                     <label id="ata" htmlFor="ata"  >{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
                     <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
