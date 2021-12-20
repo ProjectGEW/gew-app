@@ -13,11 +13,13 @@ import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { GoPencil } from 'react-icons/go';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
-import { ConsultantData, Container, PricePerHour, SideContainer, SupplierData, UserData } from './styles';
+import { ConsultantData, Container, PricePerHour, SideContainer, SupplierData, UserData, Title,
+    PopUp, ContainerPopup, Scroll } from './styles';
 
 import { vrfCampo, verificaCadConsultor, verificaFornecedor } from "../../utils/confereCampo";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts';
+import { PopupModal } from '../../styles/global';
 
 //import analisaValor from "../../utils/analisaValor";
 
@@ -202,21 +204,47 @@ const RegisterConsultants: React.FC = () => {
                     </div>
                 </ConsultantData>
                 <PricePerHour>
-                    <h1>Preço por hora</h1>
+                    <h1>Dados adicionais</h1>
                     <div>
-                        <label>Valor horista:</label>
-                        <input 
-                            type='text' 
-                            id="valor_hora"
-                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                        />
+                        <div>
+                            <label>Valor horista:</label>
+                            <input 
+                                type='text' 
+                                id="valor_hora"
+                                onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                            />
+                        </div>
+                        <div>
+                            <label>Skill:</label>
+                            <PopupModal closeOnEscape trigger={<button>Cadastrar skill</button>} modal>
+                                {(close: any) => (
+                                    <ContainerPopup>
+                                        <PopUp>
+                                            <Title>
+                                                <h1>Skills</h1>
+                                                <span onClick={() => close()} />
+                                            </Title>
+                                            <Scroll>
+                                                <div id="skill1" className='linha'>
+                                                    <input type="text"/>
+                                                    <button>Remover</button>
+                                                </div>
+                                                <div id="final">
+                                                    <button>Adicionar</button>
+                                                    <button>Finalizar</button>
+                                                </div>
+                                            </Scroll>
+                                        </PopUp>
+                                    </ContainerPopup>
+                                )}
+                            </PopupModal>
+                        </div>
                     </div>
                 </PricePerHour>
             </SideContainer>
             <SideContainer>
                 <UserData>
                     <h1>Dados de Login</h1>
-
                     <div className="box1">
                         <label>Email do usuário:</label>
                         <input 
@@ -230,7 +258,8 @@ const RegisterConsultants: React.FC = () => {
                         <label>Senha:</label>
                         <input 
                             type='password' 
-                            id="senha"
+                            id='senha'
+                            autoComplete='off'
                             onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
                         />
                         <RiLockPasswordLine />
@@ -249,8 +278,8 @@ const RegisterConsultants: React.FC = () => {
                             <option value="Todos">Todos</option>
                             {
                             suppliers ?
-                                suppliers.map(supplier =>
-                                    <option value={supplier.nome}>{supplier.nome}</option>
+                                suppliers.map((supplier, index) =>
+                                    <option key={index} value={supplier.nome}>{supplier.nome}</option>
                                 )
                                 :
                                 'Nenhum fornecedor foi encontrado'
