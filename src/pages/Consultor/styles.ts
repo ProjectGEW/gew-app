@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import Close from '../../assets/close.svg';
 import atua from '../../assets/atualizar.svg';
 
 export const Container = styled.div`
@@ -245,5 +245,128 @@ export const Msg = styled.div`
         font-size: 4vh;
         color: #bfbfbf;
         opacity: 1;
+    }
+`;
+
+export const Card = styled.div`
+    width: 36vw;
+    height: 20vh;
+
+    margin-top: 3vh;
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+`;
+
+export const CardStatus = styled.div`
+    width: 1vw;
+    height: 100%;
+
+    border-radius: 5px 0px 0px 5px;
+    display: flex;
+    flex-direction: row;
+
+    background-color: #e2e2e2;
+`;
+
+export const CardBox = styled.div`
+    width: 35vw;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 0.5vh;
+
+    border-left: 0;
+    border-radius: 0px 5px 5px 0px;
+
+    background-color: #f4f4f4;
+`;
+
+export const ContainerPopUp = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
+    border-radius: 0.8vh;
+    overflow: hidden;
+`;
+
+export const PopUp = styled.div`
+    width: 35vw;
+    height: 40vh;
+    background: #fff;
+    border-radius: 0.8vh;
+    //overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; 
+
+    .projeto {       
+        margin-top: 0vh;         
+        margin-left: 1vw;
+        margin-right: 1vw;
+
+        font-size: 2.5vh;
+        color: #00579D;
+
+        border-bottom: 0.1vh solid #ccc;
+
+        &:hover {
+            background-color: rgba(220, 220, 220, 0.25);
+        }
+
+        p {
+            &:nth-child(1) {
+                width: 17.5vw;
+                border-right: 0.1vh solid #c4c4c4;
+                color: #484848;
+            }
+        }
+
+        font-weight: bold;
+        padding: 1.4vh;
+        padding-top: 2vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+`;
+
+export const Title = styled.div`
+    width: 35vw;
+    padding: 1vh;
+    background: #00579D;
+
+    display: flex;
+    flex-direction: row;
+
+    h1 {
+        color: #fff;
+        font-size: 3vh;
+        margin-left: 0.5vw;
+    }
+
+    span {
+        background-image: url(${Close});
+        border: 0;
+        background-color: transparent;
+        width: 4vh;
+        height: 4vh;
+        margin-top: -0.4vh;
+        margin-left: 32vw;
+        position: absolute;
+        background-size: cover;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        &:active {
+            opacity: 0.8;
+        }
     }
 `;

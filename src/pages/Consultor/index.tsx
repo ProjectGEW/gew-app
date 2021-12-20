@@ -3,9 +3,9 @@ import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
 import {
   Container, ContainerInfo, ContainerProject,
-  ContainerTitle, ContainerFiltro, Atualizar, ProjectsGrid, Center, Msg
+  ContainerTitle, ContainerFiltro, Atualizar, ProjectsGrid, Center, Card,
+  CardBox, CardStatus, ContainerPopUp, PopUp, Title
 } from './styles';
-import Card from '../../components/CardProjeto/Card';
 
 import intl from 'react-intl-universal';
 import api from '../../service/api';
@@ -13,9 +13,8 @@ import api from '../../service/api';
 import { IoMdArrowDropright } from 'react-icons/io';
 
 import { errorfulNotify } from '../../hooks/SystemToasts';
-import { BiHourglass } from 'react-icons/bi';
-import CardProject from '../../components/CardProjeto/Card';
 import { PopupModal } from '../Dashboard/styles';
+import { type } from 'os';
 
 const locales = {
   'pt-BR': require('../../language/pt-BR.json'),
@@ -185,6 +184,9 @@ const Consultor: React.FC = () => {
     }
   }, [atualizar]);
 
+  function teste() {
+    console.log(typeof((document.getElementById("horaInicio") as HTMLInputElement).value));
+  }
   return (
     <>
       <Navbar />
@@ -240,7 +242,7 @@ const Consultor: React.FC = () => {
           </ContainerInfo>
           <ProjectsGrid>
             <Center>
-              {
+              {/* {
                 projetos && projetos.length > 0 ? projetos.map((projeto) =>
                   <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto} />
                 )
@@ -249,7 +251,49 @@ const Consultor: React.FC = () => {
                     <BiHourglass size={40} />
                     <h1>{intl.get('tela_projetos.msg.texto')}</h1>
                   </Msg>
-              }
+              } */}
+              <PopupModal closeOnEscape trigger={
+                <Card>
+                  <CardStatus />
+                  <CardBox />
+                </Card>
+              } modal>
+                {(close: any) => (
+                  <ContainerPopUp>
+                    <PopUp>
+                      <Title>
+                        <h1>Apontamento de horas</h1>
+                        <span onClick={() => close()} />
+                      </Title>
+                      <div>
+                        <div>
+                          <div>
+                            <label htmlFor="">Data:</label>
+                            <input type="text" />
+                          </div>
+                          <div>
+                            <label htmlFor="">Hora início:</label>
+                            <input type="time" id="horaInicio" name="appt" required />
+                          </div>
+                          <div>
+                            <label htmlFor="">Hora termino:</label>
+                            <input type="time" id="horaTermino" name="appt" required />
+                          </div>
+                        </div>
+                        <div>
+                          <div>
+                            <label htmlFor="">Descrição: </label>
+                            <textarea />
+                          </div>
+                        </div>
+                        <div>
+                          <button onClick={() => teste()}>Enviar</button>
+                        </div>
+                      </div>
+                    </PopUp>
+                  </ContainerPopUp>
+                )}
+              </PopupModal>
             </Center>
           </ProjectsGrid>
         </ContainerProject>
