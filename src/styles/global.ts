@@ -1,4 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+import Popup from 'reactjs-popup';
 
 export default createGlobalStyle`
 * {
@@ -43,4 +45,14 @@ export default createGlobalStyle`
   a {
     text-decoration: none;
   }
+`;
+
+export const PopupModal = styled(Popup)`
+    &-content {
+        background: transparent;
+        animation: anvil 0.25s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 `;

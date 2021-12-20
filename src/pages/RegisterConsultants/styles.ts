@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+import Close from '../../assets/close.svg';
+
 export const Container = styled.div`
     position: absolute;
     top: 14vh;
@@ -248,31 +250,57 @@ export const PricePerHour = styled.div`
     }
 
     div {
-        width: 100%;
-        height: 8vh;
         display: flex;
-        flex-direction: column;
-        margin: 2vh 0 0 3vw;
+        justify-content: center;
+        align-items: center;
 
-        label {
-            width: 80%;
-            font-weight: normal;
-            color: #00579D;
-            font-size: 2.4vh;
-            margin-bottom: 1vh; 
+        div {
+            width: 100%;
+            height: 8vh;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 2vh 0 0 3vw;
+
+            button {
+                height: 5vh;
+
+                padding: 0 2vh;
+                border: 0;
+                border-radius: 0.5vh;
+
+                font-size: 2.4vh;
+                color: white;
+                font-weight: bold;
+                background-color: #00579D;
+
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+                &:hover {
+                    background-color: ${shade(0.09, "#00579D")}
+                }
+            }
+
+            label {
+                width: 80%;
+                font-weight: normal;
+                color: #00579D;
+                font-size: 2.4vh;
+                margin-bottom: 1vh; 
+            }
+
+            input {
+                width: 10vw;
+                border-radius: 0.4vh;
+                border: 0px;
+                font-size: 2vh;
+                padding: 1vh;
+        
+                background-color: rgb(181, 181, 181, 0.3);
+                box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
+                color: #5E5E5E;
+            } 
         }
-
-        input {
-            width: 10vw;
-            border-radius: 0.4vh;
-            border: 0px;
-            font-size: 2vh;
-            padding: 1vh;
-    
-            background-color: rgb(181, 181, 181, 0.3);
-            box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
-            color: #5E5E5E;
-        } 
     }
 `;
 
@@ -301,4 +329,176 @@ export const SupplierData = styled.div`
         box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
         color: #5E5E5E;
     }  
+`;
+
+export const ContainerPopup = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0vw 0vw 10vw 100vw rgba(0, 0, 0, 0.5);
+    border-radius: 0.8vh;
+    overflow: hidden;
+`;
+
+export const PopUp = styled.div`
+    width: 35vw;
+    height: 40vh;
+    background: #fff;
+    border-radius: 0.8vh;
+    //overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; 
+
+    .projeto {       
+        margin-top: 0vh;         
+        margin-left: 1vw;
+        margin-right: 1vw;
+
+        font-size: 2.5vh;
+        color: #00579D;
+
+        border-bottom: 0.1vh solid #ccc;
+
+        &:hover {
+            background-color: rgba(220, 220, 220, 0.25);
+        }
+
+        p {
+            &:nth-child(1) {
+                width: 17.5vw;
+                border-right: 0.1vh solid #c4c4c4;
+                color: #484848;
+            }
+        }
+
+        font-weight: bold;
+        padding: 1.4vh;
+        padding-top: 2vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+`;
+
+export const Scroll = styled.div`
+    width: 35vw;
+    height: 32vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    overflow: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+        background-color: rgb(196, 196, 196, 0.5);
+        width: 0.5vw;
+    }
+       
+    ::-webkit-scrollbar-thumb {
+        background-color: rgb(196, 196, 196); 
+        border-radius: 1vh;
+    }
+
+    .linha {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        padding: 2vh;
+
+        button {
+            padding: 0.6vh;
+            border: 0;
+            border-radius: 0.5vh;
+            margin-right: 1vw;
+            font-size: 1.8vh;
+            color: white;
+            font-weight: bold;
+            background-color: #e21d1d;
+
+            &:hover {
+                background-color: ${shade(0.09, "#e21d1d")}
+            }
+        }
+
+        input {
+            width: 23.5vw;
+            height: 5vh;
+
+            font-size: 2.4vh;
+            margin-left: 1vw;
+            border-radius: 0.4vh;
+            border: 0px;
+            padding: 1vh;
+
+            background-color: #e9e9e9;
+            box-shadow: inset 0.1vh 0.1vh 0.1vh rgb(52, 52, 52, 0.25);
+            color: #5E5E5E;
+        }
+    }
+
+    #final {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+            padding: 1vh;
+            border: 0;
+            border-radius: 0.5vh;
+            margin-left: 2vw;
+            margin-right: 2vw;
+            font-size: 2vh;
+            color: white;
+            font-weight: bold;
+            background-color: #00579D;
+
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+            &:hover {
+                background-color: ${shade(0.09, "#00579D")}
+            }
+        }
+    }
+`;
+
+export const Title = styled.div`
+    width: 35vw;
+    padding: 1vh;
+    background: #00579D;
+
+    display: flex;
+    flex-direction: row;
+
+    h1 {
+        color: #fff;
+        font-size: 3vh;
+        margin-left: 0.5vw;
+    }
+
+    span {
+        background-image: url(${Close});
+        border: 0;
+        background-color: transparent;
+        width: 4vh;
+        height: 4vh;
+        margin-top: -0.4vh;
+        margin-left: 32vw;
+        position: absolute;
+        background-size: cover;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        &:active {
+            opacity: 0.8;
+        }
+    }
 `;
