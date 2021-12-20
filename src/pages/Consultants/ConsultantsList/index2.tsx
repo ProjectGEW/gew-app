@@ -71,8 +71,6 @@ const ConsultantList: React.FC = () => {
 
     const [fornecedores, setFornecedores] = useState<IFornecedor[]>([]);
 
-    const [esperaAlteracao, setEsperaAlteracao] = useState(0);
-
     const { numeroDoProjeto }: {numeroDoProjeto: string} = useParams();
     
     async function handleProject() {

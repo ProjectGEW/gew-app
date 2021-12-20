@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
+
 import {
-  Container, ContainerInfo, ContainerProject,
-  ContainerTitle, ContainerFiltro, Atualizar, ProjectsGrid, Center, Msg
-} from './styles';
+  Container, ContainerInfo, ContainerProject, ContainerTitle, ContainerFiltro, Atualizar,
+  ProjectsGrid, Center, Msg } from './styles';
 import Card from '../../components/CardProjeto/Card';
 
 import intl from 'react-intl-universal';
@@ -14,8 +15,6 @@ import { IoMdArrowDropright } from 'react-icons/io';
 
 import { errorfulNotify } from '../../hooks/SystemToasts';
 import { BiHourglass } from 'react-icons/bi';
-import CardProject from '../../components/CardProjeto/Card';
-import { PopupModal } from '../Dashboard/styles';
 
 const locales = {
   'pt-BR': require('../../language/pt-BR.json'),
@@ -63,14 +62,14 @@ interface ISecoes {
 }
 
 const Consultor: React.FC = () => {
-  const [cracha] = useState(() => {
-    let recebeCracha = localStorage.getItem('Cracha');
+  // const [cracha] = useState(() => {
+  //   let recebeCracha = localStorage.getItem('Cracha');
 
-    if (recebeCracha) {
-      let objetoCargo = recebeCracha;
-      return objetoCargo;
-    }
-  });
+  //   if (recebeCracha) {
+  //     let objetoCargo = recebeCracha;
+  //     return objetoCargo;
+  //   }
+  // });
 
   const [language] = useState(() => {
     let languageStorage = localStorage.getItem('Language');
@@ -234,7 +233,7 @@ const Consultor: React.FC = () => {
                 <input type="text" placeholder="Pesquise aqui..." onChange={search} />
               </div>
               <div>
-                <Atualizar />
+                <Atualizar onClick={() => setAtualizar(true)}/>
               </div>
             </ContainerFiltro>
           </ContainerInfo>

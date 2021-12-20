@@ -230,7 +230,7 @@ const Projects: React.FC = () => {
                             </div>
                             <div>
                                 {/* <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/> */}
-                                <Atualizar />
+                                <Atualizar onClick={() => setAtualizar(true)}/>
                             </div>
                         </ContainerFiltro>
                     </ContainerInfo>

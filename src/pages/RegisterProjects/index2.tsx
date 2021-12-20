@@ -426,7 +426,7 @@ const CadastroProjeto: React.FC = () => {
                   </div>
                 </div>
                 <div id="ladoDireito">
-                  {file ? <iframe src={file ? URL.createObjectURL(file) : file} /> : <iframe src={'null'} />}
+                  {file ? <iframe title='ata' src={file ? URL.createObjectURL(file) : file} /> : <iframe title='ata' src={'null'} />}
                 </div>
               </div>
             </Projetos>

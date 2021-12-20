@@ -125,10 +125,6 @@ interface IProjeto {
   }];
 }
 
-interface IFuncionario {
-  numero_cracha: number;
-  nome:string;
-}
 interface IDespesas {
   nome: string;
   esforco: number;
@@ -180,7 +176,7 @@ const EditarProjeto: React.FC = () => {
     ]
   }
 
-  const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
+  //const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
     
     //Setar as informações, para usar nos campos
     const { nm }: {nm: string}  = useParams();
@@ -210,22 +206,22 @@ const EditarProjeto: React.FC = () => {
 
     useEffect(() => {
       handleProject();
-    },[]);
+    });
 
     // Obriga a colocar uma ATA (PDF)
-    useEffect(() => {
-      if(verificaCliqueAta === true && fileName === '') {
-        document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
-      } else if(fileName !== '') {
-        if(file?.type !== 'application/pdf') {
-          document.getElementById("ataResponse")!.innerHTML = "Selecione um PDF*";  
-          setFile(undefined);
-          setFileName('');
-        } else {
-          document.getElementById("ataResponse")!.innerHTML = "";  
-        }
-      }
-    }, [verificaCliqueAta, file, fileName]);  
+    // useEffect(() => {
+    //   if(verificaCliqueAta === true && fileName === '') {
+    //     document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
+    //   } else if(fileName !== '') {
+    //     if(file?.type !== 'application/pdf') {
+    //       document.getElementById("ataResponse")!.innerHTML = "Selecione um PDF*";  
+    //       setFile(undefined);
+    //       setFileName('');
+    //     } else {
+    //       document.getElementById("ataResponse")!.innerHTML = "";  
+    //     }
+    //   }
+    // }, [verificaCliqueAta, file, fileName]);  
 
   // Gerar novas linhas  
   function setNovaLinhaDP() {
@@ -495,7 +491,7 @@ const EditarProjeto: React.FC = () => {
                   </div>
                 </div>
                 <div id="ladoDireito">
-                  {<iframe src={file ? URL.createObjectURL(file) : ''} />}
+                  {<iframe title='ata' src={file ? URL.createObjectURL(file) : ''} />}
                 </div>
               </div>
             </Projetos>
