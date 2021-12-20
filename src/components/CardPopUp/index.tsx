@@ -84,7 +84,7 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
         <button id="fechar" onClick={() => fechar()}/>
         <ModalContainerInfos>
           <h1>{projeto ? projeto.projetoData.titulo : ""}</h1>
-            <ContainerBox>
+            <ContainerBox className='box'>
               <p>{projeto ? projeto.projetoData.numeroDoProjeto : ""} - {projeto ? projeto.projetoData.secao : "Seção ABC"}</p>
               <h3>{ata ? "ATA: " + ata.split(".")[0] : "Nenhuma ATA anexada."}</h3>
             </ContainerBox>
@@ -98,7 +98,7 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
             </ContainerBox>
             <ContainerBox>
               <Button text={'Dashboard'} tipo={"PopUpDashBoard"} rota={"dashboard"} numeroProjeto={projeto ? projeto.projetoData.numeroDoProjeto: 0}/>
-              <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : "indisponível"}</label>
+              <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : "não anexada*"}</label>
             </ContainerBox>
             <ContainerObjectives>
               <h1>Descrição:</h1>

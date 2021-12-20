@@ -62,6 +62,7 @@ interface CardContent {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
+        verbaUtilizada: number;
     };      
 }
 
@@ -169,7 +170,7 @@ const Dashboard: React.FC = () => {
 
     useEffect(() => {
         handleProject();
-    });
+    },[]);
 
     // async function buscaVerbaDosProjetos() {
     //     if(id !== '0') {
@@ -235,9 +236,9 @@ const Dashboard: React.FC = () => {
         datasGrafico: [''], verbasGrafico: [0]};
                 
     function calculaDadosGeral() {
-        // const pega = (statusAtual !== 'TODOS' ? projetos.map(res => res.valoresTotais.) : '');
+        const pega = projetos.map(res => res.valoresTotais.verbaUtilizada);        
         
-        const contVerbaTotal = contagemVerbaGeral ? contagemVerbaGeral?.total : 0;
+        const contVerbaTotal = pega.reduce(reducer);
         const verbaDisponivel = totalCCPagantes.reduce(reducer) - contVerbaTotal;
     
         const porcentagemUtilizada = ((contVerbaTotal * 100) / (totalCCPagantes.reduce(reducer)));

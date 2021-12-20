@@ -48,7 +48,7 @@ export const ModalContainerInfos = styled.div`
 
     h1 {
         height: 6vh;
-        font-size: 1em;
+        font-size: 3.6vh;
         font-weight: bold;
         padding-right: 1vw;
         color: #333;
@@ -58,7 +58,7 @@ export const ModalContainerInfos = styled.div`
 export const ContainerBox = styled.div`
     width: 100%;
     height: 5vh;
-    margin-top: 2vh;
+    margin-top: 1vh;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -145,7 +145,7 @@ export const ContainerBox = styled.div`
     }
 
     &:nth-child(2) {
-        margin-top: 3vh;
+        //margin-top: 3vh;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -181,7 +181,7 @@ export const ContainerObjectives = styled.div`
         font-size: 2vh;
         font-weight: normal;
         padding-right: 3vw;
-        margin-top: -1.4vh;
+        margin-top: -1.6vh;
         color: #444;
     }
 `;
@@ -277,9 +277,9 @@ export const HourGraphics = styled.div`
 export const CostCenters = styled.div`
     width: 36vw;
     height: 22vh;
-    margin-top: 3vh;
+    margin-top: 4vh;
     border-radius: 0.8vh 0.8vh 0 0;
-    background-color: rgba(196, 196, 196, 0.3);
+    background-color: rgba(196, 196, 196, 0.2);
     overflow: hidden;
     border: 0.01vh solid #ccc;
     border-top: 0;
@@ -293,13 +293,15 @@ export const CostCenters = styled.div`
         border-radius: 0.8vh 0.8vh 0 0;
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         padding: 1.4vh;
 
         h2 {
             color: #fff;
-            font-size: 2vh;
+            font-size: 2.2vh;
             font-weight: bold;
+            margin-left: 1vw;
+            margin-right: 1vw;
         }
     }
 
@@ -331,7 +333,7 @@ export const CostCenters = styled.div`
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-between;
             padding: 1vh;
             border-bottom: 0.1vh solid #c4c4c4;
 
@@ -339,11 +341,21 @@ export const CostCenters = styled.div`
                 font-size: 1.9vh;
                 font-weight: 100;
                 color: #023A67;
+                margin-left: 1.6vw;
+                margin-right: 2vw;
 
                 &:first-child {
-                    width: 10vw;
+                    //width: 10vw;
                     font-weight: bold;
                 }
+            }
+
+            &:nth-child(2n + 2) {
+                background-color: rgba(196, 196, 196, 0.25);
+            }
+
+            &:hover {
+                background-color: rgba(196, 196, 196, 0.4);
             }
         }
 
