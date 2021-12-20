@@ -30,7 +30,7 @@ const Routes: React.FC = () => {
       {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
       {/* Rotas gerais para todas as personas */}
       <Route path="/" exact component={NewLogin} />
-      <Route path="/settings" component={Settings} />
+      <Route path="/settings" component={Settings} isPrivate />
 
       {/* Rotas para Gerente */}
       <Route path="/home" component={Home} isPrivate />
