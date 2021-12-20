@@ -40,7 +40,7 @@ const PopupProjetosConsultor: React.FC<PopupVerbaUtilizadaProps> = ({ cracha, pr
     
     useEffect(() => {
         conexaoApi();
-    },[]);
+    });
 
     return (
         <Container>

@@ -87,33 +87,6 @@ const RegisterConsultants: React.FC = () => {
         }
     }
 
-    const setConsultorInfos = useCallback( async () => {
-        const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
-        const nome = (document.getElementById("nome") as HTMLInputElement).value;
-        const email = (document.getElementById("email") as HTMLInputElement).value;
-        const senha = (document.getElementById("senha") as HTMLInputElement).value;
-        const cpf = (document.getElementById("cpf") as HTMLInputElement).value.split(".");
-        const cpfFormat = parseInt(cpf[0] + cpf[1] + cpf[2].split("-")[0] + cpf[2].split("-")[1]);
-        const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
-        const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
-        const nome_fornecedor =(document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
-
-        const consultor: CadConsultor = {
-            funcionario: {
-                numero_cracha: numero_cracha,
-                nome: nome,
-                email: email,
-                senha: senha,
-                cpf: cpfFormat,
-                telefone: telefone,
-                valor_hora: valor_hora
-            },
-            nome_fornecedor: nome_fornecedor
-        };
-
-        enviarInfo(consultor);
-    }, []);
-
     function resetarCampos() {
         const inputs = ["numero_cracha", "nome", "email", "senha", "cpf", "telefone", "valor_hora"];
 
@@ -139,6 +112,34 @@ const RegisterConsultants: React.FC = () => {
             errorfulNotify('Não foi possivel realizar o cadastro do consultor!'); 
         }
     }
+
+    const setConsultorInfos = useCallback( async () => {
+        const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
+        const nome = (document.getElementById("nome") as HTMLInputElement).value;
+        const email = (document.getElementById("email") as HTMLInputElement).value;
+        const senha = (document.getElementById("senha") as HTMLInputElement).value;
+        const cpf = (document.getElementById("cpf") as HTMLInputElement).value.split(".");
+        const cpfFormat = parseInt(cpf[0] + cpf[1] + cpf[2].split("-")[0] + cpf[2].split("-")[1]);
+        const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
+        const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
+        const nome_fornecedor =(document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
+
+        const consultor: CadConsultor = {
+            funcionario: {
+                numero_cracha: numero_cracha,
+                nome: nome,
+                email: email,
+                senha: senha,
+                cpf: cpfFormat,
+                telefone: telefone,
+                valor_hora: valor_hora
+            },
+            nome_fornecedor: nome_fornecedor
+        };
+
+        enviarInfo(consultor);
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         api.get("fornecedores").then((response) => {

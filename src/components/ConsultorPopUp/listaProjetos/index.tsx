@@ -50,19 +50,6 @@ interface CardContent {
       esforco: number;
       valor: number;
     }];
-  }
-
-interface IConsultor {
-    funcionarioData: {
-        numero_cracha: number;
-        status: string;
-        nome: string;
-        email: string;
-    },
-    projetos: number[];
-    skills: [];
-    fornecedor: string;
-    status: boolean;
 }
 
 const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha }) => {
@@ -80,7 +67,7 @@ const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha }) => {
     
     useEffect(() => {
         conexaoApi();
-    },[]);
+    });
 
     async function removerProjeto() {
         try {

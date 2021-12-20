@@ -3,8 +3,8 @@ import { Switch } from 'react-router';
 
 import Route from './Route';
 
-import Login from '../pages/Login';
-import Menu from '../pages/Menu';
+// import Login from '../pages/Login';
+// import Menu from '../pages/Menu';
 import RegisterConsultants from '../pages/RegisterConsultants';
 import Projects from '../pages/Projects';
 import CadastroProjeto from '../pages/RegisterProjects/index2';
@@ -18,10 +18,10 @@ import ProjectsList from '../pages/Consultants/ProjectsList';
 import ConsultantList from '../pages/Consultants/ConsultantsList/index2';
 import ConsultantProfile from '../pages/Consultants/ConsultantProfile';
 import Edit from '../pages/EditProjects/Edit/index2';
-import Consultor from '../pages/Consultor';
+//import Consultor from '../pages/Consultor';
 import NewLogin from '../pages/NewLogin';
-import Fornecedor from '../pages/Fornecedor';
-import Gestor from '../pages/Gestor';
+//import Fornecedor from '../pages/Fornecedor';
+//import Gestor from '../pages/Gestor';
 import Home from '../pages/Home/home';
 
 const Routes: React.FC = () => {
@@ -30,7 +30,7 @@ const Routes: React.FC = () => {
       {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
       {/* Rotas gerais para todas as personas */}
       <Route path="/" exact component={NewLogin} />
-      <Route path="/settings" component={Settings} />
+      <Route path="/settings" component={Settings} isPrivate/>
 
       {/* Rotas para Gerente */}
       <Route path="/home" component={Home} isPrivate />
