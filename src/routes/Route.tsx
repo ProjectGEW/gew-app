@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-
+import React from 'react';
 import { RouteProps as ReactDOMRouteProps, Route as ReactDOMRoute, Redirect } from "react-router-dom";
 
 import { useAuth } from "../hooks/AuthContext";
-import api from '../service/api';
 
 interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;

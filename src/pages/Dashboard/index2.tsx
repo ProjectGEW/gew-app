@@ -108,8 +108,6 @@ const Dashboard: React.FC = () => {
     const [contagemVerbaDoProjeto28, setContagemVerbaDoProjeto28] = useState<CountPerData[]>([]);
     const [contagemPorData, setContagemPorData] = useState<CountPerData[]>([]);
 
-    const [verbaDosProjetos, setVerbaDosProjetos] = useState<Coutverba[]>([]);
-
     const [statusAtual, setStatusAtual] = useState('TODOS');
     const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
@@ -171,16 +169,16 @@ const Dashboard: React.FC = () => {
 
     useEffect(() => {
         handleProject();
-    },[]);
+    });
 
-    async function buscaVerbaDosProjetos() {
-        if(id !== '0') {
-            await api.get(`projetos/coutn/verba/${id}`)
-            .then((response => {
-                setVerbaDosProjetos([...verbaDosProjetos, response.data]);
-            })).catch(() => errorfulNotify(`Não foi possível encontrar a verba do projeto ${id ? id : 0}.`));
-        }
-    }
+    // async function buscaVerbaDosProjetos() {
+    //     if(id !== '0') {
+    //         await api.get(`projetos/coutn/verba/${id}`)
+    //         .then((response => {
+    //             setVerbaDosProjetos([...verbaDosProjetos, response.data]);
+    //         })).catch(() => errorfulNotify(`Não foi possível encontrar a verba do projeto ${id ? id : 0}.`));
+    //     }
+    // }
     
     function filtraDadosPorStatus(status: string) {
         setStatusAtual(status);
@@ -258,8 +256,6 @@ const Dashboard: React.FC = () => {
             verbasGrafico: verbas
         };
     }
-
-    console.log(verbaDosProjetos);
 
     function calculaDadosPorProjeto() {
         const totalCCPagantes = projeto ? projeto.valoresTotais.valorTotalCcPagantes : 0;

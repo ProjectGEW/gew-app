@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FormEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';

@@ -57,12 +57,14 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({status, valor,
             }));
 
             api.get(`projetos/count/verba/0`).then((response => {
-                setCountVerbaTotal(response.data)
+                setCountVerbaTotal(response.data);
             })); 
         } catch(e) {
             console.log("🚀 ~ file: index.tsx ~ line 62 ~ e", e);        
         }
     }
+
+    console.log(countVerbaTotal);
 
     useEffect(() => {
         handleProject();
