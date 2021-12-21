@@ -27,8 +27,8 @@ import NotFound from '../pages/NotFound';
 
 const Routes: React.FC = () => {
   return (
-      <Suspense fallback={ <h1>Rendering...</h1> }>
-    <Switch>
+    <Suspense fallback={ <h1>Rendering...</h1> }>
+      <Switch>
         {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
         {/* Rotas gerais para todas as personas */}
         <Route path="/" exact component={NewLogin} />
@@ -46,16 +46,14 @@ const Routes: React.FC = () => {
         <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} isPrivate />
         <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} isPrivate />
         <Route path="/edit/:nm" component={Edit} isPrivate />
-
         <Route path="*" component={NotFound} isPrivate />
-        {/* <Route path="*" component={NewLogin} isPrivate /> */}
 
         {/* Área para testes */}
         {/* <Route path="/oldlogin" component={Login}/> */}
         <Route path="/test" component={Test} isPrivate />
         <Route path="/test2" component={Test2} isPrivate />
-    </Switch>
-      </Suspense>
+      </Switch>
+    </Suspense>
   )
 };
 
