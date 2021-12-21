@@ -9,6 +9,10 @@ import analisaValor from "../../../utils/analisaValor";
 
 import intl from 'react-intl-universal';
 
+import { errorfulNotify } from "../../../hooks/SystemToasts";
+
+import formatStatus from "../../../utils/formatStatus";
+
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
     'en-US': require('../../../language/en-US.json'),
@@ -20,44 +24,48 @@ interface CardStatusColor {
     numeroDoProjeto: number;
 }
 
-interface IProjeto {
+interface CardContent {
     projetoData: {
-      id: number;
-      numeroDoProjeto: number;
-      titulo: string;
-      descricao: string;
-      data_de_inicio: string;
-      data_de_termino: string;
-      data_de_aprovacao: string;
-      statusProjeto: string;
-      horas_apontadas: number;
-      secao: string,
+        id: number;
+        numeroDoProjeto: number;
+        titulo: string;
+        descricao: string;
+        data_de_inicio: string;
+        data_de_termino: string;
+        data_de_aprovacao: string;
+        statusProjeto: string;
+        horas_apontadas: number;
+        secao: string,
     };
     secoesPagantes : [{
-      secao: {
+        secao: {
         id: number;
         responsavel: {
-          numero_cracha: number;
-          nome: string;
-          cpf: string;
-          valor_hora: number;
+            numero_cracha: number;
+            nome: string;
+            cpf: string;
+            valor_hora: number;
         };
         nome: string;
-      },
-      percentual: number;
-      valor: number;
+        },
+        percentual: number;
+        valor: number;
     }];
     valoresTotais : {
-      valorTotalCcPagantes: number;
-      valorTotalDespesas: number;
-      valorTotalEsforco: number;
+        valorTotalCcPagantes: number;
+        valorTotalDespesas: number;
+        valorTotalEsforco: number;
     };  
     despesas: [{
-      nome: string;
-      esforco: number;
-      valor: number;
+        nome: string;
+        esforco: number;
+        valor: number;
     }];
-  }
+}
+
+interface Coutverba {
+    total: number;
+}
 
 const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
     const [language] = useState(() => {
@@ -74,13 +82,28 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
         locales
     });
 
-    const [projeto, setProjeto] = useState<IProjeto>();
+    const [projeto, setProjeto] = useState<CardContent>();
+    const [valorConsumido, setValorConsumido] = useState<Coutverba>();
 
-    useEffect(() => {
-        api.get(`projetos/${numeroDoProjeto}`).then((response) => {
-            setProjeto(response.data);
-        })
-    });
+    async function handleProject() {
+        try {
+          await api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
+            .then((response => {
+              setProjeto(response.data);
+            })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
+
+            await api.get<Coutverba>(`projetos/count/verba/${numeroDoProjeto}`)
+            .then((response => {
+                setValorConsumido(response.data);
+            })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    
+      useEffect(() => {
+        handleProject();
+      }, []);
 
     return (
         <>
@@ -94,13 +117,13 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
                         <h1>{projeto ? projeto.projetoData.titulo : ""}</h1>
                     </div>
                     <div>
-                        <p><strong>{intl.get('card_projetos.saldo_um')}</strong>{analisaValor(15000)}</p>
-                        <p><strong>{intl.get('card_projetos.saldo_dois')}</strong>{analisaValor(10000)}</p>
+                    <p><strong>{intl.get('card_projetos.saldo_um')}</strong>{analisaValor(projeto ? projeto.valoresTotais.valorTotalDespesas : 0)}</p>
+                <p><strong>{intl.get('card_projetos.saldo_dois')}</strong>{analisaValor(projeto ? projeto.valoresTotais.valorTotalDespesas - valorConsumido!?.total : 0)}</p>
                     </div>
                 </BoxLeft>
                 <BoxRight>
                     <div>
-                        <p>{intl.get('card_projetos.status')} <strong>Não iniciado</strong></p>
+                        <p>{intl.get('card_projetos.status')} <strong>{formatStatus(projeto ? projeto.projetoData.statusProjeto : '')}</strong></p>
                     </div>
                     <div>
                         <p><strong>{intl.get('card_projetos.horas')}:</strong> <AiOutlineClockCircle size={15} /> 

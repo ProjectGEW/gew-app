@@ -72,8 +72,9 @@ const ProjectsList: React.FC = () => {
     const [global, setGlobal] = useState<IProjetoProps[]>([]);
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
     const [secoes, setSecoes] = useState<ISecao[]>([]);
-    const [status, setStatus] = useState('');
-    const [selectedOption, setSelectedOption] = useState('Todos');
+
+    const [statusAtual, setStatusAtual] = useState('TODOS');
+    const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -104,108 +105,61 @@ const ProjectsList: React.FC = () => {
         }
     };
 
-    const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = event.target.value;
-        var resultado = '';
-        setSelectedOption(value);
+    function filtraDadosPorStatus(status: string) {
+        setStatusAtual(status);
+        const separaProjetos = (status === "TODOS") ? global.filter(res => res)
+            : global.filter(res => res.projetoData.statusProjeto === status);
 
-        if (value !== 'Todos') {
-            if (status === '') {
-                resultado = `projetos/secao/` + value;
-            } else if (status !== '') {
-                resultado = `projetos/` + status + `/` + value;
-            }
-
-            try {
-                const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
-                const dataPorSecao = responsePorSecao.data;
-                setProjetos(dataPorSecao);
-                setGlobal(dataPorSecao);  
-            } catch (error) {
-                console.log("Error: ", error);
-            }
-
-        } else if (value === 'Todos') {
-            if (status === '') {
-                resultado = `projetos`;
-            } else if (status !== '') {
-                resultado = `projetos/` + status + `/Todos`;
-            }
-            const responsePorSecao = await api.get<IProjetoProps[]>(resultado);
-            const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);
-            setGlobal(dataPorSecao);
-        }
-    };
-
-    function defineStatus(valor: string) {
-
-        var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
+        var btns = ["todos", "CONCLUIDO", "ATRASADOS", "EM_ANDAMENTO"];
 
         for (var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
 
-        setStatus(valor);
-
-        if (valor === "concluidos") {
-            document.getElementById(valor)!.style.backgroundColor = "#adffb0";
-        } else if (valor === "atrasados") {
-            document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
-        } else if (valor === "em_andamento") {
-            document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
-        } else if (valor === "") {
-            document.getElementById(btns[0])!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+        if (status === "CONCLUIDO") {
+            document.getElementById(status)!.style.backgroundColor = "#adffb0";
+        } else if (status === "ATRASADOS") {
+            document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
+        } else if (status === "EM_ANDAMENTO") {
+            document.getElementById(status)!.style.backgroundColor = "#c2e4ff";
+        } else if (status === "TODOS") {
+            document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
         }
+
+        if (secaoAtual !== "TODOS") {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.secao === secaoAtual);
+            setProjetos(separaPorStatusSecao);
+            return;
+        }
+        setProjetos(separaProjetos);
     }
 
-    async function filtraPorStatus(event: React.FormEvent<HTMLFormElement>): Promise<void> {
-        event.preventDefault();
+    const filtraDadosPorSecao = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSecaoAtual(event.target.value);
 
-        let statusteste = '';
-        var resultado = '';
+        const separaProjetos = (event.target.value !== 'TODOS') ?
+            global.filter(res => res.projetoData.secao === event.target.value)
+            : global;
 
-        if (document.activeElement) {
-            statusteste = document.activeElement?.id;
+        if (statusAtual !== 'TODOS') {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.statusProjeto === statusAtual);
+            setProjetos(separaPorStatusSecao);
         } else {
-            statusteste = status;
-        }
-
-        if (selectedOption !== 'Todos') {
-            if (statusteste === 'Todos') {
-                resultado = `projetos/secao/` + selectedOption;
-            } else if (statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/` + selectedOption;
-            }
-            const response = await api.get<IProjetoProps[]>(resultado);
-            const data = response.data;
-            setProjetos(data);
-            setGlobal(data);
-
-        } else if (selectedOption === 'Todos') {
-            if (statusteste === 'Todos') {
-                resultado = `projetos`;
-            } else if (statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/Todos`;
-            }
-            const response = await api.get<IProjetoProps[]>(resultado);
-            const data = response.data;
-            setProjetos(data);
-            setGlobal(data);
+            setProjetos(separaProjetos);
         }
     }
 
     const search = async (event: React.ChangeEvent<{ value: string }>) => {
         const recebeTexto = event.target.value;
 
-        if(event.target.value !== '') {
-            setProjetos(global.filter(projeto => 
+        if (event.target.value !== '') {
+            setProjetos(global.filter(projeto =>
                 projeto.projetoData.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
                 projeto.projetoData.numeroDoProjeto.toString().includes(recebeTexto)
             ))
         } else {
             setProjetos(global);
-        }        
+        }
     };
 
     const [atualizar, setAtualizar] = useState(false);
@@ -231,7 +185,7 @@ const ProjectsList: React.FC = () => {
                             <h1>Filtros:</h1>
                             <div>
                                 <label>Seção:</label>
-                                <select name="secao" onChange={selectChange}>
+                                <select name="secao" onChange={filtraDadosPorSecao}>
                                     <option selected>Todos</option>
                                     {secoes.map(secao => (
                                         <option key={secao.nome}>{secao.nome}</option>
@@ -239,25 +193,25 @@ const ProjectsList: React.FC = () => {
                                 </select>
                             </div>
                             <div>
-                                <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                                <form onSubmit={filtraPorStatus}>
-                                <button type="submit" id="Todos" className="0"
-                                    onClick={() => defineStatus('')}>
-                                    {intl.get('tela_projetos.filtros.options.todos')}
-                                </button>
-                                <button type="submit" id="em_andamento" className="1"
-                                    onClick={() => defineStatus('em_andamento')}>
-                                    {intl.get('tela_projetos.filtros.options.emandamento')}
-                                </button>
-                                <button type="submit" id="atrasados" className="2"
-                                    onClick={() => defineStatus('atrasados')}>
-                                    {intl.get('tela_projetos.filtros.options.atrasado')}
-                                </button>
-                                <button type="submit" id="concluidos" className="3"
-                                    onClick={() => defineStatus('concluidos')}>
-                                    {intl.get('tela_projetos.filtros.options.concluido')}
-                                </button>
-                            </form>
+                            <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
+                                <div>
+                                    <button type="submit" id="todos" className="0"
+                                        onClick={() => filtraDadosPorStatus('TODOS')}>
+                                        {intl.get('tela_projetos.filtros.options.todos')}
+                                    </button>
+                                    <button type="submit" id="EM_ANDAMENTO" className="1"
+                                        onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
+                                        {intl.get('tela_projetos.filtros.options.emandamento')}
+                                    </button>
+                                    <button type="submit" id="ATRASADOS" className="2"
+                                        onClick={() => filtraDadosPorStatus('ATRASADOS')}>
+                                        {intl.get('tela_projetos.filtros.options.atrasado')}
+                                    </button>
+                                    <button type="submit" id="CONCLUIDO" className="3"
+                                        onClick={() => filtraDadosPorStatus('CONCLUIDO')}>
+                                        {intl.get('tela_projetos.filtros.options.concluido')}
+                                    </button>
+                                </div>
                             </div>
                             <div>
                                 <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
@@ -271,10 +225,14 @@ const ProjectsList: React.FC = () => {
                     <Projects>
                         <Center>
                             {
-                                projetos ? projetos.map(projeto => (
+                                projetos && projetos.length > 0 ? projetos.map(projeto => (
                                     projeto.projetoData.statusProjeto !== "CONCLUIDO" ? 
                                         <CardSelect key={projeto.projetoData.numeroDoProjeto} numeroDoProjeto={projeto.projetoData.numeroDoProjeto} />
-                                    : null
+                                    : 
+                                    <Msg>
+                                        <BiHourglass size={40} />
+                                        <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                                    </Msg>
                                 )) :
                                 <Msg>
                                     <BiHourglass size={40} />

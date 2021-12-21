@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Switch } from 'react-router';
 
 import Route from './Route';
@@ -18,39 +18,44 @@ import ProjectsList from '../pages/Consultants/ProjectsList';
 import ConsultantList from '../pages/Consultants/ConsultantsList/index2';
 import ConsultantProfile from '../pages/Consultants/ConsultantProfile';
 import Edit from '../pages/EditProjects/Edit/index2';
-//import Consultor from '../pages/Consultor';
 import NewLogin from '../pages/NewLogin';
+import Home from '../pages/Home/home';
+import NotFound from '../pages/NotFound';
+//import Consultor from '../pages/Consultor';
 //import Fornecedor from '../pages/Fornecedor';
 //import Gestor from '../pages/Gestor';
-import Home from '../pages/Home/home';
 
 const Routes: React.FC = () => {
   return (
+      <Suspense fallback={ <h1>Rendering...</h1> }>
     <Switch>
-      {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
-      {/* Rotas gerais para todas as personas */}
-      <Route path="/" exact component={NewLogin} />
-      <Route path="/settings" component={Settings} isPrivate/>
+        {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
+        {/* Rotas gerais para todas as personas */}
+        <Route path="/" exact component={NewLogin} />
+        <Route path="/settings" component={Settings} isPrivate/>
 
-      {/* Rotas para Gerente */}
-      <Route path="/home" component={Home} isPrivate />
-      <Route path="/projects" component={Projects} isPrivate />
-      <Route path="/register_projects" component={CadastroProjeto} isPrivate />
-      <Route path="/edit_projects" component={EditProjects} isPrivate />
-      <Route path="/register_consultants" component={RegisterConsultants} isPrivate />
-      <Route path="/dashboard/:id" component={Dashboard} isPrivate />
-      <Route path="/details/:numeroDoProjeto" component={Details} isPrivate />
-      <Route path="/consultants/view_projects" component={ProjectsList} isPrivate />
-      <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} isPrivate />
-      <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} isPrivate />
-      <Route path="/edit/:nm" component={Edit} isPrivate />
-      {/* <Route path="*" component={NewLogin} isPrivate /> */}
+        {/* Rotas para Gerente */}
+        <Route path="/home" component={Home} isPrivate />
+        <Route path="/projects" component={Projects} isPrivate />
+        <Route path="/register_projects" component={CadastroProjeto} isPrivate />
+        <Route path="/edit_projects" component={EditProjects} isPrivate />
+        <Route path="/register_consultants" component={RegisterConsultants} isPrivate />
+        <Route path="/dashboard/:id" component={Dashboard} isPrivate />
+        <Route path="/details/:numeroDoProjeto" component={Details} isPrivate />
+        <Route path="/consultants/view_projects" component={ProjectsList} isPrivate />
+        <Route path="/consultants/:numeroDoProjeto" component={ConsultantList} isPrivate />
+        <Route path="/consultants/profile/:numeroCracha" component={ConsultantProfile} isPrivate />
+        <Route path="/edit/:nm" component={Edit} isPrivate />
 
-      {/* Área para testes */}
-      {/* <Route path="/oldlogin" component={Login}/> */}
-      <Route path="/test" component={Test} isPrivate />
-      <Route path="/test2" component={Test2} isPrivate />
+        <Route path="*" component={NotFound} isPrivate />
+        {/* <Route path="*" component={NewLogin} isPrivate /> */}
+
+        {/* Área para testes */}
+        {/* <Route path="/oldlogin" component={Login}/> */}
+        <Route path="/test" component={Test} isPrivate />
+        <Route path="/test2" component={Test2} isPrivate />
     </Switch>
+      </Suspense>
   )
 };
 

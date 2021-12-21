@@ -56,17 +56,21 @@ interface CardContent {
   }];
 }
 
+interface Coutverba {
+  total: number;
+}
+
 const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
     const [projeto, setProjeto] = useState<CardContent>();
     const [ata, setAta] = useState<string>(''); 
-    const [valorConsumido, setValorConsumido] = useState(0);
+    const [valorConsumido, setValorConsumido] = useState<Coutverba>();
 
     useEffect(() => {
       try {
         api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
           .then((response => { setProjeto(response.data) }));
 
-        api.get<number>(`projetos/count/verba/${numeroDoProjeto}`)
+        api.get<Coutverba>(`projetos/count/verba/${numeroDoProjeto}`)
           .then((response => { setValorConsumido(response.data) }));
   
         api.get<string>(`/files/${numeroDoProjeto}`).then((response => { setAta(response.data) }));
@@ -148,11 +152,11 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ numeroDoProjeto, fechar }) => {
                 analisaValor(projeto.valoresTotais.valorTotalDespesas) : ""}</h2>
             </div>
             <div>
-              <h1>Valor consumido:</h1><h2>{analisaValor(valorConsumido)}</h2>
+              <h1>Valor consumido:</h1><h2>{analisaValor(Number(valorConsumido!?.total))}</h2>
             </div>
             <div>
               <h1>Saldo:</h1><h2>{analisaValor(projeto ? 
-                projeto.valoresTotais.valorTotalDespesas - valorConsumido : 0)}</h2>
+                projeto.valoresTotais.valorTotalDespesas - valorConsumido!?.total : 0)}</h2>
             </div>
           </ContainerValues>
           <Button text={'Detalhes'} tipo={'PopUp'} rota={"details"} numeroProjeto={projeto ? projeto.projetoData.numeroDoProjeto: 0}/>

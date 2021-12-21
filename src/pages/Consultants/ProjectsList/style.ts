@@ -86,7 +86,7 @@ export const ContainerFiltro = styled.div`
         align-items: center;
 
         &:nth-child(3) {
-            form {
+            div {
                 button {
                     border: 0;
                     padding: 0.8vh;

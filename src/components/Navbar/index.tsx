@@ -13,6 +13,7 @@ import FR from "../../assets/fr.svg";
 
 import { ContainerNavbar, Logo, PageIndicator, SandwichMenu, DropdownMenu,
     LanguageIndicator, Flag, DropdownFlag, HistoricPage } from './styles';
+import retornaTituloMenor from "../../utils/tituloMenor";
 
 const locales = {
   'pt-BR': require('../../language/pt-BR.json'),
@@ -141,7 +142,7 @@ const Navbar: React.FC = () => {
           <a href="/home">{intl.get('navbar.rota')}</a>
         </div>
         <div id="page">
-          <HistoricPage localDaRota={!!location.pathname}>{page}</HistoricPage>
+          <HistoricPage localDaRota={!!location.pathname}>{page.length > 10 ? retornaTituloMenor(page, 10) : page}</HistoricPage>
         </div>
       </PageIndicator>
       <SandwichMenu onClick={openDropDown}>

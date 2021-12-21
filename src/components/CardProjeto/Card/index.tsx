@@ -13,6 +13,8 @@ import analisaValor from "../../../utils/analisaValor";
 import intl from 'react-intl-universal';
 import { PopupModal } from "../../../pages/Dashboard/styles";
 
+import { errorfulNotify } from "../../../hooks/SystemToasts";
+
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
     'en-US': require('../../../language/en-US.json'),
@@ -58,7 +60,11 @@ interface CardContent {
   }; 
 }
 
-const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
+interface Coutverba {
+  total: number;
+}
+
+const CardProject: React.FC<CardProps> = ({ numeroDoProjeto }) => {
   const [language] = useState(() => {
     let languageStorage = localStorage.getItem('Language');
 
@@ -80,33 +86,28 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
 
   const [projeto, setProjeto] = useState<CardContent>();
   const [status, setStatus] = useState('');
-  const [valorConsumido, setValorConsumido] = useState(0);
+  const [valorConsumido, setValorConsumido] = useState<Coutverba>();
+
+  async function handleProject() {
+    try {
+      await api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
+        .then((response => {
+          setProjeto(response.data);
+          setStatus(response.data.projetoData.statusProjeto);
+        })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
+
+      await api.get<Coutverba>(`projetos/count/verba/${numeroDoProjeto}`)
+        .then((response => {
+          setValorConsumido(response.data);
+        })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   useEffect(() => {
-    api.get<CardContent>(`/projetos/${numeroDoProjeto}`).then((response => {
-      setProjeto(response.data);
-      setStatus(response.data.projetoData.statusProjeto);
-    }));
-
-    api.get<number>(`projetos/count/verba/${numeroDoProjeto}`).then((response => {
-      setValorConsumido(response.data)
-    })); 
-  }, [numeroDoProjeto]);
-    
-  // const [isModalVisible, setIsModalVisible] = useState(true);
-  // const [popUp, setPopUp] = useState<JSX.Element>();
-
-  // const toggleModal = () => {
-  //   //alert(isModalVisible);
-  //   setPopUp(
-  //     <BaseModalWrapper 
-  //       isModalVisible={isModalVisible} 
-  //       onBackdropClick={toggleModal} 
-  //       numeroDoProjeto={projeto ? projeto.infoprojetoDTO.numeroDoProjeto: 0} 
-  //     />
-  //   );
-  //   setIsModalVisible(!isModalVisible);
-  // }
+    handleProject();
+  }, []);
 
   function calcularPorcentagem(count: number) {
     const total = projeto ? projeto.valoresTotais.valorTotalEsforco : 0;
@@ -115,12 +116,12 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
     return Math.floor(porcentagem);
   }
 
+  
   return (
     <>
     { projeto ? 
       <PopupModal closeOnEscape trigger={
         <Card key={projeto?.projetoData.id}>
-          {/* {popUp ? popUp : null} */}
           <CardStatus statusColor={status}/>
           <CardBox>
             <BoxLeft>
@@ -130,7 +131,7 @@ const CardProject: React.FC<CardProps> = ({numeroDoProjeto}) => {
               </div>
               <div>
                 <p><strong>{intl.get('card_projetos.saldo_um')}</strong>{analisaValor(projeto ? projeto.valoresTotais.valorTotalDespesas : 0)}</p>
-                <p><strong>{intl.get('card_projetos.saldo_dois')}</strong>{analisaValor(projeto ? projeto.valoresTotais.valorTotalDespesas - valorConsumido : 0)}</p>
+                <p><strong>{intl.get('card_projetos.saldo_dois')}</strong>{analisaValor(projeto ? projeto.valoresTotais.valorTotalDespesas - valorConsumido!?.total : 0)}</p>
               </div>
               <div>
                 <p>{intl.get('card_projetos.data_um')} {projeto ? projeto.projetoData.data_de_inicio : "00/00/0000"}</p>

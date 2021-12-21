@@ -229,7 +229,6 @@ const Projects: React.FC = () => {
                                 <input type="text" placeholder="Pesquise aqui..." onChange={search} />
                             </div>
                             <div>
-                                {/* <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/> */}
                                 <Atualizar onClick={() => setAtualizar(true)}/>
                             </div>
                         </ContainerFiltro>
@@ -238,7 +237,7 @@ const Projects: React.FC = () => {
                         <Center>
                             {
                                 projetos && projetos.length > 0 ? projetos.map((projeto) =>
-                                    <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto} />
+                                    <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
                                 )
                                     :
                                     <Msg>
