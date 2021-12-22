@@ -14,7 +14,7 @@ import { GoPencil } from 'react-icons/go';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
 import { ConsultantData, Container, PricePerHour, SideContainer, SupplierData, UserData, Title,
-    PopUp, ContainerPopup, Scroll } from './styles';
+  PopUp, ContainerPopup, Scroll } from './styles';
 
 import { vrfCampo, verificaCadConsultor, verificaFornecedor } from "../../utils/confereCampo";
 
@@ -24,286 +24,281 @@ import { PopupModal } from '../../styles/global';
 //import analisaValor from "../../utils/analisaValor";
 
 interface CadConsultor {
-    funcionarioData: Consultor;
-    fornecedor: string;
-    skills: string[];
+  funcionarioData: Consultor;
+  fornecedor: string;
+  skills: string[];
 }
 
 interface Consultor {
-    numero_cracha: number;
-    nome: string;
-    email: string;
-    senha: string;
-    cpf: number;
-    telefone: string;
-    valor_hora: number;
+  numero_cracha: number;
+  nome: string;
+  email: string;
+  senha: string;
+  cpf: number;
+  telefone: string;
+  valor_hora: number;
 }
 
 interface Fornecedor {
-    nome: string;
+  nome: string;
 }
 
 const RegisterConsultants: React.FC = () => {
-    const [suppliers, setSuppliers] = useState<Fornecedor[]>([]);
+  const [suppliers, setSuppliers] = useState<Fornecedor[]>([]);
 
-    // const token = localStorage.getItem('Token');
-    // let config = {
-    //     headers: { Authorization: `Bearer ${token}`},
-    // };
+  // const token = localStorage.getItem('Token');
+  // let config = {
+  //     headers: { Authorization: `Bearer ${token}`},
+  // };
 
-    const formatCpf= () => {
-        var ao_cpf = (document.getElementById("cpf") as HTMLInputElement).value;
+  const formatCpf= () => {
+    var ao_cpf = (document.getElementById("cpf") as HTMLInputElement).value;
 
-        ao_cpf = ao_cpf.replace( /\D/g , ""); //Remove tudo o que não é dígito
-                    
-        if (ao_cpf.length > 3){
-            ao_cpf = ao_cpf.replace( /(\d{3})(\d)/ , "$1.$2"); //Coloca um ponto entre o terceiro e o quarto dígitos
-            (document.getElementById("cpf") as HTMLInputElement).value = ao_cpf;
+    ao_cpf = ao_cpf.replace( /\D/g , ""); //Remove tudo o que não é dígito
+                
+    if (ao_cpf.length > 3){
+      ao_cpf = ao_cpf.replace( /(\d{3})(\d)/ , "$1.$2"); //Coloca um ponto entre o terceiro e o quarto dígitos
+      (document.getElementById("cpf") as HTMLInputElement).value = ao_cpf;
 
-            if (ao_cpf.length > 6) {
-                ao_cpf = ao_cpf.replace( /(\d{3})(\d)/ , "$1.$2");
-                (document.getElementById("cpf") as HTMLInputElement).value = ao_cpf;
+      if (ao_cpf.length > 6) {
+        ao_cpf = ao_cpf.replace( /(\d{3})(\d)/ , "$1.$2");
+        (document.getElementById("cpf") as HTMLInputElement).value = ao_cpf;
 
-                if (ao_cpf.length > 9) {
-                    ao_cpf = ao_cpf.replace( /(\d{3})(\d{1,2})$/ , "$1-$2");
-                    (document.getElementById("cpf") as HTMLInputElement).value = ao_cpf;
-                }
-            }
-        } else{
-            console.log("CPF invalido");
+        if (ao_cpf.length > 9) {
+          ao_cpf = ao_cpf.replace( /(\d{3})(\d{1,2})$/ , "$1-$2");
+          (document.getElementById("cpf") as HTMLInputElement).value = ao_cpf;
         }
+      }
+    } else{
+      console.log("CPF invalido");
+    }
+  }
+
+  const formatTelefone= () => {
+    var telefone = (document.getElementById("telefone") as HTMLInputElement).value;  
+
+    telefone = telefone.replace( /\D/g , "");
+                
+    if (telefone.length > 2){
+      telefone = telefone.replace(/^(\d{2})(\d)/g,"($1)$2");
+      (document.getElementById("telefone") as HTMLInputElement).value = telefone;
+
+      if (telefone.length > 5) {
+        telefone = telefone.replace(/(\d{5})(\d{4})$/,"$1-$2");
+        (document.getElementById("telefone") as HTMLInputElement).value = telefone;
+      }
+    }
+  }
+
+  function resetarCampos() {
+    const inputs = ["numero_cracha", "nome", "email", "senha", "cpf", "telefone", "valor_hora"];
+
+    for (let i = 0; i < inputs.length; i ++){ 
+      (document.getElementById(inputs[i]) as HTMLInputElement).value = "";
     }
 
-    const formatTelefone= () => {
-        var telefone = (document.getElementById("telefone") as HTMLInputElement).value;  
+    (document.getElementById("nome_fornecedor") as HTMLSelectElement).value = "Todos";
+  }
 
-        telefone = telefone.replace( /\D/g , "");
-                    
-        if (telefone.length > 2){
-            telefone = telefone.replace(/^(\d{2})(\d)/g,"($1)$2");
-            (document.getElementById("telefone") as HTMLInputElement).value = telefone;
-
-            if (telefone.length > 5) {
-                telefone = telefone.replace(/(\d{5})(\d{4})$/,"$1-$2");
-                (document.getElementById("telefone") as HTMLInputElement).value = telefone;
-            }
-        }
-    }
-
-    function resetarCampos() {
-        const inputs = ["numero_cracha", "nome", "email", "senha", "cpf", "telefone", "valor_hora"];
-
-        for (let i = 0; i < inputs.length; i ++){ 
-            (document.getElementById(inputs[i]) as HTMLInputElement).value = "";
-        }
-
-        (document.getElementById("nome_fornecedor") as HTMLSelectElement).value = "Todos";
-    }
-
-    async function enviarInfo(consultor: CadConsultor) {
-        try {
-            await api.post(`consultores`, consultor)
-                .then(() => {
-                    successfulNotify('Consultor cadastrado com sucesso!');
-                    resetarCampos();
-                })
-                .catch((e) => 
-                    errorfulNotify(e.response.data.titulo)
-                );
-        } catch (error) {
-            console.log(`Error: ${error}`);
-            errorfulNotify('Não foi possivel realizar o cadastro do consultor!'); 
-        }
-    }
-
-    const setConsultorInfos = useCallback( async () => {
-        const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
-        const nome = (document.getElementById("nome") as HTMLInputElement).value;
-        const email = (document.getElementById("email") as HTMLInputElement).value;
-        const senha = (document.getElementById("senha") as HTMLInputElement).value;
-        const cpf = (document.getElementById("cpf") as HTMLInputElement).value.split(".");
-        const cpfFormat = parseInt(cpf[0] + cpf[1] + cpf[2].split("-")[0] + cpf[2].split("-")[1]);
-        const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
-        const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
-        const nome_fornecedor = (document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
-        const skills = ["java"];
-        const consultor: CadConsultor = {
-            funcionarioData: {
-                numero_cracha: numero_cracha,
-                nome: nome,
-                email: email,
-                senha: senha,
-                cpf: cpfFormat,
-                telefone: telefone,
-                valor_hora: valor_hora
-            },
-            fornecedor: nome_fornecedor, 
-            skills: skills
-        };
-
-        enviarInfo(consultor);
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        api.get("fornecedores").then((response) => {
-            setSuppliers(response.data);
+  async function enviarInfo(consultor: CadConsultor) {
+    try {
+      await api.post(`consultores`, consultor)
+        .then(() => {
+          successfulNotify('Consultor cadastrado com sucesso!');
+          resetarCampos();
         })
-    });
+        .catch((e) => 
+          errorfulNotify(e.response.data.titulo)
+        );
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      errorfulNotify('Não foi possivel realizar o cadastro do consultor!'); 
+    }
+  }
 
-    return (
-        <>
-        <Navbar />
-        <MenuLeft />
-    
-        <Container>
-            <header>
-                <h1>Cadastrar Consultor</h1>
-                <AiOutlineCaretDown />
-            </header>
-            <SideContainer>
-                <ConsultantData>
-                    <h1>Dados do consultor</h1>
-                    <div className="box1">
-                        <label>Nome:</label>
-                        <input 
-                            type='text' 
-                            id="nome" 
-                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                        />
-                        <GoPencil />
-                    </div>
-                    <div className="box3">
-                        <label>CPF:</label>
-                        <input 
-                            type='text' 
-                            id="cpf" 
-                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)} 
-                            onChange={formatCpf} 
-                            maxLength={14} 
-                        />
-                        <BsFillPersonLinesFill />
-                    </div>
-                    <div className="box4">
-                        <label>Telefone:</label>
-                        <input 
-                            type='text' 
-                            id="telefone"
-                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                            onChange={formatTelefone} 
-                            maxLength={14} 
-                        />
-                        <AiOutlinePhone />
-                    </div>
-                    <div className="box3">
-                        <label>N° do crachá:</label>
-                        <input 
-                            type='text' 
-                            id="numero_cracha" 
-                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                        />
-                        <BsFillPersonLinesFill />
-                    </div>
-                </ConsultantData>
-                <PricePerHour>
-                    <h1>Dados adicionais</h1>
-                    <div>
-                        <div>
-                            <label>Valor horista:</label>
-                            <input 
-                                type='text' 
-                                id="valor_hora"
-                                onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                            />
-                        </div>
-                        <div>
-                            <label>Skill:</label>
-                            <PopupModal closeOnEscape trigger={<button>Cadastrar skill</button>} modal>
-                                {(close: any) => (
-                                    <ContainerPopup>
-                                        <PopUp>
-                                            <Title>
-                                                <h1>Skills</h1>
-                                                <span onClick={() => close()} />
-                                            </Title>
-                                            <Scroll>
-                                                <div id="skill1" className='linha'>
-                                                    <input type="text"/>
-                                                    <button>Remover</button>
-                                                </div>
-                                                <div id="final">
-                                                    <button>Adicionar</button>
-                                                    <button>Finalizar</button>
-                                                </div>
-                                            </Scroll>
-                                        </PopUp>
-                                    </ContainerPopup>
-                                )}
-                            </PopupModal>
-                        </div>
-                    </div>
-                </PricePerHour>
-            </SideContainer>
-            <SideContainer>
-                <UserData>
-                    <h1>Dados de Login</h1>
-                    <div className="box1">
-                        <label>Email do usuário:</label>
-                        <input 
-                            type='email' 
-                            id="email"
-                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                        />
-                        <AiOutlineMail />
-                    </div>
-                    <div className="box1">
-                        <label>Senha:</label>
-                        <input 
-                            type='password' 
-                            id='senha'
-                            autoComplete='off'
-                            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                        />
-                        <RiLockPasswordLine />
-                    </div>
-                </UserData>
-                <SupplierData>
-                    <h1>Fornecedor</h1>
+  const setConsultorInfos = useCallback( async () => {
+    const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
+    const nome = (document.getElementById("nome") as HTMLInputElement).value;
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const senha = (document.getElementById("senha") as HTMLInputElement).value;
+    const cpf = (document.getElementById("cpf") as HTMLInputElement).value.split(".");
+    const cpfFormat = parseInt(cpf[0] + cpf[1] + cpf[2].split("-")[0] + cpf[2].split("-")[1]);
+    const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
+    const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
+    const nome_fornecedor = (document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
+    const skills = ["java"];
+    const consultor: CadConsultor = {
+      funcionarioData: {
+        numero_cracha: numero_cracha,
+        nome: nome,
+        email: email,
+        senha: senha,
+        cpf: cpfFormat,
+        telefone: telefone,
+        valor_hora: valor_hora
+      },
+      fornecedor: nome_fornecedor, 
+      skills: skills
+    };
 
-                    <div className="box5">
-                        <label>Nome:</label>
-                        <select 
-                            name="secao" 
-                            id="nome_fornecedor"
-                            onChange={verificaFornecedor}
-                        >
-                            <option value="Todos">Todos</option>
-                            {
-                            suppliers ?
-                                suppliers.map((supplier, index) =>
-                                    <option key={index} value={supplier.nome}>{supplier.nome}</option>
-                                )
-                                :
-                                'Nenhum fornecedor foi encontrado'
-                            }
-                        </select>
-                    </div>
-                </SupplierData>
-                <button id="enviarDados" onClick={() => {
-                    if (verificaCadConsultor() === 0) {
-                        setConsultorInfos();
-                    }
-                }}>
-                    Cadastrar
-                </button>              
-            </SideContainer>
-            <Footer tipo={"register_consultants"} />
-        </Container>
-        <MenuRight>
-            <ContIcons />
-        </MenuRight>
-        </>
-    );
+    enviarInfo(consultor);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    api.get("fornecedores").then((response) => {
+      setSuppliers(response.data);
+    })
+  });
+
+  return (
+    <>
+    <Navbar />
+    <MenuLeft />
+    <Container>
+      <header>
+        <h1>Cadastrar Consultor</h1>
+        <AiOutlineCaretDown />
+      </header>
+      <SideContainer>
+        <ConsultantData>
+          <h1>Dados do consultor</h1>
+          <div className="box1">
+            <label>Nome:</label>
+            <input 
+              type='text' 
+              id="nome" 
+              onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+            />
+            <GoPencil />
+          </div>
+          <div className="box3">
+            <label>CPF:</label>
+            <input 
+              type='text' 
+              id="cpf" 
+              onBlur={(props) => vrfCampo(props.target.value, props.target.id)} 
+              onChange={formatCpf} 
+              maxLength={14} 
+            />
+            <BsFillPersonLinesFill />
+          </div>
+          <div className="box4">
+            <label>Telefone:</label>
+            <input 
+              type='text' 
+              id="telefone"
+              onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+              onChange={formatTelefone} 
+              maxLength={14} 
+            />
+            <AiOutlinePhone />
+          </div>
+          <div className="box3">
+            <label>N° do crachá:</label>
+            <input 
+              type='text' 
+              id="numero_cracha" 
+              onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+            />
+            <BsFillPersonLinesFill />
+          </div>
+        </ConsultantData>
+        <PricePerHour>
+          <h1>Dados adicionais</h1>
+          <div>
+            <div>
+              <label>Valor horista:</label>
+              <input 
+                type='text' 
+                id="valor_hora"
+                onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+              />  
+          </div>
+          <div>
+            <label>Skill:</label>
+            <PopupModal closeOnEscape trigger={<button>Cadastrar skill</button>} modal>
+              {(close: any) => (
+                <ContainerPopup>
+                  <PopUp>
+                    <Title>
+                      <h1>Skills</h1>
+                      <span onClick={() => close()} />
+                    </Title>
+                    <Scroll>
+                      <div id="skill1" className='linha'>
+                        <input type="text"/>
+                        <button>Remover</button>
+                      </div>
+                      <div id="final">
+                        <button>Adicionar</button>
+                        <button>Finalizar</button>
+                      </div>
+                    </Scroll>
+                  </PopUp>
+                </ContainerPopup>
+              )}
+            </PopupModal>
+          </div>
+        </div>
+      </PricePerHour>
+    </SideContainer>
+    <SideContainer>
+      <UserData>
+        <h1>Dados de Login</h1>
+        <div className="box1">
+          <label>Email do usuário:</label>
+          <input 
+            type='email' 
+            id="email"
+            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+          />
+          <AiOutlineMail />
+        </div>
+        <div className="box1">
+          <label>Senha:</label>
+          <input 
+            type='password' 
+            id='senha'
+            autoComplete='off'
+            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+          />
+          <RiLockPasswordLine />
+        </div>
+      </UserData>
+      <SupplierData>
+        <h1>Fornecedor</h1>
+        <div className="box5">
+          <label>Nome:</label>
+          <select 
+            name="secao" 
+            id="nome_fornecedor"
+            onChange={verificaFornecedor}>
+            <option value="Todos">Todos</option>
+            {
+            suppliers ?
+              suppliers.map((supplier, index) =>
+                <option key={index} value={supplier.nome}>{supplier.nome}</option>
+              ) : 'Nenhum fornecedor foi encontrado'
+            }
+          </select>
+        </div>
+      </SupplierData>
+      <button id="enviarDados" onClick={() => {
+        if (verificaCadConsultor() === 0) {
+          setConsultorInfos();
+        }
+      }}>
+        Cadastrar
+      </button>              
+    </SideContainer>
+    <Footer tipo={"register_consultants"} />
+    </Container>
+    <MenuRight>
+      <ContIcons />
+    </MenuRight>
+    </>
+  );
 };
 
 export default RegisterConsultants;

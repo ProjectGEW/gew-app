@@ -1,9 +1,15 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import intl from "react-intl-universal";
-import api from '../../service/api';
 import { Line } from 'react-chartjs-2';
+import intl from "react-intl-universal";
+
+import api from '../../service/api';
+
+import analisaValor from '../../utils/analisaValor';
+import formatStatus from '../../utils/formatStatus';
+
+import { errorfulNotify } from '../../hooks/SystemToasts';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -12,13 +18,11 @@ import { ContIcons } from '../../components/MenuRight/styles';
 import GraphLiquid from "../../components/GraphLiquid";
 import PopupVerbaUtilizada from '../../components/DashboardPopUp/verbaUtilizada';
 import PopupVerbaDisponivel from '../../components/DashboardPopUp/verbaDisponivel';
+import { ContainerLine } from '../../components/GraphLine/styles';
 
 import { Container, ContainerDashboard, Liquid, Lines, Card, Title, Graph,
     GraphLine, CardsMoney, Money, Filtros, BoxLine, PopupModal, PopupTooltip, Status } from './styles';
 
-import analisaValor from '../../utils/analisaValor';
-import formatStatus from '../../utils/formatStatus';
-import { ContainerLine } from '../../components/GraphLine/styles';
 
 const locales = {
     'pt-BR': require('../../language/pt-BR.json'),
@@ -58,7 +62,8 @@ interface CardContent {
         valorTotalCcPagantes: number;
         valorTotalDespesas: number;
         valorTotalEsforco: number;
-    };     
+        verbaUtilizada: number;
+    };      
 }
 
 interface ISecoes {
@@ -70,82 +75,11 @@ interface CountPerData {
     verbaUtilizada: number;
 }
 
+interface Coutverba {
+    total: number;
+}
+
 const Dashboard: React.FC = () => {
-    const { id }: { id: string }  = useParams();
-
-    const [status, setStatus] = useState('');
-    //const [project, setProject] = useState<CardContent>();
-    const [projetos, setProjetos] = useState<CardContent[]>([]);
-    const [secoes, setSecoes] = useState<ISecoes[]>([]);
-    const [countUtilizada, setCountUtilizada] = useState();
-    const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
-    const [countsPerDataSolo, setCountsPerDataSolo] = useState<CountPerData[]>([]);
-    //const [dataSelecionada, setDataSelecionada] = useState('14');
-
-    /*const token = localStorage.getItem('Token');
-    let config = {
-        headers: { Authorization: `Bearer ${token}`},
-    };*/
-
-    const [guardaVerba, setGuardaVerba] = useState([]);
-
-    useEffect(() => {
-        window.onload = async function handleProjetos() {
-            const response = await api.get<CardContent[]>("projetos");
-            const data = response.data;
-            setProjetos(data);
-
-            const responseSecao = await api.get<ISecoes[]>('secoes');
-            const dataSecao = responseSecao.data;
-            setSecoes(dataSecao);
-
-            const responseDatas = await api.get<CountPerData[]>(`projetos/count/14`)
-            const dataDatas = responseDatas.data;
-            setCountsPerData(dataDatas);  
-
-            const responseCountUtilizada = await api.get(`projetos/count/verba/0`);
-            const dataCountUtilizada = responseCountUtilizada.data;
-            setCountUtilizada(dataCountUtilizada);
-
-            // const pegaNumero = data.map(a => a.infoprojetoDTO.numeroDoProjeto);
-            // pegaNumero.forEach(async (b) => {
-            //     const responseGuarda = await api.get(`projetos/count/verba/${pegaNumero[b]}`);
-            //     const dataGuarda = responseGuarda.data;
-            //     setGuardaVerba(dataGuarda); 
-
-            //     //const converte = {numero: pegaNumero[b], verba: dataGuarda};
-            //     //setGuardaVerba(converte); 
-            // })
-        
-            //console.log(guardaVerba);
-        }
-       
-        if(id !== '0') {
-            window.onload = async function handleProjeto() {
-                const response = await api.get<CardContent[]>("projetos");
-                const data = response.data;
-                setProjetos(data);
-
-                const responseSecao = await api.get<ISecoes[]>('secoes');
-                const dataSecao = responseSecao.data;
-                setSecoes(dataSecao);
-
-                const responseDatas = await api.get<CountPerData[]>(`projetos/count/14/${Number(id)}`)
-                const dataDatas = responseDatas.data;
-                setCountsPerData(dataDatas);
-                
-                projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id));
-    
-                const responseCountUtilizada = await api.get(`projetos/count/verba/${id ? id : 0}`);
-                const dataCountUtilizada = responseCountUtilizada.data;
-                setCountUtilizada(dataCountUtilizada);
-            }
-        }
-
-    }, [id, projetos]);
-
-    console.log(guardaVerba);
-
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
 
@@ -159,147 +93,222 @@ const Dashboard: React.FC = () => {
         currentLocale: language.code,
         locales
     });
+    
+    const { id }: { id: string }  = useParams();
 
-    function defineStatus(valor: string) {
-        var btns = ["Todos", "concluidos", "atrasados", "em_andamento"];
+    const [projetos, setProjetos] = useState<CardContent[]>([]);
+    const [projeto, setProjeto] = useState<CardContent>();
+    const [global, setGlobal] = useState<CardContent[]>([]);
 
+    const [secoes, setSecoes] = useState<ISecoes[]>([]);
+
+    const [contagemVerba14, setContagemVerba14] = useState<CountPerData[]>([]);
+    const [contagemVerba28, setContagemVerba28] = useState<CountPerData[]>([]);
+    const [contagemVerbaGeral, setContagemVerbaGeral] = useState<Coutverba>();
+    const [contagemVerbaDoProjeto14, setContagemVerbaDoProjeto14] = useState<CountPerData[]>([]);
+    const [contagemVerbaDoProjeto28, setContagemVerbaDoProjeto28] = useState<CountPerData[]>([]);
+    const [contagemPorData, setContagemPorData] = useState<CountPerData[]>([]);
+
+    const [statusAtual, setStatusAtual] = useState('TODOS');
+    const [secaoAtual, setSecaoAtual] = useState('TODOS');
+
+    async function handleProject() {
+        try {
+            await api.get<CardContent[]>(`projetos`)
+            .then((response => {
+                setProjetos(response.data); 
+                setGlobal(response.data);
+            })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
+
+            await api.get<ISecoes[]>(`secoes`)
+            .then((response => {
+                setSecoes(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+
+            await api.get<Coutverba>(`projetos/count/verba/0`)
+            .then((response => {
+                setContagemVerbaGeral(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas."));
+
+            await api.get(`projetos/count/14`)
+            .then((response => {
+                setContagemVerba14(response.data); 
+                setContagemPorData(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas nos últimos 14 dias."));
+
+            await api.get(`projetos/count/28`)
+            .then((response => {
+                setContagemVerba28(response.data); 
+            })).catch(() => errorfulNotify("Não foi possível encontrar a contagem de verbas nos últimos 28 dias."));
+
+            if(id !== '0') {
+                await api.get<CardContent>(`projetos/${id}`)
+                .then((response => {
+                    setProjeto(response.data); 
+                })).catch(() => errorfulNotify(`Não foi possível encontrar o projeto ${id ? id : 0}.`));
+
+                await api.get(`projetos/count/14/${id}`)
+                .then((response => {
+                    setContagemVerbaDoProjeto14(response.data); 
+                    setContagemPorData(response.data); 
+                })).catch(() => errorfulNotify(`Não foi possível encontrar a contagem de verbas nos últimos 14 dias do projeto ${id ? id : 0}.`));
+
+                await api.get(`projetos/count/28/${id}`)
+                .then((response => {
+                    setContagemVerbaDoProjeto28(response.data); 
+                })).catch(() => errorfulNotify(`Não foi possível encontrar a contagem de verbas nos últimos 28 dias do projeto ${id ? id : 0}.`));
+
+                await api.get(`projetos/count/verba/${id}`)
+                .then((response => {
+                    setContagemVerbaGeral(response.data); 
+                })).catch(() => errorfulNotify(`Não foi possível encontrar a contagem de verbas do projeto ${id ? id : 0}.`));
+            }
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        handleProject();
+    },[]);
+
+    // async function buscaVerbaDosProjetos() {
+    //     if(id !== '0') {
+    //         await api.get(`projetos/coutn/verba/${id}`)
+    //         .then((response => {
+    //             setVerbaDosProjetos([...verbaDosProjetos, response.data]);
+    //         })).catch(() => errorfulNotify(`Não foi possível encontrar a verba do projeto ${id ? id : 0}.`));
+    //     }
+    // }
+    
+    function filtraDadosPorStatus(status: string) {
+        setStatusAtual(status);
+        const separaProjetos = status === "TODOS" ? 
+        global.filter(res => res) : global.filter(res => res.projetoData.statusProjeto === status);
+        
+        var btns = ["todos", "CONCLUIDO", "ATRASADOS", "EM_ANDAMENTO"];
+        
         for(var x = 0; x < btns.length; x++) {
             document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
-
-        setStatus(valor);
-
-        if(valor === "concluidos") {
-            document.getElementById(valor)!.style.backgroundColor = "#adffb0";
-        } else if (valor === "atrasados") {
-            document.getElementById(valor)!.style.backgroundColor = "#ffbfbf";
-        } else if (valor === "em_andamento") {
-            document.getElementById(valor)!.style.backgroundColor = "#c2e4ff";
-        } else if (valor === "") {
-            document.getElementById(btns[0])!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+        
+        if(status === "CONCLUIDO") {
+            document.getElementById(status)!.style.backgroundColor = "#adffb0";
+        } else if (status === "ATRASADOS") {
+            document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
+        } else if (status === "EM_ANDAMENTO") {
+            document.getElementById(status)!.style.backgroundColor = "#c2e4ff";
+        } else if (status === "TODOS") {
+            document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
         }
+        
+        if(secaoAtual !== "TODOS") {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.secao === secaoAtual);
+            setProjetos(separaPorStatusSecao);
+            return;
+        }
+        setProjetos(separaProjetos);
     }
-
-    async function filtraPorStatus(event: FormEvent<HTMLFormElement>): Promise<void> {
-        event.preventDefault();
-
-        let statusteste = '';
-        var resultado = '';
-
-        if (document.activeElement) {
-            statusteste = document.activeElement?.id;
+    
+    const filtraDadosPorSecao = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSecaoAtual(event.target.value);
+        
+        const separaProjetos = (event.target.value !== 'TODOS') ?
+        global.filter(res => res.projetoData.secao === event.target.value)
+        : global
+        
+        if(statusAtual !== 'TODOS') {
+            const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.statusProjeto === statusAtual);
+            setProjetos(separaPorStatusSecao);
         } else {
-            statusteste = status;
-        }
-
-        if (selectedOption !== 'Todos') {
-            if (statusteste === 'Todos') {
-                resultado = `projetos/secao/` + selectedOption;
-            } else if (statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/` + selectedOption;
-            }
-            const response = await api.get<CardContent[]>(resultado);
-            const data = response.data;
-            setProjetos(data);
-
-        } else if (selectedOption === 'Todos') {
-            if (statusteste === 'Todos') {
-                resultado = `projetos`;
-            } else if (statusteste !== 'Todos') {
-                resultado = `projetos/` + statusteste + `/Todos`;
-            }
-            const response = await api.get<CardContent[]>(resultado);
-            const data = response.data;
-            setProjetos(data);
+            setProjetos(separaProjetos);
         }
     }
-
-    const [selectedOption, setSelectedOption] = useState('Todos');
-
-    const selectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = event.target.value;
-        var resultado = '';
-
-        //const pegaNumero = projetos.filter(a => a.infoprojetoDTO.secao.toUpperCase() === value.toUpperCase());
-
-        //console.log(pegaNumero);
-        //api.get(`projetos/count/verba/${Number(pegaNumero)}`).then(response => {setCountUtilizada(response.data); console.log(response.data)});
-
-        console.log(guardaVerba);
-
-        setSelectedOption(value);
-
-        if (value !== 'Todos') {
-            if (status === '') {
-                resultado = `projetos/secao/` + value;
-            } else if (status !== '') {
-                resultado = `projetos/` + status + `/` + value;
-            }
-            const responsePorSecao = await api.get<CardContent[]>(resultado);
-            const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);
-
-        } else if (value === 'Todos') {
-            if (status === '') {
-                resultado = `projetos`;
-            } else if (status !== '') {
-                resultado = `projetos/` + status + `/Todos`;
-            }
-            const responsePorSecao = await api.get<CardContent[]>(resultado);
-            const dataPorSecao = responsePorSecao.data;
-            setProjetos(dataPorSecao);
-        }
-    };
-
-    //const totalCcPagantes = projetos.filter(a => a.infoprojetoDTO.secao === selectedOption) ? projetos.filter(b => b.infoprojetoDTO.horas_apontadas === 0) ? [0] : [projetos.length] : [0];
-    const totalCcPagantes = [projetos.length];
+    
     const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
+    const totalCCPagantes = [projetos.length];
     
-    if(Number(id) === 0) {
-        for(var x = 0; x < projetos.length; x++) {
-            totalCcPagantes[x] = projetos.map((projetos) => projetos.valoresTotais.valorTotalCcPagantes)[x];
-        }
-    } else {
-        const recebe = projetos.filter(projeto => projeto.projetoData.numeroDoProjeto === Number(id));
-        totalCcPagantes[0] = recebe.map(projeto => projeto.valoresTotais.valorTotalCcPagantes)[0];
-        console.log(totalCcPagantes[0]);
+    for(var x = 0; x < projetos.length; x++) {
+        totalCCPagantes[x] = projetos.map((projetos) => projetos.valoresTotais.valorTotalCcPagantes)[x];
     }
     
-    const porcentagemUtilizada = totalCcPagantes.reduce(reducer) > 0 ? (Number(countUtilizada) / (totalCcPagantes.reduce(reducer))) * 100 : 0;
+    let dados = {aprovada: 0, utilizada: 0, disponivel: 0, porcentagemUtilizada: 0, porcentagemDisponivel: 0,
+        datasGrafico: [''], verbasGrafico: [0]};
+                
+    function calculaDadosGeral() {
+        const pega = projetos.map(res => res.valoresTotais.verbaUtilizada);        
+        
+        const contVerbaTotal = pega.reduce(reducer);
+        const verbaDisponivel = totalCCPagantes.reduce(reducer) - contVerbaTotal;
     
-    const valorDisponivel = Number(totalCcPagantes.reduce(reducer)) !== 0 ? totalCcPagantes.reduce(reducer) - Number(countUtilizada) : 0;
-    const porcentagemDisponivel = Number(totalCcPagantes.reduce(reducer)) !== 0 ? 100 - porcentagemUtilizada : 0;
+        const porcentagemUtilizada = ((contVerbaTotal * 100) / (totalCCPagantes.reduce(reducer)));
+        const porcentagemDisponivel = 100 - porcentagemUtilizada;
+
+        const datas = totalCCPagantes.reduce(reducer) > 0 ? contagemPorData.map(datas => datas.data) : ["0"];    
+        const verbas = totalCCPagantes.reduce(reducer) > 0 ? contagemPorData.map(verbas => verbas.verbaUtilizada) : [0];
+
+        dados = {
+            aprovada: totalCCPagantes.reduce(reducer),
+            utilizada: contVerbaTotal,
+            disponivel: verbaDisponivel,
+            porcentagemUtilizada: porcentagemUtilizada,
+            porcentagemDisponivel: porcentagemDisponivel,
+            datasGrafico: datas,
+            verbasGrafico: verbas
+        };
+    }
+
+    function calculaDadosPorProjeto() {
+        const totalCCPagantes = projeto ? projeto.valoresTotais.valorTotalCcPagantes : 0;
     
-    console.log(countUtilizada);
+        const verbaDisponivel = totalCCPagantes - Number(contagemVerbaGeral?.total);
+    
+        const porcentagemUtilizada = ((Number(contagemVerbaGeral?.total) * 100) / totalCCPagantes);
+        const porcentagemDisponivel = 100 - porcentagemUtilizada;
+
+        const datas = totalCCPagantes > 0 ? contagemPorData.map(datas => datas.data) : ["0"];    
+        const verbas = totalCCPagantes > 0 ? contagemPorData.map(verbas => verbas.verbaUtilizada) : [0];
+
+        dados = {
+            aprovada: totalCCPagantes,
+            utilizada: Number(contagemVerbaGeral?.total),
+            disponivel: verbaDisponivel,
+            porcentagemUtilizada: porcentagemUtilizada,
+            porcentagemDisponivel: porcentagemDisponivel,
+            datasGrafico: datas,
+            verbasGrafico: verbas
+        };    
+    }
+
+    if(totalCCPagantes.reduce(reducer) > 0 && id === '0') {
+        calculaDadosGeral();
+    } else if(totalCCPagantes.reduce(reducer) > 0 && id !== '0') {
+        calculaDadosPorProjeto();
+    }
+
     const alterarData = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
-        //setDataSelecionada(value);
         
-        if(Number(id) === 0) {
-            api.get<CountPerData[]>(`projetos/count/${Number(value)}`).then((response => {
-                setCountsPerData(response.data)
-            })); 
-        } else if(Number(id) !== 0) {
-            api.get<CountPerData[]>(`projetos/count/${Number(value)}/${Number(id)}`).then((response => {
-                setCountsPerData(response.data)
-            })); 
+        if(id === '0') {
+            if(value === '14') {
+                setContagemPorData(contagemVerba14);
+            } else if(value === '28') {
+                setContagemPorData(contagemVerba28);
+            }
+        } else {
+            if(value === '14') {
+                setContagemPorData(contagemVerbaDoProjeto14);
+            } else if(value === '28') {
+                setContagemPorData(contagemVerbaDoProjeto28);
+            }
         }
     }
- 
-    //console.log(totalCcPagantes.reduce(reducer));
-    //console.log(`projetos/count/14/${Number(id)}`);
-
-    // const datas = totalCcPagantes.reduce(reducer) > 0 && Number(id) === 0 ? countsPerData.map(datas => datas.data) : ["0"];    
-    // const verbas = totalCcPagantes.reduce(reducer) > 0 && Number(id) === 0 ? countsPerData.map(verbas => verbas.verbaUtilizada) : [0];
-
-    const datas = totalCcPagantes.reduce(reducer) > 0 ? countsPerData.map(datas => datas.data) : ["0"];    
-    const verbas = totalCcPagantes.reduce(reducer) > 0 ? countsPerData.map(verbas => verbas.verbaUtilizada) : [0];
-
+    
     const data = {
-        labels: datas.reverse(),
+        labels: dados.datasGrafico.reverse(),
         datasets: [{
         label: 'VERBA',
-        data: verbas.reverse(),
+        data: dados.verbasGrafico.reverse(),
         fill: true,
         backgroundColor: 'rgba(0, 186, 255, 0.19)',
         borderColor: '#0090C5',
@@ -319,24 +328,24 @@ const Dashboard: React.FC = () => {
                             {Number(id) === 0 ? 
                             <PopupModal closeOnEscape trigger={<span />} modal>
                                 {(close: any) => (
-                                    <PopupVerbaUtilizada fechar={close} status={status} valor={Math.round(porcentagemUtilizada)} />
+                                    <PopupVerbaUtilizada fechar={close} status={statusAtual} valor={Math.round(dados.porcentagemUtilizada)} />
                                 )}
                             </PopupModal>
                             : ''}
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={Math.round(porcentagemUtilizada)} />
+                            <GraphLiquid dashboard={true} valor={Math.round(dados.porcentagemUtilizada)} />
                         </Graph>
                     </Card>
                     <Card>
                         <Title>
                             <h1>{intl.get('tela_dashboards.segundo_card.title')}</h1>
                             <PopupTooltip trigger={<span />} position="right center">
-                                <PopupVerbaDisponivel verba={analisaValor(Number(valorDisponivel))} valor={Math.round(porcentagemDisponivel)} />
+                                <PopupVerbaDisponivel verba={analisaValor(Number(dados.disponivel))} valor={Math.round(dados.porcentagemDisponivel)} />
                             </PopupTooltip>
                         </Title>
                         <Graph>
-                            <GraphLiquid dashboard={true} valor={Math.round(porcentagemDisponivel)} />
+                            <GraphLiquid dashboard={true} valor={Math.round(dados.porcentagemDisponivel)} />
                         </Graph>
                     </Card>
                 </Liquid>
@@ -349,34 +358,35 @@ const Dashboard: React.FC = () => {
                         <Filtros>
                             <div>
                                 <label>Seção:</label>
-                                <select id="filtroSecao" name="secao" onChange={selectChange}>
-                                    <option value="Todos">Todos</option>
+                                <select id="filtroSecao" name="secao" onChange={filtraDadosPorSecao}>
+                                    <option value="TODOS">Todos</option>
                                     {
-                                        secoes ? secoes.map(secoes =><option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
-                                        :'Nenhuma seção foi encontrada'
+                                        secoes ? secoes.map(secoes =>
+                                            <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
+                                        : 'Nenhuma seção foi encontrada'
                                     }
                                 </select>
                             </div>  
                             <div>
                                 <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
-                                <form onSubmit={filtraPorStatus}>
-                                    <button type="submit" id="Todos" className="0"
-                                        onClick={() => defineStatus('')}>
+                                <div>
+                                    <button type="submit" id="todos" className="0"
+                                        onClick={() => filtraDadosPorStatus('TODOS')}>
                                         {intl.get('tela_projetos.filtros.options.todos')}
                                     </button>
-                                    <button type="submit" id="em_andamento" className="1"
-                                        onClick={() => defineStatus('em_andamento')}>
+                                    <button type="submit" id="EM_ANDAMENTO" className="1"
+                                        onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
                                         {intl.get('tela_projetos.filtros.options.emandamento')}
                                     </button>
-                                    <button type="submit" id="atrasados" className="2"
-                                        onClick={() => defineStatus('atrasados')}>
+                                    <button type="submit" id="ATRASADOS" className="2"
+                                        onClick={() => filtraDadosPorStatus('ATRASADOS')}>
                                         {intl.get('tela_projetos.filtros.options.atrasado')}
                                     </button>
-                                    <button type="submit" id="concluidos" className="3"
-                                        onClick={() => defineStatus('concluidos')}>
+                                    <button type="submit" id="CONCLUIDO" className="3"
+                                        onClick={() => filtraDadosPorStatus('CONCLUIDO')}>
                                         {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
-                                </form>
+                                </div>
                             </div>               
                         </Filtros> 
                         :
@@ -423,19 +433,19 @@ const Dashboard: React.FC = () => {
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.quarto')}</h1>
                             </Title>
-                            <h1>{analisaValor(Number(totalCcPagantes.reduce(reducer)))}</h1>
+                            <h1>{analisaValor(dados.aprovada)}</h1>
                         </Money>
                         <Money>
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.terceiro')}</h1>
                             </Title>
-                            <h1>{Number(totalCcPagantes.reduce(reducer)) !== 0 ? analisaValor(Number(countUtilizada)) : analisaValor(0)}</h1>
+                            <h1>{analisaValor(dados.utilizada)}</h1>
                         </Money>
                         <Money>
                             <Title>
                                 <h1>{intl.get('tela_dashboards.cards.segundo')}</h1>
                             </Title>
-                            <h1>{analisaValor(valorDisponivel)}</h1>
+                            <h1>{analisaValor(dados.disponivel)}</h1>
                         </Money>
                     </CardsMoney>
                 </Lines>

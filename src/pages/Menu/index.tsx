@@ -83,22 +83,24 @@ const Menu: React.FC = () => {
 
     const [counts, setCounts] = useState<Count>();
     const [countsPerData, setCountsPerData] = useState<CountPerData[]>([]);
-    //const today = new Date();
 
-    //const today_string = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    const [verbaTotalConcluido, setVerbaTotalConcluido] = useState<Number>();
+    const [verbaTotalEmAndamento, setVerbaTotalEmAndamento] = useState<Number>();
+    const [verbaTotalAtrasado, setVerbaTotalAtrasado] = useState<Number>();
 
     window.onload = async function handleData(): Promise<void> {
         try {
             const response = await api.get<Count>(`projetos/count`);
             const contagem = response.data;
-
             setCounts(contagem);
+
+            setVerbaTotalConcluido(contagem.verba.verbaConcluidos);
+            setVerbaTotalEmAndamento(contagem.verba.verbaEmAndamento);
+            setVerbaTotalAtrasado(contagem.verba.verbaAtrasados);
 
             const response_perData = await api.get<CountPerData[]>(`projetos/count/last-seven`);
             const contagem_perData = response_perData.data;
-
             setCountsPerData(contagem_perData);
-            
         } catch (err) {
            console.log("Não foi possivel realizar a leitura de dados");
         }
@@ -109,6 +111,26 @@ const Menu: React.FC = () => {
         const porcentagem = (count / total) * 100;
 
         return Math.floor(porcentagem);
+    }
+
+    function escondeVerba(status: string) {
+        if(verbaTotalConcluido === 0 && status === 'concluido') {
+            setVerbaTotalConcluido(counts!.verba.verbaConcluidos);
+        } else if(status === 'concluido') {
+            setVerbaTotalConcluido(0);
+        }
+
+        if(verbaTotalEmAndamento === 0 && status === 'andamento') {
+            setVerbaTotalEmAndamento(counts!.verba.verbaEmAndamento);
+        } else if(status === 'andamento') {
+            setVerbaTotalEmAndamento(0);
+        }
+
+        if(verbaTotalAtrasado === 0 && status === 'atrasado') {
+            setVerbaTotalAtrasado(counts!.verba.verbaAtrasados);
+        } else if(status === 'atrasado') {
+            setVerbaTotalAtrasado(0);
+        }
     }
 
     return (
@@ -133,9 +155,10 @@ const Menu: React.FC = () => {
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
-                        <p><strong>{intl.get('cards.verba')}</strong>{analisaValor(
-                            counts ? counts.verba.verbaConcluidos : 0
-                        )}<AiFillEye id="icon-eye"/></p>
+                        <p id="verba1"><strong>{intl.get('cards.verba')}</strong>{analisaValor(
+                            // counts ? counts.verba.verbaConcluidos : 0
+                            Number(verbaTotalConcluido)
+                        )}<AiFillEye id="icon-eye" onClick={() => escondeVerba('concluido')}/></p>
                     </div>
                 </Card>
                 <Card>
@@ -151,8 +174,10 @@ const Menu: React.FC = () => {
                     </CardContent>
                     <div id="SecondVerbCard">
                         <p><strong>{intl.get('cards.verba')}</strong>{analisaValor(
-                            counts ? counts.verba.verbaEmAndamento : 0)}
-                            <AiFillEye id="icon-eye"/></p>
+                            //counts ? counts.verba.verbaEmAndamento : 0
+                            Number(verbaTotalEmAndamento)
+                            )}
+                            <AiFillEye id="icon-eye" onClick={() => escondeVerba('andamento')}/></p>
                     </div>
                 </Card>
                 <Card>
@@ -168,8 +193,10 @@ const Menu: React.FC = () => {
                     </CardContent>
                     <div id="ThirdVerbCard">
                         <p><strong>{intl.get('cards.verba')}</strong>{analisaValor(
-                            counts ? counts.verba.verbaAtrasados : 0)}
-                            <AiFillEye id="icon-eye"/></p>
+                            //counts ? counts.verba.verbaAtrasados : 0
+                            Number(verbaTotalAtrasado)
+                            )}
+                            <AiFillEye id="icon-eye" onClick={() => escondeVerba('atrasado')}/></p>
                     </div>
                 </Card>
             </ContainerHomeCards>

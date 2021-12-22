@@ -25,98 +25,97 @@ import CardEsqueleto from '../../components/CardProjeto/CardEsqueleto';
 import analisaValor from '../../utils/analisaValor';
 
 interface IDados {
-    user: number,
-    horas: number,
-    projeto: number
+  user: number,
+  horas: number,
+  projeto: number
 }
 
 const Projects: React.FC = () => {
-    const [file, setFile] = useState<Blob>();
-    //const [ur, setUr] = useState('');
-    const [downloadUri, setDownloadUri] = useState();
-    const [dados, setDados] = useState<IDados[]>([{user: 67235, horas: 10, projeto: 182247}]);
+  const [file, setFile] = useState<Blob>();
+  //const [ur, setUr] = useState('');
+  const [downloadUri, setDownloadUri] = useState();
+  const [dados, setDados] = useState<IDados[]>([{user: 67235, horas: 10, projeto: 182247}]);
 
-    const onDrop = useCallback((acceptedFiles) => {
-        console.log(acceptedFiles);
-        setFile(acceptedFiles[0]);
-       // setUr(URL.createObjectURL(acceptedFiles));
-    }, [])
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
+    setFile(acceptedFiles[0]);
+    // setUr(URL.createObjectURL(acceptedFiles));
+  }, [])
 
-    const {getRootProps, getInputProps} = useDropzone({
-        multiple: false, 
-        onDropAccepted: onDrop,
-    });
+  const {getRootProps, getInputProps} = useDropzone({
+    multiple: false, 
+    onDropAccepted: onDrop,
+  });
 
-    const {ref, ...rootProps} = getRootProps();
+  const {ref, ...rootProps} = getRootProps();
 
-    const uploadFile = async () => {
-        try {
-            const formData = new FormData();
+  const uploadFile = async () => {
+    try {
+      const formData = new FormData();
 
-            formData.append("file", file ? file : "");
+      formData.append("file", file ? file : "");
 
-            const response = await api.post(`files/upload/2`, formData);
+      const response = await api.post(`files/upload/2`, formData);
 
-            setDownloadUri(response.data.fileDownloadUri);
-        } catch(err: any) {
-            alert(err.message);
-        }
+      setDownloadUri(response.data.fileDownloadUri);
+    } catch(err: any) {
+      alert(err.message);
     }
+  }
 
-    const downloadFile = async () => {
-        window.open(downloadUri);
-    }
+  const downloadFile = async () => {
+    window.open(downloadUri);
+  }
 
-    async function apontarHoras() {
-        const input = (document.getElementById("horas") as HTMLInputElement).value;
+  async function apontarHoras() {
+    const input = (document.getElementById("horas") as HTMLInputElement).value;
 
-        const horas = parseInt(input);
+    const horas = parseInt(input);
 
-        await api.put(`projetos/horas/182247/67235`, {horas: horas});
+    await api.put(`projetos/horas/182247/67235`, {horas: horas});
 
-        let addTarefa = {user: "67235", projeto: "182247"}
-        localStorage.setItem('Notification', JSON.stringify(addTarefa));
-    }
+    let addTarefa = {user: "67235", projeto: "182247"}
+    localStorage.setItem('Notification', JSON.stringify(addTarefa));
+  }
 
-    function teste() {
-        setDados([...dados, {user: 67235, horas: 10, projeto: 182247}]);
+  function teste() {
+    setDados([...dados, {user: 67235, horas: 10, projeto: 182247}]);
 
-        //let recebeDados = localStorage.getItem('Notification');
+    //let recebeDados = localStorage.getItem('Notification');
 
-        localStorage.setItem('Notification', JSON.stringify(dados));
-    }
+    localStorage.setItem('Notification', JSON.stringify(dados));
+  }
     
-    return (
-        <>
-        <Navbar />
-        <MenuLeft />
-
-        <Container>
-            <h1>Apontar horas</h1>
-            <input type="number" id="horas" />
-            <button onClick={apontarHoras}>Enviar</button>
-            <div ref={ref}>
-                <Paper {...rootProps}>
-                    <label htmlFor="ata1">UPLOAD</label>
-                    <input id="ata" {...getInputProps()}/>
-                </Paper>
-                <button onClick={uploadFile}>Enviar</button>
-            </div>
-            <button onClick={downloadFile}>Baixar</button>
-            <button onClick={() => successfulNotify('Projeto cadastrado com sucesso!')}>Testar popup</button>
-            <Popup trigger={<button> Trigger</button>} position="right center">
-                <div>Popup content here !!</div>
-            </Popup>
-            <button onClick={() => window.location.replace("/projects")}>Teste rota</button>
-            <button onClick={teste}>Testar localstorage</button>
-            <p>{analisaValor(0)}</p>
-            <CardEsqueleto/>
-        </Container>
-        <MenuRight>
-            <ContIcons />
-        </MenuRight>
-        </>
-    );
+  return (
+    <>
+    <Navbar />
+    <MenuLeft />
+    <Container>
+      <h1>Apontar horas</h1>
+      <input type="number" id="horas" />
+      <button onClick={apontarHoras}>Enviar</button>
+      <div ref={ref}>
+        <Paper {...rootProps}>
+          <label htmlFor="ata1">UPLOAD</label>
+          <input id="ata" {...getInputProps()}/>
+        </Paper>
+        <button onClick={uploadFile}>Enviar</button>
+      </div>
+      <button onClick={downloadFile}>Baixar</button>
+      <button onClick={() => successfulNotify('Projeto cadastrado com sucesso!')}>Testar popup</button>
+      <Popup trigger={<button> Trigger</button>} position="right center">
+          <div>Popup content here !!</div>
+      </Popup>
+      <button onClick={() => window.location.replace("/projects")}>Teste rota</button>
+      <button onClick={teste}>Testar localstorage</button>
+      <p>{analisaValor(0)}</p>
+      <CardEsqueleto/>
+    </Container>
+    <MenuRight>
+      <ContIcons />
+    </MenuRight>
+    </>
+  );
 };
 
 export default Projects;

@@ -7,13 +7,13 @@ import { Container  } from './styles';
 const Fornecedor: React.FC = () => {
   return (
     <>
-       <Navbar />
-       <MenuLeft />
-       <Container >
-        <ContainerProject>
-          <h1>Fornecedor</h1>
-        </ContainerProject>
-       </Container>
+      <Navbar />
+      <MenuLeft />
+      <Container >
+      <ContainerProject>
+        <h1>Fornecedor</h1>
+      </ContainerProject>
+      </Container>
     </>
   )
 }

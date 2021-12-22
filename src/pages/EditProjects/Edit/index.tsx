@@ -1,47 +1,44 @@
-import React, { useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+
+import { useParams } from 'react-router-dom';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-import api from '../../service/api';
+import api from '../../../service/api';
 
 import { useDropzone } from "react-dropzone";
 
-import { validacaoDosCamposCadastros, vrfCampoComMsg } from '../../utils/confereCampo';
-import analisaValor from '../../utils/analisaValor';
-import tituloMenor from '../../utils/tituloMenor';
+import { validacaoDosCamposCadastros, vrfCampoComMsg } from '../../../utils/confereCampo';
+import analisaValor from '../../../utils/analisaValor';
+import tituloMenor from '../../../utils/tituloMenor';
 
 import Paper from "@material-ui/core/Paper";
 
-import { successfulNotify, errorfulNotify, warnNotify } from '../../hooks/SystemToasts';
+import { successfulNotify, errorfulNotify, warnNotify } from '../../../hooks/SystemToasts';
 
-import MenuLeft from '../../components/MenuLeft';
-import MenuRight from '../../components/MenuRight';
-import Navbar from '../../components/Navbar';
-import Button from '../../components/Button';
-import { ContIcons } from '../../components/MenuRight/styles';
-import VoltarAoTopo from '../../components/VoltarAoTopo';
+import MenuLeft from '../../../components/MenuLeft';
+import MenuRight from '../../../components/MenuRight';
+import Navbar from '../../../components/Navbar';
+import Button from '../../../components/Button';
+import { ContIcons } from '../../../components/MenuRight/styles';
+import VoltarAoTopo from '../../../components/VoltarAoTopo';
 
 import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
+import { AiOutlineClockCircle, AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
-import { FaEquals, FaRegIdBadge } from 'react-icons/fa';
-import { AiOutlineClockCircle, AiOutlineCalendar, AiOutlineNumber, AiOutlineFilePdf } from 'react-icons/ai';
+import { FaEquals } from 'react-icons/fa';
 
 import {
   Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
   Total, Table, Linha, Datas, Finalizar, PopupModal, ContainerPopup, BoxPopup, Error
-} from './styles2';
+} from '../../RegisterProjects/styles';
 
 //Interfaces
 interface IProjetoInputDTO {
-  projetoData: IInfoProjetosInputDTO;
-  despesas: IDespesas[];
-  secoesPagantes: ICCpagantesInput[];
-}
-
-interface IProjetoResponse {
-  numeroDoProjeto: number;
+  infoProjetosInputDTO: IInfoProjetosInputDTO;
+  despesasInputDTOS: IDespesas[];
+  ccPagantesInputDTO: ICCpagantesInput[];
 }
 
 interface IInfoProjetosInputDTO {
@@ -67,7 +64,74 @@ interface ICCpagantesInput {
   valor?: number;
 }
 
-interface ICCpagantes {
+interface IFuncionarioResponse {
+  funcionario: {
+    nome: string;
+    numero_cracha: number;
+    valor_hora: number;
+    email: string;
+  };
+  secao: string;
+}
+
+interface IProjeto {
+  projetoData: {
+    id: number;
+    numeroDoProjeto: number;
+    titulo: string;
+    descricao: string;
+    data_de_inicio: string;
+    data_de_termino: string;
+    data_de_aprovacao: string;
+    statusProjeto: string;
+    horas_apontadas: number;
+    secao: string,
+    solicitante: {
+      numero_cracha: number;
+      nome: string;
+      email: string;
+      valor_hora: number;
+    },
+    responsavel: {
+      numero_cracha: number;
+      nome: string;
+      email: string;
+      valor_hora: number;
+    },
+  };
+  secoesPagantes : [{
+    secao: {
+      id: number;
+      responsavel: {
+        numero_cracha: number;
+        nome: string;
+        cpf: string;
+        valor_hora: number;
+      };
+      nome: string;
+    },
+    percentual: number;
+    valor: number;
+  }];
+  valoresTotais : {
+    valorTotalCcPagantes: number;
+    valorTotalDespesas: number;
+    valorTotalEsforco: number;
+  };  
+  despesas: [{
+    nome: string;
+    esforco: number;
+    valor: number;
+  }];
+}
+
+interface IDespesas {
+  nome: string;
+  esforco: number;
+  valor: number;
+}
+
+interface ICCpagantes{
   secao: {
     id: number;
     responsavel: {
@@ -77,27 +141,16 @@ interface ICCpagantes {
   valor: number;
 }
 
-interface IFuncionarioResponse {
-  funcionario: {
+interface ISecao {
+  nome: string;
+  responsavel: {
     nome: string;
-  };
-  secao: string;
+  }
 }
 
-const CadastroProjeto: React.FC = () => {
-  const history = useHistory();
-
-  if (localStorage.getItem('Cargo') !== 'GZ4_7WPQgajvmSlKlRgn8A' &&
-    localStorage.getItem('Cargo') !== 'fmb8xNYF02BPXsGJohcOkw ') {
-    localStorage.removeItem("Token");
-    localStorage.removeItem("User");
-    localStorage.removeItem("User:nome");
-    localStorage.removeItem("Level");
-    history.push('/');
-  }
-
+const EditarProjeto: React.FC = () => {
   const infosProjeto = {
-    projetoData: {
+    infoProjetosInputDTO: {
       numeroDoProjeto: 0,
       titulo: "",
       descricao: "",
@@ -108,14 +161,14 @@ const CadastroProjeto: React.FC = () => {
       data_de_termino: "",
       data_de_aprovacao: ""
     },
-    despesas: [
+    despesasInputDTOS: [
       {
         nome: "",
         esforco: 0,
         valor: 0
       }
     ],
-    secoesPagantes: [
+    ccPagantesInputDTO: [
       {
         secao_id: 0,
         valor: 0
@@ -123,60 +176,101 @@ const CadastroProjeto: React.FC = () => {
     ]
   }
 
-  interface ISecao {
-    responsavel: {
-      nome: string;
+  //const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
+    
+    //Setar as informações, para usar nos campos
+    const { nm }: {nm: string}  = useParams();
+    const [despesas, setDespesas] = useState<IDespesas[]>([]);
+    const [ccPagante, setCCpagante] = useState<ICCpagantes[]>([]);
+    const [projetoEdit, setProjetoEdit] = useState<IProjeto>();
+    const [file, setFile] = useState<Blob>();
+    const [fileName, setFileName] = useState<string>('');
+    
+    async function handleProject() {
+      try {
+        await api.get<IProjeto>(`projetos/${nm}`)
+          .then((response => {
+            setProjetoEdit(response.data); 
+            setDespesas(response.data.despesas);
+            setCCpagante(response.data.secoesPagantes);
+            setDataInicio(response.data.projetoData.data_de_inicio);
+            setDataFim(response.data.projetoData.data_de_termino);
+            setDataAprovacao(response.data.projetoData.data_de_aprovacao);
+            buscarInfosFuncionario(String(response.data.projetoData.responsavel.numero_cracha), "responsavel");
+            buscarInfosFuncionario(String(response.data.projetoData.solicitante.numero_cracha), "solicitante");
+          })).catch(() => errorfulNotify("Não foi possível encontrar este projeto."));
+      } catch(e) {
+      console.log(e);
+      }
     }
-  }
 
-  infosProjeto.despesas.shift();
-  infosProjeto.secoesPagantes.shift();
+    useEffect(() => {
+      handleProject();
+    });
 
-  //Lista para fazer linha de despesas
-  const [despesas, setDespesas] = useState<IDespesas[]>([{ nome: "", esforco: Number(null), valor: Number(null) }]);
-  const [ccPagante, setCCpagante] = useState<ICCpagantes[]>([{ secao: { id: Number(null), responsavel: { nome: "" } }, valor: Number(null) }]);
+    // Obriga a colocar uma ATA (PDF)
+    // useEffect(() => {
+    //   if(verificaCliqueAta === true && fileName === '') {
+    //     document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
+    //   } else if(fileName !== '') {
+    //     if(file?.type !== 'application/pdf') {
+    //       document.getElementById("ataResponse")!.innerHTML = "Selecione um PDF*";  
+    //       setFile(undefined);
+    //       setFileName('');
+    //     } else {
+    //       document.getElementById("ataResponse")!.innerHTML = "";  
+    //     }
+    //   }
+    // }, [verificaCliqueAta, file, fileName]);  
 
-  //Setar nome e secao na parte de responsavel e solicitante
-  const [responavel, setResponsavel] = useState<IFuncionarioResponse>();
-  const [solicitante, setSolicitante] = useState<IFuncionarioResponse>();
-
-  async function buscarInfosFuncionario(numero_cracha: string, tipo: string) {
-    await api.get<IFuncionarioResponse>(`funcionarios/${numero_cracha}`)
-      .then((response) => {
-        if (tipo === "responsavel") {
-          setResponsavel(response.data);
-        }
-        if (tipo === "solicitante") {
-          setSolicitante(response.data);
-        }
-      })
-      .catch((e) => {
-        errorfulNotify("Este funcionario, não é responsavel por uma seção");
-        return;
-      });
-  }
-
-  //Variaveis para somar o total de esforco e valor das despesas
-  const [esforco, setEsforco] = useState<number>();
-  const [valorDespesa, setValorDespesa] = useState<number>();
-
-  // Gerar novas linhas para lista de despesas
+  // Gerar novas linhas  
   function setNovaLinhaDP() {
-    return setDespesas([...despesas, { nome: "", esforco: Number(null), valor: Number(null) }]);
+    return setDespesas([...despesas, {nome: "", esforco: Number(null), valor: Number(null)}]);
   }
-
-  // Remover ultima linha de despesas
+      
+  function setNovaLinhaCC(){
+    return setCCpagante([...ccPagante, {secao: {id: Number(null), responsavel: {nome: ""}}, valor: Number(null)}])
+  }
+      
   function deleteLastRowDP() {
-    if (despesas.length > 1) {
+    if (despesas.length > Number(projetoEdit?.despesas?.length)) {
       despesas.pop();
       setDespesas([...despesas]);
+
       return;
     }
-    warnNotify("Não é possível remover a ultima linha.");
+    
+    warnNotify("Não é possível remover os registros.")
     return despesas;
   }
 
-  //Somar o total das informações fornecidas na lista de despesas
+  function deleteLastRowCC(){
+    if (ccPagante.length > Number(projetoEdit?.secoesPagantes.length)) {
+      ccPagante.pop();
+      setCCpagante([...ccPagante]);
+      return;
+    }
+
+    warnNotify("Não é possível remover os registros.")
+    return ccPagante;
+  }
+
+  const onDrop = useCallback((acceptedFiles) => {
+    setFile(acceptedFiles[0]);
+    setFileName(acceptedFiles[0].name);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    multiple: false,
+    onDropAccepted: onDrop,
+  });
+
+  const { ref, ...rootProps } = getRootProps();
+
+  const [sEsforco, setSEsforco] = useState<number>();
+  const [sValorDespesa, setValorDespesa] = useState<number>();
+  const [sValorCcPagantes, setValorCcPagantes] = useState<number>();
+
   function somaTotalDP() {
     var somaEsforco = 0;
     var somaValorDespesa = 0;
@@ -186,46 +280,28 @@ const CadastroProjeto: React.FC = () => {
       somaValorDespesa += parseInt((document.getElementById(`valor${i}`) as HTMLInputElement).value);
     }
 
-    setEsforco(somaEsforco);
+    setSEsforco(somaEsforco);
     setValorDespesa(somaValorDespesa);
-  }
-
-  //Variaveis para somar o total do valor pago pelos cc pagantes
-  const [valorSecoesPagantes, setValorSecoesPagantes] = useState<number>();
-
-  function setNovaLinhaCC() {
-    return setCCpagante([...ccPagante, { secao: { id: Number(null), responsavel: { nome: "" } }, valor: Number(null) }])
-  }
-
-  function deleteLastRowCC() {
-    if (ccPagante.length > 1) {
-      ccPagante.pop();
-      setCCpagante([...ccPagante]);
-      return;
-    }
-    warnNotify("Não é possível remover a ultima linha");
-    return ccPagante;
   }
 
   function somaTotalCc() {
     var somaValorCcPagantes = 0;
-
+  
     for (let i = 1; i <= ccPagante.length; i++) {
       somaValorCcPagantes += parseInt((document.getElementById(`valorC${i}`) as HTMLInputElement).value);
-      setValorSecoesPagantes(somaValorCcPagantes);
+      setValorCcPagantes(somaValorCcPagantes);
     }
   }
 
   function somaTotal() {
     somaTotalCc();
     somaTotalDP();
-  }
+  };
 
-  // Funções para funcionamento do calendario
   const [value, onChange] = useState(new Date());
   const [selected, setSelected] = useState<string>("inicio");
   const [dataInicio, setDataInicio] = useState<string>();
-  const [dataTermino, setDataTermino] = useState<string>();
+  const [dataFim, setDataFim] = useState<string>();
   const [dataAprovacao, setDataAprovacao] = useState<string>();
   const [inputErrorInit, setInputErrorInit] = useState('');
   const [inputErrorFim, setInputErrorFim] = useState('');
@@ -242,7 +318,7 @@ const CadastroProjeto: React.FC = () => {
         setInputErrorInit("Ano inválido");
       }
 
-      const valorFim = dataTermino ? new Date(dataTermino.split("/")[1] + "/" + dataTermino.split("/")[0] + "/" + dataTermino.split("/")[2]) : "01/01/0001";
+      const valorFim = dataFim ? new Date(dataFim.split("/")[1] + "/" + dataFim.split("/")[0] + "/" + dataFim.split("/")[2]) : "01/01/0001";
 
       if (value >= valorFim) {
         setInputErrorFim("Data de término menor do que a de inicio");
@@ -258,7 +334,7 @@ const CadastroProjeto: React.FC = () => {
       const valorInicio = dataInicio ? new Date(dataInicio.split("/")[1] + "/" + dataInicio.split("/")[0] + "/" + dataInicio.split("/")[2]) : "01/01/0001";
       if (validation) {
         if (value > valorInicio) {
-          setDataTermino(dataFormat);
+          setDataFim(dataFormat);
           setInputErrorFim("");
           setSelected("aprovacao");
         } else {
@@ -283,39 +359,49 @@ const CadastroProjeto: React.FC = () => {
     }
   }
 
-  //Ata
-  const [file, setFile] = useState<Blob>();
-  const [fileName, setFileName] = useState<string>('');
+  //Setar nome e secao na parte de responsavel e solicitante
+  const [responavel, setResponsavel] = useState<IFuncionarioResponse>();
+  const [solicitante, setSolicitante] = useState<IFuncionarioResponse>();
 
-  const onDrop = useCallback((acceptedFiles) => {
-    setFile(acceptedFiles[0]);
-    setFileName(acceptedFiles[0].name);
-  }, []);
+  async function buscarInfosFuncionario(numero_cracha: string, tipo: string) {
+    await api.get<IFuncionarioResponse>(`funcionarios/${numero_cracha}`)
+      .then((response) => {
+        if (tipo === "responsavel") {
+          setResponsavel(response.data);
+        }
+        if (tipo === "solicitante") {
+          setSolicitante(response.data);
+        }
+      })
+      .catch((e) => {
+        errorfulNotify("Este funcionario, não é responsavel por uma seção");
+        return;
+      });
+  }
 
-  const { getRootProps, getInputProps } = useDropzone({
-    multiple: false,
-    onDropAccepted: onDrop,
-  });
-
-  const { ref, ...rootProps } = getRootProps();
+  async function buscarResponsavelSecao(idSecao: string, index:number) {
+    await api.get<ISecao>(`secoes/${idSecao}`).then((response) => 
+      (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = response.data.responsavel.nome
+    );
+  }
 
   //Setar informações
   const [projeto, setProjeto] = useState<IProjetoInputDTO>();
   function setarInformações() {
-    infosProjeto.projetoData["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
-    infosProjeto.projetoData["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
-    infosProjeto.projetoData["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
-    infosProjeto.projetoData["ata"] = (document.getElementById('ataNome') as HTMLInputElement).value;
+    infosProjeto.infoProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
+    infosProjeto.infoProjetosInputDTO["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
+    infosProjeto.infoProjetosInputDTO["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
+    infosProjeto.infoProjetosInputDTO["ata"] = (document.getElementById('ataNome') as HTMLInputElement).value;
 
-    infosProjeto.projetoData.cracha_responsavel = parseInt((document.getElementById("cracha_responsavel") as HTMLInputElement).value);
-    infosProjeto.projetoData.cracha_solicitante = parseInt((document.getElementById("cracha_solicitante") as HTMLInputElement).value);
+    infosProjeto.infoProjetosInputDTO.cracha_responsavel = parseInt((document.getElementById("cracha_responsavel") as HTMLInputElement).value);
+    infosProjeto.infoProjetosInputDTO.cracha_solicitante = parseInt((document.getElementById("cracha_solicitante") as HTMLInputElement).value);
 
-    infosProjeto.projetoData.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
-    infosProjeto.projetoData.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
-    infosProjeto.projetoData.data_de_aprovacao = (document.getElementById("data_de_aprovacao") as HTMLInputElement).value;
+    infosProjeto.infoProjetosInputDTO.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
+    infosProjeto.infoProjetosInputDTO.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
+    infosProjeto.infoProjetosInputDTO.data_de_aprovacao = (document.getElementById("data_de_aprovacao") as HTMLInputElement).value;
 
     for (let i = 1; i <= despesas.length; i++) {
-      infosProjeto.despesas.push(
+      infosProjeto.despesasInputDTOS.push(
         {
           nome: (document.getElementById(`despesa${i}`) as HTMLInputElement).value,
           esforco: parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value),
@@ -325,7 +411,7 @@ const CadastroProjeto: React.FC = () => {
     };
 
     for (let i = 1; i <= ccPagante.length; i++) {
-      infosProjeto.secoesPagantes.push(
+      infosProjeto.ccPagantesInputDTO.push(
         {
           secao_id: parseInt((document.getElementById(`centro${i}`) as HTMLInputElement).value),
           valor: parseFloat((document.getElementById(`valorC${i}`) as HTMLInputElement).value)
@@ -339,32 +425,14 @@ const CadastroProjeto: React.FC = () => {
     return console.log(projeto);
   }
 
-  async function buscarResponsavelSecao(idSecao: string, index: number) {
-    await api.get<ISecao>(`secoes/${idSecao}`).then((response) =>
-      (document.getElementById(`responsavel${index + 1}`) as HTMLInputElement).value = response.data.responsavel.nome
-    );
-  }
-
   async function cadastrarProjeto() {
     try {
-      await api.post<IProjetoResponse>('projetos', projeto)
+      await api.post<IProjetoInputDTO>('projetos', projeto)
         .then((response) => {
-          const data = response.data;
-
-          console.log(data);
-
-          if (file != null) {
-            const formData = new FormData();
-
-            formData.append("file", file ? file : "");
-
-            api.post(`files/upload/${data.numeroDoProjeto}`, formData);
-          }
-
-          history.push('/projects');
+          //history.push('/projects')
           successfulNotify('Projeto cadastrado com sucesso!');
         })
-        .catch(() => {
+        .catch((e) => {
           errorfulNotify('Não foi possivel cadastrar o projeto!');
         })
     } catch (e) {
@@ -380,7 +448,7 @@ const CadastroProjeto: React.FC = () => {
       <Container id="set-data">
         <ContainerRegister id="ContainerRegister">
           <Info>
-            <h1>Cadastrar Projeto</h1>
+            <h1>Editar Projeto</h1>
           </Info>
           <Content id="content">
             <Projetos>
@@ -388,10 +456,7 @@ const CadastroProjeto: React.FC = () => {
               <div id="primeiraLinha">
                 <div>
                   <label htmlFor="">Número do projeto</label>
-                  <input type="number" id="numeroProjeto" onBlur={(props) => {
-                    vrfCampoComMsg(props.target.value, "numeroProjeto", "numeroProjetoResponse");
-                  }}
-                  />
+                  <input type="number" id="numeroProjeto" defaultValue={nm || ''} disabled />
                   <p id="numeroProjetoResponse" className="msgErro" />
                 </div>
                 <div>
@@ -401,7 +466,7 @@ const CadastroProjeto: React.FC = () => {
                   />
                   <p id="ataResponse" className="msgErro"></p>
                 </div>
-                <div ref={ref}>
+                <div>
                   <Paper elevation={0} {...rootProps}>
                     <label id="ata" htmlFor="ata"  >{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
                     <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
@@ -412,21 +477,21 @@ const CadastroProjeto: React.FC = () => {
                 <div id="ladoEsquerdo">
                   <div>
                     <label>Título do projeto: </label>
-                    <input type="text" id="titulo" onBlur={(props) =>
-                      vrfCampoComMsg(props.target.value, "titulo", "tituloResponse")}
+                    <input type="text" id="titulo" defaultValue={projetoEdit?.projetoData.titulo || ''}
+                      onBlur={(props) => { vrfCampoComMsg(props.target.value, "titulo", "tituloResponse"); }}
                     />
                     <p id="tituloResponse" className="msgErro"></p>
                   </div>
                   <div>
                     <label>Descrição do projeto: </label>
-                    <textarea id="descricao" onBlur={(props) =>
-                      vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse")}
+                    <textarea id="descricao" defaultValue={projetoEdit?.projetoData.descricao || ''}
+                     onBlur={(props) => { vrfCampoComMsg(props.target.value, "descricao", "descricaoResponse"); }}
                     />
                     <p id="descricaoResponse" className="msgErro"></p>
                   </div>
                 </div>
                 <div id="ladoDireito">
-                  {file ? <iframe title='ata' src={file ? URL.createObjectURL(file) : file} /> : <iframe title='ata' src={'null'} />}
+                  {<iframe title='ata' src={file ? URL.createObjectURL(file) : ''} />}
                 </div>
               </div>
             </Projetos>
@@ -438,22 +503,22 @@ const CadastroProjeto: React.FC = () => {
                   <div>
                     <label htmlFor="cracha_responsavel">Crachá</label>
                     <input type="number" id="cracha_responsavel" onBlur={(props) => {
-                      if (props.target.value === "") {
-                        props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
-                        errorfulNotify("O campo não pode estar vazio!");
-                        return;
-                      }
-                      props.target.style.border = "";
-                      buscarInfosFuncionario(props.target.value, "responsavel");
-                    }} />
+                        if (props.target.value === "") {
+                          props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                          errorfulNotify("O campo não pode estar vazio!");
+                          return;
+                        }
+                        props.target.style.border = "";
+                        buscarInfosFuncionario(props.target.value, "responsavel");
+                      }} defaultValue={responavel?.funcionario.numero_cracha || ''} />
                   </div>
                   <div>
                     <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20} /></label>
-                    <input type="text" id="nome_responsavel" value={responavel?.funcionario.nome} disabled />
+                    <input type="text" id="nome_responsavel" defaultValue={responavel?.funcionario.nome || ''} disabled />
                   </div>
                   <div>
                     <label htmlFor="secao_responsavel">Seção <FiInfo id="iconSecaoResponsavel" size={20} /></label>
-                    <input type="text" id="secao_responsavel" value={responavel?.secao} disabled />
+                    <input type="text" id="secao_responsavel" defaultValue={responavel?.secao || ''} disabled/>
                   </div>
                 </div>
               </div>
@@ -470,15 +535,15 @@ const CadastroProjeto: React.FC = () => {
                       }
                       props.target.style.border = "";
                       buscarInfosFuncionario(props.target.value, "solicitante");
-                    }} />
+                    }} defaultValue={solicitante?.funcionario.numero_cracha || ''}/>
                   </div>
                   <div>
                     <label htmlFor="nome_solicitante">Nome <FiInfo id="iconNomeSolicitante" size={20} /></label>
-                    <input type="text" id="nome_solicitante" value={solicitante?.funcionario.nome} disabled />
+                    <input type="text" id="nome_solicitante" defaultValue={solicitante?.funcionario.nome || ''} />
                   </div>
                   <div>
                     <label htmlFor="secao_solicitante">Seção <FiInfo id="iconSecaoSolicitante" size={20} /></label>
-                    <input type="text" id="secao_solicitante" value={solicitante?.secao} disabled />
+                    <input type="text" id="secao_solicitante" defaultValue={solicitante?.secao || ''} disabled/>
                   </div>
                 </div>
               </div>
@@ -493,7 +558,7 @@ const CadastroProjeto: React.FC = () => {
                     <h1>Valor (R$)</h1>
                   </div>
                   <div id="scroll">
-                    {
+                  {
                       despesas.map((exibe, index) => (
                         <>
                           <Linha id={`D${index + 1}`} key={index}>
@@ -504,7 +569,7 @@ const CadastroProjeto: React.FC = () => {
                                 return;
                               }
                               props.target.style.border = "";
-                            }} />
+                            }} defaultValue={exibe.nome}/>
                             <input type="number" id={`esforco${index + 1}`} onBlur={(props) => {
                               if (props.target.value === "") {
                                 props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -512,7 +577,7 @@ const CadastroProjeto: React.FC = () => {
                                 return;
                               }
                               props.target.style.border = "";
-                            }} />
+                            }} defaultValue={exibe.esforco}/>
                             <input type="number" id={`valor${index + 1}`} onBlur={(props) => {
                               if (props.target.value === "") {
                                 props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -520,7 +585,7 @@ const CadastroProjeto: React.FC = () => {
                                 return;
                               }
                               props.target.style.border = "";
-                            }} />
+                            }} defaultValue={exibe.valor}/>
                           </Linha>
                         </>
                       )) || ''
@@ -533,8 +598,8 @@ const CadastroProjeto: React.FC = () => {
                     </div>
                     <div>
                       <h2>TOTAL:</h2>
-                      <input id="totalEsforco" type="number" value={esforco || 0} disabled />
-                      <input id="totalValor" type="text" value={analisaValor(valorDespesa || 0)} disabled />
+                      <input id="totalEsforco" type="number" value={sEsforco || 0} disabled/>
+                      <input id="totalValor" type="text" value={analisaValor(sValorDespesa || 0)} disabled/>
                       <FaEquals id="soma" onClick={() => somaTotalDP()} />
                     </div>
                   </Total>
@@ -548,7 +613,7 @@ const CadastroProjeto: React.FC = () => {
                     <h1>Valor (R$)</h1>
                   </div>
                   <div id="scroll" className="segundaTabelaLinha">
-                    {
+                  {
                       ccPagante.map((exibe, index) => (
                         <Linha id={`C${index + 1}`} key={index}>
                           <input type="text" id={`centro${index + 1}`} onBlur={(props) => {
@@ -559,8 +624,8 @@ const CadastroProjeto: React.FC = () => {
                             }
                             props.target.style.border = "";
                             buscarResponsavelSecao(props.target.value, index);
-                          }} />
-                          <input type="text" id={`responsavel${index + 1}`} disabled />
+                          }} defaultValue={exibe.secao.id}/>
+                          <input type="text" id={`responsavel${index + 1}`} defaultValue={exibe.secao.responsavel.nome} disabled />
                           <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
                             if (props.target.value === "") {
                               props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -568,7 +633,7 @@ const CadastroProjeto: React.FC = () => {
                               return;
                             }
                             props.target.style.border = "";
-                          }} />
+                          }} defaultValue={exibe.valor}/>
                         </Linha>
                       )) || ''
                     }
@@ -580,7 +645,7 @@ const CadastroProjeto: React.FC = () => {
                     </div>
                     <div>
                       <h2>TOTAL:</h2>
-                      <input id="totalValor" type="text" value={analisaValor(valorSecoesPagantes || 0)} disabled />
+                      <input id="totalValor" type="text" value={analisaValor(sValorCcPagantes || 0)} disabled />
                       <FaEquals id="soma" onClick={() => somaTotalCc()} />
                     </div>
                   </Total>
@@ -618,7 +683,7 @@ const CadastroProjeto: React.FC = () => {
                 </div>
                 <div>
                   <label htmlFor="">Data de término:</label>
-                  <input type="text" id="data_de_termino" value={dataTermino}
+                  <input type="text" id="data_de_termino" value={dataFim}
                     onClick={() => { setSelected("fim") }}
                     onChange={(props) => {
                       if (props.target.value === "") {
@@ -658,24 +723,24 @@ const CadastroProjeto: React.FC = () => {
                             <h1>Dados do projeto</h1>
                             <div className="linhaUm">
                               <div>
-                                <label>Número:</label>
-                                <p><AiOutlineNumber /> {projeto?.projetoData.numeroDoProjeto || 0}</p>
+                                <label>Número do projeto:</label>
+                                <p>{projeto?.infoProjetosInputDTO.numeroDoProjeto || 0}</p>
                               </div>
                               <div>
                                 <label>Ata de aprovação:</label>
-                                <p><AiOutlineFilePdf /> {projeto?.projetoData.ata}</p>
+                                <p>{projeto?.infoProjetosInputDTO.ata}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
-                                <label>Título:</label>
-                                <p>{projeto?.projetoData.titulo}</p>
+                                <label>Título do projeto:</label>
+                                <p>{projeto?.infoProjetosInputDTO.titulo}</p>
                               </div>
                             </div>
                             <div className="linhaTres">
                               <div>
-                                <label>Descrição:</label>
-                                <textarea id="descricao" defaultValue={projeto?.projetoData.descricao} disabled />
+                                <label>Descrição do projeto:</label>
+                                <textarea id="descricao" defaultValue={projeto?.infoProjetosInputDTO.descricao} disabled />
                               </div>
                             </div>
                           </div>
@@ -684,7 +749,7 @@ const CadastroProjeto: React.FC = () => {
                             <div className="linhaUm">
                               <div>
                                 <label>Crachá do responsável:</label>
-                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_responsavel}</p>
+                                <p>{projeto?.infoProjetosInputDTO.cracha_responsavel}</p>
                               </div>
                               <div>
                                 <label>Nome do responsável:</label>
@@ -694,7 +759,7 @@ const CadastroProjeto: React.FC = () => {
                             <div className="linhaDois">
                               <div>
                                 <label>Crachá do solicitante:</label>
-                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_solicitante}</p>
+                                <p>{projeto?.infoProjetosInputDTO.cracha_solicitante}</p>
                               </div>
                               <div>
                                 <label>Nome do solicitante:</label>
@@ -712,12 +777,12 @@ const CadastroProjeto: React.FC = () => {
                                 <p><AiOutlineClockCircle size={15} /> 0</p>
                               </div>
                               <div>
-                                <label>Total despesas:</label>
-                                <p>{analisaValor(valorDespesa || 0)}</p>
+                                <label>Total despesas</label>
+                                <p>{analisaValor(0)}</p>
                               </div>
                               <div>
-                                <label>Valor total:</label>
-                                <p>{analisaValor(valorSecoesPagantes || 0)}</p>
+                                <label>Valor total</label>
+                                <p>{analisaValor(0)}</p>
                               </div>
                             </div>
                           </div>
@@ -725,22 +790,22 @@ const CadastroProjeto: React.FC = () => {
                             <h1>Datas</h1>
                             <div className="linhaUm">
                               <div>
-                                <label>Aprovação:</label>
-                                <p><AiOutlineCalendar /> {projeto?.projetoData.data_de_aprovacao}</p>
+                                <label>Data de aprovação:</label>
+                                <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_aprovacao}</p>
                               </div>
                               <div>
-                                <label>Início:</label>
-                                <p><AiOutlineCalendar />{projeto?.projetoData.data_de_inicio}</p>
+                                <label>Data de início:</label>
+                                <p><AiOutlineCalendar />{projeto?.infoProjetosInputDTO.data_de_inicio}</p>
                               </div>
                               <div>
-                                <label>Término:</label>
-                                <p><AiOutlineCalendar /> {projeto?.projetoData.data_de_termino}</p>
+                                <label>Data de término:</label>
+                                <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_termino}</p>
                               </div>
                             </div>
                           </div>
                           <div className="final">
                             <button onClick={() => {
-                              if (validacaoDosCamposCadastros(despesas.length, ccPagante.length, close())) {
+                              if (validacaoDosCamposCadastros(despesas.length, ccPagante.length)) {
                                 cadastrarProjeto();
                               }
                             }}>Finalizar</button>
@@ -766,11 +831,11 @@ const CadastroProjeto: React.FC = () => {
         // Ativa botão para voltar pro topo da página
         window.innerHeight >= 780 ? <VoltarAoTopo /> : ''
       }
-      <MenuRight>
+      <MenuRight numeroDoProjeto={Number(nm)}>
         <ContIcons />
       </MenuRight>
     </>
   );
 }
 
-export default CadastroProjeto;
+export default EditarProjeto;

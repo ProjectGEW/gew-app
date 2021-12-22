@@ -7,13 +7,13 @@ import { Container  } from './styles';
 const Gestor: React.FC = () => {
   return (
     <>
-       <Navbar />
-       <MenuLeft />
-       <Container >
-        <ContainerProject>
-          <h1>Gestor</h1>
-        </ContainerProject>
-       </Container>
+      <Navbar />
+      <MenuLeft />
+      <Container >
+      <ContainerProject>
+        <h1>Gestor</h1>
+      </ContainerProject>
+      </Container>
     </>
   )
 }

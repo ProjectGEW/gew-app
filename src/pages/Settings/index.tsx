@@ -10,29 +10,29 @@ import { ContainerHome, Container, Left, Right } from './styles';
 
 
 const Settings: React.FC = () => {
-    const [recebeAnimacao] = useState(() => {
-        let animacaoStorage = localStorage.getItem('Animation');
+  const [recebeAnimacao] = useState(() => {
+    let animacaoStorage = localStorage.getItem('Animation');
 
-        if(animacaoStorage) {
-            let animacaoObject = JSON.parse(animacaoStorage);
-            return animacaoObject;
-        } 
-    });
+    if(animacaoStorage) {
+      let animacaoObject = JSON.parse(animacaoStorage);
+      return animacaoObject;
+    } 
+  });
 
-    const [animacao, setAnimacao] = useState(recebeAnimacao);
+  const [animacao, setAnimacao] = useState(recebeAnimacao);
 
-    useEffect(() => {
-      if(animacao === true) {
-          document.getElementById("animation")!.style.backgroundColor = "#adffb0";
-          document.getElementById("animation")!.innerHTML = "Ativado";
+  useEffect(() => {
+    if(animacao === true) {
+      document.getElementById("animation")!.style.backgroundColor = "#adffb0";
+      document.getElementById("animation")!.innerHTML = "Ativado";
 
-          localStorage.setItem('Animation', "true");
-      } else {
-          document.getElementById("animation")!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";            
-          document.getElementById("animation")!.innerHTML = "Desativado";
+      localStorage.setItem('Animation', "true");
+    } else {
+      document.getElementById("animation")!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";            
+      document.getElementById("animation")!.innerHTML = "Desativado";
 
-          localStorage.setItem('Animation', "false");
-      }
+      localStorage.setItem('Animation', "false");
+    }
   },[animacao]);
 
   const userName = localStorage.getItem('User:nome');
@@ -109,9 +109,9 @@ const Settings: React.FC = () => {
                 <FaEdit size={20}/>
               </p>
               <p>
-                  <input id="fotoPerfil" type="file"/>
-                  <input type="text" placeholder={'foto_perfil.png'} disabled/>
-                  <label htmlFor="fotoPerfil"><FaEdit size={20}/></label>
+                <input id="fotoPerfil" type="file"/>
+                <input type="text" placeholder={'foto_perfil.png'} disabled/>
+                <label htmlFor="fotoPerfil"><FaEdit size={20}/></label>
               </p>
               <button id="notification">Desativado</button>
             </div>

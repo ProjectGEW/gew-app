@@ -1,55 +1,55 @@
 {
-  "head": {
-    "titulo_negrito": "Overview"
-  },
-  "cards": {
-    "primeiro": {
-      "titulo": "Completed Projects:"
+    "head": {
+        "titulo_negrito": "Overview"
     },
-    "segundo": {
-      "titulo": "Ongoing Projects:"
+    "cards": {
+        "primeiro": {
+            "titulo": "Completed Projects:"
+        },
+        "segundo": {
+            "titulo": "Ongoing Projects:"
+        },
+        "terceiro": {
+            "titulo": "Delayed Projects:"
+        },
+        "verba": "Total budget:"
     },
-    "terceiro": {
-      "titulo": "Delayed Projects:"
-    },
-    "verba": "Total budget:"
-  },
     "grafico": {
         "titulo": "PROJECTS COMPLETED IN THE LAST 7 DAYS"
     },
     "menu_esquerdo": {
-      "mensagem": "Welcome,",
-      "notificacao": "Notifications",
-      "card": {
-          "titulo": "Fulfillment of the journey",
-          "msg": "The employee {name} completes his tasks!"
-      }
+        "mensagem": "Welcome,",
+        "notificacao": "Notifications",
+        "card": {
+            "titulo": "Fulfillment of the journey",
+            "msg": "The employee {name} completes his tasks!"
+        }
     },
     "menu_direito": {
-      "primeiro_botao": {
-          "primeiro": "VIEW",
-          "segundo": "PROJECTS"
-      },
-      "segundo_botao": {
-          "primeiro": "REGISTER",
-          "segundo": "PROJECTS"
-      },
-      "terceiro_botao": {
-          "primeiro": "EDIT",
-          "segundo": "PROJECTS"
-      },
-      "quarto_botao": {
-          "primeiro": "REGISTER",
-          "segundo": "CONSULTANTS"
-      },
-      "quinto_botao": {
-          "primeiro": "ALLOCATE",
-          "segundo": "CONSULTANTS"
-      },
-      "sexto_botao": {
-          "primeiro": "GO TO",
-          "segundo": "DASHBOARDS"
-      }
+        "primeiro_botao": {
+            "primeiro": "VIEW",
+            "segundo": "PROJECTS"
+        },
+        "segundo_botao": {
+            "primeiro": "REGISTER",
+            "segundo": "PROJECTS"
+        },
+        "terceiro_botao": {
+            "primeiro": "EDIT",
+            "segundo": "PROJECTS"
+        },
+        "quarto_botao": {
+            "primeiro": "REGISTER",
+            "segundo": "CONSULTANTS"
+        },
+        "quinto_botao": {
+            "primeiro": "ALLOCATE",
+            "segundo": "CONSULTANTS"
+        },
+        "sexto_botao": {
+            "primeiro": "GO TO",
+            "segundo": "DASHBOARDS"
+        }
     },
     "navbar": {
         "rota": "Home",
@@ -103,4 +103,4 @@
         "horas": "Hours",
         "apontadas": "Pointed out"
     }
-  }
+}

@@ -1,21 +1,20 @@
 import React, { Suspense } from 'react';
 import { Switch } from 'react-router';
-
 import Route from './Route';
 
 import RegisterConsultants from '../pages/RegisterConsultants';
 import Projects from '../pages/Projects';
-import CadastroProjeto from '../pages/RegisterProjects/index2';
+import CadastroProjeto from '../pages/RegisterProjects';
 import EditProjects from '../pages/EditProjects';
 import Settings from '../pages/Settings';
-import Dashboard from '../pages/Dashboard/index2';
+import Dashboard from '../pages/Dashboard';
 import Details from '../pages/Details';
 import Test from '../pages/Test';
 import Test2 from '../pages/test2';
 import ProjectsList from '../pages/Consultants/ProjectsList';
-import ConsultantList from '../pages/Consultants/ConsultantsList/index2';
+import ConsultantList from '../pages/Consultants/ConsultantsList';
 import ConsultantProfile from '../pages/Consultants/ConsultantProfile';
-import Edit from '../pages/EditProjects/Edit/index2';
+import Edit from '../pages/EditProjects/Edit';
 import NewLogin from '../pages/NewLogin';
 import Home from '../pages/Home/home';
 import NotFound from '../pages/NotFound';

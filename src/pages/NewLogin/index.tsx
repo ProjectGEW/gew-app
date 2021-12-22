@@ -10,51 +10,49 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/InputPrimary';
 
 import { ContainerBtn, ContainerInput, Rectangle, Section, Image, SideContainer, LoginContainer,
-    PopupTooltip, ContainerPopUp, PopUp } from './styles';
+  PopupTooltip, ContainerPopUp, PopUp } from './styles';
 
 interface SingInFormData {
-    email: string;
-    senha: string;
+  email: string;
+  senha: string;
 }
 
 const NewLogin: React.FC = () => {  
+  /* Definição do idioma principal - Revisar */
+  let linguagemPadrao = {flag: "BR", code: "pt-BR"}
+  localStorage.setItem('Language', JSON.stringify(linguagemPadrao));
 
-    /* Definição do idioma principal - Revisar */
-    let linguagemPadrao = {flag: "BR", code: "pt-BR"}
-    localStorage.setItem('Language', JSON.stringify(linguagemPadrao));
+  /* Definição da animação dos gráficos - Revisar */
+  localStorage.setItem('Animation', "false");
 
-    /* Definição da animação dos gráficos - Revisar */
-    localStorage.setItem('Animation', "false");
+  const formRef = useRef<FormHandles>(null);
+  const { signIn: singIn } = useAuth();
 
-    const formRef = useRef<FormHandles>(null);
-    const { signIn: singIn } = useAuth();
+  const handleSubmit = useCallback(async (data: SingInFormData) => {
+    try {
+      formRef.current?.setErrors({});
 
-    const handleSubmit = useCallback(async (data: SingInFormData) => {
-      try {
-          formRef.current?.setErrors({});
+      const schema = Yup.object().shape({
+        email: Yup.string().required('E-mail obrigatório').email('Informe um e-mail válido'),    
+        senha: Yup.string().required('Senha obrigatória'),
+      })
 
-          const schema = Yup.object().shape({
-              email: Yup.string().required('E-mail obrigatório').email('Informe um e-mail válido'),    
-              senha: Yup.string().required('Senha obrigatória'),
-          })
+      await schema.validate(data, {
+        abortEarly: false,
+      })
 
-          await schema.validate(data, {
-              abortEarly: false,
-          })
+      singIn({
+        email: data.email,
+        senha: data.senha
+      })
+    } catch(err) {
+      if(err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
 
-          singIn({
-              email: data.email,
-              senha: data.senha
-          })
-
-      } catch(err) {
-          if(err instanceof Yup.ValidationError) {
-            const errors = getValidationErrors(err);
-            formRef.current?.setErrors(errors);
-
-            return;
-          }
+        return;
       }
+    }
   }, [singIn]);
 
   return (
