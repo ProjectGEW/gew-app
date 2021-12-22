@@ -6,13 +6,12 @@
 .load {
     margin: 0;
     width: 100vw;
-    height: 99vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background-color: #fff;
-    border-top: 1vh solid #00579D;
 }
 
 .load div {

@@ -24,8 +24,9 @@ import { PopupModal } from '../../styles/global';
 //import analisaValor from "../../utils/analisaValor";
 
 interface CadConsultor {
-    funcionario: Consultor;
-    nome_fornecedor: string;
+    funcionarioData: Consultor;
+    fornecedor: string;
+    skills: string[];
 }
 
 interface Consultor {
@@ -101,7 +102,7 @@ const RegisterConsultants: React.FC = () => {
 
     async function enviarInfo(consultor: CadConsultor) {
         try {
-            await api.post(`funcionarios/consultor`, consultor)
+            await api.post(`consultores`, consultor)
                 .then(() => {
                     successfulNotify('Consultor cadastrado com sucesso!');
                     resetarCampos();
@@ -124,10 +125,10 @@ const RegisterConsultants: React.FC = () => {
         const cpfFormat = parseInt(cpf[0] + cpf[1] + cpf[2].split("-")[0] + cpf[2].split("-")[1]);
         const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
         const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
-        const nome_fornecedor =(document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
-
+        const nome_fornecedor = (document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
+        const skills = ["java"];
         const consultor: CadConsultor = {
-            funcionario: {
+            funcionarioData: {
                 numero_cracha: numero_cracha,
                 nome: nome,
                 email: email,
@@ -136,7 +137,8 @@ const RegisterConsultants: React.FC = () => {
                 telefone: telefone,
                 valor_hora: valor_hora
             },
-            nome_fornecedor: nome_fornecedor
+            fornecedor: nome_fornecedor, 
+            skills: skills
         };
 
         enviarInfo(consultor);

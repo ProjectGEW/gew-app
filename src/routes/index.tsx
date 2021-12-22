@@ -1,9 +1,7 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { Switch } from 'react-router';
 
 import Route from './Route';
-
-
 
 import RegisterConsultants from '../pages/RegisterConsultants';
 import Projects from '../pages/Projects';
