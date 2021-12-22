@@ -3,8 +3,8 @@ import { Switch } from 'react-router';
 
 import Route from './Route';
 
-// import Login from '../pages/Login';
-// import Menu from '../pages/Menu';
+
+
 import RegisterConsultants from '../pages/RegisterConsultants';
 import Projects from '../pages/Projects';
 import CadastroProjeto from '../pages/RegisterProjects/index2';
@@ -21,13 +21,16 @@ import Edit from '../pages/EditProjects/Edit/index2';
 import NewLogin from '../pages/NewLogin';
 import Home from '../pages/Home/home';
 import NotFound from '../pages/NotFound';
+
+//import Login from '../pages/Login';
+//import Menu from '../pages/Menu';
 //import Consultor from '../pages/Consultor';
 //import Fornecedor from '../pages/Fornecedor';
 //import Gestor from '../pages/Gestor';
 
 const Routes: React.FC = () => {
   return (
-    <Suspense fallback={ <h1>Rendering...</h1> }>
+    <Suspense fallback={<h1>Carregando...</h1>}>
       <Switch>
         {/* Adicionar isPrivate no final de cada <Route> -> <Route ... isPrivate /> */}
         {/* Rotas gerais para todas as personas */}

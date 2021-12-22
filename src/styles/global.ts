@@ -48,11 +48,11 @@ export default createGlobalStyle`
 `;
 
 export const PopupModal = styled(Popup)`
-    &-content {
-        background: transparent;
-        animation: anvil 0.25s;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  &-content {
+    background: transparent;
+    animation: anvil 0.25s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
