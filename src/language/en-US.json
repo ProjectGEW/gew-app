@@ -102,5 +102,40 @@
         "status": "Status:",
         "horas": "Hours",
         "apontadas": "Pointed out"
+    }, 
+    "textos_em_geral": {
+        "notfound": "PAGE NOT FOUND!",
+        "login": "Login",
+        "usuario": "User",
+        "senha": "Password",
+        "entrar": "LOG IN",
+        "email_obrigatorio": "Mandatory email",
+        "senha_obrigatoria": "Mandatory password",
+        "informar_email_valido": "Please provide a valid email",
+        "esqueceu_senha": "Forgot your password?",
+        "texto_esqueceu_senha": "Contact a system administrator to reset your password.",
+        "descricao_gew": "Project Management for Software Development Control"
+    },
+    "configurações": {
+        "titulo": "General Settings",
+        "config_texto": "Text settings",
+        "config_dash": "Dashboard Settings",
+        "config_conta": "Account configurations",
+        "salvar_alt": "Save editions",
+        "salvar": "To save",
+        "tam_fonte": "Font size",
+        "animacoes": "Animations (graphics)",
+        "trocar_user": "Change username",
+        "trocar_senha": "Change your password",
+        "trocar_foto": "Change profile picture",
+        "desativar_notif": "Disable notifications",
+        "ativado": "Activated",
+        "desativado": "Disabled",
+        "preview": "Change the font size and see the preview",
+        "escolher_img": "Choose an image...",
+        "padrao": "Standard",
+        "pequena": "Small",
+        "media": "Average",
+        "grande": "Large"
     }
 }
