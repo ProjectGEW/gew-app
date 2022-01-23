@@ -11,17 +11,14 @@ import api from "../../service/api";
 import { AiOutlineCaretDown, AiOutlinePhone, AiOutlineMail } from 'react-icons/ai';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { GoPencil } from 'react-icons/go';
-import { RiLockPasswordLine } from 'react-icons/ri';
+import { AiOutlineClose } from 'react-icons/ai';
 
-import { ConsultantData, Container, PricePerHour, SideContainer, SupplierData, UserData, Title,
-  PopUp, ContainerPopup, Scroll } from './styles';
+import { Container, ContainerTitle, ContainerInfo, ContainerProject, Box, Salvar } from './styles';
 
 import { vrfCampo, verificaCadConsultor, verificaFornecedor } from "../../utils/confereCampo";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts';
 import { PopupModal } from '../../styles/global';
-
-//import analisaValor from "../../utils/analisaValor";
 
 interface CadConsultor {
   funcionarioData: Consultor;
@@ -40,6 +37,10 @@ interface Consultor {
 }
 
 interface Fornecedor {
+  nome: string;
+}
+
+interface ITag {
   nome: string;
 }
 
@@ -100,21 +101,21 @@ const RegisterConsultants: React.FC = () => {
     (document.getElementById("nome_fornecedor") as HTMLSelectElement).value = "Todos";
   }
 
-  async function enviarInfo(consultor: CadConsultor) {
-    try {
-      await api.post(`consultores`, consultor)
-        .then(() => {
-          successfulNotify('Consultor cadastrado com sucesso!');
-          resetarCampos();
-        })
-        .catch((e) => 
-          errorfulNotify(e.response.data.titulo)
-        );
-    } catch (error) {
-      console.log(`Error: ${error}`);
-      errorfulNotify('Não foi possivel realizar o cadastro do consultor!'); 
-    }
-  }
+  // async function enviarInfo(consultor: CadConsultor) {
+  //   try {
+  //     await api.post(`consultores`, consultor)
+  //       .then(() => {
+  //         successfulNotify('Consultor cadastrado com sucesso!');
+  //         resetarCampos();
+  //       })
+  //       .catch((e) => 
+  //         errorfulNotify(e.response.data.titulo)
+  //       );
+  //   } catch (error) {
+  //     console.log(`Error: ${error}`);
+  //     errorfulNotify('Não foi possivel realizar o cadastro do consultor!'); 
+  //   }
+  // }
 
   const setConsultorInfos = useCallback( async () => {
     const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
@@ -141,158 +142,169 @@ const RegisterConsultants: React.FC = () => {
       skills: skills
     };
 
-    enviarInfo(consultor);
+    //enviarInfo(consultor);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    api.get("fornecedores").then((response) => {
-      setSuppliers(response.data);
-    })
-  });
+  // useEffect(() => {
+  //   api.get("fornecedores").then((response) => {
+  //     setSuppliers(response.data);
+  //   })
+  // });
+
+  const [tags, setTags] = useState<ITag[]>([]);
+
+  const separaTag = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const valor = event.target.value.toLocaleLowerCase();
+    let transforma = "";
+
+    for (let y = 0; y < valor.length - 1; y++) {
+      transforma = transforma + valor[y];
+    }
+
+    for (let i = 0; i < tags.length; i++) {
+      if(tags[i].nome.toLocaleLowerCase() === transforma) {
+        return;
+      }
+    }
+
+    for (let i = 0; i < valor.length; i++) {
+      if(valor[i] === ',') {
+        setTags([...tags, {nome: transforma}]);  
+        event.target.value = '';
+      }
+    }    
+  }
 
   return (
     <>
     <Navbar />
     <MenuLeft />
     <Container>
-      <header>
-        <h1>Cadastrar Consultor</h1>
-        <AiOutlineCaretDown />
-      </header>
-      <SideContainer>
-        <ConsultantData>
-          <h1>Dados do consultor</h1>
-          <div className="box1">
-            <label>Nome:</label>
-            <input 
-              type='text' 
-              id="nome" 
-              onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-            />
-            <GoPencil />
-          </div>
-          <div className="box3">
-            <label>CPF:</label>
-            <input 
-              type='text' 
-              id="cpf" 
-              onBlur={(props) => vrfCampo(props.target.value, props.target.id)} 
-              onChange={formatCpf} 
-              maxLength={14} 
-            />
-            <BsFillPersonLinesFill />
-          </div>
-          <div className="box4">
-            <label>Telefone:</label>
-            <input 
-              type='text' 
-              id="telefone"
-              onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-              onChange={formatTelefone} 
-              maxLength={14} 
-            />
-            <AiOutlinePhone />
-          </div>
-          <div className="box3">
-            <label>N° do crachá:</label>
-            <input 
-              type='text' 
-              id="numero_cracha" 
-              onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-            />
-            <BsFillPersonLinesFill />
-          </div>
-        </ConsultantData>
-        <PricePerHour>
-          <h1>Dados adicionais</h1>
-          <div>
-            <div>
-              <label>Valor horista:</label>
+      <ContainerProject>
+        <ContainerInfo>
+          <ContainerTitle>
+            <h1>Cadastrar consultor</h1>
+            {/* <span /> */}
+          </ContainerTitle>
+        </ContainerInfo>
+        <Box>
+          <div className="col esq">
+            <h1>Dados do consultor</h1>
+            <div className="coluna">
+              <label>Nome:</label>
               <input 
                 type='text' 
-                id="valor_hora"
+                id="nome" 
                 onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-              />  
+              />
+            </div>
+            <div className="linha">
+              <span className="coluna">
+                <label>CPF:</label>
+                <input 
+                  type='text' 
+                  id="cpf" 
+                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)} 
+                  onChange={formatCpf} 
+                  maxLength={14} 
+                />
+              </span>
+              <span className="coluna">
+                <label>Telefone:</label>
+                <input 
+                  type='text' 
+                  id="telefone"
+                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                  onChange={formatTelefone} 
+                  maxLength={14} 
+                />
+              </span>
+            </div>
+            <div className="linha">
+              <span className="coluna">
+                <label>Nº Crachá:</label>
+                <input 
+                  type='text' 
+                  id="numero_cracha" 
+                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                />
+              </span>
+              <span className="coluna">
+                <label>Valor horista:</label>
+                <input 
+                  type='text' 
+                  id="valor_hora"
+                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                /> 
+              </span>
+            </div>
+            <div className="coluna">
+              <label>Fornecedor:</label>
+              <select 
+                name="secao" 
+                id="nome_fornecedor"
+                onChange={verificaFornecedor}>
+                <option value="Todos">Todos</option>
+                {
+                suppliers ?
+                  suppliers.map((supplier, index) =>
+                    <option key={index} value={supplier.nome}>{supplier.nome}</option>
+                  ) : 'Nenhum fornecedor foi encontrado'
+                }
+              </select>
+            </div>
           </div>
+          <div className="col dir">
+            <h1>Dados de login</h1>
+            <div className="coluna">
+              <label>E-mail:</label>
+              <input 
+                type='email' 
+                id="email"
+                onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+              />
+            </div>
+            <div className="coluna">
+              <label>Senha:</label>
+              <input 
+                type='password' 
+                id='senha'
+                autoComplete='off'
+                onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+              />
+            </div>
+            <h1>Skills</h1>
+            <div className="coluna">
+              <label>Adicione uma tag:</label>
+              <div id="boxTags">
+                {
+                  tags && tags.length > 0 ?
+                    tags.map((res, index) => (
+                      <a key={res.nome}>{res.nome} <AiOutlineClose onClick={() => {
+                        tags.splice(index, 1);
+                        setTags([...tags,]);  
+                      }}/></a>      
+                    )) : <p>Nenhuma tag adicionada</p>
+                }
+              </div>
+              <input 
+                type='text'
+                id='skill'
+                autoComplete='off'
+                onChange={separaTag}
+              />
+              <p id="info">Separe as tags por vírgula ","</p>
+            </div>
+          </div>
+        </Box>
+        <Salvar>
+          {/* <span/> */}
           <div>
-            <label>Skill:</label>
-            <PopupModal closeOnEscape trigger={<button>Cadastrar skill</button>} modal>
-              {(close: any) => (
-                <ContainerPopup>
-                  <PopUp>
-                    <Title>
-                      <h1>Skills</h1>
-                      <span onClick={() => close()} />
-                    </Title>
-                    <Scroll>
-                      <div id="skill1" className='linha'>
-                        <input type="text"/>
-                        <button>Remover</button>
-                      </div>
-                      <div id="final">
-                        <button>Adicionar</button>
-                        <button>Finalizar</button>
-                      </div>
-                    </Scroll>
-                  </PopUp>
-                </ContainerPopup>
-              )}
-            </PopupModal>
+            <button onClick={() => window.location.reload()}>Cadastrar</button>
           </div>
-        </div>
-      </PricePerHour>
-    </SideContainer>
-    <SideContainer>
-      <UserData>
-        <h1>Dados de Login</h1>
-        <div className="box1">
-          <label>Email do usuário:</label>
-          <input 
-            type='email' 
-            id="email"
-            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-          />
-          <AiOutlineMail />
-        </div>
-        <div className="box1">
-          <label>Senha:</label>
-          <input 
-            type='password' 
-            id='senha'
-            autoComplete='off'
-            onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-          />
-          <RiLockPasswordLine />
-        </div>
-      </UserData>
-      <SupplierData>
-        <h1>Fornecedor</h1>
-        <div className="box5">
-          <label>Nome:</label>
-          <select 
-            name="secao" 
-            id="nome_fornecedor"
-            onChange={verificaFornecedor}>
-            <option value="Todos">Todos</option>
-            {
-            suppliers ?
-              suppliers.map((supplier, index) =>
-                <option key={index} value={supplier.nome}>{supplier.nome}</option>
-              ) : 'Nenhum fornecedor foi encontrado'
-            }
-          </select>
-        </div>
-      </SupplierData>
-      <button id="enviarDados" onClick={() => {
-        if (verificaCadConsultor() === 0) {
-          setConsultorInfos();
-        }
-      }}>
-        Cadastrar
-      </button>              
-    </SideContainer>
-    <Footer tipo={"register_consultants"} />
+        </Salvar>
+      </ContainerProject>
     </Container>
     <MenuRight>
       <ContIcons />
