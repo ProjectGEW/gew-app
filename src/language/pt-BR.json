@@ -103,5 +103,40 @@
         "status": "Status:",
         "horas": "Horas",
         "apontadas": "Apontadas"
+    }, 
+    "textos_em_geral": {
+        "notfound": "PÁGINA NÃO ENCONTRADA!",
+        "login": "Login",
+        "usuario": "Usuário",
+        "senha": "Senha",
+        "entrar": "ENTRAR",
+        "email_obrigatorio": "E-mail obrigatório",
+        "senha_obrigatoria": "Senha obrigatória",
+        "informar_email_valido": "Informe um e-mail válido",
+        "esqueceu_senha": "Esqueceu sua senha?",
+        "texto_esqueceu_senha": "Entre em contato com algum administrador do sistema para redefinir sua senha.",
+        "descricao_gew": "Gestão de Projetos para Controle de Desenvolvimento de Software"
+    },
+    "configurações": {
+        "titulo": "Configurações Gerais",
+        "config_texto": "Configurações de texto",
+        "config_dash": "Configurações do dashboard",
+        "config_conta": "Configurações da conta",
+        "salvar_alt": "Salvar alterações",
+        "salvar": "Salvar",
+        "tam_fonte": "Tamanho da fonte",
+        "animacoes": "Animações (gráficos)",
+        "trocar_user": "Trocar nome de usuário",
+        "trocar_senha": "Alterar sua senha",
+        "trocar_foto": "Alterar foto de perfil",
+        "desativar_notif": "Desativar notificações",
+        "ativado": "Ativado",
+        "desativado": "Desativado",
+        "preview": "Altere o tamanho da fonte e veja o preview",
+        "escolher_img": "Escolher uma imagem...",
+        "padrao": "Padrão",
+        "pequena": "Pequena",
+        "media": "Média",
+        "grande": "Grande"
     }
   }
