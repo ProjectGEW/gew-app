@@ -1,9 +1,6 @@
 import styled, { css } from "styled-components";
 import { shade } from 'polished';
 
-import Ata from '../../assets/ata.svg';
-import Dashboard from '../../assets/dashboardIcon.svg';
-
 interface GraphBarProps {
   valor: number;
 }
@@ -13,25 +10,29 @@ export const Container = styled.div`
   top: 20vh;
   left: 12vw;
   width: 78vw;
-  height: 200vh;
+  height: 180vh;
 `;
 
 export const ContainerDetails = styled.div`
   width: 100%;
-  height: 200vh;
+  height: 180vh;
   margin-bottom: 8vh;
   margin-top: -6vh;
   padding: 6vh;
   display: flex;
   flex-direction: column;
 
-  overflow: hidden;
   overflow: scroll;
   overflow-x: hidden;
 
   ::-webkit-scrollbar {
-    background-color: rgb(194, 194, 194, 0.5);
-    width: 0.4vw;    
+    background-color: rgb(196, 196, 196, 0.5);
+    width: 0.5vw;
+  }
+      
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(196, 196, 196); 
+    border-radius: 1vh;
   }
       
   background-color: #fff;
@@ -40,67 +41,51 @@ export const ContainerDetails = styled.div`
 
   span {
     font-weight: bold;
-    font-size: 3vh;
+    font-size: 2.8vh;
     color: #00579D;     
 
     &::before {
       content: '';
-      width: 148vh;
+      width: 142vh;
       height: 0.1vh;
       background-color: #ccc;
       position: absolute;
-      margin-top: -4vh;
+      margin-top: -6vh;
       margin-left: 0.3vw;
     }
   }
 `;
 
 export const Inputs = styled.div`
-  width: 21%;
+  width: 30%;
   margin-top: -2vh;
-  display: flex;
-  flex-direction: column;
+  margin-right: 6vw;
 
-  input[type='file'] { display: none; }
+  display: flex;
+  flex-direction: row;
+
+  input[type='file'] { 
+    display: none; 
+  }
           
   label {
     width: 10vw;
     height: 5vh;
-    background-color: #0090C5;
+    background-color: #00579D;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-radius: 0.5vh;
     color: #fff;
-    margin-right: 3vw;
     margin-bottom: 2vw;
     padding: 1vh;
-    padding-left: 4vh;
     font-size: 2vh;
     font-weight: bold;
-    cursor: pointer;  
+    cursor: pointer; 
     box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
 
     &:hover {
-      background-color: ${shade(0.09, "#0090C5")}
-    }
-
-    &:nth-child(3) {
-      &::before {
-        background-image: url(${Dashboard});
-      }
-    }
-
-    &::before {
-      content: '';
-      width: 1.1vw;
-      height: 2.3vh;
-      position: absolute;
-      margin-top: -0.2vh;
-      margin-left: -3.2vh;
-
-      background-image: url(${Ata});
-      background-size: cover;
-      background-position: center;
+      background-color: ${shade(0.09, "#00579D")}
     }
   }
 `;
@@ -113,13 +98,13 @@ export const ContainerDesc = styled.div`
   text-align: justify;
 
   h1 {
-    font-size: 1em;
+    font-size: 2.4vh;
     font-weight: bold;
-    color: #111;
+    color: #00579D;
   }
 
   h2 {
-    font-size: 1em;
+    font-size: 2vh;;
     font-weight: normal;
     margin-top: 1.4vh;
   }
@@ -155,9 +140,18 @@ export const ContainerInfos = styled.div`
     flex-direction: row;
     //list-decoration: none;
 
-      h1 { font-size: 1em; color: #111; margin-right: 1vh; font-weight: bold; }
+      h1 { 
+        font-size: 2.4vh;
+        color: #00579D; 
+        margin-right: 1vh; 
+        font-weight: bold; 
+      }
 
-      h2 { font-size: 1em; color: #00579D; font-weight: 100; }
+      h2 {
+        font-size: 2vh; 
+        //color: #00579D; 
+        font-weight: 100; 
+      }
   }
 `;
 
@@ -167,7 +161,7 @@ export const ContainerSection = styled.div`
   margin: 0 0 -1vh 0;
 
   h1 {
-    font-size: 1em;
+    font-size: 2.4vh;
     color: #229FC6;
   }
 `;
@@ -178,30 +172,31 @@ export const ContainerTittles = styled.div`
   width: 76vw;
   margin-top: 2vh;
   justify-content: space-between;
-  color: #111;
-`;
+  `;
 
 export const Tittle = styled.div`
-  width: 50%;
-  font-size: 4vh;
+  width: 70%;
+  font-size: 3vh;
   font-weight: bold;
+  color: #00579D;
 `;
 
 export const Box = styled.div`
   width: 32%;
   height: 14vh;
   text-align: center;
-  padding-top: 4vh;
+  padding-top: 2.5vh;
   margin-bottom: 5vh;
 
   h1 {
-    font-size: 1em;
+    font-size: 2.4vh;
+    color: #00579D;
     margin-bottom: 1.4vh;
   }
 
   h2 {
-    font-size: 1em;
-    color: #023A67;
+    font-size: 2vh;
+    font-weight: 200;
   }
 `;
 
@@ -248,6 +243,7 @@ export const ContainerAppointments = styled.div`
     width: 1vh;
     height: 1vh;
   }
+  
   .sc1::-webkit-scrollbar-track {
     background-color: rgb(196, 196, 196, 0.5);
     border-radius: 10px;
@@ -317,9 +313,9 @@ export const ContainerGraphs = styled.div`
 
 export const Graphic = styled.div`
   width: 49%;
-  height: 40vh;
+  height: 30vh;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
   margin-top: 4vh;
@@ -329,10 +325,10 @@ export const Graphic = styled.div`
   }
 
   h1 {
-    width: 14vw;
-    font-size: 2.2vh;
+    width: 28vw;
+    font-size: 2.4vh;
     text-align: center;
-    color: #111;
+    color: #00579D;
   }
 `;
 
@@ -341,7 +337,7 @@ export const Graphic2 = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 38vh; 
+  margin-top: 28vh; 
 `;
 
 export const Top = styled.div`
@@ -361,7 +357,7 @@ export const Top = styled.div`
     height: 10vh;
 
     h1 {
-      font-size: 3.6vh;
+      font-size: 3vh;
       color: #00579D;
       margin-left: 5vw;
     }
@@ -533,7 +529,7 @@ export const Footer = styled.div`
 
     color: #333;
     font-weight: bold;
-    font-size: 2.6vh;
+    font-size: 2.4vh;
 
     &:nth-child(1) {
       margin-left: 6.05vw;
