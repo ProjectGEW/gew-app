@@ -1,246 +1,259 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { shade } from "polished";
 
-export const ContainerHome = styled.div`
+interface IProps {
+  tamanhoFonte: string;
+}
+
+export const Container = styled.div`
   position: absolute;
   top: 14vh;
   left: 12vw;
+  width: 78vw;
+  height: 80vh;
+`;
+
+export const ContainerSettings = styled.div`
   width: 78vw;
   height: 80vh;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 5vh;
-  padding-top: 2vh;
 
   background-color: #fff;
-  box-shadow: 0.25vh 0.25vh rgb(0, 0, 0, 0.25);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 0.8vh;
-
-  #animation, #notification {
-    width: auto;
-    margin-top: 2vh;
-    margin-right: 0vw;
-    border: 0;
-    padding: 1vh 3vh 1vh 3vh;
-    font-size: 2vh;
-    border-radius: 0.8vh;
-    background-color: rgba(212, 212, 212, 0.3);
-    color: #575757;
-
-    &:nth-child(1) {
-      background-color: rgba(212, 212, 212, 0.7);
-    }
-
-    &:hover {
-      cursor: pointer;
-      background-color: rgba(212, 212, 212, 0.5);
-    }
-  }     
 `;
 
-export const Container = styled.div`
+export const ContainerInfo = styled.div`
   width: 100%;
-  height: 20vh;
+  height: 6vh;
 
-  border-bottom: 0.2vh solid #CCCCCC;
+  padding-top: 1vh;
 
-  &:last-child {
-    border: 0;
-  }
-
-  &:first-child {
-    justify-content: space-between;
-
-    h1 {
-      color: #00579D;
-      font-weight: 500;
-      font-size: 4.5vh;
-    }
-      
-    span {
-      width: 12vw;
-      height: 3vh;
-
-      margin-top: 1vh;
-      margin-right: 1.5vw;
-
-      background-image: linear-gradient(
-          to left, #64C3D5 15%, 
-          #fff 10%, #fff 18%,
-          #0091BD 19.3%, #0091BD 32%, 
-          #fff 30.6%, #fff 34.6%,
-          #005DA5 35.6%, #005DA5 49%, 
-          #fff 40%, #fff 53%,
-          #00579D 53%, #00579D 65.1%, 
-          #fff 65.1%, #fff 69.1%,
-          #0075B1 70%, #0075B1 83%, 
-          #fff 80%, #fff 88%,
-          #6AACDA 10%, #6AACDA 100%
-      );
-    }
-      border-bottom: 0.2vh solid #00579D;
-    }
-
-    display: flex;
-    justify-content: center;
-
-    &:nth-child(1) {
-      height: 8vh;
-    }
-
-    &:nth-child(2) {
-      height: 16vh;
-      margin-top: 0vh;
-
-      select {
-        margin-top: 1.8vh;
-      }
-    }
-
-    &:nth-child(3) {
-      height: 16vh;
-
-      span {
-        margin-top: 2.2vh;
-      }
-    }
-
-    &:nth-child(4) {
-      height: 30vh;
-
-      span {
-        margin-top: 4vh;
-      }
-    }
-`;
-
-export const Left = styled.div`
-  width: 50%;
-  
   display: flex;
-  justify-content: center;
   flex-direction: column;
-
-  strong {
-    font-size: 3vh;
-    color: #00579D;
-    padding-left: 4vw;     
-  }
-
-  p {
-    font-size: 2.4vh;
-    color: #00579D;
-    padding: 0.2vh;
-    padding-left: 7vw;
-    margin-top: 2vh;
-
-    display: flex;
-    align-items: center;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      width: 1.2vw;
-      height: 2.6vh;
-      margin-left: -5vw;
-
-      background-color: #023A67;
-      border-radius: 100%;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      width: 0.15vw;
-      height: 6vh;
-      margin-top: 0vh;
-      margin-left: -4.5vw;
-
-      background-color: #023A67;                     
-    }   
-  }    
 `;
 
-export const Right = styled.div`
-  width: 50%;
-
+export const ContainerTitle = styled.div`
+  width: 100%;
+  height: 6vh;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  flex-direction: column;
+  align-items: center;
 
-  div, button {
-    z-index: 99;
-  }
+  border-bottom: 0.2vh solid #ccc;
 
-  div {
+  h1 {
+    color: #00579D;
+    font-size: 3vh;
+    margin-left: 1.2vw;
+
     display: flex;
-    flex-direction: column;
     align-items: center;
 
-    margin-right: 5vw;
+    svg {
+      margin-left: 0vw;
 
-    p {
-      svg {
-        color: #00579D;
-        margin-left: -1vw;
+      &:last-child {
+        margin-left: 0vw;
 
         &:hover {
-            cursor: pointer;
+          opacity: 0.85;
+          cursor: pointer;
         }
 
         &:active {
-            color: ${shade(0.2, '#00579D')}
+          opacity: 0.75;
         }
       }
     }
+  }
 
-      &:first-child {
-        margin-top: 8vh;
-      }
+  span {
+    width: 10vw;
+    height: 2.5vh;
+    margin-right: 1.5vw;
+    background-image: linear-gradient(to left, 
+      #64C3D5 15%, #fff 10%, #fff 19.3%,
+      #0091BD 19.3%, #0091BD 33%, #fff 30%, #fff 37%,
+      #005DA5 36%, #005DA5 50%, #fff 49%, #fff 54%,
+      #00579D 54%, #00579D 67%, #fff 65.1%, #fff 71%,
+      #0075B1 71%, #0075B1 84%, #fff 80%, #fff 88%,
+      #6AACDA 10%, #6AACDA 100%);
+  }
+`;
 
-      &:last-child {
-        align-items: flex-end;
-        margin-top: 6vh;
+export const Box = styled.div`
+  width: 100%;
+  height: 80vh;
+  padding: 0px 20px;
+  align-items: center;  
+  
+  .row {
+    width: 100%;
 
-        button {
-          margin-right: -4vw;
-          width: 10vw;
-          height: 4.5vh;
-          background-color: #00579D;
-          border: 0;
-          color: white;
-          font-weight: bold;
-        }
-      }
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
 
-    input[type='file'] {
-      display: none;
-    }
+    border: 0.1vh solid rgba(0, 0, 0, 0.1);
 
-    input {
-      width: 20vw;
-      
-      background: transparent;
-      border: 0;
-      border-bottom: 0.4vh solid #00579D;
-      
-      margin-top: 2vh;
-    }
+    padding: 2vh;
+    margin-top: 2vh;
+    border-radius: 0.8vh;
 
-    select {
-      width: 10vw;
-      border: 0.2vh solid #c4c4c4;
-      padding: 0.4vh;
+    h1 {
+      font-size: 2.8vh;
       color: #00579D;
-      font-size: 2.5vh;
+      //font-weight: 100;
+      margin-left: 1vw;
+    }
+
+    p {
+      font-size: 2.2vh;
+      color: #00579D;
+      margin-left: 2vw;
+      padding: 0.5vh 1vh 1.5vh 1vh;
+
+      display: flex;
+      align-items: center;
+
+      &:before {
+        content: '┕';
+        width: 1vw;
+        height: 1vh;
+        position: absolute;
+
+        margin: -2vh 0 0 -1.5vw;
+      }
+    }
+
+    button, select {
+      padding: 1vh 2vh 1vh 2vh;
+      font-size: 2vh;
+      border: 0.1vh solid #c4c4c4;
+      border-radius: 0.4vh;
+      color: #00579D;
+      cursor: pointer;
+    }
+
+    button {
+      height: 5vh;
+
+      padding: 0 3vh;
+      border: 0;
+      border-radius: 0.5vh;
+
+      font-size: 2.4vh;
+      color: white;
+      font-weight: bold;
+      background-color: #00579D;
+
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
       &:hover {
-          cursor: pointer;
+        background-color: ${shade(0.09, "#00579D")}
       }
     }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    #inputs {
+      margin-top: 2.2vh;
+      height: 18vh;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-direction: column;
+
+      input[type='file'] {
+        display: none;
+      }
+
+      label {
+        padding: 0.6vh 3vh 0.6vh 3vh;
+        border: 0;
+        border-radius: 0.5vh;
+
+        font-size: 2vh;
+        color: white;
+        font-weight: bold;
+        background-color: #00579D;
+
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: ${shade(0.09, "#00579D")}
+        }
+      }
+
+      input {
+        width: 25vw;
+        font-size: 2.2vh;
+
+        border: 0;
+        border-bottom: 0.4vh solid #00579D;
+
+        color: #5E5E5E;
+      }
+    }
+
+    span {
+      padding: 0.6vh 3vh 0.6vh 3vh;
+      border: 0;
+      border-radius: 0.5vh;
+
+      font-size: 2vh;
+      color: white;
+      font-weight: bold;
+      background-color: #009d56;
+
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: ${shade(0.09, "#009d56")}
+      }
+    }
+  }
+`;
+
+export const Example = styled.div<IProps>`
+  width: 42vw;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    color: #575757;
+
+    ${props => props.tamanhoFonte === '2' && css`
+      font-size: 2vh;
+    `};
+
+    ${props => props.tamanhoFonte === '2.8' && css`
+      font-size: 2.8vh;
+    `};
+
+    ${props => props.tamanhoFonte === '3.2' && css`
+      font-size: 3.2vh;
+    `};
+
+    ${props => props.tamanhoFonte === '4' && css`
+      font-size: 4vh;
+    `};
+
+    ${props => props.tamanhoFonte === '99' && css`
+      font-size: 99vh;
+    `};
   }
 `;
