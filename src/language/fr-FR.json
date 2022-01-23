@@ -103,5 +103,40 @@
         "status": "Statut:",
         "horas": "Les heures",
         "apontadas": "Souligné"
+    }, 
+    "textos_em_geral": {
+        "notfound": "PAGE NON TROUVÉE!",
+        "login": "Connexion",
+        "usuario": "Utilisateur",
+        "senha": "Mot de passe",
+        "entrar": "CONNEXION",
+        "email_obrigatorio": "Email obligatoire",
+        "senha_obrigatoria": "Mot de passe obligatoire",
+        "informar_email_valido": "Veuillez fournir un email valide",
+        "esqueceu_senha": "Mot de passe oublié?",
+        "texto_esqueceu_senha": "Contactez un administrateur système pour réinitialiser votre mot de passe.",
+        "descricao_gew": "Gestion de projet pour le contrôle du développement logiciel"
+    },
+    "configurações": {
+        "titulo": "Réglages généraux",
+        "config_texto": "Paramètres de texte",
+        "config_dash": "Paramètres du tableau de bord",
+        "config_conta": "Configurations de compte",
+        "salvar_alt": "Enregistrer les éditions",
+        "salvar": "Sauver",
+        "tam_fonte": "Taille de police",
+        "animacoes": "Animations (graphiques)",
+        "trocar_user": "Changer le nom d'utilisateur",
+        "trocar_senha": "Changez votre mot de passe",
+        "trocar_foto": "Modifier la photo de profil",
+        "desativar_notif": "Désactiver les notifications",
+        "ativado": "Activé",
+        "desativado": "Désactivée",
+        "preview": "Changer la taille de la police et voir l'aperçu",
+        "escolher_img": "Choisissez une image...",
+        "padrao": "Standard",
+        "pequena": "Petit",
+        "media": "Moyenne",
+        "grande": "Super"
     }
   }
