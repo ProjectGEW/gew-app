@@ -1,111 +1,115 @@
-import React, { useRef, useCallback} from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useRef, useCallback} from 'react';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import { useAuth }  from '../../hooks/AuthContext';
-import getValidationErrors from '../../utils/getValidationErrors';
+import intl from 'react-intl-universal';
 
-import WEG from "../../assets/weg.svg";
+import { useAuth }  from '../../hooks/AuthContext';
+import { infoNotify }  from '../../hooks/SystemToasts';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/InputPrimary';
 
-import { Container, Line, LoginCont, ContainerBottom, ContainerBtn, ContainerInput } from './styles';
+import { ContainerBtn, ContainerInput, Rectangle, Section, Image, SideContainer, LoginContainer } from './styles';
+
+const locales = {
+  'pt-BR': require('../../language/pt-BR.json'),
+  'en-US': require('../../language/en-US.json'),
+  'es': require('../../language/es.json'),
+  'fr-FR': require('../../language/fr-FR.json'),
+};
 
 interface SingInFormData {
-    email: string;
-    senha: string;
+  email: string;
+  senha: string;
 }
 
 const Login: React.FC = () => {  
+  const [language] = useState(() => {
+    let languageStorage = localStorage.getItem('Language');
 
-    /* Definição do idioma principal - Revisar */
-    let linguagemPadrao = {flag: "BR", code: "pt-BR"}
-    localStorage.setItem('Language', JSON.stringify(linguagemPadrao));
-
-    /* Definição da animação dos gráficos - Revisar */
-    localStorage.setItem('Animation', "false");
-
-    const formRef = useRef<FormHandles>(null);
-    const { signIn: singIn } = useAuth();
-    const history = useHistory();
-
-    const handleSubmit = useCallback(async (data: SingInFormData) => {
-      try {
-          formRef.current?.setErrors({});
-
-          const schema = Yup.object().shape({
-              email: Yup.string().required('E-mail obrigatório').email('Informe um e-mail válido'),    
-              senha: Yup.string().required('Senha obrigatória'),
-          })
-
-          await schema.validate(data, {
-              abortEarly: false,
-          })
-
-          singIn({
-              email: data.email,
-              senha: data.senha
-          })
-
-          history.push('/');
-
-      } catch(err) {
-          if(err instanceof Yup.ValidationError) {
-            const errors = getValidationErrors(err);
-            formRef.current?.setErrors(errors);
-
-            return;
-          }
-      }
-  }, [history, singIn]);
-
-  const trocar = (x: String) => {
-      if(x === "true") {
-        document.getElementById("container-login")!.style.display = "none";
-        document.getElementById("container-pwd")!.style.display = "block";
-        x = "false";
-      } else if(x === "false") {
-        document.getElementById("container-login")!.style.display = "block";
-        document.getElementById("container-login")!.style.display = "flex";
-        document.getElementById("container-pwd")!.style.display = "none";
-        x = "true";
+    if (languageStorage) {
+      let languageObject = JSON.parse(languageStorage);
+      return languageObject;
+    } else {
+      let linguagemPadrao = {flag: "BR", code: "pt-BR"}
+      localStorage.setItem('Language', JSON.stringify(linguagemPadrao));
+      localStorage.setItem('Fonte', '2.8');
+      return;
     }
-  } 
+  });
 
-    return (
-        <>
-        <Container>
-            <LoginCont>
-                <Line />
-                <img src={WEG} alt="logo"/>
-                <ContainerBottom id="container-login">
-                    <Form ref={formRef} onSubmit={handleSubmit}>
-                        <ContainerInput>
-                            <Input type="text" name="email" placeholder="" text="Usuário"/>
-                        </ContainerInput>
-                        <ContainerInput>
-                            <Input type="password" name="senha" placeholder="" text="Senha" autoComplete="off"/>
-                        </ContainerInput>     
-                        <ContainerBtn>
-                            <button type="submit">entrar</button>
-                            <p onClick={() => trocar("true")}>Esqueceu sua senha?</p>
-                        </ContainerBtn>
-                    </Form>
-                </ContainerBottom>
-                <ContainerBottom id="container-pwd">
-                    <div>
-                        <h1>Alterar senha da conta</h1>
-                        <p>Entre em contato com algum administrador do sistema.</p>
-                        <button onClick={() => trocar("false")}>Voltar</button>
-                    </div>
-                </ContainerBottom>
-            </LoginCont>
-        </Container>
-        </>
-    );
+  intl.init({
+    currentLocale: language ? language.code : 'pt-BR',
+    locales
+  });
+
+  /* Definição da animação dos gráficos - Revisar */
+  localStorage.setItem('Animation', "false");
+
+  const formRef = useRef<FormHandles>(null);
+  const { signIn: singIn } = useAuth();
+
+  const handleSubmit = useCallback(async (data: SingInFormData) => {
+    try {
+      formRef.current?.setErrors({});
+
+      const schema = Yup.object().shape({
+        email: Yup.string().required(intl.get('textos_em_geral.email_obrigatorio')).email(intl.get('textos_em_geral.informar_email_valido')),    
+        senha: Yup.string().required(intl.get('textos_em_geral.senha_obrigatoria')),
+      })
+
+      await schema.validate(data, {
+        abortEarly: false,
+      })
+
+      singIn({
+        email: data.email,
+        senha: data.senha
+      })
+    } catch(err) {
+      if(err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+
+        return;
+      }
+    }
+  }, [singIn]);
+
+  return (
+    <>
+    <Section>
+      <Rectangle>
+        <div className="textBox">
+          <h1>GEW</h1>
+          <h2>{intl.get('textos_em_geral.descricao_gew')}</h2>
+        </div>
+        <Image />
+      </Rectangle>
+      <SideContainer>
+        <div className="logo"/>
+        <LoginContainer id="containerLogin">
+          <h1>{intl.get('textos_em_geral.login')}</h1>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <ContainerInput>
+              <Input type="text" name="email" placeholder="" text={intl.get('textos_em_geral.usuario')} />
+            </ContainerInput>
+            <ContainerInput>
+              <Input type="password"  name="senha" placeholder="" text={intl.get('textos_em_geral.senha')} autoComplete="off"/>
+            </ContainerInput>     
+            <ContainerBtn>
+              <button type="submit">{intl.get('textos_em_geral.entrar')}</button>
+              <p onClick={() => infoNotify(intl.get('textos_em_geral.texto_esqueceu_senha'))}>{intl.get('textos_em_geral.esqueceu_senha')}</p>
+            </ContainerBtn>
+          </Form>
+        </LoginContainer>
+      </SideContainer>
+    </Section>
+    </>
+  );
 };
 
 export default Login;
