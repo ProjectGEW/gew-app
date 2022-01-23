@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Inputs, ContainerDesc, ContainerInfos, ContainerSection, ContainerTittles, Tittle, Container,
     ContainerDetails, Box, ContainerAppointments, ContainerGraphs, Graphic, Graphic2, Filtros, Top, Bottom,
-    Graph, Left, Right, Square, Bar, Pack, Footer } from './style';
+    Graph, Left, Right, Square, Bar, Pack, Footer  } from './style';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -131,45 +131,42 @@ const Details: React.FC = () => {
         <Container>
             <ContainerDetails>
                 <ContainerSection>
-                    <h1>{project ? project.projetoData.numeroDoProjeto : ""} - {project ? project.projetoData.secao : "Seção ABC"}</h1>
+                    <h1>{project ? project.projetoData.numeroDoProjeto : ""} - {project ? project.projetoData.secao : ""}</h1>
                 </ContainerSection>
                 <ContainerTittles>
                     <Tittle>{project ? project.projetoData.titulo : ""}</Tittle>
                     <Inputs>
-                    <Button text={'Dashboard'} tipo={"DashboardDetails"} rota={"dashboard"} numeroProjeto={project ? project.projetoData.numeroDoProjeto: 0}/>
-                        <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : ""}</label>
+                        <Button text={'Dashboard'} tipo={"DashboardDetails"} rota={"dashboard"} numeroProjeto={project ? project.projetoData.numeroDoProjeto : 0}/>
+                        <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : "Baixar ATA"}</label>
                     </Inputs>
                 </ContainerTittles>
                 <ContainerInfos>
                     <ul>
                         <li>
-                            <h1>NÚMERO:</h1><h2>{project?.projetoData.numeroDoProjeto}</h2>
+                            <h1>NÚMERO:</h1><h2>{project ? project.projetoData.numeroDoProjeto : ""}</h2>
                         </li>
                         <li>
-                            <h1>STATUS:</h1><h2>{project?.projetoData.statusProjeto === "NAO_INICIADO" ? "NÃO INICIADO" 
-                                                : project?.projetoData.statusProjeto}</h2>
+                            <h1>STATUS:</h1><h2>{project?.projetoData.statusProjeto === "NAO_INICIADO" ? "NÃO INICIADO" : project?.projetoData.statusProjeto}</h2>
                         </li>
                         <li>
-                            <h1>DATA DE CRIAÇÃO:</h1><h2>{project?.projetoData.data_de_inicio}</h2>
+                            <h1>DATA DE CRIAÇÃO:</h1><h2>{project ? project.projetoData.data_de_inicio : ""}</h2>
                         </li>
                     </ul>
                 </ContainerInfos>
                 <ContainerDesc>
                     <h1>DESCRIÇÃO:</h1>
-                    <h2>
-                        {project?.projetoData.descricao}
-                    </h2>
+                    <h2>{project ? project.projetoData.descricao : ""}</h2>
                 </ContainerDesc>
                 <ContainerInfos>
                     <Box>
-                        <h1>Solicitante / Seção Solicitante:</h1>
-                        <h2>{project?.projetoData.solicitante.nome.toUpperCase()}</h2>
-                        <h2>SEÇÃO ASSISTÊNCIA TÉCNICA</h2>
+                        <h1>SOLICITANTE / SEÇÃO:</h1>
+                        <h2>{project ? project.projetoData.solicitante.nome : ""}</h2>
+                        <h2>{project ? project.projetoData.solicitante.nome : ""}</h2>
                     </Box>
                     <Box>
-                        <h1>Responsável / Seção Responsável:</h1>
-                        <h2>{project?.projetoData.responsavel.nome.toUpperCase()}</h2>
-                        <h2>INSIDE SALES DEPARTMENT</h2>
+                        <h1>RESPONSÁVEL / SEÇÃO:</h1>
+                        <h2>{project ? project.projetoData.responsavel.nome : ""}</h2>
+                        <h2>{project ? project.projetoData.responsavel.nome : ""}</h2>
                     </Box>
                 </ContainerInfos>
                 <span>Horas apontadas - Funcionários:</span>
