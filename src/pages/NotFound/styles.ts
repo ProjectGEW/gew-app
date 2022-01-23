@@ -15,7 +15,7 @@ export const Container = styled.div`
   div {
     padding: 2vh;
     border-radius: 0.8vh;
-    background-image: linear-gradient(to right, #00579D, #0075B1, #0091BD, #009ecf);
+    //background-image: linear-gradient(to right, #00579D, #0075B1, #0091BD, #009ecf);
     
     display: flex;
     flex-direction: row;
@@ -23,7 +23,7 @@ export const Container = styled.div`
     align-items: center;
 
     h1 {
-      color: #fff;
+      color: #00579D;
 
       font-size: 5vh;
       text-transform: uppercase;
