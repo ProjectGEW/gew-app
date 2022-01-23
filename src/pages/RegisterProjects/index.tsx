@@ -20,20 +20,17 @@ import MenuLeft from '../../components/MenuLeft';
 import MenuRight from '../../components/MenuRight';
 import Navbar from '../../components/Navbar';
 import Button from '../../components/Button';
+//import VoltarAoTopo from '../../components/VoltarAoTopo';
 import { ContIcons } from '../../components/MenuRight/styles';
-import VoltarAoTopo from '../../components/VoltarAoTopo';
 
-import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
+import { FiRefreshCcw } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
 import { FaEquals, FaRegIdBadge } from 'react-icons/fa';
 import { AiOutlineClockCircle, AiOutlineCalendar, AiOutlineNumber, AiOutlineFilePdf } from 'react-icons/ai';
 
-import {
-  Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
-  Total, Table, Linha, Datas, Finalizar, PopupModal, ContainerPopup, BoxPopup, Error
-} from './styles';
+import { Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos, Total, Table, Linha,
+  Datas, Finalizar, PopupModal, ContainerPopup, BoxPopup, Error } from './styles';
 
-//Interfaces
 interface IProjetoInputDTO {
   projetoData: IInfoProjetosInputDTO;
   despesas: IDespesas[];
@@ -403,7 +400,7 @@ const CadastroProjeto: React.FC = () => {
                 </div>
                 <div ref={ref}>
                   <Paper elevation={0} {...rootProps}>
-                    <label id="ata" htmlFor="ata"  >{fileName ? fileName : "SELECIONAR ARQUIVO"}</label>
+                    <label id="ata" htmlFor="ata"  >{fileName ? tituloMenor(fileName, 22) : "SELECIONAR ARQUIVO"}</label>
                     <input id="btnUpload" {...getInputProps()} type="file" accept="application/pdf" />
                   </Paper>
                 </div>
@@ -426,7 +423,7 @@ const CadastroProjeto: React.FC = () => {
                   </div>
                 </div>
                 <div id="ladoDireito">
-                  {file ? <iframe title='ata' src={file ? URL.createObjectURL(file) : file} /> : <iframe title='ata' src={'null'} />}
+                  {file ? <iframe title='ata' src={file ? URL.createObjectURL(file) : URL.createObjectURL(file)} /> : ''}
                 </div>
               </div>
             </Projetos>
@@ -436,7 +433,7 @@ const CadastroProjeto: React.FC = () => {
                 <h1>Responsável <FiRefreshCcw size={20} /></h1>
                 <div>
                   <div>
-                    <label htmlFor="cracha_responsavel">Crachá</label>
+                    <label htmlFor="cracha_responsavel">Crachá:</label>
                     <input type="number" id="cracha_responsavel" onBlur={(props) => {
                       if (props.target.value === "") {
                         props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -448,11 +445,11 @@ const CadastroProjeto: React.FC = () => {
                     }} />
                   </div>
                   <div>
-                    <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20} /></label>
+                    <label htmlFor="nome_responsavel">Nome:</label>
                     <input type="text" id="nome_responsavel" value={responavel?.funcionario.nome} disabled />
                   </div>
                   <div>
-                    <label htmlFor="secao_responsavel">Seção <FiInfo id="iconSecaoResponsavel" size={20} /></label>
+                    <label htmlFor="secao_responsavel">Seção:</label>
                     <input type="text" id="secao_responsavel" value={responavel?.secao} disabled />
                   </div>
                 </div>
@@ -461,7 +458,7 @@ const CadastroProjeto: React.FC = () => {
                 <h1>Solicitante <FiRefreshCcw size={20} /></h1>
                 <div>
                   <div>
-                    <label htmlFor="cracha_solicitante">Crachá</label>
+                    <label htmlFor="cracha_solicitante">Crachá:</label>
                     <input type="text" id="cracha_solicitante" onBlur={(props) => {
                       if (props.target.value === "") {
                         props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -473,11 +470,11 @@ const CadastroProjeto: React.FC = () => {
                     }} />
                   </div>
                   <div>
-                    <label htmlFor="nome_solicitante">Nome <FiInfo id="iconNomeSolicitante" size={20} /></label>
+                    <label htmlFor="nome_solicitante">Nome:</label>
                     <input type="text" id="nome_solicitante" value={solicitante?.funcionario.nome} disabled />
                   </div>
                   <div>
-                    <label htmlFor="secao_solicitante">Seção <FiInfo id="iconSecaoSolicitante" size={20} /></label>
+                    <label htmlFor="secao_solicitante">Seção:</label>
                     <input type="text" id="secao_solicitante" value={solicitante?.secao} disabled />
                   </div>
                 </div>
@@ -532,7 +529,7 @@ const CadastroProjeto: React.FC = () => {
                       <button onClick={() => deleteLastRowDP()}>Remover</button>
                     </div>
                     <div>
-                      <h2>TOTAL:</h2>
+                      <h2>Total:</h2>
                       <input id="totalEsforco" type="number" value={esforco || 0} disabled />
                       <input id="totalValor" type="text" value={analisaValor(valorDespesa || 0)} disabled />
                       <FaEquals id="soma" onClick={() => somaTotalDP()} />
@@ -579,7 +576,7 @@ const CadastroProjeto: React.FC = () => {
                       <button onClick={() => deleteLastRowCC()}>Remover</button>
                     </div>
                     <div>
-                      <h2>TOTAL:</h2>
+                      <h2>Total:</h2>
                       <input id="totalValor" type="text" value={analisaValor(valorSecoesPagantes || 0)} disabled />
                       <FaEquals id="soma" onClick={() => somaTotalCc()} />
                     </div>
@@ -763,8 +760,7 @@ const CadastroProjeto: React.FC = () => {
         </ContainerRegister>
       </Container>
       {
-        // Ativa botão para voltar pro topo da página
-        window.innerHeight >= 780 ? <VoltarAoTopo /> : ''
+        //window.innerHeight >= 780 ? <VoltarAoTopo /> : ''
       }
       <MenuRight>
         <ContIcons />

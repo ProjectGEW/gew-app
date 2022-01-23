@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 interface WavesProps {
     valor: number;
     dashboard?: boolean;
+    animacao?: boolean;
 }
 
 export const Waves = styled.div`
@@ -109,25 +110,51 @@ export const Circle = styled.div<WavesProps>`
     div {
         &:nth-child(1) {
             &::before {
-                animation: wave-right 10s linear infinite;
+                transform: translateX(-50%);
             }
         }
         &:nth-child(2) {
             &::before {
-                animation: wave-left 10s linear infinite;
+                transform: translateX(-50%);
             }
         }
         &:nth-child(3) {
             &::before {
-                animation: wave-right 10s linear infinite;
+                transform: translateX(-50%);
             }
         }
         &:nth-child(4) {
             &::before {
-                animation: wave-left 10s linear infinite;
+                transform: translateX(-50%);
             }
         }
     }
+
+    ${props => props.animacao && css`
+        div {
+            &:nth-child(1) {
+                &::before {
+                    animation: wave-right 10s linear infinite;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    animation: wave-left 10s linear infinite;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    animation: wave-right 10s linear infinite;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    animation: wave-left 10s linear infinite;
+                }
+            }
+        }
+    `}
+
 
     ${props => props.dashboard === true && css`
         box-shadow: 0 0 0 1vh white, 0 0 0 2vh #00579D;
@@ -182,25 +209,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 100vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 23vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -215,25 +242,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 100vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 21vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -248,25 +275,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 100vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 20vh;
-                    animation: wave-left 10s linear infinite;
+                   //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -281,25 +308,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 100vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 20vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 19vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -314,25 +341,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 100vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 18vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 19vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -347,25 +374,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 100vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 17vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 18vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -380,25 +407,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 100vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 16vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 18vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -414,25 +441,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 15vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 15vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -448,25 +475,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                   //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 13vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 14vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -482,25 +509,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 10vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 12vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -516,25 +543,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 9vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 11vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -550,25 +577,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 100vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 8vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 11vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -584,25 +611,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 7vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 8vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 11vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -618,25 +645,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 7vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 7vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 11vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -652,25 +679,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 6vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 7vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 11vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 18vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -686,25 +713,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 5vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 6vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 11vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 18vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -720,25 +747,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 4.8vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 6vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 10vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -754,25 +781,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 4.2vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 6vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 10vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -788,25 +815,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 3.8vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 5.8vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 10vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }
@@ -822,25 +849,25 @@ export const Circle = styled.div<WavesProps>`
             &:nth-child(1) {
                 &::before {
                     top: 2vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(2) {
                 &::before {
                     top: 5.8vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
             &:nth-child(3) {
                 &::before {
                     top: 10vh;
-                    animation: wave-right 10s linear infinite;
+                    //animation: wave-right 10s linear infinite;
                 }
             }
             &:nth-child(4) {
                 &::before {
                     top: 17vh;
-                    animation: wave-left 10s linear infinite;
+                    //animation: wave-left 10s linear infinite;
                 }
             }
         }

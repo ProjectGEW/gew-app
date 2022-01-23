@@ -23,7 +23,11 @@ interface IDados {
     projeto: number
 }
 
-const MenuLeft: React.FC = () => {
+interface IFoto {
+    fotoPerfil?: string;
+}
+
+const MenuLeft: React.FC<IFoto> = ({ fotoPerfil }) => {
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
 
@@ -104,7 +108,16 @@ const MenuLeft: React.FC = () => {
       localStorage.removeItem("User");
       localStorage.removeItem("User:nome");
       localStorage.removeItem("Level");
-    }
+    }    
+
+    // Foto
+    const [foto] = useState(() => {
+        let languageStorage = localStorage.getItem('Foto');
+
+        if(languageStorage) {
+            return languageStorage;
+        } 
+    });
 
     // Notificações
     const [guardaDadosLocalStorege, setGuardaDadosLocalStorega] = useState<IDados[]>([]);
@@ -117,27 +130,42 @@ const MenuLeft: React.FC = () => {
             let transforma = JSON.parse(buscaDadosLocalStorage);
             setGuardaDadosLocalStorega(transforma);
         }
-
     },[busca]);
+
+    function atualizaNotificacao() {
+        let buscaDadosLocalStorage = localStorage.getItem('Notification');
+
+        if(buscaDadosLocalStorage) {
+            let transforma = JSON.parse(buscaDadosLocalStorage);
+            setGuardaDadosLocalStorega(transforma);
+        } else {
+            setGuardaDadosLocalStorega([]);
+        }
+    }
 
     return (
         <>
         <ContainerMenu id="container-menu">
             <ContainerInfo>
                 <UserImg id="user-img">
-                    <FaUserAlt id="iconUser" color="#00579D" />
+                    {
+                        fotoPerfil ?
+                            <img src={fotoPerfil ? fotoPerfil : ''} alt="Foto de perfil" width={85} height={85} />
+                        : <FaUserAlt id="iconUser" color="#00579D" />
+
+                    }  
                     <p id="user-name">{intl.get('menu_esquerdo.mensagem')}<br/><a href="./">{userName ? userName : "Renato Silva"}</a></p> 
                 </UserImg>
                 <NewsImg id="news-img">
-                    <IoNewspaperOutline id="iconNews" />
+                    <IoNewspaperOutline id="iconNews" onClick={handdleClick} />
                     <p id="title-not">{intl.get('menu_esquerdo.notificacao')}</p> 
                 </NewsImg>
                 <LineBlue id="line-blue" />
                 <RefreshImg id="refresh-img">
-                    <FiRefreshCcw id="iconRef"/>
+                    <FiRefreshCcw id="iconRef" onClick={() => atualizaNotificacao()}/>
                 </RefreshImg>
                 <DeleteImg id="delete-img">
-                    <RiDeleteBinLine id="iconDel"/>
+                    <RiDeleteBinLine id="iconDel" onClick={() => {localStorage.removeItem('Notification'); atualizaNotificacao();}}/>
                 </DeleteImg>
                 <ContainerMsg id="container-msg">
                     {!guardaDadosLocalStorege ? '' :

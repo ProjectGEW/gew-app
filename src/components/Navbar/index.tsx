@@ -142,15 +142,12 @@ const Navbar: React.FC = () => {
           <a href="/home">{intl.get('navbar.rota')}</a>
         </div>
         <div id="page">
-          <HistoricPage localDaRota={!!location.pathname}>{page.length > 10 ? retornaTituloMenor(page, 10) : page}</HistoricPage>
+          <HistoricPage localDaRota={!!location.pathname}>{page.length > 13 ? retornaTituloMenor(page, 13) : page}</HistoricPage>
         </div>
       </PageIndicator>
       <SandwichMenu onClick={openDropDown}>
         <DropdownMenu id="dropdownMenu">
           <ul>
-            <a href="/home">
-              <li>{intl.get('navbar.dropdown.perfil')}</li>
-            </a>
             <a href="./settings">
               <li>{intl.get('navbar.dropdown.configuracoes')}</li>
             </a>

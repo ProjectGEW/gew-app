@@ -32,6 +32,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spring": "8.0.27",
+    "react-tag-input": "^6.8.0",
     "react-toastify": "^8.0.3",
     "react-transition-group": "^4.4.2",
     "reactjs-popup": "^2.0.5",

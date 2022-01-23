@@ -49,12 +49,19 @@ export const ContainerInfo = styled.div`
 export const UserImg = styled.div`
     width: 8vh;
     height: 8vh;
-    border-radius: 1vh;
     margin-left: 12.5vw;
-    border: 0.4vh solid #00579D;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    border-radius: 1vh;
+    border: 0.4vh solid #00579D;
+
+    img {
+        border-radius: 1vh;
+        //border: 0.4vh solid #00579D;
+    }
 
     #iconUser {
         width: 3vw;
@@ -161,7 +168,7 @@ export const ContainerMsg = styled.div`
 
     ::-webkit-scrollbar {
         background-color: rgb(196, 196, 196, 0.5);
-        width: 0.5vw;
+        width: 0.3vw;
     }
        
     ::-webkit-scrollbar-thumb {

@@ -1,23 +1,5 @@
 import styled from "styled-components";
 
-import atua from '../../assets/atualizar.svg';
-
-export const Atualizar = styled.svg`
-  width: 1.8vw;
-  height: 3.6vh;
-  background-repeat: no-repeat;
-  background-image: url('${atua}');
-  
-  &:hover {
-    opacity: 0.85;
-    cursor: pointer;
-  }
-
-  &:active {
-    opacity: 0.75;
-  }
-`;
-
 export const Container = styled.div`
   position: absolute;
   top: 14vh;

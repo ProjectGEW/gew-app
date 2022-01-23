@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import intl from "react-intl-universal";
 import api from '../../service/api';
 import analisaValor from '../../utils/analisaValor';
@@ -68,6 +68,14 @@ const Menu: React.FC = () => {
         if(languageStorage) {
             let languageObject = JSON.parse(languageStorage);
             return languageObject;
+        } 
+    });
+
+    const [animacao] = useState(() => {
+        let animationStorage = localStorage.getItem('Animation');
+
+        if(animationStorage) {
+            return JSON.parse(animationStorage);
         } 
     });
 
@@ -151,7 +159,7 @@ const Menu: React.FC = () => {
                         <span />
                         <h1 id="complete">{counts ? counts.contagem.concluidos : 0}</h1>
                         <GraphContainer>
-                           <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.concluidos: 0)} />
+                           <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.concluidos: 0)} animacao={animacao} />
                         </GraphContainer>
                     </CardContent>
                     <div id="FirstVerbCard">
@@ -169,7 +177,7 @@ const Menu: React.FC = () => {
                         <span />
                         <h1 id="up">{counts ? counts.contagem.emAndamento : 0}</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} />
+                            <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.emAndamento: 0)} animacao={animacao} />
                         </GraphContainer>
                     </CardContent>
                     <div id="SecondVerbCard">
@@ -188,7 +196,7 @@ const Menu: React.FC = () => {
                         <span />
                         <h1 id="down">{counts ? counts.contagem.atrasados : 0}</h1>
                         <GraphContainer>
-                            <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.atrasados: 0)} />
+                            <GraphLiquid valor={calcularPorcentagem(counts ? counts.contagem.atrasados: 0)} animacao={animacao} />
                         </GraphContainer>
                     </CardContent>
                     <div id="ThirdVerbCard">

@@ -35,23 +35,23 @@ export const AuthProvider: React.FC = ({ children }) => {
   });
 
   function buscarCargo(email: string) {
-    api.get(`funcionarios/cargo/${email}`).then((response) => {
-      if (response.data === 1) {
+    //api.get(`funcionarios/cargo/${email}`).then((response) => {
+      //if (response.data === 1) {
         localStorage.setItem('Cargo', 'GZ4_7WPQgajvmSlKlRgn8A')
-      }
-      if (response.data === 2) {
-        localStorage.setItem('Cargo', 'fmb8xNYF02BPXsGJohcOkw')
-      }
-      if (response.data === 3) {
-        localStorage.setItem('Cargo', 'aIj5vqAY-nXFQC0DLJUrxA')
-      }
-      if (response.data === 4) {
-        api.get(`funcionarios/cracha/${email}`).then((response) => {
-          localStorage.setItem('Cracha', response.data);
-        });
-        localStorage.setItem('Cargo', 'V_mJKGFmvh7XtkEVhOCgTw')
-      }
-    });
+      // }
+      // if (response.data === 2) {
+      //   localStorage.setItem('Cargo', 'fmb8xNYF02BPXsGJohcOkw')
+      // }
+      // if (response.data === 3) {
+      //   localStorage.setItem('Cargo', 'aIj5vqAY-nXFQC0DLJUrxA')
+      // }
+      // if (response.data === 4) {
+      //   api.get(`funcionarios/cracha/${email}`).then((response) => {
+      //     localStorage.setItem('Cracha', response.data);
+      //   });
+      //   localStorage.setItem('Cargo', 'V_mJKGFmvh7XtkEVhOCgTw')
+      // }
+    //});
   }
 
   const signIn = useCallback(async ({ email, senha }) => {
@@ -60,12 +60,13 @@ export const AuthProvider: React.FC = ({ children }) => {
       email,
       senha,
     });
+
     const { jwt, usuario, nome } = response.data;
-    // let defaultLanguage = {flag: "BR", code: "pt-BR"}
-    // localStorage.setItem('Language', JSON.stringify(defaultLanguage));
+
     localStorage.setItem("Token", jwt);
     localStorage.setItem("User", JSON.stringify(usuario));
     localStorage.setItem("User:nome", nome);
+
     setData({ jwt, usuario, nome });
   }, []);
 

@@ -89,6 +89,14 @@ const Dashboard: React.FC = () => {
     } 
   });
 
+  const [animacao] = useState(() => {
+    let animationStorage = localStorage.getItem('Animation');
+
+    if(animationStorage) {
+      return JSON.parse(animationStorage);
+    } 
+  });
+
   intl.init({
     currentLocale: language.code,
     locales
@@ -334,7 +342,7 @@ const Dashboard: React.FC = () => {
                 : ''}
               </Title>
               <Graph>
-                <GraphLiquid dashboard={true} valor={Math.round(dados.porcentagemUtilizada)} />
+                <GraphLiquid dashboard={true} valor={Math.round(dados.porcentagemUtilizada)} animacao={animacao} />
               </Graph>
             </Card>
             <Card>
@@ -345,7 +353,7 @@ const Dashboard: React.FC = () => {
                 </PopupTooltip>
               </Title>
               <Graph>
-                <GraphLiquid dashboard={true} valor={Math.round(dados.porcentagemDisponivel)} />
+                <GraphLiquid dashboard={true} valor={Math.round(dados.porcentagemDisponivel)} animacao={animacao} />
               </Graph>
             </Card>
           </Liquid>

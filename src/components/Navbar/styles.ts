@@ -116,7 +116,7 @@ export const SandwichMenu = styled.div`
 
 export const DropdownMenu = styled.div`
   width: 10vw;
-  height: 18vh;
+  height: 12vh;
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
   border-radius: 2px;
@@ -128,7 +128,7 @@ export const DropdownMenu = styled.div`
 
   ul {
     width: 100%;
-    height: 18vh;
+    height: 12vh;
     display: flex;
     align-items: center;
     justify-content: center;

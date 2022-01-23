@@ -55,7 +55,7 @@ export const Info = styled.div`
   h1 {
     color: white;
     margin-left: 1vw;
-    font-size: 4vh;
+    font-size: 3vh;
   }
 `;
 
@@ -73,7 +73,7 @@ export const Content = styled.div`
   border-radius: 0vh 0vh 0.8vh 0.8vh;
 
   input, textarea {
-    height: 5vh;
+    height: 4vh;
     margin-bottom: 3vh;
 
     font-size: 2.4vh;
@@ -98,7 +98,7 @@ export const Geral = styled.div`
   width: 100%;
 
   h1 {
-    font-size: 3vh;
+    font-size: 2.8vh;
     color: #00579D;
     padding-bottom: 2vh;
   }
@@ -116,7 +116,7 @@ export const Topicos = styled.div `
     width: 25%;
     text-align: center;
     padding: 1vh;
-    font-size: 3vh;
+    font-size: 2.8vh;
     color: #575757;
     display: block;
     font-weight: 500;
@@ -143,22 +143,22 @@ export const Projetos = styled.div`
   }
 
   #numeroProjetoResponse {
-    margin-top: 9.5vh;
+    margin-top: 8vh;
     margin-left: 0vw;
   }
 
   #ataResponse {
-    margin-top: 9.5vh;
+    margin-top: 8vh;
     margin-left: 0vw;
   }
 
   #tituloResponse {
-    margin-top: 10vh;
+    margin-top: 8vh;
     margin-left: 0vw;
   }
 
   #descricaoResponse {
-    margin-top: 25vh;
+    margin-top: 24vh;
     margin-left: 0vw;
   }
 
@@ -177,7 +177,7 @@ export const Projetos = styled.div`
   }
 
   h1 {
-    font-size: 3.5vh;
+    font-size: 2.8vh;
     padding-bottom: 1.8vh;
     border-bottom: 0.1vh solid #D1CFCF;
     color: #00579D;
@@ -240,13 +240,13 @@ export const Projetos = styled.div`
         label {
           width: 14vw;
 
-          margin-top: 1vh;
+          margin-top: 0.5vh;
           background: #0090C5;
           border-radius: 0.8vh;
           color: #fff;
           font-weight: bold;
 
-          padding: 1.6vh;
+          padding: 1vh;
           padding-left: 1vh;
           
           font-size: 1.8vh;
@@ -255,7 +255,7 @@ export const Projetos = styled.div`
           box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 
           &:hover {
-            background: ${shade(0.08, "#0090C5")};
+            background: ${shade(0.04, "#0090C5")};
           }
 
           &::before {
@@ -263,15 +263,19 @@ export const Projetos = styled.div`
             position: absolute;
 
             color: #00579D;
-            font-size: 2.9vh;
+            font-size: 2.4vh;
             font-weight: 100;
 
-            margin-top: -5.5vh;
+            margin-top: -4.5vh;
             margin-left: -0.5vw;
           }
         }
       }
     }
+  }
+
+  label {
+    font-size: 2.4vh;
   }
 
   #segundaLinha {
@@ -322,14 +326,14 @@ export const Projetos = styled.div`
 `;
 
 export const Responsavel = styled.div`
-  margin-top: 5vh;
+  margin-top: 2vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   justify-content: center;
 
   h1 {
-    font-size: 3.5vh;
+    font-size: 2.8vh;
     padding-bottom: 1.8vh;
     border-bottom: 0.1vh solid #D1CFCF;
     color: #00579D;
@@ -383,6 +387,7 @@ export const Responsavel = styled.div`
     label {
       display: flex;
       justify-content: space-between;
+      font-size: 2.4vh;
 
       svg {
         &:hover {
@@ -398,7 +403,7 @@ export const Responsavel = styled.div`
 
     h1 {
       border-bottom: 0;
-      font-size: 3vh;
+      font-size: 2.4vh;
       //font-weight: 400;
       display: flex;
       align-items: center;
@@ -455,7 +460,7 @@ export const Gastos = styled.div`
   flex-direction: column;
 
   h1 {
-    font-size: 3.5vh;
+    font-size: 2.8vh;
     padding-bottom: 1.8vh;
     border-bottom: 0.1vh solid #D1CFCF;
     color: #00579D;
@@ -526,8 +531,8 @@ export const Table = styled.div`
   
   .table {
     width: 100%;
-    background-color: transparent;
-    padding: 1.2vh;
+  
+    padding: 1.2vh 1.2vh 0 1.2vh;
     border-radius: 0.5vh 0.5vh 0vh 0vh;
 
     display: flex;
@@ -537,16 +542,16 @@ export const Table = styled.div`
 
     h1 {
       color: #00579D;
-      font-size: 3vh;
+      font-size: 2.4vh;
       
       font-weight: 100;
 
       &:nth-child(2) {
-        margin-left: 7.8vw;
+        margin-left: 9vw;
       }
 
       &:nth-child(3) {
-        margin-right: 9vw;
+        margin-right: 10vw;
       }
     }
   }
@@ -554,11 +559,11 @@ export const Table = styled.div`
   .segundaTabela {
     h1 {
       &:nth-child(2) {
-        margin-left: -8.5vw;
+        margin-left: -9vw;
       }
 
       &:nth-child(3) {
-        margin-right: 8vw;
+        margin-right: 9vw;
       }
     }
   }
@@ -589,7 +594,7 @@ export const Table = styled.div`
     height: 145px;
     min-height: 145px;
 
-    margin-top: 0.3vh;
+    //margin-top: 0.3vh;
 
     overflow: scroll;
     overflow-x: hidden;
@@ -634,7 +639,7 @@ export const Total = styled.div`
         border: 0;
         border-radius: 0.5vh;
 
-        font-size: 2vh;
+        font-size: 1.8vh;
         color: white;
         font-weight: bold;
         background-color: #00579D;
@@ -658,7 +663,8 @@ export const Total = styled.div`
 
       h2 {
         color: #00579D;
-        font-size: 3vh;
+        font-size: 2.8vh;
+        font-weight: 100;
       }
 
       input {
@@ -723,7 +729,7 @@ export const Linha = styled.div`
 
   input {
     width: 10vw;
-    height: 5vh;
+    height: 4vh;
     font-size: 2.4vh;
     border-radius: 0.4vh;
     border: 0px;
@@ -765,7 +771,7 @@ export const Datas = styled.div<FormDataProps>`
   flex-direction: column;
 
   h1 {
-    font-size: 3.5vh;
+    font-size: 2.8vh;
     padding-bottom: 1.8vh;
     border-bottom: 0.1vh solid #D1CFCF;
     color: #00579D;
@@ -820,6 +826,10 @@ export const Datas = styled.div<FormDataProps>`
     div {
       display: flex;
       flex-direction: column;
+
+      label {
+        font-size: 2.4vh;
+      }
 
       #data_de_inicio {
             ${props => props.hasErrorInicio && css`

@@ -15,9 +15,10 @@ import { errorfulNotify } from '../../hooks/SystemToasts';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 import { BiHourglass } from 'react-icons/bi';
+import { FiRefreshCcw } from 'react-icons/fi';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
-  ContainerFiltro, Center, Msg, Atualizar } from './styles';
+  ContainerFiltro, Center, Msg } from './styles';
 
 const locales = {
   'pt-BR': require('../../language/pt-BR.json'),
@@ -114,10 +115,6 @@ const Projects: React.FC = () => {
   }, []);
 
   function filtraDadosPorStatus(status: string) {
-    setStatusAtual(status);
-    const separaProjetos = (status === "TODOS") ? global.filter(res => res)
-      : global.filter(res => res.projetoData.statusProjeto === status);
-
     var btns = ["todos", "CONCLUIDO", "ATRASADOS", "EM_ANDAMENTO"];
 
     for (var x = 0; x < btns.length; x++) {
@@ -134,39 +131,48 @@ const Projects: React.FC = () => {
       document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
     }
 
-    if (secaoAtual !== "TODOS") {
-      const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.secao === secaoAtual);
-      setProjetos(separaPorStatusSecao);
-      return;
-    }
-    setProjetos(separaProjetos);
-  }
-
-  const filtraDadosPorSecao = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSecaoAtual(event.target.value);
-
-    const separaProjetos = (event.target.value !== 'TODOS') ?
-      global.filter(res => res.projetoData.secao === event.target.value)
-      : global;
-
-    if (statusAtual !== 'TODOS') {
-      const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.statusProjeto === statusAtual);
-      setProjetos(separaPorStatusSecao);
-    } else {
+    if(global) {
+      setStatusAtual(status);
+      const separaProjetos = (status === "TODOS") ? global : global.filter(res => res.projetoData.statusProjeto === status);
+  
+      if (secaoAtual !== "TODOS") {
+        const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.secao === secaoAtual);
+        setProjetos(separaPorStatusSecao);
+        return;
+      }
       setProjetos(separaProjetos);
     }
   }
 
-  const search = async (event: React.ChangeEvent<{ value: string }>) => {
-    const recebeTexto = event.target.value;
+  const filtraDadosPorSecao = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if(global) {
+      setSecaoAtual(event.target.value);
 
-    if (event.target.value !== '') {
-      setProjetos(global.filter(projeto =>
-        projeto.projetoData.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
-        projeto.projetoData.numeroDoProjeto.toString().includes(recebeTexto)
-      ))
-    } else {
-      setProjetos(global);
+      const separaProjetos = (event.target.value !== 'TODOS') ?
+        global.filter(res => res.projetoData.secao === event.target.value)
+        : global;
+
+      if (statusAtual !== 'TODOS') {
+        const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.statusProjeto === statusAtual);
+        setProjetos(separaPorStatusSecao);
+      } else {
+        setProjetos(separaProjetos);
+      }
+    }
+  }
+
+  const search = async (event: React.ChangeEvent<{ value: string }>) => {
+    if(global) {
+      const recebeTexto = event.target.value;
+
+      if (event.target.value !== '') {
+        setProjetos(global.filter(projeto =>
+          projeto.projetoData.titulo.toLocaleLowerCase().includes(recebeTexto.toLocaleLowerCase()) ||
+          projeto.projetoData.numeroDoProjeto.toString().includes(recebeTexto)
+        ))
+      } else {
+        setProjetos(global);
+      }
     }
   };
 
@@ -227,7 +233,7 @@ const Projects: React.FC = () => {
               <input type="text" placeholder="Pesquise aqui..." onChange={search} />
             </div>
             <div>
-              <Atualizar onClick={() => setAtualizar(true)}/>
+              <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/>
             </div>
           </ContainerFiltro>
         </ContainerInfo>
