@@ -103,7 +103,7 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
     
       useEffect(() => {
         handleProject();
-      }, []);
+      });
 
     return (
         <>
