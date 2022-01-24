@@ -79,7 +79,7 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({status, valor,
                 </Title>
                 <Scroll>
                     {
-                        projetos ? 
+                        projetos && projetos.length > 0 ? 
                             status === "TODOS" ?
                                 projetos.map((projeto, index) => 
                                     projeto.projetoData.horas_apontadas !== 0 ? 
@@ -97,7 +97,7 @@ const PopupVerbaUtilizada: React.FC<PopupVerbaUtilizadaProps> = ({status, valor,
                                         />
                                     : ''
                                 )
-                        : ''
+                        : <p id="info">Nenhum projeto registrado.</p>
                     }
                 </Scroll>
                 <Graph>

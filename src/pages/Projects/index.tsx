@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -19,6 +19,8 @@ import { FiRefreshCcw } from 'react-icons/fi';
 
 import { ContainerProject, ContainerInfo, ProjectsGrid, Container, ContainerTitle,
   ContainerFiltro, Center, Msg } from './styles';
+
+const CardEsqueleto = lazy(() => import('../../components/CardProjeto/CardEsqueleto'));
 
 const locales = {
   'pt-BR': require('../../language/pt-BR.json'),
@@ -240,7 +242,9 @@ const Projects: React.FC = () => {
         <ProjectsGrid>
           <Center>
             {projetos && projetos.length > 0 ? projetos.map((projeto) =>
-              <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
+              <Suspense fallback={<CardEsqueleto/>}>  
+                <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
+              </Suspense>
             ) :
               <Msg>
                 <BiHourglass size={40} />

@@ -1,5 +1,5 @@
 /* Arquivo para realizar testes gerais */
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -12,6 +12,8 @@ import { Container } from './styles';
 import 'react-calendar/dist/Calendar.css';
 
 import './estiloPopup.css';
+
+const Esq = lazy(() => import('../../components/CardProjeto/CardEsqueleto'));
 
 interface IDados {
   user: number,
@@ -34,6 +36,9 @@ const Projects: React.FC = () => {
     <Container>
       <h1>Notificação</h1>    
       <button onClick={teste}>Testar</button>
+      <Suspense fallback={<Esq/>}>  
+        <p>Card teste</p>
+      </Suspense>
     </Container>
     <MenuRight>
       <ContIcons />

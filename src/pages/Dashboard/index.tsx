@@ -178,7 +178,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     handleProject();
-  },[]);
+  });
 
   // async function buscaVerbaDosProjetos() {
   //     if(id !== '0') {

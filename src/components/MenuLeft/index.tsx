@@ -111,13 +111,13 @@ const MenuLeft: React.FC<IFoto> = ({ fotoPerfil }) => {
     }    
 
     // Foto
-    const [foto] = useState(() => {
-        let languageStorage = localStorage.getItem('Foto');
+    // const [foto] = useState(() => {
+    //     let languageStorage = localStorage.getItem('Foto');
 
-        if(languageStorage) {
-            return languageStorage;
-        } 
-    });
+    //     if(languageStorage) {
+    //         return languageStorage;
+    //     } 
+    // });
 
     // Notificações
     const [guardaDadosLocalStorege, setGuardaDadosLocalStorega] = useState<IDados[]>([]);

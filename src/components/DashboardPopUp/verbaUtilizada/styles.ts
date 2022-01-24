@@ -104,6 +104,7 @@ export const Scroll = styled.div`
 
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     overflow: scroll;
     overflow-x: hidden;
@@ -120,7 +121,7 @@ export const Scroll = styled.div`
 
     #info {
         font-size: 2.6vh;
-        color: #00579D;
+        color: #575757;
         margin: 2vh;
     }
 `;

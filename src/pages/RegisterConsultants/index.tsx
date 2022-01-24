@@ -1,24 +1,19 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
 import MenuRight from '../../components/MenuRight';
 import { ContIcons } from '../../components/MenuRight/styles';
-import Footer from '../../components/Footer';
 
 import api from "../../service/api";
 
-import { AiOutlineCaretDown, AiOutlinePhone, AiOutlineMail } from 'react-icons/ai';
-import { BsFillPersonLinesFill } from 'react-icons/bs';
-import { GoPencil } from 'react-icons/go';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import { Container, ContainerTitle, ContainerInfo, ContainerProject, Box, Salvar } from './styles';
 
-import { vrfCampo, verificaCadConsultor, verificaFornecedor } from "../../utils/confereCampo";
+import { vrfCampo, verificaFornecedor } from "../../utils/confereCampo";
 
 import { successfulNotify, errorfulNotify } from '../../hooks/SystemToasts';
-import { PopupModal } from '../../styles/global';
 
 interface CadConsultor {
   funcionarioData: Consultor;
@@ -51,6 +46,30 @@ const RegisterConsultants: React.FC = () => {
   // let config = {
   //     headers: { Authorization: `Bearer ${token}`},
   // };
+
+  const [tags, setTags] = useState<ITag[]>([]);
+
+  const separaTag = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const valor = event.target.value.toLocaleLowerCase();
+    let transforma = "";
+
+    for (let y = 0; y < valor.length - 1; y++) {
+      transforma = transforma + valor[y];
+    }
+
+    for (let i = 0; i < tags.length; i++) {
+      if(tags[i].nome.toLocaleLowerCase() === transforma) {
+        return;
+      }
+    }
+
+    for (let i = 0; i < valor.length; i++) {
+      if(valor[i] === ',') {
+        setTags([...tags, {nome: transforma}]);  
+        event.target.value = '';
+      }
+    }    
+  }
 
   const formatCpf= () => {
     var ao_cpf = (document.getElementById("cpf") as HTMLInputElement).value;
@@ -93,6 +112,9 @@ const RegisterConsultants: React.FC = () => {
 
   function resetarCampos() {
     const inputs = ["numero_cracha", "nome", "email", "senha", "cpf", "telefone", "valor_hora"];
+    let transforma = "";
+    
+    setTags([...tags, {nome: transforma}]); 
 
     for (let i = 0; i < inputs.length; i ++){ 
       (document.getElementById(inputs[i]) as HTMLInputElement).value = "";
@@ -101,23 +123,23 @@ const RegisterConsultants: React.FC = () => {
     (document.getElementById("nome_fornecedor") as HTMLSelectElement).value = "Todos";
   }
 
-  // async function enviarInfo(consultor: CadConsultor) {
-  //   try {
-  //     await api.post(`consultores`, consultor)
-  //       .then(() => {
-  //         successfulNotify('Consultor cadastrado com sucesso!');
-  //         resetarCampos();
-  //       })
-  //       .catch((e) => 
-  //         errorfulNotify(e.response.data.titulo)
-  //       );
-  //   } catch (error) {
-  //     console.log(`Error: ${error}`);
-  //     errorfulNotify('Não foi possivel realizar o cadastro do consultor!'); 
-  //   }
-  // }
+  async function enviarInfo(consultor: CadConsultor) {
+    try {
+      await api.post(`consultores`, consultor)
+        .then(() => {
+          successfulNotify('Consultor cadastrado com sucesso!');
+          resetarCampos();
+        })
+        .catch((e) => 
+          errorfulNotify(e.response.data.titulo)
+        );
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      errorfulNotify('Não foi possivel realizar o cadastro do consultor!'); 
+    }
+  }
 
-  const setConsultorInfos = useCallback( async () => {
+  const setConsultorInfos = useCallback(async () => {
     const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
     const nome = (document.getElementById("nome") as HTMLInputElement).value;
     const email = (document.getElementById("email") as HTMLInputElement).value;
@@ -127,7 +149,7 @@ const RegisterConsultants: React.FC = () => {
     const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
     const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
     const nome_fornecedor = (document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
-    const skills = ["java"];
+    const skills = tags.map(res => res.nome);
     const consultor: CadConsultor = {
       funcionarioData: {
         numero_cracha: numero_cracha,
@@ -142,7 +164,7 @@ const RegisterConsultants: React.FC = () => {
       skills: skills
     };
 
-    //enviarInfo(consultor);
+    enviarInfo(consultor);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -151,30 +173,6 @@ const RegisterConsultants: React.FC = () => {
   //     setSuppliers(response.data);
   //   })
   // });
-
-  const [tags, setTags] = useState<ITag[]>([]);
-
-  const separaTag = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const valor = event.target.value.toLocaleLowerCase();
-    let transforma = "";
-
-    for (let y = 0; y < valor.length - 1; y++) {
-      transforma = transforma + valor[y];
-    }
-
-    for (let i = 0; i < tags.length; i++) {
-      if(tags[i].nome.toLocaleLowerCase() === transforma) {
-        return;
-      }
-    }
-
-    for (let i = 0; i < valor.length; i++) {
-      if(valor[i] === ',') {
-        setTags([...tags, {nome: transforma}]);  
-        event.target.value = '';
-      }
-    }    
-  }
 
   return (
     <>
@@ -239,8 +237,9 @@ const RegisterConsultants: React.FC = () => {
                 /> 
               </span>
             </div>
+            <h1>Fornecedor</h1>
             <div className="coluna">
-              <label>Fornecedor:</label>
+              <label>Registrados: {suppliers.length}</label>
               <select 
                 name="secao" 
                 id="nome_fornecedor"
@@ -285,7 +284,8 @@ const RegisterConsultants: React.FC = () => {
                         tags.splice(index, 1);
                         setTags([...tags,]);  
                       }}/></a>      
-                    )) : <p>Nenhuma tag adicionada</p>
+                    ))
+                  : <p>Nenhuma tag adicionada</p>
                 }
               </div>
               <input 
@@ -301,7 +301,7 @@ const RegisterConsultants: React.FC = () => {
         <Salvar>
           {/* <span/> */}
           <div>
-            <button onClick={() => window.location.reload()}>Cadastrar</button>
+            <button onClick={() => setConsultorInfos}>Cadastrar</button>
           </div>
         </Salvar>
       </ContainerProject>
