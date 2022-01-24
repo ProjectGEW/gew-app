@@ -423,7 +423,7 @@ const CadastroProjeto: React.FC = () => {
                   </div>
                 </div>
                 <div id="ladoDireito">
-                  {file ? <iframe title='ata' src={file ? URL.createObjectURL(file) : URL.createObjectURL(file)} /> : ''}
+                  {file ? <iframe title='ata' src={file ? URL.createObjectURL(file) : URL.createObjectURL(file)} /> : <div id="preview">Visualize o preview da ATA aqui.</div>}
                 </div>
               </div>
             </Projetos>
@@ -660,13 +660,13 @@ const CadastroProjeto: React.FC = () => {
                               </div>
                               <div>
                                 <label>Ata de aprovação:</label>
-                                <p><AiOutlineFilePdf /> {projeto?.projetoData.ata}</p>
+                                <p><AiOutlineFilePdf /> {tituloMenor(projeto ? projeto.projetoData.ata : '', 16)}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
                                 <label>Título:</label>
-                                <p>{projeto?.projetoData.titulo}</p>
+                                <p>{projeto ? projeto.projetoData.titulo.length > 32 ? tituloMenor(projeto.projetoData.titulo, 32) : projeto.projetoData.titulo : ''}</p>
                               </div>
                             </div>
                             <div className="linhaTres">
@@ -680,22 +680,14 @@ const CadastroProjeto: React.FC = () => {
                             <h1>Encarregados</h1>
                             <div className="linhaUm">
                               <div>
-                                <label>Crachá do responsável:</label>
-                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_responsavel}</p>
-                              </div>
-                              <div>
-                                <label>Nome do responsável:</label>
-                                <p>{responavel?.funcionario.nome}</p>
+                                <label>Crachá e nome do responsável:</label>
+                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_responsavel} - {responavel ? responavel.funcionario.nome : 'asdasdasdasdasda'}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
-                                <label>Crachá do solicitante:</label>
-                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_solicitante}</p>
-                              </div>
-                              <div>
-                                <label>Nome do solicitante:</label>
-                                <p>{solicitante?.funcionario.nome}</p>
+                                <label>Crachá e nome do solicitante:</label>
+                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_solicitante} - {solicitante ? solicitante.funcionario.nome : 'asdasdas asdasdasd'}</p>
                               </div>
                             </div>
                           </div>
@@ -704,10 +696,6 @@ const CadastroProjeto: React.FC = () => {
                           <div className="gastos">
                             <h1>Custos</h1>
                             <div className="linhaUm">
-                              <div>
-                                <label>Limite de horas:</label>
-                                <p><AiOutlineClockCircle size={15} /> 0</p>
-                              </div>
                               <div>
                                 <label>Total despesas:</label>
                                 <p>{analisaValor(valorDespesa || 0)}</p>
@@ -718,20 +706,29 @@ const CadastroProjeto: React.FC = () => {
                               </div>
                             </div>
                           </div>
+                          <div className='horas'>
+                            <h1>Horas</h1>
+                            <div className="linhaUm">
+                              <div>
+                                <label>Limite de horas:</label>
+                                <p><AiOutlineClockCircle size={15} /> 0</p>
+                              </div>
+                            </div>
+                          </div>
                           <div className="datas">
                             <h1>Datas</h1>
                             <div className="linhaUm">
                               <div>
                                 <label>Aprovação:</label>
-                                <p><AiOutlineCalendar /> {projeto?.projetoData.data_de_aprovacao}</p>
+                                <p><AiOutlineCalendar /> {projeto ? projeto.projetoData.data_de_aprovacao : ''}</p>
                               </div>
                               <div>
                                 <label>Início:</label>
-                                <p><AiOutlineCalendar />{projeto?.projetoData.data_de_inicio}</p>
+                                <p><AiOutlineCalendar />{projeto ? projeto.projetoData.data_de_inicio : ''}</p>
                               </div>
                               <div>
                                 <label>Término:</label>
-                                <p><AiOutlineCalendar /> {projeto?.projetoData.data_de_termino}</p>
+                                <p><AiOutlineCalendar /> {projeto? projeto .projetoData.data_de_termino : ''}</p>
                               </div>
                             </div>
                           </div>
