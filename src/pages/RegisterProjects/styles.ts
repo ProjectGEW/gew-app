@@ -11,9 +11,9 @@ interface ErrorProps {
 }
 
 export const Container = styled.div`
-  height: 298vh;
-  max-height: 298vh;
-  min-height: 298vh;
+  height: 270vh;
+  max-height: 270vh;
+  min-height: 270vh;
   position: absolute;
   top: 14vh;
   left: 21vw;
@@ -29,9 +29,9 @@ export const Container = styled.div`
 
 export const ContainerRegister = styled.div`
   width: 60vw;
-  height: 292vh;
-  max-height: 292vh;
-  min-height: 292vh;
+  height: 262vh;
+  max-height: 262vh;
+  min-height: 262vh;
 
   display: flex;
   flex-direction: column;
@@ -312,6 +312,16 @@ export const Projetos = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+
+      #preview {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 2vh;
+        color: #575757;
+      }
 
       iframe {
         width: 25vw;
@@ -1039,7 +1049,7 @@ export const BoxPopup = styled.div`
   .header {
     background-color: #00579D;
     color: white;
-    font-size: 3.6vh;
+    font-size: 3vh;
     padding: 1.5vh;
     //padding-left: 0vh;
     display: flex;
@@ -1075,14 +1085,15 @@ export const BoxPopup = styled.div`
     background-color: #fff;
     display: flex;
     flex-direction: column;
+    //justify-content: flex-start;
     padding: 1vh;
 
     h1 {
-      width: 95%;
-      font-size: 3.5vh;
+      width: 100%;
+      font-size: 3vh;
       padding-top: 1vh;
-      padding-bottom: 2vh;
-      border-bottom: 0.1vh solid #ebebeb;
+      padding-bottom: 1vh;
+      border-bottom: 0.1vh solid #00579D;
       color: #00579D;
       display: flex;
       align-items: center;
@@ -1118,9 +1129,9 @@ export const BoxPopup = styled.div`
     }
 
     #descricao {
-      width: 30vw;
-      max-width: 30vw;
-      min-width: 30vw;
+      width: 28vw;
+      max-width: 28vw;
+      min-width: 28vw;
       height: 10vh;
       max-height: 10vh;
       min-height: 10vh;
@@ -1128,8 +1139,9 @@ export const BoxPopup = styled.div`
       margin-top: 0.5vh;
       border: 0;
       background-color: transparent;
-      border: 0.1vh solid #ebebeb;
+      border: 0.1vh solid #c4c4c4;
       color: #5E5E5E;
+      font-size: 2.2vh;
 
       overflow: scroll;
       overflow-x: hidden;
@@ -1146,7 +1158,7 @@ export const BoxPopup = styled.div`
     }
   }
 
-  .projeto, .responsavel, .gastos, .datas {
+  .projeto, .responsavel, .gastos, .horas, .datas {
     display: flex;
     flex-direction: column;
 
@@ -1173,9 +1185,9 @@ export const BoxPopup = styled.div`
           max-height: 3.5vh;
           min-height: 3.5vh;
 
-          font-size: 2.5vh;
+          font-size: 2.2vh;
 
-          overflow: auto;
+          /* overflow: auto;
           overflow-x: hidden;
 
           ::-webkit-scrollbar {
@@ -1186,7 +1198,7 @@ export const BoxPopup = styled.div`
           ::-webkit-scrollbar-thumb {
             background-color: rgb(196, 196, 196); 
             border-radius: 1vh;
-          }
+          } */
 
           //background-color: red;
           padding-top: 0.5vh;
@@ -1202,7 +1214,7 @@ export const BoxPopup = styled.div`
   }
 
   .final {
-    height: 32vh;
+    height: 20vh;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
