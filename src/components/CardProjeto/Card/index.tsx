@@ -107,7 +107,7 @@ const CardProject: React.FC<CardProps> = ({ numeroDoProjeto }) => {
 
   useEffect(() => {
     handleProject();
-  }, []);
+  });
 
   function calcularPorcentagem(count: number) {
     const total = projeto ? projeto.valoresTotais.valorTotalEsforco : 0;
