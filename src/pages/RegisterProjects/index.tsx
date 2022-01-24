@@ -384,7 +384,7 @@ const CadastroProjeto: React.FC = () => {
               <h1>Descrição geral do projeto <span /></h1>
               <div id="primeiraLinha">
                 <div>
-                  <label htmlFor="">Número do projeto</label>
+                  <label htmlFor="">Número do projeto:</label>
                   <input type="number" id="numeroProjeto" onBlur={(props) => {
                     vrfCampoComMsg(props.target.value, "numeroProjeto", "numeroProjetoResponse");
                   }}
@@ -392,7 +392,7 @@ const CadastroProjeto: React.FC = () => {
                   <p id="numeroProjetoResponse" className="msgErro" />
                 </div>
                 <div>
-                  <label htmlFor="">Número da ATA</label>
+                  <label htmlFor="">Número da ATA:</label>
                   <input type="text" id="ataNome" defaultValue={fileName ? tituloMenor(fileName, fileName.length - 4, 'pdf') : ''} onBlur={(props) =>
                     vrfCampoComMsg(props.target.value, "ataNome", "ataResponse")}
                   />
@@ -485,9 +485,9 @@ const CadastroProjeto: React.FC = () => {
               <div id="primeiraLinha">
                 <Table>
                   <div className="table">
-                    <h1>Despesas (gastos)</h1>
-                    <h1>Esforço</h1>
-                    <h1>Valor (R$)</h1>
+                    <h1>Despesas (gastos):</h1>
+                    <h1>Esforço:</h1>
+                    <h1>Valor (R$):</h1>
                   </div>
                   <div id="scroll">
                     {
@@ -540,9 +540,9 @@ const CadastroProjeto: React.FC = () => {
               <div id="segundaLinha">
                 <Table id="tableTwo">
                   <div className="table segundaTabela">
-                    <h1>Seção (Nº)</h1>
-                    <h1>Responsável</h1>
-                    <h1>Valor (R$)</h1>
+                    <h1>Seção (Nº):</h1>
+                    <h1>Responsável:</h1>
+                    <h1>Valor (R$):</h1>
                   </div>
                   <div id="scroll" className="segundaTabelaLinha">
                     {
@@ -681,13 +681,13 @@ const CadastroProjeto: React.FC = () => {
                             <div className="linhaUm">
                               <div>
                                 <label>Crachá e nome do responsável:</label>
-                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_responsavel} - {responavel ? responavel.funcionario.nome : 'asdasdasdasdasda'}</p>
+                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_responsavel} - {responavel ? responavel.funcionario.nome : ''}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
                                 <label>Crachá e nome do solicitante:</label>
-                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_solicitante} - {solicitante ? solicitante.funcionario.nome : 'asdasdas asdasdasd'}</p>
+                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_solicitante} - {solicitante ? solicitante.funcionario.nome : ''}</p>
                               </div>
                             </div>
                           </div>

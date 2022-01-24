@@ -24,10 +24,10 @@ import Button from '../../../components/Button';
 import { ContIcons } from '../../../components/MenuRight/styles';
 import VoltarAoTopo from '../../../components/VoltarAoTopo';
 
-import { FiRefreshCcw, FiInfo } from 'react-icons/fi';
+import { FiRefreshCcw } from 'react-icons/fi';
 import { AiOutlineClockCircle, AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
-import { FaEquals } from 'react-icons/fa';
+import { FaEquals, FaRegIdBadge } from 'react-icons/fa';
 
 import {
   Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gastos,
@@ -455,12 +455,12 @@ const EditarProjeto: React.FC = () => {
               <h1>Descrição geral do projeto <span /></h1>
               <div id="primeiraLinha">
                 <div>
-                  <label htmlFor="">Número do projeto</label>
+                  <label htmlFor="">Número do projeto:</label>
                   <input type="number" id="numeroProjeto" defaultValue={nm || ''} disabled />
                   <p id="numeroProjetoResponse" className="msgErro" />
                 </div>
                 <div>
-                  <label htmlFor="">Número da ATA</label>
+                  <label htmlFor="">Número da ATA:</label>
                   <input type="text" id="ataNome" defaultValue={fileName ? tituloMenor(fileName, fileName.length - 4, 'pdf') : ''} onBlur={(props) =>
                     vrfCampoComMsg(props.target.value, "ataNome", "ataResponse")}
                   />
@@ -501,7 +501,7 @@ const EditarProjeto: React.FC = () => {
                 <h1>Responsável <FiRefreshCcw size={20} /></h1>
                 <div>
                   <div>
-                    <label htmlFor="cracha_responsavel">Crachá</label>
+                    <label htmlFor="cracha_responsavel">Crachá:</label>
                     <input type="number" id="cracha_responsavel" onBlur={(props) => {
                         if (props.target.value === "") {
                           props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -513,11 +513,11 @@ const EditarProjeto: React.FC = () => {
                       }} defaultValue={responavel?.funcionario.numero_cracha || ''} />
                   </div>
                   <div>
-                    <label htmlFor="nome_responsavel">Nome <FiInfo id="iconNomeResponsavel" size={20} /></label>
+                    <label htmlFor="nome_responsavel">Nome:</label>
                     <input type="text" id="nome_responsavel" defaultValue={responavel?.funcionario.nome || ''} disabled />
                   </div>
                   <div>
-                    <label htmlFor="secao_responsavel">Seção <FiInfo id="iconSecaoResponsavel" size={20} /></label>
+                    <label htmlFor="secao_responsavel">Seção:</label>
                     <input type="text" id="secao_responsavel" defaultValue={responavel?.secao || ''} disabled/>
                   </div>
                 </div>
@@ -526,7 +526,7 @@ const EditarProjeto: React.FC = () => {
                 <h1>Solicitante <FiRefreshCcw size={20} /></h1>
                 <div>
                   <div>
-                    <label htmlFor="cracha_solicitante">Crachá</label>
+                    <label htmlFor="cracha_solicitante">Crachá:</label>
                     <input type="text" id="cracha_solicitante" onBlur={(props) => {
                       if (props.target.value === "") {
                         props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -538,11 +538,11 @@ const EditarProjeto: React.FC = () => {
                     }} defaultValue={solicitante?.funcionario.numero_cracha || ''}/>
                   </div>
                   <div>
-                    <label htmlFor="nome_solicitante">Nome <FiInfo id="iconNomeSolicitante" size={20} /></label>
+                    <label htmlFor="nome_solicitante">Nome:</label>
                     <input type="text" id="nome_solicitante" defaultValue={solicitante?.funcionario.nome || ''} />
                   </div>
                   <div>
-                    <label htmlFor="secao_solicitante">Seção <FiInfo id="iconSecaoSolicitante" size={20} /></label>
+                    <label htmlFor="secao_solicitante">Seção:</label>
                     <input type="text" id="secao_solicitante" defaultValue={solicitante?.secao || ''} disabled/>
                   </div>
                 </div>
@@ -553,9 +553,9 @@ const EditarProjeto: React.FC = () => {
               <div id="primeiraLinha">
                 <Table>
                   <div className="table">
-                    <h1>Despesas (gastos)</h1>
-                    <h1>Esforço</h1>
-                    <h1>Valor (R$)</h1>
+                    <h1>Despesas (gastos):</h1>
+                    <h1>Esforço:</h1>
+                    <h1>Valor (R$):</h1>
                   </div>
                   <div id="scroll">
                   {
@@ -608,9 +608,9 @@ const EditarProjeto: React.FC = () => {
               <div id="segundaLinha">
                 <Table id="tableTwo">
                   <div className="table segundaTabela">
-                    <h1>Seção (Nº)</h1>
-                    <h1>Responsável</h1>
-                    <h1>Valor (R$)</h1>
+                    <h1>Seção (Nº):</h1>
+                    <h1>Responsável:</h1>
+                    <h1>Valor (R$):</h1>
                   </div>
                   <div id="scroll" className="segundaTabelaLinha">
                   {
@@ -748,22 +748,14 @@ const EditarProjeto: React.FC = () => {
                             <h1>Encarregados</h1>
                             <div className="linhaUm">
                               <div>
-                                <label>Crachá do responsável:</label>
-                                <p>{projeto?.infoProjetosInputDTO.cracha_responsavel}</p>
-                              </div>
-                              <div>
-                                <label>Nome do responsável:</label>
-                                <p>{responavel?.funcionario.nome}</p>
+                                <label>Crachá e nome do responsável:</label>
+                                <p><FaRegIdBadge /> {projeto?.infoProjetosInputDTO.cracha_responsavel} - {responavel?.funcionario.nome}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
-                                <label>Crachá do solicitante:</label>
-                                <p>{projeto?.infoProjetosInputDTO.cracha_solicitante}</p>
-                              </div>
-                              <div>
-                                <label>Nome do solicitante:</label>
-                                <p>{solicitante?.funcionario.nome}</p>
+                                <label>Crachá e nome do solicitante:</label>
+                                <p><FaRegIdBadge />  {projeto?.infoProjetosInputDTO.cracha_solicitante} - {solicitante?.funcionario.nome}</p>
                               </div>
                             </div>
                           </div>
@@ -773,16 +765,21 @@ const EditarProjeto: React.FC = () => {
                             <h1>Custos</h1>
                             <div className="linhaUm">
                               <div>
-                                <label>Limite de horas:</label>
-                                <p><AiOutlineClockCircle size={15} /> 0</p>
-                              </div>
-                              <div>
                                 <label>Total despesas</label>
                                 <p>{analisaValor(0)}</p>
                               </div>
                               <div>
                                 <label>Valor total</label>
                                 <p>{analisaValor(0)}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className='horas'>
+                            <h1>Horas</h1>
+                            <div className="linhaUm">
+                              <div>
+                                <label>Limite de horas:</label>
+                                <p><AiOutlineClockCircle size={15} /> 0</p>
                               </div>
                             </div>
                           </div>
