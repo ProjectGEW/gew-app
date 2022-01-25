@@ -37,6 +37,8 @@ const Login: React.FC = () => {
       let linguagemPadrao = {flag: "BR", code: "pt-BR"}
       localStorage.setItem('Language', JSON.stringify(linguagemPadrao));
       localStorage.setItem('Fonte', '2.8');
+      localStorage.setItem('Animation', "false");
+      localStorage.setItem('Notification', "false");
       return;
     }
   });
@@ -44,10 +46,7 @@ const Login: React.FC = () => {
   intl.init({
     currentLocale: language ? language.code : 'pt-BR',
     locales
-  });
-
-  /* Definição da animação dos gráficos - Revisar */
-  localStorage.setItem('Animation', "false");
+  });  
 
   const formRef = useRef<FormHandles>(null);
   const { signIn: singIn } = useAuth();

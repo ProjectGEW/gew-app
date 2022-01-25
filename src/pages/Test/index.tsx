@@ -29,6 +29,10 @@ const Projects: React.FC = () => {
     localStorage.setItem('Notification', JSON.stringify(dados));
   }
 
+  const asd = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(parseInt((document.getElementById(`centro2`) as HTMLInputElement).value));
+  }
+
   return (
     <>
     <Navbar />
@@ -38,6 +42,12 @@ const Projects: React.FC = () => {
       <button onClick={teste}>Testar</button>
       <Suspense fallback={<Esq/>}>  
         <p>Card teste</p>
+        <select name="secao" onChange={asd}>
+          <option id={`centro2`} value="...">asdas</option>
+          <option id={`centro3`} value="...">asdas</option>
+          <option id={`centro4`} value="...">asdasd</option>
+          <option id={`centro`} value="...">asd</option>
+        </select>
       </Suspense>
     </Container>
     <MenuRight>

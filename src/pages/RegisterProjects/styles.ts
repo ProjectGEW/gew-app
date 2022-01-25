@@ -72,7 +72,7 @@ export const Content = styled.div`
 
   border-radius: 0vh 0vh 0.8vh 0.8vh;
 
-  input, textarea {
+  input, textarea, select {
     height: 4vh;
     margin-bottom: 3vh;
 
@@ -580,6 +580,11 @@ export const Table = styled.div`
 
   .segundaTabelaLinha {
     div {
+      select {
+        width: 14vw;
+        font-size: 2vh;
+      }
+
       input {
         &:nth-child(1) {
           width: 14vw;
@@ -630,6 +635,8 @@ export const Total = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;    
+
+  border-top: 0.1vh solid rgba(0, 0, 0, 0.1);
 
   div {
     width: 70%;
@@ -702,6 +709,11 @@ export const Total = styled.div`
         background-color: #f0f0f0;
         box-shadow: 0vh 0vh 0vh transparent;
         color: #5E5E5E;
+      }
+
+      .somaTotal {
+        //background-color: #c2e4ff;
+        color: #00579D;
       }
 
       #totalValor {

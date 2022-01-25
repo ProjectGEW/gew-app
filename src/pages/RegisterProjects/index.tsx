@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Calendar from 'react-calendar';
@@ -80,6 +80,10 @@ interface IFuncionarioResponse {
   };
   secao: string;
 }
+
+// interface ISecoes {
+//   nome: string;
+// }
 
 const CadastroProjeto: React.FC = () => {
   const history = useHistory();
@@ -218,6 +222,24 @@ const CadastroProjeto: React.FC = () => {
     somaTotalDP();
   }
 
+  // Busca as seções
+  // const [secoes, setSecoes] = useState<ISecoes[]>([]);
+
+  // async function handleProject() {
+  //   try {
+  //     await api.get<ISecoes[]>(`secoes`)
+  //     .then((response => {
+  //       setSecoes(response.data);
+  //     })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   handleProject();
+  // }, []);
+
   // Funções para funcionamento do calendario
   const [value, onChange] = useState(new Date());
   const [selected, setSelected] = useState<string>("inicio");
@@ -324,7 +346,7 @@ const CadastroProjeto: React.FC = () => {
     for (let i = 1; i <= ccPagante.length; i++) {
       infosProjeto.secoesPagantes.push(
         {
-          secao_id: parseInt((document.getElementById(`centro${i}`) as HTMLInputElement).value),
+          secao_id: parseInt((document.getElementById(`centro${i}`) as HTMLSelectElement).value),
           valor: parseFloat((document.getElementById(`valorC${i}`) as HTMLInputElement).value)
         }
       )
@@ -530,8 +552,8 @@ const CadastroProjeto: React.FC = () => {
                     </div>
                     <div>
                       <h2>Total:</h2>
-                      <input id="totalEsforco" type="number" value={esforco || 0} disabled />
-                      <input id="totalValor" type="text" value={analisaValor(valorDespesa || 0)} disabled />
+                      <input id="totalEsforco" className="somaTotal" type="text" value={analisaValor(esforco || 0)} disabled />
+                      <input id="totalValor" className="somaTotal" type="text" value={analisaValor(valorDespesa || 0)} disabled />
                       <FaEquals id="soma" onClick={() => somaTotalDP()} />
                     </div>
                   </Total>
@@ -556,7 +578,7 @@ const CadastroProjeto: React.FC = () => {
                             }
                             props.target.style.border = "";
                             buscarResponsavelSecao(props.target.value, index);
-                          }} />
+                          }} /> 
                           <input type="text" id={`responsavel${index + 1}`} disabled />
                           <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
                             if (props.target.value === "") {
@@ -577,7 +599,7 @@ const CadastroProjeto: React.FC = () => {
                     </div>
                     <div>
                       <h2>Total:</h2>
-                      <input id="totalValor" type="text" value={analisaValor(valorSecoesPagantes || 0)} disabled />
+                      <input id="totalValor" className="somaTotal" type="text" value={analisaValor(valorSecoesPagantes || 0)} disabled />
                       <FaEquals id="soma" onClick={() => somaTotalCc()} />
                     </div>
                   </Total>
@@ -681,13 +703,13 @@ const CadastroProjeto: React.FC = () => {
                             <div className="linhaUm">
                               <div>
                                 <label>Crachá e nome do responsável:</label>
-                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_responsavel} - {responavel ? responavel.funcionario.nome : ''}</p>
+                                <p><FaRegIdBadge /> {projeto ? projeto.projetoData.cracha_responsavel : ''} - {responavel ? responavel.funcionario.nome : ''}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
                                 <label>Crachá e nome do solicitante:</label>
-                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_solicitante} - {solicitante ? solicitante.funcionario.nome : ''}</p>
+                                <p><FaRegIdBadge /> {projeto ? projeto.projetoData.cracha_solicitante : ''} - {solicitante ? solicitante.funcionario.nome : ''}</p>
                               </div>
                             </div>
                           </div>

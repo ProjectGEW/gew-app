@@ -32,6 +32,14 @@ const Settings: React.FC = () => {
     locales
   });
 
+  const [nome] = useState(() => {
+    let nomeStorage = localStorage.getItem('User:nome');
+
+    if(nomeStorage) {
+      return nomeStorage;
+    } 
+  });
+  
   const [recebeAnimacao] = useState(() => {
     let animacaoStorage = localStorage.getItem('Animation');
 
@@ -41,7 +49,18 @@ const Settings: React.FC = () => {
     } 
   });
 
+  const [recebeNotificacao] = useState(() => {
+    let notificacaoStorage = localStorage.getItem('Notification');
+
+    if(notificacaoStorage) {
+      let notificacaoObject = JSON.parse(notificacaoStorage);
+      return notificacaoObject;
+    } 
+  });
+  
   const [animacao, setAnimacao] = useState(recebeAnimacao);
+  const [notificacao, setNotificacao] = useState(recebeNotificacao);
+
 
   useEffect(() => {
     if(animacao === true) {
@@ -56,24 +75,6 @@ const Settings: React.FC = () => {
       localStorage.setItem('Animation', "false");
     }
   },[animacao]);
-
-  // const userName = localStorage.getItem('User:nome');
-
-  // const [file, setFile] = useState();
-  // const [fileName, setFileName] = useState<string>('');
-
-  // const onDrop = useCallback((acceptedFiles) => {
-  //   setFile(acceptedFiles[0]);
-  //   setFileName(acceptedFiles[0].name);
-  // }, []);
-
-  // const { getRootProps, getInputProps } = useDropzone({
-  //   multiple: false,
-  //   onDropAccepted: onDrop,
-  // });
-
-  // const { ref, ...rootProps } = getRootProps();
-  // console.log(file);
 
   const [tamanhoFonte, setTamanhoFonte] = useState('');
 
@@ -147,11 +148,11 @@ const Settings: React.FC = () => {
               <p>{intl.get("configurações.desativar_notif")}</p>
             </div>
             <div id="inputs">
-              <input type="text" defaultValue={'José da Silva Santos'} />
-              <input type="password" defaultValue={'********************************'} />
+              <input type="text" defaultValue={nome ? nome : 'Não foi possíveo localizar o nome'} />
+              <input type="password" />
               <label htmlFor="foto">{file ? file.type : intl.get("configurações.escolher_img")}</label>
               <input id="foto" {...getInputProps()}/>
-              <span>Ativado</span>
+              <span id="notification" onClick={() => setNotificacao(!notificacao)}>{intl.get("configurações.ativado")}</span>
             </div>
           </div>
           <div className="row">
