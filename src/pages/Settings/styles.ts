@@ -43,7 +43,7 @@ export const ContainerTitle = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  border-bottom: 0.2vh solid #ccc;
+  border-bottom: 0.2vh solid rgba(0, 0, 0, 0.1);
 
   h1 {
     color: #00579D;
@@ -206,7 +206,7 @@ export const Box = styled.div`
     }
 
     span {
-      padding: 0.6vh 3vh 0.6vh 3vh;
+      padding: 0.8vh 3vh 0.8vh 3vh;
       border: 0;
       border-radius: 0.5vh;
 
@@ -250,10 +250,6 @@ export const Example = styled.div<IProps>`
 
     ${props => props.tamanhoFonte === '4' && css`
       font-size: 4vh;
-    `};
-
-    ${props => props.tamanhoFonte === '99' && css`
-      font-size: 99vh;
     `};
   }
 `;

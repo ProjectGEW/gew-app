@@ -55,7 +55,7 @@ const MenuLeft: React.FC<IFoto> = ({ fotoPerfil }) => {
 
             document.getElementById("container-menu")!.style.overflow = 'hidden';
             document.getElementById("container-menu")!.style.transform = 'translateX(11vw)';
-            document.getElementById("user-img")!.style.transform = 'translateX(-11vw)';
+            document.getElementById("user-img")!.style.transform = 'translateX(-11.25vw)';
             document.getElementById("user-img")!.style.width = '8vh';
             document.getElementById("user-img")!.style.height = '9.25vh';
 
@@ -86,7 +86,7 @@ const MenuLeft: React.FC<IFoto> = ({ fotoPerfil }) => {
             document.getElementById("news-img")!.style.transform = 'translate(0vw, 0vh)';
             document.getElementById("news-img")!.style.width = '10vh';
             document.getElementById("news-img")!.style.height = '6vh';
-            document.getElementById("news-img")!.style.marginLeft = '14.4vw';
+            document.getElementById("news-img")!.style.marginLeft = '14vw';
 
             document.getElementById("user-name")!.style.display = "none";
             document.getElementById("title-not")!.style.display = "none";

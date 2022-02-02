@@ -11,9 +11,9 @@ interface ErrorProps {
 }
 
 export const Container = styled.div`
-  height: 270vh;
-  max-height: 270vh;
-  min-height: 270vh;
+  height: 285vh;
+  max-height: 285vh;
+  min-height: 285vh;
   position: absolute;
   top: 14vh;
   left: 21vw;
@@ -29,9 +29,9 @@ export const Container = styled.div`
 
 export const ContainerRegister = styled.div`
   width: 60vw;
-  height: 262vh;
-  max-height: 262vh;
-  min-height: 262vh;
+  height: 277vh;
+  max-height: 277vh;
+  min-height: 277vh;
 
   display: flex;
   flex-direction: column;
@@ -73,7 +73,7 @@ export const Content = styled.div`
   border-radius: 0vh 0vh 0.8vh 0.8vh;
 
   input, textarea, select {
-    height: 4vh;
+    height: 4.5vh;
     margin-bottom: 3vh;
 
     font-size: 2.4vh;
@@ -569,7 +569,7 @@ export const Table = styled.div`
   .segundaTabela {
     h1 {
       &:nth-child(2) {
-        margin-left: -9vw;
+        margin-left: 1.5vw;
       }
 
       &:nth-child(3) {
@@ -581,17 +581,17 @@ export const Table = styled.div`
   .segundaTabelaLinha {
     div {
       select {
-        width: 14vw;
+        width: 18vw;
         font-size: 2vh;
       }
 
       input {
         &:nth-child(1) {
-          width: 14vw;
+          width: 18vw;
         }
-
+        
         &:nth-child(2) {
-          width: 24vw;
+          width: 20vw;
           background-color: #f0f0f0;
           box-shadow: 0vh 0vh 0vh transparent;
         }
@@ -751,7 +751,7 @@ export const Linha = styled.div`
 
   input {
     width: 10vw;
-    height: 4vh;
+    height: 4.5vh;
     font-size: 2.4vh;
     border-radius: 0.4vh;
     border: 0px;

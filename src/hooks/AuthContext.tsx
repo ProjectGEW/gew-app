@@ -34,28 +34,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  function buscarCargo(email: string) {
-    //api.get(`funcionarios/cargo/${email}`).then((response) => {
-      //if (response.data === 1) {
-        localStorage.setItem('Cargo', 'GZ4_7WPQgajvmSlKlRgn8A')
-      // }
-      // if (response.data === 2) {
-      //   localStorage.setItem('Cargo', 'fmb8xNYF02BPXsGJohcOkw')
-      // }
-      // if (response.data === 3) {
-      //   localStorage.setItem('Cargo', 'aIj5vqAY-nXFQC0DLJUrxA')
-      // }
-      // if (response.data === 4) {
-      //   api.get(`funcionarios/cracha/${email}`).then((response) => {
-      //     localStorage.setItem('Cracha', response.data);
-      //   });
-      //   localStorage.setItem('Cargo', 'V_mJKGFmvh7XtkEVhOCgTw')
-      // }
-    //});
-  }
-
   const signIn = useCallback(async ({ email, senha }) => {
-    buscarCargo(email);
     const response = await api.post("authenticate", {
       email,
       senha,

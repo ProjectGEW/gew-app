@@ -90,7 +90,7 @@ const ProjectsList: React.FC = () => {
         locales
     });
 
-    window.onload = async function handleData() {
+    const handleData = async () => {
         try {
             await api.get("projetos").then((response) => {
                 setProjetos(response.data);
@@ -104,6 +104,10 @@ const ProjectsList: React.FC = () => {
             console.log("Error: ", error);
         }
     };
+
+    useEffect(() => {
+        handleData();
+    },[]);
 
     function filtraDadosPorStatus(status: string) {
         setStatusAtual(status);
@@ -229,10 +233,7 @@ const ProjectsList: React.FC = () => {
                                     projeto.projetoData.statusProjeto !== "CONCLUIDO" ? 
                                         <CardSelect key={projeto.projetoData.numeroDoProjeto} numeroDoProjeto={projeto.projetoData.numeroDoProjeto} />
                                     : 
-                                    <Msg>
-                                        <BiHourglass size={40} />
-                                        <h1>{intl.get('tela_projetos.msg.texto')}</h1>
-                                    </Msg>
+                                    ''
                                 )) :
                                 <Msg>
                                     <BiHourglass size={40} />

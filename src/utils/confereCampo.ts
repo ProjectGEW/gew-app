@@ -69,7 +69,7 @@ export function analisaCampoLinhasdCcPagantes(listaCcPagantes: number) {
   let confirm = 0;
 
   for (let i = 1; i <= listaCcPagantes; i++) {
-    confirm += analisaCampo(`centro${i}`);  
+    confirm += analisaCampo(`responsavel${i}`);  
     confirm += analisaCampo(`valorC${i}`);
   }
 

@@ -120,7 +120,7 @@ const Dashboard: React.FC = () => {
   const [statusAtual, setStatusAtual] = useState('TODOS');
   const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
-  async function handleProject() {
+  const handleProject = async () => {
     try {
       await api.get<CardContent[]>(`projetos`)
       .then((response => {
@@ -178,7 +178,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     handleProject();
-  });
+  },[]);
 
   // async function buscaVerbaDosProjetos() {
   //     if(id !== '0') {

@@ -88,7 +88,7 @@ const CardProject: React.FC<CardProps> = ({ numeroDoProjeto }) => {
   const [status, setStatus] = useState('');
   const [valorConsumido, setValorConsumido] = useState<Coutverba>();
 
-  async function handleProject() {
+  const handleProject = async () => {
     try {
       await api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
         .then((response => {
@@ -107,7 +107,7 @@ const CardProject: React.FC<CardProps> = ({ numeroDoProjeto }) => {
 
   useEffect(() => {
     handleProject();
-  });
+  }, []);
 
   function calcularPorcentagem(count: number) {
     const total = projeto ? projeto.valoresTotais.valorTotalEsforco : 0;

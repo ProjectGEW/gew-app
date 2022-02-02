@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import intl from "react-intl-universal";
 import api from '../../service/api';
@@ -48,19 +48,6 @@ interface CountPerData {
 
 const Menu: React.FC = () => {
     const history = useHistory();
-    let level = localStorage.getItem('Cargo');
-    
-    if(level === null){
-      if(level !== 'GZ4_7WPQgajvmSlKlRgn8A') {
-        if(level !== 'fmb8xNYF02BPXsGJohcOkw') {
-          if(level !== 'aIj5vqAY-nXFQC0DLJUrxA') {
-            if(level !== 'V_mJKGFmvh7XtkEVhOCgTw') {
-              history.push('/');
-            }
-          }
-        }
-      }
-    }
 
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -96,7 +83,7 @@ const Menu: React.FC = () => {
     const [verbaTotalEmAndamento, setVerbaTotalEmAndamento] = useState<Number>();
     const [verbaTotalAtrasado, setVerbaTotalAtrasado] = useState<Number>();
 
-    window.onload = async function handleData(): Promise<void> {
+    const handleData = async () => {
         try {
             const response = await api.get<Count>(`projetos/count`);
             const contagem = response.data;
@@ -113,6 +100,10 @@ const Menu: React.FC = () => {
            console.log("Não foi possivel realizar a leitura de dados");
         }
     }
+
+    useEffect(() => {
+        handleData();
+    },[]);
 
     function calcularPorcentagem(count: number) {
         const total = counts ? counts.contagem.total : 0;

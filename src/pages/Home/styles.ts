@@ -307,7 +307,7 @@ export const GraphBars = styled.div`
     }
 
     #bar7 {
-        margin-right: 1.2vw;
+        margin-right: 0.7vw;
     }
 `;
 

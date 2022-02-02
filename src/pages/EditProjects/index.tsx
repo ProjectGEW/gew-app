@@ -96,7 +96,7 @@ const EditProjects: React.FC = () => {
     const [statusAtual, setStatusAtual] = useState('TODOS');
     const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
-    async function handleProject() {
+    const handleProject = async () => {
         try {
             await api.get<IProjetoProps[]>(`projetos`)
             .then((response => {

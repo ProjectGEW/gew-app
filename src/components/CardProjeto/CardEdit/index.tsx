@@ -66,7 +66,7 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
   const [status, setStatus] = useState('');
   const [valorConsumido, setValorConsumido] = useState<Coutverba>();
   
-  async function handleProject() {
+  const handleProject = async () => {
     try {
       await api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
         .then((response => {
@@ -85,7 +85,7 @@ const CardProject: React.FC<CardStatusColor> = ({numeroDoProjeto}) => {
 
   useEffect(() => {
     handleProject();
-  });
+  }, []);
 
   return (
     <>

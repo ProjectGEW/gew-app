@@ -56,7 +56,7 @@ export const UserImg = styled.div`
     align-items: center;
 
     border-radius: 1vh;
-    border: 0.4vh solid #00579D;
+    //border: 0.4vh solid #00579D;
 
     img {
         border-radius: 1vh;

@@ -88,15 +88,6 @@ interface IFuncionarioResponse {
 const CadastroProjeto: React.FC = () => {
   const history = useHistory();
 
-  if (localStorage.getItem('Cargo') !== 'GZ4_7WPQgajvmSlKlRgn8A' &&
-    localStorage.getItem('Cargo') !== 'fmb8xNYF02BPXsGJohcOkw ') {
-    localStorage.removeItem("Token");
-    localStorage.removeItem("User");
-    localStorage.removeItem("User:nome");
-    localStorage.removeItem("Level");
-    history.push('/');
-  }
-
   const infosProjeto = {
     projetoData: {
       numeroDoProjeto: 0,

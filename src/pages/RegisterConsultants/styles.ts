@@ -82,7 +82,7 @@ export const Box = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-
+    
     .col {
         width: 50%;
 
@@ -115,13 +115,14 @@ export const Box = styled.div`
         }
 
         #boxTags {
-            font-size: 2vh;
+            font-size: 2.4vh;
             border: 0.1vh solid #c4c4c4;
             border-radius: 0.4vh;
             color: #575757;
 
             width: 25vw;
-            max-height: 16vh;
+            max-height: 9vh;
+            min-height: 9vh;
 
             padding: 1vh;
             margin: 0 1vw 1vw 0;
@@ -168,7 +169,7 @@ export const Box = styled.div`
             }
 
             p {
-                font-size: 1.6vh;
+                font-size: 2vh;
                 color: #575757;
             }
         }
@@ -176,7 +177,7 @@ export const Box = styled.div`
         #info {
             margin-top: 0.4vh;
             color: #00579D;
-            font-size: 1.6vh;
+            font-size: 2vh;
         }
 
         .coluna {
@@ -203,7 +204,7 @@ export const Box = styled.div`
 
         input {
             width: 12vw;
-            height: 4vh;
+            height: 4.5vh;
 
             font-size: 2.4vh;
 

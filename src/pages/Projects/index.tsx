@@ -95,14 +95,14 @@ const Projects: React.FC = () => {
   const [statusAtual, setStatusAtual] = useState('TODOS');
   const [secaoAtual, setSecaoAtual] = useState('TODOS');
 
-  async function handleProject() {
+  const handleProject = async () => {
     try {
       await api.get<IProjetoProps[]>(`projetos`)
       .then((response => {
         setProjetos(response.data);
         setGlobal(response.data);
       })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
-
+      
       await api.get<ISecoes[]>(`secoes`)
       .then((response => {
         setSecoes(response.data);
@@ -111,7 +111,7 @@ const Projects: React.FC = () => {
       console.log(e);
     }
   }
-
+  
   useEffect(() => {
     handleProject();
   }, []);
@@ -242,9 +242,10 @@ const Projects: React.FC = () => {
         <ProjectsGrid>
           <Center>
             {projetos && projetos.length > 0 ? projetos.map((projeto) =>
-              <Suspense fallback={<CardEsqueleto/>}>  
-                <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
-              </Suspense>
+              // <Suspense fallback={<CardEsqueleto/>}>  
+              //   <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
+              // </Suspense>
+              <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
             ) :
               <Msg>
                 <BiHourglass size={40} />

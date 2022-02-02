@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -36,9 +36,9 @@ import {
 
 //Interfaces
 interface IProjetoInputDTO {
-  infoProjetosInputDTO: IInfoProjetosInputDTO;
-  despesasInputDTOS: IDespesas[];
-  ccPagantesInputDTO: ICCpagantesInput[];
+  projetoData: IInfoProjetosInputDTO;
+  despesas: IDespesas[];
+  secoesPagantes: ICCpagantesInput[];
 }
 
 interface IInfoProjetosInputDTO {
@@ -79,6 +79,7 @@ interface IProjeto {
     id: number;
     numeroDoProjeto: number;
     titulo: string;
+    ata: string;
     descricao: string;
     data_de_inicio: string;
     data_de_termino: string;
@@ -131,7 +132,7 @@ interface IDespesas {
   valor: number;
 }
 
-interface ICCpagantes{
+interface IsecoesPagantes{
   secao: {
     id: number;
     responsavel: {
@@ -148,9 +149,14 @@ interface ISecao {
   }
 }
 
+
 const EditarProjeto: React.FC = () => {
+  let isso : ISecao[];
+  let ossi = '';
+  const history = useHistory();
+
   const infosProjeto = {
-    infoProjetosInputDTO: {
+    projetoData: {
       numeroDoProjeto: 0,
       titulo: "",
       descricao: "",
@@ -161,55 +167,83 @@ const EditarProjeto: React.FC = () => {
       data_de_termino: "",
       data_de_aprovacao: ""
     },
-    despesasInputDTOS: [
+    despesas: [
       {
         nome: "",
         esforco: 0,
         valor: 0
       }
     ],
-    ccPagantesInputDTO: [
+    secoesPagantes: [
       {
-        secao_id: 0,
+        secao_nome: "",
         valor: 0
       }
     ]
   }
 
+  infosProjeto.despesas.shift();
+  infosProjeto.secoesPagantes.shift();
   //const [verificaCliqueAta, setVerificaCliqueAta] = useState(false);
-    
-    //Setar as informações, para usar nos campos
-    const { nm }: {nm: string}  = useParams();
-    const [despesas, setDespesas] = useState<IDespesas[]>([]);
-    const [ccPagante, setCCpagante] = useState<ICCpagantes[]>([]);
-    const [projetoEdit, setProjetoEdit] = useState<IProjeto>();
-    const [file, setFile] = useState<Blob>();
-    const [fileName, setFileName] = useState<string>('');
-    
-    async function handleProject() {
-      try {
-        await api.get<IProjeto>(`projetos/${nm}`)
-          .then((response => {
-            setProjetoEdit(response.data); 
-            setDespesas(response.data.despesas);
-            setCCpagante(response.data.secoesPagantes);
-            setDataInicio(response.data.projetoData.data_de_inicio);
-            setDataFim(response.data.projetoData.data_de_termino);
-            setDataAprovacao(response.data.projetoData.data_de_aprovacao);
-            buscarInfosFuncionario(String(response.data.projetoData.responsavel.numero_cracha), "responsavel");
-            buscarInfosFuncionario(String(response.data.projetoData.solicitante.numero_cracha), "solicitante");
-          })).catch(() => errorfulNotify("Não foi possível encontrar este projeto."));
-      } catch(e) {
+  
+  //Setar as informações, para usar nos campos
+  const { numeroProjeto }: {numeroProjeto: string}  = useParams();
+  const [despesas, setDespesas] = useState<IDespesas[]>([]);
+  const [secoesPagantes, setSecoesPagantes] = useState<IsecoesPagantes[]>([]);
+  const [projetoEdit, setProjetoEdit] = useState<IProjeto>();
+  const [file, setFile] = useState<Blob>();
+  const [secoes, setSecoes] = useState<ISecao[]>([]);
+  const [fileName, setFileName] = useState<string>('');
+
+  //const [fileName, setFileName] = useState('');
+  
+  const handleProject = async () => {
+    try {
+      await api.get<IProjeto>(`projetos/${numeroProjeto}`)
+      .then((response => {
+        setProjetoEdit(response.data); 
+        setDespesas(response.data.despesas);
+        setSecoesPagantes(response.data.secoesPagantes);
+        setDataInicio(response.data.projetoData.data_de_inicio);
+        setDataFim(response.data.projetoData.data_de_termino);
+        setDataAprovacao(response.data.projetoData.data_de_aprovacao);
+        buscarInfosFuncionario(String(response.data.projetoData.responsavel.numero_cracha), "responsavel");
+        buscarInfosFuncionario(String(response.data.projetoData.solicitante.numero_cracha), "solicitante");
+      })).catch(() => errorfulNotify("Não foi possível encontrar este projeto."));
+    } catch(e) {
       console.log(e);
-      }
     }
+  }
 
-    useEffect(() => {
-      handleProject();
-    });
+  const [asd, setAsd] = useState([{nome: ''}]);
 
-    // Obriga a colocar uma ATA (PDF)
-    // useEffect(() => {
+  const handleSecoes = async () => {
+    try {
+      await api.get<ISecao[]>(`secoes`)
+      .then((response => {
+        setSecoes(response.data);
+      })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    handleProject();
+    handleSecoes();
+  },[]);
+
+
+  if(secoes.length > 0 && asd.length <= (secoes.length + 1)){
+    for (let i= 0; i < secoes.length; i++) {
+      setAsd([...asd, {nome: 'a'}])
+    }
+    asd.shift();
+    console.log(asd);
+  }
+
+  // Obriga a colocar uma ATA (PDF)
+  // useEffect(() => {
     //   if(verificaCliqueAta === true && fileName === '') {
     //     document.getElementById("ataResponse")!.innerHTML = "ATA obrigatória*";
     //   } else if(fileName !== '') {
@@ -229,7 +263,7 @@ const EditarProjeto: React.FC = () => {
   }
       
   function setNovaLinhaCC(){
-    return setCCpagante([...ccPagante, {secao: {id: Number(null), responsavel: {nome: ""}}, valor: Number(null)}])
+    return setSecoesPagantes([...secoesPagantes, {secao: {id: Number(null), responsavel: {nome: ""}}, valor: Number(null)}])
   }
       
   function deleteLastRowDP() {
@@ -245,14 +279,14 @@ const EditarProjeto: React.FC = () => {
   }
 
   function deleteLastRowCC(){
-    if (ccPagante.length > Number(projetoEdit?.secoesPagantes.length)) {
-      ccPagante.pop();
-      setCCpagante([...ccPagante]);
+    if (secoesPagantes.length > Number(projetoEdit?.secoesPagantes.length)) {
+      secoesPagantes.pop();
+      setSecoesPagantes([...secoesPagantes]);
       return;
     }
 
     warnNotify("Não é possível remover os registros.")
-    return ccPagante;
+    return secoesPagantes;
   }
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -287,7 +321,7 @@ const EditarProjeto: React.FC = () => {
   function somaTotalCc() {
     var somaValorCcPagantes = 0;
   
-    for (let i = 1; i <= ccPagante.length; i++) {
+    for (let i = 1; i <= secoesPagantes.length; i++) {
       somaValorCcPagantes += parseInt((document.getElementById(`valorC${i}`) as HTMLInputElement).value);
       setValorCcPagantes(somaValorCcPagantes);
     }
@@ -379,29 +413,37 @@ const EditarProjeto: React.FC = () => {
       });
   }
 
-  async function buscarResponsavelSecao(idSecao: string, index:number) {
-    await api.get<ISecao>(`secoes/${idSecao}`).then((response) => 
-      (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = response.data.responsavel.nome
+  const [infoSecaoSelecionada, setInfoSecaoSelecionada] = useState<ISecao>();
+
+  async function buscarResponsavelSecao(nomeResponsavel: string, index:number) {
+    await api.get<ISecao>(`secoes/nome/${nomeResponsavel}`).then((response) => {
+      setInfoSecaoSelecionada(response.data);
+      (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = response.data.responsavel.nome;
+    }
     );
+    
+    //setResponsavelDespesas(index);
+
   }
 
   //Setar informações
   const [projeto, setProjeto] = useState<IProjetoInputDTO>();
+
   function setarInformações() {
-    infosProjeto.infoProjetosInputDTO["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
-    infosProjeto.infoProjetosInputDTO["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
-    infosProjeto.infoProjetosInputDTO["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
-    infosProjeto.infoProjetosInputDTO["ata"] = (document.getElementById('ataNome') as HTMLInputElement).value;
+    infosProjeto.projetoData["numeroDoProjeto"] = parseInt((document.getElementById("numeroProjeto") as HTMLInputElement).value);
+    infosProjeto.projetoData["titulo"] = (document.getElementById("titulo") as HTMLInputElement).value;
+    infosProjeto.projetoData["descricao"] = (document.getElementById("descricao") as HTMLTextAreaElement).value;
+    infosProjeto.projetoData["ata"] = (document.getElementById('ataNome') as HTMLInputElement).value;
 
-    infosProjeto.infoProjetosInputDTO.cracha_responsavel = parseInt((document.getElementById("cracha_responsavel") as HTMLInputElement).value);
-    infosProjeto.infoProjetosInputDTO.cracha_solicitante = parseInt((document.getElementById("cracha_solicitante") as HTMLInputElement).value);
+    infosProjeto.projetoData.cracha_responsavel = parseInt((document.getElementById("cracha_responsavel") as HTMLInputElement).value);
+    infosProjeto.projetoData.cracha_solicitante = parseInt((document.getElementById("cracha_solicitante") as HTMLInputElement).value);
 
-    infosProjeto.infoProjetosInputDTO.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
-    infosProjeto.infoProjetosInputDTO.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
-    infosProjeto.infoProjetosInputDTO.data_de_aprovacao = (document.getElementById("data_de_aprovacao") as HTMLInputElement).value;
+    infosProjeto.projetoData.data_de_inicio = (document.getElementById("data_de_inicio") as HTMLInputElement).value;
+    infosProjeto.projetoData.data_de_termino = (document.getElementById("data_de_termino") as HTMLInputElement).value;
+    infosProjeto.projetoData.data_de_aprovacao = (document.getElementById("data_de_aprovacao") as HTMLInputElement).value;
 
     for (let i = 1; i <= despesas.length; i++) {
-      infosProjeto.despesasInputDTOS.push(
+      infosProjeto.despesas.push(
         {
           nome: (document.getElementById(`despesa${i}`) as HTMLInputElement).value,
           esforco: parseInt((document.getElementById(`esforco${i}`) as HTMLInputElement).value),
@@ -410,14 +452,23 @@ const EditarProjeto: React.FC = () => {
       )
     };
 
-    for (let i = 1; i <= ccPagante.length; i++) {
-      infosProjeto.ccPagantesInputDTO.push(
+    for (let i = 1; i <= secoesPagantes.length; i++) {
+      infosProjeto.secoesPagantes.push(
         {
-          secao_id: parseInt((document.getElementById(`centro${i}`) as HTMLInputElement).value),
+          secao_nome: (document.getElementById(`select${i}`) as HTMLSelectElement).value || '',
           valor: parseFloat((document.getElementById(`valorC${i}`) as HTMLInputElement).value)
         }
       )
     };
+
+    for (let i = 1; i < infosProjeto.secoesPagantes.length; i ++) {
+      for (let j = 1; j < i + 1; j ++) {
+          if (infosProjeto.secoesPagantes[i].secao_nome === infosProjeto.secoesPagantes[j - 1].secao_nome) {
+              console.log('Não foi possivel editar o projeto');
+              return null;
+          }
+      }
+  }
 
     setProjeto(infosProjeto);
     somaTotal();
@@ -425,20 +476,29 @@ const EditarProjeto: React.FC = () => {
     return console.log(projeto);
   }
 
-  async function cadastrarProjeto() {
+  const editarProjeto = async () => {
     try {
-      await api.post<IProjetoInputDTO>('projetos', projeto)
+      await api.put<IProjetoInputDTO>(`projetos/${numeroProjeto}`, projeto)
         .then((response) => {
-          //history.push('/projects')
-          successfulNotify('Projeto cadastrado com sucesso!');
+          history.push('/projects');
+          successfulNotify(`Projeto ${numeroProjeto} editado com sucesso!`);
         })
         .catch((e) => {
-          errorfulNotify('Não foi possivel cadastrar o projeto!');
+          console.log(projeto);
+          errorfulNotify(`Não foi possível editar o projeto ${numeroProjeto}!`);
         })
     } catch (e) {
       console.log(`Error: ${e}`);
-      errorfulNotify('Não foi possivel realizar o cadastro do projeto!');
+      errorfulNotify(`Não foi possível editar o projeto ${numeroProjeto}!`);
     }
+  }
+
+  // function setResponsavelDespesas(nomeResponsavel: string, index: number) {
+  //   (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = nomeResponsavel;
+  // }
+
+  function setResponsavelDespesas(index: number) {
+    (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = infoSecaoSelecionada ? infoSecaoSelecionada.responsavel.nome : '';
   }
 
   return (
@@ -456,12 +516,12 @@ const EditarProjeto: React.FC = () => {
               <div id="primeiraLinha">
                 <div>
                   <label htmlFor="">Número do projeto:</label>
-                  <input type="number" id="numeroProjeto" defaultValue={nm || ''} disabled />
+                  <input type="number" id="numeroProjeto" defaultValue={numeroProjeto || ''} disabled />
                   <p id="numeroProjetoResponse" className="msgErro" />
                 </div>
                 <div>
                   <label htmlFor="">Número da ATA:</label>
-                  <input type="text" id="ataNome" defaultValue={fileName ? tituloMenor(fileName, fileName.length - 4, 'pdf') : ''} onBlur={(props) =>
+                  <input type="text" id="ataNome" defaultValue={tituloMenor(projetoEdit ? projetoEdit.projetoData.ata : '', 20, 'pdf')} onBlur={(props) =>
                     vrfCampoComMsg(props.target.value, "ataNome", "ataResponse")}
                   />
                   <p id="ataResponse" className="msgErro"></p>
@@ -608,15 +668,15 @@ const EditarProjeto: React.FC = () => {
               <div id="segundaLinha">
                 <Table id="tableTwo">
                   <div className="table segundaTabela">
-                    <h1>Seção (Nº):</h1>
+                    <h1>Seção:</h1>
                     <h1>Responsável:</h1>
                     <h1>Valor (R$):</h1>
                   </div>
                   <div id="scroll" className="segundaTabelaLinha">
                   {
-                      ccPagante.map((exibe, index) => (
+                      secoesPagantes.map((exibe, index) => (
                         <Linha id={`C${index + 1}`} key={index}>
-                          <input type="text" id={`centro${index + 1}`} onBlur={(props) => {
+                          {/* <input type="text" id={`centro${index + 1}`} onBlur={(props) => {
                             if (props.target.value === "") {
                               props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
                               errorfulNotify("O campo não pode estar vazio!");
@@ -624,8 +684,14 @@ const EditarProjeto: React.FC = () => {
                             }
                             props.target.style.border = "";
                             buscarResponsavelSecao(props.target.value, index);
-                          }} defaultValue={exibe.secao.id}/>
-                          <input type="text" id={`responsavel${index + 1}`} defaultValue={exibe.secao.responsavel.nome} disabled />
+                          }} defaultValue={exibe.secao.id}/> */}
+                          <select id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>
+                            {secoes.map((res, index) => {
+                              //if(projetoEdit?.projetoData.responsavel.nome) 
+                              <option key={index} value={res.nome}>{res.nome}</option>
+                            })}
+                          </select>
+                          <input type="text" id={`responsavel${index + 1}`} disabled />
                           <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
                             if (props.target.value === "") {
                               props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -724,23 +790,23 @@ const EditarProjeto: React.FC = () => {
                             <div className="linhaUm">
                               <div>
                                 <label>Número do projeto:</label>
-                                <p>{projeto?.infoProjetosInputDTO.numeroDoProjeto || 0}</p>
+                                <p>{projeto?.projetoData.numeroDoProjeto || 0}</p>
                               </div>
                               <div>
                                 <label>Ata de aprovação:</label>
-                                <p>{projeto?.infoProjetosInputDTO.ata}</p>
+                                <p>{projeto?.projetoData.ata}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
                                 <label>Título do projeto:</label>
-                                <p>{projeto?.infoProjetosInputDTO.titulo}</p>
+                                <p>{projeto?.projetoData.titulo}</p>
                               </div>
                             </div>
                             <div className="linhaTres">
                               <div>
                                 <label>Descrição do projeto:</label>
-                                <textarea id="descricao" defaultValue={projeto?.infoProjetosInputDTO.descricao} disabled />
+                                <textarea id="descricao" defaultValue={projeto?.projetoData.descricao} disabled />
                               </div>
                             </div>
                           </div>
@@ -749,13 +815,13 @@ const EditarProjeto: React.FC = () => {
                             <div className="linhaUm">
                               <div>
                                 <label>Crachá e nome do responsável:</label>
-                                <p><FaRegIdBadge /> {projeto?.infoProjetosInputDTO.cracha_responsavel} - {responavel?.funcionario.nome}</p>
+                                <p><FaRegIdBadge /> {projeto?.projetoData.cracha_responsavel} - {responavel?.funcionario.nome}</p>
                               </div>
                             </div>
                             <div className="linhaDois">
                               <div>
                                 <label>Crachá e nome do solicitante:</label>
-                                <p><FaRegIdBadge />  {projeto?.infoProjetosInputDTO.cracha_solicitante} - {solicitante?.funcionario.nome}</p>
+                                <p><FaRegIdBadge />  {projeto?.projetoData.cracha_solicitante} - {solicitante?.funcionario.nome}</p>
                               </div>
                             </div>
                           </div>
@@ -788,22 +854,23 @@ const EditarProjeto: React.FC = () => {
                             <div className="linhaUm">
                               <div>
                                 <label>Data de aprovação:</label>
-                                <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_aprovacao}</p>
+                                <p><AiOutlineCalendar /> {projeto?.projetoData.data_de_aprovacao}</p>
                               </div>
                               <div>
                                 <label>Data de início:</label>
-                                <p><AiOutlineCalendar />{projeto?.infoProjetosInputDTO.data_de_inicio}</p>
+                                <p><AiOutlineCalendar />{projeto?.projetoData.data_de_inicio}</p>
                               </div>
                               <div>
                                 <label>Data de término:</label>
-                                <p><AiOutlineCalendar /> {projeto?.infoProjetosInputDTO.data_de_termino}</p>
+                                <p><AiOutlineCalendar /> {projeto?.projetoData.data_de_termino}</p>
                               </div>
                             </div>
                           </div>
                           <div className="final">
                             <button onClick={() => {
-                              if (validacaoDosCamposCadastros(despesas.length, ccPagante.length)) {
-                                cadastrarProjeto();
+                              if (validacaoDosCamposCadastros(despesas.length, secoesPagantes.length)) {
+                                editarProjeto();
+                                close();
                               }
                             }}>Finalizar</button>
                           </div>
@@ -819,7 +886,6 @@ const EditarProjeto: React.FC = () => {
             }> 
               <Button tipo={"continuarCadastro"} text={"Confirmar"} />
             </span> */}
-
             </Finalizar>
           </Content>
         </ContainerRegister>
@@ -828,7 +894,7 @@ const EditarProjeto: React.FC = () => {
         // Ativa botão para voltar pro topo da página
         window.innerHeight >= 780 ? <VoltarAoTopo /> : ''
       }
-      <MenuRight numeroDoProjeto={Number(nm)}>
+      <MenuRight numeroDoProjeto={Number(numeroProjeto)}>
         <ContIcons />
       </MenuRight>
     </>

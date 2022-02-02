@@ -126,7 +126,6 @@ const Settings: React.FC = () => {
                 <option value="2">{intl.get("configurações.pequena")}</option>
                 <option value="3.2">{intl.get("configurações.media")}</option>
                 <option value="4">{intl.get("configurações.grande")}</option>
-                <option value="99">Vini</option>
               </select>
             </div>
           </div>

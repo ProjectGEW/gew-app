@@ -3,7 +3,7 @@ import { Switch } from 'react-router';
 import Route from './Route';
 
 import Login from '../pages/Login';
-import Home from '../pages/Home/home';
+import Home from '../pages/Home';
 import Projetos from '../pages/Projects';
 import Detalhes from '../pages/Details';
 import CadastrarProjeto from '../pages/RegisterProjects';
@@ -44,7 +44,7 @@ const Routes: React.FC = () => {
         <Route path="/consultants/view_projects" component={ListaProjetosConsultores} isPrivate />
         <Route path="/consultants/:numeroDoProjeto" component={ListaConsultores} isPrivate />
         <Route path="/consultants/profile/:numeroCracha" component={PerfilConsultores} isPrivate />
-        <Route path="/edit/:nm" component={EditaProjetoSelecionado} isPrivate />
+        <Route path="/edit/:numeroProjeto" component={EditaProjetoSelecionado} isPrivate />
 
         {/* Área para testes */}
         <Route path="/test" component={Test} isPrivate />
