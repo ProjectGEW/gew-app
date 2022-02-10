@@ -27,7 +27,7 @@ export const ContainerNavbar = styled.div`
 `;
 
 export const Logo = styled.div`
-  width: 4.4vw;
+  width: 4.1vw;
   height: 6vh;
   margin: 1vh 0 0 1vw;
   background-image: url(${WEG});

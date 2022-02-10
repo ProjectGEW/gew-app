@@ -307,15 +307,15 @@ export const TableDimensions = styled.div`
 
 export const TableScroll = styled.div`
   width: 70vw;
-  height: 60vh;
+  height: 56vh;
   
-  border: 0.1vh solid rgb(196, 196, 196, 0.5);    
+  border: 0.1vh solid rgb(196, 196, 196, 0.5);   
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
 
   ::-webkit-scrollbar {
@@ -335,8 +335,8 @@ export const LinhaConsultor = styled.div<TableProps>`
   border-bottom: 0.1vh solid #e9e9e9;
 
   &:nth-child(2n + 1) {
-    background-color: rgb(155, 155, 155, 0.05);
-  }
+    background-color: rgb(0, 0, 0, 0.025);
+  } 
   
   ${props => props.status === true && css`
     &:hover {
@@ -357,9 +357,9 @@ export const LinhaConsultor = styled.div<TableProps>`
     }
   `}  
   
-  ${props => props.status === false && css`
+  ${props => props.status === false && css`    
     &:hover {
-        background-color: #fff6f6;
+      background-color: #fff6f6;
     }
 
     span {

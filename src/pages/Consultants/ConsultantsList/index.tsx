@@ -70,10 +70,11 @@ const ConsultantList: React.FC = () => {
     const [consultants, setConsultants] = useState<IConsultor[]>([]);
 
     const [fornecedores, setFornecedores] = useState<IFornecedor[]>([]);
+    const [fornecedorAtual, setFornecedorAtual] = useState('');
 
     const { numeroDoProjeto }: {numeroDoProjeto: string} = useParams();
     
-    async function handleProject() {
+    async function handleConsultants() {
         try {
             await api.get<IConsultor[]>("consultores").then((response) => {
                 setConsultants(response.data); 
@@ -89,7 +90,7 @@ const ConsultantList: React.FC = () => {
     }
 
     useEffect(() => {
-        handleProject();
+        handleConsultants();
     },[]);
 
     function defineStatus(valor?: boolean) {
@@ -113,7 +114,7 @@ const ConsultantList: React.FC = () => {
         
         const recebeStatus = document.activeElement?.id;
 
-        if(recebeStatus !== 'TODOS') {
+        if(recebeStatus !== 'Todos') {
             setConsultants(global.filter(status => status.status === (recebeStatus === 'true' ? true : false)));
         } else {
             setConsultants(global);
@@ -132,29 +133,41 @@ const ConsultantList: React.FC = () => {
         }
     };
 
-    async function alocarConsultor(cracha: number) {
-        const pegaConsultor = consultants.filter(res => res.funcionarioData.numero_cracha === cracha).map(res => res.projetos);     
+    async function alocarConsultor(cracha: number, close: Function) {
+        const listaDeConsultor = consultants.find(res => res.funcionarioData.numero_cracha === cracha);
 
-        const recebeHoras = document.getElementById('horas');
-        console.log("🚀 ~ file: index2.tsx ~ line 141 ~ alocarConsultor ~ recebeHoras", recebeHoras!.innerHTML);
-        
-    
-        for(let x = 0; x < pegaConsultor.length; x++) {
-            if(pegaConsultor[x] === [Number(numeroDoProjeto)]) {
-                errorfulNotify(`O projeto ${numeroDoProjeto} já está atrelado ao consultor ${cracha}.`);
-            } else {
-                try {
-                    const horas = { horas: 50 }
-                    api.post(`projetos/alocar/${numeroDoProjeto}/${cracha}`, horas);
-                    successfulNotify(`Projeto ${numeroDoProjeto} atrelado ao consultor ${cracha}.`);
-                    handleProject();
-                } catch(e) {
-                    console.log("🚀 ~ file: index2.tsx ~ line 154 ~ alocarConsultor ~ e", e);   
-                }
-            }
-        }
+        if(listaDeConsultor?.projetos?.includes(Number(numeroDoProjeto))) {
+            errorfulNotify(`O projeto ${numeroDoProjeto} já está atrelado ao consultor ${cracha}.`);
+            return;
+        }  
+
+        const recebeLimiteDeHoras = {horas: (document.getElementById("horas") as HTMLInputElement).value};
+
+        api.post(`projetos/alocar/${numeroDoProjeto}/${cracha}`, recebeLimiteDeHoras).then(() => 
+            successfulNotify(`Horas apontadas com sucesso!`)
+        ).catch((e) =>
+            console.log(e)
+        );
+
+        handleConsultants();
+        close();
 
     }
+
+    const filtraDadosPorFornecedor = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        if(global) {
+          setFornecedorAtual(event.target.value);
+    
+          const separaProjetos = (event.target.value !== 'TODOS') ?
+            global.filter(res => res.fornecedor === event.target.value)
+            : global;
+
+            setConsultants(separaProjetos);
+
+            // Revisar***
+        }
+    }
+
     
     return (
         <>
@@ -170,8 +183,8 @@ const ConsultantList: React.FC = () => {
                     <h1>Filtros:</h1>
                         <div>
                             <label>Fornecedor:</label>
-                            <select>
-                                <option value="Todos">Todos</option>
+                            <select onChange={filtraDadosPorFornecedor}>
+                                <option value="TODOS">Todos</option>
                                 {
                                     fornecedores ? fornecedores.map(response =>
                                         <option key={response.cnpj} value={response.nome}>{response.nome}</option>)
@@ -208,7 +221,7 @@ const ConsultantList: React.FC = () => {
                 {consultants && consultants.length > 0 ? consultants.map((consultant, index) => (  
                     <LinhaConsultor id='column' status={consultant.status} key={index}>
                         <span className='cadastro'>{consultant.funcionarioData.numero_cracha}</span>
-                        <span className='status' id={`status${consultant.funcionarioData.numero_cracha}`}>{consultant.status}</span>
+                        <span className='status' id={`status${consultant.funcionarioData.numero_cracha}`}>{consultant.status ? 'Ativo' : 'Inativo'}</span>
                         <span className='nome'>{consultant.funcionarioData.nome}</span>
                         <span className='fornecedor'>{consultant.fornecedor}</span>
                         <span className='projetos'>
@@ -235,7 +248,7 @@ const ConsultantList: React.FC = () => {
                                                 <h1>Limite de horas para o projeto {numeroDoProjeto}:</h1>
                                                 <div>
                                                     <input type="number" name="qtdHoras" id="horas" />
-                                                    <button onClick={() => alocarConsultor(consultant.funcionarioData.numero_cracha)}>Alocar</button>
+                                                    <button onClick={() => alocarConsultor(consultant.funcionarioData.numero_cracha, close)}>Alocar</button>
                                                 </div>
                                             </ScrollPopupHoras>
                                         </PopupAdicionarHoras>
