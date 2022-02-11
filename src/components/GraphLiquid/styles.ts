@@ -160,7 +160,7 @@ export const Circle = styled.div<WavesProps>`
         box-shadow: 0 0 0 1vh white, 0 0 0 2vh #00579D;
 
         &::after {
-            font-size: 5vh;
+            font-size: 6vh;
         }
 
         div {

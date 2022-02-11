@@ -242,10 +242,9 @@ const Projects: React.FC = () => {
         <ProjectsGrid>
           <Center>
             {projetos && projetos.length > 0 ? projetos.map((projeto) =>
-              // <Suspense fallback={<CardEsqueleto/>}>  
-              //   <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
-              // </Suspense>
-              <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
+              <Suspense fallback={<CardEsqueleto/>}>  
+                <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
+              </Suspense>
             ) :
               <Msg>
                 <BiHourglass size={40} />

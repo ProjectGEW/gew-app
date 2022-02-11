@@ -233,7 +233,6 @@ const EditarProjeto: React.FC = () => {
     handleSecoes();
   },[]);
 
-
   if(secoes.length > 0 && asd.length <= (secoes.length + 1)){
     for (let i= 0; i < secoes.length; i++) {
       setAsd([...asd, {nome: 'a'}])
@@ -686,10 +685,9 @@ const EditarProjeto: React.FC = () => {
                             buscarResponsavelSecao(props.target.value, index);
                           }} defaultValue={exibe.secao.id}/> */}
                           <select id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>
-                            {secoes.map((res, index) => {
-                              //if(projetoEdit?.projetoData.responsavel.nome) 
+                            {secoes.map((res, index) => (
                               <option key={index} value={res.nome}>{res.nome}</option>
-                            })}
+                            ))}
                           </select>
                           <input type="text" id={`responsavel${index + 1}`} disabled />
                           <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {

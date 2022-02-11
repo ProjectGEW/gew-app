@@ -74,7 +74,6 @@ export const Content = styled.div`
 
   input, textarea, select {
     height: 4.5vh;
-    margin-bottom: 3vh;
 
     font-size: 2.4vh;
 

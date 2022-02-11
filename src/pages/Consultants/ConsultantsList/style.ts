@@ -334,6 +334,11 @@ export const LinhaConsultor = styled.div<TableProps>`
   align-items: center;
   border-bottom: 0.1vh solid #e9e9e9;
 
+  .desativado {
+    background-color: #00579D;
+    opacity: 0.5;
+  }
+
   &:nth-child(2n + 1) {
     background-color: rgb(0, 0, 0, 0.025);
   } 

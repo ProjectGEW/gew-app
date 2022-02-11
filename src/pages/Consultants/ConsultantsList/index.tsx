@@ -133,6 +133,12 @@ const ConsultantList: React.FC = () => {
         }
     };
 
+    function verificaProjetoNoConsultor(cracha: number) {
+        const listaDeConsultor = consultants.find(res => res.funcionarioData.numero_cracha === cracha);
+
+        return listaDeConsultor?.projetos?.includes(Number(numeroDoProjeto));
+    }
+
     async function alocarConsultor(cracha: number, close: Function) {
         const listaDeConsultor = consultants.find(res => res.funcionarioData.numero_cracha === cracha);
 
@@ -143,15 +149,19 @@ const ConsultantList: React.FC = () => {
 
         const recebeLimiteDeHoras = {horas: (document.getElementById("horas") as HTMLInputElement).value};
 
-        api.post(`projetos/alocar/${numeroDoProjeto}/${cracha}`, recebeLimiteDeHoras).then(() => 
-            successfulNotify(`Horas apontadas com sucesso!`)
-        ).catch((e) =>
-            console.log(e)
-        );
+        if(Number(recebeLimiteDeHoras.horas) > 0) {
+            api.post(`projetos/alocar/${numeroDoProjeto}/${cracha}`, recebeLimiteDeHoras).then(() => 
+                successfulNotify(`Horas apontadas com sucesso!`)
+            ).catch((e) =>
+                console.log(e)
+            );
 
-        handleConsultants();
-        close();
-
+            handleConsultants();
+            close();
+        } else {
+            errorfulNotify(`É preciso adicionar um limite de horas!`);
+            close();
+        }
     }
 
     const filtraDadosPorFornecedor = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -236,7 +246,10 @@ const ConsultantList: React.FC = () => {
                             : ''}
                         </span>
                         <span className='atribuicao'>
-                            <PopupModal closeOnEscape trigger={<button>Alocar</button>} modal>
+                            <PopupModal closeOnEscape trigger={
+                                !verificaProjetoNoConsultor(consultant.funcionarioData.numero_cracha) ?
+                            <button>Alocar</button> : <button className="desativado" disabled>Alocar</button>
+                            } modal>
                                 {(close: any) => (
                                     <ContainerPopupHoras>
                                         <PopupAdicionarHoras>

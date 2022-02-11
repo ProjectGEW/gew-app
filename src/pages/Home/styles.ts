@@ -103,7 +103,7 @@ export const Card = styled.div`
             font-size: 2.5vh;
             color: #00579D;
 
-            text-shadow: 0.1vh 0.1vh 0.2vh rgb(0, 0, 0, 0.25);
+            text-shadow: 0.1vh 0.1vh 0.2vh rgb(0, 0, 0, 0.09);
         }
 
         p {
@@ -111,7 +111,7 @@ export const Card = styled.div`
 
             font-size: 1.6vh;
             color: #2382BA;
-            text-shadow: 0.1vh 0.1vh 0.2vh rgb(0, 0, 0, 0.25);
+            text-shadow: 0.1vh 0.1vh 0.2vh rgb(0, 0, 0, 0.09);
             
             display: flex;
             align-items: center;
@@ -151,7 +151,7 @@ export const CardContent = styled.div`
         margin-top: -1vh;
         font-size: 7vh;
         color: #00579D;
-        text-shadow: 0.1vh 0.1vh 0.2vh rgb(0, 0, 0, 0.25);
+        text-shadow: 0.1vh 0.1vh 0.2vh rgb(0, 0, 0, 0.09);
 
         & + div {
             position: absolute;
