@@ -150,7 +150,6 @@ interface ISecao {
   }
 }
 
-
 const EditarProjeto: React.FC = () => {
   let isso : ISecao[];
   let ossi = '';
