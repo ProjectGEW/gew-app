@@ -670,31 +670,29 @@ const EditarProjeto: React.FC = () => {
                   </div>
                   <div id="scroll" className="segundaTabelaLinha">
                   {
-                      secoesPagantes.map((exibe, index) => (
-                        <Linha id={`C${index + 1}`} key={index}>
-                          <select defaultValue={exibe.secao.nome} id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>                           
-                            {secoes.map((res, index) => {
-                              return <option key={index} value={res.nome}>{res.nome}</option>
-                            })}                          
-                          </select>
-                          
-                          {
-                            secoes.filter(res => res.responsavel.nome === exibe.secao.responsavel.nome).map(res => (
-                              <input type="text" id={`responsavel${index + 1}`} defaultValue={res.responsavel.nome} disabled />
-                            ))
+                    secoesPagantes.map((exibe, index) => (
+                      <Linha id={`C${index + 1}`} key={index}>
+                        <select defaultValue={exibe.secao.nome} id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>                           
+                          {secoes.map((res, index) => {
+                            return <option key={index} value={res.nome}>{res.nome}</option>
+                          })}                          
+                        </select>
+                        {
+                          secoes.filter(res => res.responsavel.nome === exibe.secao.responsavel.nome).map(res => (
+                            <input type="text" id={`responsavel${index + 1}`} defaultValue={res.responsavel.nome} disabled />
+                          ))
+                        }
+                        <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
+                          if (props.target.value === "" && Number(props.target.value) === 0) {
+                            props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
+                            errorfulNotify("O campo não pode estar vazio!");
+                            return;
                           }
-                          
-                          <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
-                            if (props.target.value === "" && Number(props.target.value) === 0) {
-                              props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
-                              errorfulNotify("O campo não pode estar vazio!");
-                              return;
-                            }
-                            props.target.style.border = "";
-                          }} defaultValue={exibe.valor}/>
-                        </Linha>
-                      )) || ''
-                    }
+                          props.target.style.border = "";
+                        }} defaultValue={exibe.valor}/>
+                      </Linha>
+                    )) || ''
+                  }
                   </div>
                   <Total>
                     <div>

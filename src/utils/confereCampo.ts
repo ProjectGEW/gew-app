@@ -70,23 +70,35 @@ export function analisaCampoLinhasdCcPagantes(listaCcPagantes: number) {
 
   for (let i = 1; i <= listaCcPagantes; i++) {
     confirm += analisaCampo(`responsavel${i}`);  
-    confirm += analisaCampo(`valorC${i}`);
+    confirm += analisaCampo(`valorC${i}`, i);
   }
 
   if (confirm < listaCcPagantes * 2) {
+    errorfulNotify('Os valores devem ser maiores que zero!')
     return 0; 
   }
   
   return 1;
 }
 
-function analisaCampo(idElement: string) {
+function analisaCampo(idElement: string, numberIndex?: number) {  
+  if(`${idElement}` === `valorC${numberIndex}`){
+    const valor = (document.getElementById(idElement) as HTMLInputElement).value
+    let holdValue = 0;
+    if (Number(valor) <= 0){
+      holdValue = 0;
+    } else {
+      holdValue = 1;
+    }
+    return holdValue;
+  } 
+
   if ((document.getElementById(idElement) as HTMLInputElement).value === "") {
     document.getElementById(idElement)!.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
     return 0;
   }
   
-  document.getElementById(idElement)!.style.border = "";
+  document.getElementById(idElement)!.style.border = ""
   return 1;
 }
 
