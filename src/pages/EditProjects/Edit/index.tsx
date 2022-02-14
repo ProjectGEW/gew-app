@@ -135,6 +135,7 @@ interface IDespesas {
 interface IsecoesPagantes{
   secao: {
     id: number;
+    nome?: string;
     responsavel: {
       nome: string;
     }
@@ -414,7 +415,7 @@ const EditarProjeto: React.FC = () => {
 
   const [infoSecaoSelecionada, setInfoSecaoSelecionada] = useState<ISecao>();
 
-  async function buscarResponsavelSecao(nomeResponsavel: string, index:number) {
+  async function buscarResponsavelSecao(nomeResponsavel: string, index: number) {
     await api.get<ISecao>(`secoes/nome/${nomeResponsavel}`).then((response) => {
       setInfoSecaoSelecionada(response.data);
       (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = response.data.responsavel.nome;
@@ -491,10 +492,6 @@ const EditarProjeto: React.FC = () => {
       errorfulNotify(`Não foi possível editar o projeto ${numeroProjeto}!`);
     }
   }
-
-  // function setResponsavelDespesas(nomeResponsavel: string, index: number) {
-  //   (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = nomeResponsavel;
-  // }
 
   function setResponsavelDespesas(index: number) {
     (document.getElementById(`responsavel${index+1}`) as HTMLInputElement).value = infoSecaoSelecionada ? infoSecaoSelecionada.responsavel.nome : '';
@@ -675,23 +672,20 @@ const EditarProjeto: React.FC = () => {
                   {
                       secoesPagantes.map((exibe, index) => (
                         <Linha id={`C${index + 1}`} key={index}>
-                          {/* <input type="text" id={`centro${index + 1}`} onBlur={(props) => {
-                            if (props.target.value === "") {
-                              props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
-                              errorfulNotify("O campo não pode estar vazio!");
-                              return;
-                            }
-                            props.target.style.border = "";
-                            buscarResponsavelSecao(props.target.value, index);
-                          }} defaultValue={exibe.secao.id}/> */}
-                          <select id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>
-                            {secoes.map((res, index) => (
-                              <option key={index} value={res.nome}>{res.nome}</option>
-                            ))}
+                          <select defaultValue={exibe.secao.nome} id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>                           
+                            {secoes.map((res, index) => {
+                              return <option key={index} value={res.nome}>{res.nome}</option>
+                            })}                          
                           </select>
-                          <input type="text" id={`responsavel${index + 1}`} disabled />
+                          
+                          {
+                            secoes.filter(res => res.responsavel.nome === exibe.secao.responsavel.nome).map(res => (
+                              <input type="text" id={`responsavel${index + 1}`} defaultValue={res.responsavel.nome} disabled />
+                            ))
+                          }
+                          
                           <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
-                            if (props.target.value === "") {
+                            if (props.target.value === "" && Number(props.target.value) === 0) {
                               props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
                               errorfulNotify("O campo não pode estar vazio!");
                               return;

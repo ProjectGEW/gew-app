@@ -388,6 +388,7 @@ export const Responsavel = styled.div`
     margin-top: 2vh;
     margin-left: 1.5vw;
     padding-top: 2vh;
+    padding-bottom: 2vh;
     border: 0.1vh solid #ebebeb;
     background-color: #f8f8f8;
     box-shadow: rgba(0, 0, 0, 0.15) -1.95px 1.95px 2.6px;

@@ -4,14 +4,12 @@ import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
 import MenuRight from '../../components/MenuRight';
 import Card from '../../components/CardProjeto/Card';
-
 import { ContIcons } from '../../components/MenuRight/styles';
 
 import api from "../../service/api";
+import { errorfulNotify } from '../../hooks/SystemToasts';
 
 import intl from 'react-intl-universal';
-
-import { errorfulNotify } from '../../hooks/SystemToasts';
 
 import { IoMdArrowDropright } from 'react-icons/io';
 import { BiHourglass } from 'react-icons/bi';
