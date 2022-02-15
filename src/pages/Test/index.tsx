@@ -38,17 +38,9 @@ const Projects: React.FC = () => {
     <Navbar />
     <MenuLeft />
     <Container>
-      <h1>Notificação</h1>    
-      <button onClick={teste}>Testar</button>
-      <Suspense fallback={<Esq/>}>  
-        <p>Card teste</p>
-        <select name="secao" onChange={asd}>
-          <option id={`centro2`} value="...">asdas</option>
-          <option id={`centro3`} value="...">asdas</option>
-          <option id={`centro4`} value="...">asdasd</option>
-          <option id={`centro`} value="...">asd</option>
-        </select>
-      </Suspense>
+      <div className="load">
+            <h1>GEW</h1>
+        </div>
     </Container>
     <MenuRight>
       <ContIcons />

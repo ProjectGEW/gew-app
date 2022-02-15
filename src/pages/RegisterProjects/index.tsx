@@ -67,6 +67,7 @@ interface ICCpagantesInput {
 interface ICCpagantes {
   secao: {
     id: number;
+    nome?: string;
     responsavel: {
       nome: string;
     }
@@ -116,6 +117,7 @@ const CadastroProjeto: React.FC = () => {
   }
 
   interface ISecao {
+    nome: string;
     responsavel: {
       nome: string;
     }
@@ -127,6 +129,8 @@ const CadastroProjeto: React.FC = () => {
   //Lista para fazer linha de despesas
   const [despesas, setDespesas] = useState<IDespesas[]>([{ nome: "", esforco: Number(null), valor: Number(null) }]);
   const [ccPagante, setCCpagante] = useState<ICCpagantes[]>([{ secao: { id: Number(null), responsavel: { nome: "" } }, valor: Number(null) }]);
+
+  const [secoes, setSecoes] = useState<ISecao[]>([]);
 
   //Setar nome e secao na parte de responsavel e solicitante
   const [responavel, setResponsavel] = useState<IFuncionarioResponse>();
@@ -147,6 +151,21 @@ const CadastroProjeto: React.FC = () => {
         return;
       });
   }
+
+  const handleSecoes = async () => {
+    try {
+      await api.get<ISecao[]>(`secoes`)
+      .then((response => {
+        setSecoes(response.data);
+      })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    handleSecoes();
+  },[]);
 
   //Variaveis para somar o total de esforco e valor das despesas
   const [esforco, setEsforco] = useState<number>();
@@ -561,15 +580,11 @@ const CadastroProjeto: React.FC = () => {
                     {
                       ccPagante.map((exibe, index) => (
                         <Linha id={`C${index + 1}`} key={index}>
-                          <input type="text" id={`centro${index + 1}`} onBlur={(props) => {
-                            if (props.target.value === "") {
-                              props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
-                              errorfulNotify("O campo não pode estar vazio!");
-                              return;
-                            }
-                            props.target.style.border = "";
-                            buscarResponsavelSecao(props.target.value, index);
-                          }} /> 
+                          <select defaultValue={exibe.secao.nome} id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>                           
+                            {secoes.map((res, index) => {
+                              return <option key={index} value={res.nome}>{res.nome}</option>
+                            })}                          
+                          </select> 
                           <input type="text" id={`responsavel${index + 1}`} disabled />
                           <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
                             if (props.target.value === "") {
