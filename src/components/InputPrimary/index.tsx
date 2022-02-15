@@ -2,6 +2,8 @@ import React, { InputHTMLAttributes, useState, useCallback, useRef, useEffect } 
 
 import { IconBaseProps } from 'react-icons';
 import { FiAlertCircle } from 'react-icons/fi';
+import { MdEmail } from 'react-icons/md';
+import { RiLockPasswordFill } from 'react-icons/ri';
 
 import { useField } from '@unform/core';
 
@@ -42,11 +44,11 @@ const Login: React.FC<InputProps> = ({name, icon: Icon, text, ...rest}) => {
        <>
         <User isErrored={!!error} isFocused={isFocused} isFilled={isFilled}>
             <input onFocus={handleInputFocus} defaultValue={defaultValue} onBlur={handleInputBlur} ref={inputRef} {...rest} />
-            {error && (
+            {error ? (
                 <Error title={error}>
                     <FiAlertCircle color="#c53030" size={25} />
                 </Error>
-            )}
+            ) : text === "Usuário" ? <MdEmail color="#00579D" size={22}/> : <RiLockPasswordFill color="#00579D" size={22}/>}
             <label>{text}</label>
         </User>      
         </>

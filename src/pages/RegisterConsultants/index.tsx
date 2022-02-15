@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import MenuLeft from '../../components/MenuLeft';
 import Navbar from '../../components/Navbar';
@@ -73,7 +73,6 @@ const RegisterConsultants: React.FC = () => {
 
   const formatCpf= () => {
     var ao_cpf = (document.getElementById("cpf") as HTMLInputElement).value;
-
     ao_cpf = ao_cpf.replace( /\D/g , ""); //Remove tudo o que não é dígito
                 
     if (ao_cpf.length > 3){
@@ -139,40 +138,46 @@ const RegisterConsultants: React.FC = () => {
     }
   }
 
-  const setConsultorInfos = useCallback(async () => {
-    const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
-    const nome = (document.getElementById("nome") as HTMLInputElement).value;
-    const email = (document.getElementById("email") as HTMLInputElement).value;
-    const senha = (document.getElementById("senha") as HTMLInputElement).value;
-    const cpf = (document.getElementById("cpf") as HTMLInputElement).value.split(".");
-    const cpfFormat = parseInt(cpf[0] + cpf[1] + cpf[2].split("-")[0] + cpf[2].split("-")[1]);
-    const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
-    const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
-    const nome_fornecedor = (document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
-    const skills = tags.map(res => res.nome);
-    const consultor: CadConsultor = {
-      funcionarioData: {
-        numero_cracha: numero_cracha,
-        nome: nome,
-        email: email,
-        senha: senha,
-        cpf: cpfFormat,
-        telefone: telefone,
-        valor_hora: valor_hora
-      },
-      fornecedor: nome_fornecedor, 
-      skills: skills
-    };
+  const setConsultorInfos = useCallback(() => {
+    try {
+      const numero_cracha = parseInt((document.getElementById("numero_cracha") as HTMLInputElement).value);
+      const nome = (document.getElementById("nome") as HTMLInputElement).value;
+      const email = (document.getElementById("email") as HTMLInputElement).value;
+      const senha = (document.getElementById("senha") as HTMLInputElement).value;
+      const cpf = (document.getElementById("cpf") as HTMLInputElement).value.split(".");
+      const cpfFormat = parseInt(cpf[0] + cpf[1] + cpf[2].split("-")[0] + cpf[2].split("-")[1]);
+      const telefone = (document.getElementById("telefone") as HTMLInputElement).value;
+      const valor_hora = parseFloat((document.getElementById("valor_hora") as HTMLInputElement).value);
+      const nome_fornecedor = (document.getElementById("nome_fornecedor") as HTMLSelectElement).value;
+      const skills = tags.map(res => res.nome);
+  
+      const consultor: CadConsultor = {
+        funcionarioData: {
+          numero_cracha: numero_cracha,
+          nome: nome,
+          email: email,
+          senha: senha,
+          cpf: cpfFormat,
+          telefone: telefone,
+          valor_hora: valor_hora
+        },
+        fornecedor: nome_fornecedor, 
+        skills: skills
+      };
 
-    enviarInfo(consultor);
-    //eslint-disable-next-line react-hooks/exhaustive-deps
+      enviarInfo(consultor);
+      //eslint-disable-next-line react-hooks/exhaustive-deps
+    } catch {
+      errorfulNotify('Todos os campos precisam ser preenchidos!');
+    }
+
   }, []);
 
-  // useEffect(() => {
-  //   api.get("fornecedores").then((response) => {
-  //     setSuppliers(response.data);
-  //   })
-  // });
+  useEffect(() => {
+    api.get("fornecedores").then((response) => {
+      setSuppliers(response.data);
+    })
+  });
 
   return (
     <>
@@ -301,7 +306,7 @@ const RegisterConsultants: React.FC = () => {
         <Salvar>
           {/* <span/> */}
           <div>
-            <button onClick={() => setConsultorInfos}>Cadastrar</button>
+            <button onClick={setConsultorInfos}>Cadastrar</button>
           </div>
         </Salvar>
       </ContainerProject>
