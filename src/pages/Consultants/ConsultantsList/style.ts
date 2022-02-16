@@ -527,7 +527,7 @@ export const ContainerPopupHoras = styled.div`
 `;
 
 export const PopupAdicionarHoras = styled.div`
-  width: 35vw;
+  width: 42vw;
   height: 20vh;
   background: #fff;
   border-radius: 0.8vh;
@@ -569,11 +569,11 @@ export const PopupAdicionarHoras = styled.div`
 `;
 
 export const ScrollPopupHoras = styled.div`
-  width: 35vw;
+  width: 42vw;
   height: 20vh;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   
@@ -584,12 +584,55 @@ export const ScrollPopupHoras = styled.div`
     font-size: 2.6vh;
   }
 
+  #disponivel {
+    width: 30%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    border-radius: 0.4vh;
+
+    padding: 1vh;
+    margin-right: 5%;
+
+    &:before {
+      content: '';
+      width: 0.1vw;
+      height: 10vh;
+      background-color: rgba(0, 0, 0, 0.1);
+      position: absolute;
+      margin-right: 14vw;
+    }
+
+    h1, button {
+      color: #00579D;
+      font-size: 2.6vh;
+      border: 0;
+      background-color: transparent;
+      cursor: default;
+    }
+
+    button {
+      color: #00579D;
+      font-size: 3.2vh;
+      font-weight: 100;
+      margin-right: 1vw;
+    }
+  }
+
   div {
-    width: 100%;
+    width: 65%;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+
+    div {
+      flex-direction: row;
+    }
 
     input {
       height: 5vh;
@@ -632,7 +675,7 @@ export const ScrollPopupHoras = styled.div`
 `;
 
 export const TitlePopupHoras = styled.div`
-  width: 35vw;
+  width: 42vw;
   padding: 1vh;
   background-color: #00579D;
 
@@ -652,7 +695,7 @@ export const TitlePopupHoras = styled.div`
     width: 4vh;
     height: 4vh;
     margin-top: -0.4vh;
-    margin-left: 32vw;
+    margin-left: 39vw;
     position: absolute;
     background-size: cover;
     cursor: pointer;
