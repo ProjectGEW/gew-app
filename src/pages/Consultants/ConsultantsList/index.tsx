@@ -24,6 +24,7 @@ import intl from 'react-intl-universal';
 import { IoMdArrowDropright } from 'react-icons/io';
 import { ImSearch } from 'react-icons/im';
 import { BiHourglass } from 'react-icons/bi';
+import { AiOutlineClockCircle } from 'react-icons/ai';
 
 const locales = {
     'pt-BR': require('../../../language/pt-BR.json'),
@@ -51,6 +52,40 @@ interface IFornecedor {
     email: string;
 }
 
+interface IProjetoProps {
+    projetoData: {
+      id: number;
+      numeroDoProjeto: number;
+      titulo: string;
+      descricao: string;
+      data_de_inicio: string;
+      data_de_termino: string;
+      data_de_aprovacao: string;
+      statusProjeto: string;
+      horas_apontadas: number;
+      secao: string,
+    };
+    secoesPagantes: [{
+      secao: {
+        id: number;
+        responsavel: {
+          numero_cracha: number;
+          nome: string;
+          cpf: string;
+          valor_hora: number;
+        };
+        nome: string;
+      },
+      percentual: number;
+      valor: number;
+    }];
+    valoresTotais: {
+      valorTotalCcPagantes: number;
+      valorTotalDespesas: number;
+      valorTotalEsforco: number;
+    };
+  }
+
 const ConsultantList: React.FC = () => {
     const [language] = useState(() => {
         let languageStorage = localStorage.getItem('Language');
@@ -67,6 +102,7 @@ const ConsultantList: React.FC = () => {
     });
     
     const [global, setGlobal] = useState<IConsultor[]>([]);
+    const [projeto, setProjeto] = useState<IProjetoProps>();
     const [consultants, setConsultants] = useState<IConsultor[]>([]);
 
     const [fornecedores, setFornecedores] = useState<IFornecedor[]>([]);
@@ -74,18 +110,25 @@ const ConsultantList: React.FC = () => {
 
     const { numeroDoProjeto }: {numeroDoProjeto: string} = useParams();
     
+    const [limite, setLimite] = useState(0);
+
     async function handleConsultants() {
+        console.log("to aqui" + limite); 
         try {
             await api.get<IConsultor[]>("consultores").then((response) => {
                 setConsultants(response.data); 
                 setGlobal(response.data);
             });
 
+            await api.get(`projetos/${numeroDoProjeto}`).then((response) => {
+                setLimite(response.data.valoresTotais.valorTotalEsforco - response.data.projetoData.horas_apontadas);
+            });
+
             await api.get<IFornecedor[]>("fornecedores").then((response) => {
                 setFornecedores(response.data); 
             });
         } catch(e) {
-            console.log("🚀 ~ file: index2.tsx ~ line 72 ~ handleProject ~ e", e);            
+            console.log(e);            
         }
     }
 
@@ -148,16 +191,30 @@ const ConsultantList: React.FC = () => {
         }  
 
         const recebeLimiteDeHoras = {horas: (document.getElementById("horas") as HTMLInputElement).value};
+        let maximoHorasPermitido = 0;
+
+        try {
+            await api.get(`projetos/${numeroDoProjeto}`).then((response) => {
+                maximoHorasPermitido = response.data.valoresTotais.valorTotalEsforco - response.data.projetoData.horas_apontadas;
+            });
+        } catch(e) {
+            console.log(e);
+        }
+
+        if(Number(recebeLimiteDeHoras.horas) > maximoHorasPermitido) {
+            errorfulNotify(`Você não pode exceder o limite de horas do projeto!`);
+            close();
+            return;
+        }
 
         if(Number(recebeLimiteDeHoras.horas) > 0) {
-            api.post(`projetos/alocar/${numeroDoProjeto}/${cracha}`, recebeLimiteDeHoras).then(() => 
-                successfulNotify(`Horas apontadas com sucesso!`)
-            ).catch((e) =>
+            api.post(`projetos/alocar/${numeroDoProjeto}/${cracha}`, recebeLimiteDeHoras).then(() => {
+                successfulNotify(`Horas apontadas com sucesso!`);
+                handleConsultants();
+                close();
+            }).catch((e) =>
                 console.log(e)
             );
-
-            handleConsultants();
-            close();
         } else {
             errorfulNotify(`É preciso adicionar um limite de horas!`);
             close();
@@ -177,7 +234,6 @@ const ConsultantList: React.FC = () => {
             // Revisar***
         }
     }
-
     
     return (
         <>
@@ -186,7 +242,7 @@ const ConsultantList: React.FC = () => {
         <Container> 
             <ContainerInfo>
                 <ContainerTitle>
-                    <h1>Consultores registrados <IoMdArrowDropright size={25} /></h1>
+                    <h1>Projeto {numeroDoProjeto} - Consultores registrados <IoMdArrowDropright size={25} /></h1>
                     <span />
                 </ContainerTitle>
                 <ContainerFiltro>
@@ -258,10 +314,16 @@ const ConsultantList: React.FC = () => {
                                                 <span onClick={close} />
                                             </TitlePopupHoras>
                                             <ScrollPopupHoras>    
-                                                <h1>Limite de horas para o projeto {numeroDoProjeto}:</h1>
                                                 <div>
-                                                    <input type="number" name="qtdHoras" id="horas" />
-                                                    <button onClick={() => alocarConsultor(consultant.funcionarioData.numero_cracha, close)}>Alocar</button>
+                                                    <h1>Limite de horas para o projeto {numeroDoProjeto}:</h1>
+                                                    <div>
+                                                        <input type="number" name="qtdHoras" id="horas" />
+                                                        <button onClick={() => alocarConsultor(consultant.funcionarioData.numero_cracha, close)}>Alocar</button>
+                                                    </div>
+                                                </div>
+                                                <div id="disponivel">
+                                                    <h1>Horas disponíveis:</h1>
+                                                    <button><AiOutlineClockCircle size={15} /> {limite}</button>
                                                 </div>
                                             </ScrollPopupHoras>
                                         </PopupAdicionarHoras>
