@@ -37,7 +37,7 @@ const Login: React.FC = () => {
       let linguagemPadrao = {flag: "BR", code: "pt-BR"}
       localStorage.setItem('Language', JSON.stringify(linguagemPadrao));
       localStorage.setItem('Fonte', '2.8');
-      localStorage.setItem('Animation', "false");
+      localStorage.setItem('Animation', "true");
       localStorage.setItem('Notification', "false");
       return;
     }

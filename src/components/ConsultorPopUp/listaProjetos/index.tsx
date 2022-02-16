@@ -6,7 +6,7 @@ import retornaTituloMenor from '../../../utils/tituloMenor';
 
 import { P, Texto } from '../../DashboardPopUp/verbaUtilizada/styles';
 
-import { successfulNotify } from '../../../hooks/SystemToasts';
+import { errorfulNotify, successfulNotify } from '../../../hooks/SystemToasts';
 
 interface IListaProps {
     numeroDoProjeto: number;
@@ -75,6 +75,7 @@ const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha }) => {
             successfulNotify(`Projeto ${numeroDoProjeto} removido do funcionário ${cracha}.`);
         } catch(e) {
             console.log(e);
+            errorfulNotify(`Não foi possível remover o projeto ${numeroDoProjeto}!`);
         }
     }
 

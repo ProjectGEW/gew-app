@@ -130,7 +130,7 @@ export const BoxRight = styled.div`
             font-size: 2vh;
             padding: 2px;
             padding-left: 0.6vw;
-            text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.1);
             color: #5B5B5B;
 
             display: flex;

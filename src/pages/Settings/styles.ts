@@ -160,7 +160,7 @@ export const Box = styled.div`
     }
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.03);
+      background-color: rgba(0, 0, 0, 0.015);
     }
 
     #inputs {
@@ -235,6 +235,8 @@ export const Example = styled.div<IProps>`
 
   h2 {
     color: #575757;
+
+    font-size: 2.8vh;
 
     ${props => props.tamanhoFonte === '2' && css`
       font-size: 2vh;

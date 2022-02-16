@@ -46,7 +46,7 @@ export const ContainerTitle = styled.div`
 
   h1 {
     color: #fff;
-    font-size: 3vh;
+    font-size: 3.2vh;
     margin-left: 1.2vw;
     padding-bottom: 0.8vh;
 
@@ -96,7 +96,7 @@ export const Box = styled.div`
         h1 {
             width: 25vw;
 
-            font-size: 2.8vh;
+            font-size: 3vh;
             color: #00579D;
             padding-bottom: 0.4vh;
             margin-bottom: 1.6vh;
@@ -105,7 +105,7 @@ export const Box = styled.div`
         }
 
         label {
-            font-size: 2.4vh;
+            font-size: 2.6vh;
             color: #00579D;
             padding-bottom: 1vh;
 
@@ -204,7 +204,7 @@ export const Box = styled.div`
 
         input {
             width: 12vw;
-            height: 4.5vh;
+            height: 4.8vh;
 
             font-size: 2.4vh;
 

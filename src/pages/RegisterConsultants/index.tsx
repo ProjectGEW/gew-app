@@ -114,6 +114,8 @@ const RegisterConsultants: React.FC = () => {
     let transforma = "";
     
     setTags([...tags, {nome: transforma}]); 
+    tags.pop();
+    tags.shift();
 
     for (let i = 0; i < inputs.length; i ++){ 
       (document.getElementById(inputs[i]) as HTMLInputElement).value = "";
@@ -249,7 +251,6 @@ const RegisterConsultants: React.FC = () => {
                 name="secao" 
                 id="nome_fornecedor"
                 onChange={verificaFornecedor}>
-                <option value="Todos">Todos</option>
                 {
                 suppliers ?
                   suppliers.map((supplier, index) =>
