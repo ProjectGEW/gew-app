@@ -209,7 +209,7 @@ const ConsultantList: React.FC = () => {
 
         if(Number(recebeLimiteDeHoras.horas) > 0) {
             api.post(`projetos/alocar/${numeroDoProjeto}/${cracha}`, recebeLimiteDeHoras).then(() => {
-                successfulNotify(`Horas apontadas com sucesso!`);
+                successfulNotify(`Consultor alocado com sucesso!`);
                 handleConsultants();
                 close();
             }).catch((e) =>
@@ -295,7 +295,11 @@ const ConsultantList: React.FC = () => {
                                 consultant.projetos.length > 0 ?
                                 <PopupModal closeOnEscape trigger={<button>Gerenciar</button>} modal>
                                     {(close: any) => (
-                                        <PopupProjetosConsultor fechar={close} cracha={consultant.funcionarioData.numero_cracha} projetoSelecionado={Number(numeroDoProjeto)}/>
+                                        <PopupProjetosConsultor 
+                                            fechar={close} 
+                                            cracha={consultant.funcionarioData.numero_cracha} projetoSelecionado={Number(numeroDoProjeto)}
+                                            atualizarDados={handleConsultants}
+                                        />
                                     )}
                                 </PopupModal>
                                 : ''

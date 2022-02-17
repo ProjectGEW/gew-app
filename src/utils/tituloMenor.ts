@@ -12,6 +12,7 @@ export default function retornaTituloMenor(titulo: string, tamanho: number, tipo
     for(var x = 0; x < titulo.length; x++) {
       montaTitulo += titulo[x];
     }
+    return montaTitulo;
   }
 
   if(tipo === 'pdf') {

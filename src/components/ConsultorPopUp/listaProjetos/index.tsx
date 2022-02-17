@@ -11,6 +11,7 @@ import { errorfulNotify, successfulNotify } from '../../../hooks/SystemToasts';
 interface IListaProps {
     numeroDoProjeto: number;
     cracha: number;
+    atualizarDados: () => void;
 }
 
 interface CardContent {
@@ -52,12 +53,12 @@ interface CardContent {
     }];
 }
 
-const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha }) => {
+const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha, atualizarDados }) => {
     const [projeto, setProjeto] = useState<CardContent>();
 
     async function conexaoApi() {
         try {
-            api.get<CardContent>(`projetos/${numeroDoProjeto}`).then((response => {
+            await api.get<CardContent>(`projetos/${numeroDoProjeto}`).then((response => {
                 setProjeto(response.data);
             }));        
         } catch(e) {
@@ -72,6 +73,8 @@ const ListaProjetos: React.FC<IListaProps> = ({ numeroDoProjeto, cracha }) => {
     async function removerProjeto() {
         try {
             await api.delete(`projetos/desalocar/${numeroDoProjeto}/${cracha}`);
+            //window.location.reload();
+            atualizarDados();
             successfulNotify(`Projeto ${numeroDoProjeto} removido do funcionário ${cracha}.`);
         } catch(e) {
             console.log(e);

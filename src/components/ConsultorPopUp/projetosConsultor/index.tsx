@@ -10,6 +10,7 @@ interface PopupVerbaUtilizadaProps {
     cracha: number;
     projetoSelecionado: number;
     fechar: () => void;
+    atualizarDados: () => void;
 }
 
 interface IConsultor {
@@ -25,12 +26,12 @@ interface IConsultor {
     status: boolean;
 }
 
-const PopupProjetosConsultor: React.FC<PopupVerbaUtilizadaProps> = ({ cracha, projetoSelecionado, fechar }) => {
+const PopupProjetosConsultor: React.FC<PopupVerbaUtilizadaProps> = ({ cracha, projetoSelecionado, fechar, atualizarDados }) => {
     const [consultor, setConsultore] = useState<IConsultor>();
 
     async function conexaoApi() {
         try {
-            api.get<IConsultor>(`consultores/${cracha}`).then((response => {
+            await api.get<IConsultor>(`consultores/${cracha}`).then((response => {
                 setConsultore(response.data);
             })); 
         } catch(e) {
@@ -53,7 +54,12 @@ const PopupProjetosConsultor: React.FC<PopupVerbaUtilizadaProps> = ({ cracha, pr
                     {
                         consultor ? consultor.projetos ?
                             consultor.projetos.map((res, index) => 
-                                <ListaProjetos key={index} numeroDoProjeto={res} cracha={consultor.funcionarioData.numero_cracha}/>
+                                <ListaProjetos 
+                                    key={index} 
+                                    numeroDoProjeto={res} 
+                                    cracha={consultor.funcionarioData.numero_cracha}
+                                    atualizarDados={atualizarDados}
+                                />
                             )
                             : ''
                         : ''

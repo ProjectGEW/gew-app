@@ -109,7 +109,7 @@ export const BoxLeft = styled.div`
     }
 `;
 
-export const BoxRight = styled.div`
+export const BoxRight = styled.div` 
     width: 13vw;
     display: flex;
     flex-direction: column;
@@ -130,7 +130,7 @@ export const BoxRight = styled.div`
             font-size: 2vh;
             padding: 2px;
             padding-left: 0.6vw;
-            text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.1);
+            text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.05);
             color: #5B5B5B;
 
             display: flex;
@@ -176,7 +176,9 @@ export const Progress = styled.span`
     width: 10vw;
     height: 1.5vh;
 
-    background: #c4c4c4;
+    border-radius: 0.1vh;
+
+    background: #d4d4d4;
     margin-top: 1vh;
     margin-left: 0.655vw;
 
@@ -189,6 +191,8 @@ export const Value = styled.div<ProgressValue>`
     width: ${props => props.value}%;
     height: 1.5vh;
 
+    border-radius: 0.1vh 0vh 0vh 0.1vh;
+
     display: flex;
-    background: #5CCE40;
+    background: #47cf25;
 `;

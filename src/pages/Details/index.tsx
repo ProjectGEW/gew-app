@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Inputs, ContainerDesc, ContainerInfos, ContainerSection, ContainerTittles, Tittle, Container,
+import { Inputs, ContainerDesc, ContainerInfos, ContainerSection, Tittle, Container,
     ContainerDetails, Box, ContainerAppointments, ContainerGraphs, Graphic, Graphic2, Filtros, Top, Bottom,
     Graph, Left, Right, Square, Bar, Pack, Footer  } from './style';
 
@@ -17,6 +17,8 @@ import Button from '../../components/Button';
 
 import { ContIcons } from '../../components/MenuRight/styles';
 import GraphCircular from '../../components/GraphCircular';
+import retornaTituloMenor from '../../utils/tituloMenor';
+import formatStatus from '../../utils/formatStatus';
 
 interface CardContent {
     projetoData: {
@@ -75,6 +77,14 @@ interface IHorasApontadas {
     valor_hora: number;
 }
 
+interface ISecao {
+    secao: string;
+}
+
+interface ITotal {
+    total: number;
+}
+
 const Details: React.FC = () => {
     /*const token = localStorage.getItem('Token');
     let config = {
@@ -84,13 +94,22 @@ const Details: React.FC = () => {
     const { numeroDoProjeto }: {numeroDoProjeto: string}  = useParams();
     const [project, setProject] = useState<CardContent>();
     const [ata, setAta] = useState<string>('');
-    const [valorConsumido, setValorConsumido] = useState(0);
+    const [valorConsumido, setValorConsumido] = useState<ITotal>();
     const [horasApontadas, setHorasApontadas] = useState<IHorasApontadas[]>([]);
 
+    const [responsavelSecao, setResponsavelSecao] = useState<ISecao>();
+    const [solicitanteSecao, setSolicitanteSecao] = useState<ISecao>();
+
     window.onload = async function handleData() {
+        let responsaveis = {solicitante: 0, responsavel: 0};
+        
         try {
             await api.get<CardContent>(`/projetos/${numeroDoProjeto}`)
-            .then((response => { setProject(response.data);}));
+            .then((response => { 
+                setProject(response.data); 
+                responsaveis.responsavel = response.data.projetoData.responsavel.numero_cracha; 
+                responsaveis.solicitante = response.data.projetoData.solicitante.numero_cracha
+            }));
         } catch(err) {
             console.log(err);
         }
@@ -103,7 +122,7 @@ const Details: React.FC = () => {
         }
 
         try {
-            await api.get<number>(`projetos/count/verba/${numeroDoProjeto}`)
+            await api.get<ITotal>(`projetos/count/verba/${numeroDoProjeto}`)
             .then((response => {setValorConsumido(response.data)}));
         } catch (err) {
             console.log(err);
@@ -115,11 +134,27 @@ const Details: React.FC = () => {
         } catch (err) {
             console.log(err);
         }
+
+        try {
+            await api.get<ISecao>(`funcionarios/${responsaveis.responsavel}`)
+            .then((response) => {setResponsavelSecao(response.data)});
+        } catch (err) {
+            console.log(err);
+        }
+
+        try {
+            await api.get<ISecao>(`funcionarios/${responsaveis.solicitante}`)
+            .then((response) => {setSolicitanteSecao(response.data)});
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const downloadFile = () => {
         window.open(`http://localhost:6868/files/download/${numeroDoProjeto}`);
     }
+
+    console.log(valorConsumido);
 
     return (
         <>
@@ -131,22 +166,22 @@ const Details: React.FC = () => {
         <Container>
             <ContainerDetails>
                 <ContainerSection>
-                    <h1>{project ? project.projetoData.numeroDoProjeto : ""} - {project ? project.projetoData.secao : ""}</h1>
-                </ContainerSection>
-                <ContainerTittles>
-                    <Tittle>{project ? project.projetoData.titulo : ""}</Tittle>
+                    <div id="titulo">
+                        <h1>{project ? project.projetoData.numeroDoProjeto : ""} - {project ? project.projetoData.secao : ""}</h1>
+                        <Tittle>{project ? retornaTituloMenor(project.projetoData.titulo, 50) : ""}</Tittle>
+                    </div>
                     <Inputs>
                         <Button text={'Dashboard'} tipo={"DashboardDetails"} rota={"dashboard"} numeroProjeto={project ? project.projetoData.numeroDoProjeto : 0}/>
                         <label htmlFor="ata" onClick={downloadFile}>{ata ? ata.split(".")[0] : "Baixar ATA"}</label>
                     </Inputs>
-                </ContainerTittles>
+                </ContainerSection>
                 <ContainerInfos>
                     <ul>
                         <li>
                             <h1>NÚMERO:</h1><h2>{project ? project.projetoData.numeroDoProjeto : ""}</h2>
                         </li>
                         <li>
-                            <h1>STATUS:</h1><h2>{project?.projetoData.statusProjeto === "NAO_INICIADO" ? "NÃO INICIADO" : project?.projetoData.statusProjeto}</h2>
+                            <h1>STATUS:</h1><h2>{project?.projetoData.statusProjeto === "NAO_INICIADO" ? "NÃO INICIADO" : formatStatus(project ? project.projetoData.statusProjeto : '')}</h2>
                         </li>
                         <li>
                             <h1>DATA DE CRIAÇÃO:</h1><h2>{project ? project.projetoData.data_de_inicio : ""}</h2>
@@ -161,12 +196,12 @@ const Details: React.FC = () => {
                     <Box>
                         <h1>SOLICITANTE / SEÇÃO:</h1>
                         <h2>{project ? project.projetoData.solicitante.nome : ""}</h2>
-                        <h2>{project ? project.projetoData.solicitante.nome : ""}</h2>
+                        <h2>{solicitanteSecao ? solicitanteSecao.secao : ''}</h2>
                     </Box>
                     <Box>
                         <h1>RESPONSÁVEL / SEÇÃO:</h1>
                         <h2>{project ? project.projetoData.responsavel.nome : ""}</h2>
-                        <h2>{project ? project.projetoData.responsavel.nome : ""}</h2>
+                        <h2>{responsavelSecao ? responsavelSecao.secao : ''}</h2>
                     </Box>
                 </ContainerInfos>
                 <span>Horas apontadas - Funcionários:</span>
@@ -178,8 +213,8 @@ const Details: React.FC = () => {
                             <h2>Valor Total</h2>
                         </div>
                         <ul className="scroller sc1">
-                            {horasApontadas ? horasApontadas.map(horas => (
-                                <li>
+                            {horasApontadas ? horasApontadas.map((horas, index) => (
+                                <li key={index}>
                                     <h3>{horas.nome_funcionario}</h3>
                                     <h3>{horas.horas_apontadas}</h3>
                                     <h3>{horas.valor_hora.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h3>
@@ -191,7 +226,7 @@ const Details: React.FC = () => {
                 <ContainerGraphs>
                     <Graphic>
                         <h1>Verba utilizada sobre o total orçado</h1>
-                        <GraphCircular total={project ? project?.valoresTotais.valorTotalCcPagantes : 0} valor={valorConsumido} tipo={"valor"}/>
+                        <GraphCircular total={project ? project.valoresTotais.valorTotalCcPagantes : 0} valor={valorConsumido ? valorConsumido.total : 0} tipo={"valor"}/>
                     </Graphic>
                     <Graphic>
                         <h1>Horas das demandas sobre o total estabelecido</h1>
@@ -202,6 +237,7 @@ const Details: React.FC = () => {
                         />
                     </Graphic>
                 </ContainerGraphs>
+                <h1 id="manu">grafico em manutenção*</h1>
                 <Graphic2>
                     <Top>
                         <div>

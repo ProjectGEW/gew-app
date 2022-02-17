@@ -50,17 +50,16 @@ export const Container = styled.div<buttonProps>`
   ${props => props.tipo === "DashboardDetails" && css`
     button {
       width: 10vw;
-      background-color: #00579D;
+      background-color: #0090C5;
       margin-right: 1vw;
-      margin-bottom: 0.5vw;
       padding: 0vh 2vh;
-      font-size: 2vh;
+      font-size: 2.6vh;
       font-weight: bold;
       cursor: pointer;  
       box-shadow: 0.3vh 0.3vh 0.4vh rgb(0, 0, 0, 0.3);
 
       &:hover {
-        background-color: ${shade(0.09, "#00579D")}
+        background-color: ${shade(0.09, "#0090C5")}
       }
     }
   `}

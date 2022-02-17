@@ -117,7 +117,7 @@ const Projects: React.FC = () => {
   function filtraDadosPorStatus(status: string) {
     var btns = ["todos", "CONCLUIDO", "ATRASADOS", "EM_ANDAMENTO"];
 
-    for (var x = 0; x < btns.length; x++) {
+    for (var x = 0; x < btns.length; x++) {     
       document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
     }
 
