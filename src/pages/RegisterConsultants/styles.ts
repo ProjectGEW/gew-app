@@ -4,13 +4,13 @@ import { shade } from 'polished';
 export const Container = styled.div`
   position: absolute;
   top: 14vh;
-  left: 12vw;
-  width: 78vw;
+  left: 16vw;
+  width: 70vw;
   height: 80vh;
 `;
 
 export const ContainerProject = styled.div`
-  width: 78vw;
+  width: 70vw;
   height: 80vh;
 
   display: flex;

@@ -86,10 +86,10 @@ export const Content = styled.div`
     color: #5E5E5E;
   }
 
-  label{
+  label {
     color: #00579D;
     font-size: 3vh;
-    margin-bottom: 1vh;
+    margin-bottom: 0.5vh;
   }
 `;
 
@@ -142,22 +142,22 @@ export const Projetos = styled.div`
   }
 
   #numeroProjetoResponse {
-    margin-top: 8vh;
+    margin-top: 9.8vh;
     margin-left: 0vw;
   }
 
   #ataResponse {
-    margin-top: 8vh;
+    margin-top: 9.8vh;
     margin-left: 0vw;
   }
 
   #tituloResponse {
-    margin-top: 8vh;
+    margin-top: 11vh;
     margin-left: 0vw;
   }
 
   #descricaoResponse {
-    margin-top: 24vh;
+    margin-top: 25.5vh;
     margin-left: 0vw;
   }
 
@@ -216,7 +216,7 @@ export const Projetos = styled.div`
   }
 
   div {
-    margin-top: 1vh;
+    margin-top: 1.2vh;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -239,14 +239,12 @@ export const Projetos = styled.div`
         label {
           width: 14vw;
 
-          margin-top: 0.5vh;
           background: #0090C5;
           border-radius: 0.8vh;
           color: #fff;
           font-weight: bold;
 
-          padding: 1vh;
-          padding-left: 1vh;
+          padding: 1.5vh 1vh 1.5vh 1vh; 
           
           font-size: 1.8vh;
           cursor: pointer;    
@@ -300,8 +298,19 @@ export const Projetos = styled.div`
 
       width: 50%;
       margin-top: 0;
+      padding-bottom: 1vh;
 
       div {
+        &:first-child {
+          label {
+            margin-top: 1.2vh;
+          }
+        }  
+
+        &:last-child {
+          margin-top: 1.5vh;
+        }
+
         margin-left: 1.5vw;
         margin-right: 1.5vw;
       }

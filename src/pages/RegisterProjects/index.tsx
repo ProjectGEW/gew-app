@@ -136,6 +136,8 @@ const CadastroProjeto: React.FC = () => {
   const [responavel, setResponsavel] = useState<IFuncionarioResponse>();
   const [solicitante, setSolicitante] = useState<IFuncionarioResponse>();
 
+  let horas = 0;
+
   async function buscarInfosFuncionario(numero_cracha: string, tipo: string) {
     await api.get<IFuncionarioResponse>(`funcionarios/${numero_cracha}`)
       .then((response) => {
@@ -368,6 +370,12 @@ const CadastroProjeto: React.FC = () => {
     return console.log(projeto);
   }
 
+  //const reducer = (previousValue: any, currentValue: any) => previousValue + currentValue;
+  if(projeto) {
+    horas = projeto.despesas.map(res => res.esforco).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+  }
+  
+
   async function buscarResponsavelSecao(idSecao: string, index: number) {
     await api.get<ISecao>(`secoes/nome/${idSecao}`).then((response) =>
       (document.getElementById(`responsavel${index + 1}`) as HTMLInputElement).value = response.data.responsavel.nome
@@ -580,7 +588,7 @@ const CadastroProjeto: React.FC = () => {
                     {
                       ccPagante.map((exibe, index) => (
                         <Linha id={`C${index + 1}`} key={index}>
-                          <select defaultValue={exibe.secao.nome} id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>                           
+                          <select defaultValue={exibe.secao.nome} id={`centro${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>                           
                             {secoes.map((res, index) => {
                               return <option key={index} value={res.nome}>{res.nome}</option>
                             })}                          
@@ -739,7 +747,7 @@ const CadastroProjeto: React.FC = () => {
                             <div className="linhaUm">
                               <div>
                                 <label>Limite de horas:</label>
-                                <p><AiOutlineClockCircle size={15} /> 0</p>
+                                <p><AiOutlineClockCircle size={15} /> {horas}</p>
                               </div>
                             </div>
                           </div>

@@ -195,6 +195,8 @@ const EditarProjeto: React.FC = () => {
   const [secoes, setSecoes] = useState<ISecao[]>([]);
   const [fileName, setFileName] = useState<string>('');
 
+  let horas = 0;
+
   //const [fileName, setFileName] = useState('');
   
   const handleProject = async () => {
@@ -475,6 +477,10 @@ const EditarProjeto: React.FC = () => {
     return console.log(projeto);
   }
 
+  if(projeto) {
+    horas = projeto.despesas.map(res => res.esforco).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+  }
+
   const editarProjeto = async () => {
     try {
       await api.put<IProjetoInputDTO>(`projetos/${numeroProjeto}`, projeto)
@@ -546,7 +552,7 @@ const EditarProjeto: React.FC = () => {
                   </div>
                 </div>
                 <div id="ladoDireito">
-                  {<iframe title='ata' src={file ? URL.createObjectURL(file) : ''} />}
+                  {file ? <iframe title='ata' src={file ? URL.createObjectURL(file) : URL.createObjectURL(file)} /> : <div id="preview">Visualize o preview da ATA aqui.</div>}
                 </div>
               </div>
             </Projetos>
@@ -834,7 +840,7 @@ const EditarProjeto: React.FC = () => {
                             <div className="linhaUm">
                               <div>
                                 <label>Limite de horas:</label>
-                                <p><AiOutlineClockCircle size={15} /> 0</p>
+                                <p><AiOutlineClockCircle size={15} /> {horas}</p>
                               </div>
                             </div>
                           </div>
