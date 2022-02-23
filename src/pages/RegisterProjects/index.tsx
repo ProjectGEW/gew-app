@@ -34,7 +34,7 @@ import { Container, ContainerRegister, Info, Content, Projetos, Responsavel, Gas
 interface IProjetoInputDTO {
   projetoData: IInfoProjetosInputDTO;
   despesas: IDespesas[];
-  secoesPagantes: ICCpagantesInput[];
+  secoesPagantes: ISecoesPagantesInput[];
 }
 
 interface IProjetoResponse {
@@ -59,12 +59,12 @@ interface IDespesas {
   valor: number;
 }
 
-interface ICCpagantesInput {
-  secao_id?: number;
+interface ISecoesPagantesInput {
+  secao_nome?: string;
   valor?: number;
 }
 
-interface ICCpagantes {
+interface ISecoesPagantes {
   secao: {
     id: number;
     nome?: string;
@@ -110,7 +110,7 @@ const CadastroProjeto: React.FC = () => {
     ],
     secoesPagantes: [
       {
-        secao_id: 0,
+        secao_nome: "",
         valor: 0
       }
     ]
@@ -128,7 +128,7 @@ const CadastroProjeto: React.FC = () => {
 
   //Lista para fazer linha de despesas
   const [despesas, setDespesas] = useState<IDespesas[]>([{ nome: "", esforco: Number(null), valor: Number(null) }]);
-  const [ccPagante, setCCpagante] = useState<ICCpagantes[]>([{ secao: { id: Number(null), responsavel: { nome: "" } }, valor: Number(null) }]);
+  const [ccPagante, setCCpagante] = useState<ISecoesPagantes[]>([{ secao: { id: Number(null), responsavel: { nome: "" } }, valor: Number(null) }]);
 
   const [secoes, setSecoes] = useState<ISecao[]>([]);
 
@@ -358,7 +358,7 @@ const CadastroProjeto: React.FC = () => {
     for (let i = 1; i <= ccPagante.length; i++) {
       infosProjeto.secoesPagantes.push(
         {
-          secao_id: parseInt((document.getElementById(`centro${i}`) as HTMLSelectElement).value),
+          secao_nome: (document.getElementById(`centro${i}`) as HTMLSelectElement).value,
           valor: parseFloat((document.getElementById(`valorC${i}`) as HTMLInputElement).value)
         }
       )
@@ -401,8 +401,8 @@ const CadastroProjeto: React.FC = () => {
           history.push('/projects');
           successfulNotify('Projeto cadastrado com sucesso!');
         })
-        .catch(() => {
-          errorfulNotify('Não foi possivel cadastrar o projeto!');
+        .catch((e) => {
+          errorfulNotify(e.response.data.titulo);
         })
     } catch (e) {
       console.log(`Error: ${e}`);
@@ -588,7 +588,8 @@ const CadastroProjeto: React.FC = () => {
                     {
                       ccPagante.map((exibe, index) => (
                         <Linha id={`C${index + 1}`} key={index}>
-                          <select defaultValue={exibe.secao.nome} id={`centro${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>                           
+                          <select defaultValue={exibe.secao.nome} id={`centro${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>
+                            <option></option>                         
                             {secoes.map((res, index) => {
                               return <option key={index} value={res.nome}>{res.nome}</option>
                             })}                          
