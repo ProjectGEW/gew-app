@@ -38,7 +38,7 @@ import {
 interface IProjetoInputDTO {
   projetoData: IInfoProjetosInputDTO;
   despesas: IDespesas[];
-  secoesPagantes: ICCpagantesInput[];
+  secoesPagantes: ISecoesPagantesInput[];
 }
 
 interface IInfoProjetosInputDTO {
@@ -59,8 +59,8 @@ interface IDespesas {
   valor: number;
 }
 
-interface ICCpagantesInput {
-  secao_id?: number;
+interface ISecoesPagantesInput {
+  secao_nome?: string;
   valor?: number;
 }
 
@@ -151,8 +151,6 @@ interface ISecao {
 }
 
 const EditarProjeto: React.FC = () => {
-  let isso : ISecao[];
-  let ossi = '';
   const history = useHistory();
 
   const infosProjeto = {
@@ -677,9 +675,12 @@ const EditarProjeto: React.FC = () => {
                   {
                     secoesPagantes.map((exibe, index) => (
                       <Linha id={`C${index + 1}`} key={index}>
-                        <select defaultValue={exibe.secao.nome} id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>                           
+                        <select defaultValue={exibe.secao.nome} id={`select${index + 1}`} onChange={(props) => buscarResponsavelSecao(props.target.value, index)}>
+                          <option>{exibe.secao.nome}</option>                       
                           {secoes.map((res, index) => {
-                            return <option key={index} value={res.nome}>{res.nome}</option>
+                            if (res.nome != exibe.secao.nome) {
+                              return <option key={index} value={res.nome}>{res.nome}</option>
+                            }
                           })}                          
                         </select>
                         {

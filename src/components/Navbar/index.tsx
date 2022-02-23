@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 
 import { useLocation } from "react-router-dom";
 
@@ -148,12 +149,12 @@ const Navbar: React.FC = () => {
       <SandwichMenu onClick={openDropDown}>
         <DropdownMenu id="dropdownMenu">
           <ul>
-            <a href="./settings">
+            <Link to="/settings">
               <li>{intl.get('navbar.dropdown.configuracoes')}</li>
-            </a>
-            <a href="/">
+            </Link>
+            <Link to="/">
               <li>{intl.get('navbar.dropdown.sair')}</li>
-            </a>
+            </Link>
           </ul>
         </DropdownMenu>
       </SandwichMenu>

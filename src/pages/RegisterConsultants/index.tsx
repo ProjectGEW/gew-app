@@ -111,11 +111,8 @@ const RegisterConsultants: React.FC = () => {
 
   function resetarCampos() {
     const inputs = ["numero_cracha", "nome", "email", "senha", "cpf", "telefone", "valor_hora"];
-    let transforma = "";
-    
-    setTags([...tags, {nome: transforma}]); 
-    tags.pop();
-    tags.shift();
+
+    tags.splice(0, tags.length);
 
     for (let i = 0; i < inputs.length; i ++){ 
       (document.getElementById(inputs[i]) as HTMLInputElement).value = "";
