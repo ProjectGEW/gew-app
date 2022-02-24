@@ -625,9 +625,9 @@ const CadastroProjeto: React.FC = () => {
               <h1>Datas <span /></h1>
               <div id="primeiraLinha">
                 <div>
-                  <label htmlFor="">Data de aprovação:</label>
-                  <input type="text" id="data_de_aprovacao" value={dataAprovacao}
-                    onClick={() => { setSelected("aprovacao") }}
+                  <label htmlFor="">Data de início:</label>
+                  <input type="text" id="data_de_inicio" value={dataInicio}
+                    onClick={() => { setSelected("inicio") }}
                     onChange={(props) => {
                       if (props.target.value === "") {
                         props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
@@ -638,9 +638,9 @@ const CadastroProjeto: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="">Data de início:</label>
-                  <input type="text" id="data_de_inicio" value={dataInicio}
-                    onClick={() => { setSelected("inicio") }}
+                  <label htmlFor="">Data de aprovação:</label>
+                  <input type="text" id="data_de_aprovacao" value={dataAprovacao}
+                    onClick={() => { setSelected("aprovacao") }}
                     onChange={(props) => {
                       if (props.target.value === "") {
                         props.target.style.border = "0.25vh solid rgb(255, 0, 0, 0.8)";
