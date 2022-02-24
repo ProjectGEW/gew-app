@@ -238,7 +238,6 @@ const EditarProjeto: React.FC = () => {
       setAsd([...asd, {nome: 'a'}])
     }
     asd.shift();
-    console.log(asd);
   }
 
   // Obriga a colocar uma ATA (PDF)
@@ -684,9 +683,11 @@ const EditarProjeto: React.FC = () => {
                           })}                          
                         </select>
                         {
-                          secoes.filter(res => res.responsavel.nome === exibe.secao.responsavel.nome).map(res => (
-                            <input type="text" id={`responsavel${index + 1}`} defaultValue={res.responsavel.nome} disabled />
-                          ))
+                          secoes.find(res => res.responsavel.nome === exibe.secao.responsavel.nome) === undefined ? 
+                            (<input type="text" id={`responsavel${index + 1}`} defaultValue={''} disabled />) :
+                            secoes?.filter(res => res.responsavel.nome === exibe.secao.responsavel.nome).map(res => {
+                              return (<input type="text" id={`responsavel${index + 1}`} defaultValue={res.responsavel.nome} disabled />)
+                            })
                         }
                         <input type="text" id={`valorC${index + 1}`} onBlur={(props) => {
                           if (props.target.value === "" && Number(props.target.value) === 0) {
