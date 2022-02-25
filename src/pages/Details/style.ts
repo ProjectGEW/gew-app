@@ -209,7 +209,7 @@ export const Tittle = styled.div`
 `;
 
 export const Box = styled.div`
-  width: 32%;
+  width: 35%;
   height: 14vh;
   text-align: center;
   
@@ -227,6 +227,7 @@ export const Box = styled.div`
   }
 
   h2 {
+    width: auto;
     font-size: 2.6vh;
     color: #444;
     font-weight: 200;

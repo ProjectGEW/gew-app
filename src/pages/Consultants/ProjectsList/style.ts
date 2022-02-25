@@ -155,6 +155,14 @@ export const ContainerFiltro = styled.div`
             }
         }
     }
+
+    #CONCLUIDO {
+        opacity: 0.5;
+
+        &:hover {
+            background-color: rgba(212, 212, 212, 0.3);
+        }
+    }
 `;
 
 export const Projects = styled.div`

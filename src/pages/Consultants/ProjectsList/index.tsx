@@ -17,6 +17,7 @@ import { FiRefreshCcw } from 'react-icons/fi';
 import api from "../../../service/api";
 import intl from 'react-intl-universal';
 import { Msg } from '../../Projects/styles';
+import { errorfulNotify } from '../../../hooks/SystemToasts';
 
 interface IProjetoProps {
     projetoData: {
@@ -57,8 +58,8 @@ interface IProjetoProps {
     }];
   }
 
-interface ISecao {
-    nome: string;
+interface ISecoes {
+nome: string;
 }
 
 const locales = {
@@ -71,7 +72,7 @@ const locales = {
 const ProjectsList: React.FC = () => {
     const [global, setGlobal] = useState<IProjetoProps[]>([]);
     const [projetos, setProjetos] = useState<IProjetoProps[]>([]);
-    const [secoes, setSecoes] = useState<ISecao[]>([]);
+    const [secoes, setSecoes] = useState<ISecoes[]>([]);
 
     const [statusAtual, setStatusAtual] = useState('TODOS');
     const [secaoAtual, setSecaoAtual] = useState('TODOS');
@@ -92,66 +93,71 @@ const ProjectsList: React.FC = () => {
 
     const handleData = async () => {
         try {
-            await api.get("projetos").then((response) => {
-                setProjetos(response.data);
-                setGlobal(response.data);
-            });
-
-            await api.get("secoes").then((response) => {
-                setSecoes(response.data);
-            });
-        } catch (error) {
-            console.log("Error: ", error);
+          await api.get<IProjetoProps[]>(`projetos`)
+          .then((response => {
+            setProjetos(response.data);
+            setGlobal(response.data);
+          })).catch(() => errorfulNotify("Não foi possível encontrar os projetos."));
+          
+          await api.get<ISecoes[]>(`secoes`)
+          .then((response => {
+            setSecoes(response.data);
+          })).catch(() => errorfulNotify("Não foi possível encontrar as seções."));
+        } catch (e) {
+          console.log(e);
         }
-    };
-
-    useEffect(() => {
+      }
+      
+      useEffect(() => {
         handleData();
-    },[]);
+      }, []);
 
     function filtraDadosPorStatus(status: string) {
-        setStatusAtual(status);
-        const separaProjetos = (status === "TODOS") ? global.filter(res => res)
-            : global.filter(res => res.projetoData.statusProjeto === status);
-
         var btns = ["todos", "CONCLUIDO", "ATRASADOS", "EM_ANDAMENTO"];
-
-        for (var x = 0; x < btns.length; x++) {
-            document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
+    
+        for (var x = 0; x < btns.length; x++) {     
+          document.getElementById(btns[x])!.style.backgroundColor = "rgba(212, 212, 212, 0.3)";
         }
-
+    
         if (status === "CONCLUIDO") {
-            document.getElementById(status)!.style.backgroundColor = "#adffb0";
+          document.getElementById(status)!.style.backgroundColor = "#adffb0";
         } else if (status === "ATRASADOS") {
-            document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
+          document.getElementById(status)!.style.backgroundColor = "#ffbfbf";
         } else if (status === "EM_ANDAMENTO") {
-            document.getElementById(status)!.style.backgroundColor = "#c2e4ff";
+          document.getElementById(status)!.style.backgroundColor = "#c2e4ff";
         } else if (status === "TODOS") {
-            document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
+          document.getElementById("todos")!.style.backgroundColor = "rgba(212, 212, 212, 0.7)";
         }
-
-        if (secaoAtual !== "TODOS") {
+    
+        if(global) {
+          setStatusAtual(status);
+          const separaProjetos = (status === "TODOS") ? global : global.filter(res => res.projetoData.statusProjeto === status);
+      
+          if (secaoAtual !== "TODOS") {
             const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.secao === secaoAtual);
             setProjetos(separaPorStatusSecao);
             return;
+          }
+          setProjetos(separaProjetos);
         }
-        setProjetos(separaProjetos);
-    }
+      }
 
     const filtraDadosPorSecao = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSecaoAtual(event.target.value);
-
-        const separaProjetos = (event.target.value !== 'TODOS') ?
+        if(global) {
+          setSecaoAtual(event.target.value);
+    
+          const separaProjetos = (event.target.value !== 'TODOS') ?
             global.filter(res => res.projetoData.secao === event.target.value)
             : global;
-
-        if (statusAtual !== 'TODOS') {
+    
+          if (statusAtual !== 'TODOS') {
             const separaPorStatusSecao = separaProjetos.filter(res => res.projetoData.statusProjeto === statusAtual);
             setProjetos(separaPorStatusSecao);
-        } else {
+          } else {
             setProjetos(separaProjetos);
+          }
         }
-    }
+      }
 
     const search = async (event: React.ChangeEvent<{ value: string }>) => {
         const recebeTexto = event.target.value;
@@ -190,30 +196,31 @@ const ProjectsList: React.FC = () => {
                             <div>
                                 <label>Seção:</label>
                                 <select name="secao" onChange={filtraDadosPorSecao}>
-                                    <option selected>Todos</option>
-                                    {secoes.map(secao => (
-                                        <option key={secao.nome}>{secao.nome}</option>
-                                    ))}
+                                    <option value="TODOS">Todos</option>
+                                    {
+                                    secoes ? secoes.map(secoes => <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
+                                    : 'Nenhuma seção foi encontrada'
+                                    }
                                 </select>
                             </div>
                             <div>
                             <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
                                 <div>
                                     <button type="submit" id="todos" className="0"
-                                        onClick={() => filtraDadosPorStatus('TODOS')}>
-                                        {intl.get('tela_projetos.filtros.options.todos')}
+                                    onClick={() => filtraDadosPorStatus('TODOS')}>
+                                    {intl.get('tela_projetos.filtros.options.todos')}
                                     </button>
                                     <button type="submit" id="EM_ANDAMENTO" className="1"
-                                        onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
-                                        {intl.get('tela_projetos.filtros.options.emandamento')}
+                                    onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
+                                    {intl.get('tela_projetos.filtros.options.emandamento')}
                                     </button>
                                     <button type="submit" id="ATRASADOS" className="2"
-                                        onClick={() => filtraDadosPorStatus('ATRASADOS')}>
-                                        {intl.get('tela_projetos.filtros.options.atrasado')}
+                                    onClick={() => filtraDadosPorStatus('ATRASADOS')}>
+                                    {intl.get('tela_projetos.filtros.options.atrasado')}
                                     </button>
-                                    <button type="submit" id="CONCLUIDO" className="3"
-                                        onClick={() => filtraDadosPorStatus('CONCLUIDO')}>
-                                        {intl.get('tela_projetos.filtros.options.concluido')}
+                                    <button disabled type="submit" id="CONCLUIDO" className="3"
+                                    onClick={() => filtraDadosPorStatus('CONCLUIDO')}>
+                                    {intl.get('tela_projetos.filtros.options.concluido')}
                                     </button>
                                 </div>
                             </div>
