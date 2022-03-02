@@ -324,7 +324,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-      <>
+    <>
       <Navbar />
       <MenuLeft />
       <Container>
@@ -458,10 +458,10 @@ const Dashboard: React.FC = () => {
             </CardsMoney>
           </Lines>
         </ContainerDashboard>
-    </Container> 
-    <MenuRight numeroDoProjeto={Number(id)}>
-      <ContIcons />
-    </MenuRight>
+      </Container> 
+      <MenuRight numeroDoProjeto={Number(id)}>
+        <ContIcons />
+      </MenuRight>
     </>
   );
 };

@@ -180,138 +180,138 @@ const RegisterConsultants: React.FC = () => {
 
   return (
     <>
-    <Navbar />
-    <MenuLeft />
-    <Container>
-      <ContainerProject>
-        <ContainerInfo>
-          <ContainerTitle>
-            <h1>Cadastrar consultor</h1>
-            {/* <span /> */}
-          </ContainerTitle>
-        </ContainerInfo>
-        <Box>
-          <div className="col esq">
-            <h1>Dados do consultor</h1>
-            <div className="coluna">
-              <label>Nome:</label>
-              <input 
-                type='text' 
-                id="nome" 
-                onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-              />
-            </div>
-            <div className="linha">
-              <span className="coluna">
-                <label>CPF:</label>
+      <Navbar />
+      <MenuLeft />
+      <Container>
+        <ContainerProject>
+          <ContainerInfo>
+            <ContainerTitle>
+              <h1>Cadastrar consultor</h1>
+              {/* <span /> */}
+            </ContainerTitle>
+          </ContainerInfo>
+          <Box>
+            <div className="col esq">
+              <h1>Dados do consultor</h1>
+              <div className="coluna">
+                <label>Nome:</label>
                 <input 
                   type='text' 
-                  id="cpf" 
-                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)} 
-                  onChange={formatCpf} 
-                  maxLength={14} 
-                />
-              </span>
-              <span className="coluna">
-                <label>Telefone:</label>
-                <input 
-                  type='text' 
-                  id="telefone"
-                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                  onChange={formatTelefone} 
-                  maxLength={14} 
-                />
-              </span>
-            </div>
-            <div className="linha">
-              <span className="coluna">
-                <label>Nº Crachá:</label>
-                <input 
-                  type='text' 
-                  id="numero_cracha" 
+                  id="nome" 
                   onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
                 />
-              </span>
-              <span className="coluna">
-                <label>Valor horista:</label>
-                <input 
-                  type='text' 
-                  id="valor_hora"
-                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-                /> 
-              </span>
-            </div>
-            <h1>Fornecedor</h1>
-            <div className="coluna">
-              <label>Registrados: {suppliers.length}</label>
-              <select 
-                name="secao" 
-                id="nome_fornecedor"
-                onChange={verificaFornecedor}>
-                {
-                suppliers ?
-                  suppliers.map((supplier, index) =>
-                    <option key={index} value={supplier.nome}>{supplier.nome}</option>
-                  ) : 'Nenhum fornecedor foi encontrado'
-                }
-              </select>
-            </div>
-          </div>
-          <div className="col dir">
-            <h1>Dados de login</h1>
-            <div className="coluna">
-              <label>E-mail:</label>
-              <input 
-                type='email' 
-                id="email"
-                onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-              />
-            </div>
-            <div className="coluna">
-              <label>Senha:</label>
-              <input 
-                type='password' 
-                id='senha'
-                autoComplete='off'
-                onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
-              />
-            </div>
-            <h1>Skills</h1>
-            <div className="coluna">
-              <label>Adicione uma tag:</label>
-              <div id="boxTags">
-                {
-                  tags && tags.length > 0 ?
-                    tags.map((res, index) => (
-                      <a key={res.nome}>{res.nome} <AiOutlineClose onClick={() => {
-                        tags.splice(index, 1);
-                        setTags([...tags,]);  
-                      }}/></a>      
-                    ))
-                  : <p>Nenhuma tag adicionada</p>
-                }
               </div>
-              <input 
-                type='text'
-                id='skill'
-                autoComplete='off'
-                onChange={separaTag}
-              />
-              <p id="info">Separe as tags por vírgula ","</p>
+              <div className="linha">
+                <span className="coluna">
+                  <label>CPF:</label>
+                  <input 
+                    type='text' 
+                    id="cpf" 
+                    onBlur={(props) => vrfCampo(props.target.value, props.target.id)} 
+                    onChange={formatCpf} 
+                    maxLength={14} 
+                  />
+                </span>
+                <span className="coluna">
+                  <label>Telefone:</label>
+                  <input 
+                    type='text' 
+                    id="telefone"
+                    onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                    onChange={formatTelefone} 
+                    maxLength={14} 
+                  />
+                </span>
+              </div>
+              <div className="linha">
+                <span className="coluna">
+                  <label>Nº Crachá:</label>
+                  <input 
+                    type='text' 
+                    id="numero_cracha" 
+                    onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                  />
+                </span>
+                <span className="coluna">
+                  <label>Valor horista:</label>
+                  <input 
+                    type='text' 
+                    id="valor_hora"
+                    onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                  /> 
+                </span>
+              </div>
+              <h1>Fornecedor</h1>
+              <div className="coluna">
+                <label>Registrados: {suppliers.length}</label>
+                <select 
+                  name="secao" 
+                  id="nome_fornecedor"
+                  onChange={verificaFornecedor}>
+                  {
+                  suppliers ?
+                    suppliers.map((supplier, index) =>
+                      <option key={index} value={supplier.nome}>{supplier.nome}</option>
+                    ) : 'Nenhum fornecedor foi encontrado'
+                  }
+                </select>
+              </div>
             </div>
-          </div>
-        </Box>
-        <Salvar>
-          {/* <span/> */}
-          <div>
-            <button onClick={setConsultorInfos}>Cadastrar</button>
-          </div>
-        </Salvar>
-      </ContainerProject>
-    </Container>
-    <MenuRight>
-      <ContIcons />
-    </MenuRight>
+            <div className="col dir">
+              <h1>Dados de login</h1>
+              <div className="coluna">
+                <label>E-mail:</label>
+                <input 
+                  type='email' 
+                  id="email"
+                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                />
+              </div>
+              <div className="coluna">
+                <label>Senha:</label>
+                <input 
+                  type='password' 
+                  id='senha'
+                  autoComplete='off'
+                  onBlur={(props) => vrfCampo(props.target.value, props.target.id)}
+                />
+              </div>
+              <h1>Skills</h1>
+              <div className="coluna">
+                <label>Adicione uma tag:</label>
+                <div id="boxTags">
+                  {
+                    tags && tags.length > 0 ?
+                      tags.map((res, index) => (
+                        <a key={res.nome}>{res.nome} <AiOutlineClose onClick={() => {
+                          tags.splice(index, 1);
+                          setTags([...tags,]);  
+                        }}/></a>      
+                      ))
+                    : <p>Nenhuma tag adicionada</p>
+                  }
+                </div>
+                <input 
+                  type='text'
+                  id='skill'
+                  autoComplete='off'
+                  onChange={separaTag}
+                />
+                <p id="info">Separe as tags por vírgula ","</p>
+              </div>
+            </div>
+          </Box>
+          <Salvar>
+            {/* <span/> */}
+            <div>
+              <button onClick={setConsultorInfos}>Cadastrar</button>
+            </div>
+          </Salvar>
+        </ContainerProject>
+      </Container>
+      <MenuRight>
+        <ContIcons />
+      </MenuRight>
     </>
   );
 };

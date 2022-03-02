@@ -80,33 +80,33 @@ const Login: React.FC = () => {
 
   return (
     <>
-    <Section>
-      <Rectangle>
-        <div className="textBox">
-          <h1>GEW</h1>
-          <h2>{intl.get('textos_em_geral.descricao_gew')}</h2>
-        </div>
-        <Image />
-      </Rectangle>
-      <SideContainer>
-        <div className="logo"/>
-        <LoginContainer id="containerLogin">
-          <h1>{intl.get('textos_em_geral.login')}</h1>
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <ContainerInput>
-              <Input type="text" name="email" placeholder="" text={intl.get('textos_em_geral.usuario')} />
-            </ContainerInput>
-            <ContainerInput>
-              <Input type="password"  name="senha" placeholder="" text={intl.get('textos_em_geral.senha')} autoComplete="off"/>
-            </ContainerInput>     
-            <ContainerBtn>
-              <button type="submit">{intl.get('textos_em_geral.entrar')}</button>
-              <p onClick={() => infoNotify(intl.get('textos_em_geral.texto_esqueceu_senha'))}>{intl.get('textos_em_geral.esqueceu_senha')}</p>
-            </ContainerBtn>
-          </Form>
-        </LoginContainer>
-      </SideContainer>
-    </Section>
+      <Section>
+        <Rectangle>
+          <div className="textBox">
+            <h1>GEW</h1>
+            <h2>{intl.get('textos_em_geral.descricao_gew')}</h2>
+          </div>
+          <Image />
+        </Rectangle>
+        <SideContainer>
+          <div className="logo"/>
+          <LoginContainer id="containerLogin">
+            <h1>{intl.get('textos_em_geral.login')}</h1>
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <ContainerInput>
+                <Input type="text" name="email" placeholder="" text={intl.get('textos_em_geral.usuario')} />
+              </ContainerInput>
+              <ContainerInput>
+                <Input type="password"  name="senha" placeholder="" text={intl.get('textos_em_geral.senha')} autoComplete="off"/>
+              </ContainerInput>     
+              <ContainerBtn>
+                <button type="submit">{intl.get('textos_em_geral.entrar')}</button>
+                <p onClick={() => infoNotify(intl.get('textos_em_geral.texto_esqueceu_senha'))}>{intl.get('textos_em_geral.esqueceu_senha')}</p>
+              </ContainerBtn>
+            </Form>
+          </LoginContainer>
+        </SideContainer>
+      </Section>
     </>
   );
 };

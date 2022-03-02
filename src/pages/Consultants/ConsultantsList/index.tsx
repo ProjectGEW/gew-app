@@ -27,23 +27,23 @@ import { BiHourglass } from 'react-icons/bi';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 
 const locales = {
-    'pt-BR': require('../../../language/pt-BR.json'),
-    'en-US': require('../../../language/en-US.json'),
-    'es': require('../../../language/es.json'),
-    'fr-FR': require('../../../language/fr-FR.json'),
+  'pt-BR': require('../../../language/pt-BR.json'),
+  'en-US': require('../../../language/en-US.json'),
+  'es': require('../../../language/es.json'),
+  'fr-FR': require('../../../language/fr-FR.json'),
 };
 
 interface IConsultor {
-    funcionarioData: {
-        numero_cracha: number;
-        status: string;
-        nome: string;
-        email: string;
-    },
-    projetos: number[];
-    skills: [];
-    fornecedor: string;
-    status: boolean;
+  funcionarioData: {
+    numero_cracha: number;
+    status: string;
+    nome: string;
+    email: string;
+  },
+  projetos: number[];
+  skills: [];
+  fornecedor: string;
+  status: boolean;
 }
 
 interface IFornecedor {
@@ -102,7 +102,6 @@ const ConsultantList: React.FC = () => {
     });
     
     const [global, setGlobal] = useState<IConsultor[]>([]);
-    const [projeto, setProjeto] = useState<IProjetoProps>();
     const [consultants, setConsultants] = useState<IConsultor[]>([]);
 
     const [fornecedores, setFornecedores] = useState<IFornecedor[]>([]);
@@ -113,7 +112,6 @@ const ConsultantList: React.FC = () => {
     const [limite, setLimite] = useState(0);
 
     async function handleConsultants() {
-        console.log("to aqui" + limite); 
         try {
             await api.get<IConsultor[]>("consultores").then((response) => {
                 setConsultants(response.data); 

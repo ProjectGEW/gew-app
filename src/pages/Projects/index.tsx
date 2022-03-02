@@ -186,76 +186,76 @@ const Projects: React.FC = () => {
 
   return (
     <>
-    <Navbar />
-    <MenuLeft />
-    <Container>
-      <ContainerProject>
-        <ContainerInfo>
-          <ContainerTitle>
-            <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25} /></h1>
-            <span />
-          </ContainerTitle>
-          <ContainerFiltro>
-            <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
-            <div>
-              <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
-              <select name="secao" onChange={filtraDadosPorSecao}>
-                <option value="TODOS">Todos</option>
-                {
-                  secoes ? secoes.map(secoes => <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
-                  : 'Nenhuma seção foi encontrada'
-                }
-              </select>
-            </div>
-            <div>
-              <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
+      <Navbar />
+      <MenuLeft />
+      <Container>
+        <ContainerProject>
+          <ContainerInfo>
+            <ContainerTitle>
+              <h1>{intl.get('tela_projetos.title')} <IoMdArrowDropright size={25} /></h1>
+              <span />
+            </ContainerTitle>
+            <ContainerFiltro>
+              <h1>{intl.get('tela_projetos.filtros.title')}:</h1>
               <div>
-                <button type="submit" id="todos" className="0"
-                  onClick={() => filtraDadosPorStatus('TODOS')}>
-                  {intl.get('tela_projetos.filtros.options.todos')}
-                </button>
-                <button type="submit" id="EM_ANDAMENTO" className="1"
-                  onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
-                  {intl.get('tela_projetos.filtros.options.emandamento')}
-                </button>
-                <button type="submit" id="ATRASADOS" className="2"
-                  onClick={() => filtraDadosPorStatus('ATRASADOS')}>
-                  {intl.get('tela_projetos.filtros.options.atrasado')}
-                </button>
-                <button type="submit" id="CONCLUIDO" className="3"
-                  onClick={() => filtraDadosPorStatus('CONCLUIDO')}>
-                  {intl.get('tela_projetos.filtros.options.concluido')}
-                </button>
+                <label>{intl.get('tela_projetos.filtros.primeiro')}:</label>
+                <select name="secao" onChange={filtraDadosPorSecao}>
+                  <option value="TODOS">Todos</option>
+                  {
+                    secoes ? secoes.map(secoes => <option key={secoes.nome} value={secoes.nome}>{secoes.nome}</option>)
+                    : 'Nenhuma seção foi encontrada'
+                  }
+                </select>
               </div>
-            </div>
-            <div>
-              <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
-              <input type="text" placeholder="Pesquise aqui..." onChange={search} />
-            </div>
-            <div>
-              <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/>
-            </div>
-          </ContainerFiltro>
-        </ContainerInfo>
-        <ProjectsGrid>
-          <Center>
-            {projetos && projetos.length > 0 ? projetos.map((projeto) =>
-              <Suspense fallback={<CardEsqueleto/>}>  
-                <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
-              </Suspense>
-            ) :
-              <Msg>
-                <BiHourglass size={40} />
-                <h1>{intl.get('tela_projetos.msg.texto')}</h1>
-              </Msg>
-            }
-          </Center>
-        </ProjectsGrid>
-      </ContainerProject>
-    </Container>
-    <MenuRight>
-      <ContIcons />
-    </MenuRight>
+              <div>
+                <label>{intl.get('tela_projetos.filtros.segundo')}:</label>
+                <div>
+                  <button type="submit" id="todos" className="0"
+                    onClick={() => filtraDadosPorStatus('TODOS')}>
+                    {intl.get('tela_projetos.filtros.options.todos')}
+                  </button>
+                  <button type="submit" id="EM_ANDAMENTO" className="1"
+                    onClick={() => filtraDadosPorStatus('EM_ANDAMENTO')}>
+                    {intl.get('tela_projetos.filtros.options.emandamento')}
+                  </button>
+                  <button type="submit" id="ATRASADOS" className="2"
+                    onClick={() => filtraDadosPorStatus('ATRASADOS')}>
+                    {intl.get('tela_projetos.filtros.options.atrasado')}
+                  </button>
+                  <button type="submit" id="CONCLUIDO" className="3"
+                    onClick={() => filtraDadosPorStatus('CONCLUIDO')}>
+                    {intl.get('tela_projetos.filtros.options.concluido')}
+                  </button>
+                </div>
+              </div>
+              <div>
+                <label>{intl.get('tela_projetos.filtros.terceiro')}:</label>
+                <input type="text" placeholder="Pesquise aqui..." onChange={search} />
+              </div>
+              <div>
+                <FiRefreshCcw onClick={() => setAtualizar(true)} size={25}/>
+              </div>
+            </ContainerFiltro>
+          </ContainerInfo>
+          <ProjectsGrid>
+            <Center>
+              {projetos && projetos.length > 0 ? projetos.map((projeto) =>
+                <Suspense fallback={<CardEsqueleto/>}>  
+                  <Card key={projeto.projetoData.id} numeroDoProjeto={projeto.projetoData.numeroDoProjeto}/>
+                </Suspense>
+              ) :
+                <Msg>
+                  <BiHourglass size={40} />
+                  <h1>{intl.get('tela_projetos.msg.texto')}</h1>
+                </Msg>
+              }
+            </Center>
+          </ProjectsGrid>
+        </ContainerProject>
+      </Container>
+      <MenuRight>
+        <ContIcons />
+      </MenuRight>
     </>
   );
 };

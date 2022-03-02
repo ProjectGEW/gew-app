@@ -101,71 +101,71 @@ const Settings: React.FC = () => {
 
   return (
     <>
-    <Navbar />
-    <MenuLeft fotoPerfil={url} />
-    <Container>
-      <ContainerSettings>
-        <ContainerInfo>
-          <ContainerTitle>
-            <h1>{intl.get("configurações.titulo")}</h1>
-            <span />
-          </ContainerTitle>
-        </ContainerInfo>
-        <Box>
-          <div className="row">
-            <div>
-              <h1>{intl.get("configurações.config_texto")}</h1>
-              <p>{intl.get("configurações.tam_fonte")}</p>
+      <Navbar />
+      <MenuLeft fotoPerfil={url} />
+      <Container>
+        <ContainerSettings>
+          <ContainerInfo>
+            <ContainerTitle>
+              <h1>{intl.get("configurações.titulo")}</h1>
+              <span />
+            </ContainerTitle>
+          </ContainerInfo>
+          <Box>
+            <div className="row">
+              <div>
+                <h1>{intl.get("configurações.config_texto")}</h1>
+                <p>{intl.get("configurações.tam_fonte")}</p>
+              </div>
+              <Example tamanhoFonte={tamanhoFonte}>
+                <h2>{intl.get("configurações.preview")}</h2>
+              </Example>
+              <div>
+                <select name="font" onChange={escolheTamanhoFonte}>
+                  <option value="2.8">{intl.get("configurações.padrao")}</option>
+                  <option value="2">{intl.get("configurações.pequena")}</option>
+                  <option value="3.2">{intl.get("configurações.media")}</option>
+                  <option value="4">{intl.get("configurações.grande")}</option>
+                </select>
+              </div>
             </div>
-            <Example tamanhoFonte={tamanhoFonte}>
-              <h2>{intl.get("configurações.preview")}</h2>
-            </Example>
-            <div>
-              <select name="font" onChange={escolheTamanhoFonte}>
-                <option value="2.8">{intl.get("configurações.padrao")}</option>
-                <option value="2">{intl.get("configurações.pequena")}</option>
-                <option value="3.2">{intl.get("configurações.media")}</option>
-                <option value="4">{intl.get("configurações.grande")}</option>
-              </select>
+            <div className="row">
+              <div>
+                <h1>{intl.get("configurações.config_dash")}</h1>
+                <p>{intl.get("configurações.animacoes")}</p>
+              </div>
+              <div>
+                <span id="animation" onClick={() => setAnimacao(!animacao)}>{intl.get("configurações.ativado")}</span>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div>
-              <h1>{intl.get("configurações.config_dash")}</h1>
-              <p>{intl.get("configurações.animacoes")}</p>
+            <div className="row">
+              <div>
+                <h1>{intl.get("configurações.config_conta")}</h1>
+                <p>{intl.get("configurações.trocar_user")}</p>
+                <p>{intl.get("configurações.trocar_senha")}</p>
+                <p>{intl.get("configurações.trocar_foto")}</p>
+                <p>{intl.get("configurações.desativar_notif")}</p>
+              </div>
+              <div id="inputs">
+                <input type="text" defaultValue={nome ? nome : 'Não foi possíveo localizar o nome'} />
+                <input type="password" />
+                <label htmlFor="foto">{file ? file.type : intl.get("configurações.escolher_img")}</label>
+                <input id="foto" {...getInputProps()}/>
+                <span id="notification" onClick={() => setNotificacao(!notificacao)}>{intl.get("configurações.ativado")}</span>
+              </div>
             </div>
-            <div>
-              <span id="animation" onClick={() => setAnimacao(!animacao)}>{intl.get("configurações.ativado")}</span>
+            <div className="row">
+              <div>
+                <h1>{intl.get("configurações.salvar_alt")}</h1>
+              </div>
+              <div>
+                <button onClick={() => window.location.reload()}>{intl.get("configurações.salvar")}</button>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div>
-              <h1>{intl.get("configurações.config_conta")}</h1>
-              <p>{intl.get("configurações.trocar_user")}</p>
-              <p>{intl.get("configurações.trocar_senha")}</p>
-              <p>{intl.get("configurações.trocar_foto")}</p>
-              <p>{intl.get("configurações.desativar_notif")}</p>
-            </div>
-            <div id="inputs">
-              <input type="text" defaultValue={nome ? nome : 'Não foi possíveo localizar o nome'} />
-              <input type="password" />
-              <label htmlFor="foto">{file ? file.type : intl.get("configurações.escolher_img")}</label>
-              <input id="foto" {...getInputProps()}/>
-              <span id="notification" onClick={() => setNotificacao(!notificacao)}>{intl.get("configurações.ativado")}</span>
-            </div>
-          </div>
-          <div className="row">
-            <div>
-              <h1>{intl.get("configurações.salvar_alt")}</h1>
-            </div>
-            <div>
-              <button onClick={() => window.location.reload()}>{intl.get("configurações.salvar")}</button>
-            </div>
-          </div>
-        </Box>
-      </ContainerSettings>
-    </Container>
-    <MenuRight />
+          </Box>
+        </ContainerSettings>
+      </Container>
+      <MenuRight />
     </>
   );
 };

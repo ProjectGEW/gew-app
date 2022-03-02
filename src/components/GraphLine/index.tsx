@@ -10,42 +10,6 @@ interface LineProps {
   counts: number;
 }
 
-interface CardContent {
-  infoprojetoDTO : {
-      id: number;
-      numeroDoProjeto: number;
-      titulo: string;
-      descricao: string;
-      data_de_inicio: string;
-      data_de_termino: string;
-      status: string;
-      horas_apontadas: number;
-  };
-  ccPagantes : [{
-      secao: {
-          id: number;
-          responsavel: {
-            numero_cracha: number;
-            nome: string;
-            cpf: string;
-            valor_hora: number;
-          };
-          nome: string;
-      },
-      percentual: number;
-      valor: number;
-  }];
-  valoresTotaisDTO : {
-      valorTotalCcPagantes: number;
-      valorTotalDespesas: number;
-      valorTotalEsforco: number;
-  };      
-}
-
-interface ISecoes {
-  nome: string;
-}
-
 interface CountPerData {
   data: string;
   verbaUtilizada: number;
@@ -73,8 +37,6 @@ const GraphLine: React.FC<LineProps> = ({ counts }) => {
       borderColor: '#0090C5',
     }],
   };
-
-  console.log(counts);
       
   /*const options = {
     scales: {
@@ -91,9 +53,9 @@ const GraphLine: React.FC<LineProps> = ({ counts }) => {
 
   return (
     <>
-    <ContainerLine> 
-      <Line width={50} height={50} data={data} options={{ maintainAspectRatio: false }} />
-    </ContainerLine>
+      <ContainerLine> 
+        <Line width={50} height={50} data={data} options={{ maintainAspectRatio: false }} />
+      </ContainerLine>
     </>
   );
 }
