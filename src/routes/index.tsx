@@ -31,7 +31,7 @@ const Routes: React.FC = () => {
       <Switch>
         {/* Rotas gerais para todas as personas */}
         <Route path="/" exact component={Login} />
-        <Route path="/settings" component={Configurações} isPrivate/>
+        <Route path="/settings" component={Configurações} isPrivate />
 
         {/* Rotas para Gerente */}
         <Route path="/home" component={Home} isPrivate />
